@@ -27,6 +27,7 @@ const LoginModal = ({ handleClose, show }) => {
                                         <label htmlFor="">Email</label><br />
                                         <input placeholder='LilyBlom201@gmail.com' className='login_input' type="email" />
                                     </div>
+
                                     <div className='my-3'>
                                         <label htmlFor="">Password</label><br />
                                         <input placeholder='1234567#' className='login_input' type="password" /><br />
