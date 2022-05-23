@@ -1,0 +1,60 @@
+.sign_up{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 48px;
+    letter-spacing: -0.01em;
+    color: #1AA05B;
+}
+.modal_full{
+    width: 90% !important;
+    margin: 0 auto;
+    overflow-y: hidden !important;
+}
+.modal_body{
+    background: #F2F4FF;
+    border-radius: 12px;
+    width: 620px;
+    padding: 2rem 1rem;
+    
+}
+.signup_Input{
+    background: #F8F9FA;
+    border: 1px solid #CED4DA;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+.res_modal{
+    background: #F2F4FF;
+    border-radius: 12px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.select_input{
+    width: 250px;
+    background: #F8F9FA;
+    border: 1px solid #CED4DA;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+.submit_btn{
+    background: #1AA05B;
+    border-radius: 20px;
+    padding: 8px 16px;
+    gap: 10px;
+    border: 1px solid #1AA05B;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    transition: 0.5s;
+}
+.submit_btn:hover{
+    border: 1px solid #1AA05B;
+    background: transparent;
+    color: #1AA05B;
+}

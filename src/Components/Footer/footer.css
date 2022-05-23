@@ -1,0 +1,25 @@
+.footer_content{
+    background: #1AA05B;
+margin: 0px;
+padding: 0px;
+}
+.footer_content p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: -0.001em;
+    color: #FFFFFF;
+}
+.last_content{
+    margin: 0;
+}
+
+@media only screen and (max-width: 990px) {
+
+    .footer_content p{
+        font-size: 10px;
+        line-height: 12px;
+    }
+}

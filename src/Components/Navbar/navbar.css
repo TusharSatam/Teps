@@ -1,0 +1,41 @@
+*{
+    font-family: 'Inter';
+}
+.authBtn{
+    background: transparent;
+    color:#1AA05B;
+    border: 1px solid #1AA05B;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 20px;    
+    padding: 8px 16px;
+    gap: 10px;
+    transition: 0.5s;
+}
+.authBtn:hover{
+    background: #1AA05B;
+    color: #ffff;
+}
+.logo_aligh{
+    margin-left: 239px;
+}
+.logo2_img{
+    width: 90%;
+}
+
+@media only screen and (max-width: 990px) {
+    .logo_aligh{
+        margin-left: 36px;
+    }
+    .logo_img{
+        width: 40px;
+    }
+    .logo2_img{
+        width: 80px;
+    }
+    .authBtn{
+        padding: 4px 16px;
+        gap: 10px;
+        font-size: 10px;
+    }
+  }
