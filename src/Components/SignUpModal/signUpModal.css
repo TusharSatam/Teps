@@ -25,6 +25,9 @@
     border-radius: 8px;
     padding: 5px 10px;
 }
+.signup_Input:focus{
+    outline: none;
+}
 .res_modal{
     background: #F2F4FF;
     border-radius: 12px;

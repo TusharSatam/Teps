@@ -15,11 +15,19 @@ padding: 0px;
 .last_content{
     margin: 0;
 }
+.footer_logo{
+    width: 80px;
+    margin-top: 80px;
+}
 
 @media only screen and (max-width: 990px) {
 
     .footer_content p{
         font-size: 10px;
         line-height: 12px;
+    }
+    .footer_logo{
+        width: 50px;
+        margin-top: 40px;
     }
 }

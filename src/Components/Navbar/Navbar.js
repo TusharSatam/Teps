@@ -28,9 +28,9 @@ const Navbar = () => {
             />
             <section className='mx-3 mx-md-5 my-4 d-flex justify-content-between align-items-center '>
                 <div className='d-flex'>
-                    <div>
+                    {/* <div>
                         <img className='logo_img' src={Logo} alt="logo" />
-                    </div>
+                    </div> */}
                     <div className='logo_aligh mt-3'>
                         <img className='logo2_img' src={Logo2} alt="logo2" />
                     </div>
