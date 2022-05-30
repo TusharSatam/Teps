@@ -1,9 +1,9 @@
 import React from 'react';
 import './article.css'
-
+import sectionImage from '../../asstes/Rectangle 158.png'
 const Article = () => {
     return (
-        <section className='container'>
+        <section className='container d-flex align-items-center'>
             <article className='mx-3 mx-md-1'>
                 <h1 className='article_title'>How TEPS works</h1>
                 <div className='article_text'>
@@ -25,6 +25,9 @@ const Article = () => {
                     </p>
                 </div>
             </article>
+            <div>
+                <img className='d-none d-md-block' src={sectionImage} alt="sectionImg" />
+            </div>
         </section>
     );
 };

@@ -20,11 +20,13 @@ const Navbar = () => {
                 key={'1'}
                 handleClose={handleClose}
                 show={show}
+                setShow={setShow}
             />
             <LoginModal
                 key={'2'}
                 handleClose={handleCloseloginModal}
                 show={loginModal}
+                setShow={setLoginModal}
             />
             <section className='mx-3 mx-md-5 my-4 d-flex justify-content-between align-items-center '>
                 <div className='d-flex'>

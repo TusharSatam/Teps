@@ -1,33 +1,37 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import ForgotModal from '../ForgotPassModal/ForgotModal';
-import './loginModal.css'
-const LoginModal = ({ handleClose, show, setShow }) => {
-    const [forgot, setForgot] = useState(false);
-    const handleSIgnIn = (e) => {
+import './forgotmodal.css'
+import ResetPass from './ResetPass';
+
+const ForgotModal = ({ show, setShow }) => {
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleForgot = (e) => {
         e.preventDefault();
         const data = {
-            'email': e.target.email.value,
-            'password': e.target.password.value
+            'email': e.target.email.value
         }
-        axios.post("http://localhost:8080/api/signin", data)
+        setEmail(e.target.email.value)
+        axios.post("http://localhost:8080/api/forget", data)
             .then(res => {
-                alert("Login Success")
+                if (res.data.message === "Have an User") {
+                    setPass(true);
+                    setShow(false);
+                }
+                console.log(res);
             })
             .catch(err => {
                 console.log(err);
             })
     }
-    const handleForgotShow = () => {
-        setForgot(true);
-        setShow(false);
-    }
     return (
         <>
-            <ForgotModal
-                show={forgot}
-                setShow={setForgot}
+            <ResetPass
+                show={pass}
+                setShow={setPass}
+                email={email}
             />
             <Modal
                 show={show}
@@ -37,29 +41,23 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             >
 
                 <Modal.Body
-                    className="signIn_body"
+                    className=""
                 >
                     <div>
                         <div>
                             <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-                            <p className='text-center log_in mt-3'>Let’s get started</p>
+                            <p className='text-center forgot_header mt-3'>Forgot your password? Don’t worry. </p>
+                            <p className='text-center forgot_subheader mt-3'>Reset your password to continue! </p>
                         </div>
-                        <form onSubmit={handleSIgnIn}>
+                        <form onSubmit={handleForgot}>
                             <div className='d-flex justify-content-center'>
                                 <div>
                                     <div className='my-3'>
                                         <label htmlFor="">Email</label><br />
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className='login_input' type="email" />
                                     </div>
-
-                                    <div className='my-3'>
-                                        <label htmlFor="">Password</label><br />
-                                        <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
-                                        <a href="#" onClick={handleForgotShow}><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
-                                    </div>
-                                    <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                     <div className='d-flex justify-content-center my-5'>
-                                        <button className='submit_btn'>Login</button>
+                                        <button className='submit_btn'>Continue </button>
                                     </div>
                                 </div>
                             </div>
@@ -71,4 +69,4 @@ const LoginModal = ({ handleClose, show, setShow }) => {
     );
 };
 
-export default LoginModal;
+export default ForgotModal;

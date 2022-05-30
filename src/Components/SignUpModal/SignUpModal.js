@@ -1,13 +1,45 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import CrossIcon from '../../asstes/cross-icon.png'
+import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 
-const SignUpModal = ({ handleClose, show }) => {
+const SignUpModal = ({ handleClose, show, setShow }) => {
     const [error, setError] = useState('');
     const [required, setRequired] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [citys, setCitys] = useState('');
+    const [cityDisable, setCityDisable] = useState(false);
+    const [interNAtionalDisable, setInterNAtionalDisable] = useState(false);
+    const [checked, setChecked] = useState(false);
+    const [display, setDisplay] = useState('d-none');
+    const [forgot, setForgot] = useState(false);
+
+
+    useEffect(() => {
+        axios.get('./citys.json')
+            .then((res => setCitys(res.data.cities)))
+            .catch(err => console.log(err))
+    })
+    const handleOnchange = (e) => {
+        const city = e.target.value;
+        if (city) {
+            setInterNAtionalDisable(true);
+            setCityDisable(false);
+        }
+    }
+    useEffect(() => {
+        if (checked) {
+            setCityDisable(true);
+            setInterNAtionalDisable(false)
+        }
+        else {
+            setCityDisable(false);
+        }
+    }, [checked])
+
+
     const handleSignUp = (e) => {
         e.preventDefault();
         let equalPass;
@@ -19,47 +51,62 @@ const SignUpModal = ({ handleClose, show }) => {
                 setError("");
                 setEmailError("")
                 equalPass = e.target.password.value;
+                const city = e.target.city.value;
                 const data = {
                     'firstName': e.target.firstName.value,
                     'lastName': e.target.lastName.value,
                     'email': e.target.email.value,
                     'designation': e.target.designation.value,
                     'organization': e.target.organization.value,
-                    'city': e.target.city.value,
+                    'city': checked ? "International" : city,
                     'pincode': e.target.pincode.value,
                     'password': equalPass
                 }
                 axios.post("http://localhost:8080/api/reg", data)
                     .then(res => {
-                        alert("Login Success")
+                        alert("Login Success");
+                        e.target.reset();
                     })
                     .catch(err => {
                         if (err.response.status === 409) {
-                            setEmailError("(This email is already in use. Please use different one)")
+                            setEmailError("(This email is already in use)")
                         }
                         else console.log(err);
                     })
+
             }
-            if (e.target.password.value !== "" && e.target.confirm_password.value !== "") {
+            else {
                 setError("Passowrd Didn't Match");
             }
+
         }
         else {
             setRequired("Please fill all the fields above ")
         }
     }
-    if (emailError) {
-        document.getElementById("emailLabel").style.color = "red";
-        document.getElementById("emailInput").style.border = "1px solid red";
-        document.getElementById("emailInput").style.color = "red";
-    }
+    useEffect(() => {
+        if (emailError) {
+            document.getElementById("emailLabel").style.color = "red";
+            document.getElementById("emailInput").style.border = "1px solid red";
+            document.getElementById("emailInput").style.color = "red";
+            setDisplay("d-block")
+        }
+    }, [emailError])
     // if (!emailError) {
     //     document.getElementById("emailLabel").style.color = "black";
     //     document.getElementById("emailInput").style.border = "none";
     //     document.getElementById("emailInput").style.color = "black";
     // }
+    const handleForgotShow = () => {
+        setForgot(true);
+        setShow(false);
+    }
     return (
         <>
+            <ForgotModal
+                show={forgot}
+                setShow={setForgot}
+            />
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -89,6 +136,7 @@ const SignUpModal = ({ handleClose, show }) => {
                             <div className='my-3'>
                                 <label id='emailLabel' htmlFor="">Email<span className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                             </div>
                             <div className='d-flex justify-content-between my-3'>
                                 <div>
@@ -102,13 +150,18 @@ const SignUpModal = ({ handleClose, show }) => {
                             </div>
                             <div className='d-flex justify-content-between my-3'>
                                 <div>
-                                    <label htmlFor="">City/Town<span className='text-danger'>&#x2736;</span></label><br />
-                                    <select className='select_input' name='city' id="cars" title="cars">
-                                        <option selected value="volvo" >City/Town</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="fiat">Fiat</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
+                                    <label htmlFor="">City/Town{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
+                                    <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
+                                        <option value="City/Town" selected >City/Town</option>
+                                        {
+                                            !citys ? <option value="City/Town" selected >City/Town</option> :
+                                                citys.map((data, index) => (
+                                                    <option key={index}>{data.City}</option>
+                                                ))
+                                        }
+                                    </select><br />
+                                    <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
+                                    <label htmlFor="">&nbsp;International</label>
                                 </div>
                                 <div>
                                     <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
@@ -118,11 +171,11 @@ const SignUpModal = ({ handleClose, show }) => {
                             <div className='d-flex justify-content-between my-3'>
                                 <div>
                                     <label htmlFor="">Password</label> <br />
-                                    <input className='signup_Input' name='password' placeholder='Password' type="password" />
+                                    <input required className='signup_Input' name='password' placeholder='Password' type="password" />
                                 </div>
                                 <div>
                                     <label htmlFor="">Confirm password</label> <br />
-                                    <input className='signup_Input' name='confirm_password' placeholder='Confirm password' type="password" />
+                                    <input required className='signup_Input' name='confirm_password' placeholder='Confirm password' type="password" />
                                 </div>
                             </div>
                             <div className='mt-3'>
