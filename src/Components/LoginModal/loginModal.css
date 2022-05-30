@@ -27,3 +27,10 @@
     text-decoration-line: underline;
     color: #1AA05B;
 }
+
+@media only screen and (max-width: 990px) {
+
+    .log_in{
+        font-size: 20px;
+    }
+}

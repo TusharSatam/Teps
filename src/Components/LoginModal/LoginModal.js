@@ -11,7 +11,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             'email': e.target.email.value,
             'password': e.target.password.value
         }
-        axios.post("http://localhost:8080/api/signin", data)
+        axios.post("https://guarded-river-11707.herokuapp.com/api/signin", data)
             .then(res => {
                 alert("Login Success")
             })

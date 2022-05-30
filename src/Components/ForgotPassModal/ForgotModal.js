@@ -14,7 +14,7 @@ const ForgotModal = ({ show, setShow }) => {
             'email': e.target.email.value
         }
         setEmail(e.target.email.value)
-        axios.post("http://localhost:8080/api/forget", data)
+        axios.post("https://guarded-river-11707.herokuapp.com/api/forget", data)
             .then(res => {
                 if (res.data.message === "Have an User") {
                     setPass(true);
