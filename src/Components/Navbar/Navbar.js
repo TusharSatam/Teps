@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Logo from '../../asstes/logo.png'
 import Logo2 from '../../asstes/logo2.png'
+import { useAuth } from '../../Context/AuthContext';
 import LoginModal from '../LoginModal/LoginModal';
 import SignUpModal from '../SignUpModal/SignUpModal';
+import defaulProfile from '../../asstes/defaultProfile.png'
 import './navbar.css'
 const Navbar = () => {
     const [show, setShow] = useState(false);
@@ -13,6 +14,8 @@ const Navbar = () => {
 
     const handleCloseloginModal = () => setLoginModal(false);
     const handleShowloginModal = () => setLoginModal(true);
+    const { user } = useAuth();
+    console.log(user);
     return (
 
         <>
@@ -37,14 +40,18 @@ const Navbar = () => {
                         <img className='logo2_img' src={Logo2} alt="logo2" />
                     </div>
                 </div>
-                <div className='d-flex'>
-                    <div>
-                        <button onClick={handleShowloginModal} className="authBtn me-3" >Login</button>
-                    </div>
-                    <div>
-                        <button onClick={handleShow} className='authBtn'>Register</button>
-                    </div>
-                </div>
+                {
+                    !user ?
+                        <div className='d-flex'>
+                            <div>
+                                <button onClick={handleShowloginModal} className="authBtn me-3" >Login</button>
+                            </div>
+                            <div>
+                                <button onClick={handleShow} className='authBtn'>Register</button>
+                            </div>
+                        </div> :
+                        <img width="5%" src={defaulProfile} alt="" />
+                }
             </section>
         </>
 

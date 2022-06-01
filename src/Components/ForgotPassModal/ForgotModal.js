@@ -7,6 +7,7 @@ import ResetPass from './ResetPass';
 const ForgotModal = ({ show, setShow }) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState(false);
+    const [error, setError] = useState('');
     const handleClose = () => setShow(false);
     const handleForgot = (e) => {
         e.preventDefault();
@@ -19,11 +20,13 @@ const ForgotModal = ({ show, setShow }) => {
                 if (res.data.message === "Have an User") {
                     setPass(true);
                     setShow(false);
+                    setError('')
                 }
-                console.log(res);
             })
             .catch(err => {
-                console.log(err);
+                if (err) {
+                    setError("Didn't have any account!")
+                }
             })
     }
     return (
@@ -56,6 +59,7 @@ const ForgotModal = ({ show, setShow }) => {
                                         <label htmlFor="">Email</label><br />
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className='login_input' type="email" />
                                     </div>
+                                    {error ? <p className='text-danger'>{error}</p> : ''}
                                     <div className='d-flex justify-content-center my-5'>
                                         <button className='submit_btn'>Continue </button>
                                     </div>

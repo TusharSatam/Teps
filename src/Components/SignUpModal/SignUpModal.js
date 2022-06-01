@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import CrossIcon from '../../asstes/cross-icon.png'
+import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 
@@ -15,7 +17,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const [checked, setChecked] = useState(false);
     const [display, setDisplay] = useState('d-none');
     const [forgot, setForgot] = useState(false);
-
+    const navigate = useNavigate();
+    const { setIsAuthenticated, setUser } = useAuth();
 
     useEffect(() => {
         axios.get('./citys.json')
@@ -64,8 +67,12 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 }
                 axios.post("https://guarded-river-11707.herokuapp.com/api/reg", data)
                     .then(res => {
-                        alert("Login Success");
                         e.target.reset();
+                        setShow(false)
+                        setUser(res.data.data);
+                        setIsAuthenticated(true);
+                        window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                        navigate('/home')
                     })
                     .catch(err => {
                         if (err.response.status === 409) {
