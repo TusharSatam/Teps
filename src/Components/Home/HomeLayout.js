@@ -1,11 +1,9 @@
 import React from 'react';
 import Article from '../LandingArticle/Article';
-import HeroSection from './HeroSection';
 import './homelayout.css'
 const HomeLayout = () => {
     return (
         <>
-            <HeroSection />
             <div className='d-flex flex-column justify-content-center align-items-center my-5'>
                 <div className='my-3'>
                     <select className='px-3 py-2 bg-light mx-3 select-border' name="" id="">

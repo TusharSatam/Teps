@@ -19,7 +19,7 @@ const Profile = () => {
                 <div className='container p-5 d-flex ' >
                     <div className='px-4 w-25 d-flex justify-content-center align-items-center text-center bg-light '>
                         <div className='py-4'>
-                            <div class="button-wrapper">
+                            <div className="button-wrapper">
                                 <img className='label' src={defaultProfile} alt="" />
                                 <input id="upload" className='upload-box' type="file" name="" />
                             </div>

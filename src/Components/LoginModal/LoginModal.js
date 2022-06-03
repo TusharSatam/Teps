@@ -16,13 +16,14 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             'email': e.target.email.value,
             'password': e.target.password.value
         }
-        axios.post("https://guarded-river-11707.herokuapp.com/api/signin", data)
+        axios.post("http://localhost:8080/api/signin", data)
             .then(res => {
                 if (res.data) {
                     setShow(false)
                     setUser(res.data.data);
                     setIsAuthenticated(true);
                     window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                    window.localStorage.setItem('data', JSON.stringify(res.data.data));
                     navigate('/home')
                 }
             })

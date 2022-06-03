@@ -1,0 +1,76 @@
+.stratigy_bg{
+    background: #1AA05B;
+}
+.sub-title{
+    color: #1AA05B;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+}
+.sub-subtitle{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+}
+.search-head{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+}
+.Strategy_count{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #1AA05B;
+}
+.Strategy_count_article p{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+}
+.counter_str{
+    background: #D4D925;
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.counter_str2{
+    background: #B4FF9F;
+    padding: 2px 7px;
+    border-radius: 100px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.counter_str3{
+    background: #CC704B;
+    padding: 2px 6px;
+    border-radius: 100px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.counter_str4{
+    background: #557B83;
+    padding: 2px 6px;
+    border-radius: 100px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.counter_str5{
+    background: #B8405E;
+    padding: 2px 6px;
+    border-radius: 100px;
+    margin-left: 5px;
+    font-weight: bold;
+}

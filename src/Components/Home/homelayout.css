@@ -1,3 +1,22 @@
 .select-border{
     border: 1px solid#1AA05B;
 }
+.heroImage{
+    background: url('../../asstes/image\ screen.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 321px;
+
+}
+.heroImageRes{
+    background: url('../../asstes/Rectangle\ 145.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 321px;
+    background-size: cover;
+    background-position: center;
+
+}
+.heroTitleName{
+    padding-top: 150px;
+}

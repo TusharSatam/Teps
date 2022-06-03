@@ -1,11 +1,15 @@
 import React from 'react';
-import heroImage from '../../asstes/image screen.png'
-
+import { useAuth } from '../../Context/AuthContext';
+import './homelayout.css'
 const HeroSection = () => {
+    const { user } = useAuth();
     return (
         <>
-            <div>
-                <img className='w-100' src={heroImage} alt="" />
+            <div className='heroImage d-none d-md-block' >
+                <h1 className='text-white text-center heroTitleName' >Welcome {user.firstName} {user.lastName}!</h1>
+            </div>
+            <div className='heroImageRes d-block d-md-none' >
+                <h1 className='text-white text-center heroTitleName' >Welcome {user.firstName} {user.lastName}!</h1>
             </div>
         </>
     );

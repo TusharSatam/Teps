@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Footer from './Components/Footer/Footer';
 import Navbar from './Components/Navbar/Navbar';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import SearchScrean from './Components/SearchScrean/SearchScrean';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
+            <Route path="/search" element={<SearchScrean />} />
           </Route>
         </Routes>
         <Footer />

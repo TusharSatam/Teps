@@ -19,14 +19,17 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         setLoading(true);
-        const user = localStorage.getItem('jwt');
-        if (user) {
+        const token = localStorage.getItem('jwt');
+        if (token) {
             setLoading(false)
             setIsAuthenticated(true);
-            setUser(JSON.parse(user));
+        }
+        const data = localStorage.getItem('data');
+        if (data) {
+            setUser(JSON.parse(data))
+            setIsAuthenticated(true);
         }
     }, [isAuthenticated]);
-
     return (
         <AuthContext.Provider
             value={{ isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding }}>
