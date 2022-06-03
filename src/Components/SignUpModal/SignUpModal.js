@@ -178,7 +178,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             <div className='d-flex justify-content-between my-3'>
                                 <div>
                                     <label htmlFor="">Password</label> <br />
-                                    <input required className='signup_Input' name='password' placeholder='Password' type="password" />
+                                    <input required className='signup_Input' min="0" name='password' placeholder='Password' type="password" step="1" />
                                 </div>
                                 <div>
                                     <label htmlFor="">Confirm password</label> <br />

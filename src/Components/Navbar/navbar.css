@@ -16,6 +16,21 @@
     background: #1AA05B;
     color: #ffff;
 }
+.authBtnn{
+    background: #1AA05B;
+    color:#ffff;
+    border: 1px solid #1AA05B;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 20px;    
+    padding: 8px 16px;
+    gap: 10px;
+    transition: 0.5s;
+}
+.authBtnn:hover{
+    background: #147744;
+    color: #ffff;
+}
 /* .logo_aligh{
     margin-left: 239px;
 } */

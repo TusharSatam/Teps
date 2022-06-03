@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
             setIsAuthenticated(false);
             setUser(null);
             localStorage.removeItem('jwt');
+            localStorage.removeItem('data');
         };
     };
 

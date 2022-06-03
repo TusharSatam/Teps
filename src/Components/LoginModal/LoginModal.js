@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
@@ -9,9 +9,12 @@ const LoginModal = ({ handleClose, show, setShow }) => {
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
     const [forgot, setForgot] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [display, setDisplay] = useState('d-none');
     const handleSIgnIn = (e) => {
         e.preventDefault();
+        setIsLoading(true)
         const data = {
             'email': e.target.email.value,
             'password': e.target.password.value
@@ -26,15 +29,25 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                     window.localStorage.setItem('data', JSON.stringify(res.data.data));
                     navigate('/home')
                 }
+                setIsLoading(false)
             })
             .catch(err => {
-                console.log(err);
+                setError(err.response.data.message);
+                setIsLoading(false)
             })
     }
     const handleForgotShow = () => {
         setForgot(true);
         setShow(false);
     }
+    useEffect(() => {
+        if (error === 'Invalid Password') {
+            document.getElementById('authPass').style.color = "red"
+            document.getElementById('labelCol').style.color = "red"
+            document.getElementById('authPass').style.border = "1px solid red"
+            setDisplay("d-block")
+        }
+    }, [error])
     return (
         <>
             <ForgotModal
@@ -64,14 +77,18 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className='login_input' type="email" />
                                     </div>
 
-                                    <div className='my-3'>
-                                        <label htmlFor="">Password</label><br />
-                                        <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
+                                    <div className='my-4'>
+                                        <label id='labelCol' htmlFor="" style={{ marginBottom: "-20px" }} className='d-flex'>Password <span className={display}> &nbsp;(Password is incorrect.)</span></label><br />
+                                        <input id='authPass' placeholder='1234567#' className='login_input' type="password" name='password' /><br />
                                         <a href="#" onClick={handleForgotShow}><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
                                     </div>
                                     <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                     <div className='d-flex justify-content-center my-5'>
-                                        <button className='submit_btn'>Login</button>
+                                        {
+                                            isLoading ? <button disabled={isLoading} className='submit_btn'>Login</button> :
+                                                <button className='submit_btn'>Login</button>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

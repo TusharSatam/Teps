@@ -54,10 +54,11 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    transition: 0.5s;
+    transition: 0.3s;
 }
 .submit_btn:hover{
-    border: 1px solid #1AA05B;
-    background: transparent;
-    color: #1AA05B;
+    border: none;
+    background: #9FDFBE;
+    border: 1px solid #9FDFBE;
+
 }

@@ -53,7 +53,7 @@ const HomeLayout = () => {
                 </div>
             </div>
             <div className='d-flex justify-content-center my-5'>
-                <button className='submit_btn'>Find strategy</button>
+                <button className='submit_btn'>Find Strategies</button>
             </div>
             <Article />
         </>
