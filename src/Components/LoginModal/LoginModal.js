@@ -19,7 +19,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             'email': e.target.email.value,
             'password': e.target.password.value
         }
-        axios.post("http://localhost:8080/api/signin", data)
+        axios.post("https://guarded-river-11707.herokuapp.com/api/signin", data)
             .then(res => {
                 if (res.data) {
                     setShow(false)
@@ -67,7 +67,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                     <div>
                         <div>
                             <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-                            <p className='text-center log_in mt-3'>Let’s get started</p>
+                            <p className='text-center log_in mt-3'>Let’s get started!</p>
                         </div>
                         <form onSubmit={handleSIgnIn}>
                             <div className='d-flex justify-content-center'>
@@ -80,13 +80,13 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                                     <div className='my-4'>
                                         <label id='labelCol' htmlFor="" style={{ marginBottom: "-20px" }} className='d-flex'>Password <span className={display}> &nbsp;(Password is incorrect.)</span></label><br />
                                         <input id='authPass' placeholder='1234567#' className='login_input' type="password" name='password' /><br />
-                                        <a href="#" onClick={handleForgotShow}><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
+                                        <a href="#" onClick={handleForgotShow} ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
                                     </div>
                                     <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                     <div className='d-flex justify-content-center my-5'>
                                         {
-                                            isLoading ? <button disabled={isLoading} className='submit_btn'>Login</button> :
-                                                <button className='submit_btn'>Login</button>
+                                            // isLoading ? <button disabled={isLoading} className='submit_btn'>Login</button> :
+                                            <button className='submit_btn'>Login</button>
                                         }
 
                                     </div>

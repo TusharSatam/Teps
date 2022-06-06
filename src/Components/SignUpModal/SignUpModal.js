@@ -65,7 +65,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     'pincode': e.target.pincode.value,
                     'password': equalPass
                 }
-                axios.post("http://localhost:8080/api/reg", data)
+                axios.post("https://guarded-river-11707.herokuapp.com/api/reg", data)
                     .then(res => {
                         e.target.reset();
                         setShow(false)

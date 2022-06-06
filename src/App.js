@@ -8,6 +8,7 @@ import Footer from './Components/Footer/Footer';
 import Navbar from './Components/Navbar/Navbar';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import SearchScrean from './Components/SearchScrean/SearchScrean';
+import ResetPass from './Components/ForgotPassModal/ResetPass';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='/forgot' element={<ResetPass />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />

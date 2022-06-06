@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import defaultProfile from '../../asstes/defaultProfile.png'
-import ForgotModal from '../ForgotPassModal/ForgotModal';
+import ChangePass from '../ForgotPassModal/ChangePass';
 import HeroSection from '../Home/HeroSection';
 import './profile.css'
 const Profile = () => {
@@ -10,14 +10,34 @@ const Profile = () => {
     }
     return (
         <>
-            <ForgotModal
+            <ChangePass
                 show={forgot}
                 setShow={setForgot}
             />
             <HeroSection />
-            <section style={{ background: "#E5E5E5" }}>
-                <div className='container p-5 d-flex ' >
-                    <div className='px-4 w-25 d-flex justify-content-center align-items-center text-center bg-light '>
+            <section className='profile_container'>
+                <div style={{ height: "10px" }}></div>
+                <div className='d-block d-md-none text-start mx-3 mt-5 bg-light shadow'>
+                    <div className='d-flex align-items-center'>
+                        <div className="button-wrapper">
+                            <img className='label' src={defaultProfile} alt="" />
+                            <input id="upload" className='upload-box' type="file" name="" />
+                        </div>
+                        <div>
+                            <div className='profile_school mt-3'>
+                                <p>Lilyblom <br /> Abc school</p>
+                            </div>
+                            <div className='d-flex justify-content-center'>
+                                <button onClick={handleForgotShow} className='submit_btn'>Change Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='d-block d-md-none mx-3 mt-4'>
+                    <hr />
+                </div>
+                <div className='container p-md-5 d-md-flex ' >
+                    <div className='px-4 w-25 d-none d-md-flex justify-content-center align-items-center text-center bg-light '>
                         <div className='py-4'>
                             <div className="button-wrapper">
                                 <img className='label' src={defaultProfile} alt="" />
@@ -31,8 +51,8 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='bg-light ms-5 w-75'>
-                        <form className='p-5'>
+                    <div className='ms-md-5 form_container mt-5 mt-md-0 mb-5'>
+                        <form className='p-1 p-md-5'>
                             <div className='w-100'>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4 className='pe-5'>School/Organization:</h4>
@@ -53,7 +73,7 @@ const Profile = () => {
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>State:</h4>
                                     <select className='ps-2 pe-5 py-1' name="" id="">
-                                        <option value="">Mumbai&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                        <option value="">Mumbai</option>
                                         <option value="">Mumbai</option>
                                         <option value="">Mumbai</option>
                                     </select>
@@ -65,7 +85,7 @@ const Profile = () => {
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Country:</h4>
                                     <select className='ps-2 pe-5 py-1' name="" id="">
-                                        <option value="">India&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                        <option value="">India</option>
                                         <option value="">Australia</option>
                                         <option value="">Usa</option>
                                     </select>
@@ -81,6 +101,7 @@ const Profile = () => {
                             </div>
                         </form>
                     </div>
+                    <div style={{ height: "10px" }}></div>
                 </div>
             </section>
         </>

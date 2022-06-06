@@ -6,7 +6,7 @@ import ResetPass from './ResetPass';
 import emailjs from '@emailjs/browser';
 import swal from 'sweetalert';
 
-const ForgotModal = ({ show, setShow }) => {
+const ChangePass = ({ show, setShow }) => {
     const [error, setError] = useState('');
     const handleClose = () => setShow(false);
     const handleForgot = (e) => {
@@ -58,8 +58,8 @@ const ForgotModal = ({ show, setShow }) => {
                     <div>
                         <div>
                             <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-                            <p className='text-center forgot_header mt-3'>Forgot your password? Don’t worry. </p>
-                            <p className='text-center forgot_subheader mt-3'>Reset your password to continue! </p>
+                            <p className='text-center forgot_header mt-3'>Want to change Password? </p>
+                            <p className='text-center forgot_subheader mt-3'>Enter your email to continue! </p>
                         </div>
                         <form onSubmit={handleForgot}>
                             <div className='d-flex justify-content-center'>
@@ -82,4 +82,4 @@ const ForgotModal = ({ show, setShow }) => {
     );
 };
 
-export default ForgotModal;
+export default ChangePass;

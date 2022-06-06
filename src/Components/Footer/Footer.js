@@ -4,8 +4,8 @@ import Logo from '../../asstes/White on Transparent 2.png'
 
 const Footer = () => {
     return (
-        <section className=''>
-            <div className='d-flex justify-content-between footer_content px-3 px-md-5 py-5'>
+        <section className='footer_content '>
+            <div className='d-flex justify-content-between mx-4 mx-md-5 px-md-1 py-5'>
                 <div>
                     <p>Teacher Professional Development</p>
                     <p>unboxED</p>

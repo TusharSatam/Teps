@@ -1,22 +1,32 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const ResetPass = ({ show, setShow, email }) => {
-    const [error, setError] = useState('')
+const ResetPass = () => {
+    const [error, setError] = useState('');
+    const [show, setShow] = useState(true);
+    const [getEmail, setGetEmail] = useState(true);
+    const navigate = useNavigate();
+
+
     const handleClose = () => setShow(false);
+    useEffect(() => {
+        setGetEmail(JSON.parse(localStorage.getItem('email')));
+    }, [])
     const handleSIgnIn = (e) => {
         e.preventDefault();
         if (e.target.password.value === e.target.confirm_password.value) {
             setError('')
             const data = {
-                'email': email,
+                'email': getEmail,
                 'password': e.target.password.value,
             }
-            axios.post("http://localhost:8080/api/forget/update", data)
+            axios.post("https://guarded-river-11707.herokuapp.com/api/forget/update", data)
                 .then(res => {
                     alert("Reset Success");
                     e.target.reset()
+                    navigate('/')
                 })
                 .catch(err => {
                     console.log(err);

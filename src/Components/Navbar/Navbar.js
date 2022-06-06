@@ -3,7 +3,7 @@ import Logo from '../../asstes/things_logo.svg'
 import { useAuth } from '../../Context/AuthContext';
 import LoginModal from '../LoginModal/LoginModal';
 import SignUpModal from '../SignUpModal/SignUpModal';
-import defaulProfile from '../../asstes/defaultProfile.png'
+import defaulProfile from '../../asstes/Group 51.svg'
 import userLogo from '../../asstes/user.svg'
 import saveLogo from '../../asstes/save.svg'
 import favLogo from '../../asstes/favourite.svg'
@@ -36,7 +36,7 @@ const Navbar = () => {
                 show={loginModal}
                 setShow={setLoginModal}
             />
-            <section className='mx-3 mx-md-5 my-5 d-flex justify-content-between align-items-center '>
+            <section className='mx-3 mx-md-5 my-3 my-md-4 d-flex justify-content-between align-items-center '>
                 <div className='d-flex'>
                     {/* <div>
                         <img className='logo_img' src={Logo} alt="logo" />
@@ -47,7 +47,7 @@ const Navbar = () => {
                 </div>
                 {
                     !isAuthenticated ?
-                        <div className='d-flex'>
+                        <div className='d-flex me-1 me-md-3'>
                             <div>
                                 <button onClick={handleShowloginModal} className="authBtnn me-3" >Login</button>
                             </div>
@@ -55,8 +55,9 @@ const Navbar = () => {
                                 <button onClick={handleShow} className='authBtnn'>Register</button>
                             </div>
                         </div> :
-                        <div className='profile_a' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
-                            <img width="50%" src={defaulProfile} alt="" />
+                        <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
+                            <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
+                            <img className='d-block d-md-none' src={defaulProfile} alt="" />
                         </div>
                 }
             </section>
@@ -65,36 +66,36 @@ const Navbar = () => {
                     <Link to="/profile" className='navLink' onClick={() => setDisplayProfile("d-none")}>
                         <div className='d-flex align-items-center'>
                             <div>
-                                <img src={userLogo} alt="" />
+                                <img className="w-75" src={userLogo} alt="" />
                             </div>
                             <div className='ms-2'>
-                                <p className='pt-3'>Profile</p>
+                                <p className='mt-2 pt-md-1'>Profile</p>
                             </div>
                         </div>
                     </Link>
                     <div className='d-flex align-items-center'>
                         <div>
-                            <img src={saveLogo} alt="" />
+                            <img className="w-75" src={saveLogo} alt="" />
                         </div>
                         <div className='ms-2'>
-                            <p className='pt-3'>Saved Strategies</p>
+                            <p className='mt-2 pt-md-1'>Saved Strategies</p>
                         </div>
                     </div>
                     <div className='d-flex align-items-center'>
                         <div>
-                            <img src={favLogo} alt="" />
+                            <img className="w-75" src={favLogo} alt="" />
                         </div>
                         <div className='ms-2'>
-                            <p className='pt-3'>Favourite Strategies</p>
+                            <p className='mt-2 pt-md-1'>Favourite Strategies</p>
                         </div>
                     </div>
                     <div onClick={logout}>
                         <div className='d-flex align-items-center' onClick={() => setDisplayProfile('d-none')} role="button">
                             <div>
-                                <img src={signoutLogo} alt="" />
+                                <img className="w-75" src={signoutLogo} alt="" />
                             </div>
                             <div className='ms-2'>
-                                <p className='pt-3'>Log out</p>
+                                <p className='mt-2 pt-md-1'>Log out</p>
                             </div>
                         </div>
                     </div>
