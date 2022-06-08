@@ -173,7 +173,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                                 <div>
                                     <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' min="0.01" step="0.01" name='pincode' placeholder='Pincode' type="number" />
+                                    <input className='signup_Input' min="0" name='pincode' placeholder='Pincode' type="number" />
                                 </div>
                             </div>
                             <div className='d-flex justify-content-between my-3'>
@@ -255,7 +255,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                                 <div className='mt-3'>
                                     <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='pincode' min="1" placeholder='Pincode' type="number" />
+                                    <input className='signup_Input' name='pincode' min="0" placeholder='Pincode' type="number" />
                                 </div>
                                 <div className='mt-3'>
                                     <label htmlFor="">Password</label> <br />
