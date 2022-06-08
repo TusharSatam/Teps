@@ -19,12 +19,12 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Landing />} />
-          <Route path='/forgot' element={<ResetPass />} />
+          {/* <Route path='/forgot' element={<ResetPass />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<SearchScrean />} />
-          </Route>
+          </Route> */}
         </Routes>
         <Footer />
       </BrowserRouter>

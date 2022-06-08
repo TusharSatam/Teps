@@ -67,12 +67,13 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 }
                 axios.post("https://guarded-river-11707.herokuapp.com/api/reg", data)
                     .then(res => {
-                        e.target.reset();
+                        // e.target.reset();
                         setShow(false)
-                        setUser(res.data.data);
-                        setIsAuthenticated(true);
-                        window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                        navigate('/home')
+                        // setUser(res.data.data);
+                        // setIsAuthenticated(true);
+                        // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                        // navigate('/home')
+                        alert("Registration Success");
                     })
                     .catch(err => {
                         if (err.response.status === 409) {
@@ -172,7 +173,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                                 <div>
                                     <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='pincode' placeholder='Pincode' type="number" />
+                                    <input className='signup_Input' min="0.01" step="0.01" name='pincode' placeholder='Pincode' type="number" />
                                 </div>
                             </div>
                             <div className='d-flex justify-content-between my-3'>
@@ -203,10 +204,12 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
-                className="d-block d-md-none"
+                className="d-block d-md-none mt-5 pt-3 px-2"
+
             >
                 <Modal.Body
                     className="res_modal "
+                    style={{ height: "651px" }}
                 >
                     <div>
                         <div>
@@ -215,28 +218,28 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         </div>
                         <div className='mx-4 d-flex justify-content-center'>
                             <form onSubmit={handleSignUp}>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">First Name<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='firstName' placeholder='Lily' type="text" />
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">Last Name<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
-                                <div className='mt-2'>
-                                    <label htmlFor="">Email<span className='text-danger'>&#x2736;</span></label> <br />
+                                <div className='mt-3'>
+                                    <label htmlFor="">Email<span className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                     <input className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
                                     <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='designation' placeholder='Designation' type="text" />
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">School/Organization<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='organization' placeholder='School/Organization' type="text" />
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">City/Town{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
                                     <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
                                         <option value="City/Town" selected >City/Town</option>
@@ -250,15 +253,15 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
                                     <label htmlFor="">&nbsp;International</label>
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='pincode' placeholder='Pincode' type="number" />
+                                    <input className='signup_Input' name='pincode' min="1" placeholder='Pincode' type="number" />
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">Password</label> <br />
                                     <input className='signup_Input' name='password' placeholder='Password' type="password" />
                                 </div>
-                                <div className='mt-2'>
+                                <div className='mt-3'>
                                     <label htmlFor="">Confirm password</label> <br />
                                     <input className='signup_Input' name='confirm_password' placeholder='Confirm password' type="password" />
                                 </div>
@@ -268,7 +271,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
-                                <div className='d-flex justify-content-center'>
+                                <div className='d-flex justify-content-center my-5'>
                                     <button className='submit_btn'>Submit</button>
                                 </div>
                             </form>

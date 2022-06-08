@@ -57,12 +57,15 @@ const SearchScrean = () => {
                     </div>
                 </div>
             </div>
-            <div className='d-flex justify-content-end'>
+            {/* <div className='d-flex justify-content-end'>
                 <select className='px-3 py-1 bg-light mx-3 ' name="" id="">
                     <option value="" selected>Language</option>
                     <option value="">English</option>
                     <option value="">Bangla</option>
                 </select>
+            </div> */}
+            <div className='d-flex justify-content-end me-3'>
+                <div id="google_translate_element"></div>
             </div>
             <div style={{ marginLeft: "60px" }} className='mb-5'>
                 <p className='search-head'>You can find the strategies here</p>

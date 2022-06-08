@@ -1,3 +1,4 @@
+
 .article_title{
     margin-top: 86px;
     margin-bottom: 38px;
@@ -9,16 +10,20 @@
 }
 .article_text{
     font-family: 'Inter';
+    font-style: normal;
     font-weight: 400;
     font-size: 20px;
-    line-height: 34px;
+    line-height: 132%;
+    margin-right: 30px;
     color: #000000;
-
 }
 .list_article{
     margin-bottom: 203px;
 }
-
+.article_image{
+    width: 424px;
+    height: 554px;
+}
 @media only screen and (max-width: 990px) {
 
     .article_title{
@@ -34,6 +39,6 @@
         line-height: 12px;
     }
     .list_article{
-        margin-bottom: 84px;
+        margin-bottom: 50px;
     }
 }

@@ -2,14 +2,18 @@
     background: #1AA05B;
     margin: 0px;
     padding: 0px;
+    height: 390px;
 }
-.footer_content p{
+.footer_text{
+    margin-top: 73px;
+    margin-bottom: 97px;
+}
+.footer_text p{
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 28px;
-    letter-spacing: -0.001em;
     color: #FFFFFF;
 }
 .last_content{
@@ -18,20 +22,39 @@
 .footer_logo{
     width: 112px;
     height: 154px;
-    margin-top: 80px;
-    margin-right: 10px;
+    margin-top: 143px;
+    margin-right: 90px;
+    margin-bottom: 93px;
 }
 
 @media only screen and (max-width: 990px) {
-
-    .footer_content p{
+    .footer_content{
+        height: 165px;
+    }
+    .footer_text{
+        margin-top: 24px;
+        margin-bottom: 23px;
+    }
+    .footer_text p{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
         font-size: 10px;
-        line-height: 12px;
+        line-height: 8px;
     }
     .footer_logo{
         width: 50px;
         height: 68px;
         margin-top: 40px;
-        margin-right: 10px;
+        margin-top: 62px;
+        margin-right: 25px;
+        margin-bottom: 25px;
+    }
+}
+@media only screen and (max-width: 414px) {
+
+    .footer_content{
+        height: 185px;
+        margin-top: 100px;
     }
 }

@@ -74,3 +74,15 @@
     margin-left: 5px;
     font-weight: bold;
 }
+.goog-te-combo{
+    padding: 5px 10px !important;
+}
+.goog-te-gadget{
+    color: white !important;
+}
+.goog-logo-link{
+    display: none !important;
+}
+.goog-te-banner-frame{
+    display: none !important;
+}

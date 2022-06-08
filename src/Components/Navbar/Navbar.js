@@ -36,14 +36,15 @@ const Navbar = () => {
                 show={loginModal}
                 setShow={setLoginModal}
             />
-            <section className='mx-3 mx-md-5 my-3 my-md-4 d-flex justify-content-between align-items-center '>
+            <section className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
                 <div className='d-flex'>
                     {/* <div>
                         <img className='logo_img' src={Logo} alt="logo" />
                     </div> */}
-                    <div className='logo_aligh '>
-                        <img className='logo2_img' src={Logo} alt="logo2" />
-                    </div>
+                    <Link to="/home">
+                        <div className='logo_aligh '>
+                            <img className='logo2_img' src={Logo} alt="logo2" />
+                        </div></Link>
                 </div>
                 {
                     !isAuthenticated ?
@@ -52,7 +53,7 @@ const Navbar = () => {
                                 <button onClick={handleShowloginModal} className="authBtnn me-3" >Login</button>
                             </div>
                             <div>
-                                <button onClick={handleShow} className='authBtnn'>Register</button>
+                                <button onClick={handleShow} className='authBtn'>Register</button>
                             </div>
                         </div> :
                         <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >

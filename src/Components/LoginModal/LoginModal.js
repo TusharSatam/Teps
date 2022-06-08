@@ -23,11 +23,12 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             .then(res => {
                 if (res.data) {
                     setShow(false)
-                    setUser(res.data.data);
-                    setIsAuthenticated(true);
-                    window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                    window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                    navigate('/home')
+                    // setUser(res.data.data);
+                    // setIsAuthenticated(true);
+                    // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                    // window.localStorage.setItem('data', JSON.stringify(res.data.data));
+                    // navigate('/home')
+                    alert("Login Success")
                 }
                 setIsLoading(false)
             })
@@ -59,6 +60,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
+                className="mt-5 mt-md-0 px-2 px-md-0"
             >
 
                 <Modal.Body
@@ -80,7 +82,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                                     <div className='my-4'>
                                         <label id='labelCol' htmlFor="" style={{ marginBottom: "-20px" }} className='d-flex'>Password <span className={display}> &nbsp;(Password is incorrect.)</span></label><br />
                                         <input id='authPass' placeholder='1234567#' className='login_input' type="password" name='password' /><br />
-                                        <a href="#" onClick={handleForgotShow} ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
+                                        <a href="#"  ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
                                     </div>
                                     <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                     <div className='d-flex justify-content-center my-5'>

@@ -9,12 +9,12 @@ const Article = () => {
             </div>
             <section className='mx-3 mx-md-5'>
                 <div className='mx-2 mx-md-3 d-flex align-items-center'>
-                    <div className=''>
+                    <div className=' '>
                         <h1 className='article_title'>How TEPS works</h1>
                         <div className='article_text'>
                             <p>Welcome to Things Education's Pedagogical Strategies or TEPS!</p>
 
-                            <p className='my-4'>
+                            <p className='my-3 my-md-4'>
                                 We have simple-to-use teaching strategies that can be contextualised and used in your classrooms.
                                 And they are very easy to access! Just follow these simple steps:
                             </p>
@@ -30,7 +30,7 @@ const Article = () => {
                         </div>
                     </div>
                     <div className='d-none d-md-block'>
-                        <img src={sectionImage} alt="sectionImg" />
+                        <img className='article_image' src={sectionImage} alt="sectionImg" />
                     </div>
                 </div>
             </section>
