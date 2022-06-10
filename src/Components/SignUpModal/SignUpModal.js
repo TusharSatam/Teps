@@ -142,7 +142,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                             </div>
                             <div className='my-3'>
-                                <label id='emailLabel' htmlFor="">Email<span className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                <label id='emailLabel' htmlFor="">Email<span className='text-danger text-sm'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
                                 <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                             </div>
