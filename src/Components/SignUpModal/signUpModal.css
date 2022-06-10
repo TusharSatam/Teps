@@ -9,13 +9,19 @@
 }
 .modal_full{
     width: 90% !important;
-    margin: 0 auto;
-    overflow-y: hidden !important;
+    /* margin: 0 100px; */
+    margin-left: -100px;
+    margin-top: 0;
+    margin-bottom: 0;
+    /* overflow-y: hidden !important; */
 }
+.modal_full::-webkit-scrollbar {
+    display: none;
+  }
 .modal_body{
     background: #FFFFFF;
     border-radius: 12px;
-    width: 620px;
+    width: 920px;
     padding: 2rem 1rem;
 }
 .modal-backdrop.show{
@@ -27,6 +33,7 @@
     border: 1px solid #CED4DA;
     border-radius: 8px;
     padding: 5px 10px;
+    width: 350px;
 }
 .signup_Input:focus{
     outline: none;
@@ -38,7 +45,7 @@
     overflow-y: scroll;
 }
 .select_input{
-    width: 250px;
+    width: 350px;
     background: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
@@ -73,5 +80,11 @@
     }
     .res_modal{
         max-height: 631px;
+    }
+    .signup_Input{
+        width: 268px;
+    }
+    .select_input{
+        width: 268px;
     }
 }

@@ -77,7 +77,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     })
                     .catch(err => {
                         if (err.response.status === 409) {
-                            setEmailError("(This email is already in use)")
+                            setEmailError("(This email is already in use.)")
                         }
                         else console.log(err);
                     })
@@ -126,13 +126,13 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     className="modal_body"
                 >
                     <div>
-                        <span onClick={handleClose} style={{ cursor: 'pointer' }} className='d-flex justify-content-end '><img width='15px' src={CrossIcon} alt="" /></span>
+                        <span onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "800px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
                         <p className='text-center sign_up'>Register</p>
                     </div>
                     <div className='mx-4 mt-4'>
                         <form onSubmit={handleSignUp}>
-                            <div className='d-flex justify-content-between'>
-                                <div>
+                            <div className='d-flex '>
+                                <div className='me-5'>
                                     <label htmlFor="">First Name<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='firstName' placeholder='Lily' type="text" />
                                 </div>
@@ -142,12 +142,12 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                             </div>
                             <div className='my-3'>
-                                <label id='emailLabel' htmlFor="">Email<span className='text-danger text-sm'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                <label id='emailLabel' htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
+                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
                             </div>
-                            <div className='d-flex justify-content-between my-3'>
-                                <div>
+                            <div className='d-flex  my-3'>
+                                <div className='me-5'>
                                     <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='designation' placeholder='Designation' type="text" />
                                 </div>
@@ -156,8 +156,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input className='signup_Input' name='organization' placeholder='School/Organization' type="text" />
                                 </div>
                             </div>
-                            <div className='d-flex justify-content-between my-3'>
-                                <div>
+                            <div className='d-flex  my-3'>
+                                <div className='me-5'>
                                     <label htmlFor="">City/Town{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
                                     <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
                                         <option value="City/Town" selected >City/Town</option>
@@ -176,8 +176,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input className='signup_Input' min="0" name='pincode' placeholder='Pincode' type="number" />
                                 </div>
                             </div>
-                            <div className='d-flex justify-content-between my-3'>
-                                <div>
+                            <div className='d-flex my-3'>
+                                <div className='me-5'>
                                     <label htmlFor="">Password</label> <br />
                                     <input required className='signup_Input' min="0" name='password' placeholder='Password' type="password" step="1" />
                                 </div>
@@ -192,7 +192,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             </div>
                             {required ? <p className='text-danger text-center'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center'>{error}</p> : ""}
-                            <div className='d-flex justify-content-center'>
+                            <div className='d-flex justify-content-center me-5 pe-4'>
                                 <button className='submit_btn'>Submit</button>
                             </div>
                         </form>
@@ -227,9 +227,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Email<span className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                    <label htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                     <input className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                    <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
+                                    <a href="#" className={display} onClick={handleForgotShow} style={{ fontSize: "12px" }}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
                                 <div className='mt-3'>
                                     <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />

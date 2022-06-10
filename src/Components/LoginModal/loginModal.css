@@ -12,7 +12,7 @@
     border-radius: 12px;
 }
 .login_input{
-    width: 300px;
+    width: 367px;
     background: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
@@ -32,5 +32,8 @@
 
     .log_in{
         font-size: 20px;
+    }
+    .login_input{
+        width:268px;
     }
 }
