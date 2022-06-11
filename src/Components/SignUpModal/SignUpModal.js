@@ -130,7 +130,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         <p className='text-center sign_up'>Register</p>
                     </div>
                     <div className='mx-4 mt-4'>
-                        <form onSubmit={handleSignUp}>
+                        <form className='ms-md-3 ms-xxl-5' onSubmit={handleSignUp}>
                             <div className='d-flex '>
                                 <div className='me-5'>
                                     <label htmlFor="">First Name<span className='text-danger'>&#x2736;</span></label> <br />
@@ -227,8 +227,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                                    <input className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                                    <label id='emailLabel' htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                    <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
                                     <a href="#" className={display} onClick={handleForgotShow} style={{ fontSize: "12px" }}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
                                 <div className='mt-3'>
