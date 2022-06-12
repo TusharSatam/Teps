@@ -9,12 +9,13 @@ import Navbar from './Components/Navbar/Navbar';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import SearchScrean from './Components/SearchScrean/SearchScrean';
 import ResetPass from './Components/ForgotPassModal/ResetPass';
+import axios from 'axios';
 
 
 function App() {
-
+  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
   return (
-    <>
+    <div className='App'>
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -28,7 +29,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

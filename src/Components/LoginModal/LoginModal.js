@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { userLogin } from '../../apis/auth';
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './loginModal.css'
@@ -19,11 +20,11 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             'email': e.target.email.value,
             'password': e.target.password.value
         }
-        axios.post("https://guarded-river-11707.herokuapp.com/api/signin", data)
+        userLogin(data)
             .then(res => {
-                if (res.data) {
+                if (res) {
                     setShow(false)
-                    // setUser(res.data.data);
+                    // setUser(res.data);
                     // setIsAuthenticated(true);
                     // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
                     // window.localStorage.setItem('data', JSON.stringify(res.data.data));

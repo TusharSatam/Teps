@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { userRegister } from '../../apis/auth';
 import CrossIcon from '../../asstes/cross-icon.png'
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
@@ -21,10 +22,19 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const { setIsAuthenticated, setUser } = useAuth();
 
     useEffect(() => {
-        axios.get('./citys.json')
-            .then((res => setCitys(res.data.cities)))
-            .catch(err => console.log(err))
-    })
+        const url = "./citys.json"
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url);
+                const res = await response.json();
+                setCitys(res.cities);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData();
+    }, [])
     const handleOnchange = (e) => {
         const city = e.target.value;
         if (city) {
@@ -65,7 +75,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     'pincode': e.target.pincode.value,
                     'password': equalPass
                 }
-                axios.post("https://guarded-river-11707.herokuapp.com/api/reg", data)
+                userRegister(data)
                     .then(res => {
                         // e.target.reset();
                         setShow(false)
@@ -78,6 +88,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     .catch(err => {
                         if (err.response.status === 409) {
                             setEmailError("(This email is already in use.)")
+                            setDisplay("d-block")
                         }
                         else console.log(err);
                     })
@@ -92,19 +103,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
             setRequired("Please fill all the fields above ")
         }
     }
-    useEffect(() => {
-        if (emailError) {
-            document.getElementById("emailLabel").style.color = "red";
-            document.getElementById("emailInput").style.border = "1px solid red";
-            document.getElementById("emailInput").style.color = "red";
-            setDisplay("d-block")
-        }
-    }, [emailError])
-    // if (!emailError) {
-    //     document.getElementById("emailLabel").style.color = "black";
-    //     document.getElementById("emailInput").style.border = "none";
-    //     document.getElementById("emailInput").style.color = "black";
-    // }
     const handleForgotShow = () => {
         setForgot(true);
         setShow(false);
@@ -143,8 +141,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 </div>
                             </div>
                             <div className='my-3'>
-                                <label id='emailLabel' htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                                <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                                <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
                                 <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
                             </div>
                             <div className='d-flex  my-3'>
@@ -228,8 +226,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label id='emailLabel' htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                                    <input id='emailInput' className='signup_Input' name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                                    <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                    <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
                                     <a href="#" className={display} onClick={handleForgotShow} style={{ fontSize: "12px" }}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
                                 <div className='mt-3'>

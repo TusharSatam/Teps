@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
             setUser(JSON.parse(data))
             setIsAuthenticated(true);
         }
-    }, [isAuthenticated]);
+    }, []);
     return (
         <AuthContext.Provider
             value={{ isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding }}>
