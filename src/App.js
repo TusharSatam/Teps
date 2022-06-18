@@ -10,6 +10,9 @@ import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import SearchScrean from './Components/SearchScrean/SearchScrean';
 import ResetPass from './Components/ForgotPassModal/ResetPass';
 import axios from 'axios';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import DashHome from './Pages/Dashboard/DashHome';
+import DashStratigys from './Pages/Dashboard/DashStratigys';
 
 
 function App() {
@@ -17,17 +20,19 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path='/' element={<Landing />} />
-          {/* <Route path='/forgot' element={<ResetPass />} />
-          <Route path="" element={<PrivateRoute />}>
+          <Route path='/forgot' element={<ResetPass />} />
+          {/* <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<SearchScrean />} />
+          </Route>
+          <Route element={<Dashboard />} >
+            <Route exact path='/admin-home' element={<DashHome />} />
+            <Route exact path='/admin-stratigy' element={<DashStratigys />} />
           </Route> */}
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );

@@ -41,6 +41,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
             setInterNAtionalDisable(true);
             setCityDisable(false);
         }
+        if (city === 'City/Town') {
+            setInterNAtionalDisable(false);
+        }
     }
     useEffect(() => {
         if (checked) {
@@ -57,7 +60,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         e.preventDefault();
         let equalPass;
         if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-            e.target.organization.value && e.target.city.value && e.target.pincode.value && equalPass !== ''
+            e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
         ) {
             setRequired("");
             if (e.target.password.value === e.target.confirm_password.value) {
@@ -77,7 +80,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 }
                 userRegister(data)
                     .then(res => {
-                        // e.target.reset();
+                        e.target.reset();
                         setShow(false)
                         // setUser(res.data.data);
                         // setIsAuthenticated(true);
@@ -95,7 +98,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
             }
             else {
-                setError("Passowrd Didn't Match");
+                setError("Password Didn't Match");
             }
 
         }
@@ -143,7 +146,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             <div className='my-3'>
                                 <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
+                                <a href="#" className={display}  ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
                             </div>
                             <div className='d-flex  my-3'>
                                 <div className='me-5'>
@@ -189,8 +192,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                 <span className="checkmark"></span>
                             </div>
-                            {required ? <p className='text-danger text-center'>{required}</p> : ""}
-                            {error ? <p className='text-danger text-center'>{error}</p> : ""}
+                            {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
+                            {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
                             <div className='d-flex justify-content-center me-5 pe-4'>
                                 <button className='submit_btn'>Submit</button>
                             </div>
@@ -228,7 +231,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 <div className='mt-3'>
                                     <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                     <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                    <a href="#" className={display} onClick={handleForgotShow} style={{ fontSize: "12px" }}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
+                                    <a href="#" className={display} style={{ fontSize: "12px" }} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
                                 <div className='mt-3'>
                                     <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
