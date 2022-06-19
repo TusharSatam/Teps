@@ -13,6 +13,7 @@ import axios from 'axios';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import DashHome from './Pages/Dashboard/DashHome';
 import DashStratigys from './Pages/Dashboard/DashStratigys';
+import DashboardUsers from './Pages/Dashboard/DashboardUsers';
 
 
 function App() {
@@ -23,15 +24,16 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/forgot' element={<ResetPass />} />
-          {/* <Route path="" element={<PrivateRoute />}>
+          <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<SearchScrean />} />
           </Route>
           <Route element={<Dashboard />} >
             <Route exact path='/admin-home' element={<DashHome />} />
+            <Route exact path='/admin-users' element={<DashboardUsers />} />
             <Route exact path='/admin-stratigy' element={<DashStratigys />} />
-          </Route> */}
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
