@@ -4,16 +4,14 @@ import Landing from './Pages/Landing';
 import Home from './Pages/Home';
 import Profiles from './Pages/Profiles';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Footer from './Components/Footer/Footer';
-import Navbar from './Components/Navbar/Navbar';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
-import SearchScrean from './Components/SearchScrean/SearchScrean';
 import ResetPass from './Components/ForgotPassModal/ResetPass';
 import axios from 'axios';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import DashHome from './Pages/Dashboard/DashHome';
 import DashStratigys from './Pages/Dashboard/DashStratigys';
 import DashboardUsers from './Pages/Dashboard/DashboardUsers';
+import Stratigy from './Pages/Stratigy';
 
 
 function App() {
@@ -27,7 +25,7 @@ function App() {
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
-            <Route path="/search" element={<SearchScrean />} />
+            <Route path="/search" element={<Stratigy />} />
           </Route>
           <Route element={<Dashboard />} >
             <Route exact path='/admin-home' element={<DashHome />} />

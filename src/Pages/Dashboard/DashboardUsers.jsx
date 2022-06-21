@@ -39,10 +39,10 @@ const DashboardUsers = () => {
                                     <td>{item.city}</td>
                                     <td>{item.pincode}</td>
                                     <td>
-                                        <button className='btn'>
+                                        <button className='btn p-0 me-2'>
                                             <FaRegTrashAlt />
                                         </button>
-                                        <button className='btn' ><FaRegEdit /></button>
+                                        <button className='btn p-0' ><FaRegEdit /></button>
                                     </td>
                                 </tr>
                             ))}

@@ -6,7 +6,7 @@ export const userRegister = async (data) => {
     let regResponse
     await axios.post(`reg`, data)
         .then(res => {
-            regResponse = res
+            regResponse = res;
         })
     return regResponse
 }
@@ -16,7 +16,8 @@ export const userLogin = async (data) => {
     let loginResponse
     await axios.post(`signin`, data)
         .then(res => {
-            loginResponse = res.data
+            loginResponse = res.data;
+
         })
     return loginResponse
 }

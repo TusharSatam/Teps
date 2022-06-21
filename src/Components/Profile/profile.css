@@ -40,10 +40,22 @@
     line-height: 29px;
     color: #474747;
 }
-.form_container{
-  width: 75%;
-  font-size: 24px;
+.side_profile{
+  width: 360px;
+  height: 768px;
 }
+.form_container{
+  width: 725px;
+  height: 778px;
+  font-size: 24px;
+  background: #fff;
+}
+.profile_input{
+  text-align: right;
+  border: none;
+  margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 990px) {
 .button-wrapper{
   margin: 20% 2%;

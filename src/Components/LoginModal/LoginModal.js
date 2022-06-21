@@ -23,12 +23,11 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             .then(res => {
                 if (res) {
                     setShow(false)
-                    // setUser(res.data);
-                    // setIsAuthenticated(true);
-                    // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                    // window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                    // navigate('/home')
-                    alert("Login Success")
+                    setUser(res);
+                    setIsAuthenticated(true);
+                    window.localStorage.setItem('jwt', JSON.stringify(res.jwt));
+                    window.localStorage.setItem('data', JSON.stringify(res.data));
+                    navigate('/home');
                 }
                 setIsLoading(false)
             })
@@ -74,7 +73,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                                     <div className='my-4'>
                                         <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Password' ? 'd-flex text-danger' : 'd-flex'}>Password <span className={error === 'Invalid Password' ? 'd-block' : "d-none"}> &nbsp;(Password is incorrect.)</span></label><br />
                                         <input id='authPass' placeholder='1234567#' className={error === 'Invalid Password' ? "login_input text-danger border border-danger" : 'login_input'} type="password" name='password' /><br />
-                                        <a href="#"  ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
+                                        <a href="#" onClick={handleForgotShow} ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
                                     </div>
                                     <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                     <div className='d-flex justify-content-center my-5'>

@@ -68,25 +68,25 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 setEmailError("")
                 equalPass = e.target.password.value;
                 const city = e.target.city.value;
-                const data = {
-                    'firstName': e.target.firstName.value,
-                    'lastName': e.target.lastName.value,
-                    'email': e.target.email.value,
-                    'designation': e.target.designation.value,
-                    'organization': e.target.organization.value,
-                    'city': checked ? "International" : city,
-                    'pincode': e.target.pincode.value,
-                    'password': equalPass
-                }
-                userRegister(data)
+                const formData = new FormData();
+                formData.append('firstName', e.target.firstName.value);
+                formData.append('lastName', e.target.lastName.value);
+                formData.append('email', e.target.email.value);
+                formData.append('designation', e.target.designation.value);
+                formData.append('organization', e.target.organization.value);
+                formData.append('city', checked ? "International" : city);
+                formData.append('pincode', e.target.pincode.value);
+                formData.append('password', equalPass);
+                formData.append('image', e.target.img.files[0]);
+                console.log(formData);
+                userRegister(formData)
                     .then(res => {
                         e.target.reset();
                         setShow(false)
-                        // setUser(res.data.data);
-                        // setIsAuthenticated(true);
-                        // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                        // navigate('/home')
-                        alert("Registration Success");
+                        setUser(res.data.data);
+                        setIsAuthenticated(true);
+                        window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                        navigate('/home')
                     })
                     .catch(err => {
                         if (err.response.status === 409) {
@@ -146,7 +146,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             <div className='my-3'>
                                 <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                <a href="#" className={display}  ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
+                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
                             </div>
                             <div className='d-flex  my-3'>
                                 <div className='me-5'>
@@ -192,6 +192,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                 <span className="checkmark"></span>
                             </div>
+                            <input
+                                type='file'
+                                accept='image/png, image/gif, image/jpeg'
+                                name='img'
+                            />
                             {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
                             <div className='d-flex justify-content-center me-5 pe-4'>
@@ -231,7 +236,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 <div className='mt-3'>
                                     <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                     <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                    <a href="#" className={display} style={{ fontSize: "12px" }} ><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
+                                    <a href="#" className={display} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
                                 </div>
                                 <div className='mt-3'>
                                     <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
@@ -271,6 +276,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input type="checkbox" name="" id="" /> <span>I am not a robot </span>
                                     <span className="checkmark"></span>
                                 </div>
+                                <input type="file" name="img" id="" />
                                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
                                 <div className='d-flex justify-content-center my-5'>

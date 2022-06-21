@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import defaultProfile from '../../asstes/defaultProfile.png'
+import { useAuth } from '../../Context/AuthContext';
 import ChangePass from '../ForgotPassModal/ChangePass';
 import HeroSection from '../Home/HeroSection';
 import './profile.css'
 const Profile = () => {
+    const { user } = useAuth();
+    console.log(user);
+
+
+
     const [forgot, setForgot] = useState(false);
     const handleForgotShow = () => {
         setForgot(true);
@@ -37,7 +43,7 @@ const Profile = () => {
                     <hr />
                 </div>
                 <div className='container p-md-5 d-md-flex ' >
-                    <div className='px-4 w-25 d-none d-md-flex justify-content-center align-items-center text-center bg-light '>
+                    <div className='px-4 w-25 side_profile d-none d-md-flex justify-content-center align-items-center text-center bg-light '>
                         <div className='py-4'>
                             <div className="button-wrapper">
                                 <img className='label' src={defaultProfile} alt="" />
@@ -56,19 +62,31 @@ const Profile = () => {
                             <div className='w-100'>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4 className='pe-5'>School/Organization:</h4>
-                                    <p className='mt-1'>abc school</p>
+                                    <div >
+                                        <input className='profile_input' type="text" defaultValue={user.organization} name="" id="" />
+                                    </div>
+                                    {/* <p className='mt-1'>abc school</p> */}
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Email ID:</h4>
-                                    <p className='mt-1'>abc school</p>
+                                    <div >
+                                        <input className='profile_input' type="text" defaultValue={user.email} name="" id="" />
+                                    </div>
+                                    {/* <p className='mt-1'>abc school</p> */}
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Designation:</h4>
-                                    <p className='mt-1'>abc school</p>
+                                    {/* <p className='mt-1'>abc school</p> */}
+                                    <div >
+                                        <input className='profile_input' type="text" defaultValue={user.designation} name="" id="" />
+                                    </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>City/Town:</h4>
-                                    <p className='mt-1'>abc school</p>
+                                    {/* <p className='mt-1'>abc school</p> */}
+                                    <div >
+                                        <input className='profile_input' type="text" defaultValue={user.city} name="" id="" />
+                                    </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>State:</h4>
@@ -80,7 +98,10 @@ const Profile = () => {
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Pincode:</h4>
-                                    <p className='mt-1'>abc school</p>
+                                    {/* <p className='mt-1'>abc school</p> */}
+                                    <div >
+                                        <input className='profile_input' type="text" defaultValue={"abc school"} name="" id="" />
+                                    </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Country:</h4>
