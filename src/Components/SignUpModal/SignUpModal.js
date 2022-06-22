@@ -77,8 +77,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 formData.append('city', checked ? "International" : city);
                 formData.append('pincode', e.target.pincode.value);
                 formData.append('password', equalPass);
-                formData.append('image', e.target.img.files[0]);
-                console.log(formData);
+                // formData.append('image', e.target.img.files[0]);
                 userRegister(formData)
                     .then(res => {
                         e.target.reset();
@@ -86,6 +85,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         setUser(res.data.data);
                         setIsAuthenticated(true);
                         window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                        window.localStorage.setItem('data', JSON.stringify(res.data.data));
                         navigate('/home')
                     })
                     .catch(err => {

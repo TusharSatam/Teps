@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { Buffer } from 'buffer';
+import { updateInfo } from '../../apis/auth';
+import { getSingleUser } from '../../apis/dashboardUsers';
 import defaultProfile from '../../asstes/defaultProfile.png'
 import { useAuth } from '../../Context/AuthContext';
 import ChangePass from '../ForgotPassModal/ChangePass';
@@ -6,14 +10,55 @@ import HeroSection from '../Home/HeroSection';
 import './profile.css'
 const Profile = () => {
     const { user } = useAuth();
-    console.log(user);
-
-
-
     const [forgot, setForgot] = useState(false);
+    const [profileImage, setProfileImage] = useState([]);
+    const [country, setCountry] = useState([]);
+    const [state, setState] = useState([]);
     const handleForgotShow = () => {
         setForgot(true);
     }
+    const handleProfile = (e) => {
+        let formData = new FormData();
+        formData.append('img', e.target.files[0]);
+        updateInfo(user._id, formData)
+    }
+    useEffect(() => {
+        getSingleUser(user._id)
+            .then(res => {
+                setProfileImage(res.data[0]);
+            })
+    }, [profileImage?.image?.data?.data]);
+
+    useEffect(() => {
+        const url = "./countrys.json"
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url);
+                const res = await response.json();
+                setCountry(res.countrys);
+                console.log(res);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData();
+    }, [])
+
+    useEffect(() => {
+        const url = "./state.json"
+        const fetchData = async () => {
+            try {
+                const response = await fetch(url);
+                const res = await response.json();
+                setState(res.states);
+            } catch (error) {
+                console.log("error", error);
+            }
+        };
+
+        fetchData();
+    }, [])
     return (
         <>
             <ChangePass
@@ -27,7 +72,7 @@ const Profile = () => {
                     <div className='d-flex align-items-center'>
                         <div className="button-wrapper">
                             <img className='label' src={defaultProfile} alt="" />
-                            <input id="upload" className='upload-box' type="file" name="" />
+                            <input id="upload" className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
                         </div>
                         <div>
                             <div className='profile_school mt-3'>
@@ -46,8 +91,12 @@ const Profile = () => {
                     <div className='px-4 w-25 side_profile d-none d-md-flex justify-content-center align-items-center text-center bg-light '>
                         <div className='py-4'>
                             <div className="button-wrapper">
-                                <img className='label' src={defaultProfile} alt="" />
-                                <input id="upload" className='upload-box' type="file" name="" />
+                                {
+                                    profileImage?.image ? <img className='label' style={{ width: "150px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                                        <img className='label' src={defaultProfile} alt="" />
+                                }
+
+                                <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
                             </div>
                             <div className='profile_school mt-3'>
                                 <p>Lilyblom <br /> Abc school</p>
@@ -91,9 +140,11 @@ const Profile = () => {
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>State:</h4>
                                     <select className='ps-2 pe-5 py-1' name="" id="">
-                                        <option value="">Mumbai</option>
-                                        <option value="">Mumbai</option>
-                                        <option value="">Mumbai</option>
+                                        {
+                                            state?.map((data, index) => (
+                                                <option key={index} value="">{data.name}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
@@ -105,10 +156,12 @@ const Profile = () => {
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
                                     <h4>Country:</h4>
-                                    <select className='ps-2 pe-5 py-1' name="" id="">
-                                        <option value="">India</option>
-                                        <option value="">Australia</option>
-                                        <option value="">Usa</option>
+                                    <select className='ps-2 pe-5 py-1 ' name="" id="">
+                                        {
+                                            country?.map((item, index) => (
+                                                <option className='' value="">{item?.name}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                                 <div className='d-flex mt-5'>

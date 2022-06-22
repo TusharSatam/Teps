@@ -15,9 +15,9 @@ export const getUsers = async () => {
 // SingleUser response
 export const getSingleUser = async (id) => {
     let userResponse
-    await axios.get(`users`,)
+    await axios.get(`users/${id}`,)
         .then(res => {
-            userResponse = res
+            userResponse = res;
         })
     return userResponse;
 }

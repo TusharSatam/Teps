@@ -21,3 +21,14 @@ export const userLogin = async (data) => {
         })
     return loginResponse
 }
+
+// update user info
+export const updateInfo = async (id, data) => {
+    let updateResponse;
+    await axios.put(`users/${id}`, data)
+        .then(res => {
+            updateResponse = res.data;
+
+        })
+    return updateResponse;
+}

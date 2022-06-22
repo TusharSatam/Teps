@@ -12,6 +12,7 @@ import DashHome from './Pages/Dashboard/DashHome';
 import DashStratigys from './Pages/Dashboard/DashStratigys';
 import DashboardUsers from './Pages/Dashboard/DashboardUsers';
 import Stratigy from './Pages/Stratigy';
+import DashboardCSV from './Pages/Dashboard/DashboardCSV';
 
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
           <Route element={<Dashboard />} >
             <Route exact path='/admin-home' element={<DashHome />} />
             <Route exact path='/admin-users' element={<DashboardUsers />} />
-            <Route exact path='/admin-stratigy' element={<DashStratigys />} />
+            {/* <Route exact path='/admin-stratigy' element={<DashStratigys />} /> */}
+            <Route exact path='/admin-stratigy' element={<DashboardCSV />} />
           </Route>
         </Routes>
       </BrowserRouter>
