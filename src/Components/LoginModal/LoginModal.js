@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../apis/auth';
@@ -9,9 +8,9 @@ import './loginModal.css'
 const LoginModal = ({ handleClose, show, setShow }) => {
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
-    const [forgot, setForgot] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [forgot, setForgot] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState('');
     const handleSIgnIn = (e) => {
         e.preventDefault();
         setIsLoading(true)

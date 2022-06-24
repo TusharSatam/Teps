@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Logo from '../../asstes/things_logo.svg'
+import { Buffer } from 'buffer';
 import { useAuth } from '../../Context/AuthContext';
 import LoginModal from '../LoginModal/LoginModal';
 import SignUpModal from '../SignUpModal/SignUpModal';
@@ -22,7 +23,6 @@ const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
 
     return (
-
         <>
             <SignUpModal
                 key={'1'}
@@ -57,8 +57,18 @@ const Navbar = () => {
                             </div>
                         </div> :
                         <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
-                            <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
-                            <img className='d-block d-md-none' src={defaulProfile} alt="" />
+                            {
+                                user?.image ? <>
+                                    <img className='d-none d-md-block' style={{ width: "60px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                    <img className='d-block d-md-none' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                    {/* <img className='d-block d-md-none' src={defaulProfile} alt="" /> */}
+                                </> : <>
+                                    <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
+                                    <img className='d-block d-md-none' src={defaulProfile} alt="" />
+                                </>
+                            }
+
+
                         </div>
                 }
             </section>

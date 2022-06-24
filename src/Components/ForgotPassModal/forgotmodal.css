@@ -16,3 +16,11 @@
     letter-spacing: -0.01em;
     color: #1AA05B;
 }
+.sendMail_text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 48px;
+    color: #1AA05B;
+}

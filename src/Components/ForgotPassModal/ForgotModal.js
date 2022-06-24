@@ -4,10 +4,11 @@ import { Modal } from 'react-bootstrap';
 import './forgotmodal.css'
 import ResetPass from './ResetPass';
 import emailjs from '@emailjs/browser';
-import swal from 'sweetalert';
+import SenEmailModal from './SenEmailModal';
 
 const ForgotModal = ({ show, setShow }) => {
     const [error, setError] = useState('');
+    const [sendEmail, setSendEmail] = useState(false);
     const handleClose = () => setShow(false);
     const handleForgot = (e) => {
         e.preventDefault();
@@ -25,7 +26,7 @@ const ForgotModal = ({ show, setShow }) => {
                         "reply_to": e.target.email.value
                     }, 'RetawD6Qlh_S7pi-n')
                         .then((result) => {
-                            swal("Please check!", "Email Send!", "success");
+                            setSendEmail(true)
                             console.log(result.text);
                         }, (error) => {
                             console.log(error.text);
@@ -41,6 +42,10 @@ const ForgotModal = ({ show, setShow }) => {
     }
     return (
         <>
+            <SenEmailModal
+                show={sendEmail}
+                setShow={setSendEmail}
+            />
             {/* <ResetPass
                 show={pass}
                 setShow={setPass}

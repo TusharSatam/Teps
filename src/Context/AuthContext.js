@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
         };
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         setLoading(true);
         const token = localStorage.getItem('jwt');
         if (token) {

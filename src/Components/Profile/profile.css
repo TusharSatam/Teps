@@ -68,5 +68,7 @@
 .profile_container{
   background: #fff;
 }
-
+.input_label{
+  font-size: 16px;
+}
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { Buffer } from 'buffer';
 import { updateInfo } from '../../apis/auth';
 import { getSingleUser } from '../../apis/dashboardUsers';
@@ -9,7 +8,7 @@ import ChangePass from '../ForgotPassModal/ChangePass';
 import HeroSection from '../Home/HeroSection';
 import './profile.css'
 const Profile = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
     const [forgot, setForgot] = useState(false);
     const [profileImage, setProfileImage] = useState([]);
     const [country, setCountry] = useState([]);
@@ -22,21 +21,20 @@ const Profile = () => {
         formData.append('img', e.target.files[0]);
         updateInfo(user._id, formData)
     }
-    useEffect(() => {
+    React.useEffect(() => {
         getSingleUser(user._id)
             .then(res => {
                 setProfileImage(res.data[0]);
+                setUser(res.data[0])
             })
     }, [profileImage?.image?.data?.data]);
-
-    useEffect(() => {
+    React.useEffect(() => {
         const url = "./countrys.json"
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const res = await response.json();
                 setCountry(res.countrys);
-                console.log(res);
             } catch (error) {
                 console.log("error", error);
             }
@@ -45,7 +43,7 @@ const Profile = () => {
         fetchData();
     }, [])
 
-    useEffect(() => {
+    React.useEffect(() => {
         const url = "./state.json"
         const fetchData = async () => {
             try {
@@ -71,7 +69,11 @@ const Profile = () => {
                 <div className='d-block d-md-none text-start mx-3 mt-5 bg-light shadow'>
                     <div className='d-flex align-items-center'>
                         <div className="button-wrapper">
-                            <img className='label' src={defaultProfile} alt="" />
+                            {
+                                profileImage?.image ? <img className='label' style={{ width: "100px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                                    user?.image ? <img className='label' style={{ width: "150px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                                        <img className='label' src={defaultProfile} alt="" />
+                            }
                             <input id="upload" className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
                         </div>
                         <div>
@@ -93,7 +95,8 @@ const Profile = () => {
                             <div className="button-wrapper">
                                 {
                                     profileImage?.image ? <img className='label' style={{ width: "150px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                                        <img className='label' src={defaultProfile} alt="" />
+                                        user?.image ? <img className='label' style={{ width: "150px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                                            <img className='label' src={defaultProfile} alt="" />
                                 }
 
                                 <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
@@ -110,52 +113,57 @@ const Profile = () => {
                         <form className='p-1 p-md-5'>
                             <div className='w-100'>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4 className='pe-5'>School/Organization:</h4>
-                                    <div >
-                                        <input className='profile_input' type="text" defaultValue={user.organization} name="" id="" />
+                                    <h4 className='pe-5 input_label'>School/Organization:</h4>
+                                    <div className='mt-2'>
+                                        <input className='profile_input w-100' type="text" defaultValue={user.organization} name="" id="" />
                                     </div>
                                     {/* <p className='mt-1'>abc school</p> */}
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>Email ID:</h4>
-                                    <div >
+                                    <h4 className='input_label'>Email ID:</h4>
+                                    <div className='mt-2'>
                                         <input className='profile_input' type="text" defaultValue={user.email} name="" id="" />
                                     </div>
                                     {/* <p className='mt-1'>abc school</p> */}
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>Designation:</h4>
+                                    <h4 className='input_label'>Designation:</h4>
                                     {/* <p className='mt-1'>abc school</p> */}
-                                    <div >
+                                    <div className='mt-2'>
                                         <input className='profile_input' type="text" defaultValue={user.designation} name="" id="" />
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>City/Town:</h4>
+                                    <h4 className='input_label'>City/Town:</h4>
                                     {/* <p className='mt-1'>abc school</p> */}
-                                    <div >
+                                    <div className='mt-2'>
                                         <input className='profile_input' type="text" defaultValue={user.city} name="" id="" />
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>State:</h4>
-                                    <select className='ps-2 pe-5 py-1' name="" id="">
-                                        {
-                                            state?.map((data, index) => (
-                                                <option key={index} value="">{data.name}</option>
-                                            ))
-                                        }
-                                    </select>
+                                    <h4 className='input_label'>State:</h4>
+                                    {user.city === "International" ?
+                                        <div className='mt-2'>
+                                            <input className='profile_input' type="text" name="" id="" />
+                                        </div> : <select className='ps-2 pe-5 py-1' name="" id="">
+                                            {
+                                                state?.map((data, index) => (
+                                                    <option key={index} value="">{data.name}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    }
+
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>Pincode:</h4>
+                                    <h4 className='input_label'>Pincode:</h4>
                                     {/* <p className='mt-1'>abc school</p> */}
-                                    <div >
-                                        <input className='profile_input' type="text" defaultValue={"abc school"} name="" id="" />
+                                    <div className='mt-2'>
+                                        <input className='profile_input' type="text" defaultValue={user.pincode} name="" id="" />
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-between align-items-center mt-4'>
-                                    <h4>Country:</h4>
+                                    <h4 className='input_label'>Country:</h4>
                                     <select className='ps-2 pe-5 py-1 ' name="" id="">
                                         {
                                             country?.map((item, index) => (

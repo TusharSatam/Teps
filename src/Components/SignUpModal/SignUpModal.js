@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { userRegister } from '../../apis/auth';
@@ -9,19 +8,19 @@ import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 
 const SignUpModal = ({ handleClose, show, setShow }) => {
-    const [error, setError] = useState('');
-    const [required, setRequired] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [citys, setCitys] = useState('');
-    const [cityDisable, setCityDisable] = useState(false);
-    const [interNAtionalDisable, setInterNAtionalDisable] = useState(false);
-    const [checked, setChecked] = useState(false);
-    const [display, setDisplay] = useState('d-none');
-    const [forgot, setForgot] = useState(false);
+    const [error, setError] = React.useState('');
+    const [required, setRequired] = React.useState('');
+    const [emailError, setEmailError] = React.useState('');
+    const [citys, setCitys] = React.useState('');
+    const [cityDisable, setCityDisable] = React.useState(false);
+    const [interNAtionalDisable, setInterNAtionalDisable] = React.useState(false);
+    const [checked, setChecked] = React.useState(false);
+    const [display, setDisplay] = React.useState('d-none');
+    const [forgot, setForgot] = React.useState(false);
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
 
-    useEffect(() => {
+    React.useEffect(() => {
         const url = "./citys.json"
         const fetchData = async () => {
             try {
@@ -45,7 +44,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
             setInterNAtionalDisable(false);
         }
     }
-    useEffect(() => {
+    React.useEffect(() => {
         if (checked) {
             setCityDisable(true);
             setInterNAtionalDisable(false)
