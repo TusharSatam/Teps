@@ -191,11 +191,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                 <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
                                 <span className="checkmark"></span>
                             </div>
-                            <input
-                                type='file'
-                                accept='image/png, image/gif, image/jpeg'
-                                name='img'
-                            />
                             {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
                             <div className='d-flex justify-content-center me-5 pe-4'>
@@ -275,7 +270,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input type="checkbox" name="" id="" /> <span>I am not a robot </span>
                                     <span className="checkmark"></span>
                                 </div>
-                                <input type="file" name="img" id="" />
                                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
                                 <div className='d-flex justify-content-center my-5'>

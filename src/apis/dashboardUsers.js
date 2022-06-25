@@ -22,12 +22,23 @@ export const getSingleUser = async (id) => {
     return userResponse;
 }
 
-// Update User response
-export const updateUser = async (id) => {
-    let userResponse
-    await axios.put(`users`,)
+// update user info
+export const updateUser = async (id, data) => {
+    let updateResponse;
+    await axios.put(`users/${id}`, data)
         .then(res => {
-            userResponse = res
+            updateResponse = res.data;
+
         })
-    return userResponse;
+    return updateResponse;
+}
+// Delet user 
+export const deletUser = async (id) => {
+    let deletResponse;
+    await axios.delete(`users/${id}`)
+        .then(res => {
+            deletResponse = res.data;
+
+        })
+    return deletResponse;
 }

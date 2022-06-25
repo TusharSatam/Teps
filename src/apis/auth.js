@@ -32,3 +32,4 @@ export const updateInfo = async (id, data) => {
         })
     return updateResponse;
 }
+
