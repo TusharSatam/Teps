@@ -1,11 +1,13 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../apis/auth';
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './loginModal.css'
 const LoginModal = ({ handleClose, show, setShow }) => {
+    const { t } = useTranslation()
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
     const [forgot, setForgot] = React.useState(false);
@@ -22,7 +24,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
             .then(res => {
                 if (res) {
                     setShow(false)
-                    setUser(res);
+                    setUser(res.data);
                     setIsAuthenticated(true);
                     window.localStorage.setItem('jwt', JSON.stringify(res.jwt));
                     window.localStorage.setItem('data', JSON.stringify(res.data));
@@ -59,26 +61,26 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                     <div>
                         <div>
                             <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-                            <p className='text-center log_in mt-3'>Let’s get started!</p>
+                            <p className='text-center log_in mt-3'>{t("login_title")}</p>
                         </div>
                         <form onSubmit={handleSIgnIn}>
                             <div className='d-flex justify-content-center'>
                                 <div>
                                     <div className='my-3'>
-                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>Email <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;(Email not found.)</span></label><br />
+                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>{t("email")} <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;(Email not found.)</span></label><br />
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className={error === 'Invalid Email' ? "login_input text-danger border border-danger" : 'login_input'} type="email" />
                                     </div>
 
                                     <div className='my-4'>
-                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Password' ? 'd-flex text-danger' : 'd-flex'}>Password <span className={error === 'Invalid Password' ? 'd-block' : "d-none"}> &nbsp;(Password is incorrect.)</span></label><br />
+                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Password' ? 'd-flex text-danger' : 'd-flex'}>{t("password")} <span className={error === 'Invalid Password' ? 'd-block' : "d-none"}> &nbsp;{t('password_error')}</span></label><br />
                                         <input id='authPass' placeholder='1234567#' className={error === 'Invalid Password' ? "login_input text-danger border border-danger" : 'login_input'} type="password" name='password' /><br />
-                                        <a href="#" onClick={handleForgotShow} ><p className='text-end forgot_pass mt-1'>Forgot Password?</p></a>
+                                        <a href="#" onClick={handleForgotShow} ><p className='text-end forgot_pass mt-1'>{t("forgot_password")}</p></a>
                                     </div>
-                                    <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
+                                    <input type="checkbox" required name="" id="" /> <span>{t("robot")} </span>
                                     <div className='d-flex justify-content-center my-5'>
                                         {
                                             // isLoading ? <button disabled={isLoading} className='submit_btn'>Login</button> :
-                                            <button className='submit_btn'>Login</button>
+                                            <button className='submit_btn'>{t("login")}</button>
                                         }
 
                                     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { userRegister } from '../../apis/auth';
 import CrossIcon from '../../asstes/cross-icon.png'
@@ -8,6 +9,7 @@ import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 
 const SignUpModal = ({ handleClose, show, setShow }) => {
+    const { t } = useTranslation()
     const [error, setError] = React.useState('');
     const [required, setRequired] = React.useState('');
     const [emailError, setEmailError] = React.useState('');
@@ -128,73 +130,73 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     <div>
                         <span className='d-none d-md-block d-xxl-none' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "800px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
                         <span className='d-md-none d-xxl-block' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "850px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
-                        <p className='text-center sign_up'>Register</p>
+                        <p className='text-center sign_up'>{t('register')}</p>
                     </div>
                     <div className='mx-4 mt-4'>
                         <form className='ms-md-3 ms-xxl-5' onSubmit={handleSignUp}>
                             <div className='d-flex '>
                                 <div className='me-5'>
-                                    <label htmlFor="">First Name<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <label htmlFor="">{t('first_name')}<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='firstName' placeholder='Lily' type="text" />
                                 </div>
                                 <div>
-                                    <label htmlFor="">Last Name<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <label htmlFor="">{t('last_name')}<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
                             </div>
                             <div className='my-3'>
-                                <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                <label className={emailError ? "text-danger" : ""} htmlFor="">{t('email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                 <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>Do you want to retrieve your password?</p></a>
+                                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
                             </div>
                             <div className='d-flex  my-3'>
                                 <div className='me-5'>
-                                    <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='designation' placeholder='Designation' type="text" />
+                                    <label htmlFor="">{t('designation')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' name='designation' placeholder={t('designation')} type="text" />
                                 </div>
                                 <div>
-                                    <label htmlFor="">School/Organization<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='organization' placeholder='School/Organization' type="text" />
+                                    <label htmlFor="">{t('scl_org')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' name='organization' placeholder={t('scl_org')} type="text" />
                                 </div>
                             </div>
                             <div className='d-flex  my-3'>
                                 <div className='me-5'>
-                                    <label htmlFor="">City/Town{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
+                                    <label htmlFor="">{t('city')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
                                     <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
-                                        <option value="City/Town" selected >City/Town</option>
+                                        <option value="City/Town" selected >{t('city')}</option>
                                         {
-                                            !citys ? <option value="City/Town" selected >City/Town</option> :
+                                            !citys ? <option value="City/Town" selected >{t('city')}</option> :
                                                 citys.map((data, index) => (
                                                     <option key={index}>{data.City}</option>
                                                 ))
                                         }
                                     </select><br />
                                     <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                                    <label htmlFor="">&nbsp;International</label>
+                                    <label htmlFor="">&nbsp;{t('international')}</label>
                                 </div>
                                 <div>
-                                    <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' min="0" name='pincode' placeholder='Pincode' type="number" />
+                                    <label htmlFor="">{t('pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' min="0" name='pincode' placeholder={t('pincode')} type="number" />
                                 </div>
                             </div>
                             <div className='d-flex my-3'>
                                 <div className='me-5'>
-                                    <label htmlFor="">Password</label> <br />
-                                    <input required className='signup_Input' min="0" name='password' placeholder='Password' type="password" step="1" />
+                                    <label htmlFor="">{t('password')}</label> <br />
+                                    <input required className='signup_Input' min="0" name='password' placeholder={t('password')} type="password" step="1" />
                                 </div>
                                 <div>
-                                    <label htmlFor="">Confirm password</label> <br />
-                                    <input required className='signup_Input' name='confirm_password' placeholder='Confirm password' type="password" />
+                                    <label htmlFor="">{t('confirm_password')}</label> <br />
+                                    <input required className='signup_Input' name='confirm_password' placeholder={t('confirm_password')} type="password" />
                                 </div>
                             </div>
                             <div className='mt-3'>
-                                <input type="checkbox" required name="" id="" /> <span>I am not a robot </span>
+                                <input type="checkbox" required name="" id="" /> <span>{t('robot')}</span>
                                 <span className="checkmark"></span>
                             </div>
                             {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
                             <div className='d-flex justify-content-center me-5 pe-4'>
-                                <button className='submit_btn'>Submit</button>
+                                <button className='submit_btn'>{t('submit')}</button>
                             </div>
                         </form>
                     </div>
@@ -215,65 +217,65 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     <div>
                         <div>
                             <span onClick={handleClose} style={{ cursor: 'pointer' }} className='d-flex justify-content-end '><img width='15px' src={CrossIcon} alt="" /></span>
-                            <p className='text-center sign_up' style={{ fontSize: "20px" }}>Register</p>
+                            <p className='text-center sign_up' style={{ fontSize: "20px" }}>{t('register')}</p>
                         </div>
                         <div className='mx-4 d-flex justify-content-center'>
                             <form onSubmit={handleSignUp}>
                                 <div className='mt-3'>
-                                    <label htmlFor="">First Name<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <label htmlFor="">{t('first_name')}<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='firstName' placeholder='Lily' type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Last Name<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <label htmlFor="">{t('last_name')}<span className='text-danger'>&#x2736;</span></label> <br />
                                     <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label className={emailError ? "text-danger" : ""} htmlFor="">Email<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                                    <label className={emailError ? "text-danger" : ""} htmlFor="">{t('email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                                     <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                                    <a href="#" className={display} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>Do you want to retrieve your password?</p></a>
+                                    <a href="#" className={display} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>{t('retrieve_password')}</p></a>
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Designation<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='designation' placeholder='Designation' type="text" />
+                                    <label htmlFor="">{t('designation')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' name='designation' placeholder={t('designation')} type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">School/Organization<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='organization' placeholder='School/Organization' type="text" />
+                                    <label htmlFor="">{t('scl_org')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' name='organization' placeholder={t('scl_org')} type="text" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">City/Town{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
+                                    <label htmlFor="">{t('city')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
                                     <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
-                                        <option value="City/Town" selected >City/Town</option>
+                                        <option value="City/Town" selected >{t('city')}</option>
                                         {
-                                            !citys ? <option value="City/Town" selected >City/Town</option> :
+                                            !citys ? <option value="City/Town" selected >{t('city')}</option> :
                                                 citys.map((data, index) => (
                                                     <option key={index}>{data.City}</option>
                                                 ))
                                         }
                                     </select><br />
                                     <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                                    <label htmlFor="">&nbsp;International</label>
+                                    <label htmlFor="">&nbsp;{t('international')}</label>
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Pincode<span className='text-danger'>&#x2736;</span></label> <br />
-                                    <input className='signup_Input' name='pincode' min="0" placeholder='Pincode' type="number" />
+                                    <label htmlFor="">{t('pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
+                                    <input className='signup_Input' name='pincode' min="0" placeholder={t('pincode')} type="number" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Password</label> <br />
-                                    <input className='signup_Input' name='password' placeholder='Password' type="password" />
+                                    <label htmlFor="">{t('password')}</label> <br />
+                                    <input className='signup_Input' name='password' placeholder={t('password')} type="password" />
                                 </div>
                                 <div className='mt-3'>
-                                    <label htmlFor="">Confirm password</label> <br />
-                                    <input className='signup_Input' name='confirm_password' placeholder='Confirm password' type="password" />
+                                    <label htmlFor="">{t('confirm_password')}</label> <br />
+                                    <input className='signup_Input' name='confirm_password' placeholder={t('confirm_password')} type="password" />
                                 </div>
                                 <div className='my-3'>
-                                    <input type="checkbox" name="" id="" /> <span>I am not a robot </span>
+                                    <input type="checkbox" name="" id="" /> <span>{t('robot')}</span>
                                     <span className="checkmark"></span>
                                 </div>
                                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
                                 <div className='d-flex justify-content-center my-5'>
-                                    <button className='submit_btn'>Submit</button>
+                                    <button className='submit_btn'>{t('submit')}</button>
                                 </div>
                             </form>
                         </div>

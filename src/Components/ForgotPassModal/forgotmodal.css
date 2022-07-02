@@ -20,7 +20,35 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 32px;
     line-height: 48px;
     color: #1AA05B;
+    letter-spacing: -0.01em;
+    margin-left: 69px;
+    margin-right: 34px;
+    margin-top: 59px;
+    margin-bottom: 162px;
+    
+}
+.send_modal{
+    /* margin-top: ; */
+    border-radius: 12px;
+}
+.sendEmail_modal{
+    background: #FFFFFF;
+    border-radius: 12px;
+    width: 619px;
+}
+.email_icon{
+    
+}
+@media only screen and (max-width: 990px) {
+    .send_modal{
+        padding-right: 20px;
+        padding-left: 50px;
+    }
+    .sendEmail_modal{
+        width: 100%;
+}
+
 }

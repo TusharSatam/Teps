@@ -11,7 +11,10 @@ import favLogo from '../../asstes/favourite.svg'
 import signoutLogo from '../../asstes/signOut.svg'
 import './navbar.css'
 import { Link } from 'react-router-dom';
+import LanguageSelect from '../../languageSelect';
+import { useTranslation } from 'react-i18next';
 const Navbar = () => {
+    const { t } = useTranslation()
     const [show, setShow] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
     const [displayProfile, setDisplayProfile] = useState("d-none")
@@ -46,31 +49,36 @@ const Navbar = () => {
                             <img className='logo2_img' src={Logo} alt="logo2" />
                         </div></Link>
                 </div>
-                {
-                    !isAuthenticated ?
-                        <div className='d-flex me-1 me-md-3'>
-                            <div>
-                                <button onClick={handleShowloginModal} className="authBtnn me-3" >Login</button>
-                            </div>
-                            <div>
-                                <button onClick={handleShow} className='authBtn'>Register</button>
-                            </div>
-                        </div> :
-                        <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
-                            {
-                                user?.image ? <>
-                                    <img className='d-none d-md-block' style={{ width: "60px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                                    <img className='d-block d-md-none' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                                    {/* <img className='d-block d-md-none' src={defaulProfile} alt="" /> */}
-                                </> : <>
-                                    <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
-                                    <img className='d-block d-md-none' src={defaulProfile} alt="" />
-                                </>
-                            }
+                <div className='d-flex align-items-center'>
+                    <div>
+                        <LanguageSelect />
+                    </div>
+                    {
+                        !isAuthenticated ?
+                            <div className='d-flex me-1 me-md-3'>
+                                <div>
+                                    <button onClick={handleShowloginModal} className="authBtnn me-3" >{t('login')}</button>
+                                </div>
+                                <div>
+                                    <button onClick={handleShow} className='authBtn'>{t('register')}</button>
+                                </div>
+                            </div> :
+                            <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
+                                {
+                                    user?.image ? <>
+                                        <img className='d-none d-md-block' style={{ width: "60px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                        <img className='d-block d-md-none' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                        {/* <img className='d-block d-md-none' src={defaulProfile} alt="" /> */}
+                                    </> : <>
+                                        <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
+                                        <img className='d-block d-md-none' src={defaulProfile} alt="" />
+                                    </>
+                                }
 
 
-                        </div>
-                }
+                            </div>
+                    }
+                </div>
             </section>
             <div className={`profile_section + ${displayProfile}`}>
                 <div className='px-3 py-2'>
@@ -80,7 +88,7 @@ const Navbar = () => {
                                 <img className="w-75" src={userLogo} alt="" />
                             </div>
                             <div className='ms-2'>
-                                <p className='mt-2 pt-md-1'>Profile</p>
+                                <p className='mt-2 pt-md-1'>{t('profile')}</p>
                             </div>
                         </div>
                     </Link>
@@ -89,7 +97,7 @@ const Navbar = () => {
                             <img className="w-75" src={saveLogo} alt="" />
                         </div>
                         <div className='ms-2'>
-                            <p className='mt-2 pt-md-1'>Saved Strategies</p>
+                            <p className='mt-2 pt-md-1'>{t('saved_strategies')}</p>
                         </div>
                     </div>
                     <div className='d-flex align-items-center'>
@@ -97,7 +105,7 @@ const Navbar = () => {
                             <img className="w-75" src={favLogo} alt="" />
                         </div>
                         <div className='ms-2'>
-                            <p className='mt-2 pt-md-1'>Favourite Strategies</p>
+                            <p className='mt-2 pt-md-1'>{t('favourite_strategies')}</p>
                         </div>
                     </div>
                     <div onClick={logout}>
@@ -106,7 +114,7 @@ const Navbar = () => {
                                 <img className="w-75" src={signoutLogo} alt="" />
                             </div>
                             <div className='ms-2'>
-                                <p className='mt-2 pt-md-1'>Log out</p>
+                                <p className='mt-2 pt-md-1'>{t('log_out')}</p>
                             </div>
                         </div>
                     </div>

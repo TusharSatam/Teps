@@ -5,8 +5,10 @@ import './forgotmodal.css'
 import ResetPass from './ResetPass';
 import emailjs from '@emailjs/browser';
 import SenEmailModal from './SenEmailModal';
+import { useTranslation } from 'react-i18next';
 
 const ForgotModal = ({ show, setShow }) => {
+    const { t } = useTranslation()
     const [error, setError] = useState('');
     const [sendEmail, setSendEmail] = useState(false);
     const handleClose = () => setShow(false);
@@ -63,19 +65,19 @@ const ForgotModal = ({ show, setShow }) => {
                     <div>
                         <div>
                             <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-                            <p className='text-center forgot_header mt-3'>Forgot your password? Don’t worry. </p>
-                            <p className='text-center forgot_subheader mt-3'>Reset your password to continue! </p>
+                            <p className='text-center forgot_header mt-3'>{t("forgot_pass_ques")} </p>
+                            <p className='text-center forgot_subheader mt-3'>{t("reset_pass_cont")} </p>
                         </div>
                         <form onSubmit={handleForgot}>
                             <div className='d-flex justify-content-center'>
                                 <div>
                                     <div className='my-3'>
-                                        <label htmlFor="">Email</label><br />
+                                        <label htmlFor="">{t("email")}</label><br />
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className='login_input' type="email" />
                                     </div>
                                     {error ? <p className='text-danger'>{error}</p> : ''}
                                     <div className='d-flex justify-content-center my-5'>
-                                        <button className='submit_btn'>Continue </button>
+                                        <button className='submit_btn'>{t("continue")} </button>
                                     </div>
                                 </div>
                             </div>
