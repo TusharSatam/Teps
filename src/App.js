@@ -13,10 +13,12 @@ import DashStratigys from './Pages/Dashboard/DashStratigys';
 import DashboardUsers from './Pages/Dashboard/DashboardUsers';
 import Stratigy from './Pages/Stratigy';
 import DashboardCSV from './Pages/Dashboard/DashboardCSV';
+import UploadStratigys from './Pages/Dashboard/UploadStratigys';
 
 
 function App() {
   axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  // axios.defaults.baseURL = `http://localhost:8080/api/`;
   return (
     <div className='App'>
       <BrowserRouter>
@@ -30,9 +32,10 @@ function App() {
           </Route>
           <Route element={<Dashboard />} >
             <Route exact path='/admin-home' element={<DashHome />} />
+            <Route exact path='/admin-stratigy-dropDown' element={<DashStratigys />} />
             <Route exact path='/admin-users' element={<DashboardUsers />} />
-            {/* <Route exact path='/admin-stratigy' element={<DashStratigys />} /> */}
             <Route exact path='/admin-stratigy' element={<DashboardCSV />} />
+            <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
           </Route>
         </Routes>
       </BrowserRouter>

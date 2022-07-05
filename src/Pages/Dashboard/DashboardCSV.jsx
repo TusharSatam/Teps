@@ -1,11 +1,149 @@
 import React from 'react';
-import CSVReader from 'react-csv-reader';
+import Table from 'react-bootstrap/Table';
+import { Link } from 'react-router-dom';
+import { delStratigys, getStratigys, singleStratigys } from '../../apis/stratigyes';
+import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
+import './styles/DashboardCSV.css'
+import EditStratigyModal from '../../Components/DashboardModal/EditStratigyModal';
 const DashboardCSV = () => {
+    const [stratigys, setStratigys] = React.useState([]);
+    const [str, setStr] = React.useState([]);
+    const [pageCount, setPageCount] = React.useState(1);
+    const [lOutcome, setLOutCame] = React.useState();
+    const [indi, setIndi] = React.useState();
+    const [teaching, setTeaching] = React.useState();
+    const [indi1, setIndi1] = React.useState();
+    const [show, setShow] = React.useState(false);
+    const [singleStr, setSingleStr] = React.useState();
+    const handleClose = () => setShow(false);
+    React.useEffect(() => {
+        getStratigys(pageCount)
+            .then(res => {
+                setStratigys(res.data);
+                setStr(res.data.posts)
+            })
+    }, [pageCount]);
+
+    const handlePrevious = () => {
+        setPageCount(parseInt(pageCount) - 1)
+    }
+
+    const handleNext = () => {
+        setPageCount(parseInt(pageCount) + 1)
+    }
+
+    const showMore = (index) => {
+        const show = stratigys?.posts[index];
+        setLOutCame(show);
+        setIndi(index);
+    }
+
+    const showMore2 = (index) => {
+        const show = stratigys?.posts[index];
+        setTeaching(show);
+        setIndi1(index);
+    }
+
+    const handleDelet = (id) => {
+        delStratigys(id)
+            .then(res => {
+                setStr(str.filter(message => message._id !== id));
+                toast.success('strategie Deleted!')
+            })
+    }
+    const handleEdit = (id) => {
+        singleStratigys(id)
+            .then(res => {
+                setSingleStr(res);
+                setShow(true)
+            })
+    }
 
     return (
         <div>
-            <CSVReader onFileLoaded={(data, fileInfo, originalFile) => console.log(data)} />
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
+            <EditStratigyModal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+                data={singleStr[0]}
+                setShow={setShow}
+            />
+            <div className="d-flex justify-content-end">
+                <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Stratigys</button></Link>
+            </div>
+            <div className='stratigysTable'>
+                <div className="container">
+                    <div className="d-flex justify-content-between">
+                        <h3>All Stratigys</h3>
+                    </div>
+                    <Table striped bordered hover size="sm" className='w-100'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Grade</th>
+                                <th scope="col">Skill</th>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Sub Topic</th>
+                                <th scope="col">Sub-sub topic </th>
+                                <th scope="col">Dev Dom 1 </th>
+                                <th scope="col">Dev Dom 2 </th>
+                                <th scope="col">Mode of Teaching </th>
+                                <th scope="col">Learning Outcome </th>
+                                <th scope="col">Teaching Strategy </th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                stratigys?.posts?.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{stratigys?.currentPage === '1' ? index + 1 :
+                                            parseInt(stratigys?.currentPage) * 10 + (index + 1)
+                                        }</td>
+                                        <td>{item.Subject}</td>
+                                        <td>{item.Grade}</td>
+                                        <td>{item.Skill}</td>
+                                        <td>{item.Topic}</td>
+                                        <td>{item['Sub Topic']}</td>
+                                        <td>{item['Sub Topic']}</td>
+                                        <td>{item['Dev Dom 1']}</td>
+                                        <td>{item['Dev Dom 2']}</td>
+                                        <td>{item['Dev Dom 2']}</td>
+                                        <td>
+                                            {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                                            {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : ''}
+                                        </td>
+                                        <td>
+                                            {index === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                                            {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : ''}
+                                        </td>
+                                        <td>
+                                            <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
+                                                <FaRegTrashAlt />
+                                            </button>
+                                            <button className='btn p-0' onClick={() => handleEdit(item._id)}><FaRegEdit /></button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+
+                        </tbody>
+                    </Table>
+                </div>
+            </div>
+            <div>
+                <button onClick={handlePrevious} disabled={stratigys?.currentPage === '1'} className='btn btn-success me-3'>Previous</button>
+                <button onClick={handleNext} disabled={stratigys?.currentPage === stratigys?.totalPages} className='btn btn-success'>Next</button>
+            </div>
         </div>
     );
 };
