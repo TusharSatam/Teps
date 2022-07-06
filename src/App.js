@@ -9,16 +9,16 @@ import ResetPass from './Components/ForgotPassModal/ResetPass';
 import axios from 'axios';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import DashHome from './Pages/Dashboard/DashHome';
-import DashStratigys from './Pages/Dashboard/DashStratigys';
 import DashboardUsers from './Pages/Dashboard/DashboardUsers';
 import Stratigy from './Pages/Stratigy';
 import DashboardCSV from './Pages/Dashboard/DashboardCSV';
 import UploadStratigys from './Pages/Dashboard/UploadStratigys';
+import FindStratigys from './Pages/Dashboard/FindStratigys';
 
 
 function App() {
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   return (
     <div className='App'>
       <BrowserRouter>
@@ -32,7 +32,7 @@ function App() {
           </Route>
           <Route element={<Dashboard />} >
             <Route exact path='/admin-home' element={<DashHome />} />
-            <Route exact path='/admin-stratigy-dropDown' element={<DashStratigys />} />
+            <Route exact path='/admin-stratigy-dropDown' element={<FindStratigys />} />
             <Route exact path='/admin-users' element={<DashboardUsers />} />
             <Route exact path='/admin-stratigy' element={<DashboardCSV />} />
             <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />

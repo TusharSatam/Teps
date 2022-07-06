@@ -49,8 +49,8 @@ const SideBar = ({ isOpen, toggle }) => {
         </Nav.Item> */}
 
         <Nav.Item className="">
-          <Link className="dash_sidebar_a nav-link" to="/admin-discounts">
-            Discounts
+          <Link className="dash_sidebar_a nav-link" to="/admin-stratigy-dropDown">
+            Find Stratigys
           </Link>
         </Nav.Item>
         <Nav.Item className="">
@@ -59,7 +59,7 @@ const SideBar = ({ isOpen, toggle }) => {
           </Link>
         </Nav.Item>
 
-        <Nav.Item>
+        {/* <Nav.Item>
           <Link className="dash_sidebar_a nav-link" to="/">
             FAQ
           </Link>
@@ -69,7 +69,7 @@ const SideBar = ({ isOpen, toggle }) => {
           <Link className="dash_sidebar_a nav-link" to="/">
             Contact
           </Link>
-        </Nav.Item>
+        </Nav.Item> */}
       </Nav>
     </div>
   );

@@ -56,7 +56,7 @@ const DashboardCSV = () => {
     const handleEdit = (id) => {
         singleStratigys(id)
             .then(res => {
-                setSingleStr(res);
+                setSingleStr(res[0]);
                 setShow(true)
             })
     }
@@ -72,7 +72,7 @@ const DashboardCSV = () => {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
-                data={singleStr[0]}
+                data={singleStr}
                 setShow={setShow}
             />
             <div className="d-flex justify-content-end">
@@ -114,10 +114,10 @@ const DashboardCSV = () => {
                                         <td>{item.Skill}</td>
                                         <td>{item.Topic}</td>
                                         <td>{item['Sub Topic']}</td>
-                                        <td>{item['Sub Topic']}</td>
+                                        <td>{item['Sub-sub topic']}</td>
                                         <td>{item['Dev Dom 1']}</td>
                                         <td>{item['Dev Dom 2']}</td>
-                                        <td>{item['Dev Dom 2']}</td>
+                                        <td>{item['Mode of Teaching']}</td>
                                         <td>
                                             {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
                                             {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : ''}
