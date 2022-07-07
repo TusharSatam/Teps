@@ -7,6 +7,8 @@ import './homelayout.css'
 const HomeLayout = () => {
     const { t } = useTranslation();
     const [allStratigys, setAllStratigys] = React.useState([])
+    const [selectSubject, setSelectSubject] = React.useState()
+    const [selectGrade, setSelectGrade] = React.useState([])
     React.useEffect(() => {
         getAllStratigys()
             .then(res => {
@@ -14,54 +16,101 @@ const HomeLayout = () => {
             })
     }, [])
 
+    const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
+        .map(subject => {
+            return allStratigys.find(a => a.Subject === subject)
+        })
+    const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
+        .map(grade => {
+            return allStratigys.find(a => a.Grade === grade)
+        });
+    const handlesubFilter = (e) => {
+        setSelectSubject(e.target.value);
+    }
+    const handlegradeFilter = (e) => {
+        setSelectGrade(e.target.value)
+    }
+    var aquaticCreatures = allStratigys.filter(function (creature) {
+        return creature.Subject === selectSubject && creature.Grade === selectGrade;
+    });
+    const uniqueTopic = Array.from(new Set(aquaticCreatures?.map(a => a.Topic)))
+        .map(topic => {
+            return aquaticCreatures?.find(a => a.Topic === topic)
+        });
+    const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
+        .map(skill => {
+            return aquaticCreatures?.find(a => a.Skill === skill)
+        });
 
+    const uniqueSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub Topic'])))
+        .map(sub_topic => {
+            return aquaticCreatures?.find(a => a['Sub Topic'] === sub_topic)
+        });
+    const uniqueSubSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub-sub topic'])))
+        .map(sub_sub_topic => {
+            return aquaticCreatures?.find(a => a['Sub-sub topic'] === sub_sub_topic)
+        });
     return (
         <>
             <div className='d-flex flex-column justify-content-center align-items-center my-5'>
                 <div className='my-3'>
-                    <select className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border' name="" id="">
+                    <select onChange={handlesubFilter} className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('subject')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueSubject?.map((item, index) => (
+                                <option key={index} >{item.Subject}</option>
+                            ))
+                        }
                     </select>
-                    <select className='px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+                    <select onChange={handlegradeFilter} className='px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
                         <option value="" selected>{t('grade')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueGrade?.map((item, index) => (
+                                <option key={index} >{item.Grade}</option>
+                            ))
+                        }
                     </select>
                     <select className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('topic')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueTopic?.map((item, index) => (
+                                <option key={index} >{item.Topic}</option>
+                            ))
+                        }
                     </select>
                     <select className='d-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('skill')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueSkill?.map((item, index) => (
+                                <option key={index} >{item.Skill}</option>
+                            ))
+                        }
                     </select>
                 </div>
                 <div>
                     <select className='d-inline d-md-none px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('skill')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueSkill?.map((item, index) => (
+                                <option key={index} >{item.Skill}</option>
+                            ))
+                        }
                     </select>
                     <select className=' px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('sub_topic')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueSubTopic?.map((item, index) => (
+                                <option key={index} >{item['Sub Topic']}</option>
+                            ))
+                        }
                     </select>
                     <select className=' px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         <option value="" selected>{t('sub_sub_topic')}</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
-                        <option value="">data</option>
+                        {
+                            uniqueSubSubTopic?.map((item, index) => (
+                                <option key={index} >{item['Sub-sub topic']}</option>
+                            ))
+                        }
                     </select>
                 </div>
             </div>
