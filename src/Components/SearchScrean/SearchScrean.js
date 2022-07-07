@@ -89,9 +89,9 @@ const SearchScrean = () => {
                     </div>
                 </div>
             </div>
-            <div className='d-flex justify-content-end'>
+            {/* <div className='d-flex justify-content-end'>
                 <LanguageSelect />
-            </div>
+            </div> */}
             <div className='mb-md-5 container_title_sec'>
                 {/* <p className='search-head'>{t("find_the_strategies")}</p> */}
                 <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:</span> <span className='sub-subtitle'>English grammar - Dialog building</span> </p>

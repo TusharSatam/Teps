@@ -52,7 +52,7 @@ const Navbar = () => {
                         </div></Link>
                 </div>
                 <div className='d-flex align-items-center'>
-                    <div className={location.pathname === '/search' || location.pathname === '/home' ? 'd-none' : 'd-block'}>
+                    <div className={location.pathname === '/profile' ? 'd-block' : 'd-none'}>
                         <LanguageSelect />
                     </div>
                     {

@@ -1,10 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { getAllStratigys } from '../../apis/stratigyes';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
 const HomeLayout = () => {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+    const [allStratigys, setAllStratigys] = React.useState([])
+    React.useEffect(() => {
+        getAllStratigys()
+            .then(res => {
+                setAllStratigys(res.data);
+            })
+    }, [])
+
+
     return (
         <>
             <div className='d-flex flex-column justify-content-center align-items-center my-5'>

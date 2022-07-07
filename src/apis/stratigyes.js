@@ -12,6 +12,18 @@ export const getStratigys = async (quiry) => {
         .catch(err => console.log(err))
     return stratigyResponse;
 }
+
+// get All Stratigy
+export const getAllStratigys = async () => {
+    let stratigyResponse
+    await axios.get(`strategies/allStr`)
+        .then(res => {
+            stratigyResponse = res
+        })
+        .catch(err => console.log(err))
+    return stratigyResponse;
+}
+
 // delet Stratigy
 export const delStratigys = async (id) => {
     let stratigyResponse

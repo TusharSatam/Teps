@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../apis/auth';
@@ -23,6 +23,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
         userLogin(data)
             .then(res => {
                 if (res) {
+                    setIsLoading(false);
                     setShow(false)
                     setUser(res.data);
                     setIsAuthenticated(true);
@@ -33,6 +34,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                 setIsLoading(false)
             })
             .catch(err => {
+                setIsLoading(false);
                 setError(err.response.data.message);
                 setIsLoading(false)
             })
@@ -80,7 +82,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                                     <div className='d-flex justify-content-center my-5'>
                                         {
                                             // isLoading ? <button disabled={isLoading} className='submit_btn'>Login</button> :
-                                            <button className='submit_btn'>{t("login")}</button>
+                                            <button disabled={isLoading} className='submit_btn'>{isLoading ? <Spinner className="text-light " animation="border" /> : t("login")}    </button>
                                         }
 
                                     </div>
