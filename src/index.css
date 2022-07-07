@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.language_btn{
+  background: #F8F9FA;
+  border: 1px solid #DCE8E2;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+@media only screen and (max-width: 990px) {
+.language_btn{
+  width: 89px;
+  height: 26px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #6A6A6A;
+}
+
+}

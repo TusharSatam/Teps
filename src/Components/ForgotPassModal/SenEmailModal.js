@@ -22,10 +22,10 @@ const SenEmailModal = ({ show, setShow }) => {
                     <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end '>&#10006;</p>
                     <div>
                         <div className='d-flex justify-content-center'>
-                            <img className='email_icon' style={{ marginTop: "100px" }} width={"110px"} height="110px" src={mailLogo} alt="" />
+                            <img className='email_icon' src={mailLogo} alt="" />
                         </div>
                         <div className='text-center sendMail_text'>
-                            {t("recovery_mail")}
+                            Email Sent! Please check your inbox.
                         </div>
                     </div>
                 </Modal.Body>

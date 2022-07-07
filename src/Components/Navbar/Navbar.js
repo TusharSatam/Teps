@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import Logo from '../../asstes/things_logo.svg'
 import { Buffer } from 'buffer';
 import { useAuth } from '../../Context/AuthContext';
@@ -14,6 +15,7 @@ import { Link } from 'react-router-dom';
 import LanguageSelect from '../../languageSelect';
 import { useTranslation } from 'react-i18next';
 const Navbar = () => {
+    const location = useLocation()
     const { t } = useTranslation()
     const [show, setShow] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
@@ -50,7 +52,7 @@ const Navbar = () => {
                         </div></Link>
                 </div>
                 <div className='d-flex align-items-center'>
-                    <div>
+                    <div className={location.pathname === '/search' || location.pathname === '/home' ? 'd-none' : 'd-block'}>
                         <LanguageSelect />
                     </div>
                     {

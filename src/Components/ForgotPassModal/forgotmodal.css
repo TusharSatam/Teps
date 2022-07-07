@@ -27,7 +27,7 @@
     margin-left: 69px;
     margin-right: 34px;
     margin-top: 59px;
-    margin-bottom: 162px;
+    margin-bottom: 100px;
     
 }
 .send_modal{
@@ -37,18 +37,34 @@
 .sendEmail_modal{
     background: #FFFFFF;
     border-radius: 12px;
-    width: 619px;
+    width: 600px;
 }
 .email_icon{
-    
+    margin-top: 80px;
+    height:110px;
+    width: 110px;
 }
 @media only screen and (max-width: 990px) {
     .send_modal{
-        padding-right: 20px;
-        padding-left: 50px;
+       margin-top: 50px;
     }
     .sendEmail_modal{
         width: 100%;
 }
+    .email_icon{
+        margin-top: 50px;
+        width: 69px;
+        height: 57px;
+    }
+    .sendMail_text{
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: -0.01em;
+        margin-left: 16px;
+        margin-right: 13px;
+        margin-top: 43px;
+        margin-bottom: 100px;
+    }
 
 }

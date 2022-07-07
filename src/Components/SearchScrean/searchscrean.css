@@ -46,18 +46,6 @@
     margin-left: 5px;
     font-weight: bold;
 }
-.goog-te-combo{
-    padding: 5px 10px !important;
-}
-.goog-te-gadget{
-    color: white !important;
-}
-.goog-logo-link{
-    display: none !important;
-}
-.goog-te-banner-frame{
-    display: none !important;
-}
 .container_title_sec{
     margin: 0px 60px;
 }
@@ -91,6 +79,38 @@
 .threeIcons{
     width: 60px;
     height: 60px;
+}
+.icons_heading{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #FFFFFF;
+    background: #1AA05B;
+    border-radius: 2px;
+    padding: 2px 16px;
+    margin-left: -22px;
+}
+.res_btn_icon{
+    width: 40%;
+    display: flex;
+    align-items: center;
+}
+.res_inner_div{
+    border: 0.5px solid #1AA05B;
+    border-radius: 2px;
+}
+.icon_heading_text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 8px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #1AA05B;
+    border-radius: 0.852839px;
 }
 @media only screen and (max-width: 990px) {
     .container_title_sec{
@@ -148,4 +168,11 @@
         padding: 2px 5px;
         border-radius: 50px;
             }
+    .domain_title{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 5px;
+        line-height: 4px;
+    }
 }

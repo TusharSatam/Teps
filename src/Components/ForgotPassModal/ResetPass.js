@@ -24,7 +24,7 @@ const ResetPass = () => {
                 'email': getEmail,
                 'password': e.target.password.value,
             }
-            axios.post("https://guarded-river-11707.herokuapp.com/api/forget/update", data)
+            axios.post("/forget/update", data)
                 .then(res => {
                     alert("Reset Success");
                     e.target.reset()

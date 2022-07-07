@@ -14,6 +14,7 @@ import ChatIcon from '../../asstes/icons/chat.svg'
 import KnowledgeIcon from '../../asstes/icons/knowledge.svg'
 import LikeIcon from '../../asstes/icons/Like.svg'
 import SaveIcon from '../../asstes/icons/Save.svg'
+import LanguageSelect from '../../languageSelect';
 const SearchScrean = () => {
     const [show, setShow] = React.useState(0);
     const [show1, setShow1] = React.useState(0);
@@ -88,15 +89,8 @@ const SearchScrean = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className='d-flex justify-content-end'>
-                <select className='px-3 py-1 bg-light mx-3 ' name="" id="">
-                    <option value="" selected>Language</option>
-                    <option value="">English</option>
-                    <option value="">Bangla</option>
-                </select>
-            </div> */}
-            <div className='d-flex justify-content-end me-3'>
-                <div id="google_translate_element"></div>
+            <div className='d-flex justify-content-end'>
+                <LanguageSelect />
             </div>
             <div className='mb-md-5 container_title_sec'>
                 {/* <p className='search-head'>{t("find_the_strategies")}</p> */}
@@ -116,12 +110,19 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,9 +136,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -145,11 +149,18 @@ const SearchScrean = () => {
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
                                             <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,21 +174,31 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,9 +212,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className=' d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -212,12 +236,19 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,9 +262,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -241,11 +275,18 @@ const SearchScrean = () => {
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
                                             <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,21 +300,31 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,9 +338,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className=' d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -308,12 +362,19 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,9 +388,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -337,11 +401,18 @@ const SearchScrean = () => {
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
                                             <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,21 +426,31 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -383,9 +464,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className=' d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -404,12 +488,19 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -423,9 +514,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -433,11 +527,18 @@ const SearchScrean = () => {
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
                                             <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -451,21 +552,31 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -479,9 +590,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className=' d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -500,12 +614,19 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -519,9 +640,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -529,11 +653,18 @@ const SearchScrean = () => {
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
                                             <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -547,21 +678,31 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className='d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className='row my-4'>
                                         <div className='col-4 col-md-2'>
-                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                            <div className='d-block d-md-none ms-4 mt-3'>
-                                                <div className='col-2 d-flex align-items-center justify-content-center'>
-                                                    <img className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                    <img className='mx-1 threeIcons' src={ChatIcon} alt="" />
-                                                    <img className='threeIcons' src={OnlineIcon} alt="" />
+                                            <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
+                                            <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                <div className='ms-3 mt-1'>
+                                                    <div className='res_btn_icon'>
+                                                        <div className='d-flex flex-column res_inner_div p-1 '>
+                                                            <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                            <img className='threeIcons' src={ChatIcon} alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className='ms-1'>
+                                                        <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -575,9 +716,12 @@ const SearchScrean = () => {
                                             </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                            <div className=' d-flex align-items-center justify-content-center'>
-                                                <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                <img title='Chat' className='mx-3 threeIcons' src={ChatIcon} alt="" />
+                                            <span className='icons_heading'>Development Domain</span>
+                                            <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                    <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                    <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                </div>
                                                 <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
                                             </div>
                                         </div>
@@ -588,140 +732,6 @@ const SearchScrean = () => {
                     </Card>
                 </Accordion>
             </div>
-
-
-            {/* <div className='container my-4'>
-                <div className='row my-4'>
-                    <div className='col-2'>
-                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
-                    </div>
-                    <div className='col-8 Strategy_count_article'>
-                        <p>
-                            This collaborative technique involves setting a scene and, with the students’ help,
-                            writing a dialogue on the board including the language you want to focus on. In Unit
-                            10.6, the teacher provides a framework for a dialogue between waiters and customers in
-                            a restaurant. This is a familiar situation in which the indefinite pronouns something,
-                            anything and nothing occur naturally. Students then either practise the dialogue in pairs
-                            as it is or with variations (eg different choices of food and drink, a different type of
-                            restaurant). A great way to push students towards memorising the language is to gradually
-                            erase the text, word by word, until the students are repeating the dialogue from memory.
-                        </p>
-                        <div className='d-flex align-items-center my-3'>
-                            <img className='me-3' src={SaveIcon} alt="" />
-                            <img src={likeIcon} alt="" />
-                        </div>
-                    </div>
-                    <div className='col-2 d-flex align-items-center justify-content-center'>
-                                            <img width="60px" height="60px" src={KnowledgeIcon} alt="" />
-                                            <img width="60px" height="60px" className='mx-3' src={ChatIcon} alt="" />
-                                            <img width="60px" height="60px" src={OnlineIcon} alt="" />
-                                        </div>
-                </div>
-                <div className='row my-4'>
-                    <div className='col-2'>
-                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                    </div>
-                    <div className='col-8 Strategy_count_article'>
-                        <p>
-                            This collaborative technique involves setting a scene and, with the students’ help,
-                            writing a dialogue on the board including the language you want to focus on. In Unit
-                            10.6, the teacher provides a framework for a dialogue between waiters and customers in
-                            a restaurant. This is a familiar situation in which the indefinite pronouns something,
-                            anything and nothing occur naturally. Students then either practise the dialogue in pairs
-                            as it is or with variations (eg different choices of food and drink, a different type of
-                            restaurant). A great way to push students towards memorising the language is to gradually
-                            erase the text, word by word, until the students are repeating the dialogue from memory.
-                        </p>
-                        <div className='d-flex align-items-center my-3'>
-                            <img className='me-3' src={SaveIcon} alt="" />
-                            <img src={likeIcon} alt="" />
-                        </div>
-                    </div>
-                   <div className='col-2 d-flex align-items-center justify-content-center'>
-                                            <img width="60px" height="60px" src={KnowledgeIcon} alt="" />
-                                            <img width="60px" height="60px" className='mx-3' src={ChatIcon} alt="" />
-                                            <img width="60px" height="60px" src={OnlineIcon} alt="" />
-                                        </div>
-                </div>
-                <div className='row my-4'>
-                    <div className='col-2'>
-                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
-                    </div>
-                    <div className='col-8 Strategy_count_article'>
-                        <p>
-                            This collaborative technique involves setting a scene and, with the students’ help,
-                            writing a dialogue on the board including the language you want to focus on. In Unit
-                            10.6, the teacher provides a framework for a dialogue between waiters and customers in
-                            a restaurant. This is a familiar situation in which the indefinite pronouns something,
-                            anything and nothing occur naturally. Students then either practise the dialogue in pairs
-                            as it is or with variations (eg different choices of food and drink, a different type of
-                            restaurant). A great way to push students towards memorising the language is to gradually
-                            erase the text, word by word, until the students are repeating the dialogue from memory.
-                        </p>
-                        <div className='d-flex align-items-center my-3'>
-                            <img className='me-3' src={SaveIcon} alt="" />
-                            <img src={likeIcon} alt="" />
-                        </div>
-                    </div>
-                    <div className='col-2 d-flex align-items-center justify-content-center'>
-                                            <img width="60px" height="60px" src={KnowledgeIcon} alt="" />
-                                            <img width="60px" height="60px" className='mx-3' src={ChatIcon} alt="" />
-                                            <img width="60px" height="60px" src={OnlineIcon} alt="" />
-                                        </div>
-                </div>
-                <div className='row my-4'>
-                    <div className='col-2'>
-                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>4</span>
-                    </div>
-                    <div className='col-8 Strategy_count_article'>
-                        <p>
-                            This collaborative technique involves setting a scene and, with the students’ help,
-                            writing a dialogue on the board including the language you want to focus on. In Unit
-                            10.6, the teacher provides a framework for a dialogue between waiters and customers in
-                            a restaurant. This is a familiar situation in which the indefinite pronouns something,
-                            anything and nothing occur naturally. Students then either practise the dialogue in pairs
-                            as it is or with variations (eg different choices of food and drink, a different type of
-                            restaurant). A great way to push students towards memorising the language is to gradually
-                            erase the text, word by word, until the students are repeating the dialogue from memory.
-                        </p>
-                        <div className='d-flex align-items-center my-3'>
-                            <img className='me-3' src={SaveIcon} alt="" />
-                            <img src={likeIcon} alt="" />
-                        </div>
-                    </div>
-                  <div className='col-2 d-flex align-items-center justify-content-center'>
-                                            <img width="60px" height="60px" src={KnowledgeIcon} alt="" />
-                                            <img width="60px" height="60px" className='mx-3' src={ChatIcon} alt="" />
-                                            <img width="60px" height="60px" src={OnlineIcon} alt="" />
-                                        </div>
-                </div>
-                <div className='row my-4 pb-5'>
-                    <div className='col-2'>
-                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>5</span>
-                    </div>
-                    <div className='col-8 Strategy_count_article pb-5'>
-                        <p>
-                            This collaborative technique involves setting a scene and, with the students’ help,
-                            writing a dialogue on the board including the language you want to focus on. In Unit
-                            10.6, the teacher provides a framework for a dialogue between waiters and customers in
-                            a restaurant. This is a familiar situation in which the indefinite pronouns something,
-                            anything and nothing occur naturally. Students then either practise the dialogue in pairs
-                            as it is or with variations (eg different choices of food and drink, a different type of
-                            restaurant). A great way to push students towards memorising the language is to gradually
-                            erase the text, word by word, until the students are repeating the dialogue from memory.
-                        </p>
-                        <div className='d-flex align-items-center my-3'>
-                            <img className='me-3' src={SaveIcon} alt="" />
-                            <img src={likeIcon} alt="" />
-                        </div>
-                    </div>
-                   <div className='col-2 d-flex align-items-center justify-content-center'>
-                                            <img width="60px" height="60px" src={KnowledgeIcon} alt="" />
-                                            <img width="60px" height="60px" className='mx-3' src={ChatIcon} alt="" />
-                                            <img width="60px" height="60px" src={OnlineIcon} alt="" />
-                                        </div>
-                </div>
-            </div> */}
         </>
     );
 };

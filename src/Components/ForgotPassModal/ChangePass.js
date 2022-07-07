@@ -18,7 +18,7 @@ const ChangePass = ({ show, setShow }) => {
             'email': e.target.email.value
         }
 
-        axios.post("https://guarded-river-11707.herokuapp.com/api/forget", data)
+        axios.post("/forget", data)
             .then(res => {
                 if (res.data.message === "Have an User") {
                     setShow(false);

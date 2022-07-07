@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { articleData } from '../../content/landingContent';
+import LanguageSelect from '../../languageSelect';
 import './article.css'
 const Article = () => {
     const { t } = useTranslation()
@@ -8,6 +9,9 @@ const Article = () => {
         <>
             <div className='container mt-5 d-none d-md-block'>
                 <hr />
+            </div>
+            <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-50px" }}>
+                <LanguageSelect />
             </div>
             <section className='mx-3 mx-md-5'>
                 <div className='mx-2 mx-md-3 d-flex align-items-center'>

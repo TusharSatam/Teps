@@ -17,8 +17,8 @@ import FindStratigys from './Pages/Dashboard/FindStratigys';
 
 
 function App() {
-  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  axios.defaults.baseURL = `http://localhost:8080/api/`;
+  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  // axios.defaults.baseURL = `http://localhost:8080/api/`;
   return (
     <div className='App'>
       <BrowserRouter>
