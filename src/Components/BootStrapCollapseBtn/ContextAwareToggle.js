@@ -8,9 +8,8 @@ function ContextAwareToggle({ children, eventKey, callback }) {
         eventKey,
         () => callback && callback(eventKey),
     );
-
+    // console.log(activeEventKey);
     const isCurrentEventKey = activeEventKey === eventKey;
-
     return (
         <div className="me-3">
             <button
