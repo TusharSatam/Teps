@@ -50,8 +50,8 @@
     background-color: #F8F9FA;
     right: 0;
     top: 0;
-    margin-top: 40px;
-    margin-right: 130px;
+    margin-top: 70px;
+    margin-right: 80px;
     border-radius: 5px;
 }
 .navLink{
@@ -60,6 +60,10 @@
 }
 .navLink:hover{
     color: black;
+}
+.drop_down_icon{
+    width: 40px;
+    height: 40px;
 }
 @media only screen and (max-width: 990px) {
     .logo_img{
@@ -82,10 +86,14 @@
         width: 207px;
         right: 0;
         top: 0;
-        margin-top: 40px;
+        margin-top: 45px;
         font-weight: 400;
         font-size: 15.0091px;
         line-height: 18px;
-        margin-right: 50px;
+        margin-right: 55px;
+    }
+    .drop_down_icon{
+        width: 24.91px;
+        height: 24.45px;
     }
   }

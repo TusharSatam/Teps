@@ -91,7 +91,7 @@ const Profile = () => {
                 setShow={setForgot}
             />
             <HeroSection />
-            <section className='profile_container'>
+            <section className='profile_container pb-5'>
                 <div style={{ height: "10px" }}></div>
                 <div className='d-block d-md-none text-start mx-3 mt-5 bg-light'>
                     <div className='d-flex align-items-start prfile_pic' style={{ height: '92px' }}>

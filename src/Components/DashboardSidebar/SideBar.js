@@ -48,11 +48,11 @@ const SideBar = ({ isOpen, toggle }) => {
           </Link>
         </Nav.Item> */}
 
-        <Nav.Item className="">
+        {/* <Nav.Item className="">
           <Link className="dash_sidebar_a nav-link" to="/admin-stratigy-dropDown">
             Find Stratigys
           </Link>
-        </Nav.Item>
+        </Nav.Item> */}
         <Nav.Item className="">
           <Link className="dash_sidebar_a nav-link" to="/admin-users">
             All Users

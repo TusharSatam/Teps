@@ -70,13 +70,11 @@ const HomeLayout = () => {
             return aquaticCreatures?.find(a => a['Sub-sub topic'] === sub_sub_topic)
         });
 
-    // console.log(selectTopic, selectSkill, selectSubTopic, selectSubSubTopic);
-
     const handleFindStratigys = () => {
         const aquaticCreatures = allStratigys.filter(function (creature) {
             return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
-        window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+        console.log(aquaticCreatures);
         setStratigyFilData(aquaticCreatures)
         if (aquaticCreatures.length !== 0) {
             navigate('/search')

@@ -14,19 +14,21 @@ import './navbar.css'
 import { Link } from 'react-router-dom';
 import LanguageSelect from '../../languageSelect';
 import { useTranslation } from 'react-i18next';
-const Navbar = () => {
+const Navbar = ({ displayProfile, setDisplayProfile }) => {
     const location = useLocation()
     const { t } = useTranslation()
     const [show, setShow] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
-    const [displayProfile, setDisplayProfile] = useState("d-none")
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleCloseloginModal = () => setLoginModal(false);
     const handleShowloginModal = () => setLoginModal(true);
     const { user, isAuthenticated, logout } = useAuth();
-
+    const handleClick = () => {
+        displayProfile === 'd-none' ?
+            setDisplayProfile('d-block') : setDisplayProfile('d-none')
+    }
     return (
         <>
             <SignUpModal
@@ -65,7 +67,7 @@ const Navbar = () => {
                                     <button onClick={handleShow} className='authBtn'>{t('register')}</button>
                                 </div>
                             </div> :
-                            <div className='profile_a mx-3 mx-md-5' onClick={() => displayProfile === "d-none" ? setDisplayProfile("d-block") : setDisplayProfile("d-none")} >
+                            <div id='profile' className={location.pathname !== '/' ? 'profile_a' : 'profile_a mx-3 mx-md-5'} onClick={handleClick} >
                                 {
                                     user?.image ? <>
                                         <img className='d-none d-md-block' style={{ width: "60px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
@@ -83,40 +85,32 @@ const Navbar = () => {
                 </div>
             </section>
             <div className={`profile_section + ${displayProfile}`}>
-                <div className='px-3 py-2'>
+                <div className='ps-3 py-3'>
                     <Link to="/profile" className='navLink' onClick={() => setDisplayProfile("d-none")}>
                         <div className='d-flex align-items-center'>
-                            <div>
-                                <img className="w-75" src={userLogo} alt="" />
-                            </div>
-                            <div className='ms-2'>
-                                <p className='mt-2 pt-md-1'>{t('profile')}</p>
+                            <img className="drop_down_icon" src={userLogo} alt="" />
+                            <div className='ms-3 mt-2'>
+                                <p >{t('profile')}</p>
                             </div>
                         </div>
                     </Link>
-                    <div className='d-flex align-items-center'>
-                        <div>
-                            <img className="w-75" src={saveLogo} alt="" />
-                        </div>
-                        <div className='ms-2'>
-                            <p className='mt-2 pt-md-1'>{t('saved_strategies')}</p>
+                    <div className='d-flex align-items-center mt-2'>
+                        <img className="drop_down_icon" src={saveLogo} alt="" />
+                        <div className='ms-3 mt-2'>
+                            <p >{t('saved_strategies')}</p>
                         </div>
                     </div>
-                    <div className='d-flex align-items-center'>
-                        <div>
-                            <img className="w-75" src={favLogo} alt="" />
-                        </div>
-                        <div className='ms-2'>
-                            <p className='mt-2 pt-md-1'>{t('favourite_strategies')}</p>
+                    <div className='d-flex align-items-center mt-2'>
+                        <img className="drop_down_icon" src={favLogo} alt="" />
+                        <div className='ms-3 mt-2'>
+                            <p >{t('favourite_strategies')}</p>
                         </div>
                     </div>
-                    <div onClick={logout}>
+                    <div onClick={logout} className="mt-2">
                         <div className='d-flex align-items-center' onClick={() => setDisplayProfile('d-none')} role="button">
-                            <div>
-                                <img className="w-75" src={signoutLogo} alt="" />
-                            </div>
-                            <div className='ms-2'>
-                                <p className='mt-2 pt-md-1'>{t('log_out')}</p>
+                            <img className="drop_down_icon" src={signoutLogo} alt="" />
+                            <div className='ms-3 mt-2'>
+                                <p>{t('log_out')}</p>
                             </div>
                         </div>
                     </div>

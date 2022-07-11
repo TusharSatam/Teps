@@ -13,13 +13,23 @@ import OfflineIcon from '../../asstes/icons/offline.svg'
 import ChatIcon from '../../asstes/icons/chat.svg'
 import KnowledgeIcon from '../../asstes/icons/knowledge.svg'
 import LikeIcon from '../../asstes/icons/Like.svg'
+import LikedIcon from '../../asstes/icons/Liked.svg'
 import SaveIcon from '../../asstes/icons/Save.svg'
+import SavedIcon from '../../asstes/icons/Saved.svg'
 import LanguageSelect from '../../languageSelect';
 import { useAuth } from '../../Context/AuthContext';
 const SearchScrean = () => {
     const { stratigyFilData } = useAuth()
     const [show, setShow] = React.useState([]);
+    const [react, setReact] = React.useState([]);
+    const [like, setLike] = React.useState([]);
     const { t } = useTranslation();
+
+    const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
+        .map(sub_sub_topic => {
+            return stratigyFilData?.find(a => a['Learning Outcome'] === sub_sub_topic)
+        });
+
     const handleCheckbox = async (e) => {
 
         if (show.includes(e)) {
@@ -36,17 +46,37 @@ const SearchScrean = () => {
         setShow([...show], [show]);
     }
 
+    const handleReact = async (e) => {
 
-    const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
-        .map(sub_sub_topic => {
-            return stratigyFilData?.find(a => a['Learning Outcome'] === sub_sub_topic)
-        });
-    // console.log(stratigyFilData);
-    let result = stratigyFilData.filter(o1 => uniqueSubSubTopic.some(o2 => o1['Learning Outcome'] === o2['Learning Outcome']));
-    // console.log(s);
+        if (react.includes(e)) {
+            for (var i = 0; i < react.length; i++) {
+                if (react[i] === e) {
+                    react.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        else {
+            react.push(e)
+        }
+        setReact([...react], [react]);
+    }
 
+    const handleLike = async (e) => {
 
-
+        if (like.includes(e)) {
+            for (var i = 0; i < like.length; i++) {
+                if (like[i] === e) {
+                    like.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        else {
+            like.push(e)
+        }
+        setLike([...like], [like]);
+    }
     return (
         <>
             <div className='stratigy_bg'>
@@ -104,7 +134,7 @@ const SearchScrean = () => {
             </div> */}
             <div className='mb-md-5 container_title_sec'>
                 {/* <p className='search-head'>{t("find_the_strategies")}</p> */}
-                <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:</span> <span className='sub-subtitle'>{stratigyFilData[0]['Sub-sub topic']}</span> </p>
+                <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:</span> <span className='sub-subtitle'>{uniqueSubSubTopic[0]['Sub-sub topic']}</span> </p>
                 <p className='mt-md-4 sub_sub_title'> Learning Outcomes </p>
             </div>
 
@@ -119,120 +149,58 @@ const SearchScrean = () => {
                             <Accordion.Collapse eventKey={index + 1} >
                                 <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom'>
                                     <div className='my-4'>
-                                        <div className='row my-4'>
-                                            <div className='col-4 col-md-2'>
-                                                <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>1</span>
-                                                <div className='d-block d-md-none mt-1'>
-                                                    <div className='icon_heading_text me-3 p-1'>Development Domain</div>
-                                                    <div className='ms-3 mt-1'>
-                                                        <div className='res_btn_icon'>
-                                                            <div className='d-flex flex-column res_inner_div p-1 '>
-                                                                <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
-                                                                <img className='threeIcons' src={ChatIcon} alt="" />
+                                        {
+                                            stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((data, index) => (
+                                                <div className='row my-4'>
+                                                    <div className='col-4 col-md-2'>
+                                                        <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>{index + 1}</span>
+                                                        <div className='d-block d-md-none mt-1'>
+                                                            <div className='icon_heading_text me-3 p-1'>Development Domain</div>
+                                                            <div className='ms-3 mt-1'>
+                                                                <div className='res_btn_icon'>
+                                                                    <div className='d-flex flex-column res_inner_div p-1 '>
+                                                                        <img title={data['Dev Dom 1']} className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                                                        <img title={data['Dev Dom 2']} className='threeIcons' src={ChatIcon} alt="" />
+                                                                    </div>
+                                                                </div>
+                                                                <div className='ms-1'>
+                                                                    {
+                                                                        data['Mode of Teaching'] === "Online" ?
+                                                                            <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                                            <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                                    }
+
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div className='ms-1'>
-                                                            <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                    </div>
+                                                    <div className='col-8 Strategy_count_article'>
+                                                        <p>
+                                                            {data["Teaching Strategy"]}
+                                                        </p>
+                                                        <div className='d-flex align-items-center my-3'>
+                                                            {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3' src={SaveIcon} alt="" />}
+                                                            {like.includes(index) ? <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} src={LikedIcon} alt="" /> : <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} src={LikeIcon} alt="" />}
+
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div className='col-8 Strategy_count_article'>
-                                                <p>
-                                                    Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
-                                                </p>
-                                                <div className='d-flex align-items-center my-3'>
-                                                    <img className='me-3' src={SaveIcon} alt="" />
-                                                    <img src={LikeIcon} alt="" />
-                                                </div>
-                                            </div>
-                                            <div className='col-md-2 d-none d-md-block'>
-                                                <span className='icons_heading'>Development Domain</span>
-                                                <div className='d-flex align-items-center justify-content-center mt-2'>
-                                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                        <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                        <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
-                                                    </div>
-                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='row my-4'>
-                                            <div className='col-4 col-md-2'>
-                                                <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>2</span>
-                                                <div className='d-block d-md-none mt-1'>
-                                                    <div className='icon_heading_text me-3 p-1'>Development Domain</div>
-                                                    <div className='ms-3 mt-1'>
-                                                        <div className='res_btn_icon'>
-                                                            <div className='d-flex flex-column res_inner_div p-1 '>
-                                                                <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
-                                                                <img className='threeIcons' src={ChatIcon} alt="" />
+                                                    <div className='col-md-2 d-none d-md-block'>
+                                                        <span className='icons_heading'>Development Domain</span>
+                                                        <div className='d-flex align-items-center justify-content-center mt-2'>
+                                                            <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                                <img title={data['Dev Dom 1']} className='threeIcons' src={KnowledgeIcon} alt="" />
+                                                                <img title={data['Dev Dom 2']} className='ms-3 threeIcons' src={ChatIcon} alt="" />
                                                             </div>
-                                                        </div>
-                                                        <div className='ms-1'>
-                                                            <img className='threeIcons' src={OnlineIcon} alt="" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className='col-8 Strategy_count_article'>
-                                                <p>
-                                                    Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
-                                                </p>
-                                                <div className='d-flex align-items-center my-3'>
-                                                    <img className='me-3' src={SaveIcon} alt="" />
-                                                    <img src={LikeIcon} alt="" />
-                                                </div>
-                                            </div>
-                                            <div className='col-md-2 d-none d-md-block'>
-                                                <span className='icons_heading'>Development Domain</span>
-                                                <div className='d-flex align-items-center justify-content-center mt-2'>
-                                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                        <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                        <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
-                                                    </div>
-                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='row my-4'>
-                                            <div className='col-4 col-md-2'>
-                                                <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>3</span>
-                                                <div className='d-block d-md-none mt-1'>
-                                                    <div className='icon_heading_text me-3 p-1'>Development Domain</div>
-                                                    <div className='ms-3 mt-1'>
-                                                        <div className='res_btn_icon'>
-                                                            <div className='d-flex flex-column res_inner_div p-1 '>
-                                                                <img className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
-                                                                <img className='threeIcons' src={ChatIcon} alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <div className='ms-1'>
-                                                            <img className='threeIcons' src={OnlineIcon} alt="" />
+                                                            {
+                                                                data['Mode of Teaching'] === "Online" ?
+                                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                                    <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className='col-8 Strategy_count_article'>
-                                                <p>
-                                                    Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
-                                                </p>
-                                                <div className='d-flex align-items-center my-3'>
-                                                    <img className='me-3' src={SaveIcon} alt="" />
-                                                    <img src={LikeIcon} alt="" />
-                                                </div>
-                                            </div>
-                                            <div className='col-md-2 d-none d-md-block'>
-                                                <span className='icons_heading'>Development Domain</span>
-                                                <div className='d-flex align-items-center justify-content-center mt-2'>
-                                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                        <img title='Knowledge' className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                        <img title='Chat' className='ms-3 threeIcons' src={ChatIcon} alt="" />
-                                                    </div>
-                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                            ))
+                                        }
                                     </div>
                                 </Card.Body>
                             </Accordion.Collapse>
