@@ -3,6 +3,11 @@
     color: #1AA05B;
     border-radius: 5px;
 }
+.error-border{
+    border: 1px solid#DD1D43;
+    color: #DD1D43;
+    border-radius: 5px;
+}
 .heroImage{
     background: url('../../asstes/image\ screen.png');
     background-repeat: no-repeat;
@@ -21,6 +26,31 @@
 }
 .heroTitleName{
     padding-top: 150px;
+}
+.Sec_submit_btn{
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: #1AA05B;
+    border: none;
+}
+.Sec_submit_btn:hover{
+    background: #90d3b0;
+}
+.error_text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #DD1D43;
 }
 @media only screen and (max-width: 990px) {
     .heroTitleName{

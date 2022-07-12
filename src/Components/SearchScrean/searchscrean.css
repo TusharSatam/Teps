@@ -126,6 +126,16 @@
     letter-spacing: -0.01em;
     color: #1AA05B;
 }
+.empty_stratigys{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+    color: #000000;
+    margin: 100px 100px 500px 100px;
+}
 @media only screen and (max-width: 990px) {
     .container_title_sec{
         margin: 0px 20px;
