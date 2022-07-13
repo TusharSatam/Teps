@@ -32,13 +32,13 @@ const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const data = localStorage.getItem('filterData');
     React.useEffect(() => {
+        const data = localStorage.getItem('filterData');
         setLoading(true);
         if (data) {
             setStratigyFilData(JSON.parse(data))
         }
-    }, [data]);
+    }, []);
     return (
         <AuthContext.Provider
             value={{ isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData, setStratigyFilData }}>

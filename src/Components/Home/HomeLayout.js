@@ -111,7 +111,7 @@ const HomeLayout = () => {
     return (
         <>
             <div className='d-flex flex-column justify-content-center align-items-center my-5'>
-                <div className={location.pathname === '/home' ? 'my-3' : 'my-3 pt-5'}>
+                <div className={location.pathname === '/home' ? 'my-3 d-flex' : 'my-3 pt-5 d-flex'}>
                     <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border' name="" id="">
                         {
                             location.pathname === '/home' &&
@@ -140,7 +140,7 @@ const HomeLayout = () => {
                             ))
                         }
                     </select>
-                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -173,8 +173,24 @@ const HomeLayout = () => {
                         }
                     </select>
                 </div>
-                <div>
-                    {/* <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                <div className='d-flex mb-3'>
+                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-2' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-2'} name="" id="">
+                        {
+                            selectedOption && location.pathname !== '/home' ?
+                                <>
+                                    <option value="" selected disabled>{t('topic')}</option>
+                                    <option value="" selected disabled>{selectedOption?.selectTopic}</option>
+                                </> :
+                                <option value="" selected disabled>{t('topic')}</option>
+
+                        }
+                        {
+                            uniqueTopic?.map((item, index) => (
+                                <option key={index} >{item.Topic}</option>
+                            ))
+                        }
+                    </select>
+                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -190,7 +206,9 @@ const HomeLayout = () => {
                                 <option key={index} >{item.Skill}</option>
                             ))
                         }
-                    </select> */}
+                    </select>
+                </div>
+                <div>
                     <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?

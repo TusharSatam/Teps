@@ -74,7 +74,7 @@ const DashboardUsers = () => {
                                         <tr
                                             key={index}
                                         >
-                                            <td>{item.firstName}{item.firstName}</td>
+                                            <td>{item.firstName}{item.lastName}</td>
                                             <td>{item.email}</td>
                                             <td>{item.designation}</td>
                                             <td>{item.city}</td>

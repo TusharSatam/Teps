@@ -14,14 +14,26 @@ const Article = () => {
             </div>
             {
                 location.pathname !== '/home' ?
-                    <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-50px" }}>
-                        <LanguageSelect />
+                    <div className='d-none d-md-block'>
+                        <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-50px" }}>
+                            <LanguageSelect />
+                        </div>
                     </div> : <></>
             }
             <section className='mx-3 mx-md-5'>
                 <div className='mx-2 mx-md-3 d-flex align-items-center'>
                     <div className=' '>
-                        <h1 className='article_title'>{t('landing_article_title')}</h1>
+                        <div className='d-flex justify-content-between mt-2 mb-4'>
+                            <h1 className='article_title'>{t('landing_article_title')}</h1>
+                            {
+                                location.pathname !== '/home' ?
+                                    <div className='d-block d-md-none mt-4'>
+                                        <div>
+                                            <LanguageSelect />
+                                        </div>
+                                    </div> : <></>
+                            }
+                        </div>
                         <div className='article_text'>
                             <p>{t('landing_article_sec_text')}</p>
 

@@ -9,10 +9,13 @@ import HeroSection from '../Home/HeroSection';
 import toast, { Toaster } from 'react-hot-toast';
 import './profile.css'
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'react-bootstrap';
+
 const Profile = () => {
     const { t } = useTranslation();
     const { user, setUser } = useAuth();
     const [forgot, setForgot] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [profileImage, setProfileImage] = useState([]);
     const [country, setCountry] = useState([]);
     const [state, setState] = useState([]);
@@ -23,14 +26,14 @@ const Profile = () => {
         let formData = new FormData();
         formData.append('img', e.target.files[0]);
         updateInfo(user._id, formData)
-    }
-    React.useEffect(() => {
-        getSingleUser(user._id)
             .then(res => {
-                setProfileImage(res.data[0]);
-                setUser(res.data[0])
+                getSingleUser(user._id)
+                    .then(res => {
+                        window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                        setUser(res.data[0])
+                    })
             })
-    }, [profileImage?.image?.data?.data]);
+    }
     React.useEffect(() => {
         const url = "./countrys.json"
         const fetchData = async () => {
@@ -61,6 +64,7 @@ const Profile = () => {
         fetchData();
     }, [])
     const handleUpdate = (e) => {
+        setIsLoading(true);
         e.preventDefault();
         const formData = new FormData();
         formData.append('organization', e.target.organization.value);
@@ -72,13 +76,19 @@ const Profile = () => {
         formData.append('country', e.target.country.value);
         updateUser(user._id, formData)
             .then(res => {
-                setUser(profileImage);
-                toast.success('Successfull Update Information!')
+                getSingleUser(user._id)
+                    .then(res => {
+                        window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                        setUser(res.data[0]);
+                        toast.success('Successfull Update Information!')
+                        setIsLoading(false);
+                    })
             })
             .catch(err => {
                 toast.error('Something is wrong please try again!')
             })
     }
+    console.log(isLoading);
     return (
         <>
             <Toaster
@@ -104,8 +114,8 @@ const Profile = () => {
                         </div>
                         <div>
                             <div className='profile_school mt-4'>
-                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} > {user.firstName}{user.lastName}</p>
-                                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} > {user.organization}</p>
+                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} >{user?.firstName}{user?.lastName}</p>
+                                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >{user?.organization}</p>
                                 {/* <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p> */}
                             </div>
                             <div style={{ marginTop: "-25px" }}>
@@ -153,7 +163,7 @@ const Profile = () => {
                                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
                                     <h4 className='pe-5 input_label'>{t('scl_org')}:</h4>
                                     <div className='mt-md-2'>
-                                        <input className='profile_input w-100' type="text" defaultValue={user.organization} name="organization" id="" />
+                                        <input className='profile_input w-100' type="text" defaultValue={user?.organization} name="organization" id="" />
                                     </div>
                                     {/* <p className='mt-1'>abc school</p> */}
                                 </div>
@@ -211,7 +221,11 @@ const Profile = () => {
                                     </select>
                                 </div>
                                 <div className='d-flex justify-content-center mt-4 mt-md-5 py-md-2 '>
-                                    <button type='submit' className='save_change_btn'>{t('save_changes')}</button>
+                                    <button disabled={isLoading} type='submit' className='save_change_btn'>
+                                        {
+                                            isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')
+                                        }
+                                    </button>
                                 </div>
                                 <div className='d-block d-md-none'>
                                     <div className='d-flex justify-content-center mt-4'>
@@ -219,7 +233,9 @@ const Profile = () => {
                                             <button className="authBtn me-3" >{t('favourites')}</button>
                                         </div>
                                         <div>
-                                            <button className='authBtn'>{t('saved')}</button>
+                                            <button className='authBtn'>
+                                                {t('saved')}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
