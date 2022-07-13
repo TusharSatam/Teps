@@ -112,7 +112,7 @@ const HomeLayout = () => {
         <>
             <div className='d-flex flex-column justify-content-center align-items-center my-5'>
                 <div className={location.pathname === '/home' ? 'my-3 d-flex' : 'my-3 pt-5 d-flex'}>
-                    <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border' name="" id="">
+                    <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
                         {
                             location.pathname === '/home' &&
                             <option value="" selected disabled>{t('subject')}</option>
@@ -174,7 +174,7 @@ const HomeLayout = () => {
                     </select>
                 </div>
                 <div className='d-flex mb-3'>
-                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-2' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-2'} name="" id="">
+                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -208,7 +208,47 @@ const HomeLayout = () => {
                         }
                     </select>
                 </div>
-                <div>
+                <div className='d-block justify-content-center align-items-center d-md-none'>
+                    <div>
+                        <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
+                            {
+                                selectedOption && location.pathname !== '/home' ?
+                                    <>
+                                        <option value="" selected disabled>{t('sub_topic')}</option>
+                                        <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>
+                                    </> :
+                                    <>
+                                        <option value="" selected disabled>{t('sub_topic')}</option>
+                                    </>
+                            }
+                            {
+                                uniqueSubTopic?.map((item, index) => (
+                                    <option key={index} >{item['Sub Topic']}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className='mt-3'>
+                        <select onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                            {
+                                selectedOption && location.pathname !== '/home' ?
+                                    <>
+                                        <option value="" selected disabled>{t('sub_sub_topic')}</option>
+                                        <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>
+                                    </> :
+                                    <>
+                                        <option value="" selected disabled>{t('sub_sub_topic')}</option>
+                                    </>
+                            }
+                            {
+                                uniqueSubSubTopic?.map((item, index) => (
+                                    <option key={index} >{item['Sub-sub topic']}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className='d-none d-md-block'>
                     <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
