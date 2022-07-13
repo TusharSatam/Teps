@@ -40,7 +40,7 @@ const UploadStratigys = () => {
                 position="top-right"
                 reverseOrder={false}
             />
-            <p className='text-center fs-2 fw-bold pb-2'>Upload Stratigys File</p>
+            <p className='text-center fs-2 fw-bold pb-2'>Upload Strategies File</p>
             <div className='d-flex justify-content-center'>
                 <form onSubmit={handleFile}>
                     <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="upload" onChange={readUploadFile} multiple />

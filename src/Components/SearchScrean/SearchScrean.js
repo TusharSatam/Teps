@@ -27,8 +27,8 @@ const SearchScrean = () => {
     const { t } = useTranslation();
 
     const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
-        .map(sub_sub_topic => {
-            return stratigyFilData?.find(a => a['Learning Outcome'] === sub_sub_topic)
+        .map(learning_outcome => {
+            return stratigyFilData?.find(a => a['Learning Outcome'] === learning_outcome)
         });
 
     const handleCheckbox = async (e) => {
@@ -78,7 +78,6 @@ const SearchScrean = () => {
         }
         setLike([...like], [like]);
     }
-    // console.log(uniqueSubSubTopic[0]['Learning Outcome']);
     return (
         <>
             <>
@@ -94,7 +93,7 @@ const SearchScrean = () => {
             </div> */}
                         <div className='mb-md-5 container_title_sec'>
                             {/* <p className='search-head'>{t("find_the_strategies")}</p> */}
-                            <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:</span> <span className='sub-subtitle'></span> </p>
+                            <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']}</span> </p>
                             <p className='mt-md-4 sub_sub_title'> Learning Outcomes </p>
                         </div>
 
@@ -102,21 +101,24 @@ const SearchScrean = () => {
                             <Accordion defaultActiveKey="0" alwaysOpen >
                                 {uniqueSubSubTopic?.map((data, index) => (
                                     <Card className='border-0 '>
-                                        <Card.Header className='d-flex align-items-center border-bottom-0 ' style={{ background: "#FFFFFF" }}>
+                                        <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
                                             <ContextAwareToggle eventKey={index + 1}>{show.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
                                             <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                                         </Card.Header>
-                                        <Accordion.Collapse eventKey={index + 1} >
-                                            <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom'>
+                                        <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
+                                            <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
                                                 <div className='my-4'>
                                                     {
                                                         stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((data, index) => (
-                                                            <div className='row my-4'>
-                                                                <div className='col-4 col-md-2'>
-                                                                    <span className='Strategy_count'>{t("strategy")}</span> <span className='counter_str'>{index + 1}</span>
+                                                            <div className='d-flex justify-content-between my-4 '>
+                                                                <div className='me-1'>
+                                                                    <div className='d-flex'>
+                                                                        <p className='Strategy_count me-2'>{t("strategy")}</p>
+                                                                        <div className='counter_str'><p className='mt-md-1'>{index + 1}</p></div>
+                                                                    </div>
                                                                     <div className='d-block d-md-none mt-1'>
-                                                                        <div className='icon_heading_text me-3 p-1'>Development Domain</div>
-                                                                        <div className='ms-3 mt-1'>
+                                                                        <div className='icon_heading_text me-1 p-1'>Development Domain</div>
+                                                                        <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                                                             <div className='res_btn_icon'>
                                                                                 <div className='d-flex flex-column res_inner_div p-1 '>
                                                                                     <img title={data['Dev Dom 1']} className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
@@ -134,13 +136,13 @@ const SearchScrean = () => {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div className='col-8 Strategy_count_article'>
+                                                                <div className='col-9 col-md-8 Strategy_count_article'>
                                                                     <p>
                                                                         {data["Teaching Strategy"]}
                                                                     </p>
                                                                     <div className='d-flex align-items-center my-3'>
-                                                                        {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3' src={SaveIcon} alt="" />}
-                                                                        {like.includes(index) ? <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} src={LikedIcon} alt="" /> : <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} src={LikeIcon} alt="" />}
+                                                                        {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                                                        {like.includes(index) ? <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                                                     </div>
                                                                 </div>

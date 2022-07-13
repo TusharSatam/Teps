@@ -23,7 +23,7 @@ const DashHome = () => {
                     <div className="card-counter primary">
                         <i className="fa fa-code-fork"></i>
                         <span className="count-numbers">{stratigys?.length}</span>
-                        <span className="count-name">Total Stratigys</span>
+                        <span className="count-name">Total Strategies</span>
                     </div>
                 </div>
                 <div className="col-md-3">

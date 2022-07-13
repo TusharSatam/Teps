@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { updateStratigys } from '../../apis/stratigyes';
+import { getStratigys, updateStratigys } from '../../apis/stratigyes';
 
-const EditStratigyModal = ({ show, onHide, data, setShow }) => {
+const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
     console.log(data);
     const handleUpdate = (e) => {
         e.preventDefault();
@@ -22,6 +22,10 @@ const EditStratigyModal = ({ show, onHide, data, setShow }) => {
         updateStratigys(data._id, formData)
             .then(res => {
                 setShow(false)
+                getStratigys()
+                    .then(res => {
+                        setStratigys(res.data.posts);
+                    })
                 toast.success('Update successfull!')
             })
     }

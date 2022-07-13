@@ -174,7 +174,7 @@ const HomeLayout = () => {
                     </select>
                 </div>
                 <div>
-                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                    {/* <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -190,7 +190,7 @@ const HomeLayout = () => {
                                 <option key={index} >{item.Skill}</option>
                             ))
                         }
-                    </select>
+                    </select> */}
                     <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
@@ -229,7 +229,7 @@ const HomeLayout = () => {
             </div>
             <div>
                 {
-                    error && <p className='error_text'>{error}</p>
+                    error && location.pathname === '/home' && <p className='error_text'>{error}</p>
                 }
             </div>
             {

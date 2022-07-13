@@ -76,7 +76,7 @@ const ForgotModal = ({ show, setShow }) => {
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className='login_input' type="email" />
                                     </div>
                                     {error ? <p className='text-danger'>{error}</p> : ''}
-                                    <div className='d-flex justify-content-center my-5'>
+                                    <div className='d-flex justify-content-center my-5 pb-5'>
                                         <button className='submit_btn'>{t("continue")} </button>
                                     </div>
                                 </div>

@@ -74,14 +74,15 @@ const DashboardCSV = () => {
                 keyboard={false}
                 data={singleStr}
                 setShow={setShow}
+                setStratigys={setStr}
             />
             <div className="d-flex justify-content-end">
-                <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Stratigys</button></Link>
+                <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
             </div>
             <div className='stratigysTable'>
                 <div className="container">
                     <div className="d-flex justify-content-between">
-                        <h3>All Stratigys</h3>
+                        <h3>All Strategies</h3>
                     </div>
                     <Table striped bordered hover size="sm" className='w-100'>
                         <thead>
@@ -104,7 +105,7 @@ const DashboardCSV = () => {
                         <tbody>
 
                             {
-                                stratigys?.posts?.map((item, index) => (
+                                str?.map((item, index) => (
                                     <tr key={index}>
                                         <td>{stratigys?.currentPage === '1' ? index + 1 :
                                             parseInt(stratigys?.currentPage) * 10 + (index + 1)

@@ -20,14 +20,14 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 28px;
     line-height: 48px;
     color: #1AA05B;
     letter-spacing: -0.01em;
-    margin-left: 69px;
-    margin-right: 34px;
-    margin-top: 59px;
-    margin-bottom: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 28px;
+    margin-bottom: 110px;
     
 }
 .send_modal{
@@ -37,12 +37,12 @@
 .sendEmail_modal{
     background: #FFFFFF;
     border-radius: 12px;
-    width: 600px;
+    /* width: 600px; */
 }
 .email_icon{
-    margin-top: 80px;
-    height:110px;
-    width: 110px;
+    margin-top: 60px;
+    height:90px;
+    width: 90px;
 }
 @media only screen and (max-width: 990px) {
     .send_modal{
@@ -64,7 +64,16 @@
         margin-left: 16px;
         margin-right: 13px;
         margin-top: 43px;
-        margin-bottom: 100px;
+        margin-bottom: 150px;
     }
-
+.forgot_header{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 35px;
+    text-align: center;
+    letter-spacing: -0.01em;
+    color: #1AA05B;
+}
 }

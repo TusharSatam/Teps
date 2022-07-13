@@ -57,9 +57,10 @@
 .navLink{
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 .navLink:hover{
-    color: black;
+    color: #1AA05B;
 }
 .drop_down_icon{
     width: 40px;

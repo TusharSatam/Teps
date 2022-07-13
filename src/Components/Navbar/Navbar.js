@@ -54,7 +54,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
                         </div></Link>
                 </div>
                 <div className='d-flex align-items-center'>
-                    <div className={location.pathname === '/profile' ? 'd-block' : 'd-none'}>
+                    <div className={location.pathname === '/profile' || location.pathname === '/home' ? 'd-block' : 'd-none'}>
                         <LanguageSelect />
                     </div>
                     {
@@ -94,19 +94,19 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
                             </div>
                         </div>
                     </Link>
-                    <div className='d-flex align-items-center mt-2'>
+                    <div className='d-flex align-items-center mt-2 navLink'>
                         <img className="drop_down_icon" src={saveLogo} alt="" />
                         <div className='ms-3 mt-2'>
                             <p >{t('saved_strategies')}</p>
                         </div>
                     </div>
-                    <div className='d-flex align-items-center mt-2'>
+                    <div className='d-flex align-items-center mt-2 navLink'>
                         <img className="drop_down_icon" src={favLogo} alt="" />
                         <div className='ms-3 mt-2'>
                             <p >{t('favourite_strategies')}</p>
                         </div>
                     </div>
-                    <div onClick={logout} className="mt-2">
+                    <div onClick={logout} className="mt-2 navLink">
                         <div className='d-flex align-items-center' onClick={() => setDisplayProfile('d-none')} role="button">
                             <img className="drop_down_icon" src={signoutLogo} alt="" />
                             <div className='ms-3 mt-2'>

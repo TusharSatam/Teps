@@ -38,7 +38,7 @@ const SideBar = ({ isOpen, toggle }) => {
 
         <Nav.Item>
           <Link className="dash_sidebar_a nav-link" to="/admin-stratigy">
-            Stratigys
+            Strategies
           </Link>
         </Nav.Item>
 

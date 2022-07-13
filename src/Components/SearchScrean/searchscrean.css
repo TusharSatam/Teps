@@ -24,6 +24,14 @@
     font-size: 32px;
     line-height: 39px;
 }
+.acordonia_coll{
+    background: none!important;
+}
+.card_pad{
+    padding-top: 0!important;
+    padding-left: 0!important;
+    padding-bottom: 0!important;
+}
 .Strategy_count{
     font-family: 'Inter';
     font-style: normal;
@@ -31,6 +39,7 @@
     font-size: 24px;
     line-height: 29px;
     color: #1AA05B;
+    margin-bottom: 2px;
 }
 .Strategy_count_article p{
     font-family: 'Inter';
@@ -40,12 +49,18 @@
     line-height: 26px;
 }
 .counter_str{
+    width: 35px;
+    height: 35px;
     background: #1AA05B;
     padding: 2px 8px;
-    border-radius: 15px;
+    border-radius: 105px;
     margin-left: 5px;
     font-weight: bold;
     color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
 }
 .container_title_sec{
     margin: 0px 60px;
@@ -91,7 +106,7 @@
     background: #1AA05B;
     border-radius: 2px;
     padding: 2px 16px;
-    margin-left: -22px;
+    margin-left: -10px;
 }
 .res_btn_icon{
     width: 40%;
@@ -182,17 +197,19 @@
         text-align: justify;
     }
     .threeIcons{
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
     }
     .counter_str{
+        width: 14px;
+        height: 14px;
+        font-family: 'Inter';
+        font-style: normal;
         font-weight: 700;
         font-size: 8px;
         line-height: 10px;
-        padding: 2px 5px;
-        border-radius: 50px;
-        color: #FFFFFF;
-            }
+        padding: 2px 3px;
+    }
     .domain_title{
         font-family: 'Inter';
         font-style: normal;
@@ -205,5 +222,13 @@
         font-weight: 700;
         font-size: 12px;
         line-height: 24px;
+    }
+    .save_like{
+        width:9.33px;
+        height:12.04px;
+    }
+    .save_likes{
+        width:11.67px;
+        height:10.78px;
     }
 }

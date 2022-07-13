@@ -60,7 +60,6 @@ const Profile = () => {
 
         fetchData();
     }, [])
-
     const handleUpdate = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -105,9 +104,9 @@ const Profile = () => {
                         </div>
                         <div>
                             <div className='profile_school mt-4'>
-                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} > Lilyblom</p>
-                                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} > Abc school</p>
-                                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p>
+                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} > {user.firstName}{user.lastName}</p>
+                                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} > {user.organization}</p>
+                                {/* <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p> */}
                             </div>
                             <div style={{ marginTop: "-25px" }}>
                                 <button onClick={handleForgotShow} className='change_btn'>{t('change_password')}</button>
@@ -131,7 +130,7 @@ const Profile = () => {
                                 <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
                             </div>
                             <div className='profile_school mt-5'>
-                                <p>Lilyblom <br /> Abc school</p>
+                                <p>{user.firstName}{user.lastName} </p> <p> {user.organization}</p>
                             </div>
                             <div style={{ marginTop: "110px" }}>
                                 <div className='d-flex justify-content-center py-5'>
