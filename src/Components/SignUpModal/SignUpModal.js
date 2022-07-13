@@ -19,6 +19,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const [checked, setChecked] = React.useState(false);
     const [display, setDisplay] = React.useState('d-none');
     const [forgot, setForgot] = React.useState(false);
+    const [checkError, setCheckError] = React.useState('');
+
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
 
@@ -60,51 +62,57 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const handleSignUp = (e) => {
         e.preventDefault();
         let equalPass;
-        if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-            e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
-        ) {
-            setRequired("");
-            if (e.target.password.value === e.target.confirm_password.value) {
-                setError("");
-                setEmailError("")
-                equalPass = e.target.password.value;
-                const city = e.target.city.value;
-                const formData = new FormData();
-                formData.append('firstName', e.target.firstName.value);
-                formData.append('lastName', e.target.lastName.value);
-                formData.append('email', e.target.email.value);
-                formData.append('designation', e.target.designation.value);
-                formData.append('organization', e.target.organization.value);
-                formData.append('city', checked ? "International" : city);
-                formData.append('pincode', e.target.pincode.value);
-                formData.append('password', equalPass);
-                // formData.append('image', e.target.img.files[0]);
-                userRegister(formData)
-                    .then(res => {
-                        e.target.reset();
-                        setShow(false)
-                        setUser(res.data.data);
-                        setIsAuthenticated(true);
-                        window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                        window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                        navigate('/home')
-                    })
-                    .catch(err => {
-                        if (err.response.status === 409) {
-                            setEmailError("(This email is already in use.)")
-                            setDisplay("d-block")
-                        }
-                        else console.log(err);
-                    })
+        if (e.target.checkmark.checked === true) {
+            setCheckError('');
+            if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
+                e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
+            ) {
+                setRequired("");
+                if (e.target.password.value === e.target.confirm_password.value) {
+                    setError("");
+                    setEmailError("")
+                    equalPass = e.target.password.value;
+                    const city = e.target.city.value;
+                    const formData = new FormData();
+                    formData.append('firstName', e.target.firstName.value);
+                    formData.append('lastName', e.target.lastName.value);
+                    formData.append('email', e.target.email.value);
+                    formData.append('designation', e.target.designation.value);
+                    formData.append('organization', e.target.organization.value);
+                    formData.append('city', checked ? "International" : city);
+                    formData.append('pincode', e.target.pincode.value);
+                    formData.append('password', equalPass);
+                    // formData.append('image', e.target.img.files[0]);
+                    userRegister(formData)
+                        .then(res => {
+                            e.target.reset();
+                            setShow(false)
+                            setUser(res.data.data);
+                            setIsAuthenticated(true);
+                            window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                            window.localStorage.setItem('data', JSON.stringify(res.data.data));
+                            navigate('/home')
+                        })
+                        .catch(err => {
+                            if (err.response.status === 409) {
+                                setEmailError("(This email is already in use.)")
+                                setDisplay("d-block")
+                            }
+                            else console.log(err);
+                        })
+
+                }
+                else {
+                    setError("Password Didn't Match");
+                }
 
             }
             else {
-                setError("Password Didn't Match");
+                setRequired("Please fill all the fields above ")
             }
-
         }
         else {
-            setRequired("Please fill all the fields above ")
+            setCheckError("Please check the box if you want to proceed")
         }
     }
     const handleForgotShow = () => {
@@ -189,12 +197,18 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <input required className='signup_Input' name='confirm_password' placeholder={t('confirm_password')} type="password" />
                                 </div>
                             </div>
-                            <div className='mt-3'>
-                                <input type="checkbox" required name="" id="" /> <span>{t('robot')}</span>
-                                <span className="checkmark"></span>
+                            <div className='d-flex'>
+                                <div className='mt-1 d-none d-md-block'>
+                                    <label class="containerr">
+                                        <input name='checkmark' type="checkbox" />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("robot")}</p>
                             </div>
                             {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
+                            <p className='text-danger '>{checkError ? checkError : ""}</p>
                             <div className='d-flex justify-content-center me-5 pe-4'>
                                 <button className='submit_btn'>{t('submit')}</button>
                             </div>
@@ -268,12 +282,18 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                                     <label htmlFor="">{t('confirm_password')}</label> <br />
                                     <input className='signup_Input' name='confirm_password' placeholder={t('confirm_password')} type="password" />
                                 </div>
-                                <div className='my-3'>
-                                    <input type="checkbox" name="" id="" /> <span>{t('robot')}</span>
-                                    <span className="checkmark"></span>
+                                <div className='d-flex my-3'>
+                                    <div className='mt-1 d-block d-md-none'>
+                                        <label class="containerr">
+                                            <input name='checkmark' type="checkbox" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("robot")}</p>
                                 </div>
                                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
+                                <p className='text-danger '>{checkError ? checkError : ""}</p>
                                 <div className='d-flex justify-content-center my-5'>
                                     <button className='submit_btn'>{t('submit')}</button>
                                 </div>
