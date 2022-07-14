@@ -9,6 +9,7 @@ const ResetPass = () => {
     const [error, setError] = useState('');
     const [show, setShow] = useState(true);
     const [getEmail, setGetEmail] = useState(true);
+    const [passError, setPassError] = React.useState('');
     const navigate = useNavigate();
 
 
@@ -18,24 +19,29 @@ const ResetPass = () => {
     }, [])
     const handleSIgnIn = (e) => {
         e.preventDefault();
-        if (e.target.password.value === e.target.confirm_password.value) {
-            setError('')
-            const data = {
-                'email': getEmail,
-                'password': e.target.password.value,
+        if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+            if (e.target.password.value === e.target.confirm_password.value) {
+                setError('')
+                const data = {
+                    'email': getEmail,
+                    'password': e.target.password.value,
+                }
+                axios.post("/forget/update", data)
+                    .then(res => {
+                        alert("Reset Success");
+                        e.target.reset()
+                        navigate('/')
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             }
-            axios.post("/forget/update", data)
-                .then(res => {
-                    alert("Reset Success");
-                    e.target.reset()
-                    navigate('/')
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+            else {
+                setError("Password didn't match")
+            }
         }
         else {
-            setError("Password didn't match")
+            setPassError('Please enter a minimum of 5 characters.')
         }
 
     }
@@ -68,6 +74,8 @@ const ResetPass = () => {
                                         <input placeholder='1234567#' className='login_input' type="password" name='confirm_password' /><br />
                                     </div>
                                     {error ? <p className='text-danger'>{error}</p> : ''}
+                                    {passError ? <p style={{ fontSize: "12px" }} className='text-danger'>{passError}</p> : ""}
+                                    {/* <p className='text-danger me-5 pe-4'>{passError ? passError : ""}</p> */}
                                     <div className='d-flex justify-content-center my-5'>
                                         <button className='submit_btn'>{t("reset_pass")}</button>
                                     </div>
