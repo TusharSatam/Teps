@@ -20,6 +20,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const [display, setDisplay] = React.useState('d-none');
     const [forgot, setForgot] = React.useState(false);
     const [checkError, setCheckError] = React.useState('');
+    const [passError, setPassError] = React.useState('');
 
     const navigate = useNavigate();
     const { setIsAuthenticated, setUser } = useAuth();
@@ -64,51 +65,56 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         let equalPass;
         if (e.target.checkmark.checked === true) {
             setCheckError('');
-            if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-                e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
-            ) {
-                setRequired("");
-                if (e.target.password.value === e.target.confirm_password.value) {
-                    setError("");
-                    setEmailError("")
-                    equalPass = e.target.password.value;
-                    const city = e.target.city.value;
-                    const formData = new FormData();
-                    formData.append('firstName', e.target.firstName.value);
-                    formData.append('lastName', e.target.lastName.value);
-                    formData.append('email', e.target.email.value);
-                    formData.append('designation', e.target.designation.value);
-                    formData.append('organization', e.target.organization.value);
-                    formData.append('city', checked ? "International" : city);
-                    formData.append('pincode', e.target.pincode.value);
-                    formData.append('password', equalPass);
-                    // formData.append('image', e.target.img.files[0]);
-                    userRegister(formData)
-                        .then(res => {
-                            e.target.reset();
-                            setShow(false)
-                            setUser(res.data.data);
-                            setIsAuthenticated(true);
-                            window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                            window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                            navigate('/home')
-                        })
-                        .catch(err => {
-                            if (err.response.status === 409) {
-                                setEmailError("(This email is already in use.)")
-                                setDisplay("d-block")
-                            }
-                            else console.log(err);
-                        })
+            if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+                if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
+                    e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
+                ) {
+                    setRequired("");
+                    if (e.target.password.value === e.target.confirm_password.value) {
+                        setError("");
+                        setEmailError("")
+                        equalPass = e.target.password.value;
+                        const city = e.target.city.value;
+                        const formData = new FormData();
+                        formData.append('firstName', e.target.firstName.value);
+                        formData.append('lastName', e.target.lastName.value);
+                        formData.append('email', e.target.email.value);
+                        formData.append('designation', e.target.designation.value);
+                        formData.append('organization', e.target.organization.value);
+                        formData.append('city', checked ? "International" : city);
+                        formData.append('pincode', e.target.pincode.value);
+                        formData.append('password', equalPass);
+                        // formData.append('image', e.target.img.files[0]);
+                        userRegister(formData)
+                            .then(res => {
+                                e.target.reset();
+                                setShow(false)
+                                setUser(res.data.data);
+                                setIsAuthenticated(true);
+                                window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                                window.localStorage.setItem('data', JSON.stringify(res.data.data));
+                                navigate('/home')
+                            })
+                            .catch(err => {
+                                if (err.response.status === 409) {
+                                    setEmailError("(This email is already in use.)")
+                                    setDisplay("d-block")
+                                }
+                                else console.log(err);
+                            })
+
+                    }
+                    else {
+                        setError("Password Didn't Match");
+                    }
 
                 }
                 else {
-                    setError("Password Didn't Match");
+                    setRequired("Please fill all the fields above ")
                 }
-
             }
             else {
-                setRequired("Please fill all the fields above ")
+                setPassError('Please enter a minimum of 5 characters in the password field.')
             }
         }
         else {
@@ -209,6 +215,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
                             {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
                             <p className='text-danger '>{checkError ? checkError : ""}</p>
+                            <p className='text-danger text-center me-5 pe-4'>{passError ? passError : ""}</p>
                             <div className='d-flex justify-content-center me-5 pe-4'>
                                 <button className='submit_btn'>{t('submit')}</button>
                             </div>

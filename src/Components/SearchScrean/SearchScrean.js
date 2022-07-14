@@ -32,7 +32,7 @@ const SearchScrean = () => {
         .map(learning_outcome => {
             return stratigyFilData?.find(a => a['Learning Outcome'] === learning_outcome)
         });
-
+    console.log(stratigyFilData);
     const handleCheckbox = async (e) => {
 
         if (show.includes(e)) {

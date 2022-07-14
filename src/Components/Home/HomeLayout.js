@@ -32,7 +32,19 @@ const HomeLayout = () => {
         if (selectedDropdown) {
             setSelectedOption(JSON.parse(selectedDropdown))
         }
-    }, [location.pathname])
+    }, [])
+    React.useEffect(() => {
+        if (location.pathname !== '/home') {
+            if (selectedOption) {
+                setSelectSubject(selectedOption?.selectSubject)
+                setSelectGrade(selectedOption?.selectGrade)
+                setSelectTopic(selectedOption?.selectTopic)
+                setSelectSkill(selectedOption?.selectSkill)
+                setSelectSubTopic(selectedOption?.selectSubTopic)
+                setSelectSubSubTopic(selectedOption?.selectSubSubTopic)
+            }
+        }
+    }, [selectedOption, location.pathname])
     const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
         .map(subject => {
             return allStratigys.find(a => a.Subject === subject)
@@ -59,9 +71,11 @@ const HomeLayout = () => {
     const handleSubSUbTopicFilter = (e) => {
         setSelectSubSubTopic(e.target.value)
     }
+    // console.log(selectSubSubTopic);
     const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade;
-    });
+    })
+
     const uniqueTopic = Array.from(new Set(aquaticCreatures?.map(a => a.Topic)))
         .map(topic => {
             return aquaticCreatures?.find(a => a.Topic === topic)
@@ -82,28 +96,44 @@ const HomeLayout = () => {
 
     const handleFindStratigys = () => {
 
-        if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
+        if (location.pathname === '/home') {
+            if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
+                const aquaticCreatures = allStratigys.filter(function (creature) {
+                    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+                });
+                console.log(aquaticCreatures);
+                setStratigyFilData(aquaticCreatures)
+                if (aquaticCreatures.length !== 0) {
+                    if (location.pathname === '/home') {
+                        navigate('/search')
+                    }
+                    window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+                }
+                else {
+                    setError("No strategies are available for this combination. Please try a different combination.")
+                }
+            }
+            else {
+                if (!selectSkill) { setError1(true) }
+                if (!selectTopic) { setError2(true) }
+                if (!selectSubTopic) { setError3(true) }
+                if (!selectSubSubTopic) { setError4(true) }
+                setError("Please fill all the boxes to proceed.")
+            }
+        }
+        else {
+
             const aquaticCreatures = allStratigys.filter(function (creature) {
                 return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
             });
             console.log(aquaticCreatures);
             setStratigyFilData(aquaticCreatures)
-            if (aquaticCreatures.length !== 0) {
-                if (location.pathname === '/home') {
-                    navigate('/search')
-                }
-                window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
-            }
-            else {
+            if (aquaticCreatures.length === 0) {
                 setError("No strategies are available for this combination. Please try a different combination.")
             }
-        }
-        else {
-            if (!selectSkill) { setError1(true) }
-            if (!selectTopic) { setError2(true) }
-            if (!selectSubTopic) { setError3(true) }
-            if (!selectSubSubTopic) { setError4(true) }
-            setError("Please fill all the boxes to proceed.")
+            // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
+            // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);
+
         }
 
     }
@@ -114,8 +144,13 @@ const HomeLayout = () => {
                 <div className={location.pathname === '/home' ? 'my-3 d-flex' : 'my-3 pt-5 d-flex'}>
                     <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
                         {
-                            location.pathname === '/home' &&
-                            <option value="" selected disabled>{t('subject')}</option>
+                            selectedOption && location.pathname !== '/home' ?
+                                <>
+                                    <option value="" selected disabled>{t('subject')}</option>
+                                    <option value="" selected disabled>{selectedOption?.selectSubject}</option>
+                                </> :
+                                <option value="" selected disabled>{t('subject')}</option>
+
                         }
                         {
                             uniqueSubject?.map((item, index) => (
@@ -123,16 +158,15 @@ const HomeLayout = () => {
                             ))
                         }
                     </select>
-                    <select onChange={handlegradeFilter} defaultValue={selectedOption?.selectGrade} className='px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+                    <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
                                     <option value="" selected disabled>{t('grade')}</option>
                                     <option value="" selected disabled>{selectedOption?.selectGrade}</option>
                                 </> :
-                                <>
-                                    <option value="" selected disabled>{t('grade')}</option>
-                                </>
+                                <option value="" selected disabled>{t('grade')}</option>
+
                         }
                         {
                             uniqueGrade?.map((item, index) => (
