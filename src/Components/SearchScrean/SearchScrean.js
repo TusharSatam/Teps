@@ -93,12 +93,11 @@ const SearchScrean = () => {
                         {/* <div className='d-flex justify-content-end'>
                 <LanguageSelect />
             </div> */}
-                        <div className='mb-md-5 container_title_sec'>
+                        <div className='mb-md-3 container_title_sec'>
                             {/* <p className='search-head'>{t("find_the_strategies")}</p> */}
                             <p className='mt-md-5'> <span className='sub-title'>{t("sub_sub_topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']}</span> </p>
                             <p className='mt-md-4 sub_sub_title'> Learning Outcomes </p>
                         </div>
-
                         <div className='dropDownContainer mb-5'>
                             <Accordion defaultActiveKey="0" alwaysOpen >
                                 {uniqueSubSubTopic?.map((data, index) => (
