@@ -12,6 +12,8 @@ import OnlineIcon from '../../asstes/icons/online.svg'
 import OfflineIcon from '../../asstes/icons/offline.svg'
 import ChatIcon from '../../asstes/icons/chat.svg'
 import KnowledgeIcon from '../../asstes/icons/knowledge.svg'
+import Physical from '../../asstes/icons/Motor-Physical.png'
+import Social from '../../asstes/icons/Socio-Emotional-Ethical.png'
 import LikeIcon from '../../asstes/icons/Like.svg'
 import LikedIcon from '../../asstes/icons/Liked.svg'
 import SaveIcon from '../../asstes/icons/Save.svg'
@@ -113,7 +115,7 @@ const SearchScrean = () => {
                                                             <div className='d-flex justify-content-between my-4 '>
                                                                 <div className='me-1'>
                                                                     <div className='d-flex'>
-                                                                        <p className='Strategy_count me-2'>{t("strategy")}</p>
+                                                                        <p className='Strategy_count'>{t("strategy")}</p>
                                                                         <div className='counter_str'><p className='mt-md-1'>{index + 1}</p></div>
                                                                     </div>
                                                                     <div className='d-block d-md-none mt-1'>
@@ -121,8 +123,16 @@ const SearchScrean = () => {
                                                                         <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                                                             <div className='res_btn_icon'>
                                                                                 <div className='d-flex flex-column res_inner_div p-1 '>
-                                                                                    <img title={data['Dev Dom 1']} className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
-                                                                                    <img title={data['Dev Dom 2']} className='threeIcons' src={ChatIcon} alt="" />
+                                                                                    {
+                                                                                        data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                                                            <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                            <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                                    }
+                                                                                    {
+                                                                                        data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
+                                                                                            <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                                                            <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                                                    }
                                                                                 </div>
                                                                             </div>
                                                                             <div className='ms-1'>
@@ -150,8 +160,16 @@ const SearchScrean = () => {
                                                                     <span className='icons_heading'>Development Domain</span>
                                                                     <div className='d-flex align-items-center justify-content-center mt-2'>
                                                                         <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                                            <img title={data['Dev Dom 1']} className='threeIcons' src={KnowledgeIcon} alt="" />
-                                                                            <img title={data['Dev Dom 2']} className='ms-3 threeIcons' src={ChatIcon} alt="" />
+                                                                            {
+                                                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                                                    <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                    <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                            }
+                                                                            {
+                                                                                data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
+                                                                                    <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                                                    <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                                                            }
                                                                         </div>
                                                                         {
                                                                             data['Mode of Teaching'] === "Online" ?

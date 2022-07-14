@@ -9,13 +9,13 @@ const Article = () => {
     const location = useLocation();
     return (
         <>
-            <div className='container mt-2 mt-md-5'>
+            <div className={location.pathname !== '/' ? 'container mt-2 mt-md-5' : 'd-none'}>
                 <hr />
             </div>
             {
                 location.pathname !== '/home' ?
                     <div className='d-none d-md-block'>
-                        <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-50px" }}>
+                        <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-80px" }}>
                             <LanguageSelect />
                         </div>
                     </div> : <></>
