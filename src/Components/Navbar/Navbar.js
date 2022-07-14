@@ -25,9 +25,16 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
     const handleCloseloginModal = () => setLoginModal(false);
     const handleShowloginModal = () => setLoginModal(true);
     const { user, isAuthenticated, logout } = useAuth();
-    const handleClick = () => {
+    const profileId = document.getElementById('profile')
+    const handleClick = (e) => {
         displayProfile === 'd-none' ?
-            setDisplayProfile('d-block') : setDisplayProfile('d-none')
+            setDisplayProfile('d-block') : setDisplayProfile('d-none');
+    }
+    const navClick = (e) => {
+        if (profileId) {
+            displayProfile === 'd-block' &&
+                setDisplayProfile('d-none')
+        }
     }
     return (
         <>
@@ -43,7 +50,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
                 show={loginModal}
                 setShow={setLoginModal}
             />
-            <section className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
+            <section onClick={navClick} className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
                 <div className='d-flex'>
                     {/* <div>
                         <img className='logo_img' src={Logo} alt="logo" />
@@ -54,7 +61,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
                         </div></Link>
                 </div>
                 <div className='d-flex align-items-center'>
-                    <div className={location.pathname === '/profile' || location.pathname === '/home' ? 'd-block' : 'd-none'}>
+                    <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' ? 'd-block' : 'd-none'}>
                         <LanguageSelect />
                     </div>
                     {
