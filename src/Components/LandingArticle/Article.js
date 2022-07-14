@@ -9,7 +9,7 @@ const Article = () => {
     const location = useLocation();
     return (
         <>
-            <div className='container mt-5 d-none d-md-block'>
+            <div className='container mt-2 mt-md-5'>
                 <hr />
             </div>
             {
