@@ -158,7 +158,23 @@ const HomeLayout = () => {
                             ))
                         }
                     </select>
-                    <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+                    <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+                        {
+                            selectedOption && location.pathname !== '/home' ?
+                                <>
+                                    <option value="" selected disabled>{t('grade')}</option>
+                                    <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+                                </> :
+                                <option value="" selected disabled>&nbsp;&nbsp;{t('grade')}&nbsp;&nbsp;</option>
+
+                        }
+                        {
+                            uniqueGrade?.map((item, index) => (
+                                <option key={index} >{item.Grade}</option>
+                            ))
+                        }
+                    </select>
+                    <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -190,7 +206,7 @@ const HomeLayout = () => {
                             ))
                         }
                     </select>
-                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -207,15 +223,15 @@ const HomeLayout = () => {
                         }
                     </select>
                 </div>
-                <div className='d-flex mb-3'>
-                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
+                <div className='d-flex justify-content-between mb-3'>
+                    <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
                                     <option value="" selected disabled>{t('topic')}</option>
                                     <option value="" selected disabled>{selectedOption?.selectTopic}</option>
                                 </> :
-                                <option value="" selected disabled>{t('topic')}</option>
+                                <option value="" selected disabled>&nbsp;&nbsp;{t('topic')}&nbsp;&nbsp;</option>
 
                         }
                         {
@@ -224,7 +240,7 @@ const HomeLayout = () => {
                             ))
                         }
                     </select>
-                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+                    <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2'} name="" id="">
                         {
                             selectedOption && location.pathname !== '/home' ?
                                 <>
@@ -232,7 +248,7 @@ const HomeLayout = () => {
                                     <option value="" selected disabled>{selectedOption?.selectSkill}</option>
                                 </> :
                                 <>
-                                    <option value="" selected disabled>{t('skill')}</option>
+                                    <option value="" selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;{t('skill')}&nbsp;&nbsp;&nbsp;&nbsp;</option>
                                 </>
                         }
                         {
@@ -244,7 +260,7 @@ const HomeLayout = () => {
                 </div>
                 <div className='d-block justify-content-center align-items-center d-md-none'>
                     <div>
-                        <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
+                        <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border' : 'px-1 px-md-3 py-md-2 bg-light select-border'} name="" id="">
                             {
                                 selectedOption && location.pathname !== '/home' ?
                                     <>
@@ -252,7 +268,7 @@ const HomeLayout = () => {
                                         <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>
                                     </> :
                                     <>
-                                        <option value="" selected disabled>{t('sub_topic')}</option>
+                                        <option value="" selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;{t('sub_topic')}&nbsp;&nbsp;&nbsp;</option>
                                     </>
                             }
                             {
