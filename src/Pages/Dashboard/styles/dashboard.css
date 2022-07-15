@@ -36,7 +36,11 @@ a:focus {
   text-decoration: none;
   transition: all 0.2s;
 }
-
+.dash_sidebar_aa{
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s;
+}
 /* ---------------------------------------------------
       SIDEBAR STYLE
   ----------------------------------------------------- */

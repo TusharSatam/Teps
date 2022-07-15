@@ -60,7 +60,7 @@ const DashboardCSV = () => {
                 setShow(true)
             })
     }
-
+    console.log(stratigys);
     return (
         <div>
             <Toaster
@@ -144,9 +144,9 @@ const DashboardCSV = () => {
                     </Table>
                 </div>
             </div>
-            <div>
+            <div className='container'>
                 <button onClick={handlePrevious} disabled={stratigys?.currentPage === '1'} className='btn btn-success me-3'>Previous</button>
-                <button onClick={handleNext} disabled={stratigys?.currentPage === stratigys?.totalPages} className='btn btn-success'>Next</button>
+                <button onClick={handleNext} disabled={parseInt(stratigys?.currentPage) === stratigys?.totalPages} className='btn btn-success'>Next</button>
             </div>
         </div>
     );

@@ -29,16 +29,22 @@ const SideBar = ({ isOpen, toggle }) => {
 
         <Nav.Item
           className={(isActive) =>
-            "nav-link" + (!isActive ? " active" : "active")
+            "nav-link" + (!isActive ? " active " : "active")
           }
         >
-          <Link className="dash_sidebar_a nav-link" to="/admin-home">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-home">
+            Home
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-home">
             Home
           </Link>
         </Nav.Item>
 
         <Nav.Item>
-          <Link className="dash_sidebar_a nav-link" to="/admin-stratigy">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-stratigy">
+            Strategies
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-stratigy">
             Strategies
           </Link>
         </Nav.Item>
@@ -55,7 +61,10 @@ const SideBar = ({ isOpen, toggle }) => {
           </Link>
         </Nav.Item> */}
         <Nav.Item className="">
-          <Link className="dash_sidebar_a nav-link" to="/admin-users">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-users">
+            All Users
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-users">
             All Users
           </Link>
         </Nav.Item>
