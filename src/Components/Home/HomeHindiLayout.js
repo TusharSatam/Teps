@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getAllStratigys } from '../../apis/stratigyes';
+import { getAllHindiStratigys } from '../../apis/hindiStratigys';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
-const HomeLayout = () => {
+const HomeHindiLayout = () => {
     const { t } = useTranslation();
     const [allStratigys, setAllStratigys] = React.useState([])
     const [selectSubject, setSelectSubject] = React.useState()
@@ -24,11 +24,12 @@ const HomeLayout = () => {
     const location = useLocation();
     const { setStratigyFilData } = useAuth();
     React.useEffect(() => {
-        getAllStratigys()
+        getAllHindiStratigys()
             .then(res => {
                 setAllStratigys(res.data);
+                console.log(res);
             })
-        const selectedDropdown = localStorage.getItem('selectedDropdown');
+        const selectedDropdown = localStorage.getItem('selectedHiDropdown');
         if (selectedDropdown) {
             setSelectedOption(JSON.parse(selectedDropdown))
         }
@@ -45,13 +46,15 @@ const HomeLayout = () => {
             }
         }
     }, [selectedOption, location.pathname])
-    const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
+    // console.log('hlw', selectedOption);
+    // console.log(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic);
+    const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
         .map(subject => {
-            return allStratigys.find(a => a.Subject === subject)
+            return allStratigys.find(a => a.विषय === subject)
         })
-    const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
+    const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
         .map(grade => {
-            return allStratigys.find(a => a.Grade === grade)
+            return allStratigys.find(a => a.श्रेणी === grade)
         });
     const handlesubFilter = (e) => {
         setSelectSubject(e.target.value);
@@ -73,25 +76,25 @@ const HomeLayout = () => {
     }
     // console.log(selectSubSubTopic);
     const aquaticCreatures = allStratigys.filter(function (creature) {
-        return creature.Subject === selectSubject && creature.Grade === selectGrade;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
     })
 
-    const uniqueTopic = Array.from(new Set(aquaticCreatures?.map(a => a.Topic)))
+    const uniqueTopic = Array.from(new Set(aquaticCreatures?.map(a => a.शीर्षक)))
         .map(topic => {
-            return aquaticCreatures?.find(a => a.Topic === topic)
+            return aquaticCreatures?.find(a => a.शीर्षक === topic)
         });
-    const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
+    const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
         .map(skill => {
-            return aquaticCreatures?.find(a => a.Skill === skill)
+            return aquaticCreatures?.find(a => a.कौशल === skill)
         });
 
-    const uniqueSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub Topic'])))
+    const uniqueSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['उप शीर्षक'])))
         .map(sub_topic => {
-            return aquaticCreatures?.find(a => a['Sub Topic'] === sub_topic)
+            return aquaticCreatures?.find(a => a['उप शीर्षक'] === sub_topic)
         });
-    const uniqueSubSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub-sub topic'])))
+    const uniqueSubSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['उप-उप शीर्षक'])))
         .map(sub_sub_topic => {
-            return aquaticCreatures?.find(a => a['Sub-sub topic'] === sub_sub_topic)
+            return aquaticCreatures?.find(a => a['उप-उप शीर्षक'] === sub_sub_topic)
         });
 
     const handleFindStratigys = () => {
@@ -99,10 +102,9 @@ const HomeLayout = () => {
         if (location.pathname === '/home') {
             if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
                 const aquaticCreatures = allStratigys.filter(function (creature) {
-                    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+                    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
                 });
-                console.log(aquaticCreatures);
-                setStratigyFilData(aquaticCreatures)
+                setStratigyFilData(aquaticCreatures);
                 if (aquaticCreatures) {
                     window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
                 }
@@ -110,7 +112,7 @@ const HomeLayout = () => {
                     if (location.pathname === '/home') {
                         navigate('/search')
                     }
-                    window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+                    window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
                 }
                 else {
                     setError("No strategies are available for this combination. Please try a different combination.")
@@ -127,9 +129,9 @@ const HomeLayout = () => {
         else {
 
             const aquaticCreatures = allStratigys.filter(function (creature) {
-                return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+                return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
             });
-            console.log(aquaticCreatures);
+
             setStratigyFilData(aquaticCreatures)
             if (aquaticCreatures) {
                 window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
@@ -160,7 +162,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSubject?.map((item, index) => (
-                                <option key={index} >{item.Subject}</option>
+                                <option key={index} >{item.विषय}</option>
                             ))
                         }
                     </select>
@@ -176,7 +178,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSubject?.map((item, index) => (
-                                <option key={index} >{item.Subject}</option>
+                                <option key={index} >{item.विषय}</option>
                             ))
                         }
                     </select>
@@ -192,7 +194,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueGrade?.map((item, index) => (
-                                <option key={index} >{item.Grade}</option>
+                                <option key={index} >{item.श्रेणी}</option>
                             ))
                         }
                     </select>
@@ -208,7 +210,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueGrade?.map((item, index) => (
-                                <option key={index} >{item.Grade}</option>
+                                <option key={index} >{item.श्रेणी}</option>
                             ))
                         }
                     </select>
@@ -224,7 +226,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueTopic?.map((item, index) => (
-                                <option key={index} >{item.Topic}</option>
+                                <option key={index} >{item.शीर्षक}</option>
                             ))
                         }
                     </select>
@@ -240,7 +242,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSkill?.map((item, index) => (
-                                <option key={index} >{item.Skill}</option>
+                                <option key={index} >{item.कौशल}</option>
                             ))
                         }
                     </select>
@@ -258,7 +260,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueTopic?.map((item, index) => (
-                                <option key={index} >{item.Topic}</option>
+                                <option key={index} >{item.शीर्षक}</option>
                             ))
                         }
                     </select>
@@ -275,7 +277,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSkill?.map((item, index) => (
-                                <option key={index} >{item.Skill}</option>
+                                <option key={index} >{item.कौशल}</option>
                             ))
                         }
                     </select>
@@ -295,7 +297,7 @@ const HomeLayout = () => {
                             }
                             {
                                 uniqueSubTopic?.map((item, index) => (
-                                    <option key={index} >{item['Sub Topic']}</option>
+                                    <option key={index} >{item['उप शीर्षक']}</option>
                                 ))
                             }
                         </select>
@@ -314,7 +316,7 @@ const HomeLayout = () => {
                             }
                             {
                                 uniqueSubSubTopic?.map((item, index) => (
-                                    <option key={index} >{item['Sub-sub topic']}</option>
+                                    <option key={index} >{item['उप-उप शीर्षक']}</option>
                                 ))
                             }
                         </select>
@@ -334,7 +336,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSubTopic?.map((item, index) => (
-                                <option key={index} >{item['Sub Topic']}</option>
+                                <option key={index} >{item['उप शीर्षक']}</option>
                             ))
                         }
                     </select>
@@ -351,7 +353,7 @@ const HomeLayout = () => {
                         }
                         {
                             uniqueSubSubTopic?.map((item, index) => (
-                                <option key={index} >{item['Sub-sub topic']}</option>
+                                <option key={index} >{item['उप-उप शीर्षक']}</option>
                             ))
                         }
                     </select>
@@ -364,7 +366,7 @@ const HomeLayout = () => {
             </div>
             {
                 location.pathname === '/home' ?
-                    <div className='d-flex justify-content-center my-4 my-md-5 '>
+                    <div className='d-flex justify-content-center my-5'>
                         <button onClick={handleFindStratigys} className='submit_btn'>{t('find_strategies')}</button>
                     </div>
                     :
@@ -376,4 +378,4 @@ const HomeLayout = () => {
     );
 };
 
-export default HomeLayout;
+export default HomeHindiLayout;

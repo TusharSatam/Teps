@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = React.useState(null);
     const [laoding, setLoading] = React.useState(false);
     const [stratigyFilData, setStratigyFilData] = React.useState([]);
+    const [selectLang, setselectLang] = React.useState('')
     const logout = () => {
         const confirmation = window.confirm('Are you sure you want to logout?');
         if (confirmation) {
@@ -39,9 +40,25 @@ const AuthProvider = ({ children }) => {
             setStratigyFilData(JSON.parse(data))
         }
     }, []);
+
+
+    React.useEffect(() => {
+        const language = localStorage.getItem('i18nextLng');
+        if (language) {
+            if (language === 'hi') {
+                setselectLang('hindi')
+            } else {
+                setselectLang('english')
+            }
+        }
+    }, [selectLang])
+    console.log(selectLang);
     return (
         <AuthContext.Provider
-            value={{ isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData, setStratigyFilData }}>
+            value={{
+                isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
+                setStratigyFilData, selectLang, setselectLang
+            }}>
             {children}
         </AuthContext.Provider>
     );

@@ -24,8 +24,8 @@ import UploadHindiStratiges from './Pages/Dashboard/UploadHindiStratiges';
 function App() {
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
 
-  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  axios.defaults.baseURL = `http://localhost:8080/api/`;
+  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  // axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }

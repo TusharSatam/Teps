@@ -1,18 +1,21 @@
 import React from "react";
 import i18next from "i18next";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "./Context/AuthContext";
 
 
 const LanguageSelect = () => {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
+    const { setselectLang } = useAuth();
     const handleLanguageSelect = (e) => {
         if (e.target.value === 'English') {
             i18next.changeLanguage('en')
+            setselectLang('english')
         }
-        else if (e.target.value === 'अंग्रेज़ी') {
-            i18next.changeLanguage('en')
+        else {
+            i18next.changeLanguage('hi')
+            setselectLang('hindi')
         }
-        else (i18next.changeLanguage('hi'))
     }
     return (
         <>

@@ -58,5 +58,6 @@
     "strategy": "Strategy",
     "language": "Language",
     "english": "English",
-    "hindi": "Hindi"
+    "hindi": "Hindi",
+    "learning_outcome": "Learning Outcomes"
 }
