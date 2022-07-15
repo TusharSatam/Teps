@@ -17,13 +17,15 @@ import UploadStratigys from './Pages/Dashboard/UploadStratigys';
 import FindStratigys from './Pages/Dashboard/FindStratigys';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
+import HindiStratiges from './Pages/Dashboard/HindiStratiges';
+import UploadHindiStratiges from './Pages/Dashboard/UploadHindiStratiges';
 
 
 function App() {
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
 
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
@@ -33,8 +35,10 @@ function App() {
       {
         loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
-          loc.pathname === '/admin-stratigy' ||
-          loc.pathname === '/admin-upload-stratigy'
+          loc.pathname === '/admin-en-stratigy' ||
+          loc.pathname === '/admin-hi-stratigy' ||
+          loc.pathname === '/admin-upload-stratigy' ||
+          loc.pathname === '/admin-upload-hi-stratigy'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -55,16 +59,20 @@ function App() {
             <Route exact path='/admin-home' element={<DashHome />} />
             {/* <Route exact path='/admin-stratigy-dropDown' element={<FindStratigys />} /> */}
             <Route exact path='/admin-users' element={<DashboardUsers />} />
-            <Route exact path='/admin-stratigy' element={<DashboardCSV />} />
+            <Route exact path='/admin-en-stratigy' element={<DashboardCSV />} />
+            <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />
             <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
+            <Route exact path='/admin-upload-hi-stratigy' element={<UploadHindiStratiges />} />
           </Route>
         </Routes>
       </div>
       {
         loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
-          loc.pathname === '/admin-stratigy' ||
-          loc.pathname === '/admin-upload-stratigy'
+          loc.pathname === '/admin-en-stratigy' ||
+          loc.pathname === '/admin-hi-stratigy' ||
+          loc.pathname === '/admin-upload-stratigy' ||
+          loc.pathname === '/admin-upload-hi-stratigy'
           ? ('') : (
             <Footer />
           )

@@ -41,11 +41,19 @@ const SideBar = ({ isOpen, toggle }) => {
         </Nav.Item>
 
         <Nav.Item>
-          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-stratigy">
-            Strategies
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-en-stratigy">
+            English Strategies
           </Link>
-          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-stratigy">
-            Strategies
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-en-stratigy">
+            English Strategies
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-hi-stratigy">
+            Hindi Strategies
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-hi-stratigy">
+            Hindi Strategies
           </Link>
         </Nav.Item>
 

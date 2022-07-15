@@ -17,7 +17,7 @@ const LanguageSelect = () => {
     return (
         <>
             <select onChange={handleLanguageSelect} className='language_btn mx-3' name="" id="">
-                <option disabled selected>{t('language')}</option>
+                <option disabled selected>Language</option>
                 <option>English</option>
                 {/* <option>{t('english')}</option> */}
                 <option>हिंदीं</option>
