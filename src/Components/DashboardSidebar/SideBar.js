@@ -13,9 +13,10 @@ const SideBar = ({ isOpen, toggle }) => {
         <Button
           variant="link"
           onClick={toggle}
-          style={{ color: "#fff" }}
-          className="mt-4"
+          style={{ color: "#fff", textDecoration: "none" }}
+          className="mt-3"
         >
+          &#10005;
         </Button>
         <h3>
           <Link to={"/"} className="navLogo">

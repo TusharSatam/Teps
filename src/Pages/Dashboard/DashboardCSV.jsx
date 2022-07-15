@@ -77,14 +77,17 @@ const DashboardCSV = () => {
                 setStratigys={setStr}
             />
             <div className="d-flex justify-content-end">
-                <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
+                <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
             </div>
             <div className='stratigysTable'>
                 <div className="container">
                     <div className="d-flex justify-content-between">
                         <h3>All Strategies</h3>
+                        <div className="d-block d-md-none mb-3">
+                            <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
+                        </div>
                     </div>
-                    <Table striped bordered hover size="sm" className='w-100'>
+                    <Table responsive striped bordered hover size="sm" className='w-100'>
                         <thead>
                             <tr>
                                 <th>#</th>
