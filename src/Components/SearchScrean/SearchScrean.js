@@ -137,14 +137,16 @@ const SearchScrean = () => {
                                                                                     <div className='res_btn_icon'>
                                                                                         <div className='d-flex flex-column res_inner_div p-1 '>
                                                                                             {
-                                                                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                                                                    <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                                                                    <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                                                data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                                                                    data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                                                                        <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                                        <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                                                                             }
                                                                                             {
-                                                                                                data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
-                                                                                                    <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                                                                    <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                                                                data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                                                                    data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                                                                        <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                                                                        <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                                                                             }
                                                                                         </div>
                                                                                     </div>
@@ -174,14 +176,16 @@ const SearchScrean = () => {
                                                                             <div className='d-flex align-items-center justify-content-center mt-2'>
                                                                                 <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                                                     {
-                                                                                        data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                                                            <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                                                            <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                                        data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                                                            data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                                                                <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                                <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                                                                     }
                                                                                     {
-                                                                                        data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
-                                                                                            <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                                                            <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                                                                        data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                                                            data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                                                                <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                                                                <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
                                                                                     }
                                                                                 </div>
                                                                                 {
@@ -218,27 +222,29 @@ const SearchScrean = () => {
                                                                                 <div className='counter_str'><p className='mt-md-1'>{index + 1}</p></div>
                                                                             </div>
                                                                             <div className='d-block d-md-none mt-1'>
-                                                                                <div className='icon_heading_text me-1 p-1'>Development Domain</div>
-                                                                                <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                                                                <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
+                                                                                <div className=' mt-1' style={{ marginLeft: "15px" }}>
                                                                                     <div className='res_btn_icon'>
                                                                                         <div className='d-flex flex-column res_inner_div p-1 '>
                                                                                             {
-                                                                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                                                                    <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                                                                    <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                                                data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                                                                    data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                                                                        <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                                        <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                                                                             }
                                                                                             {
-                                                                                                data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
-                                                                                                    <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                                                                    <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                                                                data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                                                                    data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                                                                        <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                                                                        <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                                                                             }
                                                                                         </div>
                                                                                     </div>
                                                                                     <div className='ms-1'>
                                                                                         {
-                                                                                            data['Mode of Teaching'] === "Online" ?
-                                                                                                <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                                                                <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                                                            data['Mode of Teaching'] === "ऑनलाइन" ?
+                                                                                                <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                                                                <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                                                                         }
 
                                                                                     </div>
@@ -250,30 +256,32 @@ const SearchScrean = () => {
                                                                                 {data["शिक्षण रणनीति"]}
                                                                             </p>
                                                                             <div className='d-flex align-items-center my-3'>
-                                                                                {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                                                                {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                                                                 {like.includes(index) ? <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                                                             </div>
                                                                         </div>
                                                                         <div className='col-md-2 d-none d-md-block'>
-                                                                            <span className='icons_heading'>Development Domain</span>
+                                                                            <span className='icons_hindi_heading'>विकासात्मक क्षेत्र</span>
                                                                             <div className='d-flex align-items-center justify-content-center mt-2'>
                                                                                 <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                                                     {
-                                                                                        data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                                                            <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                                                            <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                                                        data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                                                            data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                                                                <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                                                                     }
                                                                                     {
-                                                                                        data['Dev Dom 1'] === "Socio-Emotional-Ethical" ?
-                                                                                            <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                                                            <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                                                                        data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                                                            data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                                                                <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
                                                                                     }
                                                                                 </div>
                                                                                 {
-                                                                                    data['Mode of Teaching'] === "Online" ?
-                                                                                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                                                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                                                    data['Mode of Teaching'] === "ऑनलाइन" ?
+                                                                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                                                                 }
                                                                             </div>
                                                                         </div>

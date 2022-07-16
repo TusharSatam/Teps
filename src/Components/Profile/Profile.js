@@ -80,7 +80,7 @@ const Profile = () => {
                     .then(res => {
                         window.localStorage.setItem('data', JSON.stringify(res.data[0]));
                         setUser(res.data[0]);
-                        toast.success('Successfull Update Information!')
+                        toast.success('Successfully updated the information.')
                         setIsLoading(false);
                     })
             })

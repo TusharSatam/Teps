@@ -5,7 +5,9 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+    const [isAuthenticatedAdmin, setIsAuthenticatedAdmin] = React.useState(false);
     const [user, setUser] = React.useState(null);
+    const [admin, setAdmin] = React.useState(null);
     const [laoding, setLoading] = React.useState(false);
     const [stratigyFilData, setStratigyFilData] = React.useState([]);
     const [selectLang, setselectLang] = React.useState('')
@@ -16,6 +18,16 @@ const AuthProvider = ({ children }) => {
             setUser(null);
             localStorage.removeItem('jwt');
             localStorage.removeItem('data');
+        };
+    };
+
+    const Adminlogout = () => {
+        const confirmation = window.confirm('Are you sure you want to logout?');
+        if (confirmation) {
+            setIsAuthenticatedAdmin(false);
+            setAdmin(null);
+            localStorage.removeItem('adminJwt');
+            localStorage.removeItem('adminData');
         };
     };
 
@@ -30,6 +42,20 @@ const AuthProvider = ({ children }) => {
         if (data) {
             setUser(JSON.parse(data))
             setIsAuthenticated(true);
+        }
+    }, []);
+
+    React.useEffect(() => {
+        setLoading(true);
+        const token = localStorage.getItem('adminJwt');
+        if (token) {
+            setLoading(false)
+            setIsAuthenticatedAdmin(true);
+        }
+        const data = localStorage.getItem('adminData');
+        if (data) {
+            setAdmin(JSON.parse(data))
+            setIsAuthenticatedAdmin(true);
         }
     }, []);
 
@@ -57,7 +83,7 @@ const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
-                setStratigyFilData, selectLang, setselectLang
+                setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin, admin, Adminlogout, setAdmin
             }}>
             {children}
         </AuthContext.Provider>

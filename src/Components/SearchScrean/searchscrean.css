@@ -108,6 +108,19 @@
     padding: 2px 16px;
     margin-left: -10px;
 }
+.icons_hindi_heading{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 12px;
+    color: #FFFFFF;
+    background: #1AA05B;
+    border-radius: 2px;
+    padding: 2px 33px;
+    margin-left: -10px;
+
+}
 .res_btn_icon{
     width: 40%;
     display: flex;
@@ -230,5 +243,15 @@
     .save_likes{
         width:11.67px;
         height:10.78px;
+    }
+    .empty_stratigys{
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 18px;
+        text-align: center;
+        color: #000000;
+        margin: 100px 80px 200px 80px;
     }
 }

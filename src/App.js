@@ -19,6 +19,8 @@ import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import HindiStratiges from './Pages/Dashboard/HindiStratiges';
 import UploadHindiStratiges from './Pages/Dashboard/UploadHindiStratiges';
+import AdminAuth from './Components/AdminLogin/AdminAuth';
+import PrivateAdminOutlet from './Components/PrivateRoute/PrivateAdminRoute';
 
 
 function App() {
@@ -33,7 +35,8 @@ function App() {
   return (
     <div>
       {
-        loc.pathname === '/admin-home' ||
+        loc.pathname === '/admin-login' ||
+          loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
           loc.pathname === '/admin-en-stratigy' ||
           loc.pathname === '/admin-hi-stratigy' ||
@@ -50,24 +53,28 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/forgot' element={<ResetPass />} />
+          <Route path='/admin-login' element={<AdminAuth />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
           </Route>
-          <Route element={<Dashboard />} >
-            <Route exact path='/admin-home' element={<DashHome />} />
-            {/* <Route exact path='/admin-stratigy-dropDown' element={<FindStratigys />} /> */}
-            <Route exact path='/admin-users' element={<DashboardUsers />} />
-            <Route exact path='/admin-en-stratigy' element={<DashboardCSV />} />
-            <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />
-            <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
-            <Route exact path='/admin-upload-hi-stratigy' element={<UploadHindiStratiges />} />
+          <Route element={<PrivateAdminOutlet />} >
+            <Route element={<Dashboard />} >
+              <Route exact path='/admin-home' element={<DashHome />} />
+              {/* <Route exact path='/admin-stratigy-dropDown' element={<FindStratigys />} /> */}
+              <Route exact path='/admin-users' element={<DashboardUsers />} />
+              <Route exact path='/admin-en-stratigy' element={<DashboardCSV />} />
+              <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />
+              <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
+              <Route exact path='/admin-upload-hi-stratigy' element={<UploadHindiStratiges />} />
+            </Route>
           </Route>
         </Routes>
       </div>
       {
-        loc.pathname === '/admin-home' ||
+        loc.pathname === '/admin-login' ||
+          loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
           loc.pathname === '/admin-en-stratigy' ||
           loc.pathname === '/admin-hi-stratigy' ||
