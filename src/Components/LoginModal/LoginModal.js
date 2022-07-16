@@ -43,7 +43,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                 })
         }
         else {
-            setCheckError("Please check the box if you want to proceed")
+            setCheckError(`${t("checkbox_error")}`)
         }
     }
     const handleForgotShow = () => {
@@ -76,7 +76,7 @@ const LoginModal = ({ handleClose, show, setShow }) => {
                             <div className='d-flex justify-content-center'>
                                 <div>
                                     <div className='my-3'>
-                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>{t("email")} <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;(Email not found.)</span></label><br />
+                                        <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>{t("email")} <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;{t("email_not_found")}</span></label><br />
                                         <input placeholder='LilyBlom201@gmail.com' name='email' className={error === 'Invalid Email' ? "login_input text-danger border border-danger" : 'login_input'} type="email" />
                                     </div>
 

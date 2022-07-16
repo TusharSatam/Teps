@@ -115,7 +115,7 @@ const HomeHindiLayout = () => {
                     window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
                 }
                 else {
-                    setError("No strategies are available for this combination. Please try a different combination.")
+                    setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
                 }
             }
             else {
@@ -123,7 +123,7 @@ const HomeHindiLayout = () => {
                 if (!selectTopic) { setError2(true) }
                 if (!selectSubTopic) { setError3(true) }
                 if (!selectSubSubTopic) { setError4(true) }
-                setError("Please fill all the boxes to proceed.")
+                setError("आगे बढ़ने के लिए कृपया सभी बॉक्स भरें।")
             }
         }
         else {
@@ -137,7 +137,7 @@ const HomeHindiLayout = () => {
                 window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
             }
             if (aquaticCreatures.length === 0) {
-                setError("No strategies are available for this combination. Please try a different combination.")
+                setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
             }
             // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
             // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);

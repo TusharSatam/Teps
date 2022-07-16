@@ -80,7 +80,7 @@ const Profile = () => {
                     .then(res => {
                         window.localStorage.setItem('data', JSON.stringify(res.data[0]));
                         setUser(res.data[0]);
-                        toast.success('Successfully updated the information.')
+                        toast.success(`${t('update_profile_messege')}`)
                         setIsLoading(false);
                     })
             })
@@ -114,7 +114,7 @@ const Profile = () => {
                         </div>
                         <div>
                             <div className='profile_school mt-4'>
-                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} >{user?.firstName}{user?.lastName}</p>
+                                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} >{user?.firstName} {user?.lastName}</p>
                                 <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >{user?.organization}</p>
                                 {/* <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p> */}
                             </div>
@@ -140,7 +140,7 @@ const Profile = () => {
                                 <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
                             </div>
                             <div className='profile_school mt-5'>
-                                <p>{user.firstName}{user.lastName} </p> <p> {user.organization}</p>
+                                <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
                             </div>
                             <div style={{ marginTop: "110px" }}>
                                 <div className='d-flex justify-content-center py-5'>

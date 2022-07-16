@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ResetPass = () => {
     const { t } = useTranslation()
@@ -28,7 +29,7 @@ const ResetPass = () => {
                 }
                 axios.post("/forget/update", data)
                     .then(res => {
-                        alert("Reset Success");
+                        toast.success(`${t('success_reset')}`)
                         e.target.reset()
                         navigate('/')
                     })
@@ -37,16 +38,20 @@ const ResetPass = () => {
                     })
             }
             else {
-                setError("Password didn't match")
+                setError(`${t('password_match')}`)
             }
         }
         else {
-            setPassError('Please enter a minimum of 5 characters.')
+            setPassError(`${t('password_five')}`)
         }
 
     }
     return (
         <>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <Modal
                 show={show}
                 onHide={handleClose}

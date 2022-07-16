@@ -59,5 +59,14 @@
     "language": "Language",
     "english": "English",
     "hindi": "Hindi",
-    "learning_outcome": "Learning Outcomes"
+    "learning_outcome": "Learning Outcomes",
+    "checkbox_error": "Please check the box if you want to proceed.",
+    "email_not_found": "(Email not found.)",
+    "fill_all_box": "Please fill all the fields above.",
+    "password_five": "Please enter a minimum of 5 characters in the password field.",
+    "update_profile_messege": "Changes saved successfully.",
+    "password_match": "Passwords do not match.",
+    "strategies_not_found": "Strategies not found for this combination. Please select a different combination.",
+    "success_reset": "Password reset successfully.",
+    "reset_email": "Email Sent! Please check your inbox."
 }

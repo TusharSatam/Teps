@@ -32,7 +32,7 @@ const DashHome = () => {
             })
     }, [])
     React.useEffect(() => {
-        setIsLoading(true)
+        setIsLoading3(true)
         getAllHindiStratigys()
             .then(res => {
                 setIsLoading3(false)

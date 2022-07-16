@@ -297,8 +297,8 @@ const SearchScrean = () => {
                             </Accordion>
                         </div>
                     </> :
-                    <div className='empty_stratigys'>
-                        Strategies not found for this combination. Please select a different combination.
+                    <div className='text-danger empty_stratigys'>
+                        {t('strategies_not_found')}
                     </div>
             }
 

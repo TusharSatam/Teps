@@ -25,7 +25,7 @@ const SenEmailModal = ({ show, setShow }) => {
                             <img className='email_icon' src={mailLogo} alt="" />
                         </div>
                         <div className='text-center sendMail_text'>
-                            Email Sent! Please check your inbox.
+                            {t('reset_email')}
                         </div>
                     </div>
                 </Modal.Body>

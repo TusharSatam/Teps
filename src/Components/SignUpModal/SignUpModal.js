@@ -97,7 +97,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                             })
                             .catch(err => {
                                 if (err.response.status === 409) {
-                                    setEmailError("(This email is already in use.)")
+                                    setEmailError(`${t('already_email')}`)
                                     setDisplay("d-block")
                                 }
                                 else console.log(err);
@@ -105,20 +105,20 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
                     }
                     else {
-                        setError("Password Didn't Match");
+                        setError(`${t('password_match')}`);
                     }
 
                 }
                 else {
-                    setRequired("Please fill all the fields above ")
+                    setRequired(`${t('fill_all_box')}`)
                 }
             }
             else {
-                setPassError('Please enter a minimum of 5 characters in the password field.')
+                setPassError(`${t('password_five')}`)
             }
         }
         else {
-            setCheckError("Please check the box if you want to proceed")
+            setCheckError(`${t("checkbox_error")}`)
         }
     }
     const handleForgotShow = () => {
