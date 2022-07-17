@@ -35,7 +35,8 @@ function App() {
   return (
     <div>
       {
-        loc.pathname === '/admin-login' ||
+        loc.pathname === '/forgot' ||
+          loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
           loc.pathname === '/admin-en-stratigy' ||
@@ -73,7 +74,8 @@ function App() {
         </Routes>
       </div>
       {
-        loc.pathname === '/admin-login' ||
+        loc.pathname === '/forgot' ||
+          loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
           loc.pathname === '/admin-en-stratigy' ||
