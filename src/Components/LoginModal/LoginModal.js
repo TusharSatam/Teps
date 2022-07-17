@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { userLogin } from '../../apis/auth';
+import { userLogin } from '../../services/auth';
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './loginModal.css'

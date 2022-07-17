@@ -1,10 +1,10 @@
 import React from 'react';
-import { getUsers } from '../../apis/dashboardUsers';
-import { getAllStratigys } from '../../apis/stratigyes';
+import { getUsers } from '../../services/dashboardUsers';
+import { getAllStratigys } from '../../services/stratigyes';
 import { Spinner } from 'react-bootstrap';
 
 import './styles/dashHome.css'
-import { getAllHindiStratigys } from '../../apis/hindiStratigys';
+import { getAllHindiStratigys } from '../../services/hindiStratigys';
 
 const DashHome = () => {
     const [user, setUser] = React.useState(0);

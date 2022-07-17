@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootstrap';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
-import { deletTopicStratigy, getSingleSTopicStratigy, getTopicStratigy, postTopicStratigy } from '../../apis/findStratigys/topic';
+import { deletTopicStratigy, getSingleSTopicStratigy, getTopicStratigy, postTopicStratigy } from '../../services/findStratigys/topic';
 import EditFindTopic from '../DashboardModal/EditFindTopic';
 
 

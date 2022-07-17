@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { adminLogin } from '../../apis/adminLogin';
+import { adminLogin } from '../../services/adminLogin';
 import { useAuth } from '../../Context/AuthContext';
 
 const AdminAuth = () => {
@@ -55,12 +55,12 @@ const AdminAuth = () => {
                     <div className='d-flex justify-content-center'>
                         <div>
                             <div className='my-3'>
-                                <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>{t("email")} <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;(Email not found.)</span></label><br />
+                                <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Email' ? 'd-flex text-danger' : 'd-flex'}>Email <span className={error === 'Invalid Email' ? 'd-block' : "d-none"}> &nbsp;(Email not found.)</span></label><br />
                                 <input placeholder='LilyBlom201@gmail.com' name='email' className={error === 'Invalid Email' ? "login_input text-danger border border-danger" : 'login_input'} type="email" />
                             </div>
 
                             <div className='my-4'>
-                                <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Password' ? 'd-flex text-danger' : 'd-flex'}>{t("password")} <span className={error === 'Invalid Password' ? 'd-block' : "d-none"}> &nbsp;{t('password_error')}</span></label><br />
+                                <label htmlFor="" style={{ marginBottom: "-20px" }} className={error === 'Invalid Password' ? 'd-flex text-danger' : 'd-flex'}>Password<span className={error === 'Invalid Password' ? 'd-block' : "d-none"}> &nbsp;{t('password_error')}</span></label><br />
                                 <input id='authPass' placeholder='1234567#' className={error === 'Invalid Password' ? "login_input text-danger border border-danger" : 'login_input'} type="password" name='password' /><br />
                             </div>
                             <div className='d-flex'>
@@ -70,12 +70,12 @@ const AdminAuth = () => {
                                         <span className="checkmark"></span>
                                     </label>
                                 </div>
-                                <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("robot")}</p>
+                                <p style={{ marginTop: "2px", marginLeft: "-6px" }}>I am not a robot.</p>
                             </div>
                             <p className='text-danger'>{checkError ? checkError : ""}</p>
                             <div className='d-flex justify-content-center my-5'>
                                 {
-                                    <button disabled={isLoading} className='submit_btn'>{isLoading ? <Spinner className="text-light " animation="border" /> : t("login")}    </button>
+                                    <button disabled={isLoading} className='submit_btn'>{isLoading ? <Spinner className="text-light " animation="border" /> : "Login"}    </button>
                                 }
 
                             </div>

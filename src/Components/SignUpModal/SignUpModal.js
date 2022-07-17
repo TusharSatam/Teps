@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { userRegister } from '../../apis/auth';
+import { userRegister } from '../../services/auth';
 import CrossIcon from '../../asstes/cross-icon.png'
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';

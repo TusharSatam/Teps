@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootstrap';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
-import { deletSubSubTopicStratigy, getSingleSubSubTopicStratigy, getSubSubTopicStratigy, postSubSubTopicStratigy } from '../../apis/findStratigys/subSubTopic';
+import { deletSubSubTopicStratigy, getSingleSubSubTopicStratigy, getSubSubTopicStratigy, postSubSubTopicStratigy } from '../../services/findStratigys/subSubTopic';
 import EditSubSubTopic from '../DashboardModal/EditSubSubTopic';
 
 

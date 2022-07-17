@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getSkilleStratigy, updateSkillStratigy } from '../../apis/findStratigys/skill';
+import { getSkilleStratigy, updateSkillStratigy } from '../../services/findStratigys/skill';
 
 const EditFindSkill = ({ show, setShow, onHide, data, setSubData }) => {
     const handleUpdate = (e) => {

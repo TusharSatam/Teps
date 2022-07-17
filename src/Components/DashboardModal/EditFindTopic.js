@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getTopicStratigy, updateTopicStratigy } from '../../apis/findStratigys/topic';
+import { getTopicStratigy, updateTopicStratigy } from '../../services/findStratigys/topic';
 
 const EditFindTopic = ({ show, setShow, onHide, data, setSubData }) => {
     const handleUpdate = (e) => {

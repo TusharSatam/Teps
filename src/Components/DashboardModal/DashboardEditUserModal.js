@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { updateUser } from '../../apis/dashboardUsers';
+import { updateUser } from '../../services/dashboardUsers';
 
 const DashboardEditUserModal = ({ show, onHide, user, setShow }) => {
     const handleUpdate = (e) => {

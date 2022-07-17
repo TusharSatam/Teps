@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootstrap';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { deletSubStratigy, getSingleSubStratigy, getSubStratigy, postSubStratigy } from '../../apis/findStratigys/subject';
+import { deletSubStratigy, getSingleSubStratigy, getSubStratigy, postSubStratigy } from '../../services/findStratigys/subject';
 import toast, { Toaster } from 'react-hot-toast';
 import FindStratigyEdit from '../../Components/DashboardModal/FindStratigyEdit';
 import Grade from '../../Components/DashBoardFindStr/Grade';

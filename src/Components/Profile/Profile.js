@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
-import { updateInfo } from '../../apis/auth';
-import { getSingleUser, updateUser } from '../../apis/dashboardUsers';
+import { updateInfo } from '../../services/auth';
+import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import defaultProfile from '../../asstes/defaultProfile.png'
 import { useAuth } from '../../Context/AuthContext';
 import ChangePass from '../ForgotPassModal/ChangePass';

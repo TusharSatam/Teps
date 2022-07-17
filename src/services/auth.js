@@ -8,6 +8,7 @@ export const userRegister = async (data) => {
         .then(res => {
             regResponse = res;
         })
+        .catch(err => console.log(err));
     return regResponse
 }
 
@@ -17,8 +18,8 @@ export const userLogin = async (data) => {
     await axios.post(`signin`, data)
         .then(res => {
             loginResponse = res.data;
-
         })
+        .catch(err => console.log(err));
     return loginResponse
 }
 
@@ -28,8 +29,8 @@ export const updateInfo = async (id, data) => {
     await axios.put(`users/${id}`, data)
         .then(res => {
             updateResponse = res.data;
-
         })
+        .catch(err => console.log(err));
     return updateResponse;
 }
 

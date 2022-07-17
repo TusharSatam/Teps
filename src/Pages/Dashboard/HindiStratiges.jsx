@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { delHindiStratigys, getHindiStratigys, singleHindiStratigys } from '../../apis/hindiStratigys';
+import { delHindiStratigys, getHindiStratigys, singleHindiStratigys } from '../../services/hindiStratigys';
 import EditHindiStratigyModal from '../../Components/DashboardModal/EditHindiStratigyModal';
 
 const HindiStratiges = () => {

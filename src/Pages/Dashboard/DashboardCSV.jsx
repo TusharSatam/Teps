@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
-import { delStratigys, getStratigys, singleStratigys } from '../../apis/stratigyes';
+import { delStratigys, getStratigys, singleStratigys } from '../../services/stratigyes';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 

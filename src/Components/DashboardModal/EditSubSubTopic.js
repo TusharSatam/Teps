@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getSubSubTopicStratigy, updateSubSubTopicStratigy } from '../../apis/findStratigys/subSubTopic';
+import { getSubSubTopicStratigy, updateSubSubTopicStratigy } from '../../services/findStratigys/subSubTopic';
 
 const EditSubSubTopic = ({ show, setShow, onHide, data, setSubData }) => {
     const handleUpdate = (e) => {

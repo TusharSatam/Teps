@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getStratigys, updateStratigys } from '../../apis/stratigyes';
+import { getStratigys, updateStratigys } from '../../services/stratigyes';
 
 const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
     console.log(data);

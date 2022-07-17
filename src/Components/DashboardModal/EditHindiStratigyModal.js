@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getHindiStratigys, updateHindiStratigys } from '../../apis/hindiStratigys';
+import { getHindiStratigys, updateHindiStratigys } from '../../services/hindiStratigys';
 
 const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
     const handleUpdate = (e) => {

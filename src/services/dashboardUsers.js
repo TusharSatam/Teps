@@ -9,6 +9,7 @@ export const getUsers = async () => {
         .then(res => {
             userResponse = res
         })
+        .catch(err => console.log(err));
     return userResponse;
 }
 
@@ -19,6 +20,7 @@ export const getSingleUser = async (id) => {
         .then(res => {
             userResponse = res;
         })
+        .catch(err => console.log(err));
     return userResponse;
 }
 
@@ -28,8 +30,8 @@ export const updateUser = async (id, data) => {
     await axios.put(`users/${id}`, data)
         .then(res => {
             updateResponse = res.data;
-
         })
+        .catch(err => console.log(err));
     return updateResponse;
 }
 // Delet user 
@@ -38,7 +40,7 @@ export const deletUser = async (id) => {
     await axios.delete(`users/${id}`)
         .then(res => {
             deletResponse = res.data;
-
         })
+        .catch(err => console.log(err));
     return deletResponse;
 }

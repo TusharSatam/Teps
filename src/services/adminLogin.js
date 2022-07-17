@@ -6,7 +6,7 @@ export const adminLogin = async (data) => {
     await axios.post(`adminlog`, data)
         .then(res => {
             loginResponse = res.data;
-
         })
+        .catch(err => console.log(err))
     return loginResponse
 }

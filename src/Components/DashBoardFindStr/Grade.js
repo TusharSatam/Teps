@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootstrap';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
-import { deletGradeStratigy, getGradeStratigy, getSingleGradeStratigy, postGradeStratigy } from '../../apis/findStratigys/grade';
+import { deletGradeStratigy, getGradeStratigy, getSingleGradeStratigy, postGradeStratigy } from '../../services/findStratigys/grade';
 import EdiFindGrade from '../DashboardModal/EdiFindGrade';
 
 

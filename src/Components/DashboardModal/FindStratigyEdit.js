@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import { getSubStratigy, updateSubStratigy } from '../../apis/findStratigys/subject';
+import { getSubStratigy, updateSubStratigy } from '../../services/findStratigys/subject';
 import toast, { Toaster } from 'react-hot-toast';
 
 const FindStratigyEdit = ({ show, setShow, onHide, data, setSubData }) => {

@@ -3,7 +3,7 @@ import { Button, Dropdown, DropdownButton, Form, InputGroup } from 'react-bootst
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import EditFindSkill from '../DashboardModal/EditFindSkill';
-import { deletSkillStratigy, getSingleSkillStratigy, getSkilleStratigy, postSkillStratigy } from '../../apis/findStratigys/skill';
+import { deletSkillStratigy, getSingleSkillStratigy, getSkilleStratigy, postSkillStratigy } from '../../services/findStratigys/skill';
 
 
 

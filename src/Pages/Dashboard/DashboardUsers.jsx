@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { deletUser, getSingleUser, getUsers } from '../../apis/dashboardUsers';
+import { deletUser, getSingleUser, getUsers } from '../../services/dashboardUsers';
 import DashboardEditUserModal from '../../Components/DashboardModal/DashboardEditUserModal';
 
 const DashboardUsers = () => {

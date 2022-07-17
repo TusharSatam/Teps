@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { getGradeStratigy, updateGradeStratigy } from '../../apis/findStratigys/grade';
+import { getGradeStratigy, updateGradeStratigy } from '../../services/findStratigys/grade';
 
 const EdiFindGrade = ({ show, setShow, onHide, data, setSubData }) => {
     const handleUpdate = (e) => {
