@@ -59,14 +59,14 @@ const ChangePass = ({ show, setShow }) => {
           <div>
             <div>
               <p onClick={handleClose} style={{ cursor: 'pointer', color: '#6D747A' }} className=' me-1 fs-5 text-end'>&#10006;</p>
-              <p className='text-center forgot_header mt-5'>Change your password ! </p>
+              <p className='text-center forgot_header mt-5'>{t('pass_change')} </p>
               {/* <p className='text-center forgot_subheader mt-3'>{t("reset_pass_cont")} </p> */}
             </div>
             <form onSubmit={handleChange}>
               <div className='d-flex justify-content-center'>
                 <div>
                   <div className='my-3'>
-                    <label htmlFor="">New password</label><br />
+                    <label htmlFor="">{t('new_pass')}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
                   </div>
                   <div className='my-3'>
@@ -77,7 +77,7 @@ const ChangePass = ({ show, setShow }) => {
                   {passError ? <p style={{ fontSize: "12px" }} className='text-danger'>{passError}</p> : ""}
                   {/* <p className='text-danger me-5 pe-4'>{passError ? passError : ""}</p> */}
                   <div className='d-flex justify-content-center my-5'>
-                    <button className='submit_btn'>Change password</button>
+                    <button className='submit_btn'>{t('change_pass_btn')}</button>
                   </div>
                 </div>
               </div>
