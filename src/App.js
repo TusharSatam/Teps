@@ -14,7 +14,6 @@ import DashboardUsers from './Pages/Dashboard/DashboardUsers';
 import Stratigy from './Pages/Stratigy';
 import DashboardCSV from './Pages/Dashboard/DashboardCSV';
 import UploadStratigys from './Pages/Dashboard/UploadStratigys';
-import FindStratigys from './Pages/Dashboard/FindStratigys';
 import Navbar from './Components/Navbar/Navbar';
 import Footer from './Components/Footer/Footer';
 import HindiStratiges from './Pages/Dashboard/HindiStratiges';
@@ -63,7 +62,6 @@ function App() {
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
               <Route exact path='/admin-home' element={<DashHome />} />
-              {/* <Route exact path='/admin-stratigy-dropDown' element={<FindStratigys />} /> */}
               <Route exact path='/admin-users' element={<DashboardUsers />} />
               <Route exact path='/admin-en-stratigy' element={<DashboardCSV />} />
               <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />

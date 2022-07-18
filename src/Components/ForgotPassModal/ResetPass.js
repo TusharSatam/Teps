@@ -2,29 +2,26 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
 const ResetPass = () => {
   const { t } = useTranslation()
   const [error, setError] = useState('');
   const [show, setShow] = useState(true);
-  const [getEmail, setGetEmail] = useState(true);
   const [passError, setPassError] = React.useState('');
   const navigate = useNavigate();
-
+  const search = useLocation().search;
+  const email = new URLSearchParams(search).get('email');
 
   const handleClose = () => setShow(false);
-  useEffect(() => {
-    setGetEmail(JSON.parse(localStorage.getItem('email')));
-  }, [])
   const handleSIgnIn = (e) => {
     e.preventDefault();
     if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
       if (e.target.password.value === e.target.confirm_password.value) {
         setError('')
         const data = {
-          'email': getEmail,
+          'email': email,
           'password': e.target.password.value,
         }
         axios.post("/forget/update", data)
