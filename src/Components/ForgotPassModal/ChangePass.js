@@ -25,7 +25,7 @@ const ChangePass = ({ show, setShow }) => {
         axios.post("/forget/update", data)
           .then(res => {
             setShow(false)
-            toast.success(`${t('success_reset')}`)
+            toast.success(`${t('success_Change')}`)
             e.target.reset()
           })
           .catch(err => {

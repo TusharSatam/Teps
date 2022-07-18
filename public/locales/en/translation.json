@@ -68,7 +68,7 @@
   "password_match": "Passwords do not match.",
   "strategies_not_found": "Strategies not found for this combination. Please select a different combination.",
   "success_reset": "Password reset successfully.",
-  "success_Change": "Password Change successfully.",
+  "success_Change": "Password Changed successfully.",
   "reset_email": "Email Sent! Please check your inbox.",
   "pass_change": "Change your password !",
   "new_pass": "New password",
