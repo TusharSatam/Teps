@@ -40,14 +40,14 @@ const Article = () => {
               <p className='my-3 my-md-4'>
                 {t('We have simple-to-use teaching strategies that can be contextualised and used in your classrooms. And they are very easy to access! Just follow these simple steps:')}
               </p>
-              <p className='list_article'>
-                1. {t('Log in or register.')}<br />
-                2. {t('Choose the subject and grade for which you need the strategies.')}<br />
-                3. {t('Choose the skill, topic, sub-topic and sub sub-topic from the dropdown menu.')}<br />
-                4. {t('Once you click on the Find Strategies button,you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.')}<br />
-                5. {t('Feel free to make notes from the strategies given.')}<br />
-                6. {t('Also note that you can save these strategies for later use or collect your favourite strategies.')}
-              </p>
+              <ol className='list_article'>
+                <li>{t('Log in or register.')}</li>
+                <li>{t('Choose the subject and grade for which you need the strategies.')}</li>
+                <li>{t('Choose the skill, topic, sub-topic and sub sub-topic from the dropdown menu.')}</li>
+                <li>{t('Once you click on the Find Strategies button, you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.')}</li>
+                <li>{t('Feel free to make notes from the strategies given.')}</li>
+                <li>{t('Also note that you can save these strategies for later use or collect your favourite strategies.')}</li>
+              </ol>
             </div>
           </div>
           <div className='d-none d-md-block'>

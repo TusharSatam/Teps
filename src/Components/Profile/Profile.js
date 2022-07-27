@@ -19,6 +19,7 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState([]);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
+  const [citys, setCitys] = React.useState('');
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -88,7 +89,21 @@ const Profile = () => {
         toast.error('Something is wrong please try again!')
       })
   }
-  console.log(isLoading);
+  React.useEffect(() => {
+    const url = "./citys.json"
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const res = await response.json();
+        setCitys(res.cities);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, [])
+
   return (
     <>
       <Toaster
@@ -119,7 +134,7 @@ const Profile = () => {
                 {/* <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p> */}
               </div>
               <div style={{ marginTop: "-25px" }}>
-                <button onClick={handleForgotShow} className='change_btn'>{t('change_password')}</button>
+                <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
               </div>
             </div>
           </div>
@@ -144,7 +159,7 @@ const Profile = () => {
               </div>
               <div style={{ marginTop: "110px" }}>
                 <div className='d-flex justify-content-center py-5'>
-                  <button onClick={handleForgotShow} className='submit_btn'>{t('change_password')}</button>
+                  <button onClick={handleForgotShow} className='submit_btn'>{t('Change Password')}</button>
                 </div>
                 <div className='d-flex'>
                   <div>
@@ -168,7 +183,7 @@ const Profile = () => {
                   {/* <p className='mt-1'>abc school</p> */}
                 </div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('email')} ID:</h4>
+                  <h4 className='input_label'>{t('Email')}:</h4>
                   <div className='mt-md-2'>
                     <input className='profile_input' type="text" defaultValue={user.email} name="email" id="" />
                   </div>
@@ -185,7 +200,18 @@ const Profile = () => {
                   <h4 className='input_label'>{t('City/Town')}:</h4>
                   {/* <p className='mt-1'>abc school</p> */}
                   <div className='mt-md-2'>
-                    <input className='profile_input' type="text" defaultValue={user.city} name="city" id="" />
+                    {
+                      user?.city === "International" ?
+                        < input className='profile_input' type="text" defaultValue={user.city} name="city" id="" /> :
+                        <select className='ps-1 pe-4 py-1' style={{ width: "350px" }} name="city" id="">
+                          <option className='' >{user.city}</option>
+                          {
+                            citys && citys?.map((data, index) => (
+                              <option key={index} >{data.City}</option>
+                            ))
+                          }
+                        </select>
+                    }
                   </div>
                 </div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
@@ -194,6 +220,7 @@ const Profile = () => {
                     <div className='mt-md-2'>
                       <input className='profile_input' type="text" defaultValue={user?.state} name="state" id="" />
                     </div> : <select className='ps-1 pe-4 py-1 state_input' defaultValue={user?.state} name="state" id="">
+                      <option className='' >{user.state ? user.state : 'State'}</option>
                       {
                         state?.map((data, index) => (
                           <option key={index} >{data.name}</option>
@@ -212,7 +239,8 @@ const Profile = () => {
                 </div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('country')}:</h4>
-                  <select className='ps-2 pe-5 py-1 state_input' defaultValue={user.country} name="country" id="">
+                  <select className='ps-2 pe-5 py-1 state_input' name="country" id="">
+                    <option className='' >{user.country ? user.country : 'Country'}</option>
                     {
                       country?.map((item, index) => (
                         <option className='' >{item?.name}</option>

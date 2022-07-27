@@ -66,6 +66,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     if (e.target.checkmark.checked === true) {
       setCheckError('');
       if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+        setPassError(``)
         if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
           e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
         ) {
@@ -115,6 +116,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       }
       else {
         setPassError(`${t('password_five')}`)
+        setError(``);
       }
     }
     else {
@@ -124,6 +126,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const handleForgotShow = () => {
     setForgot(true);
     setShow(false);
+  }
+  const handleEmailError = (e) => {
+    if (e.target.value) {
+      setEmailError('')
+    }
   }
   return (
     <>
@@ -160,8 +167,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               <div className='my-3'>
                 <label className={emailError ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                <a href="#" className={display} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
+                <input onChange={handleEmailError} className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
               </div>
               <div className='d-flex  my-3'>
                 <div className='me-5'>
@@ -252,8 +259,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <div className='mt-3'>
                   <label className={emailError ? "text-danger" : ""} htmlFor="">{t('email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                  <input className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
-                  <a href="#" className={display} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>{t('retrieve_password')}</p></a>
+                  <input onChange={handleEmailError} className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                  <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>{t('retrieve_password')}</p></a>
                 </div>
                 <div className='mt-3'>
                   <label htmlFor="">{t('Designation')}<span className='text-danger'>&#x2736;</span></label> <br />

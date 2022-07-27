@@ -140,6 +140,12 @@
   border: 1px solid #939CA3;
   border-radius: 4px;
 }
+.state_inputt{
+  border: 1px solid #939CA3;
+  border-radius: 4px;
+  width: 350px;
+
+}
 .save_change_btn{
   font-weight: 700;
   font-size: 8px;

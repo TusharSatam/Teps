@@ -66,18 +66,18 @@ const ChangePass = ({ show, setShow }) => {
               <div className='d-flex justify-content-center'>
                 <div>
                   <div className='my-3'>
-                    <label htmlFor="">{t('new_pass')}</label><br />
+                    <label htmlFor="">{t('New Password')}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
                   </div>
                   <div className='my-3'>
-                    <label htmlFor="">{t("confirm_password")}</label><br />
+                    <label htmlFor="">{t("Confirm Password")}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='confirm_password' /><br />
                   </div>
                   {error ? <p className='text-danger'>{error}</p> : ''}
                   {passError ? <p style={{ fontSize: "12px" }} className='text-danger'>{passError}</p> : ""}
                   {/* <p className='text-danger me-5 pe-4'>{passError ? passError : ""}</p> */}
                   <div className='d-flex justify-content-center my-5'>
-                    <button className='submit_btn'>{t('change_pass_btn')}</button>
+                    <button className='submit_btn'>{t('Change Password')}</button>
                   </div>
                 </div>
               </div>

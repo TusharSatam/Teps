@@ -19,6 +19,7 @@
 }
 .list_article{
     margin-bottom: 203px;
+    margin-left: -10px;
 }
 .article_image{
     width: 424px;
@@ -42,5 +43,7 @@ margin: 0 20px 0 20px;
     }
     .list_article{
         margin-bottom: 50px;
+        margin-left: -20px;
+
     }
 }

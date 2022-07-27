@@ -7,7 +7,7 @@
   "Log in or register.": "Log in or register.",
   "Choose the subject and grade for which you need the strategies.": "Choose the subject and grade for which you need the strategies.",
   "Choose the skill, topic, sub-topic and sub sub-topic from the dropdown menu.": "Choose the skill, topic, sub-topic and sub sub-topic from the dropdown menu.",
-  "Once you click on the Find Strategies button,you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.": "Once you click on the Find Strategies button,you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.",
+  "Once you click on the Find Strategies button, you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.": "Once you click on the Find Strategies button, you will see a list of Learning Outcomes and Teaching Strategies based on the Learning Outcomes.",
   "Feel free to make notes from the strategies given.": "Feel free to make notes from the strategies given.",
   "Also note that you can save these strategies for later use or collect your favourite strategies.": "Also note that you can save these strategies for later use or collect your favourite strategies.",
   "contact_us": "Contact Us",
@@ -29,7 +29,7 @@
   "Let’s get started!": "Let’s get started!",
   "Forgot Password?": "Forgot Password?",
   "password_error": "(Password is incorrect.)",
-  "change_password": "Change password",
+  "Change Password": "Change Password",
   "state": "State",
   "country": "Country",
   "save_changes": "Save Changes",
@@ -71,6 +71,7 @@
   "success_Change": "Password Changed successfully.",
   "reset_email": "Email Sent! Please check your inbox.",
   "pass_change": "Change your password !",
-  "new_pass": "New password",
-  "change_pass_btn": "Change password"
+  "New Password": "New Password",
+  "change_pass_btn": "Change password",
+  "Please reselect the dropdowns for Hindi strategies.": "Please reselect the dropdowns for Hindi strategies."
 }
