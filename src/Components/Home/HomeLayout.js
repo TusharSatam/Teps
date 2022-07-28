@@ -80,18 +80,28 @@ const HomeLayout = () => {
     .map(topic => {
       return aquaticCreatures?.find(a => a.Topic === topic)
     });
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
-    .map(skill => {
-      return aquaticCreatures?.find(a => a.Skill === skill)
-    });
 
-  const uniqueSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub Topic'])))
-    .map(sub_topic => {
-      return aquaticCreatures?.find(a => a['Sub Topic'] === sub_topic)
+  const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic;
+  })
+
+  const uniqueSkill = Array.from(new Set(aquaticCreaturesTopic?.map(a => a.Skill)))
+    .map(skill => {
+      return aquaticCreaturesTopic?.find(a => a.Skill === skill)
     });
-  const uniqueSubSubTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Sub-sub topic'])))
+  const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill;
+  })
+  const uniqueSubTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a['Sub Topic'])))
+    .map(sub_topic => {
+      return aquaticCreaturesSkill?.find(a => a['Sub Topic'] === sub_topic)
+    });
+  const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+  })
+  const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
     .map(sub_sub_topic => {
-      return aquaticCreatures?.find(a => a['Sub-sub topic'] === sub_sub_topic)
+      return aquaticCreaturesSubTopic?.find(a => a['Sub-sub topic'] === sub_sub_topic)
     });
 
   const handleFindStratigys = () => {

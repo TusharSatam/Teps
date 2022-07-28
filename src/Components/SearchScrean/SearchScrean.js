@@ -137,7 +137,7 @@ const SearchScrean = () => {
                                             <div className='counter_str'><p className='mt-md-1'>{index + 1}</p></div>
                                           </div>
                                           <div className='d-block d-md-none mt-1'>
-                                            <div className='icon_heading_text me-1 p-1'>Development Domain</div>
+                                            <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
                                             <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                               <div className='res_btn_icon'>
                                                 <div className='d-flex flex-column res_inner_div p-1 '>
@@ -176,7 +176,7 @@ const SearchScrean = () => {
                                           </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block'>
-                                          <span className='icons_heading'>Development Domain</span>
+                                          <span className='icons_heading'>Developmental Domains</span>
                                           <div className='d-flex align-items-center justify-content-center mt-2'>
                                             <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                               {
