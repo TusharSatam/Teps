@@ -163,7 +163,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSubject}</option>
+                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -179,7 +179,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSubject}</option>
+                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -195,7 +195,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -211,7 +211,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -227,7 +227,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectTopic}</option>
+                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -243,7 +243,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSkill}</option>
+                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <option value="" selected disabled>{t('Skill')}</option>
 
@@ -261,7 +261,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectTopic}</option>
+                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -277,7 +277,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSkill}</option>
+                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
@@ -297,7 +297,7 @@ const HomeHindiLayout = () => {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
-                    <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>
+                    {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -316,7 +316,7 @@ const HomeHindiLayout = () => {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                    <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>
+                    {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
@@ -336,7 +336,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>
+                  {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -353,7 +353,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                  <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>
+                  {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>

@@ -25,6 +25,7 @@ import HomeHindiLayout from '../Home/HomeHindiLayout';
 const SearchScrean = () => {
   const { stratigyFilData, selectLang } = useAuth()
   const [show, setShow] = React.useState([]);
+  const [showH, setShowH] = React.useState([]);
   const [react, setReact] = React.useState([]);
   const [like, setLike] = React.useState([]);
   const { t } = useTranslation();
@@ -53,6 +54,21 @@ const SearchScrean = () => {
       show.push(e)
     }
     setShow([...show], [show]);
+  }
+  const handleCheckboxH = async (e) => {
+
+    if (showH.includes(e)) {
+      for (var i = 0; i < showH.length; i++) {
+        if (showH[i] === e) {
+          showH.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    else {
+      showH.push(e)
+    }
+    setShowH([...showH], [showH]);
   }
 
   const handleReact = async (e) => {
@@ -89,12 +105,13 @@ const SearchScrean = () => {
   // console.log(uniqueHindiSubSubTopic[0]['Learning Outcome'] ? true : false);
   // console.log(uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ? true : false);
   // const selectedDropdown = localStorage.getItem('');
-  // if (selectLang !== 'english') {
-  //   localStorage.removeItem('selectedDropdown');
-  // }
-  // else {
-  //   localStorage.removeItem('selectedHiDropdown');
-  // }
+
+  if (selectLang !== 'english') {
+    localStorage.removeItem('selectedDropdown');
+  }
+  else {
+    localStorage.removeItem('selectedHiDropdown');
+  }
   return (
     <>
       <>
@@ -122,7 +139,7 @@ const SearchScrean = () => {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
                             <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
-                              <ContextAwareToggle eventKey={index + 1}>{show.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
+                              <ContextAwareToggle eventKey={index + 1}>{show?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
@@ -142,13 +159,13 @@ const SearchScrean = () => {
                                               <div className='res_btn_icon'>
                                                 <div className='d-flex flex-column res_inner_div p-1 '>
                                                   {
-                                                    data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                    !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
                                                       data['Dev Dom 1'] === "Cognitive Sensory" ?
                                                         <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
                                                         <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                                   }
                                                   {
-                                                    data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                    !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
                                                       data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                                         <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
                                                         <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
@@ -180,13 +197,13 @@ const SearchScrean = () => {
                                           <div className='d-flex align-items-center justify-content-center mt-2'>
                                             <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                               {
-                                                data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
                                                   data['Dev Dom 1'] === "Cognitive Sensory" ?
                                                     <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
                                                     <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                               }
                                               {
-                                                data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
                                                   data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                                     <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                                     <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -224,7 +241,7 @@ const SearchScrean = () => {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
                               <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
-                                <ContextAwareToggle eventKey={index + 1}>{show.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
+                                <ContextAwareToggle eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
                                 <p className='mt-3 checkBox_title'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
                               <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
@@ -244,13 +261,13 @@ const SearchScrean = () => {
                                                 <div className='res_btn_icon'>
                                                   <div className='d-flex flex-column res_inner_div p-1 '>
                                                     {
-                                                      data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                      !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                         data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                                           <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
                                                           <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                                     }
                                                     {
-                                                      data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                      !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                         data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
                                                           <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
                                                           <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
@@ -283,13 +300,13 @@ const SearchScrean = () => {
                                             <div className='d-flex align-items-center justify-content-center mt-2'>
                                               <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                 {
-                                                  data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                  !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                     data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                                       <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
                                                       <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                                 }
                                                 {
-                                                  data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                  !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                     data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
                                                       <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
                                                       <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
