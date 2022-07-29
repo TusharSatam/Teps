@@ -58,18 +58,35 @@ const HomeHindiLayout = () => {
     });
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
+    setSelectSubject(e.target.value);
+    setSelectGrade('')
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value)
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value)
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
+    setSelectSubSubTopic('')
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
@@ -190,7 +207,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -206,7 +223,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -222,7 +239,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -238,7 +255,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -256,7 +273,7 @@ const HomeHindiLayout = () => {
           </select>
         </div>
         <div className='mb-3'>
-          <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
+          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -272,7 +289,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 mt-3  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 mt-3 w-100'} name="" id="">
+          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 mt-3  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 mt-3 w-100'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -292,7 +309,7 @@ const HomeHindiLayout = () => {
         </div>
         <div className='d-block justify-content-center align-items-center d-md-none'>
           <div>
-            <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
+            <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -311,7 +328,7 @@ const HomeHindiLayout = () => {
             </select>
           </div>
           <div className='mt-3'>
-            <select onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
+            <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -331,7 +348,7 @@ const HomeHindiLayout = () => {
           </div>
         </div>
         <div className='d-none d-md-block'>
-          <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
+          <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -348,7 +365,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>

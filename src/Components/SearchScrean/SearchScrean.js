@@ -112,6 +112,12 @@ const SearchScrean = () => {
   else {
     localStorage.removeItem('selectedHiDropdown');
   }
+  React.useEffect(() => {
+    if (stratigyFilData.length === 0) {
+      setShow([''])
+      setShowH([''])
+    }
+  }, [stratigyFilData])
   return (
     <>
       <>

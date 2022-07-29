@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import Logo from '../../asstes/things_logo.svg'
+import ResLogo from '../../asstes/res-logo.svg'
 import { Buffer } from 'buffer';
 import { useAuth } from '../../Context/AuthContext';
 import LoginModal from '../LoginModal/LoginModal';
@@ -52,13 +53,14 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
       />
       <section onClick={navClick} className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
         <div className='d-flex'>
-          {/* <div>
-                        <img className='logo_img' src={Logo} alt="logo" />
-                    </div> */}
           <Link to="/home">
-            <div className='logo_aligh '>
+            <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
-            </div></Link>
+            </div>
+            <div className='d-block d-md-none logo_aligh '>
+              <img src={ResLogo} alt="logo2" />
+            </div>
+          </Link>
         </div>
         <div className='d-flex align-items-center'>
           <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' ? 'd-block' : 'd-none'}>

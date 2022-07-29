@@ -108,7 +108,7 @@ const HindiStratiges = () => {
                 str?.map((item, index) => (
                   <tr key={index}>
                     <td>{stratigys?.currentPage === '1' ? index + 1 :
-                      (parseInt(stratigys?.currentPage) - 1) * 10 + (index + 1)
+                      (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                     }</td>
                     <td>{item.विषय}</td>
                     <td>{item.श्रेणी}</td>

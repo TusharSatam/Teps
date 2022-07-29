@@ -306,10 +306,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </div>
                   <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
                 </div>
-                {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
-                {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
+                {required ? <p className='text-danger text-center'>{required}</p> : ""}
+                {error ? <p className='text-danger text-center'>{error}</p> : ""}
                 <p className='text-danger '>{checkError ? checkError : ""}</p>
-                <p className='text-danger' style={{ fontSize: "10px" }}>{passError ? passError : ""}</p>
+                <p className='text-danger text-center' style={{ fontSize: "10px" }}>{passError ? passError : ""}</p>
                 <div className='d-flex justify-content-center my-5'>
                   <button className='submit_btn'>{t('Submit')}</button>
                 </div>

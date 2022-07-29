@@ -111,7 +111,7 @@ const DashboardCSV = () => {
                 str?.map((item, index) => (
                   <tr key={index}>
                     <td>{stratigys?.currentPage === '1' ? index + 1 :
-                      (parseInt(stratigys?.currentPage) - 1) * 10 + (index + 1)
+                      (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                     }</td>
                     <td>{item.Subject}</td>
                     <td>{item.Grade}</td>
@@ -124,11 +124,11 @@ const DashboardCSV = () => {
                     <td>{item['Mode of Teaching']}</td>
                     <td>
                       {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
-                      {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : ''}
+                      {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                     </td>
                     <td>
                       {index === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
-                      {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : ''}
+                      {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                     </td>
                     <td>
                       <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
