@@ -55,18 +55,35 @@ const HomeLayout = () => {
     });
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
+    setSelectGrade('')
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
+
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value)
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value)
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
+    setSelectSubSubTopic('')
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
@@ -153,7 +170,7 @@ const HomeLayout = () => {
     }
 
   }
-
+  console.log(selectedOption?.selectGrade);
   return (
     <>
       <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
@@ -163,7 +180,7 @@ const HomeLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -179,7 +196,7 @@ const HomeLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -190,12 +207,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -206,12 +223,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -222,12 +239,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -238,12 +255,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <option value="" selected disabled>{t('Skill')}</option>
 
@@ -256,12 +273,12 @@ const HomeLayout = () => {
           </select>
         </div>
         <div className='mb-3'>
-          <select onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
+          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -272,12 +289,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 mt-3  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 mt-3 w-100'} name="" id="">
+          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 mt-3  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 mt-3 w-100'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
@@ -292,12 +309,12 @@ const HomeLayout = () => {
         </div>
         <div className='d-block justify-content-center align-items-center d-md-none'>
           <div>
-            <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
+            <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
-                    {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
+                    {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -311,12 +328,12 @@ const HomeLayout = () => {
             </select>
           </div>
           <div className='mt-3'>
-            <select onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
+            <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                    {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
+                    {localStorage.getItem('selectedDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
@@ -331,12 +348,12 @@ const HomeLayout = () => {
           </div>
         </div>
         <div className='d-none d-md-block'>
-          <select onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
+          <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
-                  {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -348,12 +365,12 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                  {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>

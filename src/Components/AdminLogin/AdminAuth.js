@@ -1,10 +1,10 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { adminLogin } from '../../services/adminLogin';
 import { useAuth } from '../../Context/AuthContext';
-
+import Logo from '../../asstes/things_logo.svg'
 const AdminAuth = () => {
   const { t } = useTranslation()
   const navigate = useNavigate();
@@ -48,8 +48,13 @@ const AdminAuth = () => {
   return (
     <>
       <div className='mt-5 pt-5'>
+        <Link to='/'>
+          <div className='d-flex justify-content-center'>
+            <img src={Logo} alt="" />
+          </div>
+        </Link>
         <div>
-          <p className='text-center log_in mt-3'>Admin Login</p>
+          <p className='text-center fs-2 log_in mt-3'>Admin Login</p>
         </div>
         <form onSubmit={handleSIgnIn}>
           <div className='d-flex justify-content-center'>
