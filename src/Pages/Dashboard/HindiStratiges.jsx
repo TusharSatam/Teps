@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { delHindiStratigys, getHindiStratigys, singleHindiStratigys } from '../../services/hindiStratigys';
 import EditHindiStratigyModal from '../../Components/DashboardModal/EditHindiStratigyModal';
+import { Spinner } from 'react-bootstrap';
 
 const HindiStratiges = () => {
   const [stratigys, setStratigys] = React.useState([]);
@@ -16,12 +17,15 @@ const HindiStratiges = () => {
   const [indi1, setIndi1] = React.useState();
   const [show, setShow] = React.useState(false);
   const [singleStr, setSingleStr] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(false);
   const handleClose = () => setShow(false);
   React.useEffect(() => {
+    setIsLoading(true)
     getHindiStratigys(pageCount)
       .then(res => {
         setStratigys(res.data);
         setStr(res.data.posts)
+        setIsLoading(false)
       })
   }, [pageCount]);
   const handlePrevious = () => {
@@ -103,38 +107,47 @@ const HindiStratiges = () => {
               </tr>
             </thead>
             <tbody>
-
               {
-                str?.map((item, index) => (
-                  <tr key={index}>
-                    <td>{stratigys?.currentPage === '1' ? index + 1 :
-                      (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
-                    }</td>
-                    <td>{item.विषय}</td>
-                    <td>{item.श्रेणी}</td>
-                    <td>{item.कौशल}</td>
-                    <td>{item.शीर्षक}</td>
-                    <td>{item['उप शीर्षक']}</td>
-                    <td>{item['उप-उप शीर्षक']}</td>
-                    <td>{item['विकासात्मक क्षेत्र 1']}</td>
-                    <td>{item['विकासात्मक क्षेत्र 2']}</td>
-                    <td>{item['शिक्षण का तरीका']}</td>
-                    <td>
-                      {index === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
-                      {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : ''}
-                    </td>
-                    <td>
-                      {index === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
-                      {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : ''}
-                    </td>
-                    <td>
-                      <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
-                        <FaRegTrashAlt />
-                      </button>
-                      <button className='btn p-0' onClick={() => handleEdit(item._id)}><FaRegEdit /></button>
-                    </td>
-                  </tr>
-                ))
+                isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div> :
+                  <>
+                    {
+                      str?.map((item, index) => (
+                        <tr key={index}>
+                          <td>{stratigys?.currentPage === '1' ? index + 1 :
+                            (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
+                          }</td>
+                          <td>{item.विषय}</td>
+                          <td>{item.श्रेणी}</td>
+                          <td>{item.कौशल}</td>
+                          <td>{item.शीर्षक}</td>
+                          <td>{item['उप शीर्षक']}</td>
+                          <td>{item['उप-उप शीर्षक']}</td>
+                          <td>{item['विकासात्मक क्षेत्र 1']}</td>
+                          <td>{item['विकासात्मक क्षेत्र 2']}</td>
+                          <td>{item['शिक्षण का तरीका']}</td>
+                          <td>
+                            {index === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
+                            {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
+                          </td>
+                          <td>
+                            {index === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
+                            {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
+                          </td>
+                          <td>
+                            <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
+                              <FaRegTrashAlt />
+                            </button>
+                            <button className='btn p-0' onClick={() => handleEdit(item._id)}><FaRegEdit /></button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </>
+
               }
 
             </tbody>

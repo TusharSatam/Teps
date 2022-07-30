@@ -108,16 +108,29 @@ const SearchScrean = () => {
 
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
+    localStorage.removeItem('filterData');
   }
   else {
     localStorage.removeItem('selectedHiDropdown');
+    localStorage.removeItem('filterDataH');
   }
   React.useEffect(() => {
     if (stratigyFilData.length === 0) {
       setShow([''])
       setShowH([''])
     }
-  }, [stratigyFilData])
+    if (selectLang !== 'english') {
+      localStorage.removeItem('selectedDropdown');
+      localStorage.removeItem('filterData');
+      setShow([''])
+    }
+    else {
+      localStorage.removeItem('selectedHiDropdown');
+      localStorage.removeItem('filterDataH');
+      setShowH([''])
+    }
+
+  }, [stratigyFilData, selectLang])
   return (
     <>
       <>
@@ -130,7 +143,7 @@ const SearchScrean = () => {
         </div>
       </>
       {
-        stratigyFilData.length !== 0 ?
+        (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
           <>
             {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?

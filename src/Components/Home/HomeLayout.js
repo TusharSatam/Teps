@@ -69,24 +69,29 @@ const HomeLayout = () => {
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value)
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value)
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
+    localStorage.removeItem('selectedDropdown');
   }
   // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
@@ -152,7 +157,7 @@ const HomeLayout = () => {
       }
     }
     else {
-
+      window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
@@ -169,17 +174,18 @@ const HomeLayout = () => {
     }
 
   }
+  console.log(selectedOption?.selectSubject);
   console.log(selectedOption?.selectGrade);
   return (
     <>
       <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-          <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{console.log(selectedOption?.selectSubject)}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -190,7 +196,7 @@ const HomeLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>

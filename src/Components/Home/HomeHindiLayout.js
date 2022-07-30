@@ -58,13 +58,12 @@ const HomeHindiLayout = () => {
     });
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
-    setSelectSubject(e.target.value);
     setSelectGrade('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    localStorage.removeItem('selectedDropdown');
+    localStorage.removeItem('selectedHiDropdown');
   }
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
@@ -72,24 +71,29 @@ const HomeHindiLayout = () => {
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedHiDropdown');
   }
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value)
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedHiDropdown');
   }
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value)
     setSelectSubTopic('')
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedHiDropdown');
   }
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
     setSelectSubSubTopic('')
+    localStorage.removeItem('selectedHiDropdown');
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
+    localStorage.removeItem('selectedHiDropdown');
   }
   // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
@@ -131,7 +135,7 @@ const HomeHindiLayout = () => {
         });
         setStratigyFilData(aquaticCreatures);
         if (aquaticCreatures) {
-          window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+          window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
         }
         if (aquaticCreatures.length !== 0) {
           if (location.pathname === '/home') {
@@ -152,14 +156,14 @@ const HomeHindiLayout = () => {
       }
     }
     else {
-
+      window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
       });
 
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
-        window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+        window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
       }
       if (aquaticCreatures.length === 0) {
         setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
@@ -173,14 +177,14 @@ const HomeHindiLayout = () => {
 
   return (
     <>
-      <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
+      <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
           <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -191,12 +195,12 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {!selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -212,7 +216,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -228,7 +232,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {!selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
                 </> :
                 <option value="" selected disabled>{t('Grade')}</option>
 
@@ -244,7 +248,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -260,7 +264,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <option value="" selected disabled>{t('Skill')}</option>
 
@@ -278,7 +282,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {!selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
                 </> :
                 <option value="" selected disabled>{t('Topic')}</option>
 
@@ -294,7 +298,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
-                  {!selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Skill')}</option>
@@ -314,7 +318,7 @@ const HomeHindiLayout = () => {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
-                    {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -333,7 +337,7 @@ const HomeHindiLayout = () => {
                 selectedOption && location.pathname !== '/home' ?
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                    {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                   </> :
                   <>
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
@@ -353,7 +357,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
-                  {!selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub - topic')}</option>
@@ -370,7 +374,7 @@ const HomeHindiLayout = () => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                  {!selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
+                  {localStorage.getItem('selectedHiDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
                 </> :
                 <>
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
