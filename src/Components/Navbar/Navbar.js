@@ -53,7 +53,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
       />
       <section onClick={navClick} className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
         <div className='d-flex'>
-          <Link to="/home">
+          <Link to={location.pathname !== '/' && '/home'}>
             <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
             </div>

@@ -27,7 +27,7 @@ const Article = () => {
               <h1 className='article_title'>{t('How TEPS works')}</h1>
               {
                 location.pathname !== '/home' ?
-                  <div className='d-block d-md-none mt-4'>
+                  <div className='d-block d-md-none mt-1'>
                     <div>
                       <LanguageSelect />
                     </div>
