@@ -33,11 +33,13 @@ const ChangePass = ({ show, setShow }) => {
           })
       }
       else {
+        setPassError(``)
         setError(`${t('password_match')}`)
       }
     }
     else {
       setPassError(`${t('password_five')}`)
+      setError(``)
     }
 
   }

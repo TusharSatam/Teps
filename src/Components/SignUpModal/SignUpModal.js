@@ -112,6 +112,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         }
         else {
           setRequired(`${t('fill_all_box')}`)
+          setPassError('')
+          setError(``)
         }
       }
       else {
@@ -123,6 +125,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setCheckError(`${t("checkbox_error")}`)
       setPassError('')
       setError(``)
+      setRequired(``)
     }
   }
   const handleForgotShow = () => {

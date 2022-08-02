@@ -22,11 +22,12 @@ import LanguageSelect from '../../languageSelect';
 import { useAuth } from '../../Context/AuthContext';
 import HomeLayout from '../Home/HomeLayout';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
+import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang } = useAuth()
+  const { stratigyFilData, selectLang, user, setUser } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
-  const [react, setReact] = React.useState([]);
+  const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState([]);
   const { t } = useTranslation();
 
@@ -70,23 +71,34 @@ const SearchScrean = () => {
     }
     setShowH([...showH], [showH]);
   }
-
+  console.log(user?.saveId);
   const handleReact = async (e) => {
-
-    if (react.includes(e)) {
+    if (react?.includes(e)) {
       for (var i = 0; i < react.length; i++) {
         if (react[i] === e) {
-          react.splice(i, 1);
+          react?.splice(i, 1);
           i--;
         }
       }
     }
     else {
-      react.push(e)
+      react?.push(e)
     }
     setReact([...react], [react]);
   }
-
+  React.useEffect(() => {
+    const data = { "saveId": react }
+    if (react) {
+      updateUser(user._id, data)
+        .then(res => {
+          getSingleUser(user._id)
+            .then(res => {
+              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+              setUser(res.data[0]);
+            })
+        })
+    }
+  }, [react])
   const handleLike = async (e) => {
 
     if (like.includes(e)) {
@@ -206,7 +218,7 @@ const SearchScrean = () => {
                                             {data["Teaching Strategy"]}
                                           </p>
                                           <div className='d-flex align-items-center my-3'>
-                                            {react.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                            {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                             {like.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                           </div>
