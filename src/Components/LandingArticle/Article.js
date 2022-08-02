@@ -15,7 +15,7 @@ const Article = () => {
       {
         location.pathname !== '/home' ?
           <div className='d-none d-md-block'>
-            <div className='mx-3 mx-md-5 d-flex justify-content-end' style={{ marginBottom: "-80px" }}>
+            <div className='mx-3 mx-md-5 d-flex justify-content-end langMerg'>
               <LanguageSelect />
             </div>
           </div> : <></>

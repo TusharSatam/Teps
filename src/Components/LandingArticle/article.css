@@ -25,6 +25,14 @@
     width: 424px;
     height: 554px;
 }
+.langMerg{
+  margin-bottom: -70px;
+}
+@media only screen and (max-width: 1440px) {
+  .langMerg{
+    margin-bottom: -80px;
+  }
+}
 @media only screen and (max-width: 990px) {
 .hr_line{
 margin: 0 20px 0 20px;

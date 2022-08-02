@@ -121,6 +121,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
     else {
       setCheckError(`${t("checkbox_error")}`)
+      setPassError('')
+      setError(``)
     }
   }
   const handleForgotShow = () => {

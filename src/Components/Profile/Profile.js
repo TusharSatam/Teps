@@ -203,7 +203,7 @@ const Profile = () => {
                     {
                       user?.city === "International" ?
                         < input className='profile_input' type="text" defaultValue={user.city} name="city" id="" /> :
-                        <select className='ps-1 pe-4 py-1' style={{ width: "350px" }} name="city" id="">
+                        <select className='ps-1 pe-4 py-1 city-profile' name="city" id="">
                           <option className='' >{user.city}</option>
                           {
                             citys && citys?.map((data, index) => (

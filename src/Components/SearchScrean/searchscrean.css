@@ -106,7 +106,7 @@
     background: #1AA05B;
     border-radius: 2px;
     padding: 2px 8px;
-    margin-left: -10px;
+    margin-left: -2px;
 }
 .icons_hindi_heading{
     font-family: 'Inter';
@@ -163,6 +163,11 @@
     text-align: center;
     color: #000000;
     margin: 100px 100px 500px 100px;
+}
+@media only screen and (max-width: 1440px) {
+  .icons_heading{
+    margin-left: -10px;
+  }
 }
 @media only screen and (max-width: 990px) {
     .container_title_sec{
