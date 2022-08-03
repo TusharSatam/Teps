@@ -66,7 +66,7 @@ const ChangePass = ({ show, setShow }) => {
             </div>
             <form onSubmit={handleChange}>
               <div className='d-flex justify-content-center'>
-                <div>
+                <div className='mx-5'>
                   <div className='my-3'>
                     <label htmlFor="">{t('New Password')}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
@@ -76,8 +76,10 @@ const ChangePass = ({ show, setShow }) => {
                     <input placeholder='1234567#' className='login_input' type="password" name='confirm_password' /><br />
                   </div>
                   {error ? <p className='text-danger'>{error}</p> : ''}
-                  {passError ? <p style={{ fontSize: "12px" }} className='text-danger'>{passError}</p> : ""}
-                  {/* <p className='text-danger me-5 pe-4'>{passError ? passError : ""}</p> */}
+                  {/* <div className='d-flex justify-content-center'>
+                    {passError ? <p style={{ fontSize: "12px" }} className='text-danger text-center px-5'>{passError}</p> : ""}
+                  </div> */}
+                  <p style={{ fontSize: "12px" }} className='text-danger text-center'>{passError ? passError : ""}</p>
                   <div className='d-flex justify-content-center my-5'>
                     <button className='submit_btn'>{t('Change Password')}</button>
                   </div>

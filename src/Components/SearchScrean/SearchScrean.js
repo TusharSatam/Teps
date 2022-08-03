@@ -28,7 +28,7 @@ const SearchScrean = () => {
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [react, setReact] = React.useState(user ? user?.saveId : []);
-  const [like, setLike] = React.useState([]);
+  const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
@@ -98,10 +98,11 @@ const SearchScrean = () => {
             })
         })
     }
-  }, [react])
+  }, [react, user, setUser])
+
   const handleLike = async (e) => {
 
-    if (like.includes(e)) {
+    if (like?.includes(e)) {
       for (var i = 0; i < like.length; i++) {
         if (like[i] === e) {
           like.splice(i, 1);
@@ -114,6 +115,20 @@ const SearchScrean = () => {
     }
     setLike([...like], [like]);
   }
+
+  React.useEffect(() => {
+    const data = { "saveReact": like }
+    if (like) {
+      updateUser(user._id, data)
+        .then(res => {
+          getSingleUser(user._id)
+            .then(res => {
+              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+              setUser(res.data[0]);
+            })
+        })
+    }
+  }, [like, user, setUser])
   // console.log(uniqueHindiSubSubTopic[0]['Learning Outcome'] ? true : false);
   // console.log(uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ? true : false);
   // const selectedDropdown = localStorage.getItem('');
@@ -218,7 +233,7 @@ const SearchScrean = () => {
                                             {data["Teaching Strategy"]}
                                           </p>
                                           <div className='d-flex align-items-center my-3'>
-                                            {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                            {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                             {like.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                           </div>
@@ -321,8 +336,8 @@ const SearchScrean = () => {
                                               {data["शिक्षण रणनीति"]}
                                             </p>
                                             <div className='d-flex align-items-center my-3'>
-                                              {react.includes(index) ? <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(index)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like.includes(index) ? <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(index)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                                              {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                              {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                             </div>
                                           </div>

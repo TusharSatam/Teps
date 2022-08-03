@@ -16,8 +16,12 @@ const AuthProvider = ({ children }) => {
     if (confirmation) {
       setIsAuthenticated(false);
       setUser(null);
-      localStorage.removeItem('jwt');
       localStorage.removeItem('data');
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('filterData');
+      localStorage.removeItem('filterDataH');
+      localStorage.removeItem('selectedDropdown');
+      localStorage.removeItem('selectedHiDropdown');
     };
   };
 
