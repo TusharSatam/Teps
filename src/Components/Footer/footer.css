@@ -34,6 +34,9 @@
 }
 
 @media only screen and (max-width: 990px) {
+  .footer_top_margin{
+    margin-top: 50px;
+  }
     .footer_content{
         height: 165px;
     }

@@ -87,6 +87,7 @@ const Profile = () => {
       })
       .catch(err => {
         toast.error('Something is wrong please try again!')
+        setIsLoading(false);
       })
   }
   React.useEffect(() => {
@@ -185,7 +186,7 @@ const Profile = () => {
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('Email')}:</h4>
                   <div className='mt-md-2'>
-                    <input className='profile_input' type="text" defaultValue={user.email} name="email" id="" />
+                    <input className='profile_input' type="email" defaultValue={user.email} name="email" id="" />
                   </div>
                   {/* <p className='mt-1'>abc school</p> */}
                 </div>

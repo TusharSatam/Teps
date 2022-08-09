@@ -61,6 +61,9 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .container_title_sec{
     margin: 0px 60px;
@@ -92,34 +95,36 @@
     line-height: 24px;
     color: #000000;
 }
+.dsfdasfas{
+  width: 200px;
+}
+.icons_heading{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+  color: #FFFFFF;
+  background: #1AA05B;
+  border-radius: 2px;
+  padding: 2px 7.6px;
+  margin-left: -68px;
+}
+.icons_hindi_heading{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 12px;
+  color: #FFFFFF;
+  background: #1AA05B;
+  border-radius: 2px;
+  padding: 2px 33px;
+  margin-left: -68px;
+}
 .threeIcons{
     width: 60px;
     height: 60px;
-}
-.icons_heading{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 12px;
-    color: #FFFFFF;
-    background: #1AA05B;
-    border-radius: 2px;
-    padding: 2px 7.6px;
-    margin-left: -2px;
-}
-.icons_hindi_heading{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 12px;
-    color: #FFFFFF;
-    background: #1AA05B;
-    border-radius: 2px;
-    padding: 2px 33px;
-    margin-left: -10px;
-
 }
 .res_btn_icon{
     width: 40%;
@@ -166,7 +171,10 @@
 }
 @media only screen and (max-width: 1440px) {
   .icons_heading{
-    margin-left: -10px;
+    margin-left: -68px;
+  }
+  .icons_hindi_heading{
+    margin-left: -68px;
   }
 }
 @media only screen and (max-width: 990px) {
@@ -214,6 +222,30 @@
         line-height: 14px;
         text-align: justify;
     }
+    .icons_heading{
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 5.5px;
+      line-height: 12px;
+      color: #FFFFFF;
+      background: #1AA05B;
+      border-radius: 2px;
+      padding: 1.5px 6px;
+      margin-left: -28px;
+    }
+    .icons_hindi_heading{
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 9.8px;
+      line-height: 12px;
+      color: #FFFFFF;
+      background: #1AA05B;
+      border-radius: 2px;
+      padding: 2px 6px;
+      margin-left: -28px;
+    }
     .threeIcons{
         width: 20px;
         height: 20px;
@@ -260,3 +292,4 @@
         margin: 100px 80px 200px 80px;
     }
 }
+

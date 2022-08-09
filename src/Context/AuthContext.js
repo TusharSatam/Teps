@@ -86,7 +86,6 @@ const AuthProvider = ({ children }) => {
       }
     }
   }, [selectLang])
-  console.log(selectLang);
   return (
     <AuthContext.Provider
       value={{

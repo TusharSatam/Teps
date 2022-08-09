@@ -8,8 +8,9 @@ function ContextAwareToggle({ children, eventKey, callback }) {
     eventKey,
     () => callback && callback(eventKey),
   );
-  console.log(eventKey);
   const isCurrentEventKey = activeEventKey === eventKey;
+  // localStorage.setItem('activeAccordion', activeEventKey)
+  console.log(eventKey);
   return (
     <div className="me-3">
       <button

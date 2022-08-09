@@ -20,7 +20,7 @@ const Article = () => {
             </div>
           </div> : <></>
       }
-      <section className='mx-3 mx-md-5'>
+      <section className='mx-3 mx-md-5 mb-5 mb-md-0'>
         <div className='mx-2 mx-md-3 d-flex align-items-center'>
           <div className=' '>
             <div className='d-flex justify-content-between mt-2 mb-4'>

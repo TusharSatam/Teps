@@ -77,3 +77,9 @@
     color: #1AA05B;
 }
 }
+
+@media only screen and (max-width: 740px) {
+  .forgot_header{
+    font-size: 25px;
+}
+}
