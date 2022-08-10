@@ -41,22 +41,22 @@ const SearchScrean = () => {
       return stratigyFilData?.find(a => a['शिक्षण के परिणाम'] === learning_outcome)
     });
 
-  const handleCheckbox = async (e) => {
+  const handleCheckbox = (ind) => {
 
-    if (show.includes(e)) {
+    if (show.includes(ind)) {
       for (var i = 0; i < show.length; i++) {
-        if (show[i] === e) {
+        if (show[i] === ind) {
           show.splice(i, 1);
           i--;
         }
       }
     }
     else {
-      show.push(e)
+      show.push(ind)
     }
     setShow([...show], [show]);
   }
-  const handleCheckboxH = async (e) => {
+  const handleCheckboxH = (e) => {
 
     if (showH.includes(e)) {
       for (var i = 0; i < showH.length; i++) {
@@ -157,15 +157,26 @@ const SearchScrean = () => {
     }
 
   }, [stratigyFilData, selectLang])
-  console.log(show);
+
+  // let accordion_key = 12345;
+  const [accorKey, setAccorKey] = React.useState(12345)
+  const handleReinitialize = () => {
+    setAccorKey(accorKey + 1)
+    setShow([])
+    setShowH([])
+  };
   return (
     <>
       <>
         <div className='stratigy_bg'>
           {
             selectLang === 'hindi' ?
-              <HomeHindiLayout /> :
-              <HomeLayout />
+              <HomeHindiLayout
+                setAccorKey={handleReinitialize}
+              /> :
+              <HomeLayout
+                setAccorKey={handleReinitialize}
+              />
           }
         </div>
       </>
@@ -179,13 +190,17 @@ const SearchScrean = () => {
                     <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                     <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                   </div>
-                  <div className='dropDownContainer mb-5'>
-                    <Accordion defaultActiveKey="0" alwaysOpen >
+                  <div className='dropDownContainer mb-5' key={accorKey}>
+                    <Accordion alwaysOpen >
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
                             <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
-                              <ContextAwareToggle eventKey={index + 1}>{show?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
+                              <ContextAwareToggle eventKey={index + 1}>
+                                {show?.includes(index) ?
+                                  <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> :
+                                  <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}
+                              </ContextAwareToggle>
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
@@ -284,8 +299,8 @@ const SearchScrean = () => {
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                       <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                     </div>
-                    <div className='dropDownContainer mb-5'>
-                      <Accordion defaultActiveKey="0" alwaysOpen >
+                    <div className='dropDownContainer mb-5' key={accorKey}>
+                      <Accordion alwaysOpen >
 
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (

@@ -5,7 +5,7 @@ import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
-const HomeHindiLayout = () => {
+const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
@@ -127,7 +127,8 @@ const HomeHindiLayout = () => {
     });
 
   const handleFindStratigys = () => {
-
+    // accordion collapse and remove checkbox
+    setAccorKey()
     if (location.pathname === '/home') {
       if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
         const aquaticCreatures = allStratigys.filter(function (creature) {
@@ -277,7 +278,7 @@ const HomeHindiLayout = () => {
           </select>
         </div>
         <div className='mb-3'>
-          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 mt-3  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 mt-3 w-100'} name="" id="">
+          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -294,7 +295,7 @@ const HomeHindiLayout = () => {
               ))
             }
           </select>
-          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
+          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100 mt-3' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100 mt-3'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>

@@ -5,7 +5,7 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
-const HomeLayout = () => {
+const HomeLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
@@ -126,6 +126,9 @@ const HomeLayout = () => {
     });
 
   const handleFindStratigys = () => {
+
+    // accordion collapse and remove checkbox
+    setAccorKey()
 
     if (location.pathname === '/home') {
       if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {

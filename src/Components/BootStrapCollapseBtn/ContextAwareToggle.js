@@ -10,7 +10,6 @@ function ContextAwareToggle({ children, eventKey, callback }) {
   );
   const isCurrentEventKey = activeEventKey === eventKey;
   // localStorage.setItem('activeAccordion', activeEventKey)
-  console.log(eventKey);
   return (
     <div className="me-3">
       <button

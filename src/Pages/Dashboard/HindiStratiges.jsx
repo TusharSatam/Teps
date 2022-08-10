@@ -89,7 +89,7 @@ const HindiStratiges = () => {
             </div>
           </div>
           <Table responsive striped bordered hover size="sm" className='w-100'>
-            <thead>
+            <thead style={{ background: '#d5b39a' }}>
               <tr>
                 <th>#</th>
                 <th scope="col">विषय</th>

@@ -1,0 +1,6 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color:#1AA05B;
+}
+.table-bordered>:not(caption)>*>* {
+  border: 1px solid black !important;
+}
