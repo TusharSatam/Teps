@@ -20,6 +20,7 @@ const Profile = () => {
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState('');
+  const [emailErr, setEmailErr] = React.useState('');
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -66,29 +67,38 @@ const Profile = () => {
   }, [])
   const handleUpdate = (e) => {
     setIsLoading(true);
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('organization', e.target.organization.value);
-    formData.append('email', e.target.email.value);
-    formData.append('designation', e.target.designation.value);
-    formData.append('city', e.target.city.value);
-    formData.append('state', e.target.state.value);
-    formData.append('pincode', e.target.pincode.value);
-    formData.append('country', e.target.country.value);
-    updateUser(user._id, formData)
-      .then(res => {
-        getSingleUser(user._id)
-          .then(res => {
-            window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-            setUser(res.data[0]);
-            toast.success(`${t('update_profile_messege')}`)
-            setIsLoading(false);
-          })
-      })
-      .catch(err => {
-        toast.error('Something is wrong please try again!')
-        setIsLoading(false);
-      })
+    if (e.target.email.value.match(pattern)) {
+      setEmailErr('');
+      const formData = new FormData();
+      formData.append('organization', e.target.organization.value);
+      formData.append('email', e.target.email.value);
+      formData.append('designation', e.target.designation.value);
+      formData.append('city', e.target.city.value);
+      formData.append('state', e.target.state.value);
+      formData.append('pincode', e.target.pincode.value);
+      formData.append('country', e.target.country.value);
+      updateUser(user._id, formData)
+        .then(res => {
+          getSingleUser(user._id)
+            .then(res => {
+              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+              setUser(res.data[0]);
+              toast.success(`${t('update_profile_messege')}`)
+              setIsLoading(false);
+            })
+        })
+        .catch(err => {
+          toast.error('Something is wrong please try again!')
+          setIsLoading(false);
+        })
+    }
+    else {
+      setIsLoading(false);
+      setEmailErr(t('Email_Error'));
+    }
+
   }
   React.useEffect(() => {
     const url = "./citys.json"
@@ -186,10 +196,11 @@ const Profile = () => {
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('Email')}:</h4>
                   <div className='mt-md-2'>
-                    <input className='profile_input' type="email" defaultValue={user.email} name="email" id="" />
+                    <input className={emailErr ? 'border-danger text-danger profile_input' : 'profile_input'} type="text" defaultValue={user.email} name="email" id="" />
                   </div>
                   {/* <p className='mt-1'>abc school</p> */}
                 </div>
+                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('Designation')}:</h4>
                   {/* <p className='mt-1'>abc school</p> */}

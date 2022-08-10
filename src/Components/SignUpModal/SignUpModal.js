@@ -21,6 +21,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const [forgot, setForgot] = React.useState(false);
   const [checkError, setCheckError] = React.useState('');
   const [passError, setPassError] = React.useState('');
+  const [emailErr, setEmailErr] = React.useState('');
 
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
@@ -63,69 +64,76 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const handleSignUp = (e) => {
     e.preventDefault();
     let equalPass;
-    if (e.target.checkmark.checked === true) {
-      setCheckError('');
-      if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
-        setPassError(``)
-        if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-          e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
-        ) {
-          setRequired("");
-          if (e.target.password.value === e.target.confirm_password.value) {
-            setError("");
-            setEmailError("")
-            equalPass = e.target.password.value;
-            const city = e.target.city.value;
-            const formData = new FormData();
-            formData.append('firstName', e.target.firstName.value);
-            formData.append('lastName', e.target.lastName.value);
-            formData.append('email', e.target.email.value);
-            formData.append('designation', e.target.designation.value);
-            formData.append('organization', e.target.organization.value);
-            formData.append('city', checked ? "International" : city);
-            formData.append('pincode', e.target.pincode.value);
-            formData.append('password', equalPass);
-            // formData.append('image', e.target.img.files[0]);
-            userRegister(formData)
-              .then(res => {
-                e.target.reset();
-                setShow(false)
-                setUser(res.data.data);
-                setIsAuthenticated(true);
-                window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                navigate('/home')
-              })
-              .catch(err => {
-                if (err.response.status === 409) {
-                  setEmailError(`${t('already_email')}`)
-                  setDisplay("d-block")
-                }
-                else console.log(err);
-              })
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (e.target.email.value.match(pattern)) {
+      setEmailErr('')
+      if (e.target.checkmark.checked === true) {
+        setCheckError('');
+        if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+          setPassError(``)
+          if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
+            e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
+          ) {
+            setRequired("");
+            if (e.target.password.value === e.target.confirm_password.value) {
+              setError("");
+              setEmailError("")
+              equalPass = e.target.password.value;
+              const city = e.target.city.value;
+              const formData = new FormData();
+              formData.append('firstName', e.target.firstName.value);
+              formData.append('lastName', e.target.lastName.value);
+              formData.append('email', e.target.email.value);
+              formData.append('designation', e.target.designation.value);
+              formData.append('organization', e.target.organization.value);
+              formData.append('city', checked ? "International" : city);
+              formData.append('pincode', e.target.pincode.value);
+              formData.append('password', equalPass);
+              // formData.append('image', e.target.img.files[0]);
+              userRegister(formData)
+                .then(res => {
+                  e.target.reset();
+                  setShow(false)
+                  setUser(res.data.data);
+                  setIsAuthenticated(true);
+                  window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                  window.localStorage.setItem('data', JSON.stringify(res.data.data));
+                  navigate('/home')
+                })
+                .catch(err => {
+                  if (err.response.status === 409) {
+                    setEmailError(`${t('already_email')}`)
+                    setDisplay("d-block")
+                  }
+                  else console.log(err);
+                })
+
+            }
+            else {
+              setError(`${t('password_match')}`);
+            }
 
           }
           else {
-            setError(`${t('password_match')}`);
+            setRequired(`${t('fill_all_box')}`)
+            setPassError('')
+            setError(``)
           }
-
         }
         else {
-          setRequired(`${t('fill_all_box')}`)
-          setPassError('')
-          setError(``)
+          setPassError(`${t('password_five')}`)
+          setError(``);
         }
       }
       else {
-        setPassError(`${t('password_five')}`)
-        setError(``);
+        setCheckError(`${t("checkbox_error")}`)
+        setPassError('')
+        setError(``)
+        setRequired(``)
       }
     }
     else {
-      setCheckError(`${t("checkbox_error")}`)
-      setPassError('')
-      setError(``)
-      setRequired(``)
+      setEmailErr(t('Email_Error'));
     }
   }
   const handleForgotShow = () => {
@@ -172,8 +180,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
               </div>
               <div className='my-3'>
-                <label className={emailError ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                <input onChange={handleEmailError} className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
                 <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
               </div>
               <div className='d-flex  my-3'>
@@ -227,6 +235,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
               {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
+              <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
               <p className='text-danger '>{checkError ? checkError : ""}</p>
               <p className='text-danger text-center me-5 pe-4'>{passError ? passError : ""}</p>
               <div className='d-flex justify-content-center me-5 pe-4'>
@@ -264,8 +273,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label className={emailError ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
-                  <input onChange={handleEmailError} className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+                  <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                  <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
                   <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>{t('retrieve_password')}</p></a>
                 </div>
                 <div className='mt-3'>
@@ -313,6 +322,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
+                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
                 <p className='text-danger '>{checkError ? checkError : ""}</p>
                 <p className='text-danger text-center' style={{ fontSize: "10px" }}>{passError ? passError : ""}</p>
                 <div className='d-flex justify-content-center my-5'>
