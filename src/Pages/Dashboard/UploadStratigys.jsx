@@ -5,8 +5,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const UploadStratigys = () => {
   const [csvData, setCsvData] = React.useState([]);
+  const [fileName, setFIleName] = React.useState('');
   const readUploadFile = (e) => {
     e.preventDefault();
+    setFIleName(e.target.files[0]?.name);
     if (e.target.files) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -28,6 +30,7 @@ const UploadStratigys = () => {
     axios.post('strategies', csvData, { config })
       .then(res => {
         toast.success('strategies Uploaded!')
+        console.log(res);
       })
       .catch(err => console.log(err))
   }

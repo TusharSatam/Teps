@@ -58,7 +58,16 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     else {
       setCityDisable(false);
     }
-  }, [checked])
+    if (show === false) {
+      setError('')
+      setRequired('')
+      setEmailError('')
+      setCheckError('')
+      setPassError('')
+      setEmailErr('')
+
+    }
+  }, [checked, show])
 
 
   const handleSignUp = (e) => {
@@ -134,6 +143,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
     else {
       setEmailErr(t('Email_Error'));
+      setCheckError(``)
+      setPassError('')
+      setError(``)
+      setRequired(``)
     }
   }
   const handleForgotShow = () => {
@@ -235,7 +248,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
               {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
-              <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
+              <div className='text-danger me-5 pe-4 text-center' style={{ fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
               <p className='text-danger '>{checkError ? checkError : ""}</p>
               <p className='text-danger text-center me-5 pe-4'>{passError ? passError : ""}</p>
               <div className='d-flex justify-content-center me-5 pe-4'>

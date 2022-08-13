@@ -126,6 +126,14 @@
     width: 60px;
     height: 60px;
 }
+.threeIcons-nun{
+  width: 75px;
+  height: 60px;
+}
+.threeIcons-nunH{
+  width: 68px;
+  height: 60px;
+}
 .res_btn_icon{
     width: 40%;
     display: flex;
@@ -250,6 +258,14 @@
         width: 20px;
         height: 20px;
     }
+    .threeIcons-nun{
+      width: 20px;
+      height: 20px;
+    }
+    .threeIcons-nunH{
+      width: 20px;
+      height: 20px;
+    }
     .counter_str{
         width: 14px;
         height: 14px;
@@ -293,3 +309,13 @@
     }
 }
 
+@media only screen and (max-width: 990px) {
+  .threeIcons-nun{
+    width: 37px;
+      height: 20px;
+  }
+  .threeIcons-nunH{
+    width: 28px;
+    height: 20px;
+  }
+}

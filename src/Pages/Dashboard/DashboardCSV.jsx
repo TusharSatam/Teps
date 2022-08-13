@@ -96,6 +96,7 @@ const DashboardCSV = () => {
             <thead style={{ background: '#d5b39a' }}>
               <tr>
                 <th>#</th>
+                <th>Id</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Grade</th>
                 <th scope="col">Skill</th>
@@ -123,6 +124,7 @@ const DashboardCSV = () => {
                         <td>{stratigys?.currentPage === '1' ? index + 1 :
                           (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                         }</td>
+                        <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.Subject}</td>
                         <td>{item.Grade}</td>
                         <td>{item.Skill}</td>

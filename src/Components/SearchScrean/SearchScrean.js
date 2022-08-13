@@ -261,13 +261,13 @@ const SearchScrean = () => {
                                             <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                               <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                 {
-                                                  !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                  !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
                                                     data['Dev Dom 1'] === "Cognitive Sensory" ?
                                                       <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
                                                       <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
                                                 }
                                                 {
-                                                  !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                  !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
                                                     data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                                       <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                                       <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -368,13 +368,13 @@ const SearchScrean = () => {
                                               <div className='d-flex align-items-center justify-content-center mt-2'>
                                                 <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                   {
-                                                    !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                    !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nunH'></div> :
                                                       data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                                         <img title="संज्ञानात्मक संवेदी" className='threeIcons' src={KnowledgeIcon} alt="" /> :
                                                         <img title="मोटर-भौतिक" className='threeIcons' src={Physical} alt="" />
                                                   }
                                                   {
-                                                    !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                    !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons-nunH'></div> :
                                                       data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
                                                         <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
                                                         <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
