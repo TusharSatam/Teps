@@ -65,7 +65,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setCheckError('')
       setPassError('')
       setEmailErr('')
-
+      setChecked(false)
     }
   }, [checked, show])
 

@@ -48,46 +48,46 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
           <div className='d-flex justify-content-center'>
             <form className='ms-md-3 ms-xxl-5' onSubmit={handleUpdate}>
               <label htmlFor="">Subject </label> <br />
-              <input className='signup_Input' defaultValue={data?.Subject} name='subject' placeholder='Subject' type="text" />
+              <input className='signup_Input' disabled defaultValue={data?.Subject} name='subject' placeholder='Subject' type="text" />
               <div>
                 <label htmlFor="">Grade</label> <br />
-                <input className='signup_Input' defaultValue={data?.Grade} name='grade' placeholder='Grade' type="text" />
+                <input className='signup_Input' disabled defaultValue={data?.Grade} name='grade' placeholder='Grade' type="text" />
               </div>
               <div >
                 <label htmlFor="">Skill</label> <br />
-                <input className={"signup_Input"} defaultValue={data?.Skill} name='skill' placeholder='Skill' type="text" />
+                <input className={"signup_Input"} disabled defaultValue={data?.Skill} name='skill' placeholder='Skill' type="text" />
               </div>
               <div >
                 <label htmlFor="">Topic </label> <br />
-                <input className='signup_Input' defaultValue={data?.Topic} name='topic' placeholder='Topic' type="text" />
+                <input className='signup_Input' disabled defaultValue={data?.Topic} name='topic' placeholder='Topic' type="text" />
                 <div>
                   <label htmlFor="">Sub Topic </label> <br />
-                  <input className='signup_Input' defaultValue={data ? data['Sub Topic'] : ''} name='sub_topic' placeholder='Sub Topic' type="text" />
+                  <input className='signup_Input' disabled defaultValue={data ? data['Sub Topic'] : ''} name='sub_topic' placeholder='Sub Topic' type="text" />
                 </div>
               </div>
               <div>
                 <label htmlFor="">Sub-sub topic </label> <br />
-                <input className='signup_Input' defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
+                <input className='signup_Input' disabled defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
               </div>
               <div>
                 <label htmlFor="">Dev Dom 1 </label> <br />
-                <input className='signup_Input' defaultValue={data ? data['Dev Dom 1'] : ''} name='dev_dom_1' placeholder='Dev Dom 1' type="text" />
+                <input className='signup_Input' disabled defaultValue={data ? data['Dev Dom 1'] : ''} name='dev_dom_1' placeholder='Dev Dom 1' type="text" />
               </div>
               <div>
                 <label htmlFor="">Dev Dom 2 </label> <br />
-                <input className='signup_Input' defaultValue={data ? data['Dev Dom 2'] : ''} name='dev_dom_2' placeholder='Dev Dom 2' type="text" />
+                <input className='signup_Input' disabled defaultValue={data ? data['Dev Dom 2'] : ''} name='dev_dom_2' placeholder='Dev Dom 2' type="text" />
               </div>
               <div>
                 <label htmlFor="">Mode of Teaching </label> <br />
-                <input className='signup_Input' defaultValue={data ? data['Mode of Teaching'] : ''} name='mode_ofteaching' placeholder='Mode of Teaching' type="text" />
+                <input className='signup_Input' disabled defaultValue={data ? data['Mode of Teaching'] : ''} name='mode_ofteaching' placeholder='Mode of Teaching' type="text" />
               </div>
               <div>
                 <label htmlFor="">Learning Outcome </label> <br />
-                <textarea className='signup_Input' defaultValue={data ? data['Learning Outcome'] : ''} name='learning_outcome' placeholder='Learning Outcome' type="text" />
+                <textarea className='signup_Input' disabled defaultValue={data ? data['Learning Outcome'] : ''} name='learning_outcome' placeholder='Learning Outcome' type="text" />
               </div>
               <div>
                 <label htmlFor="">Teaching Strategy </label> <br />
-                <textarea className='signup_Input' defaultValue={data ? data['Teaching Strategy'] : ''} name='teaching_sstrategy' placeholder='Teaching Strategy' type="text" />
+                <textarea className='signup_Input' rows="8" defaultValue={data ? data['Teaching Strategy'] : ''} name='teaching_sstrategy' placeholder='Teaching Strategy' type="text" />
               </div>
               <div className='d-flex justify-content-end my-3'>
                 <button className='btn btn-primary'>Update</button>

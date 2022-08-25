@@ -20,13 +20,14 @@ import HindiStratiges from './Pages/Dashboard/HindiStratiges';
 import UploadHindiStratiges from './Pages/Dashboard/UploadHindiStratiges';
 import AdminAuth from './Components/AdminLogin/AdminAuth';
 import PrivateAdminOutlet from './Components/PrivateRoute/PrivateAdminRoute';
+import ReqAdminPanel from './Pages/Dashboard/ReqAdminPanel';
 
 
 function App() {
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
 
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
@@ -41,7 +42,8 @@ function App() {
           loc.pathname === '/admin-en-stratigy' ||
           loc.pathname === '/admin-hi-stratigy' ||
           loc.pathname === '/admin-upload-stratigy' ||
-          loc.pathname === '/admin-upload-hi-stratigy'
+          loc.pathname === '/admin-upload-hi-stratigy' ||
+          loc.pathname === '/super-req'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -67,6 +69,7 @@ function App() {
               <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />
               <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
               <Route exact path='/admin-upload-hi-stratigy' element={<UploadHindiStratiges />} />
+              <Route exact path='super-req' element={<ReqAdminPanel />} />
             </Route>
           </Route>
         </Routes>
@@ -79,7 +82,8 @@ function App() {
           loc.pathname === '/admin-en-stratigy' ||
           loc.pathname === '/admin-hi-stratigy' ||
           loc.pathname === '/admin-upload-stratigy' ||
-          loc.pathname === '/admin-upload-hi-stratigy'
+          loc.pathname === '/admin-upload-hi-stratigy' ||
+          loc.pathname === '/super-req'
           ? ('') : (
             <Footer />
           )

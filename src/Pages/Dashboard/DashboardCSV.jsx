@@ -1,15 +1,19 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
-import { delStratigys, getStratigys, singleStratigys } from '../../services/stratigyes';
+import { alldelStratigys, delStratigys, getAllStratigys, getreqDeletStr, getStratigys, multidelStratigys, reqDeletStr, singleStratigys, updatestrDeletRq } from '../../services/stratigyes';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 
 import './styles/DashboardCSV.css'
 import EditStratigyModal from '../../Components/DashboardModal/EditStratigyModal';
 import { Spinner } from 'react-bootstrap';
+import { useAuth } from '../../Context/AuthContext';
+import { CSVLink } from 'react-csv';
 const DashboardCSV = () => {
+  const { admin } = useAuth()
   const [stratigys, setStratigys] = React.useState([]);
+  const [deletReqstratigys, setdeletReqStratigys] = React.useState();
   const [str, setStr] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(1);
   const [lOutcome, setLOutCame] = React.useState();
@@ -65,7 +69,74 @@ const DashboardCSV = () => {
         setShow(true)
       })
   }
-  console.log(stratigys);
+  const [showCh, setshowCh] = React.useState([])
+  const handleCheckbox = (ind) => {
+    if (showCh.includes(ind)) {
+      for (var i = 0; i < showCh.length; i++) {
+        if (showCh[i] === ind) {
+          showCh.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    else {
+      showCh.push(ind)
+    }
+    setshowCh([...showCh], [showCh]);
+  }
+  const handleMultiDelet = () => {
+    if (admin.type === 'super-admin') {
+      multidelStratigys(showCh)
+        .then(res => {
+          res && setStr(str.filter(message => !showCh.includes(message._id)));
+          res && toast.success('Selected Strategies Deleted!');
+          setshowCh([])
+        })
+    }
+    else {
+      getreqDeletStr()
+        .then(res => {
+          setdeletReqStratigys(res?.data[0]?.reqDel)
+          if (res?.data?.length === 0) {
+            reqDeletStr(showCh)
+              .then(res => {
+                res && toast.success('Sent Request for Delete!');
+                setshowCh([])
+              })
+          }
+          else {
+            updatestrDeletRq(res?.data[0]?._id, showCh)
+              .then(res => {
+                res && toast.success('Sent Request for Delete!');
+                setshowCh([])
+              })
+          }
+        })
+
+    }
+  }
+
+  const handleallDelet = () => {
+    if (admin.type === 'super-admin') {
+      alldelStratigys(str[0]._id)
+        .then(res => {
+          console.log(res);
+          res && setStr([]);
+          res && toast.success('All Strategies Deleted!');
+        })
+    }
+    else {
+      alert('You are not super admin')
+    }
+  }
+  const [allStratigy, setAllStratiy] = React.useState()
+  React.useEffect(() => {
+    getAllStratigys()
+      .then(res => {
+        setAllStratiy(res.data)
+      })
+  }, [])
+  const csvData = allStratigy ? allStratigy : [];
   return (
     <div>
       <Toaster
@@ -81,10 +152,30 @@ const DashboardCSV = () => {
         setShow={setShow}
         setStratigys={setStr}
       />
-      <div className="d-flex justify-content-end">
-        <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
-      </div>
       <div className='stratigysTable'>
+        {
+          showCh.length !== 0 ?
+            <div className="container d-flex justify-content-between mb-3">
+              <div className='d-flex'>
+                <button onClick={handleallDelet} className='btn btn-primary '>Delete All Strategies</button>
+                {
+                  admin.type === 'super-admin' && <CSVLink className='mx-4 btn btn-primary' data={csvData}>Download CSV</CSVLink>
+                }
+                <button onClick={handleMultiDelet} className={admin.type === 'super-admin' ? "btn btn-primary" : "btn btn-primary mx-4"}>Delete Selected Strategies</button>
+              </div>
+              <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
+            </div> :
+            <div className="container d-flex justify-content-between mb-3">
+              <div>
+                <button onClick={handleallDelet} className='btn btn-primary me-4'>Delete All Strategies</button>
+                {
+                  admin.type === 'super-admin' && <CSVLink className='btn btn-primary' data={csvData}>Download CSV</CSVLink>
+                }
+              </div>
+              <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
+            </div>
+        }
+
         <div className="container">
           <div className="d-flex justify-content-between">
             <h3>All Strategies</h3>
@@ -95,6 +186,7 @@ const DashboardCSV = () => {
           <Table responsive striped bordered hover size="sm" className='w-100'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
+                <th></th>
                 <th>#</th>
                 <th>Id</th>
                 <th scope="col">Subject</th>
@@ -121,6 +213,7 @@ const DashboardCSV = () => {
                   <>
                     {str?.map((item, index) => (
                       <tr key={index}>
+                        <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
                         <td>{stratigys?.currentPage === '1' ? index + 1 :
                           (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                         }</td>

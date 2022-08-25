@@ -4,9 +4,11 @@ import { Nav, Button } from "react-bootstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Logo from '../../asstes/things_logo.svg'
+import { useAuth } from "../../Context/AuthContext";
 
 
 const SideBar = ({ isOpen, toggle }) => {
+  const { admin } = useAuth()
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
       <div className="sidebar-header">
@@ -76,6 +78,18 @@ const SideBar = ({ isOpen, toggle }) => {
             All Users
           </Link>
         </Nav.Item>
+        {
+          admin.type === 'super-admin' &&
+          <Nav.Item className="">
+            <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/super-req">
+              Requests by admin panel
+            </Link>
+            <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-req">
+              Requests by admin panel
+            </Link>
+          </Nav.Item>
+        }
+
 
         {/* <Nav.Item>
           <Link className="dash_sidebar_a nav-link" to="/">
