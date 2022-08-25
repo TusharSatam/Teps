@@ -3,11 +3,14 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { delHindiStratigys, getHindiStratigys, singleHindiStratigys } from '../../services/hindiStratigys';
+import { delHindiStratigys, getAllHindiStratigys, getHindiStratigys, getMultitHiStr, multidelHiStratigys, reqDeletHiStr, singleHindiStratigys } from '../../services/hindiStratigys';
 import EditHindiStratigyModal from '../../Components/DashboardModal/EditHindiStratigyModal';
 import { Spinner } from 'react-bootstrap';
+import { CSVLink } from 'react-csv';
+import { useAuth } from '../../Context/AuthContext';
 
 const HindiStratiges = () => {
+  const { admin } = useAuth()
   const [stratigys, setStratigys] = React.useState([]);
   const [str, setStr] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(1);
@@ -62,6 +65,56 @@ const HindiStratiges = () => {
         setShow(true)
       })
   }
+  const [showCh, setshowCh] = React.useState([])
+  const handleCheckbox = (ind) => {
+    if (showCh.includes(ind)) {
+      for (var i = 0; i < showCh.length; i++) {
+        if (showCh[i] === ind) {
+          showCh.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    else {
+      showCh.push(ind)
+    }
+    setshowCh([...showCh], [showCh]);
+  }
+  const [allStratigy, setAllStratiy] = React.useState()
+  React.useEffect(() => {
+    getAllHindiStratigys()
+      .then(res => {
+        setAllStratiy(res.data)
+      })
+  }, [])
+  const csvData = allStratigy ? allStratigy : [];
+
+  const handleMultiDelet = () => {
+    if (admin.type === 'super-admin') {
+      multidelHiStratigys(showCh)
+        .then(res => {
+          res && setStr(str.filter(message => !showCh.includes(message._id)));
+          res && toast.success('Selected Strategies Deleted!');
+          setshowCh([])
+        })
+    }
+    else {
+      getMultitHiStr(showCh)
+        .then(res => {
+          reqDeletHiStr(res.data, showCh)
+            .then(res => {
+              res && toast.success('Sent Request for Delete!');
+              setshowCh([])
+            })
+          console.log(res.data);
+        })
+
+    }
+  }
+
+
+
+
   return (
     <div>
       <Toaster
@@ -77,9 +130,28 @@ const HindiStratiges = () => {
         setShow={setShow}
         setStratigys={setStr}
       />
-      <div className="d-flex justify-content-end">
-        <Link to="/admin-upload-hi-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
-      </div>
+      {
+        showCh.length !== 0 ?
+          <div className="container d-flex justify-content-between mb-3">
+            <div className='d-flex'>
+              {/* <button onClick={handleallDelet} className='btn btn-primary '>Delete All Strategies</button> */}
+              {
+                admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData}>Download All Strategies</CSVLink>
+              }
+              <button onClick={handleMultiDelet} className={admin.type === 'super-admin' ? "btn btn-primary" : "btn btn-primary"}>Delete Selected Strategies</button>
+            </div>
+            <Link to="/admin-upload-hi-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
+          </div> :
+          <div className="container d-flex justify-content-between mb-3">
+            <div>
+              {/* <button onClick={handleallDelet} className='btn btn-primary me-4'>Delete All Strategies</button> */}
+              {
+                admin.type === 'super-admin' && <CSVLink className='btn btn-primary' data={csvData}>Download All Strategies</CSVLink>
+              }
+            </div>
+            <Link to="/admin-upload-hi-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
+          </div>
+      }
       <div className='stratigysTable'>
         <div className="container">
           <div className="d-flex justify-content-between">
@@ -91,6 +163,7 @@ const HindiStratiges = () => {
           <Table responsive striped bordered hover size="sm" className='w-100'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
+                <th></th>
                 <th>#</th>
                 <th scope="col">विषय</th>
                 <th scope="col">श्रेणी</th>
@@ -117,6 +190,7 @@ const HindiStratiges = () => {
                     {
                       str?.map((item, index) => (
                         <tr key={index}>
+                          <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
                           <td>{stratigys?.currentPage === '1' ? index + 1 :
                             (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                           }</td>

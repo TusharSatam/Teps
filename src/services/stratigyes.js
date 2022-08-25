@@ -54,8 +54,8 @@ export const multidelStratigys = async (ids) => {
     alert("Stratigy save!")
   }
   return stratigyResponse;
-
 }
+
 // All delet Stratigy
 export const alldelStratigys = async (all) => {
   let stratigyResponse
@@ -70,7 +70,6 @@ export const alldelStratigys = async (all) => {
     alert("Stratigy save!")
   }
   return stratigyResponse;
-
 }
 
 // get single Stratigy
@@ -99,12 +98,13 @@ export const updateStratigys = async (id, data) => {
 }
 
 // reqDelet Stratigy
-export const reqDeletStr = async (ids) => {
+export const reqDeletStr = async (data, ids) => {
   let stratigyResponse
   let text = "Are you sure for delete?";
   if (window.confirm(text) === true) {
     const allId = {
-      "reqDel": ids
+      "reqDelId": ids,
+      "reqDel": data
     }
     await axios.post(`supdel/reqDelet`, allId)
       .then(res => {
@@ -141,8 +141,8 @@ export const getMultitStr = async (ids) => {
     .catch(err => console.log(err))
 
   return stratigyResponse;
-
 }
+
 // reqDelet update Stratigy
 export const updatestrDeletRq = async (id, data) => {
   let stratigyResponse
@@ -157,5 +157,15 @@ export const updatestrDeletRq = async (id, data) => {
     .catch(err => console.log(err))
 
   return stratigyResponse;
+}
 
+// All delet Stratigy
+export const deletRequestArrayid = async (id) => {
+  let stratigyResponse
+  await axios.delete(`supdel/reqDelet/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
 }

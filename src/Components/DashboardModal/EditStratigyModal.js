@@ -90,7 +90,7 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
                 <textarea className='signup_Input' rows="8" defaultValue={data ? data['Teaching Strategy'] : ''} name='teaching_sstrategy' placeholder='Teaching Strategy' type="text" />
               </div>
               <div className='d-flex justify-content-end my-3'>
-                <button className='btn btn-primary'>Update</button>
+                <button className='btn btn-primary'>Update Strategy</button>
               </div>
             </form>
           </div>

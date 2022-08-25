@@ -4,64 +4,114 @@ import axios from "axios"
 
 // get Stratigy
 export const getHindiStratigys = async (quiry) => {
-    let stratigyResponse
-    await axios.get(`hindstrategies`, { params: { page: quiry } })
-        .then(res => {
-            stratigyResponse = res
-        })
-        .catch(err => console.log(err))
-    return stratigyResponse;
+  let stratigyResponse
+  await axios.get(`hindstrategies`, { params: { page: quiry } })
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
 }
 
 // get All Stratigy
 export const getAllHindiStratigys = async () => {
-    let stratigyResponse
-    await axios.get(`hindstrategies/allStr`)
-        .then(res => {
-            stratigyResponse = res
-        })
-        .catch(err => console.log(err))
-    return stratigyResponse;
+  let stratigyResponse
+  await axios.get(`hindstrategies/allStr`)
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
 }
 
 // delet Stratigy
 export const delHindiStratigys = async (id) => {
-    let stratigyResponse
-    let text = "Are you sure for delete?";
-    if (window.confirm(text) === true) {
-        await axios.delete(`hindstrategies/${id}`)
-            .then(res => {
-                stratigyResponse = res;
-            })
-            .catch(err => console.log(err))
-    } else {
-        alert("Stratigy save!")
-    }
-    return stratigyResponse;
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    await axios.delete(`hindstrategies/${id}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
+  return stratigyResponse;
 
 }
 
 // get single Stratigy
 export const singleHindiStratigys = async (id, data) => {
-    let stratigyResponse
-    await axios.get(`hindstrategies/${id}`, data)
-        .then(res => {
-            stratigyResponse = res.data;
-        })
-        .catch(err => console.log(err))
+  let stratigyResponse
+  await axios.get(`hindstrategies/${id}`, data)
+    .then(res => {
+      stratigyResponse = res.data;
+    })
+    .catch(err => console.log(err))
 
-    return stratigyResponse;
+  return stratigyResponse;
 
 }
 // Update Stratigy
 export const updateHindiStratigys = async (id, data) => {
-    let stratigyResponse
-    await axios.put(`hindstrategies/${id}`, data)
-        .then(res => {
-            stratigyResponse = res;
-        })
-        .catch(err => console.log(err))
+  let stratigyResponse
+  await axios.put(`hindstrategies/${id}`, data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
 
-    return stratigyResponse;
+  return stratigyResponse;
+
+}
+
+
+// delet multi Stratigy
+export const multidelHiStratigys = async (ids) => {
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    await axios.delete(`hindstrategies/ch/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
+  return stratigyResponse;
+}
+
+// get multi stratigy
+export const getMultitHiStr = async (ids) => {
+  let stratigyResponse
+  await axios.get(`hindstrategies/multi/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}
+
+// reqDelet Stratigy
+export const reqDeletHiStr = async (data, ids) => {
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    const allId = {
+      "reqDelId": ids,
+      "reqDel": data
+    }
+    await axios.post(`supdelHi/reqDelet`, allId)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
+  return stratigyResponse;
 
 }

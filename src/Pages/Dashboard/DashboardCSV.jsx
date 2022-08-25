@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { Link } from 'react-router-dom';
-import { alldelStratigys, delStratigys, getAllStratigys, getreqDeletStr, getStratigys, multidelStratigys, reqDeletStr, singleStratigys, updatestrDeletRq } from '../../services/stratigyes';
+import { alldelStratigys, delStratigys, getAllStratigys, getMultitStr, getreqDeletStr, getStratigys, multidelStratigys, reqDeletStr, singleStratigys, updatestrDeletRq } from '../../services/stratigyes';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -94,41 +94,31 @@ const DashboardCSV = () => {
         })
     }
     else {
-      getreqDeletStr()
+      getMultitStr(showCh)
         .then(res => {
-          setdeletReqStratigys(res?.data[0]?.reqDel)
-          if (res?.data?.length === 0) {
-            reqDeletStr(showCh)
-              .then(res => {
-                res && toast.success('Sent Request for Delete!');
-                setshowCh([])
-              })
-          }
-          else {
-            updatestrDeletRq(res?.data[0]?._id, showCh)
-              .then(res => {
-                res && toast.success('Sent Request for Delete!');
-                setshowCh([])
-              })
-          }
+          reqDeletStr(res.data, showCh)
+            .then(res => {
+              res && toast.success('Sent Request for Delete!');
+              setshowCh([])
+            })
         })
 
     }
   }
 
-  const handleallDelet = () => {
-    if (admin.type === 'super-admin') {
-      alldelStratigys(str[0]._id)
-        .then(res => {
-          console.log(res);
-          res && setStr([]);
-          res && toast.success('All Strategies Deleted!');
-        })
-    }
-    else {
-      alert('You are not super admin')
-    }
-  }
+  // const handleallDelet = () => {
+  //   if (admin.type === 'super-admin') {
+  //     alldelStratigys(str[0]._id)
+  //       .then(res => {
+  //         console.log(res);
+  //         res && setStr([]);
+  //         res && toast.success('All Strategies Deleted!');
+  //       })
+  //   }
+  //   else {
+  //     alert('You are not super admin')
+  //   }
+  // }
   const [allStratigy, setAllStratiy] = React.useState()
   React.useEffect(() => {
     getAllStratigys()
@@ -157,19 +147,19 @@ const DashboardCSV = () => {
           showCh.length !== 0 ?
             <div className="container d-flex justify-content-between mb-3">
               <div className='d-flex'>
-                <button onClick={handleallDelet} className='btn btn-primary '>Delete All Strategies</button>
+                {/* <button onClick={handleallDelet} className='btn btn-primary '>Delete All Strategies</button> */}
                 {
-                  admin.type === 'super-admin' && <CSVLink className='mx-4 btn btn-primary' data={csvData}>Download CSV</CSVLink>
+                  admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData}>Download All Strategies</CSVLink>
                 }
-                <button onClick={handleMultiDelet} className={admin.type === 'super-admin' ? "btn btn-primary" : "btn btn-primary mx-4"}>Delete Selected Strategies</button>
+                <button onClick={handleMultiDelet} className={admin.type === 'super-admin' ? "btn btn-primary" : "btn btn-primary"}>Delete Selected Strategies</button>
               </div>
               <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
             </div> :
             <div className="container d-flex justify-content-between mb-3">
               <div>
-                <button onClick={handleallDelet} className='btn btn-primary me-4'>Delete All Strategies</button>
+                {/* <button onClick={handleallDelet} className='btn btn-primary me-4'>Delete All Strategies</button> */}
                 {
-                  admin.type === 'super-admin' && <CSVLink className='btn btn-primary' data={csvData}>Download CSV</CSVLink>
+                  admin.type === 'super-admin' && <CSVLink className='btn btn-primary' data={csvData}>Download All Strategies</CSVLink>
                 }
               </div>
               <Link to="/admin-upload-stratigy"> <button className='d-none d-md-block btn btn-primary'>Add Strategies</button></Link>
