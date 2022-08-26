@@ -2,10 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import toast, { Toaster } from 'react-hot-toast';
+import { useAuth } from '../../Context/AuthContext';
 
 const UploadStratigys = () => {
   const [csvData, setCsvData] = React.useState([]);
   const [fileName, setFIleName] = React.useState('');
+  const { admin } = useAuth()
   const readUploadFile = (e) => {
     e.preventDefault();
     setFIleName(e.target.files[0]?.name);
@@ -27,12 +29,26 @@ const UploadStratigys = () => {
     const config = {
       "Access-Control-Allow-Origin": "*"
     }
-    axios.post('strategies', csvData, { config })
-      .then(res => {
-        toast.success('strategies Uploaded!')
-        console.log(res);
-      })
-      .catch(err => console.log(err))
+    if (admin.type === 'super-admin') {
+      axios.post('strategies', csvData, { config })
+        .then(res => {
+          toast.success('strategies Uploaded!')
+          e.target.reset()
+        })
+        .catch(err => console.log(err))
+    }
+    else {
+      const data = {
+        "adminStrategie": csvData
+      }
+      axios.post('adminStrategies', data, { config })
+        .then(res => {
+          console.log(res);
+          toast.success('Sent Request for upload!')
+          e.target.reset()
+        })
+        .catch(err => console.log(err))
+    }
   }
   return (
     <>

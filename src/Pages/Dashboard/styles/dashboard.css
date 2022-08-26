@@ -144,7 +144,9 @@ li a.dropdown-toggle::after {
 .content.is-open{
   margin-left: 250px;
 }
-
+.dropdown-menu{
+  background-color: #d5b39a !important;
+}
 @media only screen and (max-width: 575.98px) {
 
   .content.is-open {

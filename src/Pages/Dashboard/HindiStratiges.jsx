@@ -37,6 +37,7 @@ const HindiStratiges = () => {
 
   const handleNext = () => {
     setPageCount(parseInt(pageCount) + 1)
+    setAllCheck(false)
   }
 
   const showMore = (index) => {
@@ -113,7 +114,20 @@ const HindiStratiges = () => {
   }
 
 
-
+  const allselectedId = str.map(stra => {
+    return stra._id
+  })
+  const [allCheck, setAllCheck] = React.useState(false);
+  const handleAllSelect = () => {
+    if (allCheck) {
+      setAllCheck(false)
+      setshowCh([])
+    }
+    else {
+      setAllCheck(true)
+      setshowCh(allselectedId)
+    }
+  }
 
   return (
     <div>
@@ -163,7 +177,7 @@ const HindiStratiges = () => {
           <Table responsive striped bordered hover size="sm" className='w-100'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
-                <th></th>
+                <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
                 <th>#</th>
                 <th scope="col">विषय</th>
                 <th scope="col">श्रेणी</th>

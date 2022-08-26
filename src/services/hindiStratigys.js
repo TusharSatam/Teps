@@ -115,3 +115,26 @@ export const reqDeletHiStr = async (data, ids) => {
   return stratigyResponse;
 
 }
+// reqDelet Stratigy
+export const getreqDeletHiStr = async () => {
+  let stratigyResponse
+  await axios.get(`supdelHi/reqDelet`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+
+}
+
+// All delet Stratigy
+export const deletRequestArrayidHi = async (id) => {
+  let stratigyResponse
+  await axios.delete(`supdelHi/reqDelet/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}

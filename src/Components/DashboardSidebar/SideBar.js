@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import Logo from '../../asstes/things_logo.svg'
 import { useAuth } from "../../Context/AuthContext";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const SideBar = ({ isOpen, toggle }) => {
@@ -80,14 +81,48 @@ const SideBar = ({ isOpen, toggle }) => {
         </Nav.Item>
         {
           admin.type === 'super-admin' &&
-          <Nav.Item className="">
-            <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/super-req">
-              Requests by admin panel
-            </Link>
-            <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-req">
-              Requests by admin panel
-            </Link>
-          </Nav.Item>
+          <>
+            <Dropdown>
+              <Dropdown.Toggle variant="bg-transparent border-0 fw-bold" style={{ color: "black" }} id="dropdown-basic">
+                Requests by admin panel
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-req">
+                    English Strategie Delete
+                  </Link>
+                  <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-req">
+                    English Strategie Delete
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-req-hi">
+                    Hindi Strategie Delete
+                  </Link>
+                  <Link style={{ color: "black" }} onClick={toggle} className="fw-bold dash_sidebar_a nav-link d-block d-md-none" to="/super-req-hi">
+                    Hindi Strategie Delete
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-upEn-str">
+                    Upload Eng Strategie
+                  </Link>
+                  <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-upEn-str">
+                    Upload Eng Strategie
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-upHi-str">
+                    Upload Hindi Strategie
+                  </Link>
+                  <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-upHi-str">
+                    Upload Hindi Strategie
+                  </Link>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </>
         }
 
 

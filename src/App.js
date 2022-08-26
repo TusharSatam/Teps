@@ -21,6 +21,9 @@ import UploadHindiStratiges from './Pages/Dashboard/UploadHindiStratiges';
 import AdminAuth from './Components/AdminLogin/AdminAuth';
 import PrivateAdminOutlet from './Components/PrivateRoute/PrivateAdminRoute';
 import ReqAdminPanel from './Pages/Dashboard/ReqAdminPanel';
+import ReqDelHindiStr from './Pages/Dashboard/ReqDelHindiStr';
+import UploadEnglishStr from './Pages/Dashboard/adminReq/UploadEnglishStr';
+import UploadHindistr from './Pages/Dashboard/adminReq/UploadHindistr';
 
 
 function App() {
@@ -43,7 +46,10 @@ function App() {
           loc.pathname === '/admin-hi-stratigy' ||
           loc.pathname === '/admin-upload-stratigy' ||
           loc.pathname === '/admin-upload-hi-stratigy' ||
-          loc.pathname === '/super-req'
+          loc.pathname === '/super-req' ||
+          loc.pathname === '/super-req-hi' ||
+          loc.pathname === '/super-upEn-str' ||
+          loc.pathname === '/super-upHi-str'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -69,7 +75,10 @@ function App() {
               <Route exact path='/admin-hi-stratigy' element={<HindiStratiges />} />
               <Route exact path='/admin-upload-stratigy' element={<UploadStratigys />} />
               <Route exact path='/admin-upload-hi-stratigy' element={<UploadHindiStratiges />} />
-              <Route exact path='super-req' element={<ReqAdminPanel />} />
+              <Route exact path='/super-req' element={<ReqAdminPanel />} />
+              <Route exact path='/super-req-hi' element={<ReqDelHindiStr />} />
+              <Route exact path='/super-upEn-str' element={<UploadEnglishStr />} />
+              <Route exact path='/super-upHi-str' element={<UploadHindistr />} />
             </Route>
           </Route>
         </Routes>
@@ -83,7 +92,10 @@ function App() {
           loc.pathname === '/admin-hi-stratigy' ||
           loc.pathname === '/admin-upload-stratigy' ||
           loc.pathname === '/admin-upload-hi-stratigy' ||
-          loc.pathname === '/super-req'
+          loc.pathname === '/super-req' ||
+          loc.pathname === '/super-req-hi' ||
+          loc.pathname === '/super-upEn-str' ||
+          loc.pathname === '/super-upHi-str'
           ? ('') : (
             <Footer />
           )
