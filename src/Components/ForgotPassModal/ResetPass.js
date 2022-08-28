@@ -28,7 +28,8 @@ const ResetPass = () => {
         axios.post("/forget/update", data)
           .then(res => {
             (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
-              "reply_to": email
+              "reply_to": email,
+              "from": "things@ecu.org"
             }, 'Iu315MdRwOR7T8GsW')
               .then((result) => {
                 console.log(result.text);

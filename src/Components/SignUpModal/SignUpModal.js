@@ -7,6 +7,7 @@ import CrossIcon from '../../asstes/cross-icon.png'
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
+import axios from 'axios';
 
 const SignUpModal = ({ handleClose, show, setShow }) => {
   const { t } = useTranslation()
@@ -26,30 +27,30 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
 
-  React.useEffect(() => {
-    const url = "./citys.json"
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const res = await response.json();
-        setCitys(res.cities);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
+  // React.useEffect(() => {
+  //   const url = "./citys.json"
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(url);
+  //       const res = await response.json();
+  //       setCitys(res.cities);
+  //     } catch (error) {
+  //       console.log("error", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [])
-  const handleOnchange = (e) => {
-    const city = e.target.value;
-    if (city) {
-      setInterNAtionalDisable(true);
-      setCityDisable(false);
-    }
-    if (city === 'City/Town') {
-      setInterNAtionalDisable(false);
-    }
-  }
+  //   fetchData();
+  // }, [])
+  // const handleOnchange = (e) => {
+  //   const city = e.target.value;
+  //   if (city) {
+  //     setInterNAtionalDisable(true);
+  //     setCityDisable(false);
+  //   }
+  //   if (city === 'City/Town') {
+  //     setInterNAtionalDisable(false);
+  //   }
+  // }
   React.useEffect(() => {
     if (checked) {
       setCityDisable(true);
@@ -68,7 +69,20 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setChecked(false)
     }
   }, [checked, show])
-
+  const handlePincode = (e) => {
+    if (e.target.value === '') {
+      setCitys('')
+    }
+    axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
+      .then(res => {
+        if (res?.data[0].Message !== "No records found") {
+          setCitys(res?.data[0]?.PostOffice[0]?.Block);
+        }
+        else {
+          setCitys('')
+        }
+      })
+  }
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -103,11 +117,20 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 .then(res => {
                   e.target.reset();
                   setShow(false)
-                  setUser(res.data.data);
-                  setIsAuthenticated(true);
-                  window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                  window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                  navigate('/home')
+                  // setUser(res.data.data);
+                  // setIsAuthenticated(true);
+                  // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
+                  // window.localStorage.setItem('data', JSON.stringify(res.data.data));
+                  // navigate('/home')
+                  // (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
+                  //   "reply_to": email,
+                  //   "from": "things@ecu.org"
+                  // }, 'Iu315MdRwOR7T8GsW')
+                  //   .then((result) => {
+                  //     console.log(result.text);
+                  //   }, (error) => {
+                  //     console.log(error.text);
+                  //   }))
                 })
                 .catch(err => {
                   if (err.response.status === 409) {
@@ -209,22 +232,15 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               <div className='d-flex  my-3'>
                 <div className='me-5'>
-                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
-                  <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
-                    <option value="City/Town" selected >{t('City/Town')}</option>
-                    {
-                      !citys ? <option value="City/Town" selected >{t('City/Town')}</option> :
-                        citys.map((data, index) => (
-                          <option key={index}>{data.City}</option>
-                        ))
-                    }
-                  </select><br />
-                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                  <label htmlFor="">&nbsp;{t('International')}</label>
+                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
                 </div>
                 <div>
-                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
+                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
+                  <input value={!cityDisable ? citys : ''} disabled={cityDisable} className='signup_Input' name='city' placeholder={t('City/Town')} type="text" />
+                  <br />
+                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
+                  <label htmlFor="">&nbsp;{t('International')}</label>
                 </div>
               </div>
               <div className='d-flex my-3'>
@@ -239,9 +255,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               <div className='d-flex'>
                 <div className='mt-1 d-none d-md-block'>
-                  <label class="containerr">
+                  <label className="containerr">
                     <input name='checkmark' type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                 </div>
                 <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
@@ -299,6 +315,17 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <input className='signup_Input' name='organization' placeholder={t('School/Organization')} type="text" />
                 </div>
                 <div className='mt-3'>
+                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
+                </div>
+                <div className='mt-3'>
+                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
+                  <input value={!cityDisable ? citys : ''} disabled={cityDisable} className='signup_Input' name='city' placeholder={t('City/Town')} type="text" />
+                  <br />
+                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
+                  <label htmlFor="">&nbsp;{t('International')}</label>
+                </div>
+                {/* <div className='mt-3'>
                   <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
                   <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
                     <option value="City/Town" selected >{t('City/Town')}</option>
@@ -311,7 +338,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </select><br />
                   <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
                   <label htmlFor="">&nbsp;{t('International')}</label>
-                </div>
+                </div> */}
                 <div className='mt-3'>
                   <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='pincode' min="0" placeholder={t('Pincode')} type="number" />
@@ -326,9 +353,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <div className='d-flex my-3'>
                   <div className='mt-1 d-block d-md-none'>
-                    <label class="containerr">
+                    <label className="containerr">
                       <input name='checkmark' type="checkbox" />
-                      <span class="checkmark"></span>
+                      <span className="checkmark"></span>
                     </label>
                   </div>
                   <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
