@@ -88,8 +88,7 @@ const HindiStratiges = () => {
         setAllStratiy(res.data)
       })
   }, [])
-  const csvData = allStratigy ? allStratigy : [];
-
+  const csvData = str ? str : [];
   const handleMultiDelet = () => {
     if (admin.type === 'super-admin') {
       multidelHiStratigys(showCh)
@@ -179,6 +178,7 @@ const HindiStratiges = () => {
               <tr>
                 <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
                 <th>#</th>
+                <th>Id</th>
                 <th scope="col">विषय</th>
                 <th scope="col">श्रेणी</th>
                 <th scope="col">कौशल</th>
@@ -208,6 +208,7 @@ const HindiStratiges = () => {
                           <td>{stratigys?.currentPage === '1' ? index + 1 :
                             (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
                           }</td>
+                          <td>{(item._id).slice(19, 26)}</td>
                           <td>{item.विषय}</td>
                           <td>{item.श्रेणी}</td>
                           <td>{item.कौशल}</td>

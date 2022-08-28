@@ -4,6 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import emailjs from '@emailjs/browser';
 
 const ResetPass = () => {
   const { t } = useTranslation()
@@ -26,6 +27,14 @@ const ResetPass = () => {
         }
         axios.post("/forget/update", data)
           .then(res => {
+            (emailjs.send('service_8qg6csq', 'template_jwi6bie', {
+              "reply_to": email
+            }, 'RetawD6Qlh_S7pi-n')
+              .then((result) => {
+                console.log(result.text);
+              }, (error) => {
+                console.log(error.text);
+              }))
             toast.success(`${t('success_reset')}`)
             e.target.reset()
             navigate('/')

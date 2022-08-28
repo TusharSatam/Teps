@@ -36,7 +36,7 @@ const UploadEnglishStr = () => {
     delAdminStratigys(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Requested Deny!');
+        res && toast.success('Request Denied!');
       })
   }
   return (

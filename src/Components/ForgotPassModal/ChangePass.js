@@ -5,6 +5,7 @@ import './forgotmodal.css'
 import { useAuth } from '../../Context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import toast, { Toaster } from 'react-hot-toast';
+import emailjs from '@emailjs/browser';
 
 const ChangePass = ({ show, setShow }) => {
   const { user } = useAuth()
@@ -24,6 +25,14 @@ const ChangePass = ({ show, setShow }) => {
         }
         axios.post("/forget/update", data)
           .then(res => {
+            (emailjs.send('service_8qg6csq', 'template_jwi6bie', {
+              "reply_to": user.email
+            }, 'RetawD6Qlh_S7pi-n')
+              .then((result) => {
+                console.log(result.text);
+              }, (error) => {
+                console.log(error.text);
+              }))
             setShow(false)
             toast.success(`${t('success_Change')}`)
             e.target.reset()

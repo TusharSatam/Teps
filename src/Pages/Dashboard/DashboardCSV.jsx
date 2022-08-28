@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import './styles/DashboardCSV.css'
 import EditStratigyModal from '../../Components/DashboardModal/EditStratigyModal';
-import { Spinner } from 'react-bootstrap';
+import { Alert, Spinner } from 'react-bootstrap';
 import { useAuth } from '../../Context/AuthContext';
 import { CSVLink } from 'react-csv';
 const DashboardCSV = () => {
@@ -127,7 +127,7 @@ const DashboardCSV = () => {
         setAllStratiy(res.data)
       })
   }, [])
-  const csvData = allStratigy ? allStratigy : [];
+  const csvData = str ? str : [];
 
   const allselectedId = str.map(stra => {
     return stra._id
@@ -167,7 +167,9 @@ const DashboardCSV = () => {
               <div className='d-flex'>
                 {/* <button onClick={handleallDelet} className='btn btn-primary '>Delete All Strategies</button> */}
                 {
-                  admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData}>Download All Strategies</CSVLink>
+                  admin.type === 'super-admin' && (allStratigy.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download All Strategies</CSVLink> : <Alert variant={"danger"}>
+                    Wait! Data is loading.
+                  </Alert>)
                 }
                 <button onClick={handleMultiDelet} className={admin.type === 'super-admin' ? "btn btn-primary" : "btn btn-primary"}>Delete Selected Strategies</button>
               </div>
