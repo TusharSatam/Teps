@@ -27,9 +27,9 @@ const ResetPass = () => {
         }
         axios.post("/forget/update", data)
           .then(res => {
-            (emailjs.send('service_8qg6csq', 'template_jwi6bie', {
+            (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
               "reply_to": email
-            }, 'RetawD6Qlh_S7pi-n')
+            }, 'Iu315MdRwOR7T8GsW')
               .then((result) => {
                 console.log(result.text);
               }, (error) => {
@@ -76,11 +76,11 @@ const ResetPass = () => {
               <div className='d-flex justify-content-center'>
                 <div>
                   <div className='my-3'>
-                    <label htmlFor="">{t("password")}</label><br />
+                    <label htmlFor="">{t("Password")}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='password' /><br />
                   </div>
                   <div className='my-3'>
-                    <label htmlFor="">{t("confirm_password")}</label><br />
+                    <label htmlFor="">{t("Confirm Password")}</label><br />
                     <input placeholder='1234567#' className='login_input' type="password" name='confirm_password' /><br />
                   </div>
                   {error ? <p className='text-danger'>{error}</p> : ''}
