@@ -44,6 +44,50 @@
     height:90px;
     width: 90px;
 }
+.verify-modal .modal-content{
+width: 600px !important;
+background: #FFFFFF!important;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)!important;
+border-radius: 4px!important;
+margin-top: 100px!important;
+}
+.verify_head{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #1AA05B;
+}
+.verify_subhead{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #6D747A;
+}
+.verify_footerT{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  color: #6D747A;
+}
+.verify_footer{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: -0.01em;
+  color: #1AA05B;
+}
 @media only screen and (max-width: 990px) {
     .send_modal{
        margin-top: 50px;
@@ -76,6 +120,47 @@
     letter-spacing: -0.01em;
     color: #1AA05B;
 }
+.verify-modal .modal-content{
+  width: 100% !important;
+  margin-top: 75px!important;
+  }
+  .verify_head{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.01em;
+    color: #1AA05B;
+  }
+  .verify_subhead{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+    color: #6D747A;
+  }
+  .verify_footerT{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 12px;
+    letter-spacing: -0.01em;
+    color: #6D747A;
+  }
+  .verify_footer{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 12px;
+    letter-spacing: -0.01em;
+    color: #1AA05B;
+  }
 }
 
 @media only screen and (max-width: 740px) {

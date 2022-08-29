@@ -24,6 +24,7 @@ import ReqAdminPanel from './Pages/Dashboard/ReqAdminPanel';
 import ReqDelHindiStr from './Pages/Dashboard/ReqDelHindiStr';
 import UploadEnglishStr from './Pages/Dashboard/adminReq/UploadEnglishStr';
 import UploadHindistr from './Pages/Dashboard/adminReq/UploadHindistr';
+import Verify from './Pages/Verify';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
     <div>
       {
         loc.pathname === '/forgot' ||
+          loc.pathname === '/verify' ||
           loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
@@ -61,6 +63,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/forgot' element={<ResetPass />} />
+          <Route path='/verify' element={<Verify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
@@ -85,6 +88,7 @@ function App() {
       </div>
       {
         loc.pathname === '/forgot' ||
+          loc.pathname === '/verify' ||
           loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||

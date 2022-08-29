@@ -6,6 +6,9 @@ import { userLogin } from '../../services/auth';
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './loginModal.css'
+import VerifyModal from '../ForgotPassModal/VerifyModal';
+import emailjs from '@emailjs/browser';
+
 const LoginModal = ({ handleClose, show, setShow }) => {
   const { t } = useTranslation()
   const navigate = useNavigate();
@@ -14,6 +17,8 @@ const LoginModal = ({ handleClose, show, setShow }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState('');
   const [checkError, setCheckError] = React.useState('');
+  const [verifyModal, setVerifyModal] = React.useState(false)
+
   const handleSIgnIn = (e) => {
     e.preventDefault();
     if (e.target.checkmark.checked === true) {
@@ -26,15 +31,31 @@ const LoginModal = ({ handleClose, show, setShow }) => {
       userLogin(data)
         .then(res => {
           if (res) {
-            setIsLoading(false);
-            setShow(false)
-            setUser(res.data);
-            setIsAuthenticated(true);
-            window.localStorage.setItem('jwt', JSON.stringify(res.jwt));
-            window.localStorage.setItem('data', JSON.stringify(res.data));
-            navigate('/home');
+            if (res?.data?.varified) {
+              setIsLoading(false);
+              setShow(false)
+              setUser(res.data);
+              setIsAuthenticated(true);
+              window.localStorage.setItem('jwt', JSON.stringify(res.jwt));
+              window.localStorage.setItem('data', JSON.stringify(res.data));
+              navigate('/home');
+            }
+            else {
+              (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
+                "reply_to": res?.data?.email,
+                "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
+                "from": "things@ecu.org"
+              }, 'Iu315MdRwOR7T8GsW')
+                .then((result) => {
+                  setIsLoading(false);
+                  setShow(false)
+                  setVerifyModal(true)
+                  console.log(result.text);
+                }, (error) => {
+                  console.log(error.text);
+                }))
+            }
           }
-          setIsLoading(false)
         })
         .catch(err => {
           setIsLoading(false);
@@ -55,6 +76,10 @@ const LoginModal = ({ handleClose, show, setShow }) => {
       <ForgotModal
         show={forgot}
         setShow={setForgot}
+      />
+      <VerifyModal
+        show={verifyModal}
+        setShow={setVerifyModal}
       />
       <Modal
         show={show}

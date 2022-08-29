@@ -8,13 +8,15 @@ import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
+import VerifyModal from '../ForgotPassModal/VerifyModal';
 
 const SignUpModal = ({ handleClose, show, setShow }) => {
   const { t } = useTranslation()
   const [error, setError] = React.useState('');
   const [required, setRequired] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
-  const [citys, setCitys] = React.useState('');
+  const [town, setTown] = React.useState('');
   const [cityDisable, setCityDisable] = React.useState(false);
   const [interNAtionalDisable, setInterNAtionalDisable] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -23,7 +25,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const [checkError, setCheckError] = React.useState('');
   const [passError, setPassError] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
-
+  const [verifyModal, setVerifyModal] = React.useState(false)
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
 
@@ -33,7 +35,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   //     try {
   //       const response = await fetch(url);
   //       const res = await response.json();
-  //       setCitys(res.cities);
+  //       setTown(res.cities);
   //     } catch (error) {
   //       console.log("error", error);
   //     }
@@ -69,21 +71,27 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setChecked(false)
     }
   }, [checked, show])
+  const [cityFound, setCityFound] = React.useState("")
   const handlePincode = (e) => {
     if (e.target.value === '') {
-      setCitys('')
+      setTown('')
+      setCityFound('')
     }
     axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
       .then(res => {
         if (res?.data[0].Message !== "No records found") {
-          setCitys(res?.data[0]?.PostOffice[0]?.Block);
+          setCityFound('')
+          setTown(res?.data[0]?.PostOffice[0]?.Block);
         }
         else {
-          setCitys('')
+          if (!checked)
+            setTown('')
+          setCityFound("No city/Town found")
         }
       })
   }
-
+  const wrongEmail = "Your email could not be found, please register with the correct email."
+  const [wrongEMailfound, setWrongEMailfound] = React.useState()
   const handleSignUp = (e) => {
     e.preventDefault();
     let equalPass;
@@ -95,7 +103,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
           setPassError(``)
           if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-            e.target.organization.value && (e.target.city.value !== 'City/Town' || checked) && e.target.pincode.value && equalPass !== ''
+            e.target.organization.value && (e.target.city.value || checked) && e.target.pincode.value && equalPass !== ''
           ) {
             setRequired("");
             if (e.target.password.value === e.target.confirm_password.value) {
@@ -117,20 +125,25 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 .then(res => {
                   e.target.reset();
                   setShow(false)
+                  console.log(res);
                   // setUser(res.data.data);
                   // setIsAuthenticated(true);
                   // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
                   // window.localStorage.setItem('data', JSON.stringify(res.data.data));
                   // navigate('/home')
-                  // (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
-                  //   "reply_to": email,
-                  //   "from": "things@ecu.org"
-                  // }, 'Iu315MdRwOR7T8GsW')
-                  //   .then((result) => {
-                  //     console.log(result.text);
-                  //   }, (error) => {
-                  //     console.log(error.text);
-                  //   }))
+                  (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
+                    "reply_to": res?.data?.data?.email,
+                    "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
+                    "from": "things@ecu.org"
+                  }, 'Iu315MdRwOR7T8GsW')
+                    .then((result) => {
+                      setVerifyModal(true)
+                      setWrongEMailfound('')
+                      console.log(result.text);
+                    }, (error) => {
+                      console.log(error.text);
+                      setWrongEMailfound(wrongEmail)
+                    }))
                 })
                 .catch(err => {
                   if (err.response.status === 409) {
@@ -182,11 +195,17 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setPassError(``)
     }
   }
+  console.log(town);
   return (
     <>
       <ForgotModal
         show={forgot}
         setShow={setForgot}
+      />
+      <VerifyModal
+        show={verifyModal}
+        setShow={setVerifyModal}
+        wrong={wrongEMailfound}
       />
       <Modal
         show={show}
@@ -234,13 +253,13 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className='me-5'>
                   <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
-                </div>
-                <div>
-                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
-                  <input value={!cityDisable ? citys : ''} disabled={cityDisable} className='signup_Input' name='city' placeholder={t('City/Town')} type="text" />
                   <br />
                   <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
                   <label htmlFor="">&nbsp;{t('International')}</label>
+                </div>
+                <div>
+                  <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
+                  <input value={!cityDisable ? town : ''} disabled={cityDisable} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
                 </div>
               </div>
               <div className='d-flex my-3'>
@@ -317,31 +336,13 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className='mt-3'>
                   <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
-                </div>
-                <div className='mt-3'>
-                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
-                  <input value={!cityDisable ? citys : ''} disabled={cityDisable} className='signup_Input' name='city' placeholder={t('City/Town')} type="text" />
                   <br />
                   <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
                   <label htmlFor="">&nbsp;{t('International')}</label>
                 </div>
-                {/* <div className='mt-3'>
-                  <label htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736;</span> : ''}</label><br />
-                  <select onChange={handleOnchange} disabled={cityDisable} className='select_input' name='city' title="City">
-                    <option value="City/Town" selected >{t('City/Town')}</option>
-                    {
-                      !citys ? <option value="City/Town" selected >{t('City/Townty')}</option> :
-                        citys.map((data, index) => (
-                          <option key={index}>{data.City}</option>
-                        ))
-                    }
-                  </select><br />
-                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                  <label htmlFor="">&nbsp;{t('International')}</label>
-                </div> */}
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' name='pincode' min="0" placeholder={t('Pincode')} type="number" />
+                  <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
+                  <input value={!cityDisable ? town : ''} disabled={cityDisable} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
                 </div>
                 <div className='mt-3'>
                   <label htmlFor="">{t('Password')}</label> <br />
