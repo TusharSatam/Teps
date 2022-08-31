@@ -2,11 +2,11 @@ import React from 'react';
 import Profile from '../Components/Profile/Profile';
 
 const Profiles = () => {
-    return (
-        <>
-            <Profile />
-        </>
-    );
+  return (
+    <>
+      <Profile />
+    </>
+  );
 };
 
 export default Profiles;

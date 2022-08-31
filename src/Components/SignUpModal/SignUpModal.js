@@ -72,6 +72,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
   }, [checked, show])
   const [cityFound, setCityFound] = React.useState("")
+  const [liveDetails, setLiveDetails] = React.useState()
   const handlePincode = (e) => {
     if (e.target.value === '') {
       setTown('')
@@ -79,8 +80,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
     axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
       .then(res => {
-        console.log(res);
         if (res?.data[0].Message !== "No records found") {
+          setLiveDetails(res?.data[0]?.PostOffice[0]);
           setCityFound('')
           setTown(res?.data[0]?.PostOffice[0]?.Block);
         }
@@ -121,17 +122,13 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               formData.append('city', checked ? "International" : city);
               formData.append('pincode', e.target.pincode.value);
               formData.append('password', equalPass);
-              // formData.append('image', e.target.img.files[0]);
+              formData.append('state', !checked ? liveDetails?.State : '');
+              formData.append('country', !checked ? liveDetails?.Country : '');
               userRegister(formData)
                 .then(res => {
                   e.target.reset();
                   setShow(false)
                   console.log(res);
-                  // setUser(res.data.data);
-                  // setIsAuthenticated(true);
-                  // window.localStorage.setItem('jwt', JSON.stringify(res.data.jwt));
-                  // window.localStorage.setItem('data', JSON.stringify(res.data.data));
-                  // navigate('/home')
                   (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
                     "reply_to": res?.data?.data?.email,
                     "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,

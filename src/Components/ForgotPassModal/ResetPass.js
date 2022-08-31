@@ -29,7 +29,7 @@ const ResetPass = () => {
           .then(res => {
             (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
               "reply_to": email,
-              "from": "things@ecu.org"
+              "submit_text": "Congratulation! Your password Reset was Successful."
             }, 'Iu315MdRwOR7T8GsW')
               .then((result) => {
                 console.log(result.text);

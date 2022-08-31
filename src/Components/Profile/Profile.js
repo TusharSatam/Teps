@@ -9,7 +9,10 @@ import HeroSection from '../Home/HeroSection';
 import toast, { Toaster } from 'react-hot-toast';
 import './profile.css'
 import { useTranslation } from 'react-i18next';
-import { Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import axios from 'axios';
+import emailjs from '@emailjs/browser';
+import VerifyModal from '../ForgotPassModal/VerifyModal';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -21,6 +24,11 @@ const Profile = () => {
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
+  const [show, setShow] = React.useState(false)
+  const [success, setSuccess] = React.useState(false)
+
+
+
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -65,28 +73,74 @@ const Profile = () => {
 
     fetchData();
   }, [])
+
+  // edit Email handler
+  const [editEmail, setEditEmail] = useState(false)
+  const handleEmailEdit = () => {
+    if (editEmail === false) {
+      setEditEmail(true);
+    }
+    else setEditEmail(false);
+  }
+
+  // edit all handler
+  const [editAll, setEditAll] = useState(false)
+  const handleAllEdit = () => {
+    if (editAll === false) {
+      setEditAll(true);
+    }
+    else setEditAll(false);
+  }
+
+  // pincode handler
+  const [cityFound, setCityFound] = React.useState(true)
+  const [liveDetails, setLiveDetails] = React.useState()
+  const handlePincode = (e) => {
+    if (e.target.value === '') {
+      setCityFound(false)
+    }
+    axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
+      .then(res => {
+        if (res?.data[0].Message !== "No records found") {
+          setLiveDetails(res?.data[0]?.PostOffice[0]);
+          setCityFound(true)
+        }
+        else {
+          setCityFound(false)
+        }
+      })
+  }
+
+  // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
-    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     e.preventDefault();
-    if (e.target.email.value.match(pattern)) {
-      setEmailErr('');
+    if (cityFound) {
       const formData = new FormData();
       formData.append('organization', e.target.organization.value);
-      formData.append('email', e.target.email.value);
       formData.append('designation', e.target.designation.value);
-      formData.append('city', e.target.city.value);
-      formData.append('state', e.target.state.value);
+      formData.append('city', liveDetails ? liveDetails?.Block : user.city);
+      formData.append('state', liveDetails ? liveDetails?.State : user.state);
       formData.append('pincode', e.target.pincode.value);
       formData.append('country', e.target.country.value);
       updateUser(user._id, formData)
         .then(res => {
           getSingleUser(user._id)
             .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-              toast.success(`${t('update_profile_messege')}`)
-              setIsLoading(false);
+              (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
+                "reply_to": user?.email,
+                "submit_text": "Your Data Updated successfully"
+              }, 'Iu315MdRwOR7T8GsW')
+                .then((result) => {
+                  window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                  setUser(res.data[0]);
+                  toast.success(`${t('update_profile_messege')}`)
+                  setIsLoading(false);
+                  setEditAll(false);
+                }, (error) => {
+                  console.log(error.text);
+                }))
+
             })
         })
         .catch(err => {
@@ -94,11 +148,6 @@ const Profile = () => {
           setIsLoading(false);
         })
     }
-    else {
-      setIsLoading(false);
-      setEmailErr(t('Email_Error'));
-    }
-
   }
   React.useEffect(() => {
     const url = "./citys.json"
@@ -114,9 +163,48 @@ const Profile = () => {
 
     fetchData();
   }, [])
+  // gamil handler
+  const [getEmail, setGetEmail] = useState()
+  const handleEmail = (e) => {
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (e.target.value.match(pattern)) {
+      setEmailErr('');
+      setGetEmail(e.target.value)
+    }
+    else {
+      setIsLoading(false);
+    }
+  }
+  const token = JSON.stringify(localStorage.getItem('jwt'));
+  const doneEmail = () => {
+    (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
+      "reply_to": getEmail,
+      "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
+      "from": "things@ecu.org"
+    }, 'Iu315MdRwOR7T8GsW')
+      .then((result) => {
+        setShow(true);
+        setEditEmail(false);
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      }))
+    console.log(getEmail);
+  }
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      City/Town Not Found
+    </Tooltip>
+  );
   return (
     <>
+      <VerifyModal
+        show={show}
+        setShow={setShow}
+        noti1={'You’re Email has been Changed!'}
+        noti2={" Please note that once you change your email your account will be signed out and you have sign in once again with your new email id for further use."}
+      />
       <Toaster
         position="top-right"
         reverseOrder={false}
@@ -129,22 +217,21 @@ const Profile = () => {
       <section className='profile_container pb-5'>
         <div style={{ height: "10px" }}></div>
         <div className='d-block d-md-none text-start mx-3 mt-5 bg-light'>
-          <div className='d-flex align-items-start prfile_pic' style={{ height: '92px' }}>
+          <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
             <div className="button-wrapperr">
               {
-                profileImage?.image ? <img className='label' style={{ width: "34px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                  user?.image ? <img className='label' style={{ width: "34px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    <img width={'34px'} className='label' src={defaultProfile} alt="" />
+                profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                  user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    <img width={'40px'} className='label' src={defaultProfile} alt="" />
               }
-              <input id="upload" className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
+              <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
             <div>
               <div className='profile_school mt-4'>
-                <p style={{ fontSize: "8px", fontWeight: "400", lineHeight: "9px" }} >{user?.firstName} {user?.lastName}</p>
-                <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >{user?.organization}</p>
-                {/* <p style={{ fontSize: "8px", marginTop: "-14px", fontWeight: "400", lineHeight: "9px" }} >Teacher At Abc school</p> */}
+                <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
+                <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
               </div>
-              <div style={{ marginTop: "-25px" }}>
+              <div style={{ marginTop: "-5px" }}>
                 <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
               </div>
             </div>
@@ -189,83 +276,83 @@ const Profile = () => {
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('Email')}:</h4>
                   <div className='mt-md-2'>
-                    <input className={emailErr ? 'border-danger text-danger profile_input' : 'profile_input'} type="text" defaultValue={user.email} name="email" id="" />
+                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input me-3 me-md-0 mt-2' : 'profile_input me-3 me-md-0 mt-2'} type="text" defaultValue={user.email} name="email" id="" />
                   </div>
                 </div>
-                <div>
-                  <button>Edit</button>
-                  <button>Save Email</button>
+                <div className=' d-flex mb-2'>
+                  <div onClick={handleEmailEdit} className='Email_Edit me-3'>Edit</div>
+                  <div onClick={doneEmail} className='Email_Edit me-3'>Save Email</div>
                 </div>
                 <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
-                  <h4 className='pe-5 input_label'>{t('School/Organization')}:</h4>
-                  <div className='mt-md-2'>
-                    <input className='profile_input w-100' type="text" defaultValue={user?.organization} name="organization" id="" />
+                <div className='d-flex'>
+                  <div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
+                      <h4 className='mt-md-3 pe-5 input_label'>{t('School/Organization')}:</h4>
+                    </div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                      <h4 className='mt-md-3 input_label'>{t('Designation')}:</h4>
+                    </div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                      <h4 className='mt-md-3 input_label'>{t('Pincode')}:</h4>
+                    </div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                      <h4 className='mt-md-3 input_label'>{t('City/Town')}:</h4>
+                    </div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                      <h4 className='mt-md-3 input_label'>{t('state')}:</h4>
+                    </div>
+                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                      <h4 className='mt-md-3 input_label'>{t('country')}:</h4>
+                    </div>
                   </div>
-                  {/* <p className='mt-1'>abc school</p> */}
-                </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('Designation')}:</h4>
-                  {/* <p className='mt-1'>abc school</p> */}
-                  <div className='mt-md-2'>
-                    <input className='profile_input' type="text" defaultValue={user.designation} name="designation" id="" />
-                  </div>
-                </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('City/Town')}:</h4>
-                  {/* <p className='mt-1'>abc school</p> */}
-                  <div className='mt-md-2'>
+                  <div>
+                    <div className='mt-md-3'>
+                      <input disabled={!editAll} className={!editAll ? "border-0 profile_input mt-md-4 mt-1" : "profile_input mt-md-4 mt-1"} type="text" defaultValue={user?.organization} name="organization" id="" />
+                    </div>
+                    <div className='mt-md-3'>
+                      <input disabled={!editAll} className={!editAll ? "border-0 profile_input  " : "profile_input "} type="text" defaultValue={user.designation} name="designation" id="" />
+                    </div>
                     {
-                      user?.city === "International" ?
-                        < input className='profile_input' type="text" defaultValue={user.city} name="city" id="" /> :
-                        <select className='ps-1 pe-4 py-1 city-profile' name="city" id="">
-                          <option className='' >{user.city}</option>
-                          {
-                            citys && citys?.map((data, index) => (
-                              <option key={index} >{data.City}</option>
-                            ))
-                          }
-                        </select>
+                      !cityFound ?
+                        <OverlayTrigger
+                          placement="right"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={renderTooltip}
+                        >
+                          <div className='mt-md-3'>
+                            <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger text-danger profile_input"} onChange={handlePincode} type="text" defaultValue={user.pincode} name="pincode" id="" />
+                          </div>
+                        </OverlayTrigger> :
+                        <div className='mt-md-3'>
+                          <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger text-danger profile_input"} onChange={handlePincode} type="text" defaultValue={user.pincode} name="pincode" id="" />
+                        </div>
                     }
-                  </div>
-                </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('state')}:</h4>
-                  {user.city === "International" ?
-                    <div className='mt-md-2'>
-                      <input className='profile_input' type="text" defaultValue={user?.state} name="state" id="" />
-                    </div> : <select className='ps-1 pe-4 py-1 state_input' defaultValue={user?.state} name="state" id="">
-                      <option className='' >{user.state ? user.state : 'State'}</option>
+                    <div className='mt-md-3'>
                       {
-                        state?.map((data, index) => (
-                          <option key={index} >{data.name}</option>
+                        user?.city === "International" ?
+                          < input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={user.city} name="city" id="" /> :
+                          <p className='static_data mt-2'>{liveDetails ? liveDetails?.Block : user.city}</p>
+                      }
+                    </div>
+                    <div className='mt-md-3'>
+                      {user.city === "International" ?
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={user?.state} name="state" id="" />
+                        : <p className='static_data mt-md-5 mt-4'>{liveDetails ? liveDetails?.State : user.state}</p>
+                      }
+                    </div>
+                    <select disabled={!editAll} className='ps-2 pe-5 py-1 mt-md-4 mt-2 profile_input ' name="country" id="">
+                      <option className='' >{user.country ? user.country : 'Country'}</option>
+                      {
+                        country?.map((item, index) => (
+                          <option className='' >{item?.name}</option>
                         ))
                       }
                     </select>
-                  }
-
-                </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('Pincode')}:</h4>
-                  {/* <p className='mt-1'>abc school</p> */}
-                  <div className='mt-md-2'>
-                    <input className='profile_input' type="text" defaultValue={user.pincode} name="pincode" id="" />
                   </div>
                 </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('country')}:</h4>
-                  <select className='ps-2 pe-5 py-1 state_input' name="country" id="">
-                    <option className='' >{user.country ? user.country : 'Country'}</option>
-                    {
-                      country?.map((item, index) => (
-                        <option className='' >{item?.name}</option>
-                      ))
-                    }
-                  </select>
-                </div>
                 <div className='d-flex justify-content-center mt-4 mt-md-5 py-md-2 '>
-                  <button>Edit </button>
-                  <button disabled={isLoading} type='submit' className='save_change_btn'>
+                  <div className='edit_al me-4' onClick={handleAllEdit}>Edit </div>
+                  <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
                       isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')
                     }

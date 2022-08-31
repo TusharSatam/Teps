@@ -25,22 +25,39 @@ import ReqDelHindiStr from './Pages/Dashboard/ReqDelHindiStr';
 import UploadEnglishStr from './Pages/Dashboard/adminReq/UploadEnglishStr';
 import UploadHindistr from './Pages/Dashboard/adminReq/UploadHindistr';
 import Verify from './Pages/Verify';
+import EmailVerify from './Pages/EmailVerify';
+import { getSingleUser } from './services/dashboardUsers';
+import { useAuth } from './Context/AuthContext';
 
 
 function App() {
+  const { user } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-
   axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
   // axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
-  const loc = useLocation()
+  const loc = useLocation();
+  React.useEffect(() => {
+    getSingleUser(user?._id)
+      .then(res => {
+        if (res?.data[0]?.email !== user?.email) {
+          localStorage.removeItem('data');
+          localStorage.removeItem('jwt');
+          localStorage.removeItem('filterData');
+          localStorage.removeItem('filterDataH');
+          localStorage.removeItem('selectedDropdown');
+          localStorage.removeItem('selectedHiDropdown');
+        }
+      })
+  }, [getSingleUser]);
   return (
     <div>
       {
         loc.pathname === '/forgot' ||
           loc.pathname === '/verify' ||
+          loc.pathname === '/emailverify' ||
           loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
@@ -64,6 +81,7 @@ function App() {
           <Route path='/' element={<Landing />} />
           <Route path='/forgot' element={<ResetPass />} />
           <Route path='/verify' element={<Verify />} />
+          <Route path='/emailverify' element={<EmailVerify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
@@ -89,6 +107,7 @@ function App() {
       {
         loc.pathname === '/forgot' ||
           loc.pathname === '/verify' ||
+          loc.pathname === '/emailverify' ||
           loc.pathname === '/admin-login' ||
           loc.pathname === '/admin-home' ||
           loc.pathname === '/admin-users' ||
