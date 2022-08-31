@@ -15,6 +15,7 @@ import './navbar.css'
 import { Link } from 'react-router-dom';
 import LanguageSelect from '../../languageSelect';
 import { useTranslation } from 'react-i18next';
+import LeftArrow from '../../asstes/left-arrow.svg'
 const Navbar = ({ displayProfile, setDisplayProfile }) => {
   const location = useLocation()
   const { t } = useTranslation()
@@ -51,16 +52,17 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         show={loginModal}
         setShow={setLoginModal}
       />
-      <section onClick={navClick} className='mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center '>
-        <div className='d-flex'>
+      <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center "}>
+        <div>
           <Link to={location.pathname !== '/' && '/home'}>
             <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
             </div>
-            <div className='d-block d-md-none logo_aligh '>
+            <div className='d-block d-md-none logo_aligh mb-2 mb-md-0'>
               <img className='logo-res' src={ResLogo} alt="logo2" />
             </div>
           </Link>
+          {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;Search Strategies</Link>}
         </div>
         <div className='d-flex align-items-center'>
           <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' ? 'd-block' : 'd-none'}>

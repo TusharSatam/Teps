@@ -79,6 +79,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
     axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
       .then(res => {
+        console.log(res);
         if (res?.data[0].Message !== "No records found") {
           setCityFound('')
           setTown(res?.data[0]?.PostOffice[0]?.Block);

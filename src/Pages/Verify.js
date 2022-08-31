@@ -8,28 +8,35 @@ const Verify = () => {
   const id = new URLSearchParams(search).get('sdfbkjfewihuf');
   const [loading, setLoading] = React.useState(false);
   const [veridyd, setVeridyd] = React.useState(false);
+  const [alredyVeridyd, setAlradyVeridyd] = React.useState(false);
   React.useEffect(() => {
     setLoading(true)
     getSingleUser(id)
       .then(res => {
         const email = res?.data[0]?.email;
         const formData = new FormData();
-        if (res) {
-          formData.append('varified', true);
-          updateUser(id, formData)
-            .then(res => {
-              setLoading(false)
-                (emailjs.send('service_tf7x29l', 'template_eak42al', {
-                  "reply_to": email,
-                  "from": "things@ecu.org"
-                }, '4i-3K9njuqhYjHK_8')
-                  .then((result) => {
-                    setVeridyd(true)
-                    console.log(result.text);
-                  }, (error) => {
-                    console.log(error.text);
-                  }))
-            })
+        if (res?.data[0]?.varified === false) {
+          setAlradyVeridyd(false)
+          if (res) {
+            formData.append('varified', true);
+            updateUser(id, formData)
+              .then(res => {
+                setLoading(false)
+                  (emailjs.send('service_tf7x29l', 'template_eak42al', {
+                    "reply_to": email,
+                    "from": "things@ecu.org"
+                  }, '4i-3K9njuqhYjHK_8')
+                    .then((result) => {
+                      setVeridyd(true)
+                      console.log(result.text);
+                    }, (error) => {
+                      console.log(error.text);
+                    }))
+              })
+          }
+        }
+        else {
+          setAlradyVeridyd(true)
         }
       })
   }, [])
@@ -40,7 +47,7 @@ const Verify = () => {
         loading ? <div className='d-flex flex-column align-items-center justify-content-center mt-5'> Loading................</div> :
           veridyd && <div className='d-flex flex-column align-items-center justify-content-center mt-5'>
             < div className='text-center'>
-              <h3 className="verify_head">Verification success!</h3>
+              <h3 className="verify_head">{alredyVeridyd ? "Already Verified!" : " Verification success!"}</h3>
             </div>
             <Link to="/"><button>Go to Home and try for login</button></Link>
           </div>

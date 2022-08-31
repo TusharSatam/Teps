@@ -70,6 +70,29 @@
     width: 40px;
     height: 40px;
 }
+.Go_back{
+  background: #1AA05B;
+border-radius: 24px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 8px 24px;
+text-decoration: none;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 17px;
+color: #FFFFFF;
+transition: 0.5s;
+}
+.Go_back:hover{
+  background: rgba(26, 160, 91, 0.5);
+  color: #FFFFFF;
+}
+
+
 @media only screen and (max-width: 990px) {
     .logo_img{
         width: 40px;
@@ -100,5 +123,14 @@
     .drop_down_icon{
         width: 24.91px;
         height: 24.45px;
+    }
+    .Go_back{
+      font-size: 5.51515px;
+      line-height: 7px;
+      padding: 3.15152px 9.45455px;
+    }
+    .Go_back img {
+      width: 2.68px;
+      height: 4.55px;
     }
   }

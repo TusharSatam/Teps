@@ -186,6 +186,17 @@ const Profile = () => {
           <div className='ms-md-5 form_container mt-0 mb-5'>
             <form className='p-1 p-md-5' onSubmit={handleUpdate}>
               <div className='w-100'>
+                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                  <h4 className='input_label'>{t('Email')}:</h4>
+                  <div className='mt-md-2'>
+                    <input className={emailErr ? 'border-danger text-danger profile_input' : 'profile_input'} type="text" defaultValue={user.email} name="email" id="" />
+                  </div>
+                </div>
+                <div>
+                  <button>Edit</button>
+                  <button>Save Email</button>
+                </div>
+                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
                   <h4 className='pe-5 input_label'>{t('School/Organization')}:</h4>
                   <div className='mt-md-2'>
@@ -193,14 +204,6 @@ const Profile = () => {
                   </div>
                   {/* <p className='mt-1'>abc school</p> */}
                 </div>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('Email')}:</h4>
-                  <div className='mt-md-2'>
-                    <input className={emailErr ? 'border-danger text-danger profile_input' : 'profile_input'} type="text" defaultValue={user.email} name="email" id="" />
-                  </div>
-                  {/* <p className='mt-1'>abc school</p> */}
-                </div>
-                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
                   <h4 className='input_label'>{t('Designation')}:</h4>
                   {/* <p className='mt-1'>abc school</p> */}
@@ -261,6 +264,7 @@ const Profile = () => {
                   </select>
                 </div>
                 <div className='d-flex justify-content-center mt-4 mt-md-5 py-md-2 '>
+                  <button>Edit </button>
                   <button disabled={isLoading} type='submit' className='save_change_btn'>
                     {
                       isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')
