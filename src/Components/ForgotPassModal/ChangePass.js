@@ -12,7 +12,11 @@ const ChangePass = ({ show, setShow }) => {
   const { t } = useTranslation()
   const [error, setError] = useState('');
   const [passError, setPassError] = React.useState('');
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setError('')
+    setPassError('')
+  }
 
   const handleChange = (e) => {
     e.preventDefault();

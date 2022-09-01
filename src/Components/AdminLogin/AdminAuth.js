@@ -14,34 +14,39 @@ const AdminAuth = () => {
   const [checkError, setCheckError] = React.useState('');
   const handleSIgnIn = (e) => {
     e.preventDefault();
-    if (e.target.checkmark.checked === true) {
-      setIsLoading(true);
-      setCheckError('');
-      const data = {
-        'email': e.target.email.value,
-        'password': e.target.password.value
+    if (e.target.email.value && e.target.password.value) {
+      if (e.target.checkmark.checked === true) {
+        setIsLoading(true);
+        setCheckError('');
+        const data = {
+          'email': e.target.email.value,
+          'password': e.target.password.value
+        }
+        adminLogin(data)
+          .then(res => {
+            if (res) {
+              console.log(res);
+              setIsLoading(false);
+              setAdmin(res.data);
+              setIsAuthenticatedAdmin(true);
+              window.localStorage.setItem('adminJwt', JSON.stringify(res.jwt));
+              window.localStorage.setItem('adminData', JSON.stringify(res.data));
+              navigate('/admin-home');
+            }
+            setIsLoading(false)
+          })
+          .catch(err => {
+            setError(err.response.data?.message);
+            console.log(err);
+            setIsLoading(false)
+          })
       }
-      adminLogin(data)
-        .then(res => {
-          if (res) {
-            console.log(res);
-            setIsLoading(false);
-            setAdmin(res.data);
-            setIsAuthenticatedAdmin(true);
-            window.localStorage.setItem('adminJwt', JSON.stringify(res.jwt));
-            window.localStorage.setItem('adminData', JSON.stringify(res.data));
-            navigate('/admin-home');
-          }
-          setIsLoading(false)
-        })
-        .catch(err => {
-          setError(err.response.data?.message);
-          console.log(err);
-          setIsLoading(false)
-        })
+      else {
+        setCheckError("Please check the box if you want to proceed")
+      }
     }
     else {
-      setCheckError("Please check the box if you want to proceed")
+      setCheckError("Please fill all the fields above.")
     }
   }
 

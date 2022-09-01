@@ -215,7 +215,7 @@ const SearchScrean = () => {
                                               <p className='Strategy_count'>{t("strategy")}</p>
                                               <p className='counter_str'>{index + 1}</p>
                                             </div>
-                                            <span className='unique_id'>ID {data._id.slice(19, 26)}</span>
+                                            {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                           </div>
                                           <div className='d-block d-md-none mt-1'>
                                             <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
@@ -324,7 +324,7 @@ const SearchScrean = () => {
                                                 <p className='Strategy_count'>{t("strategy")}</p>
                                                 <p className='counter_str'>{index + 1}</p>
                                               </div>
-                                              <span className='unique_id'>ID {data._id.slice(19, 26)}</span>
+                                              {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                             </div>
                                             <div className='d-block d-md-none mt-1'>
                                               <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>

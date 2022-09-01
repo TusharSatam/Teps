@@ -57,11 +57,22 @@ const DashboardCSV = () => {
   }
 
   const handleDelet = (id) => {
-    delStratigys(id)
-      .then(res => {
-        res && setStr(str.filter(message => message._id !== id));
-        res && toast.success('strategie Deleted!')
-      })
+    if (admin.type === 'super-admin') {
+      delStratigys(id)
+        .then(res => {
+          res && setStr(str.filter(message => message._id !== id));
+          res && toast.success('strategie Deleted!');
+        })
+    }
+    else {
+      getMultitStr(id)
+        .then(res => {
+          reqDeletStr(res.data, [id])
+            .then(res => {
+              res && toast.success('Sent Request for Delete!');
+            })
+        })
+    }
   }
   const handleEdit = (id) => {
     singleStratigys(id)
@@ -70,8 +81,20 @@ const DashboardCSV = () => {
         setShow(true)
       })
   }
+  const [count, setcount] = React.useState([]);
+  React.useEffect(() => {
+    getreqDeletStr()
+      .then(res => {
+        setcount(res.data);
+      })
+  }, [])
   const [showCh, setshowCh] = React.useState([])
   const handleCheckbox = (ind) => {
+    const uniqueSubject = Array.from(new Set(count?.map(a => a.reqDel)))
+      .map(subject => {
+        return subject
+      })
+    console.log(uniqueSubject);
     if (showCh.includes(ind)) {
       for (var i = 0; i < showCh.length; i++) {
         if (showCh[i] === ind) {
@@ -85,6 +108,8 @@ const DashboardCSV = () => {
     }
     setshowCh([...showCh], [showCh]);
   }
+
+
   const handleMultiDelet = () => {
     if (admin.type === 'super-admin') {
       multidelStratigys(showCh)
@@ -225,7 +250,7 @@ const DashboardCSV = () => {
                       <tr key={index}>
                         <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
                         <td>{stratigys?.currentPage === '1' ? index + 1 :
-                          (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
+                          (parseInt(stratigys?.currentPage) - 1) * 100 + (index + 1)
                         }</td>
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.Subject}</td>

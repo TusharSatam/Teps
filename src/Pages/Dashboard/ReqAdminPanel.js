@@ -18,12 +18,6 @@ const ReqAdminPanel = () => {
     getreqDeletStr()
       .then(res => {
         setcount(res.data);
-        // getMultitStr(getRes.reqDel)
-        //   .then(ress => {
-        //     setIsLoading(false)
-        //     setcount(...count, ress?.data);
-        //   })
-
       })
   }, [])
   console.log(count);

@@ -46,10 +46,12 @@ const ResetPass = () => {
       }
       else {
         setError(`${t('password_match')}`)
+        setPassError('')
       }
     }
     else {
       setPassError(`${t('password_five')}`)
+      setError('')
     }
 
   }

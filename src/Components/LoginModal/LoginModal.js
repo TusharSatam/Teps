@@ -9,7 +9,7 @@ import './loginModal.css'
 import VerifyModal from '../ForgotPassModal/VerifyModal';
 import emailjs from '@emailjs/browser';
 
-const LoginModal = ({ handleClose, show, setShow }) => {
+const LoginModal = ({ show, setShow }) => {
   const { t } = useTranslation()
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
@@ -18,7 +18,11 @@ const LoginModal = ({ handleClose, show, setShow }) => {
   const [error, setError] = React.useState('');
   const [checkError, setCheckError] = React.useState('');
   const [verifyModal, setVerifyModal] = React.useState(false)
-
+  const handleClose = () => {
+    setShow(false)
+    setCheckError('')
+    setError('')
+  }
   const handleSIgnIn = (e) => {
     e.preventDefault();
     if (e.target.checkmark.checked === true) {

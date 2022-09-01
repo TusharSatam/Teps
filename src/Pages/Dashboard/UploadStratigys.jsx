@@ -59,7 +59,7 @@ const UploadStratigys = () => {
       <p className='text-center fs-2 fw-bold pb-2'>Upload Strategies File</p>
       <div className='d-flex justify-content-center'>
         <form onSubmit={handleFile}>
-          <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="upload" onChange={readUploadFile} multiple />
+          <input required type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="upload" onChange={readUploadFile} multiple />
           <div className='d-flex justify-content-center'>
             <button type="submit" className='btn btn-primary my-4'>Submit</button>
           </div>

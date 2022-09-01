@@ -11,13 +11,15 @@ const ForgotModal = ({ show, setShow }) => {
   const { t } = useTranslation()
   const [error, setError] = useState('');
   const [sendEmail, setSendEmail] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setError('');
+    setShow(false);
+  }
   const handleForgot = (e) => {
     e.preventDefault();
     const data = {
       'email': e.target.email.value
     }
-
     axios.post("/forget", data)
       .then(res => {
         if (res.data.message === "Have an User") {

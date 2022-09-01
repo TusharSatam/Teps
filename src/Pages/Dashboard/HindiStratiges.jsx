@@ -53,12 +53,28 @@ const HindiStratiges = () => {
   }
 
   const handleDelet = (id) => {
-    delHindiStratigys(id)
-      .then(res => {
-        res && setStr(str.filter(message => message._id !== id));
-        res && toast.success('strategie Deleted!')
-      })
+    if (admin.type === 'super-admin') {
+      delHindiStratigys(id)
+        .then(res => {
+          res && setStr(str.filter(message => message._id !== id));
+          res && toast.success('strategie Deleted!')
+        })
+    }
+    else {
+      getMultitHiStr(id)
+        .then(res => {
+          reqDeletHiStr(res.data, [id])
+            .then(res => {
+              res && toast.success('Sent Request for Delete!');
+              setshowCh([])
+            })
+          console.log(res.data);
+        })
+    }
   }
+
+
+
   const handleEdit = (id) => {
     singleHindiStratigys(id)
       .then(res => {
@@ -108,7 +124,6 @@ const HindiStratiges = () => {
             })
           console.log(res.data);
         })
-
     }
   }
 
@@ -206,7 +221,7 @@ const HindiStratiges = () => {
                         <tr key={index}>
                           <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
                           <td>{stratigys?.currentPage === '1' ? index + 1 :
-                            (parseInt(stratigys?.currentPage) - 1) * 50 + (index + 1)
+                            (parseInt(stratigys?.currentPage) - 1) * 100 + (index + 1)
                           }</td>
                           <td>{(item._id).slice(19, 26)}</td>
                           <td>{item.विषय}</td>
