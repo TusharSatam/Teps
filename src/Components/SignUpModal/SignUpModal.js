@@ -29,30 +29,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
 
-  // React.useEffect(() => {
-  //   const url = "./citys.json"
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch(url);
-  //       const res = await response.json();
-  //       setTown(res.cities);
-  //     } catch (error) {
-  //       console.log("error", error);
-  //     }
-  //   };
 
-  //   fetchData();
-  // }, [])
-  // const handleOnchange = (e) => {
-  //   const city = e.target.value;
-  //   if (city) {
-  //     setInterNAtionalDisable(true);
-  //     setCityDisable(false);
-  //   }
-  //   if (city === 'City/Town') {
-  //     setInterNAtionalDisable(false);
-  //   }
-  // }
   React.useEffect(() => {
     if (checked) {
       setCityDisable(true);
@@ -69,6 +46,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setPassError('')
       setEmailErr('')
       setChecked(false)
+      setCityFound('')
     }
   }, [checked, show])
   const [cityFound, setCityFound] = React.useState("")
@@ -98,16 +76,16 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     e.preventDefault();
     let equalPass;
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (e.target.email.value.match(pattern)) {
-      setEmailErr('')
-      if (e.target.checkmark.checked === true) {
-        setCheckError('');
-        if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
-          setPassError(``)
-          if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-            e.target.organization.value && (e.target.city.value || checked) && e.target.pincode.value && equalPass !== ''
-          ) {
-            setRequired("");
+    if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
+      e.target.organization.value && (e.target.city.value || checked) && e.target.pincode.value && equalPass !== ''
+    ) {
+      setRequired("");
+      if (e.target.email.value.match(pattern)) {
+        setEmailErr('')
+        if (e.target.checkmark.checked === true) {
+          setCheckError('');
+          if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+            setPassError(``)
             if (e.target.password.value === e.target.confirm_password.value) {
               setError("");
               setEmailError("")
@@ -158,29 +136,29 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
           }
           else {
-            setRequired(`${t('fill_all_box')}`)
-            setPassError('')
-            setError(``)
+            setPassError(`${t('password_five')}`)
+            setError(``);
           }
         }
         else {
-          setPassError(`${t('password_five')}`)
-          setError(``);
+          setCheckError(`${t("checkbox_error")}`)
+          setPassError('')
+          setError(``)
+          setRequired(``)
         }
       }
       else {
-        setCheckError(`${t("checkbox_error")}`)
+        setEmailErr(t('Email_Error'));
+        setCheckError(``)
         setPassError('')
         setError(``)
         setRequired(``)
       }
     }
     else {
-      setEmailErr(t('Email_Error'));
-      setCheckError(``)
+      setRequired(`${t('fill_all_box')}`)
       setPassError('')
       setError(``)
-      setRequired(``)
     }
   }
   const handleForgotShow = () => {
@@ -257,17 +235,17 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <div>
                   <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
-                  <input value={!cityDisable ? town : ''} disabled={cityDisable} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
+                  <input value={!cityDisable ? town : ''} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
                 </div>
               </div>
               <div className='d-flex my-3'>
                 <div className='me-5'>
                   <label htmlFor="">{t('Password')}</label> <br />
-                  <input required className='signup_Input' min="0" name='password' placeholder={t('Password')} type="password" step="1" />
+                  <input className='signup_Input' min="0" name='password' placeholder={t('Password')} type="password" step="1" />
                 </div>
                 <div>
                   <label htmlFor="">{t('Confirm Password')}</label> <br />
-                  <input required className='signup_Input' name='confirm_password' placeholder={t('Confirm Password')} type="password" />
+                  <input className='signup_Input' name='confirm_password' placeholder={t('Confirm Password')} type="password" />
                 </div>
               </div>
               <div className='d-flex'>

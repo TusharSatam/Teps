@@ -83,6 +83,15 @@ padding-left: 12px;
   line-height: 29px;
   color: #000000;
 }
+.input_labelE{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin-right: 230px;
+}
 .save_change_btn{
   font-family: 'Inter';
   font-style: normal;
@@ -128,22 +137,14 @@ padding-left: 12px;
 }
 .Email_Edit{
   font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 24px;
-letter-spacing: -0.01em;
-color: #1AA05B;
-border: 1px solid #1AA05B;
-border-radius: 4px;
-padding: 8px 15px;
-background: #fff;
-transition: 0.5s;
-cursor: pointer;
-}
-.Email_Edit:hover{
-  background: rgba(26, 160, 91, 0.5);
-  color: #FFFFFF;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  text-decoration-line: underline;
+  color: #51D390;
+  cursor: pointer;
 }
 .edit_al{
   font-family: 'Inter';
@@ -192,6 +193,13 @@ input[type="text"][disabled] {
   font-style: normal;
   font-size: 12px;
   font-weight: 700;
+}
+.input_labelE{
+  font-family: 'Inter';
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  margin-right: 0px;
 }
 .profile_input{
   margin-bottom: 12px;

@@ -274,16 +274,19 @@ const Profile = () => {
             <form className='p-1 p-md-5' onSubmit={handleUpdate}>
               <div className='w-100'>
                 <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                  <h4 className='input_label'>{t('Email')}:</h4>
-                  <div className='mt-md-2'>
-                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input me-3 me-md-0 mt-2' : 'profile_input me-3 me-md-0 mt-2'} type="text" defaultValue={user.email} name="email" id="" />
+                  <div>
+                    <h4 className='input_labelE'>{t('Email')}:</h4>
+                  </div>
+                  <div className='mt-3'>
+                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input me-3 me-md-0 mt-md-2' : editEmail ? 'profile_input me-3 me-md-0 mt-md-2' : 'border-0 profile_input me-3 me-md-0 mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
+                    <div className=' d-flex'>
+                      <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>Edit</div>
+                      <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>Save Email</div>
+                    </div>
                   </div>
                 </div>
-                <div className=' d-flex mb-2'>
-                  <div onClick={handleEmailEdit} className='Email_Edit me-3'>Edit</div>
-                  <div onClick={doneEmail} className='Email_Edit me-3'>Save Email</div>
-                </div>
-                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
+
+                {/* <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div> */}
                 <div className='d-flex'>
                   <div>
                     <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
