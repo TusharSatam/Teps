@@ -20,7 +20,6 @@ export const getSingleUser = async (id) => {
     .then(res => {
       userResponse = res;
     })
-    .catch(err => console.log(err));
   return userResponse;
 }
 

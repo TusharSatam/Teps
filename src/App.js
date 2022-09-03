@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './Pages/Landing';
 import Home from './Pages/Home';
 import Profiles from './Pages/Profiles';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import ResetPass from './Components/ForgotPassModal/ResetPass';
 import axios from 'axios';
@@ -31,7 +31,7 @@ import { useAuth } from './Context/AuthContext';
 
 
 function App() {
-  const { user } = useAuth();
+  const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
   // axios.defaults.baseURL = `http://localhost:8080/api/`;
@@ -39,19 +39,43 @@ function App() {
     setDisplayProfile('d-none')
   }
   const loc = useLocation();
+  const navigate = useNavigate();
+  const data = JSON.parse(localStorage.getItem('data'))
   React.useEffect(() => {
-    getSingleUser(user?._id)
-      .then(res => {
-        if (res?.data[0]?.email !== user?.email) {
-          localStorage.removeItem('data');
-          localStorage.removeItem('jwt');
-          localStorage.removeItem('filterData');
-          localStorage.removeItem('filterDataH');
-          localStorage.removeItem('selectedDropdown');
-          localStorage.removeItem('selectedHiDropdown');
-        }
-      })
-  }, [getSingleUser]);
+    if (data) {
+      getSingleUser(data?._id)
+        .then(res => {
+          if (res?.data[0]?.email !== data?.email) {
+            localStorage.removeItem('data');
+            localStorage.removeItem('jwt');
+            localStorage.removeItem('filterData');
+            localStorage.removeItem('filterDataH');
+            localStorage.removeItem('selectedDropdown');
+            localStorage.removeItem('selectedHiDropdown');
+            setIsAuthenticated(false)
+            navigate('/')
+            setUser(null);
+            setDisplayProfile('d-none')
+            console.log('email');
+          }
+        })
+        .catch(err => {
+          if (err) {
+            localStorage.removeItem('data');
+            localStorage.removeItem('jwt');
+            localStorage.removeItem('filterData');
+            localStorage.removeItem('filterDataH');
+            localStorage.removeItem('selectedDropdown');
+            localStorage.removeItem('selectedHiDropdown');
+            setIsAuthenticated(false)
+            console.log(err);
+            setUser(null)
+            navigate('/')
+            setDisplayProfile('d-none')
+          }
+        })
+    }
+  }, [user, setIsAuthenticated, setUser, data]);
   return (
     <div>
       {
