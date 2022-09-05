@@ -58,7 +58,6 @@
   border-radius: 12px;
 }
 .profile_input{
-  margin-bottom: 20px;
   background: transparent;
   border: 1px solid #939CA3;
   border-radius: 8px;
@@ -67,6 +66,9 @@
   font-size: 16px;
   line-height: 19px;
 width: 340px;
+}
+.input_div{
+  margin-bottom: 40px;
 }
 .static_data{
   font-weight: 400;
@@ -82,15 +84,10 @@ padding-left: 12px;
   font-size: 24px;
   line-height: 29px;
   color: #000000;
+  margin-right: 30px;
 }
-.input_labelE{
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
-  color: #000000;
-  margin-right: 230px;
+.button_div{
+  margin-top: 112px;
 }
 .save_change_btn{
   font-family: 'Inter';
@@ -193,16 +190,10 @@ input[type="text"][disabled] {
   font-style: normal;
   font-size: 12px;
   font-weight: 700;
-}
-.input_labelE{
-  font-family: 'Inter';
-  font-style: normal;
-  font-size: 12px;
-  font-weight: 700;
   margin-right: 0px;
 }
 .profile_input{
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   background: #fff;
   width: 168px;
   font-weight: 400;
@@ -252,5 +243,11 @@ padding: 5px 10px;
   font-weight: 400;
   font-size: 8px;
   line-height: 10px;
+}
+.input_div{
+  margin-bottom: 16px;
+}
+.button_div{
+  margin-top: 50px;
 }
 }

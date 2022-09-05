@@ -53,7 +53,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         setShow={setLoginModal}
       />
       <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center "}>
-        <div>
+        <div className='ms-2 ms-md-4'>
           <Link to={location.pathname !== '/' && '/home'}>
             <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
@@ -70,7 +70,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           </div>
           {
             !isAuthenticated ?
-              <div className='d-flex me-1 me-md-3'>
+              <div className='d-flex me-1 me-md-4'>
                 <div>
                   <button onClick={handleShowloginModal} className="authBtnn me-3" >{t('Login')}</button>
                 </div>

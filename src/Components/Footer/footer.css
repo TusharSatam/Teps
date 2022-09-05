@@ -37,6 +37,9 @@
   .footer_top_margin{
     margin-top: 50px;
   }
+  .footer_top_margin_res{
+    margin-top: 100px;
+  }
     .footer_content{
         height: 165px;
     }

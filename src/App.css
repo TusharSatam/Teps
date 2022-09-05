@@ -8,7 +8,24 @@
   height: 40vmin;
   pointer-events: none;
 }
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  opacity: 0.75;
+}
 
+::-webkit-scrollbar-thumb {
+  background-color: #bbbfc2;
+  border-radius: 8px;
+  opacity: 0.5;
+  border: 2px solid #eeeeee;
+}
+
+::-webkit-scrollbar {
+  background-color: #eeeeee;
+  width: 10px;
+  height: 10px;
+  opacity: 0.75;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

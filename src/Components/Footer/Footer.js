@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 const Footer = () => {
   const location = useLocation()
   return (
-    <div className='footer_top_margin'>
+    <div className={location.pathname !== '/profile' ? 'footer_top_margin' : 'footer_top_margin_res'}>
       <section className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
         <div className='d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
           <div className='footer_text'>

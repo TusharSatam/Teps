@@ -110,7 +110,6 @@ const Profile = () => {
         }
       })
   }
-
   // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
@@ -191,12 +190,24 @@ const Profile = () => {
       }))
     console.log(getEmail);
   }
-
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      City/Town Not Found
-    </Tooltip>
-  );
+  const [selectedCountry, setSelectedCountry] = React.useState({
+    city: user?.city,
+    state: user?.state
+  });
+  const handleCountry = (e) => {
+    if (e.target.value !== "India") {
+      setSelectedCountry(
+        {
+          city: "International",
+          state: "International"
+        }
+      )
+    }
+    else {
+      setSelectedCountry(user?.city)
+    }
+  }
+  console.log(selectedCountry);
   return (
     <>
       <VerifyModal
@@ -271,89 +282,77 @@ const Profile = () => {
             </div>
           </div>
           <div className='ms-md-5 form_container mt-0 mb-5'>
-            <form className='p-1 p-md-5' onSubmit={handleUpdate}>
+            <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
-                <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
+                <div className='d-flex justify-content-between align-items-center mt-0 my-md-3'>
                   <div>
-                    <h4 className='input_labelE'>{t('Email')}:</h4>
+                    <h4 className='input_label'>{t('Email')}:</h4>
                   </div>
                   <div className='mt-3'>
-                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input me-3 me-md-0 mt-md-2' : editEmail ? 'profile_input me-3 me-md-0 mt-md-2' : 'border-0 profile_input me-3 me-md-0 mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
+                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
                     <div className=' d-flex'>
                       <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>Edit</div>
                       <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>Save Email</div>
                     </div>
                   </div>
                 </div>
-
-                {/* <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div> */}
-                <div className='d-flex'>
-                  <div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-4'>
-                      <h4 className='mt-md-3 pe-5 input_label'>{t('School/Organization')}:</h4>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                      <h4 className='mt-md-3 input_label'>{t('Designation')}:</h4>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                      <h4 className='mt-md-3 input_label'>{t('Pincode')}:</h4>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                      <h4 className='mt-md-3 input_label'>{t('City/Town')}:</h4>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                      <h4 className='mt-md-3 input_label'>{t('state')}:</h4>
-                    </div>
-                    <div className='d-flex justify-content-between align-items-center mt-0 mt-md-3'>
-                      <h4 className='mt-md-3 input_label'>{t('country')}:</h4>
+                <div>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className='input_label'>{t('School/Organization')}:</h4>
+                    <div>
+                      <input disabled={!editAll} className={!editAll ? "border-0 profile_input " : "profile_input"} type="text" defaultValue={user?.organization} name="organization" id="" />
                     </div>
                   </div>
-                  <div>
-                    <div className='mt-md-3'>
-                      <input disabled={!editAll} className={!editAll ? "border-0 profile_input mt-md-4 mt-1" : "profile_input mt-md-4 mt-1"} type="text" defaultValue={user?.organization} name="organization" id="" />
-                    </div>
-                    <div className='mt-md-3'>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className='input_label'>{t('Designation')}:</h4>
+                    <div>
                       <input disabled={!editAll} className={!editAll ? "border-0 profile_input  " : "profile_input "} type="text" defaultValue={user.designation} name="designation" id="" />
                     </div>
+                  </div>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className='input_label'>{t('Pincode')}:</h4>
                     {
-                      !cityFound ?
-                        <OverlayTrigger
-                          placement="right"
-                          delay={{ show: 250, hide: 400 }}
-                          overlay={renderTooltip}
-                        >
-                          <div className='mt-md-3'>
-                            <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger text-danger profile_input"} onChange={handlePincode} type="text" defaultValue={user.pincode} name="pincode" id="" />
-                          </div>
-                        </OverlayTrigger> :
-                        <div className='mt-md-3'>
-                          <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger text-danger profile_input"} onChange={handlePincode} type="text" defaultValue={user.pincode} name="pincode" id="" />
+                      <div>
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger profile_input"} title={cityFound ? '' : "No city/town found"} onChange={handlePincode} defaultValue={user?.pincode} type="text" name="pincode" id="" />
+                      </div>
+                    }
+                  </div>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className='input_label'>{t('City/Town')}:</h4>
+                    {
+                      selectedCountry?.city === "International" ?
+                        <div>
+                          < input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={selectedCountry} name="city" id="" />
+                        </div> : <div>
+                          <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" value={liveDetails ? liveDetails?.Block : user.city} name="city" id="" />
                         </div>
                     }
-                    <div className='mt-md-3'>
-                      {
-                        user?.city === "International" ?
-                          < input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={user.city} name="city" id="" /> :
-                          <p className='static_data mt-2'>{liveDetails ? liveDetails?.Block : user.city}</p>
+                  </div>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className='input_label'>{t('state')}:</h4>
+                    <div>
+                      {selectedCountry?.city === "International" ?
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={selectedCountry?.state} name="state" id="" />
+                        :
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" value={liveDetails ? liveDetails?.State : user.state} name="state" id="" />
                       }
                     </div>
-                    <div className='mt-md-3'>
-                      {user.city === "International" ?
-                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={user?.state} name="state" id="" />
-                        : <p className='static_data mt-md-5 mt-4'>{liveDetails ? liveDetails?.State : user.state}</p>
-                      }
+                  </div>
+                  <div className='d-flex justify-content-between align-items-center input_div'>
+                    <h4 className=' input_label'>{t('country')}:</h4>
+                    <div>
+                      <select onChange={handleCountry} disabled={!editAll} className='profile_input ' name="country" id="">
+                        <option className='' >{user.country ? user.country : 'Country'}</option>
+                        {
+                          country?.map((item, index) => (
+                            <option className='' >{item?.name}</option>
+                          ))
+                        }
+                      </select>
                     </div>
-                    <select disabled={!editAll} className='ps-2 pe-5 py-1 mt-md-4 mt-2 profile_input ' name="country" id="">
-                      <option className='' >{user.country ? user.country : 'Country'}</option>
-                      {
-                        country?.map((item, index) => (
-                          <option className='' >{item?.name}</option>
-                        ))
-                      }
-                    </select>
                   </div>
                 </div>
-                <div className='d-flex justify-content-center mt-4 mt-md-5 py-md-2 '>
+                <div className='d-flex justify-content-center button_div'>
                   <div className='edit_al me-4' onClick={handleAllEdit}>Edit </div>
                   <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
@@ -362,7 +361,7 @@ const Profile = () => {
                   </button>
                 </div>
                 <div className='d-block d-md-none'>
-                  <div className='d-flex justify-content-center mt-4'>
+                  <div className='d-flex justify-content-center mt-3'>
                     <div>
                       <button className="authBtn me-3" >{t('favourites')}</button>
                     </div>

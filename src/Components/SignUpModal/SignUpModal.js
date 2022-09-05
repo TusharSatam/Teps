@@ -47,6 +47,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setEmailErr('')
       setChecked(false)
       setCityFound('')
+      setTown('')
     }
   }, [checked, show])
   const [cityFound, setCityFound] = React.useState("")
@@ -211,7 +212,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
               </div>
               <div className='my-3'>
-                <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; 	&nbsp;&nbsp;{emailError ? emailError : ''}</span></label> <br />
                 <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
                 <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
               </div>
@@ -235,7 +236,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <div>
                   <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
-                  <input value={!cityDisable ? town : ''} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
+                  {
+                    !cityDisable ?
+                      <input value={town} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" /> :
+                      <input className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
+                  }
                 </div>
               </div>
               <div className='d-flex my-3'>
@@ -257,7 +262,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
               </div>
-              {required ? <p className='text-danger text-center me-5 pe-4'>{required}</p> : ""}
+              {required ? <p className='text-danger text-center me-5 pe-4 mb-4'>{required}</p> : ""}
               {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
               <div className='text-danger me-5 pe-4 text-center' style={{ fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
               <p className='text-danger '>{checkError ? checkError : ""}</p>
@@ -274,7 +279,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        className="d-block d-md-none mt-5 pt-3 px-2"
+        className="d-block d-md-none mt-5 pt-2 px-2"
 
       >
         <Modal.Body
@@ -288,44 +293,44 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
             </div>
             <div className='mx-4 d-flex justify-content-center'>
               <form onSubmit={handleSignUp}>
-                <div className='mt-3'>
-                  <label htmlFor="">{t('First Name')}<span className='text-danger'>&#x2736;</span></label> <br />
+                <div className=''>
+                  <label className='res-label ' htmlFor="">{t('First Name')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='firstName' placeholder='Lily' type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Last Name')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <label className='res-label ' htmlFor="">{t('Last Name')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                  <label className={emailError || emailErr ? "text-danger res-label" : "res-label"} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                   <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
-                  <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "12px" }} onClick={handleForgotShow}><p className='text-start forgot_pass mt-1'>{t('retrieve_password')}</p></a>
+                  <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "10px" }} onClick={handleForgotShow}><p className='text-start forgot_passs mt-1'>{t('retrieve_password')}</p></a>
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Designation')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <label className='res-label ' htmlFor="">{t('Designation')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='designation' placeholder={t('Designation')} type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('School/Organization')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <label className='res-label ' htmlFor="">{t('School/Organization')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='organization' placeholder={t('School/Organization')} type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
+                  <label className='res-label ' htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
                   <br />
                   <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                  <label htmlFor="">&nbsp;{t('International')}</label>
+                  <label className='res-label ' htmlFor="">&nbsp;{t('International')}</label>
                 </div>
                 <div className='mt-3'>
-                  <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
+                  <label className={cityFound && !cityDisable ? "text-danger res-label " : "res-label "} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
                   <input value={!cityDisable ? town : ''} disabled={cityDisable} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Password')}</label> <br />
+                  <label className='res-label ' htmlFor="">{t('Password')}</label> <br />
                   <input className='signup_Input' name='password' placeholder={t('Password')} type="password" />
                 </div>
                 <div className='mt-3'>
-                  <label htmlFor="">{t('Confirm Password')}</label> <br />
+                  <label className='res-label ' htmlFor="">{t('Confirm Password')}</label> <br />
                   <input className='signup_Input' name='confirm_password' placeholder={t('Confirm Password')} type="password" />
                 </div>
                 <div className='d-flex my-3'>
