@@ -77,7 +77,7 @@ function App() {
     }
   }, [user, setIsAuthenticated, setUser, data]);
   return (
-    <div>
+    <div className='App'>
       {
         loc.pathname === '/forgot' ||
           loc.pathname === '/verify' ||
@@ -100,7 +100,7 @@ function App() {
             />
           )
       }
-      <div className='App' onClick={handleOnclick}>
+      <div onClick={handleOnclick}>
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/forgot' element={<ResetPass />} />

@@ -110,44 +110,7 @@ const Profile = () => {
         }
       })
   }
-  // update all data
-  const handleUpdate = (e) => {
-    setIsLoading(true);
-    e.preventDefault();
-    if (cityFound) {
-      const formData = new FormData();
-      formData.append('organization', e.target.organization.value);
-      formData.append('designation', e.target.designation.value);
-      formData.append('city', liveDetails ? liveDetails?.Block : user.city);
-      formData.append('state', liveDetails ? liveDetails?.State : user.state);
-      formData.append('pincode', e.target.pincode.value);
-      formData.append('country', e.target.country.value);
-      updateUser(user._id, formData)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
-                "reply_to": user?.email,
-                "submit_text": "Your Data Updated successfully"
-              }, 'Iu315MdRwOR7T8GsW')
-                .then((result) => {
-                  window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-                  setUser(res.data[0]);
-                  toast.success(`${t('update_profile_messege')}`)
-                  setIsLoading(false);
-                  setEditAll(false);
-                }, (error) => {
-                  console.log(error.text);
-                }))
 
-            })
-        })
-        .catch(err => {
-          toast.error('Something is wrong please try again!')
-          setIsLoading(false);
-        })
-    }
-  }
   React.useEffect(() => {
     const url = "./citys.json"
     const fetchData = async () => {
@@ -207,13 +170,49 @@ const Profile = () => {
       setSelectedCountry(user?.city)
     }
   }
-  console.log(selectedCountry);
+  // update all data
+  const handleUpdate = (e) => {
+    setIsLoading(true);
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('organization', e.target.organization.value);
+    formData.append('designation', e.target.designation.value);
+    formData.append('city', liveDetails ? liveDetails?.Block : user.city);
+    formData.append('state', liveDetails ? liveDetails?.State : user.state);
+    formData.append('pincode', e.target.pincode.value);
+    formData.append('country', e.target.country.value);
+    updateUser(user._id, formData)
+      .then(res => {
+        getSingleUser(user._id)
+          .then(res => {
+            (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
+              "reply_to": user?.email,
+              "submit_text": "Your Data Updated successfully"
+            }, 'Iu315MdRwOR7T8GsW')
+              .then((result) => {
+                window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                setUser(res.data[0]);
+                toast.success(`${t('update_profile_messege')}`)
+                setIsLoading(false);
+                setEditAll(false);
+              }, (error) => {
+                console.log(error.text);
+              }))
+
+          })
+      })
+      .catch(err => {
+        toast.error('Something is wrong please try again!')
+        setIsLoading(false);
+      })
+
+  }
   return (
     <>
       <VerifyModal
         show={show}
         setShow={setShow}
-        noti1={'You’re Email has been Changed!'}
+        noti1={'You’re email has been Changed!'}
         noti2={" Please note that once you change your email your account will be signed out and you have sign in once again with your new email id for further use."}
       />
       <Toaster
@@ -248,8 +247,8 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='d-block d-md-none mx-3 mt-4'>
-          <hr style={{ border: "1px solid #CED4DA" }} />
+        <div className='d-block d-md-none mx-3 mt-md-4'>
+          <hr style={{ border: "1px solid #CED4DA", marginBottom: '0px', marginLeft: "30px", marginRight: "30px" }} />
         </div>
         <div className='container p-md-5 d-md-flex ' >
           <div className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
@@ -313,7 +312,7 @@ const Profile = () => {
                     <h4 className='input_label'>{t('Pincode')}:</h4>
                     {
                       <div>
-                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : cityFound ? "profile_input" : "border-danger profile_input"} title={cityFound ? '' : "No city/town found"} onChange={handlePincode} defaultValue={user?.pincode} type="text" name="pincode" id="" />
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : !cityFound && selectedCountry.city !== "International" ? "border-danger profile_input" : "profile_input"} title={cityFound ? '' : "No city/town found"} onChange={handlePincode} defaultValue={user?.pincode} type="text" name="pincode" id="" />
                       </div>
                     }
                   </div>
@@ -363,10 +362,10 @@ const Profile = () => {
                 <div className='d-block d-md-none'>
                   <div className='d-flex justify-content-center mt-3'>
                     <div>
-                      <button className="authBtn me-3" >{t('favourites')}</button>
+                      <button className="profileBtn me-3" >{t('favourites')}</button>
                     </div>
                     <div>
-                      <button className='authBtn'>
+                      <button className='profileBtn'>
                         {t('saved')}
                       </button>
                     </div>

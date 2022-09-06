@@ -173,6 +173,50 @@ input[type="text"][disabled] {
   line-height: 15px;
   color: #08090A;
 }
+select {
+
+  /* styling */
+  background-color: white;
+  border: thin solid blue;
+  border-radius: 4px;
+  display: inline-block;
+  font: inherit;
+  line-height: 1.5em;
+  padding: 0.5em 3.5em 0.5em 1em;
+
+  /* reset */
+
+  margin: 0;      
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select.profile_input {
+  background-image:url(../../asstes/icons/arrow_select.svg);
+  background-position:
+    calc(100% - 15px) calc(1em),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-repeat: no-repeat;
+}
+.profileBtn{
+  background: transparent;
+  color:#1AA05B;
+  border: 1px solid #1AA05B;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 20px;    
+  padding: 8px 16px;
+  gap: 10px;
+  transition: 0.5s;
+}
+.profileBtn:hover{
+  background: #1AA05B;
+  color: #ffff;
+}
 @media only screen and (max-width: 990px) {
 
 .form_container{
@@ -216,7 +260,7 @@ input[type="text"][disabled] {
   font-size: 8px;
   line-height: 12px;
   letter-spacing: -0.01em;
-  padding: 3px 6px;
+  padding: 4px 6px;
 }
 #upload {
   width: 10%;
@@ -237,7 +281,7 @@ padding: 5px 10px;
   font-weight: 700;
   font-size: 8px;
   line-height: 12px;
-  padding: 5px 10px;
+  padding: 4px, 12px, 4px, 12px;
 }
 .static_data{
   font-weight: 400;
@@ -245,9 +289,14 @@ padding: 5px 10px;
   line-height: 10px;
 }
 .input_div{
-  margin-bottom: 16px;
+  margin-bottom: 0px;
 }
 .button_div{
   margin-top: 50px;
+}
+.profileBtn{
+  padding: 4px 16px;
+  gap: 10px;
+  font-size: 12px;
 }
 }

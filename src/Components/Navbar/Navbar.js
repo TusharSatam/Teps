@@ -64,7 +64,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           </Link>
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;Search Strategies</Link>}
         </div>
-        <div className='d-flex align-items-center'>
+        <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
           <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' ? 'd-block' : 'd-none'}>
             <LanguageSelect />
           </div>
@@ -89,8 +89,6 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
                     <img className='d-block d-md-none' src={defaulProfile} alt="" />
                   </>
                 }
-
-
               </div>
           }
         </div>
