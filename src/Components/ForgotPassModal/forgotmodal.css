@@ -126,8 +126,11 @@
   width: 100% !important;
   margin-top: 75px!important;
   height: 100%!important;
-  margin-left: 0px;
-  margin-right: 5px;
+  margin-left: 0px!important;
+  margin-right: 5px!important;
+  }
+  .modal.show .modal-dialog{
+    margin: 0px 10px!important;
   }
   .verify_head{
     font-family: 'Inter';

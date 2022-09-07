@@ -226,7 +226,7 @@ const Profile = () => {
       <HeroSection />
       <section className='profile_container pb-5'>
         <div style={{ height: "10px" }}></div>
-        <div className='d-block d-md-none text-start mx-3 mt-5 bg-light'>
+        <div className='d-block d-md-none text-start mx-3 mt-3 bg-light'>
           <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
             <div className="button-wrapperr">
               {
@@ -339,7 +339,7 @@ const Profile = () => {
                   </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
                     <h4 className=' input_label'>{t('country')}:</h4>
-                    <div>
+                    <div className='select_div'>
                       <select onChange={handleCountry} disabled={!editAll} className='profile_input ' name="country" id="">
                         <option className='' >{user.country ? user.country : 'Country'}</option>
                         {

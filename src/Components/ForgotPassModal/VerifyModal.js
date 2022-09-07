@@ -4,7 +4,7 @@ import './forgotmodal.css'
 const VerifyModal = ({ show, setShow, wrong, noti1, noti2 }) => {
   const handleClose = () => setShow(false);
   return (
-    <>
+    <div className='mx-5'>
       <Modal
         show={show}
         onHide={handleClose}
@@ -38,7 +38,7 @@ const VerifyModal = ({ show, setShow, wrong, noti1, noti2 }) => {
 
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 };
 
