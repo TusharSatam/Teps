@@ -248,7 +248,7 @@ const Profile = () => {
           </div>
         </div>
         <div className='d-block d-md-none mx-3 mt-md-4'>
-          <hr style={{ border: "1px solid #CED4DA", marginBottom: '0px', marginLeft: "30px", marginRight: "30px" }} />
+          <hr style={{ border: "1px solid #CED4DA", marginTop: "5px", marginBottom: '0px', marginLeft: "15px", marginRight: "15px" }} />
         </div>
         <div className='container p-md-5 d-md-flex ' >
           <div className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>

@@ -154,7 +154,7 @@ padding-left: 12px;
   background: #1AA05B;
   border-radius: 4px;
   border: 1px solid #1AA05B;
-  padding: 8px 15px;
+  padding: 8px 15px 8px 15px;
   transition: 0.5s;
   cursor: pointer;
 }
@@ -239,7 +239,7 @@ select.profile_input {
 .profile_input{
   /* margin-bottom: 12px; */
   background: #fff;
-  width: 168px;
+  width: 180px;
   font-weight: 400;
   font-size: 8px;
   line-height: 10px;
@@ -278,10 +278,10 @@ line-height: 12px;
 padding: 5px 10px;
 }
 .edit_al{
+  padding: 4px 10px;
   font-weight: 700;
   font-size: 8px;
   line-height: 12px;
-  padding: 4px, 12px, 4px, 12px;
 }
 .static_data{
   font-weight: 400;
@@ -289,14 +289,13 @@ padding: 5px 10px;
   line-height: 10px;
 }
 .input_div{
-  margin-bottom: 0px;
+  margin-bottom: -5px;
 }
 .button_div{
-  margin-top: 50px;
+  margin-top: 40px;
 }
 .profileBtn{
-  padding: 4px 16px;
-  gap: 10px;
+  padding: 6px 16px;
   font-size: 12px;
 }
 }
