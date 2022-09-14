@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { delHindiStratigys, getAllHindiStratigys, getHindiStratigys, getMultitHiStr, multidelHiStratigys, reqDeletHiStr, singleHindiStratigys } from '../../services/hindiStratigys';
+import { delHindiStratigys, getAllHindiStratigys, getHindiStratigys, getMultitHiStr, getreqDeletHiStr, multidelHiStratigys, reqDeletHiStr, singleHindiStratigys } from '../../services/hindiStratigys';
 import EditHindiStratigyModal from '../../Components/DashboardModal/EditHindiStratigyModal';
 import { Spinner } from 'react-bootstrap';
 import { CSVLink } from 'react-csv';
@@ -84,18 +84,43 @@ const HindiStratiges = () => {
   }
   const [showCh, setshowCh] = React.useState([])
   const handleCheckbox = (ind) => {
-    if (showCh.includes(ind)) {
-      for (var i = 0; i < showCh.length; i++) {
-        if (showCh[i] === ind) {
-          showCh.splice(i, 1);
-          i--;
-        }
-      }
+    if (admin.type !== 'super-admin') {
+      getreqDeletHiStr()
+        .then(getDel => {
+          const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(ind));
+          if (findOut.includes(true)) {
+            toast.error('Alredy Submited for Deletion!');
+          }
+          else {
+            if (showCh.includes(ind)) {
+              for (var i = 0; i < showCh.length; i++) {
+                if (showCh[i] === ind) {
+                  showCh.splice(i, 1);
+                  i--;
+                }
+              }
+            }
+            else {
+              showCh.push(ind)
+            }
+            setshowCh([...showCh], [showCh]);
+          }
+        })
     }
     else {
-      showCh.push(ind)
+      if (showCh.includes(ind)) {
+        for (var i = 0; i < showCh.length; i++) {
+          if (showCh[i] === ind) {
+            showCh.splice(i, 1);
+            i--;
+          }
+        }
+      }
+      else {
+        showCh.push(ind)
+      }
+      setshowCh([...showCh], [showCh]);
     }
-    setshowCh([...showCh], [showCh]);
   }
   const [allStratigy, setAllStratiy] = React.useState()
   React.useEffect(() => {

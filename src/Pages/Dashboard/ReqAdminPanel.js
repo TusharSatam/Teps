@@ -80,13 +80,13 @@ const ReqAdminPanel = () => {
   const handleMultiDelet = (id, ids) => {
     multidelStratigys(ids)
       .then(res => {
-        // res && setcount(count.filter(message => !showCh.includes(message.reqDelId)));
         res && toast.success('Strategy deleted forever!');
-        deletRequestArrayid(id)
-          .then(ress => {
-            ress && setcount(count.filter(message => message._id !== id));
-          })
-        // setshowCh([])
+        if (res) {
+          deletRequestArrayid(id)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== id));
+            })
+        }
       })
   }
   const handleDeny = (id) => {

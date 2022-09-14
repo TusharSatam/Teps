@@ -19,10 +19,12 @@ const ReqDelHindiStr = () => {
     multidelHiStratigys(ids)
       .then(res => {
         res && toast.success('Strategy deleted forever!');
-        deletRequestArrayidHi(id)
-          .then(ress => {
-            ress && setcount(count.filter(message => message._id !== id));
-          })
+        if (res) {
+          deletRequestArrayidHi(id)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== id));
+            })
+        }
       })
   }
   const handleDeny = (id) => {
