@@ -18,7 +18,7 @@ const ReqDelHindiStr = () => {
   const handleMultiDelet = (id, ids) => {
     multidelHiStratigys(ids)
       .then(res => {
-        res && toast.success('Requested Approved!');
+        res && toast.success('Strategy deleted forever!');
         deletRequestArrayidHi(id)
           .then(ress => {
             ress && setcount(count.filter(message => message._id !== id));

@@ -67,7 +67,7 @@ const DashboardCSV = () => {
     else {
       getMultitStr(id)
         .then(res => {
-          reqDeletStr(res.data, [id])
+          reqDeletStr(res?.data, [id])
             .then(res => {
               res && toast.success('Sent Request for Delete!');
             })
@@ -90,23 +90,43 @@ const DashboardCSV = () => {
   }, [])
   const [showCh, setshowCh] = React.useState([])
   const handleCheckbox = (ind) => {
-    const uniqueSubject = Array.from(new Set(count?.map(a => a.reqDel)))
-      .map(subject => {
-        return subject
-      })
-    console.log(uniqueSubject);
-    if (showCh.includes(ind)) {
-      for (var i = 0; i < showCh.length; i++) {
-        if (showCh[i] === ind) {
-          showCh.splice(i, 1);
-          i--;
-        }
-      }
+    if (admin.type !== 'super-admin') {
+      getreqDeletStr()
+        .then(getDel => {
+          const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(ind));
+          if (findOut.includes(true)) {
+            toast.error('Alredy Submited for Deletion!');
+          }
+          else {
+            if (showCh.includes(ind)) {
+              for (var i = 0; i < showCh.length; i++) {
+                if (showCh[i] === ind) {
+                  showCh.splice(i, 1);
+                  i--;
+                }
+              }
+            }
+            else {
+              showCh.push(ind)
+            }
+            setshowCh([...showCh], [showCh]);
+          }
+        })
     }
     else {
-      showCh.push(ind)
+      if (showCh.includes(ind)) {
+        for (var i = 0; i < showCh.length; i++) {
+          if (showCh[i] === ind) {
+            showCh.splice(i, 1);
+            i--;
+          }
+        }
+      }
+      else {
+        showCh.push(ind)
+      }
+      setshowCh([...showCh], [showCh]);
     }
-    setshowCh([...showCh], [showCh]);
   }
 
 
@@ -168,8 +188,7 @@ const DashboardCSV = () => {
       setshowCh(allselectedId)
     }
   }
-
-
+  const windowWidth = window.screen.width <= 990
   return (
     <div>
       <Toaster
@@ -218,7 +237,72 @@ const DashboardCSV = () => {
               <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
             </div>
           </div>
-          <Table responsive striped bordered hover size="sm" className='w-100'>
+          <Table striped bordered hover size="sm" className='d-none d-md-block'>
+            <thead style={{ background: '#d5b39a' }}>
+              <tr>
+                <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
+                <th>#</th>
+                <th>Id</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Skill</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Sub Topic</th>
+                <th scope="col">Sub-sub topic </th>
+                <th scope="col">Dev Dom 1 </th>
+                <th scope="col">Dev Dom 2 </th>
+                <th scope="col">Mode of Teaching </th>
+                <th scope="col">Learning Outcome </th>
+                <th scope="col">Teaching Strategy </th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div> :
+                  <>
+                    {str?.map((item, index) => (
+                      <tr key={index}>
+                        <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
+                        <td>{stratigys?.currentPage === '1' ? index + 1 :
+                          (parseInt(stratigys?.currentPage) - 1) * 100 + (index + 1)
+                        }</td>
+                        <td>{(item._id).slice(19, 26)}</td>
+                        <td>{item.Subject}</td>
+                        <td>{item.Grade}</td>
+                        <td>{item.Skill}</td>
+                        <td>{item.Topic}</td>
+                        <td>{item['Sub Topic']}</td>
+                        <td>{item['Sub-sub topic']}</td>
+                        <td>{item['Dev Dom 1']}</td>
+                        <td>{item['Dev Dom 2']}</td>
+                        <td>{item['Mode of Teaching']}</td>
+                        <td>
+                          {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                          {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
+                        </td>
+                        <td>
+                          {index === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                          {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
+                        </td>
+                        <td>
+                          <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
+                            <FaRegTrashAlt />
+                          </button>
+                          <button className='btn p-0' onClick={() => handleEdit(item._id)}><FaRegEdit /></button>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+              }
+
+            </tbody>
+          </Table>
+          <Table responsive striped bordered hover size="sm" className='d-block d-md-none'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
                 <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
