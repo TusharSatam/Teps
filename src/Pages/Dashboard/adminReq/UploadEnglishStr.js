@@ -39,6 +39,25 @@ const UploadEnglishStr = () => {
         res && toast.success('Request Denied!');
       })
   }
+  const [seeMore, setSeeMore] = React.useState(false);
+  const handleSee = () => {
+    if (seeMore) {
+      setSeeMore(false)
+    }
+    else {
+      setSeeMore(true)
+    }
+  }
+
+  const [seeMore2, setSeeMore2] = React.useState(false);
+  const handleSee2 = () => {
+    if (seeMore2) {
+      setSeeMore2(false)
+    }
+    else {
+      setSeeMore2(true)
+    }
+  }
   return (
     <>
       <Toaster
@@ -58,7 +77,7 @@ const UploadEnglishStr = () => {
                   <><div className="d-flex my-4">
                     <h3 className='me-3'>Request{index + 1} for Upload Strategies</h3>
                   </div>
-                    <Table key={index} responsive striped bordered hover size="sm" className='w-100'>
+                    <Table style={{ width: "100px" }} key={index} striped bordered hover size="sm" className='w-100 d-none d-md-block'>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           <th>#</th>
@@ -93,10 +112,101 @@ const UploadEnglishStr = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {item['Learning Outcome']?.slice(0, 20)}
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['Learning Outcome']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Learning Outcome']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                                 <td>
-                                  {item['Teaching Strategy']?.slice(0, 20)}
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['Teaching Strategy']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Teaching Strategy']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        }
+
+                      </tbody>
+                    </Table>
+                    <Table key={index} responsive striped bordered hover size="sm" className='w-100 d-block d-md-none'>
+                      <thead style={{ background: '#d5b39a' }}>
+                        <tr>
+                          <th>#</th>
+                          <th>Id</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Grade</th>
+                          <th scope="col">Skill</th>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Sub Topic</th>
+                          <th scope="col">Sub-sub topic </th>
+                          <th scope="col">Dev Dom 1 </th>
+                          <th scope="col">Dev Dom 2 </th>
+                          <th scope="col">Mode of Teaching </th>
+                          <th scope="col">Learning Outcome </th>
+                          <th scope="col">Teaching Strategy </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            {data && data?.adminStrategie?.map((item, index) => (
+                              <tr key={index}>
+                                <td> {index + 1}</td>
+                                <td>{(item._id).slice(19, 26)}</td>
+                                <td>{item.Subject}</td>
+                                <td>{item.Grade}</td>
+                                <td>{item.Skill}</td>
+                                <td>{item.Topic}</td>
+                                <td>{item['Sub Topic']}</td>
+                                <td>{item['Sub-sub topic']}</td>
+                                <td>{item['Dev Dom 1']}</td>
+                                <td>{item['Dev Dom 2']}</td>
+                                <td>{item['Mode of Teaching']}</td>
+                                <td>
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['Learning Outcome']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Learning Outcome']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
+                                <td>
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['Teaching Strategy']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Teaching Strategy']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                               </tr>
                             ))}

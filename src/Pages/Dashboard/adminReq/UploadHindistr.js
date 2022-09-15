@@ -38,6 +38,25 @@ const UploadHindistr = () => {
         res && toast.success('Requested Deny!');
       })
   }
+  const [seeMore, setSeeMore] = React.useState(false);
+  const handleSee = () => {
+    if (seeMore) {
+      setSeeMore(false)
+    }
+    else {
+      setSeeMore(true)
+    }
+  }
+
+  const [seeMore2, setSeeMore2] = React.useState(false);
+  const handleSee2 = () => {
+    if (seeMore2) {
+      setSeeMore2(false)
+    }
+    else {
+      setSeeMore2(true)
+    }
+  }
   return (
     <>
       <Toaster
@@ -92,10 +111,32 @@ const UploadHindistr = () => {
                                 <td>{item['विकासात्मक क्षेत्र 2']}</td>
                                 <td>{item['शिक्षण का तरीका']}</td>
                                 <td>
-                                  {item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['शिक्षण के परिणाम']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                                 <td>
-                                  {item['शिक्षण रणनीति']?.slice(0, 20)}
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['शिक्षण रणनीति']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण रणनीति']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                               </tr>
                             ))}

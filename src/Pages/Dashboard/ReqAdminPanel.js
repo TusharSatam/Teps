@@ -4,6 +4,7 @@ import { FaRegTrashAlt } from 'react-icons/fa';
 import { alldelStratigys, deletRequestArrayid, delStratigys, getMultitStr, getreqDeletStr, multidelStratigys, updatestrDeletRq } from '../../services/stratigyes';
 import { Spinner } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
 
 const ReqAdminPanel = () => {
   const [count, setcount] = React.useState([]);
@@ -93,8 +94,27 @@ const ReqAdminPanel = () => {
     deletRequestArrayid(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Requested Deny!');
+        res && toast.success('Request denied!');
       })
+  }
+  const [seeMore, setSeeMore] = useState(false);
+  const handleSee = () => {
+    if (seeMore) {
+      setSeeMore(false)
+    }
+    else {
+      setSeeMore(true)
+    }
+  }
+
+  const [seeMore2, setSeeMore2] = useState(false);
+  const handleSee2 = () => {
+    if (seeMore2) {
+      setSeeMore2(false)
+    }
+    else {
+      setSeeMore2(true)
+    }
   }
   return (
     <>
@@ -119,7 +139,7 @@ const ReqAdminPanel = () => {
                       <button onClick={handleMultiDelet} className='btn btn-primary mx-3'>Delete Selected Strategies</button>
                     } */}
                   </div>
-                    <Table key={index} responsive striped bordered hover size="sm" className='w-100'>
+                    <Table style={{ width: "100px" }} key={index} striped bordered hover size="sm" className='d-none d-md-block'>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           {/* <th></th> */}
@@ -162,20 +182,110 @@ const ReqAdminPanel = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {item['Learning Outcome']?.slice(0, 20)}
-                                  {/* {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
-                                  {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>} */}
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['Learning Outcome']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Learning Outcome']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                                 <td>
-                                  {item['Teaching Strategy']?.slice(0, 20)}
-                                  {/* {index === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
-                                  {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>} */}
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['Teaching Strategy']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Teaching Strategy']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
-                                {/* <td>
-                            <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
-                              <FaRegTrashAlt />
-                            </button>
-                          </td> */}
+                              </tr>
+                            ))}
+                          </>
+                        }
+
+                      </tbody>
+                    </Table>
+                    <Table key={index} responsive striped bordered hover size="sm" className='d-block d-md-none w-100'>
+                      <thead style={{ background: '#d5b39a' }}>
+                        <tr>
+                          {/* <th></th> */}
+                          <th>#</th>
+                          <th>Id</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Grade</th>
+                          <th scope="col">Skill</th>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Sub Topic</th>
+                          <th scope="col">Sub-sub topic </th>
+                          <th scope="col">Dev Dom 1 </th>
+                          <th scope="col">Dev Dom 2 </th>
+                          <th scope="col">Mode of Teaching </th>
+                          <th scope="col">Learning Outcome </th>
+                          <th scope="col">Teaching Strategy </th>
+                          {/* <th scope="col"></th> */}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          // isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
+                          //   <Spinner animation="border" role="status">
+                          //     <span className="visually-hidden">Loading...</span>
+                          //   </Spinner>
+                          // </div> :
+                          <>
+                            {data && data?.reqDel?.map((item, index) => (
+                              <tr key={index}>
+                                {/* <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td> */}
+                                <td> {index + 1}</td>
+                                <td>{(item._id).slice(19, 26)}</td>
+                                <td>{item.Subject}</td>
+                                <td>{item.Grade}</td>
+                                <td>{item.Skill}</td>
+                                <td>{item.Topic}</td>
+                                <td>{item['Sub Topic']}</td>
+                                <td>{item['Sub-sub topic']}</td>
+                                <td>{item['Dev Dom 1']}</td>
+                                <td>{item['Dev Dom 2']}</td>
+                                <td>{item['Mode of Teaching']}</td>
+                                <td>
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['Learning Outcome']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Learning Outcome']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
+                                <td>
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['Teaching Strategy']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['Teaching Strategy']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
                               </tr>
                             ))}
                           </>

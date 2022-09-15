@@ -42,7 +42,7 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update Strategy</Modal.Title>
+          <Modal.Title>Update English Strategy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className='d-flex justify-content-center'>

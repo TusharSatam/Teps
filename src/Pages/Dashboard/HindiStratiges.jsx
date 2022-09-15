@@ -57,18 +57,27 @@ const HindiStratiges = () => {
       delHindiStratigys(id)
         .then(res => {
           res && setStr(str.filter(message => message._id !== id));
-          res && toast.success('strategie Deleted!')
+          res && toast.success('Strategy Deleted!')
         })
     }
     else {
-      getMultitHiStr(id)
-        .then(res => {
-          reqDeletHiStr(res.data, [id])
-            .then(res => {
-              res && toast.success('Sent Request for Delete!');
-              setshowCh([])
-            })
-          console.log(res.data);
+      getreqDeletHiStr()
+        .then(getDel => {
+          const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(id));
+          if (findOut.includes(true)) {
+            toast.error('Alredy Submited for Deletion!');
+          }
+          else {
+            getMultitHiStr(id)
+              .then(res => {
+                reqDeletHiStr(res.data, [id])
+                  .then(res => {
+                    res && toast.success('Request send for delete!');
+                    setshowCh([])
+                  })
+                console.log(res.data);
+              })
+          }
         })
     }
   }
@@ -144,7 +153,7 @@ const HindiStratiges = () => {
         .then(res => {
           reqDeletHiStr(res.data, showCh)
             .then(res => {
-              res && toast.success('Sent Request for Delete!');
+              res && toast.success('Request send for delete!');
               setshowCh([])
             })
           console.log(res.data);

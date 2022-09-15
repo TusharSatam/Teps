@@ -31,8 +31,27 @@ const ReqDelHindiStr = () => {
     deletRequestArrayidHi(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Requested Deny!');
+        res && toast.success('Request denied!');
       })
+  }
+  const [seeMore, setSeeMore] = React.useState(false);
+  const handleSee = () => {
+    if (seeMore) {
+      setSeeMore(false)
+    }
+    else {
+      setSeeMore(true)
+    }
+  }
+
+  const [seeMore2, setSeeMore2] = React.useState(false);
+  const handleSee2 = () => {
+    if (seeMore2) {
+      setSeeMore2(false)
+    }
+    else {
+      setSeeMore2(true)
+    }
   }
   return (
     <>
@@ -68,7 +87,6 @@ const ReqDelHindiStr = () => {
                           <th scope="col">शिक्षण का तरीका</th>
                           <th scope="col">शिक्षण के परिणाम</th>
                           <th scope="col">शिक्षण रणनीति</th>
-                          <th scope="col"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -88,10 +106,32 @@ const ReqDelHindiStr = () => {
                                 <td>{item['विकासात्मक क्षेत्र 2']}</td>
                                 <td>{item['शिक्षण का तरीका']}</td>
                                 <td>
-                                  {item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['शिक्षण के परिणाम']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                                 <td>
-                                  {item['शिक्षण रणनीति']?.slice(0, 20)}
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['शिक्षण रणनीति']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण रणनीति']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
                                 </td>
                               </tr>
                             ))}

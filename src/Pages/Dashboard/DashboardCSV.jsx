@@ -61,16 +61,25 @@ const DashboardCSV = () => {
       delStratigys(id)
         .then(res => {
           res && setStr(str.filter(message => message._id !== id));
-          res && toast.success('strategie Deleted!');
+          res && toast.success('Strategy Deleted!');
         })
     }
     else {
-      getMultitStr(id)
-        .then(res => {
-          reqDeletStr(res?.data, [id])
-            .then(res => {
-              res && toast.success('Sent Request for Delete!');
-            })
+      getreqDeletStr()
+        .then(getDel => {
+          const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(id));
+          if (findOut.includes(true)) {
+            toast.error('Alredy Submited for Deletion!');
+          }
+          else {
+            getMultitStr(id)
+              .then(res => {
+                reqDeletStr(res?.data, [id])
+                  .then(res => {
+                    res && toast.success('Request send for delete!');
+                  })
+              })
+          }
         })
     }
   }
@@ -144,7 +153,7 @@ const DashboardCSV = () => {
         .then(res => {
           reqDeletStr(res.data, showCh)
             .then(res => {
-              res && toast.success('Sent Request for Delete!');
+              res && toast.success('Request send for delete!');
               setshowCh([])
             })
         })
@@ -237,7 +246,7 @@ const DashboardCSV = () => {
               <Link to="/admin-upload-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
             </div>
           </div>
-          <Table striped bordered hover size="sm" className='d-none d-md-block'>
+          <Table style={{ width: "100px" }} striped bordered hover size="sm" className='d-none d-md-block'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
                 <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
