@@ -26,11 +26,15 @@ const UploadEnglishStr = () => {
     }
     axios.post('strategies', csvData, { config })
       .then(res => {
-        toast.success('strategies Uploaded!')
-        delAdminStratigys(id)
-          .then(ress => {
-            ress && setcount(count.filter(message => message._id !== id));
+        if (res) {
+          toast.success('Strategies Uploaded!', {
+            duration: 4000
           })
+          delAdminStratigys(id)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== id));
+            })
+        }
       })
       .catch(err => console.log(err))
   }

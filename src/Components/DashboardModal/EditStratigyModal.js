@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { getStratigys, updateStratigys } from '../../services/stratigyes';
+import './dashboardModal.css'
 
 const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
   console.log(data);
@@ -47,47 +48,49 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
         <Modal.Body>
           <div className='d-flex justify-content-center'>
             <form className='ms-md-3 ms-xxl-5' onSubmit={handleUpdate}>
-              <label htmlFor="">Subject </label> <br />
-              <input className='signup_Input' disabled defaultValue={data?.Subject} name='subject' placeholder='Subject' type="text" />
-              <div>
+              <div className='input_div_modal'>
+                <label htmlFor="">Subject </label> <br />
+                <input className='signup_Input_modal' disabled defaultValue={data?.Subject} name='subject' placeholder='Subject' type="text" />
+              </div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Grade</label> <br />
-                <input className='signup_Input' disabled defaultValue={data?.Grade} name='grade' placeholder='Grade' type="text" />
+                <input className='signup_Input_modal' disabled defaultValue={data?.Grade} name='grade' placeholder='Grade' type="text" />
               </div>
-              <div >
+              <div className='input_div_modal'>
                 <label htmlFor="">Skill</label> <br />
-                <input className={"signup_Input"} disabled defaultValue={data?.Skill} name='skill' placeholder='Skill' type="text" />
+                <input className={"signup_Input_modal"} disabled defaultValue={data?.Skill} name='skill' placeholder='Skill' type="text" />
               </div>
-              <div >
+              <div className='input_div_modal'>
                 <label htmlFor="">Topic </label> <br />
-                <input className='signup_Input' disabled defaultValue={data?.Topic} name='topic' placeholder='Topic' type="text" />
-                <div>
+                <input className='signup_Input_modal' disabled defaultValue={data?.Topic} name='topic' placeholder='Topic' type="text" />
+                <div className='input_div_modal'>
                   <label htmlFor="">Sub Topic </label> <br />
-                  <input className='signup_Input' disabled defaultValue={data ? data['Sub Topic'] : ''} name='sub_topic' placeholder='Sub Topic' type="text" />
+                  <input className='signup_Input_modal' disabled defaultValue={data ? data['Sub Topic'] : ''} name='sub_topic' placeholder='Sub Topic' type="text" />
                 </div>
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Sub-sub topic </label> <br />
-                <input className='signup_Input' disabled defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
+                <input className='signup_Input_modal' disabled defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Dev Dom 1 </label> <br />
-                <input className='signup_Input' disabled defaultValue={data ? data['Dev Dom 1'] : ''} name='dev_dom_1' placeholder='Dev Dom 1' type="text" />
+                <input className='signup_Input_modal' disabled defaultValue={data ? data['Dev Dom 1'] : ''} name='dev_dom_1' placeholder='Dev Dom 1' type="text" />
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Dev Dom 2 </label> <br />
-                <input className='signup_Input' disabled defaultValue={data ? data['Dev Dom 2'] : ''} name='dev_dom_2' placeholder='Dev Dom 2' type="text" />
+                <input className='signup_Input_modal' disabled defaultValue={data ? data['Dev Dom 2'] : ''} name='dev_dom_2' placeholder='Dev Dom 2' type="text" />
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Mode of Teaching </label> <br />
-                <input className='signup_Input' disabled defaultValue={data ? data['Mode of Teaching'] : ''} name='mode_ofteaching' placeholder='Mode of Teaching' type="text" />
+                <input className='signup_Input_modal' disabled defaultValue={data ? data['Mode of Teaching'] : ''} name='mode_ofteaching' placeholder='Mode of Teaching' type="text" />
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Learning Outcome </label> <br />
-                <textarea className='signup_Input' disabled defaultValue={data ? data['Learning Outcome'] : ''} name='learning_outcome' placeholder='Learning Outcome' type="text" />
+                <textarea className='signup_Input_modal' disabled defaultValue={data ? data['Learning Outcome'] : ''} name='learning_outcome' placeholder='Learning Outcome' type="text" />
               </div>
-              <div>
+              <div className='input_div_modal'>
                 <label htmlFor="">Teaching Strategy </label> <br />
-                <textarea className='signup_Input' rows="8" defaultValue={data ? data['Teaching Strategy'] : ''} name='teaching_sstrategy' placeholder='Teaching Strategy' type="text" />
+                <textarea className='signup_Input_modal' rows="8" defaultValue={data ? data['Teaching Strategy'] : ''} name='teaching_sstrategy' placeholder='Teaching Strategy' type="text" />
               </div>
               <div className='d-flex justify-content-end my-3'>
                 <button className='btn btn-primary'>Update Strategy</button>

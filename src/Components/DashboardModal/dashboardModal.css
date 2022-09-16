@@ -1,0 +1,19 @@
+.signup_Input_modal{
+  background: #F8F9FA;
+  border: 1px solid #CED4DA;
+  border-radius: 8px;
+  padding: 5px 10px;
+  width: 350px;
+}
+.input_div_modal input[type="text"][disabled] {
+  color: rgb(102, 102, 102);
+}
+.signup_Input_modal:focus{
+  outline: none;
+}
+@media only screen and (max-width: 990px) {
+
+  .signup_Input_modal{
+      width: 268px;
+  }
+}

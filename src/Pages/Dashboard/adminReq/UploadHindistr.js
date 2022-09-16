@@ -23,11 +23,15 @@ const UploadHindistr = () => {
     }
     axios.post('hindstrategies', csvData, { config })
       .then(res => {
-        toast.success('strategies Uploaded!')
-        delAdminStratigysHi(id)
-          .then(ress => {
-            ress && setcount(count.filter(message => message._id !== id));
+        if (res) {
+          toast.success('strategies Uploaded!', {
+            duration: 4000
           })
+          delAdminStratigysHi(id)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== id));
+            })
+        }
       })
       .catch(err => console.log(err))
   }
@@ -35,7 +39,9 @@ const UploadHindistr = () => {
     delAdminStratigysHi(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Requested Deny!');
+        res && toast.success('Requested Deny!', {
+          duration: 4000
+        });
       })
   }
   const [seeMore, setSeeMore] = React.useState(false);
