@@ -32,7 +32,9 @@ const UploadStratigys = () => {
     if (admin.type === 'super-admin') {
       axios.post('strategies', csvData, { config })
         .then(res => {
-          toast.success('strategies Uploaded!')
+          toast.success('Strategies Uploaded!', {
+            duration: 4000
+          })
           e.target.reset()
         })
         .catch(err => console.log(err))
@@ -44,7 +46,9 @@ const UploadStratigys = () => {
       axios.post('adminStrategies', data, { config })
         .then(res => {
           console.log(res);
-          toast.success('Sent Request for upload!')
+          toast.success('Request send for upload!', {
+            duration: 4000
+          })
           e.target.reset()
         })
         .catch(err => console.log(err))

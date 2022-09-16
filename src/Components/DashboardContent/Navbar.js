@@ -5,14 +5,23 @@ import { useAuth } from "../../Context/AuthContext";
 
 
 function NavBar(props) {
-  const { Adminlogout } = useAuth()
+  const { Adminlogout, setHumBurgs, humBurgs } = useAuth()
+  const handleHumBurgs = () => {
+    props.toggle()
+    if (humBurgs) {
+      setHumBurgs(false)
+    }
+    else {
+      setHumBurgs(true)
+    }
+  }
   return (
     <Navbar
       bg="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
       expand
     >
-      <Button variant="outline-info" onClick={props.toggle}>
+      <Button variant="outline-info" onClick={handleHumBurgs}>
         <FaAlignLeft />
       </Button>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />

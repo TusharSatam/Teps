@@ -81,7 +81,9 @@ const ReqAdminPanel = () => {
   const handleMultiDelet = (id, ids) => {
     multidelStratigys(ids)
       .then(res => {
-        res && toast.success('Strategy deleted forever!');
+        res && toast.success('Strategy deleted forever!', {
+          duration: 4000
+        });
         if (res) {
           deletRequestArrayid(id)
             .then(ress => {
@@ -94,7 +96,9 @@ const ReqAdminPanel = () => {
     deletRequestArrayid(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Request denied!');
+        res && toast.success('Request denied!', {
+          duration: 4000
+        });
       })
   }
   const [seeMore, setSeeMore] = useState(false);

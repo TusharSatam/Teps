@@ -3,9 +3,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import Table from 'react-bootstrap/Table';
 import { delAdminStratigys, getAllAdminStratigys } from '../../../services/adminStrUpload';
 import axios from 'axios';
+import { useAuth } from '../../../Context/AuthContext';
 
 
 const UploadEnglishStr = () => {
+  const { humBurgs } = useAuth()
   const [count, setcount] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   React.useEffect(() => {
@@ -77,7 +79,7 @@ const UploadEnglishStr = () => {
                   <><div className="d-flex my-4">
                     <h3 className='me-3'>Request{index + 1} for Upload Strategies</h3>
                   </div>
-                    <Table style={{ width: "100px" }} key={index} striped bordered hover size="sm" className='w-100 d-none d-md-block'>
+                    <Table key={index} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           <th>#</th>

@@ -11,6 +11,8 @@ const AuthProvider = ({ children }) => {
   const [laoding, setLoading] = React.useState(false);
   const [stratigyFilData, setStratigyFilData] = React.useState([]);
   const [selectLang, setselectLang] = React.useState('')
+  const [humBurgs, setHumBurgs] = React.useState(true)
+
   const logout = () => {
     const confirmation = window.confirm('Are you sure you want to logout?');
     if (confirmation) {
@@ -90,7 +92,8 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
-        setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin, admin, Adminlogout, setAdmin
+        setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin,
+        admin, Adminlogout, setAdmin, humBurgs, setHumBurgs
       }}>
       {children}
     </AuthContext.Provider>

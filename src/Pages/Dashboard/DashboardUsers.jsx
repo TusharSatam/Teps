@@ -41,7 +41,9 @@ const DashboardUsers = () => {
     deletUser(id)
       .then(res => {
         res && setUsers(users.filter(message => message._id !== id));
-        res && toast.success('User Deleted!')
+        res && toast.success('User Deleted!', {
+          duration: 4000
+        })
       })
   }
   console.log(users);

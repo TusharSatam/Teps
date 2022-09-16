@@ -57,7 +57,9 @@ const HindiStratiges = () => {
       delHindiStratigys(id)
         .then(res => {
           res && setStr(str.filter(message => message._id !== id));
-          res && toast.success('Strategy Deleted!')
+          res && toast.success('Strategy Deleted!', {
+            duration: 4000
+          })
         })
     }
     else {
@@ -65,14 +67,18 @@ const HindiStratiges = () => {
         .then(getDel => {
           const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(id));
           if (findOut.includes(true)) {
-            toast.error('Alredy Submited for Deletion!');
+            toast.error('Alredy Submited for Deletion!', {
+              duration: 4000
+            });
           }
           else {
             getMultitHiStr(id)
               .then(res => {
                 reqDeletHiStr(res.data, [id])
                   .then(res => {
-                    res && toast.success('Request send for delete!');
+                    res && toast.success('Request sent for delete!', {
+                      duration: 4000
+                    });
                     setshowCh([])
                   })
                 console.log(res.data);
@@ -98,7 +104,9 @@ const HindiStratiges = () => {
         .then(getDel => {
           const findOut = getDel?.data?.map(dt => dt?.reqDelId?.includes(ind));
           if (findOut.includes(true)) {
-            toast.error('Alredy Submited for Deletion!');
+            toast.error('Alredy Submited for Deletion!', {
+              duration: 4000
+            });
           }
           else {
             if (showCh.includes(ind)) {
@@ -144,7 +152,9 @@ const HindiStratiges = () => {
       multidelHiStratigys(showCh)
         .then(res => {
           res && setStr(str.filter(message => !showCh.includes(message._id)));
-          res && toast.success('Selected Strategies Deleted!');
+          res && toast.success('Selected Strategies Deleted!', {
+            duration: 4000
+          });
           setshowCh([])
         })
     }
@@ -153,7 +163,9 @@ const HindiStratiges = () => {
         .then(res => {
           reqDeletHiStr(res.data, showCh)
             .then(res => {
-              res && toast.success('Request send for delete!');
+              res && toast.success('Request sent for delete!', {
+                duration: 4000
+              });
               setshowCh([])
             })
           console.log(res.data);
@@ -293,6 +305,7 @@ const HindiStratiges = () => {
         </div>
       </div>
       <div className='container'>
+        <p className='fw-bold'>{stratigys?.currentPage} Of {stratigys?.totalPages}</p>
         <button onClick={handlePrevious} disabled={stratigys?.currentPage === '1'} className='btn btn-success me-3'>Previous</button>
         <button onClick={handleNext} disabled={parseInt(stratigys?.currentPage) === stratigys?.totalPages} className='btn btn-success'>Next</button>
       </div>
