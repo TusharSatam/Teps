@@ -10,7 +10,7 @@ import { CSVLink } from 'react-csv';
 import { useAuth } from '../../Context/AuthContext';
 
 const HindiStratiges = () => {
-  const { admin } = useAuth()
+  const { admin, humBurgs } = useAuth()
   const [stratigys, setStratigys] = React.useState([]);
   const [str, setStr] = React.useState([]);
   const [pageCount, setPageCount] = React.useState(1);
@@ -234,7 +234,75 @@ const HindiStratiges = () => {
               <Link to="/admin-upload-hi-stratigy"> <button className='btn btn-primary'>Add Strategies</button></Link>
             </div>
           </div>
-          <Table responsive striped bordered hover size="sm" className='w-100'>
+          <Table striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
+            <thead style={{ background: '#d5b39a' }}>
+              <tr>
+                <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
+                <th>#</th>
+                <th>Id</th>
+                <th scope="col">विषय</th>
+                <th scope="col">श्रेणी</th>
+                <th scope="col">कौशल</th>
+                <th scope="col">शीर्षक</th>
+                <th scope="col">उप शीर्षक</th>
+                <th scope="col">उप-उप शीर्षक </th>
+                <th scope="col">विकासात्मक क्षेत्र 1</th>
+                <th scope="col">विकासात्मक क्षेत्र 2</th>
+                <th scope="col">शिक्षण का तरीका</th>
+                <th scope="col">शिक्षण के परिणाम</th>
+                <th scope="col">शिक्षण रणनीति</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div> :
+                  <>
+                    {
+                      str?.map((item, index) => (
+                        <tr key={index}>
+                          <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
+                          <td>{stratigys?.currentPage === '1' ? index + 1 :
+                            (parseInt(stratigys?.currentPage) - 1) * 100 + (index + 1)
+                          }</td>
+                          <td>{(item._id).slice(19, 26)}</td>
+                          <td>{item.विषय}</td>
+                          <td>{item.श्रेणी}</td>
+                          <td>{item.कौशल}</td>
+                          <td>{item.शीर्षक}</td>
+                          <td>{item['उप शीर्षक']}</td>
+                          <td>{item['उप-उप शीर्षक']}</td>
+                          <td>{item['विकासात्मक क्षेत्र 1']}</td>
+                          <td>{item['विकासात्मक क्षेत्र 2']}</td>
+                          <td>{item['शिक्षण का तरीका']}</td>
+                          <td>
+                            {index === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
+                            {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
+                          </td>
+                          <td>
+                            {index === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
+                            {index !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
+                          </td>
+                          <td>
+                            <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
+                              <FaRegTrashAlt />
+                            </button>
+                            <button className='btn p-0' onClick={() => handleEdit(item._id)}><FaRegEdit /></button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </>
+
+              }
+
+            </tbody>
+          </Table>
+          <Table responsive striped bordered hover size="sm" className='d-block d-md-none w-100'>
             <thead style={{ background: '#d5b39a' }}>
               <tr>
                 <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
