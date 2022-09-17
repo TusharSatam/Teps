@@ -27,7 +27,9 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
           .then(res => {
             setStratigys(res.data.posts);
           })
-        toast.success('Update successfull!')
+        toast.success('Update successfull!', {
+          duration: 4000
+        })
       })
   }
   return (

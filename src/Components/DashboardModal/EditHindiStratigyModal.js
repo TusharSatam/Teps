@@ -27,7 +27,9 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
           .then(res => {
             setStratigys(res.data.posts);
           })
-        toast.success('Update successfull!')
+        toast.success('Update successfull!', {
+          duration: 4000
+        })
       })
   }
   return (
@@ -43,7 +45,7 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Update Hindi Strategies</Modal.Title>
+          <Modal.Title>Update Hindi Strategy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className='d-flex justify-content-center'>
