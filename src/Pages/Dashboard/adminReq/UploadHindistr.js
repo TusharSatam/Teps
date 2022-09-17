@@ -3,8 +3,10 @@ import toast, { Toaster } from 'react-hot-toast';
 import Table from 'react-bootstrap/Table';
 import { delAdminStratigysHi, getAllAdminStratigysHi } from '../../../services/adminStrUploadHi';
 import axios from 'axios';
+import { useAuth } from '../../../Context/AuthContext';
 
 const UploadHindistr = () => {
+  const { humBurgs } = useAuth()
   const [count, setcount] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   React.useEffect(() => {
@@ -82,7 +84,76 @@ const UploadHindistr = () => {
                   <><div className="d-flex my-4">
                     <h3 className='me-3'>Request{index + 1} for Upload Strategies</h3>
                   </div>
-                    <Table key={index} responsive striped bordered hover size="sm" className='w-100'>
+                    <Table key={index} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
+                      <thead style={{ background: '#d5b39a' }}>
+                        <tr>
+                          <th>#</th>
+                          <th>Id</th>
+                          <th scope="col">Subject</th>
+                          <th scope="col">Grade</th>
+                          <th scope="col">Skill</th>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Sub Topic</th>
+                          <th scope="col">Sub-sub topic </th>
+                          <th scope="col">Dev Dom 1 </th>
+                          <th scope="col">Dev Dom 2 </th>
+                          <th scope="col">Mode of Teaching </th>
+                          <th scope="col">Learning Outcome </th>
+                          <th scope="col">Teaching Strategy </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          <>
+                            {data && data?.adminStrategie?.map((item, index) => (
+                              <tr key={index}>
+                                <td> {index + 1}</td>
+                                <td>{(item._id).slice(19, 26)}</td>
+                                <td>{item.विषय}</td>
+                                <td>{item.श्रेणी}</td>
+                                <td>{item.कौशल}</td>
+                                <td>{item.शीर्षक}</td>
+                                <td>{item['उप शीर्षक']}</td>
+                                <td>{item['उप-उप शीर्षक']}</td>
+                                <td>{item['विकासात्मक क्षेत्र 1']}</td>
+                                <td>{item['विकासात्मक क्षेत्र 2']}</td>
+                                <td>{item['शिक्षण का तरीका']}</td>
+                                <td>
+                                  {
+                                    seeMore ?
+                                      <>
+                                        <span>{item['शिक्षण के परिणाम']}</span>
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
+                                <td>
+                                  {
+                                    seeMore2 ?
+                                      <>
+                                        <span>{item['शिक्षण रणनीति']}</span>
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
+                                      </>
+                                      :
+                                      <>
+                                        {item['शिक्षण रणनीति']?.slice(0, 20)}
+                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
+                                      </>
+                                  }
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        }
+
+                      </tbody>
+                    </Table>
+                    <Table key={index} responsive striped bordered hover size="sm" className='d-block d-md-none w-100'>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           <th>#</th>
