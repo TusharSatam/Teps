@@ -1,7 +1,7 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Table from 'react-bootstrap/Table';
-import { delAdminStratigys, getAllAdminStratigys } from '../../../services/adminStrUpload';
+import { delAdminStratigys, getAllAdminStratigys, getSingleAdminStratigys } from '../../../services/adminStrUpload';
 import axios from 'axios';
 import { useAuth } from '../../../Context/AuthContext';
 
@@ -10,6 +10,10 @@ const UploadEnglishStr = () => {
   const { humBurgs } = useAuth()
   const [count, setcount] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [lOutcome, setLOutCame] = React.useState();
+  const [indi, setIndi] = React.useState();
+  const [teaching, setTeaching] = React.useState();
+  const [indi1, setIndi1] = React.useState();
   React.useEffect(() => {
     setIsLoading(true)
     getAllAdminStratigys()
@@ -17,7 +21,6 @@ const UploadEnglishStr = () => {
         setcount(res.data);
       })
   }, [])
-  console.log(count);
 
 
   const handleMultiDelet = (id, csvData) => {
@@ -45,24 +48,21 @@ const UploadEnglishStr = () => {
         res && toast.success('Request Denied!');
       })
   }
-  const [seeMore, setSeeMore] = React.useState(false);
-  const handleSee = () => {
-    if (seeMore) {
-      setSeeMore(false)
-    }
-    else {
-      setSeeMore(true)
-    }
+
+  const showMore = (id, ind) => {
+    getSingleAdminStratigys(id)
+      .then(res => {
+        setLOutCame(res.data[0]?.adminStrategie?.[ind]);
+        setIndi(res.data[0]?.adminStrategie?.[ind]?._id);
+      })
   }
 
-  const [seeMore2, setSeeMore2] = React.useState(false);
-  const handleSee2 = () => {
-    if (seeMore2) {
-      setSeeMore2(false)
-    }
-    else {
-      setSeeMore2(true)
-    }
+  const showMore2 = (id, ind) => {
+    getSingleAdminStratigys(id)
+      .then(res => {
+        setTeaching(res.data[0]?.adminStrategie?.[ind]);
+        setIndi1(res.data[0]?.adminStrategie?.[ind]?._id);
+      })
   }
   return (
     <>
@@ -83,7 +83,7 @@ const UploadEnglishStr = () => {
                   <><div className="d-flex my-4">
                     <h3 className='me-3'>Request{index + 1} for Upload Strategies</h3>
                   </div>
-                    <Table key={index} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
+                    <Table key={index + 1} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           <th>#</th>
@@ -118,32 +118,12 @@ const UploadEnglishStr = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {
-                                    seeMore2 ?
-                                      <>
-                                        <span>{item['Learning Outcome']}</span>
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Learning Outcome']?.slice(0, 20)}
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                                 </td>
                                 <td>
-                                  {
-                                    seeMore ?
-                                      <>
-                                        <span>{item['Teaching Strategy']}</span>
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Teaching Strategy']?.slice(0, 20)}
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td>
                               </tr>
                             ))}
@@ -187,32 +167,12 @@ const UploadEnglishStr = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {
-                                    seeMore2 ?
-                                      <>
-                                        <span>{item['Learning Outcome']}</span>
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Learning Outcome']?.slice(0, 20)}
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                                 </td>
                                 <td>
-                                  {
-                                    seeMore ?
-                                      <>
-                                        <span>{item['Teaching Strategy']}</span>
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Teaching Strategy']?.slice(0, 20)}
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td>
                               </tr>
                             ))}

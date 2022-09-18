@@ -1,11 +1,15 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import toast, { Toaster } from 'react-hot-toast';
-import { deletRequestArrayidHi, getreqDeletHiStr, multidelHiStratigys } from '../../services/hindiStratigys';
+import { deletRequestArrayidHi, getreqDeletHiStr, getSingleDelStrHi, multidelHiStratigys } from '../../services/hindiStratigys';
 
 const ReqDelHindiStr = () => {
   const [count, setcount] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [lOutcome, setLOutCame] = React.useState();
+  const [indi, setIndi] = React.useState();
+  const [teaching, setTeaching] = React.useState();
+  const [indi1, setIndi1] = React.useState();
 
   React.useEffect(() => {
     setIsLoading(true)
@@ -34,24 +38,22 @@ const ReqDelHindiStr = () => {
         res && toast.success('Request denied!');
       })
   }
-  const [seeMore, setSeeMore] = React.useState(false);
-  const handleSee = () => {
-    if (seeMore) {
-      setSeeMore(false)
-    }
-    else {
-      setSeeMore(true)
-    }
+
+
+  const showMore = (id, ind) => {
+    getSingleDelStrHi(id)
+      .then(res => {
+        setLOutCame(res.data[0]?.reqDel?.[ind]);
+        setIndi(res.data[0]?.reqDel?.[ind]?._id);
+      })
   }
 
-  const [seeMore2, setSeeMore2] = React.useState(false);
-  const handleSee2 = () => {
-    if (seeMore2) {
-      setSeeMore2(false)
-    }
-    else {
-      setSeeMore2(true)
-    }
+  const showMore2 = (id, ind) => {
+    getSingleDelStrHi(id)
+      .then(res => {
+        setTeaching(res.data[0]?.reqDel?.[ind]);
+        setIndi1(res.data[0]?.reqDel?.[ind]?._id);
+      })
   }
   return (
     <>
@@ -106,32 +108,12 @@ const ReqDelHindiStr = () => {
                                 <td>{item['विकासात्मक क्षेत्र 2']}</td>
                                 <td>{item['शिक्षण का तरीका']}</td>
                                 <td>
-                                  {
-                                    seeMore ?
-                                      <>
-                                        <span>{item['शिक्षण के परिणाम']}</span>
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['शिक्षण के परिणाम']?.slice(0, 20)}
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
+                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                                 </td>
                                 <td>
-                                  {
-                                    seeMore2 ?
-                                      <>
-                                        <span>{item['शिक्षण रणनीति']}</span>
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['शिक्षण रणनीति']?.slice(0, 20)}
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
+                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td>
                               </tr>
                             ))}

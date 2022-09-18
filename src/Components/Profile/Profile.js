@@ -213,7 +213,7 @@ const Profile = () => {
         show={show}
         setShow={setShow}
         noti1={'You’re email has been Changed!'}
-        noti2={" Please note that once you change your email your account will be signed out and you have sign in once again with your new email id for further use."}
+        noti2={" Note: Please login with your new Email id after verification."}
       />
       <Toaster
         position="top-right"

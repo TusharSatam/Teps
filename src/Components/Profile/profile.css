@@ -140,8 +140,12 @@ padding-left: 12px;
   line-height: 24px;
   letter-spacing: -0.01em;
   text-decoration-line: underline;
-  color: #51D390;
+  color: #1AA05B;
   cursor: pointer;
+  transition: 0.5s;
+}
+.Email_Edit:hover{
+  color: #51D390;
 }
 .edit_al{
   font-family: 'Inter';

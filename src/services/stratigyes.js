@@ -143,6 +143,18 @@ export const getMultitStr = async (ids) => {
   return stratigyResponse;
 }
 
+// reqDelet get single Stratigy
+export const getSingleDelStr = async (id) => {
+  let stratigyResponse
+  await axios.get(`supdel/reqDelet/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}
+
 // reqDelet update Stratigy
 export const updatestrDeletRq = async (id, data) => {
   let stratigyResponse

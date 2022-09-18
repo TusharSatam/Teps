@@ -11,6 +11,19 @@ export const getAllAdminStratigysHi = async () => {
   return stratigyResponse;
 }
 
+// reqDelet get single Stratigy
+export const getSingleAdminStratigysHi = async (id) => {
+  let stratigyResponse
+  await axios.get(`adminStrategiesHi/allStr/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}
+
+
 // delet Stratigy
 export const delAdminStratigysHi = async (id) => {
   let stratigyResponse

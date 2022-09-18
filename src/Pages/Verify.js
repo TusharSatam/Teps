@@ -49,7 +49,7 @@ const Verify = () => {
             < div className='text-center'>
               <h3 className="verify_head">{alredyVeridyd ? "Already Verified!" : " Verification success!"}</h3>
             </div>
-            <Link to="/"><button>Go to Home and try for login</button></Link>
+            <Link to="/"><button>Proceed to Homepage and Login to continue</button></Link>
           </div>
       }
     </>

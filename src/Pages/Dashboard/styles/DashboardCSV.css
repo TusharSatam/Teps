@@ -16,3 +16,13 @@
   width: 82vw;
   height: 75vh;
 }
+.table_overflowR{
+  overflow-x: scroll;
+  overflow-y: auto;
+  width: 76vw;
+}
+.table_overflowsR{
+  overflow-x: scroll;
+  overflow-y: auto;
+  width: 82vw;
+}

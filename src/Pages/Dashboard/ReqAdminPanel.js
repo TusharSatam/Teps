@@ -1,10 +1,11 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import { alldelStratigys, deletRequestArrayid, delStratigys, getMultitStr, getreqDeletStr, multidelStratigys, updatestrDeletRq } from '../../services/stratigyes';
+import { alldelStratigys, deletRequestArrayid, delStratigys, getMultitStr, getreqDeletStr, getSingleDelStr, multidelStratigys, updatestrDeletRq } from '../../services/stratigyes';
 import { Spinner } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
+import { useAuth } from '../../Context/AuthContext';
 
 const ReqAdminPanel = () => {
   const [count, setcount] = React.useState([]);
@@ -14,6 +15,7 @@ const ReqAdminPanel = () => {
   const [indi, setIndi] = React.useState();
   const [teaching, setTeaching] = React.useState();
   const [indi1, setIndi1] = React.useState();
+  const { humBurgs } = useAuth()
   React.useEffect(() => {
     setIsLoading(true)
     getreqDeletStr()
@@ -21,33 +23,6 @@ const ReqAdminPanel = () => {
         setcount(res.data);
       })
   }, [])
-  console.log(count);
-  // const showMore = (index) => {
-  //   const show = count?.[index];
-  //   setLOutCame(show);
-  //   setIndi(index);
-  // }
-
-  // const showMore2 = (index) => {
-  //   const show = count?.[index];
-  //   setTeaching(show);
-  //   setIndi1(index);
-  // }
-
-  // const handleDelet = (id) => {
-  //   delStratigys(id)
-  //     .then(res => {
-  //       const delArray = deletArray.indexOf(id);
-  //       deletArray.splice(delArray, 1);
-  //       updatestrDeletRq(deletArrayid, deletArray)
-  //         .then(res => {
-  //           console.log(res);
-  //           setshowCh([])
-  //         })
-  //       res && setcount(count.filter(message => message._id !== id));
-  //       res && toast.success('strategie Deleted!')
-  //     })
-  // }
 
   const [showCh, setshowCh] = React.useState([])
   const handleCheckbox = (ind) => {
@@ -101,24 +76,20 @@ const ReqAdminPanel = () => {
         });
       })
   }
-  const [seeMore, setSeeMore] = useState(false);
-  const handleSee = () => {
-    if (seeMore) {
-      setSeeMore(false)
-    }
-    else {
-      setSeeMore(true)
-    }
+  const showMore = (id, ind) => {
+    getSingleDelStr(id)
+      .then(res => {
+        setLOutCame(res.data[0]?.reqDel?.[ind]);
+        setIndi(res.data[0]?.reqDel?.[ind]?._id);
+      })
   }
 
-  const [seeMore2, setSeeMore2] = useState(false);
-  const handleSee2 = () => {
-    if (seeMore2) {
-      setSeeMore2(false)
-    }
-    else {
-      setSeeMore2(true)
-    }
+  const showMore2 = (id, ind) => {
+    getSingleDelStr(id)
+      .then(res => {
+        setTeaching(res.data[0]?.reqDel?.[ind]);
+        setIndi1(res.data[0]?.reqDel?.[ind]?._id);
+      })
   }
   return (
     <>
@@ -143,7 +114,7 @@ const ReqAdminPanel = () => {
                       <button onClick={handleMultiDelet} className='btn btn-primary mx-3'>Delete Selected Strategies</button>
                     } */}
                   </div>
-                    <Table style={{ width: "100px" }} key={index} striped bordered hover size="sm" className='d-none d-md-block'>
+                    <Table key={index + 1} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflowR' : 'd-none d-md-block table_overflowsR'}>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
                           {/* <th></th> */}
@@ -186,32 +157,12 @@ const ReqAdminPanel = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {
-                                    seeMore2 ?
-                                      <>
-                                        <span>{item['Learning Outcome']}</span>
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Learning Outcome']?.slice(0, 20)}
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                                 </td>
                                 <td>
-                                  {
-                                    seeMore ?
-                                      <>
-                                        <span>{item['Teaching Strategy']}</span>
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Teaching Strategy']?.slice(0, 20)}
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td>
                               </tr>
                             ))}
@@ -263,32 +214,12 @@ const ReqAdminPanel = () => {
                                 <td>{item['Dev Dom 2']}</td>
                                 <td>{item['Mode of Teaching']}</td>
                                 <td>
-                                  {
-                                    seeMore2 ?
-                                      <>
-                                        <span>{item['Learning Outcome']}</span>
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Learning Outcome']?.slice(0, 20)}
-                                        <span onClick={handleSee2} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
+                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
                                 </td>
                                 <td>
-                                  {
-                                    seeMore ?
-                                      <>
-                                        <span>{item['Teaching Strategy']}</span>
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>less</span>
-                                      </>
-                                      :
-                                      <>
-                                        {item['Teaching Strategy']?.slice(0, 20)}
-                                        <span onClick={handleSee} className='text-primary' style={{ cursor: "pointer" }}>see more...</span>
-                                      </>
-                                  }
+                                  {item?._id === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
+                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td>
                               </tr>
                             ))}
