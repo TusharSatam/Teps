@@ -176,19 +176,6 @@ const DashboardCSV = () => {
     }
   }
 
-  // const handleallDelet = () => {
-  //   if (admin.type === 'super-admin') {
-  //     alldelStratigys(str[0]._id)
-  //       .then(res => {
-  //         console.log(res);
-  //         res && setStr([]);
-  //         res && toast.success('All Strategies Deleted!');
-  //       })
-  //   }
-  //   else {
-  //     alert('You are not super admin')
-  //   }
-  // }
   const [allStratigy, setAllStratiy] = React.useState()
   React.useEffect(() => {
     getAllStratigys()
@@ -211,6 +198,31 @@ const DashboardCSV = () => {
       setshowCh(allselectedId)
     }
   }
+  React.useEffect(() => {
+    if (allCheck) {
+      if (showCh) {
+        getreqDeletStr()
+          .then(getDel => {
+            const findOut = getDel?.data?.map(dt => dt?.reqDelId);
+            if (findOut) {
+              for (var i = 0; i < findOut.length; i++) {
+                for (var j = 0; j < showCh.length; j++) {
+                  if (findOut[i]?.includes(showCh[j])) {
+                    showCh.splice(j, 1);
+                    j--;
+                  }
+                }
+              }
+            }
+            else {
+              showCh.push(allselectedId)
+            }
+            setshowCh([...showCh], [showCh]);
+          })
+      }
+    }
+    console.log(showCh);
+  }, [allCheck])
   return (
     <div>
       <Toaster

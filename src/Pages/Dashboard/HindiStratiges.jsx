@@ -191,7 +191,31 @@ const HindiStratiges = () => {
       setshowCh(allselectedId)
     }
   }
-
+  React.useEffect(() => {
+    if (allCheck) {
+      if (showCh) {
+        getreqDeletHiStr()
+          .then(getDel => {
+            const findOut = getDel?.data?.map(dt => dt?.reqDelId);
+            if (findOut) {
+              for (var i = 0; i < findOut.length; i++) {
+                for (var j = 0; j < showCh.length; j++) {
+                  if (findOut[i]?.includes(showCh[j])) {
+                    showCh.splice(j, 1);
+                    j--;
+                  }
+                }
+              }
+            }
+            else {
+              showCh.push(allselectedId)
+            }
+            setshowCh([...showCh], [showCh]);
+          })
+      }
+    }
+    console.log(showCh);
+  }, [allCheck])
   return (
     <div>
       <Toaster
