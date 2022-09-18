@@ -23,6 +23,7 @@ const DashboardCSV = () => {
   const [show, setShow] = React.useState(false);
   const [singleStr, setSingleStr] = React.useState();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [allCheck, setAllCheck] = React.useState(false);
 
   const handleClose = () => setShow(false);
   React.useEffect(() => {
@@ -156,6 +157,7 @@ const DashboardCSV = () => {
             duration: 4000
           });
           setshowCh([])
+          setAllCheck(false)
         })
     }
     else {
@@ -167,6 +169,7 @@ const DashboardCSV = () => {
                 duration: 4000
               });
               setshowCh([])
+              setAllCheck(false)
             })
         })
 
@@ -198,7 +201,6 @@ const DashboardCSV = () => {
   const allselectedId = str.map(stra => {
     return stra._id
   })
-  const [allCheck, setAllCheck] = React.useState(false);
   const handleAllSelect = () => {
     if (allCheck) {
       setAllCheck(false)
@@ -209,7 +211,6 @@ const DashboardCSV = () => {
       setshowCh(allselectedId)
     }
   }
-  console.log(stratigys);
   return (
     <div>
       <Toaster

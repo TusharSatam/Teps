@@ -21,6 +21,9 @@ const HindiStratiges = () => {
   const [show, setShow] = React.useState(false);
   const [singleStr, setSingleStr] = React.useState();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [allCheck, setAllCheck] = React.useState(false);
+
+
   const handleClose = () => setShow(false);
   React.useEffect(() => {
     setIsLoading(true)
@@ -81,7 +84,6 @@ const HindiStratiges = () => {
                     });
                     setshowCh([])
                   })
-                console.log(res.data);
               })
           }
         })
@@ -156,6 +158,7 @@ const HindiStratiges = () => {
             duration: 4000
           });
           setshowCh([])
+          setAllCheck(false)
         })
     }
     else {
@@ -167,8 +170,8 @@ const HindiStratiges = () => {
                 duration: 4000
               });
               setshowCh([])
+              setAllCheck(false)
             })
-          console.log(res.data);
         })
     }
   }
@@ -177,7 +180,7 @@ const HindiStratiges = () => {
   const allselectedId = str.map(stra => {
     return stra._id
   })
-  const [allCheck, setAllCheck] = React.useState(false);
+
   const handleAllSelect = () => {
     if (allCheck) {
       setAllCheck(false)
