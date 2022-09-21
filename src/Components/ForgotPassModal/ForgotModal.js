@@ -28,7 +28,7 @@ const ForgotModal = ({ show, setShow }) => {
           window.localStorage.setItem('email', JSON.stringify(e.target.email.value));
           emailjs.send('service_8qg6csq', 'template_t23v1vr', {
             "reply_to": e.target.email.value,
-            "reset_link": `https://ornate-malabi-fd3b4c.netlify.app/forgot?email=${e.target.email.value}`
+            "reset_link": `https://te-second-cycle-link.netlify.app/forgot?email=${e.target.email.value}`
           }, 'RetawD6Qlh_S7pi-n')
             .then((result) => {
               setSendEmail(true)

@@ -47,7 +47,7 @@ const LoginModal = ({ show, setShow }) => {
             else {
               (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
                 "reply_to": res?.data?.email,
-                "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
+                "verify_link": `https://te-second-cycle-link.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
                 "from": "things@ecu.org"
               }, 'Iu315MdRwOR7T8GsW')
                 .then((result) => {

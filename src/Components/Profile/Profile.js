@@ -141,7 +141,7 @@ const Profile = () => {
   const doneEmail = () => {
     (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
       "reply_to": getEmail,
-      "verify_link": `https://ornate-malabi-fd3b4c.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
+      "verify_link": `https://te-second-cycle-link.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
       "from": "things@ecu.org"
     }, 'Iu315MdRwOR7T8GsW')
       .then((result) => {
