@@ -10,14 +10,16 @@ const Footer = () => {
       <section className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
         <div className='d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
           <div className='footer_text'>
-            <p>Teacher Professional Development</p>
-            <p>unboxED</p>
-            <p>Newsletter</p>
-            <p>Blogs</p>
-            <p className=' last_content'>Contact Us</p>
+            <p> <a href='https://www.things-education.com/teachers' target="_blank" rel="noreferrer">Teacher Professional Development</a></p>
+            <p> <a href='https://www.things-education.com/unboxed' target="_blank" rel="noreferrer">unboxED</a></p>
+            <p><a href='https://www.things-education.com/newsletter' target="_blank" rel="noreferrer">Newsletter</a></p>
+            <p><a href='https://www.things-education.com/blog' target="_blank" rel="noreferrer">Blogs</a></p>
+            <p><a href='https://www.things-education.com/contact' target="_blank" className=' last_content' rel="noreferrer">Contact Us</a></p>
           </div>
           <div>
-            <img className='footer_logo' src={Logo} alt="logo" />
+            <a href="https://www.things-education.com/" target="_blank" rel="noreferrer">
+              <img className='footer_logo' src={Logo} alt="logo" />
+            </a>
           </div>
         </div>
       </section>

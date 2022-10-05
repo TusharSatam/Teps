@@ -104,6 +104,7 @@ const Profile = () => {
         if (res?.data[0].Message !== "No records found") {
           setLiveDetails(res?.data[0]?.PostOffice[0]);
           setCityFound(true)
+          console.log(res?.data[0]?.PostOffice[0]?.Country);
         }
         else {
           setCityFound(false)
@@ -139,11 +140,11 @@ const Profile = () => {
   }
   const token = JSON.stringify(localStorage.getItem('jwt'));
   const doneEmail = () => {
-    (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
+    (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
       "reply_to": getEmail,
-      "verify_link": `https://te-second-cycle-link.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
+      "verify_link": `https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
       "from": "things@ecu.org"
-    }, 'Iu315MdRwOR7T8GsW')
+    }, '8zEAglGBvaOwqdqTd')
       .then((result) => {
         setShow(true);
         setEditEmail(false);
@@ -185,10 +186,10 @@ const Profile = () => {
       .then(res => {
         getSingleUser(user._id)
           .then(res => {
-            (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
+            (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
               "reply_to": user?.email,
-              "submit_text": "Your Data Updated successfully"
-            }, 'Iu315MdRwOR7T8GsW')
+              "text": "Your Data Updated successfully"
+            }, '4i-3K9njuqhYjHK_8')
               .then((result) => {
                 window.localStorage.setItem('data', JSON.stringify(res.data[0]));
                 setUser(res.data[0]);
@@ -212,8 +213,8 @@ const Profile = () => {
       <VerifyModal
         show={show}
         setShow={setShow}
-        noti1={'You’re email has been Changed!'}
-        noti2={" Note: Please login with your new Email id after verification."}
+        noti1={'Your email has been changed!'}
+        noti2={"Note: Please log in with your new email ID after verification."}
       />
       <Toaster
         position="top-right"
@@ -290,8 +291,8 @@ const Profile = () => {
                   <div className='mt-3'>
                     <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
                     <div className=' d-flex'>
-                      <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>Edit</div>
-                      <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>Save Email</div>
+                      <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>{t('Edit')}</div>
+                      <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>{t('Save Email')}</div>
                     </div>
                   </div>
                 </div>
@@ -333,26 +334,38 @@ const Profile = () => {
                       {selectedCountry?.city === "International" ?
                         <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" defaultValue={selectedCountry?.state} name="state" id="" />
                         :
-                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" value={liveDetails ? liveDetails?.State : user.state} name="state" id="" />
+                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : "profile_input"} type="text" value={liveDetails ? liveDetails?.State : user?.state} name="state" id="" />
                       }
                     </div>
                   </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
                     <h4 className=' input_label'>{t('country')}:</h4>
                     <div className='select_div'>
-                      <select onChange={handleCountry} disabled={!editAll} className='profile_input ' name="country" id="">
-                        <option className='' >{user.country ? user.country : 'Country'}</option>
-                        {
-                          country?.map((item, index) => (
-                            <option className='' >{item?.name}</option>
-                          ))
-                        }
-                      </select>
+                      {
+                        liveDetails ?
+                          <select value={liveDetails?.country} onChange={handleCountry} disabled={!editAll} className='profile_input ' name="country" id="">
+                            <option className='' >{user.country ? user.country : 'Country'}</option>
+                            {
+                              country?.map((item, index) => (
+                                <option className='' >{item?.name}</option>
+                              ))
+                            }
+                          </select> :
+                          <select onChange={handleCountry} disabled={!editAll} className='profile_input ' name="country" id="">
+                            <option className='' >{user.country ? user.country : 'Country'}</option>
+                            {
+                              country?.map((item, index) => (
+                                <option className='' >{item?.name}</option>
+                              ))
+                            }
+                          </select>
+                      }
+
                     </div>
                   </div>
                 </div>
                 <div className='d-flex justify-content-center button_div'>
-                  <div className='edit_al me-4' onClick={handleAllEdit}>Edit </div>
+                  <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div>
                   <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
                       isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')

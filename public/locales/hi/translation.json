@@ -74,5 +74,8 @@
   "New Password": "नया पासवर्ड",
   "change_pass_btn": "पासवर्ड बदलें",
   "Please reselect the dropdowns for Hindi strategies.": "कृपया हिंदी रणनीतियों के लिए ड्रॉपडाउन का चयन करें।",
-  "Email_Error": "कृपया ईमेल को सही प्रारूप में फिर से दर्ज करें।"
+  "Email_Error": "कृपया ईमेल को सही प्रारूप में फिर से दर्ज करें।",
+  "Edit": "परिवर्तन करें",
+  "Save Email": "परिवर्तनों को सुरक्षित करें",
+  "Search Strategies": "रणनीतियां खोजें"
 }

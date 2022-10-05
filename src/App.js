@@ -33,14 +33,20 @@ import { useAuth } from './Context/AuthContext';
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
+  // const handlesend = () => {
+  //   axios.post('email')
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+  // }
+
   React.useEffect(() => {
     if (data) {
       getSingleUser(data?._id)
@@ -76,6 +82,8 @@ function App() {
         })
     }
   }, [user, setIsAuthenticated, setUser, data]);
+
+
   return (
     <div className='App'>
       {
@@ -147,6 +155,9 @@ function App() {
             <Footer />
           )
       }
+      {/* <div>
+        <button onClick={handlesend}>submits</button>
+      </div> */}
     </div>
   );
 }

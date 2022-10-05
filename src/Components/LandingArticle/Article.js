@@ -9,7 +9,7 @@ const Article = () => {
   const location = useLocation();
   return (
     <>
-      <div className={location.pathname !== '/' ? 'container mt-2 mt-md-5 ' : 'container mt-5 d-none d-md-block'}>
+      <div className={location.pathname !== '/' ? 'container mt-2 mt-md-5 ' : 'container mt-3 d-none d-md-block'}>
         <hr className='hr_line' />
       </div>
       {

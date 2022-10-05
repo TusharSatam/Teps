@@ -74,5 +74,8 @@
   "New Password": "New Password",
   "change_pass_btn": "Change password",
   "Please reselect the dropdowns for Hindi strategies.": "Please reselect the dropdowns for English strategies.",
-  "Email_Error": "Please re-enter the email in the correct format."
+  "Email_Error": "Please re-enter the email in the correct format.",
+  "Edit": "Edit",
+  "Save Email": "Save Email",
+  "Search Strategies": "Search Strategies"
 }

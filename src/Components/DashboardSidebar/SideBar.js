@@ -90,34 +90,34 @@ const SideBar = ({ isOpen, toggle }) => {
               <Dropdown.Menu>
                 <Dropdown.Item>
                   <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-req">
-                    English Strategie Delete
+                    Delete English strategies
                   </Link>
                   <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-req">
-                    English Strategie Delete
+                    Delete English strategies
                   </Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-req-hi">
-                    Hindi Strategie Delete
+                    Delete Hindi strategies
                   </Link>
                   <Link style={{ color: "black" }} onClick={toggle} className="fw-bold dash_sidebar_a nav-link d-block d-md-none" to="/super-req-hi">
-                    Hindi Strategie Delete
+                    Delete Hindi strategies
                   </Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-upEn-str">
-                    Upload Eng Strategie
+                    Add English Strategies
                   </Link>
                   <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-upEn-str">
-                    Upload Eng Strategie
+                    Add English Strategies
                   </Link>
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/super-upHi-str">
-                    Upload Hindi Strategie
+                    Add Hindi Strategies
                   </Link>
                   <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/super-upHi-str">
-                    Upload Hindi Strategie
+                    Add Hindi Strategies
                   </Link>
                 </Dropdown.Item>
               </Dropdown.Menu>

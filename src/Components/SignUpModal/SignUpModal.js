@@ -108,11 +108,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   e.target.reset();
                   setShow(false)
                   console.log(res);
-                  (emailjs.send('service_3dqr8xq', 'template_a9b4hsz', {
+                  (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
                     "reply_to": res?.data?.data?.email,
-                    "verify_link": `https://te-second-cycle-link.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
+                    "verify_link": `https://te-third-cycle.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
                     "from": "things@ecu.org"
-                  }, 'Iu315MdRwOR7T8GsW')
+                  }, '8zEAglGBvaOwqdqTd')
                     .then((result) => {
                       setVerifyModal(true)
                       setWrongEMailfound('')

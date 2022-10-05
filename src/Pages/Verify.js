@@ -22,8 +22,9 @@ const Verify = () => {
             updateUser(id, formData)
               .then(res => {
                 setLoading(false)
-                  (emailjs.send('service_tf7x29l', 'template_eak42al', {
+                  (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
                     "reply_to": email,
+                    "text": "Congratulation! Your Registration was Successful.",
                     "from": "things@ecu.org"
                   }, '4i-3K9njuqhYjHK_8')
                     .then((result) => {

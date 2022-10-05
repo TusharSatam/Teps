@@ -20,6 +20,8 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [error2, setError2] = React.useState(false)
   const [error3, setError3] = React.useState(false)
   const [error4, setError4] = React.useState(false)
+  const [error5, setError5] = React.useState(false)
+  const [error6, setError6] = React.useState(false)
   const navigate = useNavigate();
   const location = useLocation();
   const { setStratigyFilData } = useAuth();
@@ -151,6 +153,8 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         }
       }
       else {
+        if (!selectSubject) { setError5(true) }
+        if (!selectGrade) { setError6(true) }
         if (!selectSkill) { setError1(true) }
         if (!selectTopic) { setError2(true) }
         if (!selectSubTopic) { setError3(true) }
@@ -181,7 +185,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     <>
       <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -197,7 +201,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
               ))
             }
           </select>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -213,7 +217,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
               ))
             }
           </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -229,7 +233,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
               ))
             }
           </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>

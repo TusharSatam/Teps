@@ -46,13 +46,13 @@ const DashboardCSV = () => {
   }
 
   const showMore = (index) => {
-    const show = stratigys?.posts[index];
+    const show = str[index];
     setLOutCame(show);
     setIndi(index);
   }
 
   const showMore2 = (index) => {
-    const show = stratigys?.posts[index];
+    const show = str[index];
     setTeaching(show);
     setIndi1(index);
   }

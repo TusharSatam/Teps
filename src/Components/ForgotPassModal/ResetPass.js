@@ -27,10 +27,10 @@ const ResetPass = () => {
         }
         axios.post("/forget/update", data)
           .then(res => {
-            (emailjs.send('service_3dqr8xq', 'template_thnjhcj', {
+            (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
               "reply_to": email,
-              "submit_text": "Congratulation! Your password Reset was Successful."
-            }, 'Iu315MdRwOR7T8GsW')
+              "text": "Congratulation! Your password Reset was Successful."
+            }, '4i-3K9njuqhYjHK_8')
               .then((result) => {
                 console.log(result.text);
               }, (error) => {

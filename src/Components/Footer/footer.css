@@ -22,6 +22,19 @@
     line-height: 28px;
     color: #FFFFFF;
 }
+.footer_text p a{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: .5s;
+}
+.footer_text p a:hover{
+  color: #000000;
+}
 .last_content{
     margin: 0;
 }
