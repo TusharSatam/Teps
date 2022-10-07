@@ -27,15 +27,30 @@ const ResetPass = () => {
         }
         axios.post("/forget/update", data)
           .then(res => {
-            (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
-              "reply_to": email,
-              "text": "Congratulation! Your password Reset was Successful."
-            }, '4i-3K9njuqhYjHK_8')
-              .then((result) => {
-                console.log(result.text);
-              }, (error) => {
-                console.log(error.text);
-              }))
+            // (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
+            //   "reply_to": email,
+            //   "text": "Congratulation! Your password Reset was Successful."
+            // }, '4i-3K9njuqhYjHK_8')
+            //   .then((result) => {
+            //     console.log(result.text);
+            //   }, (error) => {
+            //     console.log(error.text);
+            //   }))
+            const data = {
+              "to": email,
+              'subject': "Successfully reset -Teps",
+              "html": `
+              <p>Hello,</p>
+              <p>The password for your account has been successfully reset!</p><br />
+              <p>Regards,</p>
+              <p>Things Education</p>
+              `
+            }
+            axios.post('email', data)
+              .then(res => {
+                console.log('success');
+              })
+              .catch(err => console.log(err))
             toast.success(`${t('success_reset')}`)
             e.target.reset()
             navigate('/')

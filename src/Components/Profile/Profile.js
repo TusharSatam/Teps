@@ -140,18 +140,39 @@ const Profile = () => {
   }
   const token = JSON.stringify(localStorage.getItem('jwt'));
   const doneEmail = () => {
-    (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
-      "reply_to": getEmail,
-      "verify_link": `https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
-      "from": "things@ecu.org"
-    }, '8zEAglGBvaOwqdqTd')
-      .then((result) => {
-        setShow(true);
-        setEditEmail(false);
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-      }))
+    // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
+    //   "reply_to": getEmail,
+    //   "verify_link": `https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
+    //   "from": "things@ecu.org"
+    // }, '8zEAglGBvaOwqdqTd')
+    //   .then((result) => {
+    //     setShow(true);
+    //     setEditEmail(false);
+    //     console.log(result.text);
+    //   }, (error) => {
+    //     console.log(error.text);
+    //   }))
+    const data = {
+      "to": getEmail,
+      'subject': "Please Verified Your Email -TEPS",
+      "html": `
+      <p>Hello,</p>
+      <p>You have requested a change in the registered email address. Please click this link to verify your new email address.</p>
+      <p>https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
+      <p>Regards,</p>
+      <p>Things Education</p>
+      `
+    }
+    axios.post('email', data)
+      .then(res => {
+        if (res) {
+          setShow(true);
+          setEditEmail(false);
+        }
+      })
+      .catch(err => console.log(err))
+
+
     console.log(getEmail);
   }
   const [selectedCountry, setSelectedCountry] = React.useState({
@@ -186,19 +207,37 @@ const Profile = () => {
       .then(res => {
         getSingleUser(user._id)
           .then(res => {
-            (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
-              "reply_to": user?.email,
-              "text": "Your Data Updated successfully"
-            }, '4i-3K9njuqhYjHK_8')
-              .then((result) => {
-                window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-                setUser(res.data[0]);
-                toast.success(`${t('update_profile_messege')}`)
-                setIsLoading(false);
-                setEditAll(false);
-              }, (error) => {
-                console.log(error.text);
-              }))
+            // (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
+            //   "reply_to": user?.email,
+            //   "text": "Your Data Updated successfully"
+            // }, '4i-3K9njuqhYjHK_8')
+            //   .then((result) => {
+            //     window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+            //     setUser(res.data[0]);
+            //     toast.success(`${t('update_profile_messege')}`)
+            //     setIsLoading(false);
+            //     setEditAll(false);
+            //   }, (error) => {
+            //     console.log(error.text);
+            //   }))
+            const data = {
+              "to": getEmail,
+              'subject': "Successfully updated -TEPS",
+              "html": `
+              <p>Hello,</p>
+              <p>Your profile details have been successfully updated!</p><br />
+              <p>Regards,</p>
+              <p>Things Education</p>
+              `
+            }
+            axios.post('email', data)
+              .then(res => {
+                if (res) {
+                  setShow(true);
+                  setEditEmail(false);
+                }
+              })
+              .catch(err => console.log(err))
 
           })
       })
