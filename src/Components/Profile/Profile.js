@@ -154,7 +154,7 @@ const Profile = () => {
     //   }))
     const data = {
       "to": getEmail,
-      'subject': "Please Verified Your Email -TEPS",
+      'subject': "Email verification",
       "html": `
       <p>Hello,</p>
       <p>You have requested a change in the registered email address. Please click this link to verify your new email address.</p>
@@ -220,24 +220,36 @@ const Profile = () => {
             //   }, (error) => {
             //     console.log(error.text);
             //   }))
-            const data = {
-              "to": getEmail,
-              'subject': "Successfully updated -TEPS",
-              "html": `
-              <p>Hello,</p>
-              <p>Your profile details have been successfully updated!</p><br />
-              <p>Regards,</p>
-              <p>Things Education</p>
-              `
+            if(res){
+              const data = {
+                "to": getEmail,
+                'subject': "Profile details",
+                "html": `
+                <p>Hello,</p>
+                <p>Your profile details have been successfully updated!</p><br />
+                <p>Regards,</p>
+                <p>Things Education</p>
+                `
+              }
+              axios.post('email', data)
+                .then(res => {
+                  if (res) {
+                    setShow(true);
+                    setEditEmail(false);
+                  }
+                  const data = {
+                    "to": getEmail,
+                    'subject': "Email changed sucessful",
+                    "html": `
+                    <p>Hello,</p>
+                    <p>The email for your account has been successfully changed!</p><br />
+                    <p>Regards,</p>
+                    <p>Things Education</p>
+                    `
+                  }
+                })
+                .catch(err => console.log(err))
             }
-            axios.post('email', data)
-              .then(res => {
-                if (res) {
-                  setShow(true);
-                  setEditEmail(false);
-                }
-              })
-              .catch(err => console.log(err))
 
           })
       })

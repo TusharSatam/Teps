@@ -111,7 +111,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   // kfjdslknfdknfkdanf
                   const data = {
                     "to": res?.data?.data?.email,
-                    'subject': "Please Verified Your Account -TEPS",
+                    'subject': "Email verification",
                     "html": `
                     <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                     <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>

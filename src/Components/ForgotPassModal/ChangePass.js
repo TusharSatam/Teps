@@ -39,7 +39,7 @@ const ChangePass = ({ show, setShow }) => {
             //   }))
             const data = {
               "to": user.email,
-              'subject': "Successfully reset -Teps",
+              'subject': "Password reset",
               "html": `
               <p>Hello,</p>
               <p>The password for your account has been successfully changed!</p><br />

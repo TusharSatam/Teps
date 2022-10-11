@@ -38,7 +38,7 @@ const ForgotModal = ({ show, setShow }) => {
           //   });
           const data = {
             "to": e.target.email.value,
-            'subject': "Please Verified Your Account -TEPS",
+            'subject': "Email verification",
             "html": `
             <p>Hello,</p>
             <p>You have asked for your password to be reset. Please click here to reset your password.</p>

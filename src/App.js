@@ -41,19 +41,11 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
-  const handlesend = () => {
-    const data = {
-      "to": "kamruz.zaman8991@gmail.com",
-      'subject': "Verify Email",
-      "html": `
-      <h1>Hello Kamrul</h1>
-      <p>Your verify email is sent</p>
-      `
-    }
-    axios.post('email', data)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-  }
+  // const handlesend = () => {
+  //   axios.post('email')
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+  // }
 
   React.useEffect(() => {
     if (data) {
