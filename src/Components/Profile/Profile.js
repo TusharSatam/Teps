@@ -142,7 +142,7 @@ const Profile = () => {
   const doneEmail = () => {
     // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
     //   "reply_to": getEmail,
-    //   "verify_link": `https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
+    //   "verify_link": `https://phase1-teps.netlify.app//emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}`,
     //   "from": "things@ecu.org"
     // }, '8zEAglGBvaOwqdqTd')
     //   .then((result) => {
@@ -158,7 +158,7 @@ const Profile = () => {
       "html": `
       <p>Hello,</p>
       <p>You have requested a change in the registered email address. Please click this link to verify your new email address.</p>
-      <p>https://te-third-cycle.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
+      <p>https://phase1-teps.netlify.app//emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
       <p>Regards,</p>
       <p>Things Education</p>
       `
@@ -220,7 +220,7 @@ const Profile = () => {
             //   }, (error) => {
             //     console.log(error.text);
             //   }))
-            if(res){
+            if (res) {
               const data = {
                 "to": getEmail,
                 'subject': "Profile details",
@@ -232,20 +232,13 @@ const Profile = () => {
                 `
               }
               axios.post('email', data)
-                .then(res => {
-                  if (res) {
-                    setShow(true);
-                    setEditEmail(false);
-                  }
-                  const data = {
-                    "to": getEmail,
-                    'subject': "Email changed sucessful",
-                    "html": `
-                    <p>Hello,</p>
-                    <p>The email for your account has been successfully changed!</p><br />
-                    <p>Regards,</p>
-                    <p>Things Education</p>
-                    `
+                .then(resS => {
+                  if (resS) {
+                    window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                    setUser(res.data[0]);
+                    toast.success(`${t('update_profile_messege')}`)
+                    setIsLoading(false);
+                    setEditAll(false);
                   }
                 })
                 .catch(err => console.log(err))
