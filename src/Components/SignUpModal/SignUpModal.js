@@ -111,11 +111,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   // kfjdslknfdknfkdanf
                   const data = {
                     "to": res?.data?.data?.email,
-                    'subject': "Please Verified Your Account -TEPS",
+                    'subject': "Email verification - TEPS",
                     "html": `
                     <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                     <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                    <p>https://te-third-cycle.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                    <p>https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
                     <p>Regards,</p>
                     <p>Things Education</p>
                     `
@@ -132,7 +132,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   // fckmlksdfmn.lsdknf.lkasndf
                   // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
                   //   "reply_to": res?.data?.data?.email,
-                  //   "verify_link": `https://te-third-cycle.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
+                  //   "verify_link": `https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
                   //   "from": "things@ecu.org"
                   // }, '8zEAglGBvaOwqdqTd')
                   //   .then((result) => {

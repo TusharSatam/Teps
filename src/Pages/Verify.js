@@ -36,7 +36,7 @@ const Verify = () => {
                 //   }))
                 const data = {
                   "to": email,
-                  'subject': "Welcome to -TEPS",
+                  'subject': "Welcome to TEPS",
                   "html": `
                       <p>Hello and welcome to Things Education’s Pedagogical Strategies (TEPS). </p>
                       <p>You are now a registered member of the community of educators with the common goal of making students learn better.</p>

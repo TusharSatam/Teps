@@ -28,7 +28,7 @@ const ForgotModal = ({ show, setShow }) => {
           // window.localStorage.setItem('email', JSON.stringify(e.target.email.value));
           // emailjs.send('service_8qg6csq', 'template_t23v1vr', {
           //   "reply_to": e.target.email.value,
-          //   "reset_link": `https://te-third-cycle.netlify.app/forgot?email=${e.target.email.value}`
+          //   "reset_link": `https://phase1-teps.netlify.app/forgot?email=${e.target.email.value}`
           // }, 'RetawD6Qlh_S7pi-n')
           //   .then((result) => {
           //     setSendEmail(true)
@@ -38,11 +38,11 @@ const ForgotModal = ({ show, setShow }) => {
           //   });
           const data = {
             "to": e.target.email.value,
-            'subject': "Please Verified Your Account -TEPS",
+            'subject': "Reset your password - TEPS",
             "html": `
             <p>Hello,</p>
             <p>You have asked for your password to be reset. Please click here to reset your password.</p>
-            <p>https://te-third-cycle.netlify.app/forgot?email=${e.target.email.value}</p>
+            <p>https://phase1-teps.netlify.app/forgot?email=${e.target.email.value}</p>
             <p>If you have not requested this, please ignore this email.</p>
             <br/>
             <p>Regards,</p>

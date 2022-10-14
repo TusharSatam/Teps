@@ -38,7 +38,7 @@ const ResetPass = () => {
             //   }))
             const data = {
               "to": email,
-              'subject': "Successfully reset -Teps",
+              'subject': "Password reset - TEPS",
               "html": `
               <p>Hello,</p>
               <p>The password for your account has been successfully reset!</p><br />

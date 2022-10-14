@@ -39,7 +39,7 @@ const ChangePass = ({ show, setShow }) => {
             //   }))
             const data = {
               "to": user.email,
-              'subject': "Successfully reset -Teps",
+              'subject': "Password changed - TEPS",
               "html": `
               <p>Hello,</p>
               <p>The password for your account has been successfully changed!</p><br />
@@ -49,12 +49,12 @@ const ChangePass = ({ show, setShow }) => {
             }
             axios.post('email', data)
               .then(res => {
-                console.log('success');
+                setShow(false)
+                toast.success(`${t('success_Change')}`)
+                e.target.reset();
               })
               .catch(err => console.log(err))
-            setShow(false)
-            toast.success(`${t('success_Change')}`)
-            e.target.reset()
+
           })
           .catch(err => {
             console.log(err);
