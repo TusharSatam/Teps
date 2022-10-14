@@ -108,19 +108,41 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   e.target.reset();
                   setShow(false)
                   console.log(res);
-                  (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
-                    "reply_to": res?.data?.data?.email,
-                    "verify_link": `https://te-third-cycle.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
-                    "from": "things@ecu.org"
-                  }, '8zEAglGBvaOwqdqTd')
-                    .then((result) => {
-                      setVerifyModal(true)
-                      setWrongEMailfound('')
-                      console.log(result.text);
-                    }, (error) => {
-                      console.log(error.text);
-                      setWrongEMailfound(wrongEmail)
-                    }))
+                  // kfjdslknfdknfkdanf
+                  const data = {
+                    "to": res?.data?.data?.email,
+                    'subject': "Email verification - TEPS",
+                    "html": `
+                    <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
+                    <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
+                    <p>https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                    <p>Regards,</p>
+                    <p>Things Education</p>
+                    `
+                  }
+                  axios.post('email', data)
+                    .then(res => {
+                      if (res) {
+                        setVerifyModal(true)
+                        setWrongEMailfound('')
+                        console.log(res);
+                      }
+                    })
+                    .catch(err => setWrongEMailfound(wrongEmail))
+                  // fckmlksdfmn.lsdknf.lkasndf
+                  // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
+                  //   "reply_to": res?.data?.data?.email,
+                  //   "verify_link": `https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
+                  //   "from": "things@ecu.org"
+                  // }, '8zEAglGBvaOwqdqTd')
+                  //   .then((result) => {
+                  //     setVerifyModal(true)
+                  //     setWrongEMailfound('')
+                  //     console.log(result.text);
+                  //   }, (error) => {
+                  //     console.log(error.text);
+                  //     setWrongEMailfound(wrongEmail)
+                  //   }))
                 })
                 .catch(err => {
                   if (err.response.status === 409) {

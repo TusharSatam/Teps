@@ -25,17 +25,37 @@ const ForgotModal = ({ show, setShow }) => {
         if (res.data.message === "Have an User") {
           setShow(false);
           setError('')
-          window.localStorage.setItem('email', JSON.stringify(e.target.email.value));
-          emailjs.send('service_8qg6csq', 'template_t23v1vr', {
-            "reply_to": e.target.email.value,
-            "reset_link": `https://te-third-cycle.netlify.app/forgot?email=${e.target.email.value}`
-          }, 'RetawD6Qlh_S7pi-n')
-            .then((result) => {
-              setSendEmail(true)
-              console.log(result.text);
-            }, (error) => {
-              console.log(error.text);
-            });
+          // window.localStorage.setItem('email', JSON.stringify(e.target.email.value));
+          // emailjs.send('service_8qg6csq', 'template_t23v1vr', {
+          //   "reply_to": e.target.email.value,
+          //   "reset_link": `https://phase1-teps.netlify.app/forgot?email=${e.target.email.value}`
+          // }, 'RetawD6Qlh_S7pi-n')
+          //   .then((result) => {
+          //     setSendEmail(true)
+          //     console.log(result.text);
+          //   }, (error) => {
+          //     console.log(error.text);
+          //   });
+          const data = {
+            "to": e.target.email.value,
+            'subject': "Reset your password - TEPS",
+            "html": `
+            <p>Hello,</p>
+            <p>You have asked for your password to be reset. Please click here to reset your password.</p>
+            <p>https://phase1-teps.netlify.app/forgot?email=${e.target.email.value}</p>
+            <p>If you have not requested this, please ignore this email.</p>
+            <br/>
+            <p>Regards,</p>
+            <p>Things Education</p>
+            `
+          }
+          axios.post('email', data)
+            .then(res => {
+              if (res) {
+                setSendEmail(true)
+              }
+            })
+            .catch(err => console.log(err))
         }
       })
       .catch(err => {

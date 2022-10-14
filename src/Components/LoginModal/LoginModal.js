@@ -8,6 +8,7 @@ import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './loginModal.css'
 import VerifyModal from '../ForgotPassModal/VerifyModal';
 import emailjs from '@emailjs/browser';
+import axios from 'axios';
 
 const LoginModal = ({ show, setShow }) => {
   const { t } = useTranslation()
@@ -45,19 +46,43 @@ const LoginModal = ({ show, setShow }) => {
               navigate('/home');
             }
             else {
-              (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
-                "reply_to": res?.data?.email,
-                "verify_link": `https://te-third-cycle.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
-                "from": "things@ecu.org"
-              }, '8zEAglGBvaOwqdqTd')
-                .then((result) => {
-                  setIsLoading(false);
-                  setShow(false)
-                  setVerifyModal(true)
-                  console.log(result.text);
-                }, (error) => {
-                  console.log(error.text);
-                }))
+              // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
+              //   "reply_to": res?.data?.email,
+              //   "verify_link": `https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
+              //   "from": "things@ecu.org"
+              // }, '8zEAglGBvaOwqdqTd')
+              //   .then((result) => {
+              //     setIsLoading(false);
+              //     setShow(false)
+              //     setVerifyModal(true)
+              //     console.log(result.text);
+              //   }, (error) => {
+              //     console.log(error.text);
+              //   }))
+              // casjkhdjask
+
+              const data = {
+                "to": res?.data?.email,
+                'subject': "Email verification - TEPS",
+                "html": `
+                  <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
+                  <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
+                  <p>https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}</p><br/>
+                  <p>Regards,</p>
+                  <p>Things Education</p>
+                  `
+              }
+              axios.post('email', data)
+                .then(res => {
+                  if (res) {
+                    setIsLoading(false);
+                    setShow(false)
+                    setVerifyModal(true)
+                  }
+                })
+                .catch(err => console.log(err))
+
+              // askdjsalkj
             }
           }
         })

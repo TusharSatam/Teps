@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getSingleUser, updateUser } from '../services/dashboardUsers';
 import emailjs from '@emailjs/browser';
+import axios from 'axios';
 
 const Verify = () => {
   const search = useLocation().search;
@@ -22,17 +23,35 @@ const Verify = () => {
             updateUser(id, formData)
               .then(res => {
                 setLoading(false)
-                  (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
-                    "reply_to": email,
-                    "text": "Congratulation! Your Registration was Successful.",
-                    "from": "things@ecu.org"
-                  }, '4i-3K9njuqhYjHK_8')
-                    .then((result) => {
+                // (emailjs.send('service_tf7x29l', 'template_5fu4tee', {
+                //   "reply_to": email,
+                //   "text": "Congratulation! Your Registration was Successful.",
+                //   "from": "things@ecu.org"
+                // }, '4i-3K9njuqhYjHK_8')
+                //   .then((result) => {
+                //     setVeridyd(true)
+                //     console.log(result.text);
+                //   }, (error) => {
+                //     console.log(error.text);
+                //   }))
+                const data = {
+                  "to": email,
+                  'subject': "Welcome to TEPS",
+                  "html": `
+                      <p>Hello and welcome to Things Education’s Pedagogical Strategies (TEPS). </p>
+                      <p>You are now a registered member of the community of educators with the common goal of making students learn better.</p>
+                      <p>Looking forward to a long and fruitful partnership!</p><br/>
+                      <p>Regards,</p>
+                      <p>Things Education</p>
+                      `
+                }
+                axios.post('email', data)
+                  .then(res => {
+                    if (res) {
                       setVeridyd(true)
-                      console.log(result.text);
-                    }, (error) => {
-                      console.log(error.text);
-                    }))
+                    }
+                  })
+                  .catch(err => console.log(err))
               })
           }
         }
