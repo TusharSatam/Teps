@@ -111,7 +111,7 @@ const DashHome = () => {
             <span className="count-name">Total Users</span>
           </div>
         </div>
-        {/* <div className="col-md-3">
+        <div className="col-md-3">
           <div className="card-counter info">
             <i className="fa fa-users"></i>
             <span className="count-numbers">{isLoading4 ? <Spinner className="text-light " animation="border" /> : lastRegester}</span>
@@ -138,7 +138,7 @@ const DashHome = () => {
             <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves}</span>
             <span className="count-name">Total strategies Saved</span>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
