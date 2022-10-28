@@ -113,7 +113,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           <div className='d-flex align-items-center mt-2 navLink'>
             <img className="drop_down_icon" src={favLogo} alt="" />
             <div className='ms-3 mt-2'>
-              <p >{t('Favourite Strategies')}</p>
+              <p onClick={() => setDisplayProfile("d-none")}><Link to="/favouriteStratigy" className='navLink' onClick={() => setDisplayProfile("d-none")}>{t('Favourite Strategies')}</Link></p>
             </div>
           </div>
           <div onClick={logout} className="mt-2 navLink">

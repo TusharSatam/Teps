@@ -183,8 +183,8 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
 
   return (
     <>
-      <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
-        <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+      <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
+        <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
           <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
@@ -405,9 +405,13 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
             <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
           </div>
           :
-          <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-            <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-          </div>
+          location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ?
+            <div className='d-flex justify-content-center my-4 my-md-5'>
+              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            </div> :
+            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
+              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            </div>
       }
     </>
   );

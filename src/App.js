@@ -29,6 +29,7 @@ import EmailVerify from './Pages/EmailVerify';
 import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
 import SaveStratigy from './Pages/SaveStratigy';
+import FavouriteStr from './Pages/FavouriteStr';
 
 
 function App() {
@@ -121,6 +122,7 @@ function App() {
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
+            <Route path="/favouriteStratigy" element={<FavouriteStr />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

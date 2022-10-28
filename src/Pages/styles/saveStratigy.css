@@ -1,0 +1,37 @@
+.saveStrParent{
+   background: #1AA05B;
+   overflow: hidden; 
+}
+.headText{
+  font-size: 21px;
+  font-weight: 600px;
+}
+.savestr_head{
+  font-size: 20px!important;
+  font-weight: 500!important;
+}
+.savestr_body{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+@media only screen and (max-width: 990px) {
+  .headText{
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .savestr_head{
+    font-weight: 500;
+font-size: 12px!important;
+line-height: 15px!important;
+  }
+  .savestr_body{
+    font-weight: 400;
+font-size: 10px;
+line-height: 14px;
+  }
+}

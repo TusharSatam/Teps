@@ -3,14 +3,13 @@ import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
 import KnowledgeIcon from '../asstes/icons/knowledge.svg'
 import Physical from '../asstes/icons/Motor-Physical.png'
-import SavedIcon from '../asstes/icons/Saved.svg'
+import FavIcon from '../asstes/icons/Liked.svg'
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../Context/AuthContext';
 import Filter from "../asstes/Filter.svg"
 import HomeLayout from "../Components/Home/HomeLayout"
 import { useState } from 'react';
-import './styles/saveStratigy.css'
-const SaveStratigy = () => {
+const FavouriteStr = () => {
   const [filetr, setFilter] = useState(false)
   const { t } = useTranslation();
   const { user } = useAuth()
@@ -27,7 +26,7 @@ const SaveStratigy = () => {
       <div className='saveStrParent' >
         <div className='row py-2'>
           <div className='col-md-1'></div>
-          <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}’s Saved Strategies</div>
+          <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}’s Favourite  Strategies</div>
           <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
             <span style={{ color: "#1AA05B" }}>Filter</span>
             <img src={Filter} alt="" />
@@ -70,7 +69,7 @@ const SaveStratigy = () => {
                   Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
                 </p>
                 <div className='d-flex align-items-center my-3'>
-                  <img style={{ cursor: "pointer" }} className="save_likes" src={SavedIcon} alt="" />
+                  <img style={{ cursor: "pointer" }} className="save_likes" src={FavIcon} alt="" />
                 </div>
               </div>
               <div className='col-md-2 d-none d-md-block ms-5'>
@@ -124,7 +123,7 @@ const SaveStratigy = () => {
                   Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
                 </p>
                 <div className='d-flex align-items-center my-3'>
-                  <img style={{ cursor: "pointer" }} className="save_likes" src={SavedIcon} alt="" />
+                  <img style={{ cursor: "pointer" }} className="save_likes" src={FavIcon} alt="" />
                 </div>
               </div>
               <div className='col-md-2 d-none d-md-block ms-5'>
@@ -178,7 +177,7 @@ const SaveStratigy = () => {
                   Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
                 </p>
                 <div className='d-flex align-items-center my-3'>
-                  <img style={{ cursor: "pointer" }} className="save_likes" src={SavedIcon} alt="" />
+                  <img style={{ cursor: "pointer" }} className="save_likes" src={FavIcon} alt="" />
                 </div>
               </div>
               <div className='col-md-2 d-none d-md-block ms-5'>
@@ -232,7 +231,7 @@ const SaveStratigy = () => {
                   Inform students what the term 'character' means: a person or animal that says, does and feels things in a story. Ask a few students to name and act like their favourite character from a story or movie. As you read the story, pause and ask students to repeat words said or actions done by characters in that story.
                 </p>
                 <div className='d-flex align-items-center my-3'>
-                  <img style={{ cursor: "pointer" }} className="save_likes" src={SavedIcon} alt="" />
+                  <img style={{ cursor: "pointer" }} className="save_likes" src={FavIcon} alt="" />
                 </div>
               </div>
               <div className='col-md-2 d-none d-md-block ms-5'>
@@ -257,4 +256,4 @@ const SaveStratigy = () => {
   );
 };
 
-export default SaveStratigy;
+export default FavouriteStr;
