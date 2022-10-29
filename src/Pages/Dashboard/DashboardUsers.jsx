@@ -26,7 +26,6 @@ const DashboardUsers = () => {
         setShow(true)
       })
       ;
-    console.log(id);
   }
   React.useEffect(() => {
     setIsLoading(true)
@@ -46,7 +45,6 @@ const DashboardUsers = () => {
         })
       })
   }
-  console.log(users);
   return (
     <>
       <Toaster

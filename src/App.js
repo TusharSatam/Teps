@@ -30,6 +30,7 @@ import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
 import SaveStratigy from './Pages/SaveStratigy';
 import FavouriteStr from './Pages/FavouriteStr';
+import SingleStr from './Pages/SingleStr';
 
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
+            <Route path="/single/:id" element={<SingleStr />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
