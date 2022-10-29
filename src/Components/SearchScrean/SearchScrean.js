@@ -209,8 +209,8 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((data, index) => (
-                                      <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                        <div className='d-flex justify-content-between my-4 '>
+                                      <div className='d-flex justify-content-between my-4 '>
+                                        <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                           <div className='me-1'>
                                             <div>
                                               <div className='d-flex'>
@@ -248,46 +248,48 @@ const SearchScrean = () => {
                                               </div>
                                             </div>
                                           </div>
-                                          <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
+                                        </Link>
+                                        <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
+                                          <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <p>
                                               {data["Teaching Strategy"]}
                                             </p>
-                                            <div className='d-flex align-items-center my-3'>
-                                              {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                                          </Link>
+                                          <div className='d-flex align-items-center my-3'>
+                                            {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                            {like.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
-                                            </div>
                                           </div>
-                                          <div className='col-md-2 d-none d-md-block ms-5'>
-                                            <div className='d-flex flex-column align-items-center justify-content-center'>
-                                              <div>
-                                                <span className='icons_heading'>Developmental Domains</span>
-                                              </div>
-                                              <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                  {
-                                                    !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                                                      data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                        <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
-                                                        <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                                  }
-                                                  {
-                                                    !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                                                      data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                        <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                        <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                                  }
-                                                </div>
+                                        </div>
+                                        <div className='col-md-2 d-none d-md-block ms-5'>
+                                          <div className='d-flex flex-column align-items-center justify-content-center'>
+                                            <div>
+                                              <span className='icons_heading'>Developmental Domains</span>
+                                            </div>
+                                            <div className='d-flex align-items-center justify-content-center mt-md-2'>
+                                              <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                 {
-                                                  data['Mode of Teaching'] === "Online" ?
-                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                    <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                  !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                                    data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                      <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
+                                                      <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
+                                                }
+                                                {
+                                                  !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                                    data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                      <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                      <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
                                                 }
                                               </div>
+                                              {
+                                                data['Mode of Teaching'] === "Online" ?
+                                                  <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                  <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                              }
                                             </div>
                                           </div>
                                         </div>
-                                      </Link>
+                                      </div>
                                     ))
                                   }
                                 </div>

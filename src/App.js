@@ -50,41 +50,41 @@ function App() {
   //     .catch(err => console.log(err))
   // }
 
-  React.useEffect(() => {
-    if (data) {
-      getSingleUser(data?._id)
-        .then(res => {
-          if (res?.data[0]?.email !== data?.email) {
-            localStorage.removeItem('data');
-            localStorage.removeItem('jwt');
-            localStorage.removeItem('filterData');
-            localStorage.removeItem('filterDataH');
-            localStorage.removeItem('selectedDropdown');
-            localStorage.removeItem('selectedHiDropdown');
-            setIsAuthenticated(false)
-            navigate('/')
-            setUser(null);
-            setDisplayProfile('d-none')
-            console.log('email');
-          }
-        })
-        .catch(err => {
-          if (err) {
-            localStorage.removeItem('data');
-            localStorage.removeItem('jwt');
-            localStorage.removeItem('filterData');
-            localStorage.removeItem('filterDataH');
-            localStorage.removeItem('selectedDropdown');
-            localStorage.removeItem('selectedHiDropdown');
-            setIsAuthenticated(false)
-            console.log(err);
-            setUser(null)
-            navigate('/')
-            setDisplayProfile('d-none')
-          }
-        })
-    }
-  }, [user, setIsAuthenticated, setUser, data]);
+  // React.useEffect(() => {
+  //   if (data) {
+  //     getSingleUser(data?._id)
+  //       .then(res => {
+  //         if (res?.data[0]?.email !== data?.email) {
+  //           localStorage.removeItem('data');
+  //           localStorage.removeItem('jwt');
+  //           localStorage.removeItem('filterData');
+  //           localStorage.removeItem('filterDataH');
+  //           localStorage.removeItem('selectedDropdown');
+  //           localStorage.removeItem('selectedHiDropdown');
+  //           setIsAuthenticated(false)
+  //           navigate('/')
+  //           setUser(null);
+  //           setDisplayProfile('d-none')
+  //           console.log('email');
+  //         }
+  //       })
+  //       .catch(err => {
+  //         if (err) {
+  //           localStorage.removeItem('data');
+  //           localStorage.removeItem('jwt');
+  //           localStorage.removeItem('filterData');
+  //           localStorage.removeItem('filterDataH');
+  //           localStorage.removeItem('selectedDropdown');
+  //           localStorage.removeItem('selectedHiDropdown');
+  //           setIsAuthenticated(false)
+  //           console.log(err);
+  //           setUser(null)
+  //           navigate('/')
+  //           setDisplayProfile('d-none')
+  //         }
+  //       })
+  //   }
+  // }, [user, setIsAuthenticated, setUser, data]);
 
 
   return (
