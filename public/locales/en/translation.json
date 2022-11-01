@@ -77,5 +77,15 @@
   "Email_Error": "Please re-enter the email in the correct format.",
   "Edit": "Edit",
   "Save Email": "Save Email",
-  "Search Strategies": "Search Strategies"
+  "Search Strategies": "Search Strategies",
+  "Strategy screen": "Strategy screen",
+  "No Favourite Strategies available.": "No Favourite Strategies available.",
+  "Filter": "Filter",
+  "’s": "’s",
+  "No Saved Strategies available.": "No Saved Strategies available.",
+  "Comments": "Comments",
+  "Add a comment": "Add a comment",
+  "View comments": "View comments",
+  "Hide comments": "Hide comments",
+  "Developmental Domains": "Developmental Domains"
 }

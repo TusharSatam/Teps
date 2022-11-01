@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { singleStratigys } from '../services/stratigyes';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -17,7 +16,8 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
-const SingleStr = () => {
+import { singleHindiStratigys } from '../services/hindiStratigys';
+const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
@@ -27,7 +27,7 @@ const SingleStr = () => {
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
   React.useEffect(() => {
-    singleStratigys(id)
+    singleHindiStratigys(id)
       .then(res => {
         setStr(res[0]);
       })
@@ -114,7 +114,7 @@ const SingleStr = () => {
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
-        <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
+        <p className='single_str_head'>{str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक} &gt; {str[`उप शीर्षक`]} &gt; {str['उप-उप शीर्षक']}</p>
       </div>
       <div className='mx-5'>
         <div style={{ background: "#FFFFFF" }} className='card_pad'>
@@ -133,35 +133,35 @@ const SingleStr = () => {
                     <div className='res_btn_icon'>
                       <div className='d-flex flex-column res_inner_div p-1 '>
                         {
-                          !str['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
+                          !str['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                            str['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                  <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
                                 </div>
-                                <p className='dev_dpm_text'>Cognitive Sensory</p>
+                                <p className='dev_dpm_text'>संज्ञानात्मक संवेदी</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                  <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                 </div>
-                                <p className='dev_dpm_text'>Motor-Physical</p>
+                                <p className='dev_dpm_text'>मोटर-भौतिक</p>
                               </div>
                         }
                         {
-                          !str['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                          !str['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                            str['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" />
+                                  <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" />
                                 </div>
-                                <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
+                                <p className='dev_dpm_text'>सामाजिक-भावनात्मक-नैतिक</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                  <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                 </div>
-                                <p className='dev_dpm_text'>Language & Communication</p>
+                                <p className='dev_dpm_text'>भाषा और संचार</p>
                               </div>
                         }
                       </div>
@@ -170,9 +170,9 @@ const SingleStr = () => {
                 </div>
               </div>
               <div className='col-9 ms-4 col-md-7 '>
-                <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
+                <p className='savestr_head'>{t("Learning Outcomes")}: {str["शिक्षण के परिणाम"]}</p>
                 <p className='savestr_body'>
-                  {str["Teaching Strategy"]}
+                  {str["शिक्षण रणनीति"]}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
@@ -191,9 +191,9 @@ const SingleStr = () => {
                   </div>
                   <div className='me-md-3 me-0'>
                     {
-                      str['Mode of Teaching'] === "Online" ?
-                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                      str['Mode of Teaching'] === "ऑनलाइन" ?
+                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                     }
                   </div>
                 </div>
@@ -387,4 +387,4 @@ const SingleStr = () => {
   );
 };
 
-export default SingleStr;
+export default SingleHindiStr;

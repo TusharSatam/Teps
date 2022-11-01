@@ -31,6 +31,7 @@ import { useAuth } from './Context/AuthContext';
 import SaveStratigy from './Pages/SaveStratigy';
 import FavouriteStr from './Pages/FavouriteStr';
 import SingleStr from './Pages/SingleStr';
+import SingleHindiStr from './Pages/SingleHindiStr';
 
 
 function App() {
@@ -125,6 +126,7 @@ function App() {
             <Route path="/saveStratigy" element={<SaveStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
+            <Route path="/singleHi/:id" element={<SingleHindiStr />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

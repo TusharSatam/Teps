@@ -73,9 +73,9 @@ const SaveStratigy = () => {
       <div className='saveStrParent' >
         <div className='row py-2'>
           <div className='col-md-1'></div>
-          <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}’s Saved Strategies</div>
+          <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
           <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
-            <span style={{ color: "#1AA05B" }}>Filter</span>
+            <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
             <img src={Filter} alt="" />
           </div>
         </div>
@@ -86,7 +86,7 @@ const SaveStratigy = () => {
         </div>
       </div>
       {
-        saveStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>No Saved Strategies available.</h1> :
+        saveStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
           stratigyFilData?.length !== 0 ? stratigyFilData?.map((res, index) => (
             <div key={index} className='container'>
               <div style={{ background: "#FFFFFF" }} className='card_pad'>

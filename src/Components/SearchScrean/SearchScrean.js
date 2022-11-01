@@ -323,48 +323,52 @@ const SearchScrean = () => {
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
                                         <div className='d-flex justify-content-between my-4 '>
-                                          <div className='me-1'>
-                                            <div>
-                                              <div className='d-flex'>
-                                                <p className='Strategy_count'>{t("strategy")}</p>
-                                                <p className='counter_str'>{index + 1}</p>
+                                          <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <div className='me-1'>
+                                              <div>
+                                                <div className='d-flex'>
+                                                  <p className='Strategy_count'>{t("strategy")}</p>
+                                                  <p className='counter_str'>{index + 1}</p>
+                                                </div>
+                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                               </div>
-                                              {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
-                                            </div>
-                                            <div className='d-block d-md-none mt-1'>
-                                              <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
-                                              <div className=' mt-1' style={{ marginLeft: "15px" }}>
-                                                <div className='res_btn_icon'>
-                                                  <div className='d-flex flex-column res_inner_div p-1 '>
+                                              <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
+                                                <div className=' mt-1' style={{ marginLeft: "15px" }}>
+                                                  <div className='res_btn_icon'>
+                                                    <div className='d-flex flex-column res_inner_div p-1 '>
+                                                      {
+                                                        !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                          data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                            <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                      }
+                                                      {
+                                                        !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                          data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                            <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                      }
+                                                    </div>
+                                                  </div>
+                                                  <div className='ms-1'>
                                                     {
-                                                      !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                                        data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                          <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                          <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                      data['Mode of Teaching'] === "ऑनलाइन" ?
+                                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                                     }
-                                                    {
-                                                      !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                                        data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                          <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                          <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                    }
+
                                                   </div>
                                                 </div>
-                                                <div className='ms-1'>
-                                                  {
-                                                    data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                      <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                      <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                                  }
-
-                                                </div>
                                               </div>
                                             </div>
-                                          </div>
+                                          </Link>
                                           <div className='col-9 col-md-8 Strategy_count_article'>
-                                            <p>
-                                              {data["शिक्षण रणनीति"]}
-                                            </p>
+                                            <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                              <p>
+                                                {data["शिक्षण रणनीति"]}
+                                              </p>
+                                            </Link>
                                             <div className='d-flex align-items-center my-3'>
                                               {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                               {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
