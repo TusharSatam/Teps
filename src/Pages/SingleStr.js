@@ -107,7 +107,7 @@ const SingleStr = () => {
   }, [])
   const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  console.log(totalSave);
+
   return (
     <div>
       <div className='saveStrParent' >
