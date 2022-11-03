@@ -28,6 +28,7 @@ import Verify from './Pages/Verify';
 import EmailVerify from './Pages/EmailVerify';
 import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
+import AddForm from './Components/AddForm/AddForm';
 
 
 function App() {
@@ -115,6 +116,7 @@ function App() {
           <Route path='/verify' element={<Verify />} />
           <Route path='/emailverify' element={<EmailVerify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
+          <Route path='/addForm' element={<AddForm />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
