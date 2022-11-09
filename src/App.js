@@ -32,6 +32,10 @@ import SaveStratigy from './Pages/SaveStratigy';
 import FavouriteStr from './Pages/FavouriteStr';
 import SingleStr from './Pages/SingleStr';
 import SingleHindiStr from './Pages/SingleHindiStr';
+import ApproveEn from './Pages/Dashboard/userReq/ApproveEn';
+import ApproveHi from './Pages/Dashboard/userReq/ApproveHi';
+import UserReqEn from './Pages/Dashboard/userReq/UserReqEn';
+import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
 
 
 function App() {
@@ -140,6 +144,10 @@ function App() {
               <Route exact path='/super-req-hi' element={<ReqDelHindiStr />} />
               <Route exact path='/super-upEn-str' element={<UploadEnglishStr />} />
               <Route exact path='/super-upHi-str' element={<UploadHindistr />} />
+              <Route exact path='/approve-en' element={<ApproveEn />} />
+              <Route exact path='/approve-hi' element={<ApproveHi />} />
+              <Route exact path='/reqbyuser-en' element={<UserReqEn />} />
+              <Route exact path='/reqbyuser-hi' element={<UserReqHi />} />
             </Route>
           </Route>
         </Routes>

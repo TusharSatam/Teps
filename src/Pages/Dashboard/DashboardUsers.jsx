@@ -27,6 +27,7 @@ const DashboardUsers = () => {
       })
       ;
   }
+
   React.useEffect(() => {
     setIsLoading(true)
     getUsers()
