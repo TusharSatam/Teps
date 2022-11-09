@@ -25,14 +25,20 @@ import HomeHindiLayout from '../Home/HomeHindiLayout';
 import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import { Link } from 'react-router-dom';
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang, user, setUser } = useAuth()
+  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
+  const [check, setCheck] = React.useState(false);
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
+    .map(learning_outcome => {
+      return stratigyFilData?.find(a => a['Learning Outcome'] === learning_outcome)
+    });
+
+  const uniqueSubSubTopicUser = Array.from(new Set(stratigyFilUserData?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
       return stratigyFilData?.find(a => a['Learning Outcome'] === learning_outcome)
     });
@@ -166,6 +172,14 @@ const SearchScrean = () => {
     setShow([])
     setShowH([])
   };
+  const handleUserDataCheck = () => {
+    if (check) {
+      setCheck(false)
+    }
+    else {
+      setCheck(true)
+    }
+  }
   return (
     <>
       <>
@@ -188,7 +202,15 @@ const SearchScrean = () => {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
                 <>
                   <div className='mb-md-3 container_title_sec'>
-                    <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                    <div className='d-flex justify-content-between mt-md-5'>
+                      <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                      <div>
+                        {
+                          !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                        }
+                        <span className='ms-2'>Show user contributed strategies</span>
+                      </div>
+                    </div>
                     <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                   </div>
                   <div className='dropDownContainer mb-5' key={accorKey}>
@@ -208,9 +230,9 @@ const SearchScrean = () => {
                               <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
                                 <div className='my-4'>
                                   {
-                                    stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((data, index) => (
+                                    stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
                                       <div className='d-flex justify-content-between my-4 '>
-                                        <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                        <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                           <div className='me-1'>
                                             <div>
                                               <div className='d-flex'>
@@ -225,14 +247,14 @@ const SearchScrean = () => {
                                                 <div className='res_btn_icon'>
                                                   <div className='d-flex flex-column res_inner_div p-1 '>
                                                     {
-                                                      !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                        data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                      !strRes['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                        strRes['Dev Dom 1'] === "Cognitive Sensory" ?
                                                           <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
                                                           <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                                     }
                                                     {
-                                                      !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                        data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                      !strRes['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                        strRes['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                                           <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
                                                           <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                                     }
@@ -240,7 +262,7 @@ const SearchScrean = () => {
                                                 </div>
                                                 <div className='ms-1'>
                                                   {
-                                                    data['Mode of Teaching'] === "Online" ?
+                                                    strRes['Mode of Teaching'] === "Online" ?
                                                       <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
                                                       <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
                                                   }
@@ -250,14 +272,14 @@ const SearchScrean = () => {
                                           </div>
                                         </Link>
                                         <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
-                                          <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                          <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <p>
-                                              {data["Teaching Strategy"]}
+                                              {strRes["Teaching Strategy"]}
                                             </p>
                                           </Link>
                                           <div className='d-flex align-items-center my-3'>
-                                            {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                            {like.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                                            {react?.includes(strRes._id) ? <img onClick={() => handleReact(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                            {like.includes(strRes._id) ? <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                           </div>
                                         </div>
@@ -269,20 +291,20 @@ const SearchScrean = () => {
                                             <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                               <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                                 {
-                                                  !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                                                    data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                  !strRes['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                                    strRes['Dev Dom 1'] === "Cognitive Sensory" ?
                                                       <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
                                                       <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
                                                 }
                                                 {
-                                                  !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                                                    data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                  !strRes['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                                    strRes['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                                       <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                                       <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
                                                 }
                                               </div>
                                               {
-                                                data['Mode of Teaching'] === "Online" ?
+                                                strRes['Mode of Teaching'] === "Online" ?
                                                   <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
                                                   <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
                                               }
@@ -293,6 +315,95 @@ const SearchScrean = () => {
                                     ))
                                   }
                                 </div>
+                                {check ?
+                                  <div className='my-4'>
+                                    {
+                                      stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
+                                        <div className='d-flex justify-content-between my-4 border-top pt-5'>
+                                          <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <div className='me-1'>
+                                              <div>
+                                                <div className='d-flex'>
+                                                  <p className='Strategy_count'>{t("strategy")}</p>
+                                                  <p className='counter_str'>{index + 1}</p>
+                                                </div>
+                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                              </div>
+                                              <div className='d-block d-md-none mt-1'>
+                                                <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                                <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                                  <div className='res_btn_icon'>
+                                                    <div className='d-flex flex-column res_inner_div p-1 '>
+                                                      {
+                                                        !strUser['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                          strUser['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                            <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                            <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                      }
+                                                      {
+                                                        !strUser['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                          strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                            <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                            <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                      }
+                                                    </div>
+                                                  </div>
+                                                  <div className='ms-1'>
+                                                    {
+                                                      strUser['Mode of Teaching'] === "Online" ?
+                                                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                    }
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </Link>
+                                          <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
+                                            <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                              <p>
+                                                {strUser["Teaching Strategy"]}
+                                              </p>
+                                            </Link>
+                                            <div className='d-flex align-items-center my-3'>
+                                              {react?.includes(strUser._id) ? <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                              {like.includes(strUser._id) ? <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                                            </div>
+                                          </div>
+                                          <div className='col-md-2 d-none d-md-block ms-5'>
+                                            <div className='d-flex flex-column align-items-center justify-content-center'>
+                                              <div>
+                                                <span className='icons_heading'>Developmental Domains</span>
+                                              </div>
+                                              <div className='d-flex align-items-center justify-content-center mt-md-2'>
+                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                                  {
+                                                    !strUser['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                                      strUser['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                        <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
+                                                        <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
+                                                  }
+                                                  {
+                                                    !strUser['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                                      strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                        <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                        <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                                  }
+                                                </div>
+                                                {
+                                                  strUser['Mode of Teaching'] === "Online" ?
+                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                    <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                }
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))
+                                    }
+                                  </div> : ""
+                                }
+
                               </Card.Body>
                             </Accordion.Collapse>
                           </Card>

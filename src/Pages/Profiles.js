@@ -5,6 +5,7 @@ const Profiles = () => {
   return (
     <>
       <Profile />
+
     </>
   );
 };

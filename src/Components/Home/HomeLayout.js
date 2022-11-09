@@ -5,9 +5,11 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
+import { getUserStratigys } from '../../services/userStratigy';
 const HomeLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
+  const [allUserStratigys, setAllUserStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
   const [selectGrade, setSelectGrade] = React.useState()
   const [selectTopic, setSelectTopic] = React.useState()
@@ -24,17 +26,22 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [error6, setError6] = React.useState(false)
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData } = useAuth();
+  const { setStratigyFilData, setStratigyFilUserData } = useAuth();
   React.useEffect(() => {
     getAllStratigys()
       .then(res => {
         setAllStratigys(res.data);
+      })
+    getUserStratigys()
+      .then(res => {
+        setAllUserStratigys(res.data)
       })
     const selectedDropdown = localStorage.getItem('selectedDropdown');
     if (selectedDropdown) {
       setSelectedOption(JSON.parse(selectedDropdown))
     }
   }, [])
+  console.log(allUserStratigys);
   React.useEffect(() => {
     if (location.pathname !== '/home') {
       if (selectedOption) {
@@ -137,12 +144,19 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         const aquaticCreatures = allStratigys.filter(function (creature) {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
-        console.log(aquaticCreatures);
-        setStratigyFilData(aquaticCreatures)
+        const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        });
+
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+          setStratigyFilData(aquaticCreatures)
         }
-        if (aquaticCreatures.length !== 0) {
+        if (aquaticCreaturesUser) {
+          setStratigyFilUserData(aquaticCreaturesUser)
+          window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+        }
+        if (aquaticCreatures.length !== 0 || aquaticCreaturesUser.length !== 0) {
           if (location.pathname === '/home') {
             navigate('/search')
           }
@@ -167,11 +181,18 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
+      const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
+        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+      });
+      console.log(aquaticCreaturesUser);
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
       }
-      if (aquaticCreatures.length === 0) {
+      if (aquaticCreaturesUser) {
+        window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+      }
+      if (aquaticCreatures.length === 0 || aquaticCreaturesUser.length === 0) {
         setError("No strategies are available for this combination. Please try a different combination.")
       }
       // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
