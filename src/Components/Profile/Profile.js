@@ -13,6 +13,7 @@ import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
 import VerifyModal from '../ForgotPassModal/VerifyModal';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -142,7 +143,7 @@ const Profile = () => {
   const doneEmail = () => {
     const data = {
       "to": getEmail,
-      'subject': "Please Verified Your Account -TEPS",
+      'subject': "Email verification - TEPS",
       "html": `
       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
@@ -287,10 +288,10 @@ const Profile = () => {
                 </div>
                 <div className='d-flex'>
                   <div>
-                    <button className="authBtn me-3" >{t('favourites')}</button>
+                    <Link to="/favouriteStratigy"><button className="authBtn me-3" >{t('favourites')}</button></Link>
                   </div>
                   <div>
-                    <button className='authBtn'>{t('saved')}</button>
+                    <Link to="/saveStratigy"><button className='authBtn'>{t('saved')}</button></Link>
                   </div>
                 </div>
               </div>
@@ -390,12 +391,14 @@ const Profile = () => {
                 <div className='d-block d-md-none'>
                   <div className='d-flex justify-content-center mt-3'>
                     <div>
-                      <button className="profileBtn me-3" >{t('favourites')}</button>
+                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('favourites')}</button></Link>
                     </div>
                     <div>
-                      <button className='profileBtn'>
-                        {t('saved')}
-                      </button>
+                      <Link to="/saveStratigy">
+                        <button className='profileBtn'>
+                          {t('saved')}
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -77,5 +77,15 @@
   "Email_Error": "कृपया ईमेल को सही प्रारूप में फिर से दर्ज करें।",
   "Edit": "परिवर्तन करें",
   "Save Email": "परिवर्तनों को सुरक्षित करें",
-  "Search Strategies": "रणनीतियां खोजें"
+  "Search Strategies": "रणनीतियां खोजें",
+  "Strategy screen": "रणनीति",
+  "No Favourite Strategies available.": "कोई पसंदीदा रणनीति उपलब्ध नहीं है।",
+  "Filter": "निस्पंदन",
+  "’s": "की",
+  "No Saved Strategies available.": "कोई सहेजी गई रणनीति उपलब्ध नहीं है।",
+  "Comments": "टिप्पणियाँ",
+  "Add a comment": "एक टिप्पणी जोड़ने",
+  "View comments": "टिप्पणियाँ देखें",
+  "Hide comments": "टिप्पणियां छुपाएं",
+  "Developmental Domains": "Developmental Domains"
 }

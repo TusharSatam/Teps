@@ -29,13 +29,22 @@ import EmailVerify from './Pages/EmailVerify';
 import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
 import AddForm from './Components/AddForm/AddForm';
+import SaveStratigy from './Pages/SaveStratigy';
+import FavouriteStr from './Pages/FavouriteStr';
+import SingleStr from './Pages/SingleStr';
+import SingleHindiStr from './Pages/SingleHindiStr';
+import ApproveEn from './Pages/Dashboard/userReq/ApproveEn';
+import ApproveHi from './Pages/Dashboard/userReq/ApproveHi';
+import UserReqEn from './Pages/Dashboard/userReq/UserReqEn';
+import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
+
 
 
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
@@ -48,41 +57,41 @@ function App() {
   //     .catch(err => console.log(err))
   // }
 
-  React.useEffect(() => {
-    if (data) {
-      getSingleUser(data?._id)
-        .then(res => {
-          if (res?.data[0]?.email !== data?.email) {
-            localStorage.removeItem('data');
-            localStorage.removeItem('jwt');
-            localStorage.removeItem('filterData');
-            localStorage.removeItem('filterDataH');
-            localStorage.removeItem('selectedDropdown');
-            localStorage.removeItem('selectedHiDropdown');
-            setIsAuthenticated(false)
-            navigate('/')
-            setUser(null);
-            setDisplayProfile('d-none')
-            console.log('email');
-          }
-        })
-        .catch(err => {
-          if (err) {
-            localStorage.removeItem('data');
-            localStorage.removeItem('jwt');
-            localStorage.removeItem('filterData');
-            localStorage.removeItem('filterDataH');
-            localStorage.removeItem('selectedDropdown');
-            localStorage.removeItem('selectedHiDropdown');
-            setIsAuthenticated(false)
-            console.log(err);
-            setUser(null)
-            navigate('/')
-            setDisplayProfile('d-none')
-          }
-        })
-    }
-  }, [user, setIsAuthenticated, setUser, data]);
+  // React.useEffect(() => {
+  //   if (data) {
+  //     getSingleUser(data?._id)
+  //       .then(res => {
+  //         if (res?.data[0]?.email !== data?.email) {
+  //           localStorage.removeItem('data');
+  //           localStorage.removeItem('jwt');
+  //           localStorage.removeItem('filterData');
+  //           localStorage.removeItem('filterDataH');
+  //           localStorage.removeItem('selectedDropdown');
+  //           localStorage.removeItem('selectedHiDropdown');
+  //           setIsAuthenticated(false)
+  //           navigate('/')
+  //           setUser(null);
+  //           setDisplayProfile('d-none')
+  //           console.log('email');
+  //         }
+  //       })
+  //       .catch(err => {
+  //         if (err) {
+  //           localStorage.removeItem('data');
+  //           localStorage.removeItem('jwt');
+  //           localStorage.removeItem('filterData');
+  //           localStorage.removeItem('filterDataH');
+  //           localStorage.removeItem('selectedDropdown');
+  //           localStorage.removeItem('selectedHiDropdown');
+  //           setIsAuthenticated(false)
+  //           console.log(err);
+  //           setUser(null)
+  //           navigate('/')
+  //           setDisplayProfile('d-none')
+  //         }
+  //       })
+  //   }
+  // }, [user, setIsAuthenticated, setUser, data]);
 
 
   return (
@@ -121,6 +130,10 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
+            <Route path="/saveStratigy" element={<SaveStratigy />} />
+            <Route path="/favouriteStratigy" element={<FavouriteStr />} />
+            <Route path="/single/:id" element={<SingleStr />} />
+            <Route path="/singleHi/:id" element={<SingleHindiStr />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
@@ -134,6 +147,10 @@ function App() {
               <Route exact path='/super-req-hi' element={<ReqDelHindiStr />} />
               <Route exact path='/super-upEn-str' element={<UploadEnglishStr />} />
               <Route exact path='/super-upHi-str' element={<UploadHindistr />} />
+              <Route exact path='/approve-en' element={<ApproveEn />} />
+              <Route exact path='/approve-hi' element={<ApproveHi />} />
+              <Route exact path='/reqbyuser-en' element={<UserReqEn />} />
+              <Route exact path='/reqbyuser-hi' element={<UserReqHi />} />
             </Route>
           </Route>
         </Routes>
