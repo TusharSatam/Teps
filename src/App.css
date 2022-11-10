@@ -1,6 +1,6 @@
 .App {
   /* text-align: center; */
-  max-width: 1440px;
+  max-width: 1550px;
   margin: 0 auto;
 }
 
@@ -8,6 +8,7 @@
   height: 40vmin;
   pointer-events: none;
 }
+
 ::-webkit-scrollbar-track {
   background-color: #ffffff;
   opacity: 0.75;
@@ -26,6 +27,7 @@
   height: 10px;
   opacity: 0.75;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -51,6 +53,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

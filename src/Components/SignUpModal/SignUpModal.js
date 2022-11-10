@@ -115,7 +115,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     "html": `
                     <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                     <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                    <p>https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                    <p>https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
                     <p>Regards,</p>
                     <p>Things Education</p>
                     `
@@ -132,7 +132,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   // fckmlksdfmn.lsdknf.lkasndf
                   // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
                   //   "reply_to": res?.data?.data?.email,
-                  //   "verify_link": `https://phase1-teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
+                  //   "verify_link": `https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
                   //   "from": "things@ecu.org"
                   // }, '8zEAglGBvaOwqdqTd')
                   //   .then((result) => {
