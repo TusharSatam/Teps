@@ -124,7 +124,46 @@ const SideBar = ({ isOpen, toggle }) => {
             </Dropdown>
           </>
         }
+        <Dropdown>
+          <Dropdown.Toggle variant="bg-transparent border-0 fw-bold" style={{ color: "black" }} id="dropdown-basic">
+            Strategies by User
+          </Dropdown.Toggle>
 
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/reqbyuser-en">
+                English strategies req
+              </Link>
+              <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/reqbyuser-en">
+                English strategies req
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/reqbyuser-hi">
+                Hindi strategies req
+              </Link>
+              <Link style={{ color: "black" }} onClick={toggle} className="fw-bold dash_sidebar_a nav-link d-block d-md-none" to="/reqbyuser-hi">
+                Hindi strategies req
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/approve-en">
+                Approved Strategies En
+              </Link>
+              <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/approve-en">
+                Approved Strategies En
+              </Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <Link style={{ color: "black" }} className="fw-bold dash_sidebar_a nav-link d-none d-md-block" to="/approve-hi">
+                Approved Strategies Hi
+              </Link>
+              <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/approve-hi">
+                Approved Strategies Hi
+              </Link>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
 
         {/* <Nav.Item>
           <Link className="dash_sidebar_a nav-link" to="/">

@@ -32,6 +32,7 @@ const DashHome = () => {
         setStratigys(res.data)
       })
   }, [])
+
   React.useEffect(() => {
     setIsLoading(true)
     getUsers()
@@ -40,6 +41,7 @@ const DashHome = () => {
         setUser(res.data);
       })
   }, [])
+
   React.useEffect(() => {
     setIsLoading3(true)
     getAllHindiStratigys()
@@ -48,6 +50,7 @@ const DashHome = () => {
         setHindiStratigys(res.data);
       })
   }, [])
+
   const current = new Date();
   const month = current.getMonth();
   const year = current.getFullYear()
@@ -86,7 +89,7 @@ const DashHome = () => {
         setTotalSaves(res?.data?.totalSave);
       })
   }, [])
-  console.log(totalSaves);
+
   return (
     <div className="container">
       <div className="row">
