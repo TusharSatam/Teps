@@ -1,7 +1,5 @@
 import React from 'react';
 import './addForm.css';
-import clear from '../../asstes/icons/clear.png'
-import person from '../../asstes/Ellipse 4.png'
 import { FaHeart } from 'react-icons/fa';
 import { useState } from 'react';
 import { getAllStratigys } from '../../services/stratigyes';
@@ -229,117 +227,6 @@ const AddForm = () => {
             : <p className='form-error'>Please fill all of the above fields !</p>} */}
         </form>
       </div>
-
-      {/* <!-- Modal --> */}
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content modal-main-div">
-
-            <div className='modal-top'>
-              <h4 className='modal-title' id="exampleModalLongTitle">Liked By <FaHeart className='like-icon' /></h4>
-              <img className='modal-clear' data-dismiss="modal" aria-label="Close" src={clear} alt="" />
-            </div>
-            <div className='modal-body'>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-              <div>
-                <img src={person} alt="person pic" />
-                <p>User Name</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <!-- Button trigger modal --> */}
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        modal
-      </button>
     </div>
   );
 };

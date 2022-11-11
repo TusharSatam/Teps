@@ -110,7 +110,11 @@ function App() {
           loc.pathname === '/super-req' ||
           loc.pathname === '/super-req-hi' ||
           loc.pathname === '/super-upEn-str' ||
-          loc.pathname === '/super-upHi-str'
+          loc.pathname === '/super-upHi-str' ||
+          loc.pathname === '/approve-en' ||
+          loc.pathname === '/approve-hi' ||
+          loc.pathname === '/reqbyuser-en' ||
+          loc.pathname === '/reqbyuser-hi'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -169,7 +173,11 @@ function App() {
           loc.pathname === '/super-req' ||
           loc.pathname === '/super-req-hi' ||
           loc.pathname === '/super-upEn-str' ||
-          loc.pathname === '/super-upHi-str'
+          loc.pathname === '/super-upHi-str' ||
+          loc.pathname === '/approve-en' ||
+          loc.pathname === '/approve-hi' ||
+          loc.pathname === '/reqbyuser-en' ||
+          loc.pathname === '/reqbyuser-hi'
           ? ('') : (
             <Footer />
           )
