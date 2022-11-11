@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './Pages/Landing';
 import Home from './Pages/Home';
@@ -93,6 +93,13 @@ function App() {
   //   }
   // }, [user, setIsAuthenticated, setUser, data]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  }, [loc.pathname]);
 
   return (
     <div className='App'>

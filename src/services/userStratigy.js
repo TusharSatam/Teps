@@ -21,3 +21,24 @@ export const getUserStratigys = async () => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+// Update Stratigy
+export const updateUserStratigys = async (id, data) => {
+  let stratigyResponse
+  await axios.put(`userStratiges/${id}`, data)
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}
+// Update Stratigy
+export const denyUserStratigys = async (id) => {
+  let stratigyResponse
+  await axios.delete(`userStratiges/${id}`)
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}

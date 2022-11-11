@@ -7,7 +7,7 @@ const ApproveHi = () => {
   React.useEffect(() => {
     getUserStratigysHi()
       .then(res => {
-        setEnStr(res.data)
+        setEnStr(res?.data)
       })
   }, [])
 
@@ -60,10 +60,6 @@ const ApproveHi = () => {
                 </tr>
               </tbody>
             </Table>
-            <div className='mb-3'>
-              <button className='btn btn-primary me-3'>Approve</button>
-              <button className='btn btn-primary'>Deny</button>
-            </div>
           </>
         ))
       }
