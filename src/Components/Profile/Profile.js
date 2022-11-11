@@ -294,7 +294,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='d-flex justify-content-center py-5'>
-                  <Link to="/saveStratigy"><button onClick={handleForgotShow} className='upload_Str_btn'>Upload Strategy</button></Link>
+                  <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                 </div>
               </div>
             </div>
