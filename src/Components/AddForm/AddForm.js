@@ -143,11 +143,7 @@ const AddForm = () => {
       'Teaching Strategy': e.target.teaching_str.value
     }
     setSubmitData(data)
-    // postUserStratigys(data)
-    //   .then(res => {
-    //     console.log(res);
-    //     e.target.reset()
-    //   })
+
   }
 
 
@@ -155,6 +151,7 @@ const AddForm = () => {
     <div>
       <AproveReqModal
         show={modalShow}
+        setModalShow={setModalShow}
         onHide={() => setModalShow(false)}
         data={submitData}
       />
