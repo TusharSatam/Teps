@@ -5,16 +5,46 @@ import { useState } from 'react';
 import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import { postUserStratigys } from '../../services/userStratigy';
+import AproveReqModal from '../Modal/AproveReqModal';
 
 const AddForm = () => {
   const { user } = useAuth()
   const [allStratigys, setAllStratigys] = React.useState([])
+  //---------------------------------------------------------
+  const [selectSubject, setSelectSubject] = React.useState()
+  const [selectGrade, setSelectGrade] = React.useState()
+  const [selectTopic, setSelectTopic] = React.useState()
+  const [selectSkill, setSelectSkill] = React.useState()
+  const [selectSubTopic, setSelectSubTopic] = React.useState()
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState()
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState()
+  //-----------------------------------------------------------------
+  const [modalShow, setModalShow] = React.useState(false);
+  const [languageSelect, setLanguageSelect] = React.useState("en")
+  const [error, setError] = useState(false);
+  const [submitData, setSubmitData] = useState({})
+  const language = localStorage.getItem("i18nextLng")
+  React.useEffect(() => {
+    if (language === "hi") {
+      setLanguageSelect("hi")
+    }
+    else {
+      setLanguageSelect("en")
+    }
+  }, [language])
+
+
   React.useEffect(() => {
     getAllStratigys()
       .then(res => {
         setAllStratigys(res.data);
       })
   }, []);
+
+
+
+
+  // english stratiges--------------------------------------------------------
   const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
     .map(subject => {
       return allStratigys.find(a => a.Subject === subject)
@@ -23,26 +53,6 @@ const AddForm = () => {
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
     .map(grade => {
       return allStratigys.find(a => a.Grade === grade)
-    });
-
-  const uniqueSkill = Array.from(new Set(allStratigys.map(a => a.Skill)))
-    .map(skill => {
-      return allStratigys.find(a => a.Skill === skill)
-    });
-
-  const uniqueTopic = Array.from(new Set(allStratigys.map(a => a.Topic)))
-    .map(topic => {
-      return allStratigys.find(a => a.Topic === topic)
-    });
-
-  const uniqueSubTopic = Array.from(new Set(allStratigys.map(a => a['Sub Topic'])))
-    .map(subtopic => {
-      return allStratigys.find(a => a['Sub Topic'] === subtopic)
-    });
-
-  const uniqueSubSubTopic = Array.from(new Set(allStratigys.map(a => a['Sub-sub topic'])))
-    .map(subsubtopic => {
-      return allStratigys.find(a => a['Sub-sub topic'] === subsubtopic)
     });
 
   const uniqueDevDom1 = Array.from(new Set(allStratigys.map(a => a['Dev Dom 1'])))
@@ -55,14 +65,69 @@ const AddForm = () => {
       return allStratigys.find(a => a['Dev Dom 2'] === devDom1)
     });
 
-  const uniqueOutcome = Array.from(new Set(allStratigys.map(a => a['Learning Outcome'])))
-    .map(devDom1 => {
-      return allStratigys.find(a => a['Learning Outcome'] === devDom1)
+  const handleSub = (e) => {
+    setSelectSubject(e.target.value)
+  }
+  const handleGrade = (e) => {
+    setSelectGrade(e.target.value)
+  }
+  const handleSkill = (e) => {
+    setSelectSkill(e.target.value)
+  }
+  const handleTopic = (e) => {
+    setSelectTopic(e.target.value)
+  }
+  const handleSubTopic = (e) => {
+    setSelectSubTopic(e.target.value)
+  }
+  const handleSubSubTopic = (e) => {
+    setSelectSubSubTopic(e.target.value)
+  }
+  const handleLearningOutcome = (e) => {
+    setSelectLearningOutcome(e.target.value)
+  }
+  const aquaticCreatures = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade;
+  })
+  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
+    .map(skill => {
+      return aquaticCreatures?.find(a => a.Skill === skill)
+    });
+  const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill;
+  })
+  const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.Topic)))
+    .map(topic => {
+      return aquaticCreaturesSkill?.find(a => a.Topic === topic)
+    });
+
+  const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic;
+  })
+
+  const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['Sub Topic'])))
+    .map(sub_topic => {
+      return aquaticCreaturesTopic?.find(a => a['Sub Topic'] === sub_topic)
+    });
+  const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+  })
+  const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
+    .map(sub_sub_topic => {
+      return aquaticCreaturesSubTopic?.find(a => a['Sub-sub topic'] === sub_sub_topic)
     });
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.subject.value === '' && e.target.grade.value === "" && e.target.skill.value === "" && e.target.topic.value === ""
+      && e.target.sub_topic.value === "" && e.target.sub_sub_topic.value === "" && e.target.dev_dom_1.value === "" && e.target.dev_dom_2.value === ""
+      && e.target.mode_of_teaching.value === "" && e.target.learning_outcome.value === "" && e.target.teaching_str.value === "") {
+      setError(true)
+    }
+    else {
+      setModalShow(true)
+    }
     const data = {
       'User_id': user._id,
       'Subject': e.target.subject.value,
@@ -77,18 +142,22 @@ const AddForm = () => {
       'Learning Outcome': e.target.learning_outcome.value,
       'Teaching Strategy': e.target.teaching_str.value
     }
-    postUserStratigys(data)
-      .then(res => {
-        console.log(res);
-        e.target.reset()
-      })
-      .catch(err => console.log(err))
+    setSubmitData(data)
+    // postUserStratigys(data)
+    //   .then(res => {
+    //     console.log(res);
+    //     e.target.reset()
+    //   })
   }
-
 
 
   return (
     <div>
+      <AproveReqModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        data={submitData}
+      />
       <div className='form-title'>
         <p>Add Your Strategy</p>
       </div>
@@ -97,7 +166,7 @@ const AddForm = () => {
           <div className='two-selects '>
             <div>
               <p className='select-title'>Subject <p>*</p></p>
-              <select required className={'select-field'} name="subject" id="">
+              <select required onChange={handleSub} className={'select-field'} name="subject" id="">
                 <option value="" selected disabled>Subject</option>
                 {
                   uniqueSubject?.map(res => (
@@ -108,7 +177,7 @@ const AddForm = () => {
             </div>
             <div>
               <p className='select-title'>Grade <p>*</p></p>
-              <select required className={'select-field'} name="grade" id="">
+              <select required onChange={handleGrade} className={'select-field'} name="grade" id="">
                 <option value="" selected disabled>Grade</option>
                 {
                   uniqueGrade?.map(res => (
@@ -121,7 +190,7 @@ const AddForm = () => {
           <div className='two-selects '>
             <div>
               <p className='select-title'>Skill <p>*</p></p>
-              <select required className={'select-field'} name="skill" id="">
+              <select required onChange={handleSkill} className={'select-field'} name="skill" id="">
                 <option value="" selected disabled>Skill</option>
                 {
                   uniqueSkill?.map(res => (
@@ -132,7 +201,7 @@ const AddForm = () => {
             </div>
             <div>
               <p className='select-title'>Topic <p>*</p></p>
-              <select required className={'select-field'} name="topic" id="">
+              <select required onChange={handleTopic} className={'select-field'} name="topic" id="">
                 <option value="" selected disabled>Topic</option>
                 {
                   uniqueTopic?.map(res => (
@@ -145,7 +214,7 @@ const AddForm = () => {
           <div className='two-selects '>
             <div>
               <p className='select-title'>Sub-Topic <p>*</p></p>
-              <select required className={'select-field'} name="sub_topic" id="">
+              <select required onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
                 <option value="" selected disabled>Sub-Topic</option>
                 {
                   uniqueSubTopic?.map(res => (
@@ -156,7 +225,7 @@ const AddForm = () => {
             </div>
             <div>
               <p className='select-title'>Sub-Sub-Topic <p>*</p></p>
-              <select required className={'select-field'} name="sub_sub_topic" id="">
+              <select required onChange={handleSubSubTopic} className={'select-field'} name="sub_sub_topic" id="">
                 <option value="" selected disabled>Sub-Sub-Topic</option>
 
                 {
@@ -203,10 +272,10 @@ const AddForm = () => {
           <div className='one-selects'>
             <div>
               <p className='select-title'><p>*</p>Learning Outcome</p>
-              <select required className={'select-field w-100'} name="learning_outcome" id="">
+              <select required onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
                 <option value="" selected disabled>Learning Outcome</option>
                 {
-                  uniqueOutcome?.map(res => (
+                  uniqueSubSubTopic?.map(res => (
                     <option>{res['Learning Outcome']}</option>
                   ))
                 }
@@ -223,8 +292,8 @@ const AddForm = () => {
             <p className='form-note'>Note - The strategy will be added post approval by admin</p>
             <button type='submit' className='form-btn'>Submit Strategy</button>
           </div>
-          {/* {!error ? <p className='form-success'>Thank you for submitting the strategy</p>
-            : <p className='form-error'>Please fill all of the above fields !</p>} */}
+          {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
+          {error && <p className='form-error'>Please fill all of the above fields !</p>}
         </form>
       </div>
     </div>

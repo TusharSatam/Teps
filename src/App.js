@@ -136,7 +136,6 @@ function App() {
           <Route path='/verify' element={<Verify />} />
           <Route path='/emailverify' element={<EmailVerify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
-          <Route path='/addForm' element={<AddForm />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
@@ -145,6 +144,7 @@ function App() {
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
+            <Route path='/addForm' element={<AddForm />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
