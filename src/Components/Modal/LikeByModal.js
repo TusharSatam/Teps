@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
 import UserImage from '../../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
 
 const LikeByModal = (props) => {
   const { show, handleClose, totalReact } = props;

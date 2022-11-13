@@ -21,6 +21,16 @@ export const getUserStratigys = async () => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+// get Stratigy
+export const singleUserEnStratigys = async (id) => {
+  let stratigyResponse
+  await axios.get(`userStratiges/${id}`)
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}
 
 // Update Stratigy
 export const updateUserStratigys = async (id, data) => {
@@ -40,5 +50,21 @@ export const denyUserStratigys = async (id) => {
       stratigyResponse = res
     })
     .catch(err => console.log(err))
+  return stratigyResponse;
+}
+
+// delet Stratigy
+export const delApproveUserStratigys = async (id) => {
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    await axios.delete(`userStratiges/${id}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
   return stratigyResponse;
 }

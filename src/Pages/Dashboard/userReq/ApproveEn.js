@@ -1,19 +1,52 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import toast, { Toaster } from 'react-hot-toast';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { getUserStratigys } from '../../../services/userStratigy'
+import UserStrEditModal from '../../../Components/DashboardModal/UserStrEditModal';
+import { delApproveUserStratigys, getUserStratigys, singleUserEnStratigys } from '../../../services/userStratigy'
 const ApproveEn = () => {
   const [enStr, setEnStr] = React.useState([])
+  const [show, setShow] = React.useState(false);
+  const [singleStr, setSingleStr] = React.useState({});
+  const handleClose = () => setShow(false);
+
   React.useEffect(() => {
     getUserStratigys()
       .then(res => {
         setEnStr(res.data?.filter(res => res.Approve === true))
       })
   }, [])
+  const handleDelet = (id) => {
+    delApproveUserStratigys(id)
+      .then(res => {
+        res && setEnStr(enStr.filter(message => message._id !== id));
+        res && toast.success('Strategy Deleted!', {
+          duration: 4000
+        });
+      })
+  }
 
+  const handleEdit = (id) => {
+    singleUserEnStratigys(id)
+      .then(res => {
+        setSingleStr(res[0]);
+        setShow(true)
+      })
+  }
+  console.log(singleStr);
   return (
     <div>
-
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
+      <UserStrEditModal
+        show={show}
+        onHide={handleClose}
+        data={singleStr}
+        setShow={setShow}
+        setStratigys={setEnStr}
+      />
       <>
         <Table striped bordered hover size="sm" className={'d-none d-md-block '}>
           <thead style={{ background: '#d5b39a' }}>
@@ -62,10 +95,10 @@ const ApproveEn = () => {
                   <td>{item['Learning Outcome'].slice(0, 20)}</td>
                   <td>{item['Teaching Strategy'].slice(0, 20)}</td>
                   <td>
-                    <button className='btn p-0 me-2'>
+                    <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
                       <FaRegTrashAlt />
                     </button>
-                    <button className='btn p-0'><FaRegEdit /></button>
+                    <button onClick={() => handleEdit(item._id)} className='btn p-0'><FaRegEdit /></button>
                   </td>
                 </tr>
 
