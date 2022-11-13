@@ -1,0 +1,49 @@
+.re_mod_title{
+  font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 25px;
+line-height: 45px;
+color: #1AA05B;
+letter-spacing: -0.01em;
+line-height: 35px;
+}
+.mod_body{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 33px;
+  letter-spacing: -0.01em;
+  color: #000000;
+  
+}
+.accept_btn{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  background: #1AA05B;
+  border-radius: 20px;
+  border: 1px solid #1AA05B;
+  padding: 5px 15px;
+}
+.cancel_btn{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #1AA05B;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #1AA05B;
+  padding: 5px 15px;
+  margin-left: 20px;
+}

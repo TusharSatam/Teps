@@ -107,7 +107,7 @@ const SingleHindiStr = () => {
   }, [])
   const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  console.log(totalSave);
+  console.log(totalReact);
   return (
     <div>
       <div className='saveStrParent' >

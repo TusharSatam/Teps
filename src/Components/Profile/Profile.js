@@ -71,7 +71,6 @@ const Profile = () => {
         console.log("error", error);
       }
     };
-
     fetchData();
   }, [])
 
@@ -147,7 +146,7 @@ const Profile = () => {
       "html": `
       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-      <p>https://phase1-teps.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
+      <p>https://teps.school/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
       <p>Regards,</p>
       <p>Things Education</p>
       `
@@ -284,7 +283,7 @@ const Profile = () => {
               </div>
               <div style={{ marginTop: "110px" }}>
                 <div className='d-flex justify-content-center py-5'>
-                  <button onClick={handleForgotShow} className='submit_btn'>{t('Change Password')}</button>
+                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>
                 <div className='d-flex'>
                   <div>
@@ -293,6 +292,9 @@ const Profile = () => {
                   <div>
                     <Link to="/saveStratigy"><button className='authBtn'>{t('saved')}</button></Link>
                   </div>
+                </div>
+                <div className='d-flex justify-content-center py-5'>
+                  <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                 </div>
               </div>
             </div>

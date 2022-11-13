@@ -17,6 +17,7 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
+import LikeByModal from '../Components/Modal/LikeByModal';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -107,9 +108,26 @@ const SingleStr = () => {
   }, [])
   const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
+  const [show, setShow] = React.useState(false)
+  const showReact = () => {
+    if (show) {
+      setShow(false)
+    }
+    if (totalReact.length === 0) {
+      setShow(false)
+    }
+    else {
+      setShow(true)
+    }
+  }
 
   return (
     <div>
+      <LikeByModal
+        show={show}
+        handleClose={() => setShow(false)}
+        totalReact={totalReact}
+      />
       <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
@@ -186,7 +204,7 @@ const SingleStr = () => {
                       <div>
                         {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalReact.length}</p>
+                      <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalReact.length}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>

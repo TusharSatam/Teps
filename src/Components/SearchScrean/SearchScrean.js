@@ -315,8 +315,10 @@ const SearchScrean = () => {
                                     ))
                                   }
                                 </div>
+                                {console.log(stratigyFilUserData)}
                                 {check ?
                                   <div className='my-4'>
+
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
                                         <div className='d-flex justify-content-between my-4 border-top pt-5'>

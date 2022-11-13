@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './Pages/Landing';
 import Home from './Pages/Home';
@@ -28,6 +28,7 @@ import Verify from './Pages/Verify';
 import EmailVerify from './Pages/EmailVerify';
 import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
+import AddForm from './Components/AddForm/AddForm';
 import SaveStratigy from './Pages/SaveStratigy';
 import FavouriteStr from './Pages/FavouriteStr';
 import SingleStr from './Pages/SingleStr';
@@ -38,11 +39,12 @@ import UserReqEn from './Pages/Dashboard/userReq/UserReqEn';
 import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
 
 
+
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  axios.defaults.baseURL = `http://localhost:8080/api/`;
+  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  // axios.defaults.baseURL = `http://localhost:8080/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
   }
@@ -91,6 +93,14 @@ function App() {
   //   }
   // }, [user, setIsAuthenticated, setUser, data]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  }, [loc.pathname]);
+
   return (
     <div className='App'>
       {
@@ -134,6 +144,7 @@ function App() {
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
+            <Route path='/addForm' element={<AddForm />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
