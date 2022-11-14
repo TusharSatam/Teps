@@ -3,12 +3,14 @@ import { Table } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import UserStrEditModal from '../../../Components/DashboardModal/UserStrEditModal';
-import { delApproveUserStratigys, getUserStratigys, singleUserEnStratigys } from '../../../services/userStratigy'
+import { delApproveUserStratigys, getUserStratigys, multidelUserStratigys, singleUserEnStratigys } from '../../../services/userStratigy'
 const ApproveEn = () => {
   const [enStr, setEnStr] = React.useState([])
   const [show, setShow] = React.useState(false);
   const [singleStr, setSingleStr] = React.useState({});
   const handleClose = () => setShow(false);
+  const [showCh, setshowCh] = React.useState([]);
+  const [allCheck, setAllCheck] = React.useState(false);
 
   React.useEffect(() => {
     getUserStratigys()
@@ -29,11 +31,48 @@ const ApproveEn = () => {
   const handleEdit = (id) => {
     singleUserEnStratigys(id)
       .then(res => {
-        setSingleStr(res[0]);
+        setSingleStr(res?.data[0]);
         setShow(true)
       })
   }
-  console.log(singleStr);
+  const allselectedId = enStr.map(stra => {
+    return stra._id
+  })
+  const handleAllSelect = () => {
+    if (allCheck) {
+      setAllCheck(false)
+      setshowCh([])
+    }
+    else {
+      setAllCheck(true)
+      setshowCh(allselectedId)
+    }
+  }
+  const handleCheckbox = (ind) => {
+    if (showCh.includes(ind)) {
+      for (var i = 0; i < showCh.length; i++) {
+        if (showCh[i] === ind) {
+          showCh.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    else {
+      showCh.push(ind)
+    }
+    setshowCh([...showCh], [showCh]);
+  }
+  const handleMultiDelet = () => {
+    multidelUserStratigys(showCh)
+      .then(res => {
+        res && setEnStr(enStr.filter(message => !showCh.includes(message._id)));
+        res && toast.success('Selected Strategies Deleted!', {
+          duration: 4000
+        });
+        setshowCh([])
+        setAllCheck(false)
+      })
+  }
   return (
     <div>
       <Toaster
@@ -48,10 +87,14 @@ const ApproveEn = () => {
         setStratigys={setEnStr}
       />
       <>
+        {
+          showCh.length !== 0 &&
+          <button onClick={handleMultiDelet} className={"btn btn-primary mb-3"}>Delete Selected Strategies</button>
+        }
         <Table striped bordered hover size="sm" className={'d-none d-md-block '}>
           <thead style={{ background: '#d5b39a' }}>
             <tr>
-              <th><input type="checkbox" name="" id="" /></th>
+              <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
               <th>#</th>
               <th>Id</th>
               <th scope="col">Subject</th>
@@ -72,7 +115,7 @@ const ApproveEn = () => {
             {
               enStr.map((item, index) => (
                 <tr key={index}>
-                  <td><input type="checkbox" name="" id="" /></td>
+                  <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
                   <td> {index + 1}</td>
                   <td>{(item._id).slice(19, 26)}</td>
                   <td>{item.Subject}</td>

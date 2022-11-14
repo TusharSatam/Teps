@@ -135,14 +135,14 @@ const AddForm = () => {
       'Skill': e.target.skill.value,
       'Topic': e.target.topic.value,
       'Sub Topic': e.target.sub_topic.value,
-      'Sub-sub Topic': e.target.sub_sub_topic.value,
+      'Sub-sub topic': e.target.sub_sub_topic.value,
       'Dev Dom 1': e.target.dev_dom_1.value,
       'Dev Dom 2': e.target.dev_dom_2.value,
       'Mode of Teaching': e.target.mode_of_teaching.value,
       'Learning Outcome': e.target.learning_outcome.value,
-      'Teaching Strategy': e.target.teaching_str.value
+      'Teaching Strategy': e.target.teaching_str.value,
+      'Approve': false
     }
-    console.log(data);
     setSubmitData(data)
 
   }

@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { postUserStratigys } from '../../services/userStratigy';
 import './modal.css'
 const AproveReqModal = (props) => {
+
   const handleAccept = () => {
     postUserStratigys(props.data)
       .then(res => {

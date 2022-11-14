@@ -68,3 +68,19 @@ export const delApproveUserStratigys = async (id) => {
   }
   return stratigyResponse;
 }
+
+// delet multi Stratigy
+export const multidelUserStratigys = async (ids) => {
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    await axios.delete(`userStratiges/ch/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
+  return stratigyResponse;
+}
