@@ -18,6 +18,7 @@ const ApproveEn = () => {
         setEnStr(res.data?.filter(res => res.Approve === true))
       })
   }, [])
+
   const handleDelet = (id) => {
     delApproveUserStratigys(id)
       .then(res => {

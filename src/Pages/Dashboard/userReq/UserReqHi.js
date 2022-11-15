@@ -1,18 +1,50 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { getUserStratigysHi } from '../../../services/userStratigyHi';
+import toast, { Toaster } from 'react-hot-toast';
+import { denyUserStratigysHi, getUserStratigysHi, updateUserStratigysHi } from '../../../services/userStratigyHi';
 
 const UserReqHi = () => {
   const [enStr, setEnStr] = React.useState([])
   React.useEffect(() => {
     getUserStratigysHi()
       .then(res => {
-        setEnStr(res.data)
+        setEnStr(res.data?.filter(res => res.Approve === false))
       })
   }, [])
 
+  const habdleApprove = (id) => {
+    const data = {
+      'Approve': true
+    }
+    updateUserStratigysHi(id, data)
+      .then(res => {
+        getUserStratigysHi()
+          .then(res => {
+            setEnStr(res.data?.filter(res => res.Approve === false))
+            res && toast.success('Request Approved!', {
+              duration: 4000
+            });
+          })
+      })
+  }
+  const habdleDeny = (id) => {
+    denyUserStratigysHi(id)
+      .then(res => {
+        res && toast.success('Request Denied!', {
+          duration: 4000
+        });
+        getUserStratigysHi()
+          .then(res => {
+            setEnStr(res.data?.filter(res => res.Approve === false))
+          })
+      })
+  }
   return (
     <div>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       {
         enStr.map((item, index) => (
           <>
@@ -61,8 +93,8 @@ const UserReqHi = () => {
               </tbody>
             </Table>
             <div className='mb-3'>
-              <button className='btn btn-primary me-3'>Approve</button>
-              <button className='btn btn-primary'>Deny</button>
+              <button onClick={() => habdleApprove(item._id)} className='btn btn-primary me-3'>Approve</button>
+              <button onClick={() => habdleDeny(item._id)} className='btn btn-primary'>Deny</button>
             </div>
           </>
         ))
