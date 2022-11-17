@@ -315,14 +315,13 @@ const SearchScrean = () => {
                                     ))
                                   }
                                 </div>
-                                {console.log(stratigyFilUserData)}
                                 {check ?
                                   <div className='my-4'>
 
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className='d-flex justify-content-between my-4 border-top pt-5'>
-                                          <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 border-top pt-5' : 'd-flex justify-content-between my-4 pt-5'}>
+                                          <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
@@ -362,7 +361,7 @@ const SearchScrean = () => {
                                             </div>
                                           </Link>
                                           <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
-                                            <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
                                                 {strUser["Teaching Strategy"]}
                                               </p>
