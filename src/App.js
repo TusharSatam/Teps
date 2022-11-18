@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './Pages/Landing';
 import Home from './Pages/Home';
@@ -37,6 +37,8 @@ import ApproveEn from './Pages/Dashboard/userReq/ApproveEn';
 import ApproveHi from './Pages/Dashboard/userReq/ApproveHi';
 import UserReqEn from './Pages/Dashboard/userReq/UserReqEn';
 import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
+import SingleUserStr from './Pages/SingleUserStr';
+import DashComments from './Pages/Dashboard/DashComments';
 
 
 
@@ -93,6 +95,13 @@ function App() {
   //   }
   // }, [user, setIsAuthenticated, setUser, data]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  }, [loc.pathname]);
 
   return (
     <div className='App'>
@@ -110,7 +119,12 @@ function App() {
           loc.pathname === '/super-req' ||
           loc.pathname === '/super-req-hi' ||
           loc.pathname === '/super-upEn-str' ||
-          loc.pathname === '/super-upHi-str'
+          loc.pathname === '/super-upHi-str' ||
+          loc.pathname === '/approve-en' ||
+          loc.pathname === '/approve-hi' ||
+          loc.pathname === '/reqbyuser-en' ||
+          loc.pathname === '/reqbyuser-hi' ||
+          loc.pathname === '/admin-comments'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -125,7 +139,6 @@ function App() {
           <Route path='/verify' element={<Verify />} />
           <Route path='/emailverify' element={<EmailVerify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
-          <Route path='/addForm' element={<AddForm />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
@@ -134,6 +147,8 @@ function App() {
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
+            <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
+            <Route path='/addForm' element={<AddForm />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
@@ -151,6 +166,7 @@ function App() {
               <Route exact path='/approve-hi' element={<ApproveHi />} />
               <Route exact path='/reqbyuser-en' element={<UserReqEn />} />
               <Route exact path='/reqbyuser-hi' element={<UserReqHi />} />
+              <Route exact path='/admin-comments' element={<DashComments />} />
             </Route>
           </Route>
         </Routes>
@@ -169,7 +185,12 @@ function App() {
           loc.pathname === '/super-req' ||
           loc.pathname === '/super-req-hi' ||
           loc.pathname === '/super-upEn-str' ||
-          loc.pathname === '/super-upHi-str'
+          loc.pathname === '/super-upHi-str' ||
+          loc.pathname === '/approve-en' ||
+          loc.pathname === '/approve-hi' ||
+          loc.pathname === '/reqbyuser-en' ||
+          loc.pathname === '/reqbyuser-hi' ||
+          loc.pathname === '/admin-comments'
           ? ('') : (
             <Footer />
           )

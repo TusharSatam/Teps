@@ -1,9 +1,11 @@
 import axios from "axios";
 
+
+
 // get Stratigy
-export const postUserStratigys = async (data) => {
+export const postUserStratigysHi = async (data) => {
   let stratigyResponse
-  await axios.post(`userStratiges`, data)
+  await axios.post(`userHindiStratiges`, data)
     .then(res => {
       stratigyResponse = res
     })
@@ -12,9 +14,9 @@ export const postUserStratigys = async (data) => {
 }
 
 // get Stratigy
-export const getUserStratigys = async () => {
+export const getUserStratigysHi = async () => {
   let stratigyResponse
-  await axios.get(`userStratiges/allStr`)
+  await axios.get(`userHindiStratiges/allStr`)
     .then(res => {
       stratigyResponse = res
     })
@@ -22,9 +24,9 @@ export const getUserStratigys = async () => {
   return stratigyResponse;
 }
 // get Stratigy
-export const singleUserEnStratigys = async (id) => {
+export const singleUserHiStratigys = async (id) => {
   let stratigyResponse
-  await axios.get(`userStratiges/${id}`)
+  await axios.get(`userHindiStratiges/${id}`)
     .then(res => {
       stratigyResponse = res
     })
@@ -33,9 +35,9 @@ export const singleUserEnStratigys = async (id) => {
 }
 
 // Update Stratigy
-export const updateUserStratigys = async (id, data) => {
+export const updateUserStratigysHi = async (id, data) => {
   let stratigyResponse
-  await axios.put(`userStratiges/${id}`, data)
+  await axios.put(`userHindiStratiges/${id}`, data)
     .then(res => {
       stratigyResponse = res
     })
@@ -43,9 +45,9 @@ export const updateUserStratigys = async (id, data) => {
   return stratigyResponse;
 }
 // Update Stratigy
-export const denyUserStratigys = async (id) => {
+export const denyUserStratigysHi = async (id) => {
   let stratigyResponse
-  await axios.delete(`userStratiges/${id}`)
+  await axios.delete(`userHindiStratiges/${id}`)
     .then(res => {
       stratigyResponse = res
     })
@@ -54,11 +56,11 @@ export const denyUserStratigys = async (id) => {
 }
 
 // delet Stratigy
-export const delApproveUserStratigys = async (id) => {
+export const delApproveUserStratigysHi = async (id) => {
   let stratigyResponse
   let text = "Are you sure for delete?";
   if (window.confirm(text) === true) {
-    await axios.delete(`userStratiges/${id}`)
+    await axios.delete(`userHindiStratiges/${id}`)
       .then(res => {
         stratigyResponse = res;
       })
@@ -70,11 +72,11 @@ export const delApproveUserStratigys = async (id) => {
 }
 
 // delet multi Stratigy
-export const multidelUserStratigys = async (ids) => {
+export const multidelUserStratigysHi = async (ids) => {
   let stratigyResponse
   let text = "Are you sure for delete?";
   if (window.confirm(text) === true) {
-    await axios.delete(`userStratiges/ch/${ids}`)
+    await axios.delete(`userHindiStratiges/ch/${ids}`)
       .then(res => {
         stratigyResponse = res;
       })
