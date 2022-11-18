@@ -29,23 +29,23 @@ const ApproveReqModalHi = (props) => {
       >
         <span onClick={props.onHide} style={{ cursor: "pointer" }} className="text-end pe-5 pt-4">&#10005;</span>
         <Modal.Body className='px-4'>
-          <p className='re_mod_title'>Thank you for uploading your teaching strategy. <br />
-            Your contribution to the teaching community is appreciated.
+          <p className='re_mod_title'>अपनी शिक्षण रणनीति अपलोड करने के लिए धन्यवाद। <br />
+            शिक्षण समुदाय में आपके योगदान की सराहना की जाती है।
           </p>
           <div className='mod_body'>
-            <p className='ms-3'>Please note: </p>
+            <p className='ms-3'>कृपया ध्यान दें: </p>
             <ol>
-              <li>Your strategy will be uploaded subject to approval from the administrator at Things Education.</li>
-              <li> Your strategy may be modified for accuracy and language before approval.</li>
-              <li> Your strategy, once approved, will be put in the public domain and will be accessible to all members of the TEPS community.</li>
+              <li>थिंग्स एजुकेशन के एडमिनिस्ट्रेटर के अनुमोदन के अधीन आपकी रणनीति अपलोड की जाएगी। </li>
+              <li> अनुमोदन से पहले सटीकता और भाषा के लिए आपकी रणनीति को संशोधित किया जा सकता है।</li>
+              <li> आपकी रणनीति, एक बार स्वीकृत हो जाने के बाद, सार्वजनिक डोमेन में डाल दी जाएगी और टीईपीएस समुदाय के सभी सदस्यों के लिए सुलभ होगी।</li>
             </ol>
           </div>
           <div className='d-flex justify-content-center my-4'>
             <div>
-              <button onClick={handleAccept} className='accept_btn'>Accept</button>
+              <button onClick={handleAccept} className='accept_btn'>स्वीकार करना</button>
             </div>
             <div>
-              <button onClick={props.onHide} className='cancel_btn'>Cancel</button>
+              <button onClick={props.onHide} className='cancel_btn'>रद्द करना</button>
             </div>
           </div>
         </Modal.Body>

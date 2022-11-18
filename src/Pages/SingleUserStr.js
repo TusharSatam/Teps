@@ -18,6 +18,9 @@ import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers'
 import { useAuth } from '../Context/AuthContext';
 import LikeByModal from '../Components/Modal/LikeByModal';
 import { singleUserEnStratigys } from '../services/userStratigy';
+import UserImage from '../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
+
 const SingleUserStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -144,6 +147,12 @@ const SingleUserStr = () => {
                   <div className=' mb-4 mb-md-3'>
                     <p className='Strategy_count'>{t("strategy")}</p>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
+                    <p className='user_str'>Uploaded By - {
+                      user.image ?
+                        <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                        :
+                        <img src={UserImage} alt="person pic" />
+                    } </p>
                   </div>
                 </div>
                 <div className='d-block d-md-none mt-1'>

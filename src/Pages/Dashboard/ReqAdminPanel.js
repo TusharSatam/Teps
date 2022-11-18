@@ -133,7 +133,7 @@ const ReqAdminPanel = () => {
   const handleAllDeny = () => {
     multidelStratigys(showCh)
       .then(res => {
-        res && toast.success('Strategy Den!', {
+        res && toast.success('Strategy Denied!', {
           duration: 4000
         });
         if (res) {
