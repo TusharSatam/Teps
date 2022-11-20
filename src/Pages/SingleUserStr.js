@@ -20,6 +20,7 @@ import LikeByModal from '../Components/Modal/LikeByModal';
 import { singleUserEnStratigys } from '../services/userStratigy';
 import UserImage from '../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
+import { postcomment } from '../services/stratigyes';
 
 const SingleUserStr = () => {
   const { user, setUser } = useAuth()
@@ -30,10 +31,12 @@ const SingleUserStr = () => {
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  const [comment, setComment] = React.useState([])
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
         setStr(res.data[0]);
+        setComment(res.data[1]?.comments)
       })
   }, [])
 
@@ -124,7 +127,24 @@ const SingleUserStr = () => {
       setShow(true)
     }
   }
-
+  const handleComment = (e) => {
+    e.preventDefault()
+    const data = {
+      "strategie_id": id,
+      "user_name": `${user.firstName} ${user.lastName}`,
+      "comment": e.target.comment.value
+    }
+    postcomment(data)
+      .then(res => {
+        console.log('comm', res);
+        singleUserEnStratigys(id)
+          .then(res => {
+            setStr(res.data[0]);
+            setComment(res.data[1]?.comments);
+            e.target.reset()
+          })
+      })
+  }
   return (
     <div>
       <LikeByModal
@@ -268,9 +288,9 @@ const SingleUserStr = () => {
             </div>
             <div className='comment_div d-none d-md-block'>
               <p className='comment_div_p'>{t("Comments")}</p>
-              <form>
+              <form onSubmit={handleComment}>
                 <div>
-                  <input placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
+                  <input name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
                   <input type="submit" value={`${t('Submit')}`} />
@@ -278,14 +298,24 @@ const SingleUserStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} (374) <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} (374) <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
                 </div>
-                <div className='mt-4'>
+                {
+                  comment?.map((res, index) => (
+                    <div key={index} className='mt-4'>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                      <p className='comment_text'>{res.comment}
+                      </p>
+                      <hr />
+                    </div>
+                  ))
+                }
+                {/* <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
                   <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
                     suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -334,7 +364,7 @@ const SingleUserStr = () => {
                     nunc. Vestibulum id ligula lectus.
                   </p>
                   <hr />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -342,9 +372,9 @@ const SingleUserStr = () => {
       </div>
       <div className='comment_div d-block d-md-none'>
         <p className='comment_div_p'>Comments</p>
-        <form>
+        <form onSubmit={handleComment}>
           <div>
-            <input placeholder='Add a comment...' className='w-100 comment_input' type="text" />
+            <input name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
           <div className='d-flex justify-content-end comment_submit'>
             <input type="submit" />
@@ -352,14 +382,24 @@ const SingleUserStr = () => {
         </form>
         <div className={!seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className="text-center see_comment">
-            <p className='m-0'>View comments (374) <img src={DownArrow} alt="" /></p>
+            <p className='m-0'>View comments {comment?.length} <img src={DownArrow} alt="" /></p>
           </div>
         </div>
         <div className={seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className='text-center see_comment'>
-            <p className='m-0'>Hide comments (374) <img src={UpArrow} alt="" /></p>
+            <p className='m-0'>Hide comments {comment?.length} <img src={UpArrow} alt="" /></p>
           </div>
-          <div className='mt-4'>
+          {
+            comment?.map((res, index) => (
+              <div key={index} className='mt-4'>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                <p className='comment_text'>{res.comment}
+                </p>
+                <hr />
+              </div>
+            ))
+          }
+          {/* <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
             <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
               suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -408,7 +448,7 @@ const SingleUserStr = () => {
               nunc. Vestibulum id ligula lectus.
             </p>
             <hr />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

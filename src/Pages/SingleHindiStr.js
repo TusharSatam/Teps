@@ -17,11 +17,13 @@ import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
 import { singleHindiStratigys } from '../services/hindiStratigys';
+import { postcomment } from '../services/stratigyes';
 const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
+  const [comment, setComment] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
@@ -107,7 +109,23 @@ const SingleHindiStr = () => {
   }, [])
   const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  console.log(totalReact);
+  const handleComment = (e) => {
+    e.preventDefault()
+    const data = {
+      "strategie_id": id,
+      "user_name": `${user.firstName} ${user.lastName}`,
+      "comment": e.target.comment.value
+    }
+    postcomment(data)
+      .then(res => {
+        singleHindiStratigys(id)
+          .then(res => {
+            setStr(res[0]);
+            setComment(res[1]?.comments);
+            e.target.reset()
+          })
+      })
+  }
   return (
     <div>
       <div className='saveStrParent' >
@@ -240,7 +258,7 @@ const SingleHindiStr = () => {
             </div>
             <div className='comment_div d-none d-md-block'>
               <p className='comment_div_p'>{t("Comments")}</p>
-              <form>
+              <form onSubmit={handleComment}>
                 <div>
                   <input placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
@@ -257,7 +275,17 @@ const SingleHindiStr = () => {
                 <div onClick={handleSeeComment} className='text-center see_comment'>
                   <p className='m-0'>{t("Hide comments")} (374) <img src={UpArrow} alt="" /></p>
                 </div>
-                <div className='mt-4'>
+                {
+                  comment?.map((res, index) => (
+                    <div key={index} className='mt-4'>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                      <p className='comment_text'>{res.comment}
+                      </p>
+                      <hr />
+                    </div>
+                  ))
+                }
+                {/* <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
                   <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
                     suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -306,7 +334,7 @@ const SingleHindiStr = () => {
                     nunc. Vestibulum id ligula lectus.
                   </p>
                   <hr />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -314,7 +342,7 @@ const SingleHindiStr = () => {
       </div>
       <div className='comment_div d-block d-md-none'>
         <p className='comment_div_p'>Comments</p>
-        <form>
+        <form onSubmit={handleComment}>
           <div>
             <input placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
@@ -331,7 +359,17 @@ const SingleHindiStr = () => {
           <div onClick={handleSeeComment} className='text-center see_comment'>
             <p className='m-0'>Hide comments (374) <img src={UpArrow} alt="" /></p>
           </div>
-          <div className='mt-4'>
+          {
+            comment?.map((res, index) => (
+              <div key={index} className='mt-4'>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                <p className='comment_text'>{res.comment}
+                </p>
+                <hr />
+              </div>
+            ))
+          }
+          {/* <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
             <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
               suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -380,7 +418,7 @@ const SingleHindiStr = () => {
               nunc. Vestibulum id ligula lectus.
             </p>
             <hr />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
