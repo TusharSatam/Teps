@@ -16,6 +16,10 @@ const ReqAdminPanel = () => {
   const [teaching, setTeaching] = React.useState();
   const [indi1, setIndi1] = React.useState();
   const { humBurgs } = useAuth()
+  const [allCheck, setAllCheck] = React.useState(false);
+  const [allDelid, setAllDelid] = React.useState(false);
+  const [showId, setShowId] = React.useState(false);
+
   React.useEffect(() => {
     setIsLoading(true)
     getreqDeletStr()
@@ -25,7 +29,7 @@ const ReqAdminPanel = () => {
   }, [])
 
   const [showCh, setshowCh] = React.useState([])
-  const handleCheckbox = (ind) => {
+  const handleCheckbox = (ind, id) => {
     if (showCh.includes(ind)) {
       for (var i = 0; i < showCh.length; i++) {
         if (showCh[i] === ind) {
@@ -38,6 +42,7 @@ const ReqAdminPanel = () => {
       showCh.push(ind)
     }
     setshowCh([...showCh], [showCh]);
+    setShowId(id)
   }
   // const handleallDelet = () => {
   //   multidelStratigys(deletArray)
@@ -91,6 +96,55 @@ const ReqAdminPanel = () => {
         setIndi1(res.data[0]?.reqDel?.[ind]?._id);
       })
   }
+
+
+  const handleAllSelect = (id) => {
+    if (allCheck) {
+      setAllCheck(false)
+      setshowCh([])
+      setAllDelid('')
+    }
+    else {
+      setAllCheck(true)
+      const allId = count.filter(res => res._id === id);
+      const allselectedId = allId[0].reqDel.map(stra => {
+        return stra._id
+      })
+      setAllDelid(id)
+      setShowId(id)
+      setshowCh(allselectedId)
+    }
+  }
+  const handleAllDelet = () => {
+    multidelStratigys(showCh)
+      .then(res => {
+        res && toast.success('Strategy deleted forever!', {
+          duration: 4000
+        });
+        if (res) {
+          deletRequestArrayid(allDelid)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== allDelid));
+            })
+        }
+      })
+  }
+
+  const handleAllDeny = () => {
+    multidelStratigys(showCh)
+      .then(res => {
+        res && toast.success('Strategy Denied!', {
+          duration: 4000
+        });
+        if (res) {
+          deletRequestArrayid(allDelid)
+            .then(ress => {
+              ress && setcount(count.filter(message => message._id !== allDelid));
+            })
+        }
+      })
+  }
+
   return (
     <>
       <Toaster
@@ -109,15 +163,33 @@ const ReqAdminPanel = () => {
                 count?.map((data, index) => (
                   <><div className="d-flex my-4">
                     <h3 className='me-3'>Request{index + 1} for Delet Strategies</h3>
-                    {/* {
-                      showBtn &&
-                      <button onClick={handleMultiDelet} className='btn btn-primary mx-3'>Delete Selected Strategies</button>
-                    } */}
                   </div>
+                    <div>
+                      {
+                        showId && showId.includes(data._id) ?
+                          <>
+                            {
+                              allCheck ?
+                                <div>
+                                  <button onClick={handleAllDelet} className='btn btn-primary mb-3'>Approve All Strategies</button>
+                                  <button onClick={handleAllDeny} className='btn btn-primary mb-3 mx-3'>Deny All Strategies</button>
+                                </div> :
+                                (allCheck === false && showCh.length > 0) ?
+                                  <div>
+                                    <button onClick={handleAllDelet} className='btn btn-primary mb-3'>Approve Selected Strategies</button>
+                                    <button onClick={handleAllDeny} className='btn btn-primary mb-3 mx-3'>Deny Selected Strategies</button>
+                                  </div> : ''
+
+                            }
+                          </> : ""
+                      }
+
+                    </div>
                     <Table key={index + 1} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflowR' : 'd-none d-md-block table_overflowsR'}>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
-                          {/* <th></th> */}
+                          {console.log((allDelid && allDelid.includes(data._id)) && showCh.length === 0)}
+                          <th><input type="checkbox" checked={allDelid && allDelid.includes(data._id)} onChange={() => handleAllSelect(data._id)} name="" id="" /></th>
                           <th>#</th>
                           <th>Id</th>
                           <th scope="col">Subject</th>
@@ -131,20 +203,14 @@ const ReqAdminPanel = () => {
                           <th scope="col">Mode of Teaching </th>
                           <th scope="col">Learning Outcome </th>
                           <th scope="col">Teaching Strategy </th>
-                          {/* <th scope="col"></th> */}
                         </tr>
                       </thead>
                       <tbody>
                         {
-                          // isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
-                          //   <Spinner animation="border" role="status">
-                          //     <span className="visually-hidden">Loading...</span>
-                          //   </Spinner>
-                          // </div> :
                           <>
                             {data && data?.reqDel?.map((item, index) => (
                               <tr key={index}>
-                                {/* <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td> */}
+                                <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id, data._id)} name="" id="" /></td>
                                 <td> {index + 1}</td>
                                 <td>{(item._id).slice(19, 26)}</td>
                                 <td>{item.Subject}</td>
@@ -174,7 +240,6 @@ const ReqAdminPanel = () => {
                     <Table key={index} responsive striped bordered hover size="sm" className='d-block d-md-none w-100'>
                       <thead style={{ background: '#d5b39a' }}>
                         <tr>
-                          {/* <th></th> */}
                           <th>#</th>
                           <th>Id</th>
                           <th scope="col">Subject</th>
@@ -188,20 +253,13 @@ const ReqAdminPanel = () => {
                           <th scope="col">Mode of Teaching </th>
                           <th scope="col">Learning Outcome </th>
                           <th scope="col">Teaching Strategy </th>
-                          {/* <th scope="col"></th> */}
                         </tr>
                       </thead>
                       <tbody>
                         {
-                          // isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
-                          //   <Spinner animation="border" role="status">
-                          //     <span className="visually-hidden">Loading...</span>
-                          //   </Spinner>
-                          // </div> :
                           <>
                             {data && data?.reqDel?.map((item, index) => (
                               <tr key={index}>
-                                {/* <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td> */}
                                 <td> {index + 1}</td>
                                 <td>{(item._id).slice(19, 26)}</td>
                                 <td>{item.Subject}</td>

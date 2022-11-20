@@ -24,6 +24,9 @@ import HomeLayout from '../Home/HomeLayout';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
 import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import { Link } from 'react-router-dom';
+import UserImage from '../../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
+
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
   const [show, setShow] = React.useState([]);
@@ -317,17 +320,23 @@ const SearchScrean = () => {
                                 </div>
                                 {check ?
                                   <div className='my-4'>
+
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className='d-flex justify-content-between my-4 border-top pt-5'>
-                                          <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 border-top pt-5' : 'd-flex justify-content-between my-4 pt-5'}>
+                                          <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                                <span className='user_str'>Uploaded By - {
+                                                  user.image ?
+                                                    <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    :
+                                                    <img src={UserImage} alt="person pic" />
+                                                } </span>
                                               </div>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
@@ -360,7 +369,7 @@ const SearchScrean = () => {
                                             </div>
                                           </Link>
                                           <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
-                                            <Link to={`/single/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
                                                 {strUser["Teaching Strategy"]}
                                               </p>

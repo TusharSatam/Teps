@@ -79,6 +79,14 @@ const SideBar = ({ isOpen, toggle }) => {
             All Users
           </Link>
         </Nav.Item>
+        <Nav.Item className="">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-comments">
+            Comments
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-comments">
+            Comments
+          </Link>
+        </Nav.Item>
         {
           admin.type === 'super-admin' &&
           <>

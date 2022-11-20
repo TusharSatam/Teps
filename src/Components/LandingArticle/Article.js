@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LanguageSelect from '../../languageSelect';
 import LandingImage from '../../asstes/landing_image.svg'
 import './article.css'
@@ -40,7 +40,7 @@ const Article = () => {
               <p className='my-3 my-md-4'>
                 {t('We have simple-to-use teaching strategies that can be contextualised and used in your classrooms. And they are very easy to access! Just follow these simple steps:')}
               </p>
-              <ol className='list_article'>
+              <ol className={location.pathname === "/home" ? "list_home_article" : "list_article"}>
                 <li>{t('Log in or register.')}</li>
                 <li>{t('Choose the subject and grade for which you need the strategies.')}</li>
                 <li>{t('Choose the skill, topic, sub-topic and sub sub-topic from the dropdown menu.')}</li>
@@ -48,6 +48,14 @@ const Article = () => {
                 <li>{t('Feel free to make notes from the strategies given.')}</li>
                 <li>{t('Also note that you can save these strategies for later use or collect your favourite strategies.')}</li>
               </ol>
+              {
+                location.pathname === '/home' &&
+                <div>
+                  <h4 className='d-none d-md-block'>Want to upload your own strategy and contribute to <br /> the TEPS community?</h4>
+                  <h5 className='d-block d-md-none'>Want to upload your own strategy and contribute to the TEPS community?</h5>
+                  <Link to="/addForm"> <button className='home_btn'>Upload Strategy</button></Link>
+                </div>
+              }
             </div>
           </div>
           <div className='d-none d-md-block'>
@@ -55,6 +63,7 @@ const Article = () => {
           </div>
         </div>
       </section>
+
     </>
   );
 };

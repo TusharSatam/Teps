@@ -70,7 +70,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'd-block' : 'd-none'}>
+          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' || location.pathname === '/addForm' ? 'd-block' : 'd-none'}>
             <LanguageSelect />
           </div>
           {
