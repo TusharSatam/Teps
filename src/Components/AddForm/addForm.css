@@ -128,8 +128,35 @@
     margin-top: 39px;
 }
 
+/* modal  */
 
-.like-title {
+.modal .fade {
+    padding-right: 0;
+}
+
+.modal-main-div {
+    Width: 469px;
+    Height: 598px;
+    border-radius: 12px;
+    position: relative;
+    background-color: white;
+    padding-top: 26px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.modal-top {
+    padding-bottom: 18px;
+    border-bottom: 1px solid #CED4DA;
+}
+
+.modal-clear {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.modal-title {
     font-weight: 700;
     font-size: 32px;
     line-height: 30px;
@@ -137,11 +164,29 @@
     text-align: center;
 }
 
-.like-title .like-icon {
+.modal-title .like-icon {
     color: #FF6273;
     font-size: 20px;
 }
 
+.modal-body {
+    overflow: scroll;
+    scrollbar-color: #D9D9D9 white;
+    scrollbar-width: thin;
+}
+
+.modal-body div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 23px;
+}
+
+.modal-body div p {
+    margin: 0 0 0 15px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
 
 @media only screen and (max-width: 830px) {
     .two-selects {
@@ -221,14 +266,52 @@
     .form-title p {
         font-size: 12px;
     }
-    .like-title {
+
+
+    .modal-main-div {
+        Height: 600px;
+        padding-top: 19px;
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .modal-top {
+        padding-bottom: 15px;
+        border-bottom: 1px solid #CED4DA;
+    }
+
+    .modal-clear {
+        right: 32px;
+        top: 21px;
+        width: 12px;
+    }
+
+    .modal-title {
         font-size: 14px;
     }
 
-    .like-title .like-icon {
+    .modal-title .like-icon {
         font-size: 14px;
         margin-left: 3px;
     }
 
-    
+    .modal-body {
+        overflow: scroll;
+        scrollbar-color: #D9D9D9 white;
+        scrollbar-width: thin;
+    }
+
+    .modal-body div {
+        display: flex;
+        align-items: center;
+        margin-bottom: 23px;
+    }
+
+    .modal-body div p {
+        margin: 0 0 0 15px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
 }

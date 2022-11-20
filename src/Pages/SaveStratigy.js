@@ -39,7 +39,7 @@ const SaveStratigy = () => {
       setLanguageSelect("en")
     }
   }, [language])
-
+  console.log(languageSelect);
   const handleFilter = () => {
     if (filetr) {
       setFilter(false)

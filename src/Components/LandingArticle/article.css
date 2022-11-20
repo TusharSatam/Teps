@@ -21,22 +21,6 @@
     margin-bottom: 203px;
     margin-left: -10px;
 }
-.home_btn{
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  color: #FFFFFF;
-  background: #1AA05B;
-border-radius: 20px;
-border: 1px solid #1AA05B;
-padding: 5px 10px;
-margin-bottom: 40px;
-margin-top: 5px;
-}
-
 .article_image{
     width: 424px;
     height: 554px;
