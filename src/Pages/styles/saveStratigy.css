@@ -1,6 +1,7 @@
 .saveStrParent{
    background: #1AA05B;
    overflow: hidden; 
+   height: 275px;
 }
 .headText{
   font-size: 21px;

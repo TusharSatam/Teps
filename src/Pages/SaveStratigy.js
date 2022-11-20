@@ -101,7 +101,7 @@ const SaveStratigy = () => {
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
+                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position: "relative", left: "-15px", borderRadius: "27px", width: "90px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
                   <img src={Filter} alt="" />
                 </div>
@@ -262,7 +262,7 @@ const SaveStratigy = () => {
                             <div className='col-md-2 d-none d-md-block ms-5'>
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <span className='icons_heading'>Developmental Domains</span>
+                                  <span className='icons_heading'>Development Domains</span>
                                 </div>
                                 <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                   <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
