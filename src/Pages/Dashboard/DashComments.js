@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaRegTrashAlt } from 'react-icons/fa';
+import { useAuth } from '../../Context/AuthContext';
 import { delComments, getComment, updateComment } from '../../services/stratigyes';
 
 const DashComments = () => {
+  const { comments, setComments } = useAuth()
   const [comment, setComment] = useState([])
   useEffect(() => {
     getComment()
@@ -27,6 +29,7 @@ const DashComments = () => {
         getComment()
           .then(res => {
             setComment(res?.data?.filter(res => res?.Approve === false))
+            setComments(res?.data?.filter(res => res?.Approve === false))
           })
       })
   }

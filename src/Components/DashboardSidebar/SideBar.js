@@ -6,20 +6,11 @@ import { Link } from "react-router-dom";
 import Logo from '../../asstes/things_logo.svg'
 import { useAuth } from "../../Context/AuthContext";
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useEffect } from "react";
-import { getComment } from "../../services/stratigyes";
-import { useState } from "react";
 
 
 const SideBar = ({ isOpen, toggle }) => {
-  const { admin } = useAuth()
-  const [comment, setComment] = useState([])
-  useEffect(() => {
-    getComment()
-      .then(res => {
-        setComment(res?.data?.filter(res => res?.Approve === false))
-      })
-  }, [])
+  const { admin, comments } = useAuth()
+
 
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
@@ -92,10 +83,10 @@ const SideBar = ({ isOpen, toggle }) => {
         </Nav.Item>
         <Nav.Item className="">
           <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-comments">
-            Comments {comment?.length}
+            Comments {comments?.length}
           </Link>
           <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-comments">
-            Comments <span className="text-danger">{comment?.length}</span>
+            Comments <span className="text-danger">{comments?.length}</span>
           </Link>
         </Nav.Item>
         {

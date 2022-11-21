@@ -17,6 +17,7 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
+import moment from 'moment/moment';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -279,7 +280,7 @@ const SingleStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />
@@ -363,8 +364,7 @@ const SingleStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
-                {console.log(new Date())}
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
                 <hr />
