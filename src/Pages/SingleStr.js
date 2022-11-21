@@ -126,6 +126,7 @@ const SingleStr = () => {
           })
       })
   }
+
   return (
     <div>
       <div className='saveStrParent' >
@@ -260,7 +261,7 @@ const SingleStr = () => {
               <p className='comment_div_p'>{t("Comments")}</p>
               <form onSubmit={handleComment}>
                 <div>
-                  <input name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
+                  <input required name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
                   <input type="submit" value={`${t('Submit')}`} />
@@ -344,7 +345,7 @@ const SingleStr = () => {
         <p className='comment_div_p'>Comments</p>
         <form onSubmit={handleComment}>
           <div>
-            <input name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
+            <input required name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
           <div className='d-flex justify-content-end comment_submit'>
             <input type="submit" />
@@ -362,6 +363,7 @@ const SingleStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
+                {console.log(new Date())}
                 <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
