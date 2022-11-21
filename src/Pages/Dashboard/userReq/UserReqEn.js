@@ -18,52 +18,90 @@ const UserReqEn = () => {
     const data = {
       'Approve': true
     }
-    updateUserStratigys(id, data)
-      .then(res => {
-        // singleUserEnStratigys(id)
-        //   .then(ress => {
-        //     const datae = {
-        //       "to": user.email,
-        //       'subject': "TEPS - Congratulations! Your strategy has been approved.",
-        //       "html": `
-        //       <p>Hello ${user.firstName}</p>
-        //       <p>We are glad to inform you that your strategy (shown below) has been approved and will be shown with the rest of the strategies to all the members of the community. We thank you for your contribution to the community of educators.</p><br />
-        //       <p>Regards,</p>
-        //       <p>Things Education Team</p>
-        //       <p>${res?.data[0]['Teaching Strategy']}</p>
-        //       `
-        //     }
-        //     axios.post('email', datae)
-        //       .then(resp => {
-        //         console.log('ljkbkjh');
-        //         resp && getUserStratigys()
-        //           .then(res => {
-        //             setEnStr(res.data?.filter(res => res.Approve === false))
-        //             res && toast.success('Request Approved!', {
-        //               duration: 4000
-        //             });
-        //           })
-        //       })
-        //       .catch(err => console.log(err))
-        //   })
-        getUserStratigys()
+    singleUserEnStratigys(id)
+      .then(response => {
+        updateUserStratigys(id, data)
           .then(res => {
-            setEnStr(res.data?.filter(res => res.Approve === false))
-            res && toast.success('Request Approved!', {
-              duration: 4000
-            });
+            // singleUserEnStratigys(id)
+            //   .then(ress => {
+            //     const datae = {
+            //       "to": user.email,
+            //       'subject': "TEPS - Congratulations! Your strategy has been approved.",
+            //       "html": `
+            //       <p>Hello ${user.firstName}</p>
+            //       <p>We are glad to inform you that your strategy (shown below) has been approved and will be shown with the rest of the strategies to all the members of the community. We thank you for your contribution to the community of educators.</p><br />
+            //       <p>Regards,</p>
+            //       <p>Things Education Team</p>
+            //       <p>${res?.data[0]['Teaching Strategy']}</p>
+            //       `
+            //     }
+            //     axios.post('email', datae)
+            //       .then(resp => {
+            //         console.log('ljkbkjh');
+            //         resp && getUserStratigys()
+            //           .then(res => {
+            //             setEnStr(res.data?.filter(res => res.Approve === false))
+            //             res && toast.success('Request Approved!', {
+            //               duration: 4000
+            //             });
+            //           })
+            //       })
+            //       .catch(err => console.log(err))
+            //   })
+            getUserStratigys()
+              .then(res => {
+                setEnStr(res.data?.filter(res => res.Approve === false))
+                res && toast.success('Request Approved!', {
+                  duration: 4000
+                });
+                const datae = {
+                  "to": user.email,
+                  'subject': "TEPS - Congratulations! Your strategy has been approved.",
+                  "html": `
+                      <p>Hello ${user.firstName},</p>
+                      <p>We are glad to inform you that your strategy (shown below) has been approved and will be shown with the rest of the strategies to all the members of the community. We thank you for your contribution to the community of educators.</p><br />
+                      <p>Regards,</p>
+                      <p>Things Education Team</p>
+                      <p>${response?.data[0]['Teaching Strategy']}</p>
+                      `
+                }
+                axios.post('email', datae)
+                  .then(resp => {
+                    console.log('ljkbkjh', resp);
+                  })
+                  .catch(err => console.log(err))
+              })
           })
       })
   }
   const habdleDeny = (id) => {
-    denyUserStratigys(id)
-      .then(res => {
-        res && toast.success('Request Denied!', {
-          duration: 4000
-        });
-        getUserStratigys()
+    singleUserEnStratigys(id)
+      .then(response => {
+        denyUserStratigys(id)
           .then(res => {
-            setEnStr(res.data?.filter(res => res.Approve === false))
+            res && toast.success('Request Denied!', {
+              duration: 4000
+            });
+            getUserStratigys()
+              .then(res => {
+                setEnStr(res.data?.filter(res => res.Approve === false))
+                const datae = {
+                  "to": user.email,
+                  'subject': "Regarding your strategy on the TEPS Community.",
+                  "html": `
+                  <p>Hello ${user.firstName},</p>
+                  <p>Thank you for uploading your strategy to the TEPS community. Unfortunately, we will not be able to include your strategy (shown below) on the platform as it does not meet our standards. We hope that you will continue to contribute to the community of educators.</p>
+                  <p>Regards,</p>
+                  <p>Things Education Team</p>
+                  <p>${response?.data[0]['Teaching Strategy']}</p>
+                  `
+                }
+                axios.post('email', datae)
+                  .then(resp => {
+                    console.log('ljkbkjh', resp);
+                  })
+                  .catch(err => console.log(err))
+              })
           })
       })
   }

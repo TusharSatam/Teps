@@ -122,7 +122,7 @@ const AddFormHi = () => {
         data={submitData}
       />
       <div className='form-title'>
-        <p>Add Your Strategy</p>
+        <p>अपनी रणनीति जोड़ें</p>
       </div>
       <div className='center-div'>
         <form className='form-main-div' onSubmit={handleSubmit}>
@@ -252,7 +252,7 @@ const AddFormHi = () => {
           </div>
           <div className='d-flex justify-content-center mt-4'>
             {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
-            <button type='submit' className='form-btn'>Update Strategy</button>
+            <button type='submit' className='form-btn'>अद्यतन रणनीति</button>
           </div>
           {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
           {error && <p className='form-error'>Please fill all of the above fields !</p>}

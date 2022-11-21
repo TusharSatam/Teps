@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { singleStratigys } from '../services/stratigyes';
+import { postcomment, singleStratigys } from '../services/stratigyes';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -17,10 +17,11 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
-import LikeByModal from '../Components/Modal/LikeByModal';
+import moment from 'moment/moment';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
+  const [comment, setComment] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
   const { id } = useParams();
@@ -31,6 +32,7 @@ const SingleStr = () => {
     singleStratigys(id)
       .then(res => {
         setStr(res[0]);
+        setComment(res[1]?.comments)
       })
   }, [])
   const handleReact = async (e) => {
@@ -108,26 +110,26 @@ const SingleStr = () => {
   }, [])
   const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  const [show, setShow] = React.useState(false)
-  const showReact = () => {
-    if (show) {
-      setShow(false)
+  const handleComment = (e) => {
+    e.preventDefault()
+    const data = {
+      "strategie_id": id,
+      "user_name": `${user.firstName} ${user.lastName}`,
+      "comment": e.target.comment.value
     }
-    if (totalReact.length === 0) {
-      setShow(false)
-    }
-    else {
-      setShow(true)
-    }
+    postcomment(data)
+      .then(res => {
+        singleStratigys(id)
+          .then(res => {
+            setStr(res[0]);
+            setComment(res[1]?.comments);
+            e.target.reset()
+          })
+      })
   }
 
   return (
     <div>
-      <LikeByModal
-        show={show}
-        handleClose={() => setShow(false)}
-        totalReact={totalReact}
-      />
       <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
@@ -204,7 +206,7 @@ const SingleStr = () => {
                       <div>
                         {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalReact.length}</p>
+                      <p className='count_num'>{totalReact.length}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
@@ -258,9 +260,9 @@ const SingleStr = () => {
             </div>
             <div className='comment_div d-none d-md-block'>
               <p className='comment_div_p'>{t("Comments")}</p>
-              <form>
+              <form onSubmit={handleComment}>
                 <div>
-                  <input placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
+                  <input required name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
                   <input type="submit" value={`${t('Submit')}`} />
@@ -268,14 +270,24 @@ const SingleStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} (374) <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} (374) <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
                 </div>
-                <div className='mt-4'>
+                {
+                  comment?.map((res, index) => (
+                    <div key={index} className='mt-4'>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                      <p className='comment_text'>{res.comment}
+                      </p>
+                      <hr />
+                    </div>
+                  ))
+                }
+                {/* <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
                   <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
                     suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -324,7 +336,7 @@ const SingleStr = () => {
                     nunc. Vestibulum id ligula lectus.
                   </p>
                   <hr />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -332,9 +344,9 @@ const SingleStr = () => {
       </div>
       <div className='comment_div d-block d-md-none'>
         <p className='comment_div_p'>Comments</p>
-        <form>
+        <form onSubmit={handleComment}>
           <div>
-            <input placeholder='Add a comment...' className='w-100 comment_input' type="text" />
+            <input required name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
           <div className='d-flex justify-content-end comment_submit'>
             <input type="submit" />
@@ -342,14 +354,24 @@ const SingleStr = () => {
         </form>
         <div className={!seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className="text-center see_comment">
-            <p className='m-0'>View comments (374) <img src={DownArrow} alt="" /></p>
+            <p className='m-0'>View comments {comment?.length} <img src={DownArrow} alt="" /></p>
           </div>
         </div>
         <div className={seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className='text-center see_comment'>
-            <p className='m-0'>Hide comments (374) <img src={UpArrow} alt="" /></p>
+            <p className='m-0'>Hide comments {comment?.length} <img src={UpArrow} alt="" /></p>
           </div>
-          <div className='mt-4'>
+          {
+            comment?.map((res, index) => (
+              <div key={index} className='mt-4'>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                <p className='comment_text'>{res.comment}
+                </p>
+                <hr />
+              </div>
+            ))
+          }
+          {/* <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
             <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
               suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
@@ -398,7 +420,7 @@ const SingleStr = () => {
               nunc. Vestibulum id ligula lectus.
             </p>
             <hr />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

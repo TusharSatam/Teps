@@ -324,7 +324,12 @@
       border-radius: 4px;
       padding: 3px 7px;
     }
-
+.user_str{
+  font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+color: #000000;
+}
 @media only screen and (max-width: 990px) {
   .threeIcons-nun{
     width: 37px;

@@ -9,7 +9,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 const SideBar = ({ isOpen, toggle }) => {
-  const { admin } = useAuth()
+  const { admin, comments } = useAuth()
+
+
   return (
     <div className={classNames("sidebar", { "is-open": isOpen })}>
       <div className="sidebar-header">
@@ -81,10 +83,10 @@ const SideBar = ({ isOpen, toggle }) => {
         </Nav.Item>
         <Nav.Item className="">
           <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/admin-comments">
-            Comments
+            Comments {comments?.length}
           </Link>
           <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/admin-comments">
-            Comments
+            Comments <span className="text-danger">{comments?.length}</span>
           </Link>
         </Nav.Item>
         {

@@ -181,3 +181,52 @@ export const deletRequestArrayid = async (id) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+export const postcomment = async (data) => {
+  let stratigyResponse
+  await axios.post(`comments`, data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
+export const getComment = async () => {
+  let stratigyResponse
+  await axios.get(`comments`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
+export const updateComment = async (ids, data) => {
+  let stratigyResponse
+  await axios.put(`comments/${ids}`, data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
+export const delComments = async (id) => {
+  let stratigyResponse
+  let text = "Are you sure for delete?";
+  if (window.confirm(text) === true) {
+    await axios.delete(`comments/${id}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Stratigy save!")
+  }
+  return stratigyResponse;
+
+}

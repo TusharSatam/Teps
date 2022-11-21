@@ -24,6 +24,9 @@ import HomeLayout from '../Home/HomeLayout';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
 import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import { Link } from 'react-router-dom';
+import UserImage from '../../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
+
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
   const [show, setShow] = React.useState([]);
@@ -328,7 +331,12 @@ const SearchScrean = () => {
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                                <span className='user_str'>Uploaded By - {
+                                                  user.image ?
+                                                    <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    :
+                                                    <img src={UserImage} alt="person pic" />
+                                                } </span>
                                               </div>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
