@@ -31,6 +31,8 @@
     padding-top: 0!important;
     padding-left: 0!important;
     padding-bottom: 0!important;
+    position: relative;
+    bottom: -20px;
 }
 .Strategy_count{
     font-family: 'Inter';
@@ -64,6 +66,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    left: 8px;
 }
 .container_title_sec{
     margin: 0px 60px;
@@ -123,8 +127,8 @@
   margin-left: -68px;
 }
 .threeIcons{
-    width: 60px;
-    height: 60px;
+    width: 20px;
+    height: 45px;
 }
 .threeIcons-nun{
   width: 75px;

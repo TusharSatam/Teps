@@ -1,6 +1,7 @@
 .saveStrParent{
    background: #1AA05B;
    overflow: hidden; 
+   height: 275px;
 }
 .headText{
   font-size: 21px;
@@ -8,7 +9,7 @@
 }
 .savestr_head{
   font-size: 20px!important;
-  font-weight: 500!important;
+  font-weight: 600!important;
 }
 .savestr_body{
   font-family: 'Inter';
@@ -110,14 +111,15 @@
   line-height: 23px;
   color: #FFFFFF;
   letter-spacing: -0.01em;
-  padding: 5px 15px;
+  padding: 6px 8px;
 }
 .see_comment{
   background: #F4F8F7;
 border: 0.5px solid rgba(47, 50, 57, 0.3);
 border-radius: 3px;
-margin-top: 20px;
-padding: 5px;
+margin-top: 15px;
+margin-bottom: 5px;
+padding: 0px;
 cursor: pointer;
 }
 .see_comment p{
@@ -127,11 +129,14 @@ cursor: pointer;
   font-size: 12px;
   line-height: 25px;
   color: #1C1D1F;
+
+
+  
 }
 .comment_head{
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 16px;
   line-height: 25px;
   color: #08090A;
@@ -143,6 +148,7 @@ cursor: pointer;
   font-size: 12px;
   line-height: 25px;
   color: #6D747A;
+  padding-left: 10px;
 }
 .comment_text{
   font-family: 'Inter';
@@ -184,7 +190,7 @@ line-height: 14px;
     margin-bottom: 5px;
   }
   .comment_div{
-    margin: 5px 10px;
+    margin: -10px 10px;
     padding: 10px 10px;
   }
   .comment_input{

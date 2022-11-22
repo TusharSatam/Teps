@@ -176,7 +176,7 @@ const SingleUserStr = () => {
                   </div>
                 </div>
                 <div className='d-block d-md-none mt-1'>
-                  <div className='icon_heading_text p-1'>Developmental Domains</div>
+                  <div className='icon_heading_text p-1'>Development Domains</div>
                   <div className=' mt-1'>
                     <div className='res_btn_icon'>
                       <div className='d-flex flex-column res_inner_div p-1 '>
