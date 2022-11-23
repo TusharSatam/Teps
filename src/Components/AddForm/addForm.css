@@ -135,6 +135,8 @@
     line-height: 30px;
     color: #1AA05B;
     text-align: center;
+    position: relative;
+    padding-left: 140px;
 }
 
 .like-title .like-icon {

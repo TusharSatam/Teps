@@ -128,7 +128,7 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalReact}
       />
-      <div className='saveStrParent' >
+      <div className='saveStrParent2' style={{background: "#1AA05B",overflow: "hidden", height: "33px", padding: "1px"}} >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>

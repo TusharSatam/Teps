@@ -1,7 +1,34 @@
 .saveStrParent{
    background: #1AA05B;
    overflow: hidden; 
-   height: 275px;
+   height: 268px;
+    padding: 1px;
+}
+.filtericon2{
+  position: relative;
+  padding-left: 10px;
+}
+.button:hover{
+  position: relative;
+  left: -25px;
+  border-radius: 27px;
+   width: 98px;
+   cursor: pointer;
+   background-color:#4CAF50 ;
+   transition-duration: 0.4s ;
+}
+.model-content{
+  top: 125px;
+}
+.savStrParent2{
+  background: #1AA05B;
+   overflow: hidden; 
+   height: 33px;
+    padding: 1px;
+}
+.button:hover{
+  background-color: blue;
+  color: red;
 }
 .headText{
   font-size: 21px;
@@ -31,7 +58,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 25px;
   color: #6D747A;
 }
@@ -51,6 +78,8 @@
 }
 .dev_dom_bg{
   background: #F4F8F7;
+  height: fit-content;
+  border-radius: 17px;
 } 
 .icon_bg{
   background: #FFFFFF;
@@ -111,7 +140,7 @@
   line-height: 23px;
   color: #FFFFFF;
   letter-spacing: -0.01em;
-  padding: 6px 8px;
+  padding: 5px 16px;
 }
 .see_comment{
   background: #F4F8F7;
@@ -121,6 +150,10 @@ margin-top: 15px;
 margin-bottom: 5px;
 padding: 0px;
 cursor: pointer;
+}
+.col-md-1 bg-white py-1 px-3 :hover{
+  background-color: #555555;
+  color: white;
 }
 .see_comment p{
   font-family: 'Inter';
