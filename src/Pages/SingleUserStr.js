@@ -146,7 +146,7 @@ const SingleUserStr = () => {
           })
       })
   }
-  
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -329,56 +329,6 @@ const SingleUserStr = () => {
                     </div>
                   ))
                 }
-                {/* <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div> */}
               </div>
             </div>
           </div>
@@ -413,56 +363,6 @@ const SingleUserStr = () => {
               </div>
             ))
           }
-          {/* <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div> */}
         </div>
       </div>
     </div>
