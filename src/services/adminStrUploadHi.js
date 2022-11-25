@@ -35,7 +35,7 @@ export const delAdminStratigysHi = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 

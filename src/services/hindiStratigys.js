@@ -35,7 +35,7 @@ export const delHindiStratigys = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -78,7 +78,7 @@ export const multidelHiStratigys = async (ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -110,7 +110,7 @@ export const reqDeletHiStr = async (data, ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 

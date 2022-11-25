@@ -35,7 +35,7 @@ export const delStratigys = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -51,7 +51,7 @@ export const multidelStratigys = async (ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -67,7 +67,7 @@ export const alldelStratigys = async (all) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -112,7 +112,7 @@ export const reqDeletStr = async (data, ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -225,7 +225,7 @@ export const delComments = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 

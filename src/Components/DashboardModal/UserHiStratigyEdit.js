@@ -168,7 +168,6 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
                 </div>
                 <div>
                   <p className='select-title'>शीर्षक <p>*</p></p>
-                  {data.शीर्षक}
                   <select defaultValue={data.शीर्षक} onChange={handleTopic} className={'select-field'} name="topic" id="">
                     <option value={data.शीर्षक} >{data.शीर्षक}</option>
                     {

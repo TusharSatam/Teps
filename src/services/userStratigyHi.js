@@ -12,7 +12,16 @@ export const postUserStratigysHi = async (data) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
-
+// get Stratigy
+export const getUserPaginationHindiStratigys = async (quiry) => {
+  let stratigyResponse
+  await axios.get(`userHindiStratiges`, { params: { page: quiry } })
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}
 // get Stratigy
 export const getUserStratigysHi = async () => {
   let stratigyResponse

@@ -21,6 +21,7 @@ import { singleUserEnStratigys } from '../services/userStratigy';
 import UserImage from '../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
 import { postcomment } from '../services/stratigyes';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const SingleUserStr = () => {
   const { user, setUser } = useAuth()
@@ -31,7 +32,8 @@ const SingleUserStr = () => {
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [comment, setComment] = React.useState([])
+  const [comment, setComment] = React.useState([]);
+
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
@@ -145,6 +147,11 @@ const SingleUserStr = () => {
           })
       })
   }
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {user.firstName}
+    </Tooltip>
+  );
   return (
     <div>
       <LikeByModal
@@ -169,7 +176,13 @@ const SingleUserStr = () => {
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                     <p className='user_str'>Uploaded By - {
                       user.image ?
-                        <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                        <OverlayTrigger
+                          placement="right"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={renderTooltip}
+                        >
+                          <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                        </OverlayTrigger>
                         :
                         <img src={UserImage} alt="person pic" />
                     } </p>
