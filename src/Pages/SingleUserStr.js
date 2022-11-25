@@ -32,8 +32,7 @@ const SingleUserStr = () => {
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [comment, setComment] = React.useState([]);
-
+  const [comment, setComment] = React.useState([])
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
@@ -147,11 +146,13 @@ const SingleUserStr = () => {
           })
       })
   }
+  
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
     </Tooltip>
   );
+
   return (
     <div>
       <LikeByModal

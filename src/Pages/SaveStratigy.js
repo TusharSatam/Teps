@@ -18,6 +18,7 @@ import { getSingleUser, updateUser } from '../services/dashboardUsers';
 import FilterStr from '../Components/Home/FilterStr';
 import { Link } from 'react-router-dom';
 import { getMultitHiStr } from '../services/hindiStratigys';
+import { buildQueries } from '@testing-library/react';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -100,15 +101,17 @@ const SaveStratigy = () => {
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
+                {/* col-md-1 bg-white py-1 px-3 */}
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position: "relative", left: "-15px", borderRadius: "27px", width: "90px", cursor: "pointer" }}>
+                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position: "relative", left: "-25px", borderRadius: "27px", width: "98px", cursor: "pointer"}}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" />
+                  <img src={Filter} alt="" className='filtericon2'/>
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
                   stratigy={saveStratigy}
+                  
                 />
               </div>
             </div>
@@ -157,7 +160,7 @@ const SaveStratigy = () => {
                                 </div>
                               </div>
                             </div>
-                          </Link>
+                            </Link>
                           <div className='col-9 ms-4 col-md-8 '>
                             <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                               <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
@@ -201,7 +204,6 @@ const SaveStratigy = () => {
                       </div>
                     </div>
                   </div>
-                  // </Link>
                 ))
                   :
                   saveStratigy?.map((data, index) => (
@@ -295,11 +297,12 @@ const SaveStratigy = () => {
             }
           </> :
           <>
+          {/* 'col-md-1 bg-white py-1 px-3' */}
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
+                <div onClick={handleFilter} className="button" style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
                   <img src={Filter} alt="" />
                 </div>

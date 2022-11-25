@@ -190,7 +190,6 @@ export const postcomment = async (data) => {
     })
     .catch(err => console.log(err))
   return stratigyResponse;
-
 }
 
 export const getComment = async () => {
@@ -228,5 +227,4 @@ export const delComments = async (id) => {
     alert("Strategy saved!")
   }
   return stratigyResponse;
-
 }

@@ -161,7 +161,12 @@ const SingleStr = () => {
 
   return (
     <div>
-      <div className='saveStrParent' >
+      <LikeByModal
+        show={show}
+        handleClose={() => setShow(false)}
+        totalReact={totalReact}
+      />
+      <div className='saveStrParent2' style={{background: "#1AA05B",overflow: "hidden", padding: "5px"}} >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
@@ -301,12 +306,13 @@ const SingleStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img width = "10px" src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img width = "10px" src={UpArrow} alt="" /></p>
+
                 </div>
                 {
                   comment?.map((res, index) => (
@@ -326,7 +332,37 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+                  
+                </div>
+                <div className='mt-4'>
+                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+                    nunc. Vestibulum id ligula lectus.
+                  </p>
+                  
+                </div>
+                <div className='mt-4'>
+                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+                    nunc. Vestibulum id ligula lectus.
+                  </p>
+               
+                </div>
+                <div className='mt-4'>
+                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+                    nunc. Vestibulum id ligula lectus.
+                  </p>
+                  
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -337,37 +373,8 @@ const SingleStr = () => {
                     nunc. Vestibulum id ligula lectus.
                   </p>
                   <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div> */}
+                </div> 
+                */}
               </div>
             </div>
           </div>
@@ -410,7 +417,37 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+           
+          </div>
+          <div className='mt-4'>
+            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+              nunc. Vestibulum id ligula lectus.
+            </p>
+           
+          </div>
+          <div className='mt-4'>
+            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+              nunc. Vestibulum id ligula lectus.
+            </p>
+            
+          </div>
+          <div className='mt-4'>
+            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
+            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
+              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
+              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
+              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
+              nunc. Vestibulum id ligula lectus.
+            </p>
+           
           </div>
           <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -421,37 +458,8 @@ const SingleStr = () => {
               nunc. Vestibulum id ligula lectus.
             </p>
             <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div> */}
+          </div> 
+          */}
         </div>
       </div>
     </div>

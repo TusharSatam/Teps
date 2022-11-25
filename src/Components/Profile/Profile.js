@@ -281,7 +281,7 @@ const Profile = () => {
               <div className='profile_school mt-5'>
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
-              <div style={{ marginTop: "110px" }}>
+              <div className='py-4' style={{ position: "relative",padding:"4px" }}>
                 <div className='d-flex justify-content-center py-5'>
                   <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>

@@ -25,7 +25,7 @@ const LikeByModal = (props) => {
                     <img src={UserImage} alt="person pic" />
                 }
               </div>
-              <p className='ms-2 mt-2'>{res.firstName}{res.lastName}</p>
+              <p className='like' style={{fontsize:"21px"}} >{res.firstName}{res.lastName}</p>
             </div>
           ))
         }
