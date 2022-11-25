@@ -111,6 +111,7 @@ const SaveStratigy = () => {
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
                   stratigy={saveStratigy}
+                  
                 />
               </div>
             </div>
@@ -159,7 +160,7 @@ const SaveStratigy = () => {
                                 </div>
                               </div>
                             </div>
-                          </Link>
+                            </Link>
                           <div className='col-9 ms-4 col-md-8 '>
                             <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                               <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
@@ -203,7 +204,6 @@ const SaveStratigy = () => {
                       </div>
                     </div>
                   </div>
-                  // </Link>
                 ))
                   :
                   saveStratigy?.map((data, index) => (

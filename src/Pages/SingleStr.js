@@ -128,7 +128,7 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalReact}
       />
-      <div className='saveStrParent2' style={{background: "#1AA05B",overflow: "hidden", height: "33px", padding: "1px"}} >
+      <div className='saveStrParent2' style={{background: "#1AA05B",overflow: "hidden", padding: "5px"}} >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
@@ -268,12 +268,12 @@ const SingleStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} (374) <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} (374) <img style={{width:"10px"}} src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} (374) <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} (374) <img width = "10px" src={UpArrow} alt="" /></p>
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -283,7 +283,7 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+                  
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -293,7 +293,7 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+                  
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -303,7 +303,7 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+               
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -313,7 +313,7 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+                  
                 </div>
                 <div className='mt-4'>
                   <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -323,7 +323,7 @@ const SingleStr = () => {
                     quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
                     nunc. Vestibulum id ligula lectus.
                   </p>
-                  <hr />
+                
                 </div>
               </div>
             </div>
@@ -357,7 +357,7 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+           
           </div>
           <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -367,7 +367,7 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+           
           </div>
           <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -377,7 +377,7 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+            
           </div>
           <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -387,7 +387,7 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+           
           </div>
           <div className='mt-4'>
             <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
@@ -397,7 +397,7 @@ const SingleStr = () => {
               quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
               nunc. Vestibulum id ligula lectus.
             </p>
-            <hr />
+          
           </div>
         </div>
       </div>

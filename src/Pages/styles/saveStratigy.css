@@ -1,10 +1,14 @@
 .saveStrParent{
    background: #1AA05B;
    overflow: hidden; 
-   height: 268px;
+   height: 300px;
     padding: 1px;
 }
 .filtericon2{
+  position: relative;
+  padding-left: 10px;
+}
+.filtericon3{
   position: relative;
   padding-left: 10px;
 }
@@ -79,7 +83,9 @@
 .dev_dom_bg{
   background: #F4F8F7;
   height: fit-content;
-  border-radius: 17px;
+  border-radius: 2px;
+  position: relative;
+  padding: 18px 14px;
 } 
 .icon_bg{
   background: #FFFFFF;
@@ -146,7 +152,7 @@
   background: #F4F8F7;
 border: 0.5px solid rgba(47, 50, 57, 0.3);
 border-radius: 3px;
-margin-top: 15px;
+margin-top: 20px;
 margin-bottom: 5px;
 padding: 0px;
 cursor: pointer;
@@ -166,6 +172,9 @@ cursor: pointer;
 
   
 }
+.arrow{
+  width: 5px;
+}
 .comment_head{
   font-family: 'Inter';
   font-style: normal;
@@ -181,7 +190,7 @@ cursor: pointer;
   font-size: 12px;
   line-height: 25px;
   color: #6D747A;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 .comment_text{
   font-family: 'Inter';

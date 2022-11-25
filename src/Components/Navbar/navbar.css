@@ -57,6 +57,7 @@
     margin-top: 20px;
     margin-right: 80px;
     border-radius: 5px;
+    z-index: 1;
 }
 .navLink{
     text-decoration: none;

@@ -181,3 +181,14 @@ export const deletRequestArrayid = async (id) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+export const postcomment = async (data) => {
+  let stratigyResponse
+  await axios.post(`comments`, data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}

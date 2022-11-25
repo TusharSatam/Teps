@@ -101,9 +101,9 @@ const FavouriteStr = () => {
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer"}}>
+                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position:"relative",left:"6px", borderRadius: "27px", width: "98px", cursor: "pointer"}}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" />
+                  <img className='filtericon3' src={Filter} alt="" />
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
@@ -301,7 +301,7 @@ const FavouriteStr = () => {
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
                 <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" />
+                  <img src={Filter} className="filtericon3" alt="" />
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>

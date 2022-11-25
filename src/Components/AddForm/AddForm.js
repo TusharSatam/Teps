@@ -170,7 +170,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Subject <p>*</p></p>
                     <select required onChange={handleSub} className={'select-field'} name="subject" id="">
-                      <option value="" selected disabled>Subject</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueSubject?.map(res => (
                           <option>{res.Subject}</option>
@@ -181,7 +181,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Grade <p>*</p></p>
                     <select required onChange={handleGrade} className={'select-field'} name="grade" id="">
-                      <option value="" selected disabled>Grade</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueGrade?.map(res => (
                           <option>{res.Grade}</option>
@@ -194,7 +194,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Skill <p>*</p></p>
                     <select required onChange={handleSkill} className={'select-field'} name="skill" id="">
-                      <option value="" selected disabled>Skill</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueSkill?.map(res => (
                           <option>{res.Skill}</option>
@@ -205,7 +205,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Topic <p>*</p></p>
                     <select required onChange={handleTopic} className={'select-field'} name="topic" id="">
-                      <option value="" selected disabled>Topic</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueTopic?.map(res => (
                           <option>{res.Topic}</option>
@@ -218,7 +218,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Sub-Topic <p>*</p></p>
                     <select required onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
-                      <option value="" selected disabled>Sub-Topic</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueSubTopic?.map(res => (
                           <option>{res['Sub Topic']}</option>
@@ -229,7 +229,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Sub-Sub-Topic <p>*</p></p>
                     <select required onChange={handleSubSubTopic} className={'select-field'} name="sub_sub_topic" id="">
-                      <option value="" selected disabled>Sub-Sub-Topic</option>
+                      {/* <option value="" selected disabled></option> */}
 
                       {
                         uniqueSubSubTopic?.map(res => (
@@ -242,8 +242,8 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Dev Dom 1 <p>*</p></p>
-                    <select required className={'select-field'} name="dev_dom_1" id="">
-                      <option value="" selected disabled>Dev Dom 1</option>
+                    <select required className={'select-field'} name="dev_dom_1" id="" placeholder=''>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueDevDom1?.map(res => (
                           <option>{res['Dev Dom 1']}</option>
@@ -254,7 +254,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Dev Dom 2 <p>*</p></p>
                     <select required className={'select-field'} name="dev_dom_2" id="">
-                      <option value="" selected disabled>Dev Dom 2</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueDevDom2?.map(res => (
                           <option>{res['Dev Dom 2']}</option>
@@ -267,6 +267,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Mode Of Teaching <p>*</p></p>
                     <select required className={'select-field'} name="mode_of_teaching" id="">
+                    {/* <option value="" selected disabled></option> */}
                       <option>Online</option>
                       <option>Offline</option>
                     </select>
@@ -276,7 +277,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'><p>*</p>Learning Outcome</p>
                     <select required onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
-                      <option value="" selected disabled>Learning Outcome</option>
+                      {/* <option value="" selected disabled></option> */}
                       {
                         uniqueSubSubTopic?.map(res => (
                           <option>{res['Learning Outcome']}</option>
