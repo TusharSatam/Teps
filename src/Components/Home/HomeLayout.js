@@ -34,7 +34,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       })
     getUserStratigys()
       .then(res => {
-        setAllUserStratigys(res.data)
+        setAllUserStratigys(res.data?.filter(res => res.Approve === true))
       })
     const selectedDropdown = localStorage.getItem('selectedDropdown');
     if (selectedDropdown) {

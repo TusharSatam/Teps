@@ -18,25 +18,42 @@ import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
 import moment from 'moment/moment';
+import { useState } from 'react';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
   const [comment, setComment] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
+  const [totalLike, setTotalLike] = React.useState([])
+  const [totalSave, setTotalSave] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  const [check, setCheck] = useState(false)
+  const [check1, setCheck1] = useState(false)
   React.useEffect(() => {
     singleStratigys(id)
       .then(res => {
         setStr(res[0]);
         setComment(res[1]?.comments)
       })
+  }, [id])
+
+  React.useEffect(() => {
+    getUsers()
+      .then(res => {
+        setAllUser(res.data);
+        setTotalLike(res?.data?.filter(res => res.saveReact.includes(id)).length);
+        setTotalSave(res?.data?.filter(res => res.saveId.includes(id)).length)
+      })
   }, [])
+
+
   const handleReact = async (e) => {
     if (react?.includes(e)) {
+      setCheck1(false)
       for (var i = 0; i < react.length; i++) {
         if (react[i] === e) {
           react?.splice(i, 1);
@@ -48,6 +65,15 @@ const SingleStr = () => {
       react?.push(e)
     }
     setReact([...react], [react]);
+    if (check1) {
+      setCheck1(false)
+      setTotalLike(totalLike - 1)
+    }
+    else {
+      setCheck1(true)
+      setTotalLike(totalLike + 1)
+    }
+
   }
   React.useEffect(() => {
     const data = { "saveId": react }
@@ -66,6 +92,7 @@ const SingleStr = () => {
   const handleLike = async (e) => {
 
     if (like?.includes(e)) {
+      setCheck(false)
       for (var i = 0; i < like.length; i++) {
         if (like[i] === e) {
           like.splice(i, 1);
@@ -77,6 +104,14 @@ const SingleStr = () => {
       like.push(e)
     }
     setLike([...like], [like]);
+    if (check) {
+      setCheck(false)
+      setTotalSave(totalSave - 1)
+    }
+    else {
+      setCheck(true)
+      setTotalSave(totalSave + 1)
+    }
   }
 
   React.useEffect(() => {
@@ -102,14 +137,10 @@ const SingleStr = () => {
     }
   }
 
-  React.useEffect(() => {
-    getUsers()
-      .then(res => {
-        setAllUser(res.data);
-      })
-  }, [])
-  const totalSave = allUser.filter(res => res.saveId.includes(id));
-  const totalReact = allUser.filter(res => res.saveReact.includes(id));
+
+  // const totalSave = allUser.filter(res => res.saveId.includes(id));
+  // const totalReact = allUser.filter(res => res.saveReact.includes(id));
+  console.log("totalSave", totalSave, "totalReact", totalLike);
   const handleComment = (e) => {
     e.preventDefault()
     const data = {
@@ -200,13 +231,13 @@ const SingleStr = () => {
                       <div className='mx-2'>
                         {react?.includes(str?._id) ? <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalSave.length}</p>
+                      <p className='count_num'>{totalLike}</p>
                     </div>
                     <div className='mx-3'>
                       <div>
                         {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalReact.length}</p>
+                      <p className='count_num'>{totalSave}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>

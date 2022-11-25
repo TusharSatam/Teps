@@ -121,55 +121,33 @@ const FilterStr = ({ stratigy }) => {
     });
 
   const handleFindStratigys = () => {
-
-    if (location.pathname === '/home') {
-      if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
-        const aquaticCreatures = allStratigys.filter(function (creature) {
-          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
-        });
-        console.log(aquaticCreatures);
-        setStratigyFilData(aquaticCreatures)
-        if (aquaticCreatures) {
-          window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
-        }
-        if (aquaticCreatures.length !== 0) {
-          if (location.pathname === '/home') {
-            navigate('/search')
-          }
-          window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
-        }
-        else {
-          setError("No strategies are available for this combination. Please try a different combination.")
-        }
-      }
-      else {
-        if (!selectSubject) { setError5(true) }
-        if (!selectGrade) { setError6(true) }
-        if (!selectSkill) { setError1(true) }
-        if (!selectTopic) { setError2(true) }
-        if (!selectSubTopic) { setError3(true) }
-        if (!selectSubSubTopic) { setError4(true) }
-        setError("Please fill all the boxes to proceed.")
-      }
-    }
-    else {
-      window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+    if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
+      console.log(aquaticCreatures);
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
       }
-      if (aquaticCreatures.length === 0) {
+      if (aquaticCreatures.length !== 0) {
+        window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+      }
+      else {
         setError("No strategies are available for this combination. Please try a different combination.")
       }
-      // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
-      // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);
-
     }
-
+    else {
+      if (!selectSubject) { setError5(true) }
+      if (!selectGrade) { setError6(true) }
+      if (!selectSkill) { setError1(true) }
+      if (!selectTopic) { setError2(true) }
+      if (!selectSubTopic) { setError3(true) }
+      if (!selectSubSubTopic) { setError4(true) }
+      setError("Please fill all the boxes to proceed.")
+    }
   }
+
 
   return (
     <>
@@ -386,7 +364,7 @@ const FilterStr = ({ stratigy }) => {
       </div>
       <div>
         {
-          error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+          error && location.pathname === '/saveStratigy' && <p className='error_text'>{error}</p>
         }
       </div>
       {

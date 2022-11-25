@@ -1,18 +1,22 @@
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Spinner } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { postUserStratigys } from '../../services/userStratigy';
 import './modal.css'
 const AproveReqModal = (props) => {
-
+  const [isLoading, setIsLoading] = React.useState(false)
   const handleAccept = () => {
+    setIsLoading(true)
     postUserStratigys(props.data)
       .then(res => {
         res && toast.success('Request Sent!', {
           duration: 4000
         });
         props.setModalShow(false)
-        console.log(res);
+        setIsLoading(false)
+      })
+      .catch(err => {
+        setIsLoading(false)
       })
   }
   return (
@@ -42,7 +46,7 @@ const AproveReqModal = (props) => {
           </div>
           <div className='d-flex justify-content-center my-4'>
             <div>
-              <button onClick={handleAccept} className='accept_btn'>Accept</button>
+              <button onClick={handleAccept} className='accept_btn'>{isLoading ? <Spinner className="text-light " animation="border" /> : "Accept"}</button>
             </div>
             <div>
               <button onClick={props.onHide} className='cancel_btn'>Cancel</button>

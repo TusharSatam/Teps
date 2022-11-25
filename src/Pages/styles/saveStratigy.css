@@ -74,9 +74,13 @@
   font-size: 14px;
   line-height: 26px;
   letter-spacing: -0.05em;
-  color: #6D747A;
+  color: #1AA05B;
   margin-left: 8px;
+  cursor: pointer;
 }
+/* .count_num:hover{
+  color:#1AA05B;
+} */
 .comment_div{
   border: 2px solid #939CA3;
   border-radius: 8px;

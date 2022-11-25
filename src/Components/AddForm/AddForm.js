@@ -148,7 +148,6 @@ const AddForm = () => {
 
   }
 
-
   return (
     <div>
 
@@ -172,8 +171,8 @@ const AddForm = () => {
                     <select required onChange={handleSub} className={'select-field'} name="subject" id="">
                       <option value="" selected disabled>Subject</option>
                       {
-                        uniqueSubject?.map(res => (
-                          <option>{res.Subject}</option>
+                        uniqueSubject?.filter(res => res.Subject !== undefined).map(res => (
+                          <option>{res.Subject !== "" && res.Subject}</option>
                         ))
                       }
                     </select>
@@ -183,7 +182,7 @@ const AddForm = () => {
                     <select required onChange={handleGrade} className={'select-field'} name="grade" id="">
                       <option value="" selected disabled>Grade</option>
                       {
-                        uniqueGrade?.map(res => (
+                        uniqueGrade?.filter(res => res.Grade !== undefined).map(res => (
                           <option>{res.Grade}</option>
                         ))
                       }
@@ -196,7 +195,7 @@ const AddForm = () => {
                     <select required onChange={handleSkill} className={'select-field'} name="skill" id="">
                       <option value="" selected disabled>Skill</option>
                       {
-                        uniqueSkill?.map(res => (
+                        uniqueSkill?.filter(res => res.Skill !== undefined).map(res => (
                           <option>{res.Skill}</option>
                         ))
                       }
@@ -207,7 +206,7 @@ const AddForm = () => {
                     <select required onChange={handleTopic} className={'select-field'} name="topic" id="">
                       <option value="" selected disabled>Topic</option>
                       {
-                        uniqueTopic?.map(res => (
+                        uniqueTopic?.filter(res => res.Topic !== undefined).map(res => (
                           <option>{res.Topic}</option>
                         ))
                       }
@@ -220,7 +219,7 @@ const AddForm = () => {
                     <select required onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
                       <option value="" selected disabled>Sub-Topic</option>
                       {
-                        uniqueSubTopic?.map(res => (
+                        uniqueSubTopic?.filter(res => res['Sub Topic'] !== undefined).map(res => (
                           <option>{res['Sub Topic']}</option>
                         ))
                       }
@@ -232,7 +231,7 @@ const AddForm = () => {
                       <option value="" selected disabled>Sub-Sub-Topic</option>
 
                       {
-                        uniqueSubSubTopic?.map(res => (
+                        uniqueSubSubTopic?.filter(res => res['Sub-sub topic'] !== undefined).map(res => (
                           <option>{res['Sub-sub topic']}</option>
                         ))
                       }
@@ -244,9 +243,14 @@ const AddForm = () => {
                     <p className='select-title'>Dev Dom 1 <p>*</p></p>
                     <select required className={'select-field'} name="dev_dom_1" id="">
                       <option value="" selected disabled>Dev Dom 1</option>
+
                       {
-                        uniqueDevDom1?.map(res => (
-                          <option>{res['Dev Dom 1']}</option>
+                        uniqueDevDom1?.filter(res => res['Dev Dom 1'] !== undefined).map(res => (
+                          <option>{res['Dev Dom 1'] !== undefined && res['Dev Dom 1']}
+                            {
+                              console.log(res['Dev Dom 1'] !== "" && res['Dev Dom 1'])
+                            }
+                          </option>
                         ))
                       }
                     </select>
@@ -256,7 +260,7 @@ const AddForm = () => {
                     <select required className={'select-field'} name="dev_dom_2" id="">
                       <option value="" selected disabled>Dev Dom 2</option>
                       {
-                        uniqueDevDom2?.map(res => (
+                        uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
                           <option>{res['Dev Dom 2']}</option>
                         ))
                       }
@@ -278,7 +282,7 @@ const AddForm = () => {
                     <select required onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
                       <option value="" selected disabled>Learning Outcome</option>
                       {
-                        uniqueSubSubTopic?.map(res => (
+                        uniqueSubSubTopic?.filter(res => res['Learning Outcome'] !== undefined).map(res => (
                           <option>{res['Learning Outcome']}</option>
                         ))
                       }
