@@ -88,7 +88,7 @@ const UserReqEn = () => {
       .then(response => {
         denyUserStratigys(id)
           .then(res => {
-            res && toast.success('Request Denied!', {
+            res && toast.error('Request Denied!', {
               duration: 4000
             });
             getUserStratigys()

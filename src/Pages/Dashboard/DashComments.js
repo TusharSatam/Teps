@@ -23,7 +23,7 @@ const DashComments = () => {
     }
     updateComment(allselectedId, data)
       .then(res => {
-        res && toast.success('Comments Clear!', {
+        res && toast.success('Comments cleared!', {
           duration: 4000
         });
         getComment()
@@ -36,7 +36,7 @@ const DashComments = () => {
   const handleCommentDelet = (id) => {
     delComments(id)
       .then(res => {
-        res && toast.success('Comments Deleted!', {
+        res && toast.success('Comment Deleted!', {
           duration: 4000
         });
         getComment()

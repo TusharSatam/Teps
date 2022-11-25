@@ -76,7 +76,7 @@ const ReqAdminPanel = () => {
     deletRequestArrayid(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Request denied!', {
+        res && toast.error('Request denied!', {
           duration: 4000
         });
       })

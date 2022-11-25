@@ -27,7 +27,7 @@ export const getAllHindiStratigys = async () => {
 // delet Stratigy
 export const delHindiStratigys = async (id) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`hindstrategies/${id}`)
       .then(res => {
@@ -70,7 +70,7 @@ export const updateHindiStratigys = async (id, data) => {
 // delet multi Stratigy
 export const multidelHiStratigys = async (ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`hindstrategies/ch/${ids}`)
       .then(res => {
@@ -98,7 +98,7 @@ export const getMultitHiStr = async (ids) => {
 // reqDelet Stratigy
 export const reqDeletHiStr = async (data, ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     const allId = {
       "reqDelId": ids,

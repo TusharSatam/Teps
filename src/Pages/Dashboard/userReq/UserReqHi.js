@@ -34,7 +34,7 @@ const UserReqHi = () => {
   const habdleDeny = (id) => {
     denyUserStratigysHi(id)
       .then(res => {
-        res && toast.success('Request Denied!', {
+        res && toast.error('Request Denied!', {
           duration: 4000
         });
         getUserStratigysHi()

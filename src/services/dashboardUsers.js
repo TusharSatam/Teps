@@ -37,7 +37,7 @@ export const updateUser = async (id, data) => {
 // Delet user 
 export const deletUser = async (id) => {
   let deletResponse;
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`users/${id}`)
       .then(res => {

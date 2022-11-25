@@ -27,7 +27,7 @@ export const getAllStratigys = async () => {
 // delet Stratigy
 export const delStratigys = async (id) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`strategies/${id}`)
       .then(res => {
@@ -43,7 +43,7 @@ export const delStratigys = async (id) => {
 // delet multi Stratigy
 export const multidelStratigys = async (ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`strategies/ch/${ids}`)
       .then(res => {
@@ -59,7 +59,7 @@ export const multidelStratigys = async (ids) => {
 // All delet Stratigy
 export const alldelStratigys = async (all) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`strategies/str/${all}`)
       .then(res => {
@@ -100,7 +100,7 @@ export const updateStratigys = async (id, data) => {
 // reqDelet Stratigy
 export const reqDeletStr = async (data, ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     const allId = {
       "reqDelId": ids,
@@ -217,7 +217,7 @@ export const updateComment = async (ids, data) => {
 
 export const delComments = async (id) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`comments/${id}`)
       .then(res => {

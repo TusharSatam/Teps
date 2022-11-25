@@ -35,7 +35,7 @@ const ReqDelHindiStr = () => {
     deletRequestArrayidHi(id)
       .then(res => {
         res && setcount(count.filter(message => message._id !== id));
-        res && toast.success('Request denied!');
+        res && toast.error('Request denied!');
       })
   }
 

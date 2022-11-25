@@ -56,7 +56,7 @@ export const denyUserStratigys = async (id) => {
 // delet Stratigy
 export const delApproveUserStratigys = async (id) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`userStratiges/${id}`)
       .then(res => {
@@ -72,7 +72,7 @@ export const delApproveUserStratigys = async (id) => {
 // delet multi Stratigy
 export const multidelUserStratigys = async (ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`userStratiges/ch/${ids}`)
       .then(res => {
