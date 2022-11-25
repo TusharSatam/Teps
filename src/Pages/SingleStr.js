@@ -19,6 +19,7 @@ import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers'
 import { useAuth } from '../Context/AuthContext';
 import moment from 'moment/moment';
 import { useState } from 'react';
+import LikeByModal from '../Components/Modal/LikeByModal';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -139,7 +140,7 @@ const SingleStr = () => {
 
 
   // const totalSave = allUser.filter(res => res.saveId.includes(id));
-  // const totalReact = allUser.filter(res => res.saveReact.includes(id));
+  const totalReact = allUser.filter(res => res.saveReact.includes(id));
   console.log("totalSave", totalSave, "totalReact", totalLike);
   const handleComment = (e) => {
     e.preventDefault()
@@ -158,7 +159,7 @@ const SingleStr = () => {
           })
       })
   }
-
+  const [show, setShow] = useState()
   return (
     <div>
       <LikeByModal
@@ -166,7 +167,7 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalReact}
       />
-      <div className='saveStrParent2' style={{background: "#1AA05B",overflow: "hidden", padding: "5px"}} >
+      <div className='saveStrParent2' style={{ background: "#1AA05B", overflow: "hidden", padding: "5px" }} >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
@@ -242,7 +243,7 @@ const SingleStr = () => {
                       <div>
                         {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalSave}</p>
+                      <p className='count_num' onClick={() => setShow(true)}>{totalSave}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
@@ -306,12 +307,12 @@ const SingleStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} {comment?.length} <img width = "10px" src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img width="10px" src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img width = "10px" src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img width="10px" src={UpArrow} alt="" /></p>
 
                 </div>
                 {
