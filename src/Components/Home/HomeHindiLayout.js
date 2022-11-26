@@ -27,7 +27,6 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     getAllHindiStratigys()
       .then(res => {
         setAllStratigys(res.data);
-        console.log(res);
       })
     const selectedDropdown = localStorage.getItem('selectedHiDropdown');
     if (selectedDropdown) {
@@ -46,8 +45,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       }
     }
   }, [selectedOption, location.pathname])
-  // console.log('hlw', selectedOption);
-  // console.log(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic);
+
   const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
     .map(subject => {
       return allStratigys.find(a => a.विषय === subject)
@@ -95,7 +93,6 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     setSelectSubSubTopic(e.target.value)
     localStorage.removeItem('selectedHiDropdown');
   }
-  // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
@@ -169,8 +166,6 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       if (aquaticCreatures.length === 0) {
         setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
       }
-      // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
-      // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);
 
     }
 

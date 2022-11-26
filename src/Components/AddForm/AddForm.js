@@ -247,9 +247,6 @@ const AddForm = () => {
                       {
                         uniqueDevDom1?.filter(res => res['Dev Dom 1'] !== undefined).map(res => (
                           <option>{res['Dev Dom 1'] !== undefined && res['Dev Dom 1']}
-                            {
-                              console.log(res['Dev Dom 1'] !== "" && res['Dev Dom 1'])
-                            }
                           </option>
                         ))
                       }
@@ -271,7 +268,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Mode Of Teaching <p>*</p></p>
                     <select required className={'select-field'} name="mode_of_teaching" id="">
-                    {/* <option value="" selected disabled></option> */}
+                      {/* <option value="" selected disabled></option> */}
                       <option>Online</option>
                       <option>Offline</option>
                     </select>

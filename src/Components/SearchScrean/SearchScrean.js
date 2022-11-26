@@ -26,6 +26,7 @@ import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import { Link } from 'react-router-dom';
 import UserImage from '../../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
+import ScrollToTop from 'react-scroll-to-top';
 
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
@@ -138,9 +139,6 @@ const SearchScrean = () => {
         })
     }
   }, [like, user, setUser])
-  // console.log(uniqueHindiSubSubTopic[0]['Learning Outcome'] ? true : false);
-  // console.log(uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ? true : false);
-  // const selectedDropdown = localStorage.getItem('');
 
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
@@ -185,6 +183,7 @@ const SearchScrean = () => {
   }
   return (
     <>
+      <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
       <>
         <div className='stratigy_bg'>
           {

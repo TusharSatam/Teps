@@ -158,7 +158,6 @@ export const getSingleDelStr = async (id) => {
 // reqDelet update Stratigy
 export const updatestrDeletRq = async (id, data) => {
   let stratigyResponse
-  console.log(data);
   const allId = {
     "reqDel": data
   }

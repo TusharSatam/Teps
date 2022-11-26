@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../Context/AuthContext';
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
-import { updateUserStratigysHi } from '../../services/userStratigyHi';
+import { getUserStratigysHi, updateUserStratigysHi } from '../../services/userStratigyHi';
 
 import './dashboardModal.css'
 
@@ -37,12 +37,10 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
     .map(devDom1 => {
       return allStratigys.find(a => a['विकासात्मक क्षेत्र 1'] === devDom1)
     });
-  console.log(uniqueDevDom1);
   const uniqueDevDom2 = Array.from(new Set(allStratigys.map(a => a['विकासात्मक क्षेत्र 2'])))
     .map(devDom1 => {
       return allStratigys.find(a => a['विकासात्मक क्षेत्र 2'] === devDom1)
     });
-  console.log(uniqueDevDom2);
   const handleSub = (e) => {
     setSelectSubject(e.target.value)
   }
@@ -91,7 +89,6 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const dataa = {
-      'User_id': user._id,
       'विषय': e.target.subject.value,
       'श्रेणी': e.target.grade.value,
       'कौशल': e.target.skill.value,
@@ -102,13 +99,16 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
       'विकासात्मक क्षेत्र 2': e.target.dev_dom_2.value,
       'शिक्षण का तरीका': e.target.mode_of_teaching.value,
       'शिक्षण के परिणाम': e.target.learning_outcome.value,
-      'शिक्षण रणनीति': e.target.teaching_str.value,
-      'Approve': true
+      'शिक्षण रणनीति': e.target.teaching_str.value
     }
     updateUserStratigysHi(data?._id, dataa)
       .then(res => {
         res && toast.success("Strategy Updated")
-        res && setShow(false)
+        res && setShow(false);
+        getUserStratigysHi()
+          .then(res => {
+            setStratigys(res.data?.filter(res => res.Approve === false))
+          })
       })
   }
 

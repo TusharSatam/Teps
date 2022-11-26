@@ -22,6 +22,7 @@ import UserImage from '../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
 import { postcomment } from '../services/stratigyes';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import moment from 'moment';
 
 const SingleUserStr = () => {
   const { user, setUser } = useAuth()
@@ -133,11 +134,11 @@ const SingleUserStr = () => {
     const data = {
       "strategie_id": id,
       "user_name": `${user.firstName} ${user.lastName}`,
-      "comment": e.target.comment.value
+      "comment": e.target.comment.value,
+      "postTime": new Date()
     }
     postcomment(data)
       .then(res => {
-        console.log('comm', res);
         singleUserEnStratigys(id)
           .then(res => {
             setStr(res.data[0]);
@@ -322,7 +323,7 @@ const SingleUserStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />

@@ -12,7 +12,6 @@ const ApproveReqModalHi = (props) => {
           duration: 4000
         });
         props.setModalShow(false)
-        console.log(res);
       })
   }
   return (

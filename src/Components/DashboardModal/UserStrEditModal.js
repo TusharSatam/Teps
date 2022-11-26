@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../Context/AuthContext';
 import { getAllStratigys, getStratigys, updateStratigys } from '../../services/stratigyes';
-import { updateUserStratigys, delApproveUserStratigys } from '../../services/userStratigy';
+import { updateUserStratigys, delApproveUserStratigys, getUserStratigys } from '../../services/userStratigy';
 
 import './dashboardModal.css'
 
@@ -92,7 +92,6 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const dataa = {
-      'User_id': user._id,
       'Subject': e.target.subject.value,
       'Grade': e.target.grade.value,
       'Skill': e.target.skill.value,
@@ -103,13 +102,16 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
       'Dev Dom 2': e.target.dev_dom_2.value,
       'Mode of Teaching': e.target.mode_of_teaching.value,
       'Learning Outcome': e.target.learning_outcome.value,
-      'Teaching Strategy': e.target.teaching_str.value,
-      'Approve': true
+      'Teaching Strategy': e.target.teaching_str.value
     }
     updateUserStratigys(data?._id, dataa)
       .then(res => {
-        res && toast.success("Strategy Updated")
-        res && setShow(false)
+        res && toast.success("Strategy Updated");
+        res && setShow(false);
+        getUserStratigys()
+          .then(res => {
+            setStratigys(res.data?.filter(res => res.Approve === false))
+          })
       })
   }
 

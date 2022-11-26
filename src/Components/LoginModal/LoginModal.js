@@ -46,21 +46,6 @@ const LoginModal = ({ show, setShow }) => {
               navigate('/home');
             }
             else {
-              // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
-              //   "reply_to": res?.data?.email,
-              //   "verify_link": `https://teps.school/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}`,
-              //   "from": "things@ecu.org"
-              // }, '8zEAglGBvaOwqdqTd')
-              //   .then((result) => {
-              //     setIsLoading(false);
-              //     setShow(false)
-              //     setVerifyModal(true)
-              //     console.log(result.text);
-              //   }, (error) => {
-              //     console.log(error.text);
-              //   }))
-              // casjkhdjask
-
               const data = {
                 "to": res?.data?.email,
                 'subject': "Email verification - TEPS",

@@ -17,9 +17,9 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
-import moment from 'moment/moment';
 import { useState } from 'react';
 import LikeByModal from '../Components/Modal/LikeByModal';
+import moment from 'moment';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -34,6 +34,7 @@ const SingleStr = () => {
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const [check, setCheck] = useState(false)
   const [check1, setCheck1] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   React.useEffect(() => {
     singleStratigys(id)
       .then(res => {
@@ -141,13 +142,14 @@ const SingleStr = () => {
 
   // const totalSave = allUser.filter(res => res.saveId.includes(id));
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  console.log("totalSave", totalSave, "totalReact", totalLike);
   const handleComment = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setIsLoading(true)
     const data = {
       "strategie_id": id,
       "user_name": `${user.firstName} ${user.lastName}`,
-      "comment": e.target.comment.value
+      "comment": e.target.comment.value,
+      "postTime": new Date()
     }
     postcomment(data)
       .then(res => {
@@ -155,7 +157,8 @@ const SingleStr = () => {
           .then(res => {
             setStr(res[0]);
             setComment(res[1]?.comments);
-            e.target.reset()
+            e.target.reset();
+            setIsLoading(false)
           })
       })
   }
@@ -302,7 +305,7 @@ const SingleStr = () => {
                   <input required name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
-                  <input type="submit" value={`${t('Submit')}`} />
+                  <input disabled={isLoading} type="submit" value={`${t('Submit')}`} />
                 </div>
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
@@ -318,7 +321,7 @@ const SingleStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('hours').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />

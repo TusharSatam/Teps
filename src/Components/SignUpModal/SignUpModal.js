@@ -107,8 +107,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 .then(res => {
                   e.target.reset();
                   setShow(false)
-                  console.log(res);
-                  // kfjdslknfdknfkdanf
                   const data = {
                     "to": res?.data?.data?.email,
                     'subject': "Email verification - TEPS",
@@ -125,24 +123,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       if (res) {
                         setVerifyModal(true)
                         setWrongEMailfound('')
-                        console.log(res);
                       }
                     })
                     .catch(err => setWrongEMailfound(wrongEmail))
-                  // fckmlksdfmn.lsdknf.lkasndf
-                  // (emailjs.send('service_a3rzkzf', 'template_td2c1hk', {
-                  //   "reply_to": res?.data?.data?.email,
-                  //   "verify_link": `https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}`,
-                  //   "from": "things@ecu.org"
-                  // }, '8zEAglGBvaOwqdqTd')
-                  //   .then((result) => {
-                  //     setVerifyModal(true)
-                  //     setWrongEMailfound('')
-                  //     console.log(result.text);
-                  //   }, (error) => {
-                  //     console.log(error.text);
-                  //     setWrongEMailfound(wrongEmail)
-                  //   }))
                 })
                 .catch(err => {
                   if (err.response.status === 409) {
@@ -194,7 +177,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setPassError(``)
     }
   }
-  console.log(town);
   return (
     <>
       <ForgotModal

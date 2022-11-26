@@ -25,7 +25,6 @@ const AdminAuth = () => {
         adminLogin(data)
           .then(res => {
             if (res) {
-              console.log(res);
               setIsLoading(false);
               setAdmin(res.data);
               setIsAuthenticatedAdmin(true);
