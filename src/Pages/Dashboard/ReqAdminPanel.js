@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { FaRegTrashAlt } from 'react-icons/fa';
-import { alldelStratigys, deletRequestArrayid, delStratigys, getMultitStr, getreqDeletStr, getSingleDelStr, multidelStratigys, updatestrDeletRq } from '../../services/stratigyes';
+import { alldelStratigys, deletRequestArrayid, delStratigys, getMultitStr, getreqDeletStr, getSingleDelStr, multidelStratigys, multidelStratigysReq, multidelStratigysReqby, multidelStratigysReqDeny, updatestrDeletRq } from '../../services/stratigyes';
 import { Spinner } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
@@ -103,33 +103,34 @@ const ReqAdminPanel = () => {
       setshowCh(allselectedId)
     }
   }
-  const handleAllDelet = () => {
-    multidelStratigys(showCh)
+  const handleAllDelet = (id) => {
+    multidelStratigysReq(id, showCh)
       .then(res => {
         res && toast.success('Strategy deleted forever!', {
           duration: 4000
         });
         if (res) {
-          deletRequestArrayid(allDelid)
-            .then(ress => {
-              ress && setcount(count.filter(message => message._id !== allDelid));
+          multidelStratigysReqby(showCh)
+            .then(res => {
+              getreqDeletStr()
+                .then(res => {
+                  setcount(res.data);
+                })
             })
         }
       })
   }
 
-  const handleAllDeny = () => {
-    multidelStratigys(showCh)
+  const handleAllDeny = (id) => {
+    multidelStratigysReqDeny(id, showCh)
       .then(res => {
-        res && toast.success('Strategy Denied!', {
+        res && getreqDeletStr()
+          .then(res => {
+            setcount(res.data);
+          })
+        res && toast.error('Request denied!', {
           duration: 4000
         });
-        if (res) {
-          deletRequestArrayid(allDelid)
-            .then(ress => {
-              ress && setcount(count.filter(message => message._id !== allDelid));
-            })
-        }
       })
   }
 
@@ -164,16 +165,11 @@ const ReqAdminPanel = () => {
                             showId && showId.includes(data._id) ?
                               <>
                                 {
-                                  allCheck ?
+                                  (showCh.length > 0) ?
                                     <div>
-                                      <button onClick={handleAllDelet} className='btn btn-primary mb-3'>Approve All Strategies</button>
-                                      <button onClick={handleAllDeny} className='btn btn-primary mb-3 mx-3'>Deny All Strategies</button>
-                                    </div> :
-                                    (allCheck === false && showCh.length > 0) ?
-                                      <div>
-                                        <button onClick={handleAllDelet} className='btn btn-primary mb-3'>Approve Selected Strategies</button>
-                                        <button onClick={handleAllDeny} className='btn btn-primary mb-3 mx-3'>Deny Selected Strategies</button>
-                                      </div> : ''
+                                      <button onClick={() => handleAllDelet(data._id)} className='btn btn-primary mb-3'>Approve Selected Strategies</button>
+                                      <button onClick={() => handleAllDeny(data._id)} className='btn btn-primary mb-3 mx-3'>Deny Selected Strategies</button>
+                                    </div> : ''
 
                                 }
                               </> : ""
@@ -183,7 +179,8 @@ const ReqAdminPanel = () => {
                         <Table key={index + 1} striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflowR' : 'd-none d-md-block table_overflowsR'}>
                           <thead style={{ background: '#d5b39a' }}>
                             <tr>
-                              <th><input type="checkbox" checked={allDelid && allDelid.includes(data._id)} onChange={() => handleAllSelect(data._id)} name="" id="" /></th>
+                              {data.reqDel.length > 1 && <th></th>}
+                              {/* <th><input type="checkbox" checked={allDelid && allDelid.includes(data._id)} onChange={() => handleAllSelect(data._id)} name="" id="" /></th> */}
                               <th>#</th>
                               <th>Id</th>
                               <th scope="col">Subject</th>
@@ -204,7 +201,7 @@ const ReqAdminPanel = () => {
                               <>
                                 {data && data?.reqDel?.map((item, index) => (
                                   <tr key={index}>
-                                    <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id, data._id)} name="" id="" /></td>
+                                    {data.reqDel.length > 1 && <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id, data._id)} name="" id="" /></td>}
                                     <td> {index + 1}</td>
                                     <td>{(item._id).slice(19, 26)}</td>
                                     <td>{item.Subject}</td>

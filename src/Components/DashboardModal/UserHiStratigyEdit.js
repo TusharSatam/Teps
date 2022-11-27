@@ -230,8 +230,8 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
                 <div>
                   <p className='select-title'>शिक्षण का तरीका <p>*</p></p>
                   <select defaultValue={data['शिक्षण का तरीका']} className={'select-field'} name="mode_of_teaching" id="">
-                    <option>Online</option>
-                    <option>Offline</option>
+                    <option>ऑनलाइन</option>
+                    <option>विद्यालय में</option>
                   </select>
                 </div>
               </div>

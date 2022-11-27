@@ -227,3 +227,47 @@ export const delComments = async (id) => {
   }
   return stratigyResponse;
 }
+
+// delet multi Stratigy
+export const multidelStratigysReq = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to delete the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdel/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqDeny = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to keep the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdel/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqby = async (ids) => {
+  let stratigyResponse
+  await axios.delete(`strategies/ch/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}

@@ -321,7 +321,7 @@ const SingleStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('hours').fromNow()}</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />
@@ -355,7 +355,7 @@ const SingleStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
                 <hr />

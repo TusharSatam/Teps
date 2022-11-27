@@ -2,7 +2,7 @@ import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import toast, { Toaster } from 'react-hot-toast';
-import { deletRequestArrayidHi, getreqDeletHiStr, getSingleDelStrHi, multidelHiStratigys } from '../../services/hindiStratigys';
+import { deletRequestArrayidHi, getreqDeletHiStr, getSingleDelStrHi, multidelHiStratigys, multidelStratigysReqbyHi, multidelStratigysReqDenyHi, multidelStratigysReqHi } from '../../services/hindiStratigys';
 
 const ReqDelHindiStr = () => {
   const [count, setcount] = React.useState([]);
@@ -11,6 +11,7 @@ const ReqDelHindiStr = () => {
   const [indi, setIndi] = React.useState();
   const [teaching, setTeaching] = React.useState();
   const [indi1, setIndi1] = React.useState();
+  const [showId, setShowId] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true)
@@ -57,6 +58,52 @@ const ReqDelHindiStr = () => {
         setIndi1(res.data[0]?.reqDel?.[ind]?._id);
       })
   }
+  const [showCh, setshowCh] = React.useState([])
+  const handleCheckbox = (ind, id) => {
+    if (showCh.includes(ind)) {
+      for (var i = 0; i < showCh.length; i++) {
+        if (showCh[i] === ind) {
+          showCh.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    else {
+      showCh.push(ind)
+    }
+    setshowCh([...showCh], [showCh]);
+    setShowId(id)
+  }
+  const handleAllDelet = (id) => {
+    multidelStratigysReqHi(id, showCh)
+      .then(res => {
+        res && toast.success('Strategy deleted forever!', {
+          duration: 4000
+        });
+        if (res) {
+          multidelStratigysReqbyHi(showCh)
+            .then(res => {
+              getreqDeletHiStr()
+                .then(res => {
+                  setcount(res.data);
+                })
+            })
+        }
+      })
+  }
+
+  const handleAllDeny = (id) => {
+    multidelStratigysReqDenyHi(id, showCh)
+      .then(res => {
+        res && getreqDeletHiStr()
+          .then(res => {
+            setcount(res.data);
+          })
+        res && toast.error('Request denied!', {
+          duration: 4000
+        });
+      })
+  }
   return (
     <>
       <Toaster
@@ -81,11 +128,28 @@ const ReqDelHindiStr = () => {
                       <><div className="d-flex my-4">
                         <h3 className='me-3'>Request {index + 1} for Delete Strategies</h3>
                       </div>
+                        <div>
+                          {
+                            showId && showId.includes(data._id) ?
+                              <>
+                                {
+                                  (showCh.length > 0) ?
+                                    <div>
+                                      <button onClick={() => handleAllDelet(data._id)} className='btn btn-primary mb-3'>Approve Selected Strategies</button>
+                                      <button onClick={() => handleAllDeny(data._id)} className='btn btn-primary mb-3 mx-3'>Deny Selected Strategies</button>
+                                    </div> : ''
+
+                                }
+                              </> : ""
+                          }
+
+                        </div>
                         <Table key={index} responsive striped bordered hover size="sm" className='w-100'>
                           <thead style={{ background: '#d5b39a' }}>
                             <tr>
-                              <th></th>
+                              {data.reqDel.length > 1 && <th></th>}
                               <th>#</th>
+                              <th>id</th>
                               <th scope="col">विषय</th>
                               <th scope="col">श्रेणी</th>
                               <th scope="col">कौशल</th>
@@ -104,6 +168,7 @@ const ReqDelHindiStr = () => {
                               <>
                                 {data && data?.reqDel?.map((item, index) => (
                                   <tr key={index}>
+                                    {data.reqDel.length > 1 && <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id, data._id)} name="" id="" /></td>}
                                     <td> {index + 1}</td>
                                     <td>{(item._id).slice(19, 26)}</td>
                                     <td>{item.विषय}</td>
