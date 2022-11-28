@@ -27,6 +27,8 @@ import { Link } from 'react-router-dom';
 import UserImage from '../../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
 import ScrollToTop from 'react-scroll-to-top';
+import { delLikes, getLikes, postLikes } from '../../services/userLikes';
+import { useState } from 'react';
 
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
@@ -181,6 +183,40 @@ const SearchScrean = () => {
       setCheck(true)
     }
   }
+  const [userLikes, setUserLikes] = useState();
+  // const [c, setC] = useState();
+  React.useEffect(() => {
+    getLikes()
+      .then(res => {
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserLikes(userlike?.map(ress => ress.user_id))
+      })
+  }, [])
+  const handleApiLikes = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postLikes(data)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnLikes = (id) => {
+    delLikes(id)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  console.log("likes", userLikes);
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
@@ -280,7 +316,7 @@ const SearchScrean = () => {
                                             </p>
                                           </Link>
                                           <div className='d-flex align-items-center my-3'>
-                                            {react?.includes(strRes._id) ? <img onClick={() => handleReact(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                            {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                             {like.includes(strRes._id) ? <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
 
                                           </div>
