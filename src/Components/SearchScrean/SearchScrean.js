@@ -29,14 +29,15 @@ import { Buffer } from 'buffer';
 import ScrollToTop from 'react-scroll-to-top';
 import { delLikes, getLikes, postLikes } from '../../services/userLikes';
 import { useState } from 'react';
+import { delSaves, getSaves, postSaves } from '../../services/userSaves';
 
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
-  const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  // const [react, setReact] = React.useState(user ? user?.saveId : []);
+  // const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
@@ -55,7 +56,6 @@ const SearchScrean = () => {
     });
 
   const handleCheckbox = (ind) => {
-
     if (show.includes(ind)) {
       for (var i = 0; i < show.length; i++) {
         if (show[i] === ind) {
@@ -70,7 +70,6 @@ const SearchScrean = () => {
     setShow([...show], [show]);
   }
   const handleCheckboxH = (e) => {
-
     if (showH.includes(e)) {
       for (var i = 0; i < showH.length; i++) {
         if (showH[i] === e) {
@@ -84,63 +83,63 @@ const SearchScrean = () => {
     }
     setShowH([...showH], [showH]);
   }
-  const handleReact = async (e) => {
-    if (react?.includes(e)) {
-      for (var i = 0; i < react.length; i++) {
-        if (react[i] === e) {
-          react?.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      react?.push(e)
-    }
-    setReact([...react], [react]);
-  }
-  React.useEffect(() => {
-    const data = { "saveId": react }
-    if (react) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [react, user, setUser])
+  // const handleReact = async (e) => {
+  //   if (react?.includes(e)) {
+  //     for (var i = 0; i < react.length; i++) {
+  //       if (react[i] === e) {
+  //         react?.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     react?.push(e)
+  //   }
+  //   setReact([...react], [react]);
+  // }
+  // React.useEffect(() => {
+  //   const data = { "saveId": react }
+  //   if (react) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [react, user, setUser])
 
-  const handleLike = async (e) => {
+  // const handleLike = async (e) => {
 
-    if (like?.includes(e)) {
-      for (var i = 0; i < like.length; i++) {
-        if (like[i] === e) {
-          like.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      like.push(e)
-    }
-    setLike([...like], [like]);
-  }
+  //   if (like?.includes(e)) {
+  //     for (var i = 0; i < like.length; i++) {
+  //       if (like[i] === e) {
+  //         like.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     like.push(e)
+  //   }
+  //   setLike([...like], [like]);
+  // }
 
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveReact": like }
+  //   if (like) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [like, user, setUser])
 
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
@@ -183,13 +182,13 @@ const SearchScrean = () => {
       setCheck(true)
     }
   }
-  const [userLikes, setUserLikes] = useState();
+  const [userLikes, setUserLikes] = useState([]);
   // const [c, setC] = useState();
   React.useEffect(() => {
     getLikes()
       .then(res => {
         const userlike = res?.data?.filter(ress => ress.user_id === user._id)
-        setUserLikes(userlike?.map(ress => ress.user_id))
+        setUserLikes(userlike?.map(ress => ress.strategie_id))
       })
   }, [])
   const handleApiLikes = (id) => {
@@ -217,6 +216,41 @@ const SearchScrean = () => {
       })
   }
   console.log("likes", userLikes);
+
+  const [userSaves, setUserSaves] = useState([]);
+  // const [c, setC] = useState();
+  React.useEffect(() => {
+    getSaves()
+      .then(res => {
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserSaves(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiSaves = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postSaves(data)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnSaves = (id) => {
+    delSaves(id)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  console.log("saves", userSaves);
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
@@ -316,9 +350,8 @@ const SearchScrean = () => {
                                             </p>
                                           </Link>
                                           <div className='d-flex align-items-center my-3'>
-                                            {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                            {like.includes(strRes._id) ? <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strRes._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-
+                                            {userSaves?.includes(strRes._id) ? <img onClick={() => handleApiUnSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
+                                            {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                           </div>
                                         </div>
                                         <div className='col-md-2 d-none d-md-block ms-5'>
@@ -409,9 +442,13 @@ const SearchScrean = () => {
                                                 {strUser["Teaching Strategy"]}
                                               </p>
                                             </Link>
-                                            <div className='d-flex align-items-center my-3'>
+                                            {/* <div className='d-flex align-items-center my-3'>
                                               {react?.includes(strUser._id) ? <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                               {like.includes(strUser._id) ? <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                                            </div> */}
+                                            <div className='d-flex align-items-center my-3'>
+                                              {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
+                                              {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                             </div>
                                           </div>
                                           <div className='col-md-2 d-none d-md-block ms-5'>
@@ -524,10 +561,13 @@ const SearchScrean = () => {
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
-                                            <div className='d-flex align-items-center my-3'>
+                                            {/* <div className='d-flex align-items-center my-3'>
                                               {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                               {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-
+                                            </div> */}
+                                            <div className='d-flex align-items-center my-3'>
+                                              {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
+                                              {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                             </div>
                                           </div>
                                           <div className='col-md-2 d-none d-md-block ms-5'>

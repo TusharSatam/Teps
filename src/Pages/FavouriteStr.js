@@ -18,6 +18,7 @@ import { getSingleUser, updateUser } from '../services/dashboardUsers';
 import FilterStr from '../Components/Home/FilterStr';
 import { Link } from 'react-router-dom';
 import { getMultitHiStr } from '../services/hindiStratigys';
+import { delLikes, getLikes, postLikes } from '../services/userLikes';
 
 const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -47,22 +48,97 @@ const FavouriteStr = () => {
       setFilter(true)
     }
   }
+  // React.useEffect(() => {
+  //   if (languageSelect === "en") {
+  //     getMultitStr(user.saveReact)
+  //       .then(res => {
+  //         setFavStratigy(res.data);
+  //       })
+  //       .catch(err => setFavStratigy([]))
+  //   }
+  //   else (
+  //     getMultitHiStr(user.saveReact)
+  //       .then(res => {
+  //         setfavStratigyi(res.data)
+  //       })
+  //   )
+  // }, [user.saveReact, languageSelect])
+  const [likes, setLikes] = useState([])
   React.useEffect(() => {
-    if (languageSelect === "en") {
-      getMultitStr(user.saveReact)
-        .then(res => {
-          setFavStratigy(res.data);
-        })
-        .catch(err => setFavStratigy([]))
-    }
-    else (
-      getMultitHiStr(user.saveReact)
-        .then(res => {
-          setfavStratigyi(res.data)
-        })
-    )
-  }, [user.saveReact, languageSelect])
+    getLikes()
+      .then(res => {
+        const like = res?.data?.filter(ress => ress.user_id === user._id)
+        const likeId = like?.map(ress => ress.strategie_id)
+        setLikes(like?.map(ress => ress.strategie_id))
+        if (languageSelect === "en") {
+          getMultitStr(likeId)
+            .then(res => {
+              setFavStratigy(res.data);
+            })
+            .catch(err => setFavStratigy([]))
+        }
+        else (
+          getMultitHiStr(likeId)
+            .then(res => {
+              setfavStratigyi(res.data)
+            })
+        )
+      })
 
+  }, [user.saveId, languageSelect, user._id])
+
+  const handleApiLikes = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postLikes(data)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const like = res?.data?.filter(ress => ress.user_id === user._id)
+            const likeId = like?.map(ress => ress.strategie_id)
+            setLikes(like?.map(ress => ress.strategie_id))
+            if (languageSelect === "en") {
+              getMultitStr(likeId)
+                .then(res => {
+                  setFavStratigy(res.data);
+                })
+                .catch(err => setFavStratigy([]))
+            }
+            else (
+              getMultitHiStr(likeId)
+                .then(res => {
+                  setfavStratigyi(res.data)
+                })
+            )
+          })
+      })
+  }
+  const handleApiUnLikes = (id) => {
+    delLikes(id)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const like = res?.data?.filter(ress => ress.user_id === user._id)
+            const likeId = like?.map(ress => ress.strategie_id)
+            setLikes(like?.map(ress => ress.strategie_id))
+            if (languageSelect === "en") {
+              getMultitStr(likeId)
+                .then(res => {
+                  setFavStratigy(res.data);
+                })
+                .catch(err => setFavStratigy([]))
+            }
+            else (
+              getMultitHiStr(likeId)
+                .then(res => {
+                  setfavStratigyi(res.data)
+                })
+            )
+          })
+      })
+  }
   const handleLike = async (e) => {
     if (like?.includes(e)) {
       for (var i = 0; i < like.length; i++) {
@@ -101,7 +177,7 @@ const FavouriteStr = () => {
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position:"relative",left:"6px", borderRadius: "27px", width: "98px", cursor: "pointer"}}>
+                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ position: "relative", left: "6px", borderRadius: "27px", width: "98px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
                   <img className='filtericon3' src={Filter} alt="" />
                 </div>
@@ -166,7 +242,7 @@ const FavouriteStr = () => {
                               </p>
                             </Link>
                             <div className='d-flex align-items-center my-3'>
-                              {like?.includes(res._id) ? <img onClick={() => handleLike(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleLike(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                              {likes?.includes(res._id) ? <img onClick={() => handleApiUnLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
                             </div>
                           </div>
                           <div className='col-md-2 d-none d-md-block ms-5'>
@@ -256,7 +332,7 @@ const FavouriteStr = () => {
                                 </p>
                               </Link>
                               <div className='d-flex align-items-center my-3'>
-                                {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                {likes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
                               </div>
                             </div>
                             <div className='col-md-2 d-none d-md-block ms-5'>
@@ -364,7 +440,7 @@ const FavouriteStr = () => {
                               </p>
                             </Link>
                             <div className='d-flex align-items-center my-3'>
-                              {like?.includes(res._id) ? <img onClick={() => handleLike(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleLike(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                              {likes?.includes(res._id) ? <img onClick={() => handleApiUnLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
                             </div>
                           </div>
                           <div className='col-md-2 d-none d-md-block ms-5'>
@@ -454,7 +530,7 @@ const FavouriteStr = () => {
                                 </p>
                               </Link>
                               <div className='d-flex align-items-center my-3'>
-                                {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                {likes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
                               </div>
                             </div>
                             <div className='col-md-2 d-none d-md-block ms-5'>

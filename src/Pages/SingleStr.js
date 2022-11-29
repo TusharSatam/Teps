@@ -20,20 +20,22 @@ import { useAuth } from '../Context/AuthContext';
 import { useState } from 'react';
 import LikeByModal from '../Components/Modal/LikeByModal';
 import moment from 'moment';
+import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import { delLikes, getLikes, postLikes } from '../services/userLikes';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
   const [comment, setComment] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
-  const [totalLike, setTotalLike] = React.useState([])
-  const [totalSave, setTotalSave] = React.useState([])
+  // const [totalLike, setTotalLike] = React.useState([])
+  // const [totalSave, setTotalSave] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
-  const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [check, setCheck] = useState(false)
-  const [check1, setCheck1] = useState(false)
+  // const [react, setReact] = React.useState(user ? user?.saveId : []);
+  // const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  // const [check, setCheck] = useState(false)
+  // const [check1, setCheck1] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   React.useEffect(() => {
     singleStratigys(id)
@@ -47,88 +49,85 @@ const SingleStr = () => {
     getUsers()
       .then(res => {
         setAllUser(res.data);
-        setTotalLike(res?.data?.filter(res => res.saveReact.includes(id)).length);
-        setTotalSave(res?.data?.filter(res => res.saveId.includes(id)).length)
       })
   }, [])
 
 
-  const handleReact = async (e) => {
-    if (react?.includes(e)) {
-      setCheck1(false)
-      for (var i = 0; i < react.length; i++) {
-        if (react[i] === e) {
-          react?.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      react?.push(e)
-    }
-    setReact([...react], [react]);
-    if (check1) {
-      setCheck1(false)
-      setTotalLike(totalLike - 1)
-    }
-    else {
-      setCheck1(true)
-      setTotalLike(totalLike + 1)
-    }
+  // const handleReact = async (e) => {
+  //   if (react?.includes(e)) {
+  //     setCheck1(false)
+  //     for (var i = 0; i < react.length; i++) {
+  //       if (react[i] === e) {
+  //         react?.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     react?.push(e)
+  //   }
+  //   setReact([...react], [react]);
+  //   if (check1) {
+  //     setCheck1(false)
+  //     setTotalLike(totalLike - 1)
+  //   }
+  //   else {
+  //     setCheck1(true)
+  //     setTotalLike(totalLike + 1)
+  //   }
+  // }
+  // React.useEffect(() => {
+  //   const data = { "saveId": react }
+  //   if (react) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [react, user, setUser])
 
-  }
-  React.useEffect(() => {
-    const data = { "saveId": react }
-    if (react) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [react, user, setUser])
+  // const handleLike = async (e) => {
 
-  const handleLike = async (e) => {
+  //   if (like?.includes(e)) {
+  //     setCheck(false)
+  //     for (var i = 0; i < like.length; i++) {
+  //       if (like[i] === e) {
+  //         like.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     like.push(e)
+  //   }
+  //   setLike([...like], [like]);
+  //   if (check) {
+  //     setCheck(false)
+  //     setTotalSave(totalSave - 1)
+  //   }
+  //   else {
+  //     setCheck(true)
+  //     setTotalSave(totalSave + 1)
+  //   }
+  // }
 
-    if (like?.includes(e)) {
-      setCheck(false)
-      for (var i = 0; i < like.length; i++) {
-        if (like[i] === e) {
-          like.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      like.push(e)
-    }
-    setLike([...like], [like]);
-    if (check) {
-      setCheck(false)
-      setTotalSave(totalSave - 1)
-    }
-    else {
-      setCheck(true)
-      setTotalSave(totalSave + 1)
-    }
-  }
-
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveReact": like }
+  //   if (like) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [like, user, setUser])
 
   const handleSeeComment = () => {
     if (seeComment) {
@@ -163,6 +162,86 @@ const SingleStr = () => {
       })
   }
   const [show, setShow] = useState()
+
+  const [userLikes, setUserLikes] = useState([]);
+  const [totalUserLikes, setTotalUserLikes] = useState(0);
+  React.useEffect(() => {
+    getLikes()
+      .then(res => {
+        const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserLikes(totalLike.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserLikes(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiLikes = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postLikes(data)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnLikes = (id) => {
+    delLikes(id)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+
+  const [userSaves, setUserSaves] = useState([]);
+  const [totalUserSaves, setTotalUserSaves] = useState(0);
+  React.useEffect(() => {
+    getSaves()
+      .then(res => {
+        const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserSaves(totalSave.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserSaves(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiSaves = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postSaves(data)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnSaves = (id) => {
+    delSaves(id)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
   return (
     <div>
       <LikeByModal
@@ -238,15 +317,15 @@ const SingleStr = () => {
                   <div className='d-flex align-items-center'>
                     <div>
                       <div className='mx-2'>
-                        {react?.includes(str?._id) ? <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                        {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalLike}</p>
+                      <p className='count_num'>{totalUserSaves}</p>
                     </div>
                     <div className='mx-3'>
                       <div>
-                        {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                        {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num' onClick={() => setShow(true)}>{totalSave}</p>
+                      <p className='count_num' onClick={() => setShow(true)}>{totalUserLikes}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
