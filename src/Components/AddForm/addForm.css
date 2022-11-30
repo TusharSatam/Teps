@@ -84,12 +84,8 @@
     background-color: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
-<<<<<<< HEAD
-    padding: 20px;
-=======
     position: relative;
     padding: 10px 10px;
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
 }
 
 .form-footer {

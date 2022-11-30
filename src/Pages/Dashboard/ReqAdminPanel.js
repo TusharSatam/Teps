@@ -146,20 +146,6 @@ const ReqAdminPanel = () => {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>
-<<<<<<< HEAD
-        {
-          count?.length === 0 || count === undefined ? "No Requests Available" :
-            <>
-              {
-                count?.map((data, index) => (
-                  <><div className="d-flex my-4">
-                    <h3 className='me-3'>Request {index + 1} for Delete Strategies</h3>
-                  </div>
-                    <div>
-                      {
-                        showId && showId.includes(data._id) ?
-                          <>
-=======
           :
           <div className="container">
             <div className='mb-3'>
@@ -211,7 +197,6 @@ const ReqAdminPanel = () => {
                             </tr>
                           </thead>
                           <tbody>
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
                             {
                               <>
                                 {data && data?.reqDel?.map((item, index) => (

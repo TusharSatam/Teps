@@ -4,9 +4,6 @@
   align-items: center;
    background: #1AA05B;
    overflow: hidden; 
-<<<<<<< HEAD
-   height: 60px;
-=======
    height: 300px;
     padding: 1px;
 }
@@ -39,7 +36,6 @@
 .button:hover{
   background-color: blue;
   color: red;
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
 }
 .headText{
   font-size: 21px;
@@ -69,11 +65,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-<<<<<<< HEAD
-  font-size: 16px;
-=======
   font-size: 10px;
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
   line-height: 25px;
   color: #6D747A;
 }
@@ -161,13 +153,8 @@
   font-size: 14px;
   line-height: 23px;
   color: #FFFFFF;
-<<<<<<< HEAD
-  /* letter-spacing: -0.01em; */
-  padding: 6px 12px ;
-=======
   letter-spacing: -0.01em;
   padding: 5px 16px;
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
 }
 .see_comment{
   background: #F4F8F7;

@@ -141,12 +141,7 @@ const SingleStr = () => {
 
 
   // const totalSave = allUser.filter(res => res.saveId.includes(id));
-<<<<<<< HEAD
-  // const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  // console.log("totalSave", totalSave, "totalReact", totalLike);
-=======
   const totalReact = allUser.filter(res => res.saveReact.includes(id));
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
   const handleComment = (e) => {
     e.preventDefault();
     setIsLoading(true)
@@ -250,10 +245,6 @@ const SingleStr = () => {
   }
   return (
     <div>
-<<<<<<< HEAD
-      <div className='saveStrParent' >
-        <div className='text-white text-center headText mt-md-0'>{t("Strategy screen")}</div>
-=======
       <LikeByModal
         show={show}
         handleClose={() => setShow(false)}
@@ -261,7 +252,6 @@ const SingleStr = () => {
       />
       <div className='saveStrParent2' style={{ background: "#1AA05B", overflow: "hidden", padding: "5px" }} >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
->>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
