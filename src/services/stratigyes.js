@@ -35,7 +35,7 @@ export const delStratigys = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -51,7 +51,7 @@ export const multidelStratigys = async (ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -67,7 +67,7 @@ export const alldelStratigys = async (all) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -112,7 +112,7 @@ export const reqDeletStr = async (data, ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -158,7 +158,6 @@ export const getSingleDelStr = async (id) => {
 // reqDelet update Stratigy
 export const updatestrDeletRq = async (id, data) => {
   let stratigyResponse
-  console.log(data);
   const allId = {
     "reqDel": data
   }
@@ -190,7 +189,6 @@ export const postcomment = async (data) => {
     })
     .catch(err => console.log(err))
   return stratigyResponse;
-
 }
 
 export const getComment = async () => {
@@ -225,8 +223,51 @@ export const delComments = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
+}
 
+// delet multi Stratigy
+export const multidelStratigysReq = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to delete the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdel/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqDeny = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to keep the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdel/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqby = async (ids) => {
+  let stratigyResponse
+  await axios.delete(`strategies/ch/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
 }

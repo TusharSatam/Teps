@@ -241,15 +241,12 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Dev Dom 1 <p>*</p></p>
-                    <select required className={'select-field'} name="dev_dom_1" id="">
-                      <option value="" selected disabled>Dev Dom 1</option>
 
+                    <select required className={'select-field'} name="dev_dom_1" id="" placeholder=''>
+                      <option value="" selected disabled>Dev Dom 1</option>
                       {
                         uniqueDevDom1?.filter(res => res['Dev Dom 1'] !== undefined).map(res => (
                           <option>{res['Dev Dom 1'] !== undefined && res['Dev Dom 1']}
-                            {
-                              console.log(res['Dev Dom 1'] !== "" && res['Dev Dom 1'])
-                            }
                           </option>
                         ))
                       }
@@ -271,6 +268,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Mode Of Teaching <p>*</p></p>
                     <select required className={'select-field'} name="mode_of_teaching" id="">
+                      <option value="" selected disabled>Mode Of Teaching</option>
                       <option>Online</option>
                       <option>Offline</option>
                     </select>
@@ -295,8 +293,8 @@ const AddForm = () => {
                     <textarea required className={'select-field-full-2'} name="teaching_str" id="" />
                   </div>
                 </div>
-                <div className='form-footer'>
-                  <p className='form-note'>Note - The strategy will be added post approval by admin</p>
+                <div className='d-flex justify-content-center mt-4'>
+                  {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
                   <button type='submit' className='form-btn'>Submit Strategy</button>
                 </div>
                 {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}

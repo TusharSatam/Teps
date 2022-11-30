@@ -18,6 +18,8 @@ import { getSingleUser, updateUser } from '../services/dashboardUsers';
 import FilterStr from '../Components/Home/FilterStr';
 import { Link } from 'react-router-dom';
 import { getMultitHiStr } from '../services/hindiStratigys';
+import { buildQueries } from '@testing-library/react';
+import { delSaves, getSaves, postSaves } from '../services/userSaves';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -48,22 +50,84 @@ const SaveStratigy = () => {
       setFilter(true)
     }
   }
+  const [save, setSave] = useState([])
   React.useEffect(() => {
-    if (languageSelect === "en") {
-      getMultitStr(user.saveId)
-        .then(res => {
-          setSaveStratigy(res.data);
-        })
-        .catch(err => setSaveStratigy([]))
+    getSaves()
+      .then(res => {
+        const saves = res?.data?.filter(ress => ress.user_id === user._id)
+        const savesId = saves?.map(ress => ress.strategie_id)
+        setSave(saves?.map(ress => ress.strategie_id))
+        if (languageSelect === "en") {
+          getMultitStr(savesId)
+            .then(res => {
+              setSaveStratigy(res.data);
+            })
+            .catch(err => setSaveStratigy([]))
+        }
+        else (
+          getMultitHiStr(savesId)
+            .then(res => {
+              setSaveStratigyi(res.data)
+            })
+        )
+      })
+
+  }, [user.saveId, languageSelect, user._id])
+
+  const handleApiSaves = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
     }
-    else (
-      getMultitHiStr(user.saveId)
-        .then(res => {
-          setSaveStratigyi(res.data)
-        })
-    )
-  }, [user.saveId, languageSelect])
-  console.log(stratigyFilData);
+    postSaves(data)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const saves = res?.data?.filter(ress => ress.user_id === user._id)
+            const savesId = saves?.map(ress => ress.strategie_id)
+            setSave(saves?.map(ress => ress.strategie_id))
+            if (languageSelect === "en") {
+              getMultitStr(savesId)
+                .then(res => {
+                  setSaveStratigy(res.data);
+                })
+                .catch(err => setSaveStratigy([]))
+            }
+            else (
+              getMultitHiStr(savesId)
+                .then(res => {
+                  setSaveStratigyi(res.data)
+                })
+            )
+          })
+      })
+  }
+  const handleApiUnSaves = (id) => {
+    delSaves(id)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const saves = res?.data?.filter(ress => ress.user_id === user._id)
+            const savesId = saves?.map(ress => ress.strategie_id)
+            setSave(saves?.map(ress => ress.strategie_id))
+            if (languageSelect === "en") {
+              getMultitStr(savesId)
+                .then(res => {
+                  setSaveStratigy(res.data);
+                })
+                .catch(err => setSaveStratigy([]))
+            }
+            else (
+              getMultitHiStr(savesId)
+                .then(res => {
+                  setSaveStratigyi(res.data)
+                })
+            )
+          })
+      })
+  }
+
+
   const handleReact = async (e) => {
     if (react?.includes(e)) {
       for (var i = 0; i < react.length; i++) {
@@ -92,6 +156,7 @@ const SaveStratigy = () => {
         })
     }
   }, [react, user, setUser])
+  console.log(save);
   return (
     <div>
       {
@@ -100,15 +165,17 @@ const SaveStratigy = () => {
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
+                {/* col-md-1 bg-white py-1 px-3 */}
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{position: "relative", left: "-15px", borderRadius: "27px", width: "90px", cursor: "pointer" }}>
+                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ position: "relative", left: "-25px", borderRadius: "27px", width: "98px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" />
+                  <img src={Filter} alt="" className='filtericon2' />
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
                   stratigy={saveStratigy}
+
                 />
               </div>
             </div>
@@ -166,7 +233,7 @@ const SaveStratigy = () => {
                               </p>
                             </Link>
                             <div className='d-flex align-items-center my-3'>
-                              {react?.includes(res._id) ? <img onClick={() => handleReact(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                             </div>
                           </div>
                           <div className='col-md-2 d-none d-md-block ms-5'>
@@ -201,7 +268,6 @@ const SaveStratigy = () => {
                       </div>
                     </div>
                   </div>
-                  // </Link>
                 ))
                   :
                   saveStratigy?.map((data, index) => (
@@ -256,7 +322,7 @@ const SaveStratigy = () => {
                                 </p>
                               </Link>
                               <div className='d-flex align-items-center my-3'>
-                                {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                               </div>
                             </div>
                             <div className='col-md-2 d-none d-md-block ms-5'>
@@ -295,11 +361,12 @@ const SaveStratigy = () => {
             }
           </> :
           <>
+            {/* 'col-md-1 bg-white py-1 px-3' */}
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
+                <div onClick={handleFilter} className="button" style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
                   <img src={Filter} alt="" />
                 </div>
@@ -364,7 +431,7 @@ const SaveStratigy = () => {
                               </p>
                             </Link>
                             <div className='d-flex align-items-center my-3'>
-                              {react?.includes(res._id) ? <img onClick={() => handleReact(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                             </div>
                           </div>
                           <div className='col-md-2 d-none d-md-block ms-5'>
@@ -454,7 +521,7 @@ const SaveStratigy = () => {
                                 </p>
                               </Link>
                               <div className='d-flex align-items-center my-3'>
-                                {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                               </div>
                             </div>
                             <div className='col-md-2 d-none d-md-block ms-5'>

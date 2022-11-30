@@ -17,8 +17,11 @@ import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
-import moment from 'moment/moment';
 import { useState } from 'react';
+import LikeByModal from '../Components/Modal/LikeByModal';
+import moment from 'moment';
+import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import { delLikes, getLikes, postLikes } from '../services/userLikes';
 const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -26,14 +29,15 @@ const SingleStr = () => {
   console.log(comment);
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
-  const [totalLike, setTotalLike] = React.useState([])
-  const [totalSave, setTotalSave] = React.useState([])
+  // const [totalLike, setTotalLike] = React.useState([])
+  // const [totalSave, setTotalSave] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
-  const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [check, setCheck] = useState(false)
-  const [check1, setCheck1] = useState(false)
+  // const [react, setReact] = React.useState(user ? user?.saveId : []);
+  // const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  // const [check, setCheck] = useState(false)
+  // const [check1, setCheck1] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   React.useEffect(() => {
     singleStratigys(id)
       .then(res => {
@@ -46,88 +50,85 @@ const SingleStr = () => {
     getUsers()
       .then(res => {
         setAllUser(res.data);
-        setTotalLike(res?.data?.filter(res => res.saveReact.includes(id)).length);
-        setTotalSave(res?.data?.filter(res => res.saveId.includes(id)).length)
       })
   }, [])
 
 
-  const handleReact = async (e) => {
-    if (react?.includes(e)) {
-      setCheck1(false)
-      for (var i = 0; i < react.length; i++) {
-        if (react[i] === e) {
-          react?.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      react?.push(e)
-    }
-    setReact([...react], [react]);
-    if (check1) {
-      setCheck1(false)
-      setTotalLike(totalLike - 1)
-    }
-    else {
-      setCheck1(true)
-      setTotalLike(totalLike + 1)
-    }
+  // const handleReact = async (e) => {
+  //   if (react?.includes(e)) {
+  //     setCheck1(false)
+  //     for (var i = 0; i < react.length; i++) {
+  //       if (react[i] === e) {
+  //         react?.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     react?.push(e)
+  //   }
+  //   setReact([...react], [react]);
+  //   if (check1) {
+  //     setCheck1(false)
+  //     setTotalLike(totalLike - 1)
+  //   }
+  //   else {
+  //     setCheck1(true)
+  //     setTotalLike(totalLike + 1)
+  //   }
+  // }
+  // React.useEffect(() => {
+  //   const data = { "saveId": react }
+  //   if (react) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [react, user, setUser])
 
-  }
-  React.useEffect(() => {
-    const data = { "saveId": react }
-    if (react) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [react, user, setUser])
+  // const handleLike = async (e) => {
 
-  const handleLike = async (e) => {
+  //   if (like?.includes(e)) {
+  //     setCheck(false)
+  //     for (var i = 0; i < like.length; i++) {
+  //       if (like[i] === e) {
+  //         like.splice(i, 1);
+  //         i--;
+  //       }
+  //     }
+  //   }
+  //   else {
+  //     like.push(e)
+  //   }
+  //   setLike([...like], [like]);
+  //   if (check) {
+  //     setCheck(false)
+  //     setTotalSave(totalSave - 1)
+  //   }
+  //   else {
+  //     setCheck(true)
+  //     setTotalSave(totalSave + 1)
+  //   }
+  // }
 
-    if (like?.includes(e)) {
-      setCheck(false)
-      for (var i = 0; i < like.length; i++) {
-        if (like[i] === e) {
-          like.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      like.push(e)
-    }
-    setLike([...like], [like]);
-    if (check) {
-      setCheck(false)
-      setTotalSave(totalSave - 1)
-    }
-    else {
-      setCheck(true)
-      setTotalSave(totalSave + 1)
-    }
-  }
-
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveReact": like }
+  //   if (like) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [like, user, setUser])
 
   const handleSeeComment = () => {
     if (seeComment) {
@@ -140,14 +141,20 @@ const SingleStr = () => {
 
 
   // const totalSave = allUser.filter(res => res.saveId.includes(id));
+<<<<<<< HEAD
   // const totalReact = allUser.filter(res => res.saveReact.includes(id));
   // console.log("totalSave", totalSave, "totalReact", totalLike);
+=======
+  const totalReact = allUser.filter(res => res.saveReact.includes(id));
+>>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
   const handleComment = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setIsLoading(true)
     const data = {
       "strategie_id": id,
       "user_name": `${user.firstName} ${user.lastName}`,
-      "comment": e.target.comment.value
+      "comment": e.target.comment.value,
+      "postTime": new Date()
     }
     postcomment(data)
       .then(res => {
@@ -155,15 +162,106 @@ const SingleStr = () => {
           .then(res => {
             setStr(res[0]);
             setComment(res[1]?.comments);
-            e.target.reset()
+            e.target.reset();
+            setIsLoading(false)
+          })
+      })
+  }
+  const [show, setShow] = useState()
+
+  const [userLikes, setUserLikes] = useState([]);
+  const [totalUserLikes, setTotalUserLikes] = useState(0);
+  React.useEffect(() => {
+    getLikes()
+      .then(res => {
+        const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserLikes(totalLike.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserLikes(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiLikes = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postLikes(data)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnLikes = (id) => {
+    delLikes(id)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
           })
       })
   }
 
+  const [userSaves, setUserSaves] = useState([]);
+  const [totalUserSaves, setTotalUserSaves] = useState(0);
+  React.useEffect(() => {
+    getSaves()
+      .then(res => {
+        const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserSaves(totalSave.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserSaves(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiSaves = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postSaves(data)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnSaves = (id) => {
+    delSaves(id)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
   return (
     <div>
+<<<<<<< HEAD
       <div className='saveStrParent' >
         <div className='text-white text-center headText mt-md-0'>{t("Strategy screen")}</div>
+=======
+      <LikeByModal
+        show={show}
+        handleClose={() => setShow(false)}
+        totalReact={totalReact}
+      />
+      <div className='saveStrParent2' style={{ background: "#1AA05B", overflow: "hidden", padding: "5px" }} >
+        <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
+>>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
@@ -230,15 +328,15 @@ const SingleStr = () => {
                   <div className='d-flex align-items-center'>
                     <div>
                       <div className='mx-2'>
-                        {react?.includes(str?._id) ? <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                        {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalLike}</p>
+                      <p className='count_num'>{totalUserSaves}</p>
                     </div>
                     <div className='mx-3'>
                       <div>
-                        {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                        {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalSave}</p>
+                      <p className='count_num' onClick={() => setShow(true)}>{totalUserLikes}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
@@ -297,78 +395,29 @@ const SingleStr = () => {
                   <input required name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
-                  <input type="submit" value={`${t('Submit')}`} />
+                  <input disabled={isLoading} type="submit" value={`${t('Submit')}`} />
                 </div>
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img width="10px" src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img width="10px" src={UpArrow} alt="" /></p>
+
                 </div>
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />
                     </div>
                   ))
                 }
-                {/* <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div> */}
               </div>
             </div>
           </div>
@@ -396,63 +445,13 @@ const SingleStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
                 <hr />
               </div>
             ))
           }
-          {/* <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div> */}
         </div>
       </div>
     </div>

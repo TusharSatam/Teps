@@ -31,32 +31,6 @@ const UserReqEn = () => {
       .then(response => {
         updateUserStratigys(id, data)
           .then(res => {
-            // singleUserEnStratigys(id)
-            //   .then(ress => {
-            //     const datae = {
-            //       "to": user.email,
-            //       'subject': "TEPS - Congratulations! Your strategy has been approved.",
-            //       "html": `
-            //       <p>Hello ${user.firstName}</p>
-            //       <p>We are glad to inform you that your strategy (shown below) has been approved and will be shown with the rest of the strategies to all the members of the community. We thank you for your contribution to the community of educators.</p><br />
-            //       <p>Regards,</p>
-            //       <p>Things Education Team</p>
-            //       <p>${res?.data[0]['Teaching Strategy']}</p>
-            //       `
-            //     }
-            //     axios.post('email', datae)
-            //       .then(resp => {
-            //         console.log('ljkbkjh');
-            //         resp && getUserStratigys()
-            //           .then(res => {
-            //             setEnStr(res.data?.filter(res => res.Approve === false))
-            //             res && toast.success('Request Approved!', {
-            //               duration: 4000
-            //             });
-            //           })
-            //       })
-            //       .catch(err => console.log(err))
-            //   })
             getUserStratigys()
               .then(res => {
                 setEnStr(res.data?.filter(res => res.Approve === false))
@@ -76,7 +50,7 @@ const UserReqEn = () => {
                 }
                 axios.post('email', datae)
                   .then(resp => {
-                    console.log('ljkbkjh', resp);
+                    console.log("success");
                   })
                   .catch(err => console.log(err))
               })
@@ -107,7 +81,7 @@ const UserReqEn = () => {
                 }
                 axios.post('email', datae)
                   .then(resp => {
-                    console.log('ljkbkjh', resp);
+                    console.log("success");
                   })
                   .catch(err => console.log(err))
               })

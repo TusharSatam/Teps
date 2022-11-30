@@ -88,7 +88,6 @@ const FilterStr = ({ stratigy }) => {
     setSelectSubSubTopic(e.target.value)
     localStorage.removeItem('selectedDropdown');
   }
-  // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   })
@@ -125,7 +124,6 @@ const FilterStr = ({ stratigy }) => {
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
-      console.log(aquaticCreatures);
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
@@ -158,7 +156,6 @@ const FilterStr = ({ stratigy }) => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{console.log(selectedOption?.selectSubject)}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 

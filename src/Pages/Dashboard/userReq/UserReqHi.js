@@ -1,11 +1,16 @@
 import React from 'react';
 import { Spinner, Table } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { denyUserStratigysHi, getUserStratigysHi, updateUserStratigysHi } from '../../../services/userStratigyHi';
+import { FaRegEdit } from 'react-icons/fa';
+import UserHiStratigyEdit from '../../../Components/DashboardModal/UserHiStratigyEdit';
+import { denyUserStratigysHi, getUserStratigysHi, singleUserHiStratigys, updateUserStratigysHi } from '../../../services/userStratigyHi';
 
 const UserReqHi = () => {
   const [enStr, setEnStr] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false);
+  const [singleStr, setSingleStr] = React.useState({});
+  const handleClose = () => setShow(false);
+  const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true)
@@ -43,11 +48,25 @@ const UserReqHi = () => {
           })
       })
   }
+  const handleEdit = (id) => {
+    singleUserHiStratigys(id)
+      .then(res => {
+        setSingleStr(res?.data[0]);
+        setShow(true)
+      })
+  }
   return (
     <div>
       <Toaster
         position="top-right"
         reverseOrder={false}
+      />
+      <UserHiStratigyEdit
+        show={show}
+        onHide={handleClose}
+        data={singleStr}
+        setShow={setShow}
+        setStratigys={setEnStr}
       />
       {
         isLoading ? <div style={{ marginLeft: "500px", marginTop: "150px" }}>
@@ -76,6 +95,7 @@ const UserReqHi = () => {
                         <th scope="col">Mode of Teaching </th>
                         <th scope="col">Learning Outcome </th>
                         <th scope="col">Teaching Strategy </th>
+                        <th scope="col"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -101,6 +121,7 @@ const UserReqHi = () => {
                                 </td> */}
                         <td>{item['शिक्षण के परिणाम']?.slice(0, 20)}</td>
                         <td>{item['शिक्षण रणनीति']?.slice(0, 20)}</td>
+                        <td> <button onClick={() => handleEdit(item._id)} className='btn p-0'><FaRegEdit /></button></td>
                       </tr>
                     </tbody>
                   </Table>

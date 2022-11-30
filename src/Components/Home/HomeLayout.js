@@ -41,7 +41,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       setSelectedOption(JSON.parse(selectedDropdown))
     }
   }, [])
-  console.log(allUserStratigys);
   React.useEffect(() => {
     if (location.pathname !== '/home') {
       if (selectedOption) {
@@ -102,7 +101,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     setSelectSubSubTopic(e.target.value)
     localStorage.removeItem('selectedDropdown');
   }
-  // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   })
@@ -184,7 +182,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
-      console.log(aquaticCreaturesUser);
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
@@ -195,8 +192,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       if (aquaticCreatures.length === 0 || aquaticCreaturesUser.length === 0) {
         setError("No strategies are available for this combination. Please try a different combination.")
       }
-      // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
-      // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);
 
     }
 
@@ -211,7 +206,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{console.log(selectedOption?.selectSubject)}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 

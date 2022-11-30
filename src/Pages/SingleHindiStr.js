@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
@@ -18,6 +18,9 @@ import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers'
 import { useAuth } from '../Context/AuthContext';
 import { singleHindiStratigys } from '../services/hindiStratigys';
 import { postcomment } from '../services/stratigyes';
+import moment from 'moment';
+import { delLikes, getLikes, postLikes } from '../services/userLikes';
+import { delSaves, getSaves, postSaves } from '../services/userSaves';
 const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -126,6 +129,85 @@ const SingleHindiStr = () => {
           })
       })
   }
+  const [userLikes, setUserLikes] = useState([]);
+  const [totalUserLikes, setTotalUserLikes] = useState(0);
+  React.useEffect(() => {
+    getLikes()
+      .then(res => {
+        const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserLikes(totalLike.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserLikes(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiLikes = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postLikes(data)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnLikes = (id) => {
+    delLikes(id)
+      .then(res => {
+        getLikes()
+          .then(res => {
+            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserLikes(totalLike.length)
+            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserLikes(userlike?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+
+  const [userSaves, setUserSaves] = useState([]);
+  const [totalUserSaves, setTotalUserSaves] = useState(0);
+  React.useEffect(() => {
+    getSaves()
+      .then(res => {
+        const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+        setTotalUserSaves(totalSave.length)
+        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        setUserSaves(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  const handleApiSaves = (id) => {
+    const data = {
+      strategie_id: id,
+      user_id: user._id
+    }
+    postSaves(data)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
+  const handleApiUnSaves = (id) => {
+    delSaves(id)
+      .then(res => {
+        getSaves()
+          .then(res => {
+            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+            setTotalUserSaves(totalSave.length)
+            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            setUserSaves(userSave?.map(ress => ress.strategie_id))
+          })
+      })
+  }
   return (
     <div>
       <div className='saveStrParent' >
@@ -196,15 +278,15 @@ const SingleHindiStr = () => {
                   <div className='d-flex align-items-center'>
                     <div>
                       <div className='mx-2'>
-                        {react?.includes(str?._id) ? <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                        {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalSave.length}</p>
+                      <p className='count_num'>{totalUserSaves}</p>
                     </div>
                     <div className='mx-3'>
                       <div>
-                        {like.includes(str?._id) ? <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                        {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalReact.length}</p>
+                      <p className='count_num'>{totalUserLikes}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
@@ -278,63 +360,13 @@ const SingleHindiStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />
                     </div>
                   ))
                 }
-                {/* <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div>
-                <div className='mt-4'>
-                  <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-                  <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-                    suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-                    ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-                    quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-                    nunc. Vestibulum id ligula lectus.
-                  </p>
-                  <hr />
-                </div> */}
               </div>
             </div>
           </div>
@@ -362,7 +394,7 @@ const SingleHindiStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
                 <hr />

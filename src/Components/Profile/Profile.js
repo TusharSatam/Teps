@@ -104,7 +104,6 @@ const Profile = () => {
         if (res?.data[0].Message !== "No records found") {
           setLiveDetails(res?.data[0]?.PostOffice[0]);
           setCityFound(true)
-          console.log(res?.data[0]?.PostOffice[0]?.Country);
         }
         else {
           setCityFound(false)
@@ -210,7 +209,6 @@ const Profile = () => {
                   toast.success(`${t('update_profile_messege')}`)
                   setIsLoading(false);
                   setEditAll(false);
-                  console.log("habdaud");
                 }
               })
               .catch(err => console.log(err))
@@ -281,7 +279,7 @@ const Profile = () => {
               <div className='profile_school mt-5'>
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
-              <div style={{ marginTop: "110px" }}>
+              <div className='py-4' style={{ position: "relative", padding: "4px" }}>
                 <div className='d-flex justify-content-center py-5'>
                   <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>

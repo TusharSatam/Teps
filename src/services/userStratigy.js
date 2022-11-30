@@ -10,7 +10,16 @@ export const postUserStratigys = async (data) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
-
+// get Stratigy
+export const getUserPaginationStratigys = async (quiry) => {
+  let stratigyResponse
+  await axios.get(`userStratiges`, { params: { page: quiry } })
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}
 // get Stratigy
 export const getUserStratigys = async () => {
   let stratigyResponse
@@ -21,6 +30,7 @@ export const getUserStratigys = async () => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
 // get Stratigy
 export const singleUserEnStratigys = async (id) => {
   let stratigyResponse
@@ -64,7 +74,7 @@ export const delApproveUserStratigys = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -80,7 +90,7 @@ export const multidelUserStratigys = async (ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }

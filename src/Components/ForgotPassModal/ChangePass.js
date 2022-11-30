@@ -29,14 +29,6 @@ const ChangePass = ({ show, setShow }) => {
         }
         axios.post("/forget/update", data)
           .then(res => {
-            // (emailjs.send('service_8qg6csq', 'template_jwi6bie', {
-            //   "reply_to": user.email
-            // }, 'RetawD6Qlh_S7pi-n')
-            //   .then((result) => {
-            //     console.log(result.text);
-            //   }, (error) => {
-            //     console.log(error.text);
-            //   }))
             const data = {
               "to": user.email,
               'subject': "Password changed - TEPS",

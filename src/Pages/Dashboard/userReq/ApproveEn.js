@@ -1,10 +1,12 @@
 import React from 'react';
 import { Spinner, Table } from 'react-bootstrap';
+import { CSVLink } from 'react-csv';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import UserStrEditModal from '../../../Components/DashboardModal/UserStrEditModal';
 import { useAuth } from '../../../Context/AuthContext';
-import { delApproveUserStratigys, getUserStratigys, multidelUserStratigys, singleUserEnStratigys } from '../../../services/userStratigy'
+import { delApproveUserStratigys, getUserPaginationStratigys, getUserStratigys, multidelUserStratigys, singleUserEnStratigys } from '../../../services/userStratigy'
+
 const ApproveEn = () => {
   const { humBurgs } = useAuth()
   const [enStr, setEnStr] = React.useState([])
@@ -14,16 +16,19 @@ const ApproveEn = () => {
   const [showCh, setshowCh] = React.useState([]);
   const [allCheck, setAllCheck] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-
+  const [pageCount, setPageCount] = React.useState(1);
+  const [stratigys, setStratigys] = React.useState([]);
+  const { admin } = useAuth()
   React.useEffect(() => {
     setIsLoading(true)
-    getUserStratigys()
+    getUserPaginationStratigys(pageCount)
       .then(res => {
-        setEnStr(res.data?.filter(res => res.Approve === true))
+        setEnStr(res.data?.posts.filter(res => res.Approve === true))
         setIsLoading(false)
+        setStratigys(res.data)
       })
   }, [])
-
+  const csvData = enStr ? enStr : [];
   const handleDelet = (id) => {
     delApproveUserStratigys(id)
       .then(res => {
@@ -79,6 +84,14 @@ const ApproveEn = () => {
         setAllCheck(false)
       })
   }
+  const handlePrevious = () => {
+    setPageCount(parseInt(pageCount) - 1)
+  }
+
+  const handleNext = () => {
+    setPageCount(parseInt(pageCount) + 1)
+    setAllCheck(false)
+  }
   return (
     <div>
       <Toaster
@@ -101,10 +114,15 @@ const ApproveEn = () => {
           </div>
             :
             <>
-              {
-                showCh.length !== 0 &&
-                <button onClick={handleMultiDelet} className={"btn btn-primary mb-3"}>Delete Selected Strategies</button>
-              }
+              <div className='d-flex mb-3'>
+                {
+                  admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData}>Download All Strategies</CSVLink>
+                }
+                {
+                  showCh.length !== 0 &&
+                  <button onClick={handleMultiDelet} className={"btn btn-primary mb-3"}>Delete Selected Strategies</button>
+                }
+              </div>
               <Table striped bordered hover size="sm" className={humBurgs ? 'd-none d-md-block table_overflow' : 'd-none d-md-block table_overflows'}>
                 <thead style={{ background: '#d5b39a' }}>
                   <tr>
@@ -130,7 +148,9 @@ const ApproveEn = () => {
                     enStr.map((item, index) => (
                       <tr key={index}>
                         <td><input type="checkbox" checked={showCh.includes(item._id)} onChange={() => handleCheckbox(item._id)} name="" id="" /></td>
-                        <td> {index + 1}</td>
+                        <td> {stratigys?.currentPage === '1' ? index + 1 :
+                          (parseInt(stratigys?.currentPage) - 1) * 100 + (index + 1)
+                        }</td>
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.Subject}</td>
                         <td>{item.Grade}</td>
@@ -221,9 +241,15 @@ const ApproveEn = () => {
                   }
                 </tbody>
               </Table>
+              <div className='container pb-3'>
+                <p className='fw-bold'>{stratigys?.currentPage} Of {stratigys?.totalPages}</p>
+                <button onClick={handlePrevious} disabled={stratigys?.currentPage === '1'} className='btn btn-success me-3'>Previous</button>
+                <button onClick={handleNext} disabled={parseInt(stratigys?.currentPage) === stratigys?.totalPages} className='btn btn-success'>Next</button>
+              </div>
             </>
         }
       </>
+
     </div>
   );
 };

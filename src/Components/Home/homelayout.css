@@ -35,10 +35,12 @@
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
-    line-height: 24px;
+    line-height: 15px;
     letter-spacing: -0.01em;
     color: #1AA05B;
     border: none;
+    position: relative;
+    bottom: 10px;
 }
 .Sec_submit_btn:hover{
     background: #90d3b0;

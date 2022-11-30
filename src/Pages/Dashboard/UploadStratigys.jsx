@@ -45,7 +45,6 @@ const UploadStratigys = () => {
       }
       axios.post('adminStrategies', data, { config })
         .then(res => {
-          console.log(res);
           toast.success('Request send for upload!', {
             duration: 4000
           })

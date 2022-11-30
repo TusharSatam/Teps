@@ -46,7 +46,7 @@ const AproveReqModal = (props) => {
           </div>
           <div className='d-flex justify-content-center my-4'>
             <div>
-              <button onClick={handleAccept} className='accept_btn'>{isLoading ? <Spinner className="text-light " animation="border" /> : "Accept"}</button>
+              <button disabled={isLoading} onClick={handleAccept} className='accept_btn'> Accept</button>
             </div>
             <div>
               <button onClick={props.onHide} className='cancel_btn'>Cancel</button>

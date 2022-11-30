@@ -36,12 +36,10 @@ const AddFormHi = () => {
     .map(devDom1 => {
       return allStratigys.find(a => a['विकासात्मक क्षेत्र 1'] === devDom1)
     });
-  console.log(uniqueDevDom1);
   const uniqueDevDom2 = Array.from(new Set(allStratigys.map(a => a['विकासात्मक क्षेत्र 2'])))
     .map(devDom1 => {
       return allStratigys.find(a => a['विकासात्मक क्षेत्र 2'] === devDom1)
     });
-  console.log(uniqueDevDom2);
   const handleSub = (e) => {
     setSelectSubject(e.target.value)
   }

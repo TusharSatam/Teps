@@ -84,7 +84,12 @@
     background-color: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
+<<<<<<< HEAD
     padding: 20px;
+=======
+    position: relative;
+    padding: 10px 10px;
+>>>>>>> 97fd27a1730d361537a24279bd0413fbd1fc4f85
 }
 
 .form-footer {
@@ -98,13 +103,15 @@
     color: #474747;
     margin-top: 22px;
     margin-right: 62px;
+    position: relative;
+    margin: 15px;
 }
 
 .form-btn {
     background: #1AA05B;
     border-radius: 20px;
     padding: 8px 16px;
-    font-weight: 700;
+    font-weight: 600;
     height: 40px;
     font-size: 16px;
     line-height: 24px;
@@ -139,6 +146,8 @@
     line-height: 30px;
     color: #1AA05B;
     text-align: center;
+    position: relative;
+    padding-left: 140px;
 }
 
 .like-title .like-icon {
