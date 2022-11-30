@@ -1,3 +1,11 @@
+.modal{
+  width: 100%;
+}
+.modal-content{
+  border-radius: 12px;
+  width: auto;
+  padding: 10px;
+}
 .re_mod_title{
   font-family: 'Inter';
 font-style: normal;
@@ -9,6 +17,7 @@ letter-spacing: -0.01em;
 line-height: 35px;
 }
 .mod_body{
+  width: 100%;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;

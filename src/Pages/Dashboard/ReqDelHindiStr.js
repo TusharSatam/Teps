@@ -66,12 +66,12 @@ const ReqDelHindiStr = () => {
 
         </div>
         {
-          count?.length === 0 || count === undefined ? "No Request send" :
+          count?.length === 0 || count === undefined ? "No Requests Available" :
             <>
               {
                 count?.map((data, index) => (
                   <><div className="d-flex my-4">
-                    <h3 className='me-3'>Request{index + 1} for Delet Strategies</h3>
+                    <h3 className='me-3'>Request {index + 1} for Delete Strategies</h3>
                   </div>
                     <Table key={index} responsive striped bordered hover size="sm" className='w-100'>
                       <thead style={{ background: '#d5b39a' }}>

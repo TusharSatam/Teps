@@ -23,6 +23,7 @@ const SingleStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
   const [comment, setComment] = React.useState([])
+  console.log(comment);
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
   const [totalLike, setTotalLike] = React.useState([])
@@ -140,7 +141,7 @@ const SingleStr = () => {
 
   // const totalSave = allUser.filter(res => res.saveId.includes(id));
   // const totalReact = allUser.filter(res => res.saveReact.includes(id));
-  console.log("totalSave", totalSave, "totalReact", totalLike);
+  // console.log("totalSave", totalSave, "totalReact", totalLike);
   const handleComment = (e) => {
     e.preventDefault()
     const data = {
@@ -162,7 +163,7 @@ const SingleStr = () => {
   return (
     <div>
       <div className='saveStrParent' >
-        <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
+        <div className='text-white text-center headText mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>

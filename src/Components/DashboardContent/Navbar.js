@@ -5,7 +5,8 @@ import { useAuth } from "../../Context/AuthContext";
 
 
 function NavBar(props) {
-  const { Adminlogout, setHumBurgs, humBurgs } = useAuth()
+  const { Adminlogout, setHumBurgs, humBurgs ,user} = useAuth()
+  
   const handleHumBurgs = () => {
     props.toggle()
     if (humBurgs) {

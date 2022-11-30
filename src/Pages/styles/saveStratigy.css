@@ -1,7 +1,10 @@
 .saveStrParent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
    background: #1AA05B;
    overflow: hidden; 
-   height: 275px;
+   height: 60px;
 }
 .headText{
   font-size: 21px;
@@ -31,7 +34,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 25px;
   color: #6D747A;
 }
@@ -82,6 +85,7 @@
   color:#1AA05B;
 } */
 .comment_div{
+  margin: 10px 0px 10px 0px!important;
   border: 2px solid #939CA3;
   border-radius: 8px;
   padding: 25px 40px;
@@ -114,8 +118,8 @@
   font-size: 14px;
   line-height: 23px;
   color: #FFFFFF;
-  letter-spacing: -0.01em;
-  padding: 6px 8px;
+  /* letter-spacing: -0.01em; */
+  padding: 6px 12px ;
 }
 .see_comment{
   background: #F4F8F7;

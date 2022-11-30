@@ -56,13 +56,16 @@
     display: inline-block;
     margin-bottom: 0;
 }
-
+.select-field::-ms-expand{
+    margin: 50px !important;
+}
 .select-field {
     width: 350px;
     height: 40px;
     background-color: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
+    padding: 10px 20px 10px 10px;
 }
 
 .select-field-full {
@@ -81,6 +84,7 @@
     background-color: #F8F9FA;
     border: 1px solid #CED4DA;
     border-radius: 8px;
+    padding: 20px;
 }
 
 .form-footer {

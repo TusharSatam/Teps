@@ -136,7 +136,7 @@ const SingleUserStr = () => {
     }
     postcomment(data)
       .then(res => {
-        console.log('comm', res);
+        // console.log('comm', res);
         singleUserEnStratigys(id)
           .then(res => {
             setStr(res.data[0]);

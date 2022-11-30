@@ -1,14 +1,15 @@
+
 .footer_content{
-    background: #1AA05B;
+    background-color: #1AA05B !important;
     margin: 0px;
     padding: 0px;
-    height: 390px;
+    height: 380px !important;
 }
 .footer_res_content{
-    background: #1AA05B;
+    background: #1AA05B ;
     margin: 0px;
     padding: 0px;
-    height: 390px;
+    height: 390px !important;
 }
 .footer_text{
     margin-top: 73px;
@@ -79,10 +80,25 @@
         margin-bottom: 25px;
     }
 }
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 600px) {
 
     .footer_content{
-        height: 185px;
-        margin-top: 0px;
+
+            background-color: #1AA05B !important;
+            margin: 0px;
+            padding: 0px;
+            height: 260px !important;
+        
     }
 }
+
+    @media only screen and (min-width: 768px) and (max-width: 959px){
+        .footer_content{
+
+            background-color: #1AA05B !important;
+            margin: 0px;
+            padding: 0px;
+            height: 390px !important;
+        
+    }
+        }
