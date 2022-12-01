@@ -285,10 +285,10 @@ const Profile = () => {
                 </div>
                 <div className='d-flex'>
                   <div>
-                    <Link to="/favouriteStratigy"><button className="authBtn me-3" >{t('favourites')}</button></Link>
+                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('favourites')}</button></Link>
                   </div>
                   <div>
-                    <Link to="/saveStratigy"><button className='authBtn'>{t('saved')}</button></Link>
+                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('saved')}</button></Link>
                   </div>
                 </div>
                 <div className='d-flex justify-content-center py-5'>
@@ -400,6 +400,9 @@ const Profile = () => {
                         </button>
                       </Link>
                     </div>
+                  </div>
+                  <div className='d-flex justify-content-center py-5'>
+                    <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                   </div>
                 </div>
               </div>

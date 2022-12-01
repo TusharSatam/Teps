@@ -276,12 +276,18 @@ const SearchScrean = () => {
                   <div className='mb-md-3 container_title_sec'>
                     <div className='d-flex justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      <div>
+                      <div className='d-none d-md-block'>
                         {
                           !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
                         }
                         <span className='ms-2'>Show user contributed strategies</span>
                       </div>
+                    </div>
+                    <div className='d-block d-md-none mb-2'>
+                      {
+                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                      }
+                      <span className='ms-2 ' style={{ fontSize: "12px" }}>Show user contributed strategies</span>
                     </div>
                     <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                   </div>
@@ -315,7 +321,7 @@ const SearchScrean = () => {
                                             </div>
                                             <div className='d-block d-md-none mt-1'>
                                               <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
-                                              <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                              <div className=' mt-1' style={{ marginLeft: "10px" }}>
                                                 <div className='res_btn_icon'>
                                                   <div className='d-flex flex-column res_inner_div p-1 '>
                                                     {
@@ -391,7 +397,7 @@ const SearchScrean = () => {
 
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 border-top pt-5' : 'd-flex justify-content-between my-4 pt-5'}>
+                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 user_str_border pt-4 pt-md-5' : 'd-flex justify-content-between my-4 pt-5'}>
                                           <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <div className='me-1'>
                                               <div>
@@ -399,7 +405,7 @@ const SearchScrean = () => {
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                <span className='user_str'>Uploaded By - {
+                                                <span className='user_str d-none d-md-block'>Uploaded By - {
                                                   user.image ?
                                                     <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
                                                     :
@@ -408,7 +414,7 @@ const SearchScrean = () => {
                                               </div>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
-                                                <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                                <div className=' mt-1' style={{ marginLeft: "10px" }}>
                                                   <div className='res_btn_icon'>
                                                     <div className='d-flex flex-column res_inner_div p-1 '>
                                                       {
@@ -446,9 +452,19 @@ const SearchScrean = () => {
                                               {react?.includes(strUser._id) ? <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                               {like.includes(strUser._id) ? <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                                             </div> */}
-                                            <div className='d-flex align-items-center my-3'>
-                                              {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                              {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
+                                            <div className='d-flex justify-content-between align-items-center'>
+                                              <div className='d-flex align-items-center my-3'>
+                                                {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
+                                                {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
+                                              </div>
+                                              <div>
+                                                <span className='user_str' style={{ fontSize: "8px" }}>Uploaded By - {
+                                                  user.image ?
+                                                    <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    :
+                                                    <img src={UserImage} alt="person pic" />
+                                                } </span>
+                                              </div>
                                             </div>
                                           </div>
                                           <div className='col-md-2 d-none d-md-block ms-5'>

@@ -256,13 +256,13 @@ const SingleStr = () => {
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
       </div>
-      <div className='mx-5'>
+      <div className='mx-4'>
         <div style={{ background: "#FFFFFF" }} className='card_pad'>
           <div className='my-4'>
             <div className='d-flex justify-content-between my-4 '>
               <div className='me-1'>
                 <div>
-                  <div className=' mb-4 mb-md-3'>
+                  <div className=' mb-4 mb-md-3 str_title'>
                     <p className='Strategy_count'>{t("strategy")}</p>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                   </div>
@@ -311,25 +311,25 @@ const SingleStr = () => {
               </div>
               <div className='col-9 ms-4 col-md-7 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
-                <p className='savestr_body'>
+                <p className='savestr_body me-4'>
                   {str["Teaching Strategy"]}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
                     <div>
-                      <div className='mx-2'>
+                      <div className='mx-md-2 mx-1 mx-1'>
                         {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
                       <p className='count_num'>{totalUserSaves}</p>
                     </div>
-                    <div className='mx-3'>
+                    <div className='mx-md-3'>
                       <div>
                         {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num' onClick={() => setShow(true)}>{totalUserLikes}</p>
+                      <p className='count_num mx-1 mx-1' onClick={() => setShow(true)}>{totalUserLikes}</p>
                     </div>
                   </div>
-                  <div className='me-md-3 me-0'>
+                  <div className='me-md-3 me-4'>
                     {
                       str['Mode of Teaching'] === "Online" ?
                         <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
@@ -425,12 +425,12 @@ const SingleStr = () => {
         </form>
         <div className={!seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className="text-center see_comment">
-            <p className='m-0'>View comments {comment?.length} <img src={DownArrow} alt="" /></p>
+            <p className='m-0'>View comments {comment?.length} <img width="7px" height="5px" src={DownArrow} alt="" /></p>
           </div>
         </div>
         <div className={seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className='text-center see_comment'>
-            <p className='m-0'>Hide comments {comment?.length} <img src={UpArrow} alt="" /></p>
+            <p className='m-0'>Hide comments {comment?.length} <img width="7px" height="5px" src={UpArrow} alt="" /></p>
           </div>
           {
             comment?.map((res, index) => (
@@ -438,7 +438,7 @@ const SingleStr = () => {
                 <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
-                <hr />
+                {/* <hr /> */}
               </div>
             ))
           }

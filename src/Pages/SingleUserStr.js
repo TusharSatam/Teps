@@ -245,7 +245,7 @@ const SingleUserStr = () => {
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
-        <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
+        <p className='single_str_head'>{str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt; {str?.Skill}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt; {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str['Sub-sub topic']}</p>
       </div>
       <div className='mx-5'>
         <div style={{ background: "#FFFFFF" }} className='card_pad'>
@@ -255,6 +255,8 @@ const SingleUserStr = () => {
                 <div>
                   <div className=' mb-4 mb-md-3'>
                     <p className='Strategy_count'>{t("strategy")}</p>
+                  </div>
+                  <div>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                     <p className='user_str'>Uploaded By - {
                       user.image ?

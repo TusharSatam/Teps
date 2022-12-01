@@ -37,7 +37,7 @@ const AproveReqModal = (props) => {
             Your contribution to the teaching community is appreciated.
           </p>
           <div className='mod_body'>
-            <p className='ms-3'>Please note: </p>
+            <p className='note-text'>Please note: </p>
             <ol>
               <li>Your strategy will be uploaded subject to approval from the administrator at Things Education.</li>
               <li> Your strategy may be modified for accuracy and language before approval.</li>

@@ -1,15 +1,42 @@
+.container{
+  max-width: 1250px;
+}
 .saveStrParent{
-  display: flex;
-  justify-content: center;
-  align-items: center;
    background: #1AA05B;
    overflow: hidden; 
-   height: 300px;
     padding: 1px;
+}
+/* position: "relative", borderRadius: "27px", width: "98px", cursor: "pointer"  */
+.filter_bTn{
+  color: #1AA05B;
+  background: white;
+  display: flex;
+  transition: 0.5s;
+  position: relative;
+  border-radius: 27px;
+  width: 98px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.filter_bTn:hover{
+  color: #FFFFFF;
+  background: #1E6540;
 }
 .filtericon2{
   position: relative;
   padding-left: 10px;
+  display: block;
+}
+.filtericon3{
+  position: relative;
+  padding-left: 10px;
+  display: none;
+}
+.filter_bTn:hover .filtericon2{
+  display: none;
+}
+.filter_bTn:hover .filtericon3{
+  display: block;
 }
 .filtericon3{
   position: relative;
@@ -41,9 +68,18 @@
   font-size: 21px;
   font-weight: 600px;
 }
+.str_text_left{
+  margin-top: 30px;
+}
 .savestr_head{
   font-size: 20px!important;
   font-weight: 600!important;
+  margin-bottom: 21px;
+  margin-top: 35px;
+}
+.str_title{
+  margin-bottom: 21px;
+  margin-top: 35px;
 }
 .savestr_body{
   font-family: 'Inter';
@@ -51,6 +87,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 26px;
+  text-align: justify;
 }
 .single_str_head{
   font-family: 'Inter';
@@ -65,9 +102,10 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 25px;
   color: #6D747A;
+  margin: 0;
 }
 .dev_dom_single{
   margin-top: 26px;
@@ -218,14 +256,20 @@ cursor: pointer;
     font-weight: 500;
 font-size: 12px!important;
 line-height: 15px!important;
+margin-top: 15.5px;
+  }
+  .str_title{
+margin-top: 15.5px;
   }
   .savestr_body{
     font-weight: 400;
 font-size: 10px;
 line-height: 14px;
+margin-right: 10px;
   }
   .single_str_head{
     font-size: 12px;
+    margin-bottom: 0!important;
   }
   .dev_dpm_text{
     font-family: 'Inter';
@@ -240,7 +284,7 @@ line-height: 14px;
     margin-bottom: 5px;
   }
   .comment_div{
-    margin: -10px 10px;
+    margin: -10px 10px!important;
     padding: 10px 10px;
   }
   .comment_input{
@@ -255,5 +299,29 @@ line-height: 14px;
   .comment_text{
     font-size: 12px;
     line-height: 19px;
+  }
+  .count_num{
+    margin-left: 5px;
+  }
+  .uni_id{
+    font-size: 10px;
+  }
+  .str_text_left{
+    margin-top: 15px;
+  }
+    .filter_bTn{
+      position: relative;
+      border-radius: 27px;
+      width: 70px;
+      cursor: pointer;
+      padding: 3px 10px;
+      margin-top: 5px;
+      
+  }
+  .filtericon2{
+    padding: 0;
+  }
+  .filtericon3{
+    padding: 0;
   }
 }

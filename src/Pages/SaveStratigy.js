@@ -10,6 +10,7 @@ import SaveIcon from '../asstes/icons/Save.svg'
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../Context/AuthContext';
 import Filter from "../asstes/Filter.svg"
+import FilterHover from "../asstes/icons/filter_icon.svg"
 import HomeLayout from "../Components/Home/HomeLayout"
 import { useState } from 'react';
 import './styles/saveStratigy.css'
@@ -164,18 +165,18 @@ const SaveStratigy = () => {
           <>
             <div className='saveStrParent' >
               <div className='row py-2'>
-                <div className='col-md-1'></div>
-                {/* col-md-1 bg-white py-1 px-3 */}
-                <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ position: "relative", left: "-25px", borderRadius: "27px", width: "98px", cursor: "pointer" }}>
-                  <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" className='filtericon2' />
+                <div className=' text-white text-center headText '>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
+                <div className='d-flex justify-content-end' style={{ marginTop: "-30px" }}>
+                  <div onClick={handleFilter} className='filter_bTn'>
+                    <span>{t("Filter")}</span>
+                    <img src={Filter} alt="" className='filtericon2' />
+                    <img src={FilterHover} alt="" className='filtericon3' />
+                  </div>
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
                   stratigy={saveStratigy}
-
                 />
               </div>
             </div>
@@ -189,7 +190,7 @@ const SaveStratigy = () => {
                           <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                             <div className='me-1'>
                               <div>
-                                <div className='d-flex mb-3'>
+                                <div className='d-flex mb-3 str_text_left'>
                                   <p className='Strategy_count'>{t("strategy")}</p>
                                   <p className='counter_str'>{index + 1}</p>
                                 </div>
@@ -225,7 +226,7 @@ const SaveStratigy = () => {
                               </div>
                             </div>
                           </Link>
-                          <div className='col-9 ms-4 col-md-8 '>
+                          <div className='col-8 ms-4 col-md-8 '>
                             <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                               <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                               <p className='savestr_body'>
@@ -278,7 +279,7 @@ const SaveStratigy = () => {
                             <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                               <div className='me-1'>
                                 <div>
-                                  <div className='d-flex mb-3'>
+                                  <div className='d-flex mb-3 str_text_left'>
                                     <p className='Strategy_count'>{t("strategy")}</p>
                                     <p className='counter_str'>{index + 1}</p>
                                   </div>
@@ -314,7 +315,7 @@ const SaveStratigy = () => {
                                 </div>
                               </div>
                             </Link>
-                            <div className='col-9 ms-4 col-md-8 '>
+                            <div className='col-8 ms-4 col-md-8 '>
                               <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                 <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
