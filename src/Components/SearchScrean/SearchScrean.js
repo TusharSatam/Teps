@@ -4,7 +4,7 @@ import likeIcon from '../../asstes/like.svg'
 import icon1 from '../../asstes/Group 70.svg'
 import icon2 from '../../asstes/Group 71.svg'
 import { useTranslation } from 'react-i18next';
-import { Accordion, Card } from 'react-bootstrap';
+import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
 import EmptyCheckbox from '../../asstes/Rectangle 161.svg'
 import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg'
@@ -250,7 +250,11 @@ const SearchScrean = () => {
           })
       })
   }
-  console.log("saves", userSaves);
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {user.firstName}
+    </Tooltip>
+  );
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
@@ -405,12 +409,18 @@ const SearchScrean = () => {
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                <span className='user_str d-none d-md-block'>Uploaded By - {
+                                                <p className='user_str'>Uploaded By - {
                                                   user.image ?
-                                                    <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    <OverlayTrigger
+                                                      placement="right"
+                                                      delay={{ show: 250, hide: 400 }}
+                                                      overlay={renderTooltip}
+                                                    >
+                                                      <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    </OverlayTrigger>
                                                     :
                                                     <img src={UserImage} alt="person pic" />
-                                                } </span>
+                                                } </p>
                                               </div>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>

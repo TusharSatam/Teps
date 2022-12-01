@@ -252,7 +252,7 @@ const SingleUserStr = () => {
           <div className='my-4'>
             <div className='d-flex justify-content-between my-4 '>
               <div className='me-1'>
-                <div>
+                <div className='str_title'>
                   <div className=' mb-4 mb-md-3'>
                     <p className='Strategy_count'>{t("strategy")}</p>
                   </div>
@@ -405,7 +405,7 @@ const SingleUserStr = () => {
                 {
                   comment?.map((res, index) => (
                     <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('day').fromNow()}</span></p>
+                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                       <p className='comment_text'>{res.comment}
                       </p>
                       <hr />
@@ -439,7 +439,7 @@ const SingleUserStr = () => {
           {
             comment?.map((res, index) => (
               <div key={index} className='mt-4'>
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>Days/weeks/months ago</span></p>
+                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
                 <p className='comment_text'>{res.comment}
                 </p>
                 <hr />

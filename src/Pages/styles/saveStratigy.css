@@ -246,6 +246,22 @@ cursor: pointer;
   line-height: 25px;
   color: #8E8E8E;
 }
+.icons_heading{
+  font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #FFFFFF;
+    background: #1AA05B;
+    border-radius: 2px;
+    padding: 2px 20px;
+    margin-left: -68px;
+}
+.threeIcons-nuns{
+  width: 60px;
+  height: 64px;
+}
 @media only screen and (max-width: 990px) {
   .headText{
     font-weight: 600;

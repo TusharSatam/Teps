@@ -95,3 +95,15 @@ export const multidelUserStratigysHi = async (ids) => {
   }
   return stratigyResponse;
 }
+
+// reqDelet get Stratigy
+export const getMultiUserHindiStr = async (ids) => {
+  let stratigyResponse
+  await axios.get(`userHindiStratiges/multi/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}
