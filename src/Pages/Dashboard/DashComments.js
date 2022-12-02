@@ -21,17 +21,20 @@ const DashComments = () => {
     const data = {
       'Approve': true
     }
-    updateComment(allselectedId, data)
-      .then(res => {
-        res && toast.success('Comments cleared!', {
-          duration: 4000
-        });
-        getComment()
-          .then(res => {
-            setComment(res?.data?.filter(res => res?.Approve === false))
-            setComments(res?.data?.filter(res => res?.Approve === false))
-          })
-      })
+    let text = "Do you want to clear comments?";
+    if (window.confirm(text) === true) {
+      updateComment(allselectedId, data)
+        .then(res => {
+          res && toast.success('Comments cleared!', {
+            duration: 4000
+          });
+          getComment()
+            .then(res => {
+              setComment(res?.data?.filter(res => res?.Approve === false))
+              setComments(res?.data?.filter(res => res?.Approve === false))
+            })
+        })
+    }
   }
   const handleCommentDelet = (id) => {
     delComments(id)

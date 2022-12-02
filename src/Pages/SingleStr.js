@@ -48,7 +48,6 @@ const SingleStr = () => {
       setSeecomment(true)
     }
   }
-
   const handleComment = (e) => {
     e.preventDefault();
     setIsLoading(true)

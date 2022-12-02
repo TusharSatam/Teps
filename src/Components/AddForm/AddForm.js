@@ -244,23 +244,28 @@ const AddForm = () => {
 
                     <select required className={'select-field'} name="dev_dom_1" id="" placeholder=''>
                       <option value="" selected disabled>Dev Dom 1</option>
+                      <option>Cognitive Sensory</option>
+                      <option>Motor-Physical</option>
+                      {/*                       
                       {
-                        uniqueDevDom1?.filter(res => res['Dev Dom 1'] !== undefined).map(res => (
+                        uniqueDevDom1?.filter(res => res['Dev Dom 1'] !== "").map(res => (
                           <option>{res['Dev Dom 1'] !== undefined && res['Dev Dom 1']}
                           </option>
                         ))
-                      }
+                      } */}
                     </select>
                   </div>
                   <div>
                     <p className='select-title'>Dev Dom 2 <p>*</p></p>
                     <select required className={'select-field'} name="dev_dom_2" id="">
                       <option value="" selected disabled>Dev Dom 2</option>
-                      {
+                      <option>Socio-Emotional-Ethical</option>
+                      <option>Language & Communication</option>
+                      {/* {
                         uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
                           <option>{res['Dev Dom 2']}</option>
                         ))
-                      }
+                      } */}
                     </select>
                   </div>
                 </div>

@@ -63,8 +63,10 @@ const SingleUserStr = () => {
       setShow(true)
     }
   }
+  const [disable, setDisable] = useState(false)
   const handleComment = (e) => {
     e.preventDefault()
+    setDisable(true)
     const data = {
       "strategie_id": id,
       "user_name": `${user.firstName} ${user.lastName}`,
@@ -78,6 +80,7 @@ const SingleUserStr = () => {
             setStr(res.data[0]);
             setComment(res.data[1]?.comments);
             e.target.reset()
+            setDisable(false)
           })
       })
   }
@@ -321,10 +324,10 @@ const SingleUserStr = () => {
               <p className='comment_div_p'>{t("Comments")}</p>
               <form onSubmit={handleComment}>
                 <div>
-                  <input name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
+                  <input name='comment' required placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
-                  <input type="submit" value={`${t('Submit')}`} />
+                  <input disabled={disable} type="submit" value={`${t('Submit')}`} />
                 </div>
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
@@ -355,10 +358,10 @@ const SingleUserStr = () => {
         <p className='comment_div_p'>Comments</p>
         <form onSubmit={handleComment}>
           <div>
-            <input name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
+            <input required name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
           <div className='d-flex justify-content-end comment_submit'>
-            <input type="submit" />
+            <input disabled={disable} type="submit" />
           </div>
         </form>
         <div className={!seeComment ? "d-block" : "d-none"}>

@@ -26,7 +26,7 @@ const Profile = () => {
   const [citys, setCitys] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
   const [show, setShow] = React.useState(false)
-  const [success, setSuccess] = React.useState(false)
+  const [preview, setPreview] = React.useState(null)
 
 
 
@@ -34,6 +34,7 @@ const Profile = () => {
     setForgot(true);
   }
   const handleProfile = (e) => {
+    setPreview(URL.createObjectURL(e.target.files[0]))
     let formData = new FormData();
     formData.append('img', e.target.files[0]);
     updateInfo(user._id, formData)
@@ -244,9 +245,10 @@ const Profile = () => {
           <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
             <div className="button-wrapperr">
               {
-                profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                  user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    <img width={'40px'} className='label' src={defaultProfile} alt="" />
+                preview ? <img src={preview} alt="" /> :
+                  profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                      <img width={'40px'} className='label' src={defaultProfile} alt="" />
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
