@@ -54,9 +54,10 @@
     background-color: #F8F9FA;
     right: 0;
     top: 0;
-    margin-top: 70px;
+    margin-top: 20px;
     margin-right: 80px;
     border-radius: 5px;
+    z-index: 1;
 }
 .navLink{
     text-decoration: none;
@@ -67,8 +68,8 @@
     color: #1AA05B;
 }
 .drop_down_icon{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 .Go_back{
   background: #1AA05B;

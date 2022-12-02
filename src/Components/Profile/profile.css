@@ -6,7 +6,7 @@
     width: 150px;
     text-align: center;
     /* margin: 20% auto; */
-    margin-top: -100px;
+    /* margin-top: -100px; */
     margin-left: 30px;
   }
   
@@ -37,10 +37,10 @@
 .profile_school{
     font-family: 'Inter';
     font-style: normal;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 24px;
     line-height: 29px;
-    color: #000000;
+    color: #474747;
 }
 .side_profile{
   width: 360px;
@@ -87,7 +87,7 @@ padding-left: 12px;
   margin-right: 30px;
 }
 .button_div{
-  margin-top: 112px;
+  margin-top: 70px;
 }
 .save_change_btn{
   font-family: 'Inter';
@@ -208,6 +208,65 @@ input[type="text"][disabled] {
   background: #1AA05B;
   color: #ffff;
 }
+.change_btn{
+  background: #1AA05B;
+  border-radius: 20px;
+  padding: 5px 35px;
+  gap: 10px;
+  border: 1px solid #1AA05B;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  transition: 0.3s;
+  position: relative;
+    bottom: -20px;
+}
+.change_btn:hover{
+  border: none;
+  background: #9FDFBE;
+  border: 1px solid #9FDFBE;
+}
+.upload_Str_btn{
+  background: #1AA05B;
+  border-radius: 20px;
+  padding: 5px 45px;
+  gap: 10px;
+  border: 1px solid #1AA05B;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  transition: 0.3s;
+  position: relative;
+    bottom: 20px;
+}
+.upload_Str_btn:hover{
+  border: none;
+  background: #9FDFBE;
+  border: 1px solid #9FDFBE;
+}
+.authBtn_p{
+  background: white;
+  color:#1AA05B;
+  border: 1px solid #1AA05B;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 20px;    
+  padding: 8px 16px;
+  gap: 10px;
+  transition: 0.5s;
+}
+.authBtn_p:hover{
+  background: #1AA05B;
+  color: #ffff;
+}
 @media only screen and (max-width: 990px) {
 
 .form_container{
@@ -288,5 +347,25 @@ padding: 5px 10px;
 .profileBtn{
   padding: 6px 16px;
   font-size: 12px;
+}
+.upload_Str_btn{
+  background: #1AA05B;
+  border-radius: 20px;
+  padding: 5px 20px;
+  gap: 10px;
+  border: 1px solid #1AA05B;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  transition: 0.3s;
+}
+.upload_Str_btn:hover{
+  border: none;
+  background: #9FDFBE;
+  border: 1px solid #9FDFBE;
 }
 }

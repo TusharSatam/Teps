@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { getComment } from '../services/stratigyes';
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -10,6 +11,7 @@ const AuthProvider = ({ children }) => {
   const [admin, setAdmin] = React.useState(null);
   const [laoding, setLoading] = React.useState(false);
   const [stratigyFilData, setStratigyFilData] = React.useState([]);
+  const [stratigyFilUserData, setStratigyFilUserData] = React.useState([]);
   const [selectLang, setselectLang] = React.useState('')
   const [humBurgs, setHumBurgs] = React.useState(true)
 
@@ -68,12 +70,16 @@ const AuthProvider = ({ children }) => {
   React.useEffect(() => {
     const data = localStorage.getItem('filterData');
     const dataH = localStorage.getItem('filterDataH');
+    const userData = localStorage.getItem('filterUserData');
     setLoading(true);
     if (data) {
       setStratigyFilData(JSON.parse(data))
     }
     if (dataH) {
       setStratigyFilData(JSON.parse(dataH))
+    }
+    if (userData) {
+      setStratigyFilUserData(JSON.parse(userData))
     }
   }, []);
 
@@ -88,12 +94,19 @@ const AuthProvider = ({ children }) => {
       }
     }
   }, [selectLang])
+  const [comments, setComments] = useState([])
+  useEffect(() => {
+    getComment()
+      .then(res => {
+        setComments(res?.data?.filter(res => res?.Approve === false))
+      })
+  }, [])
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
         setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin,
-        admin, Adminlogout, setAdmin, humBurgs, setHumBurgs
+        admin, Adminlogout, setAdmin, humBurgs, setHumBurgs, stratigyFilUserData, setStratigyFilUserData, setComments, comments
       }}>
       {children}
     </AuthContext.Provider>

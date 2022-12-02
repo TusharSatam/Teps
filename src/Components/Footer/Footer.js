@@ -7,8 +7,8 @@ const Footer = () => {
   const location = useLocation()
   return (
     <div className={location.pathname !== '/profile' ? 'footer_top_margin' : 'footer_top_margin_res'}>
-      <section className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
-        <div className='d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
+      <div className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
+        <div className=' d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
           <div className='footer_text'>
             <p> <a href='https://www.things-education.com/teachers' target="_blank" rel="noreferrer">Teacher Professional Development</a></p>
             <p> <a href='https://www.things-education.com/unboxed' target="_blank" rel="noreferrer">unboxED</a></p>
@@ -22,7 +22,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

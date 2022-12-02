@@ -19,7 +19,6 @@ const DashboardEditUserModal = ({ show, onHide, user, setShow }) => {
         toast.success('User Update successfull!')
       })
   }
-  console.log(user);
   return (
     <>
       <Toaster

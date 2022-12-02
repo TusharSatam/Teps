@@ -5,9 +5,11 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
+import { getUserStratigys } from '../../services/userStratigy';
 const HomeLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
+  const [allUserStratigys, setAllUserStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
   const [selectGrade, setSelectGrade] = React.useState()
   const [selectTopic, setSelectTopic] = React.useState()
@@ -24,11 +26,15 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [error6, setError6] = React.useState(false)
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData } = useAuth();
+  const { setStratigyFilData, setStratigyFilUserData } = useAuth();
   React.useEffect(() => {
     getAllStratigys()
       .then(res => {
         setAllStratigys(res.data);
+      })
+    getUserStratigys()
+      .then(res => {
+        setAllUserStratigys(res.data?.filter(res => res.Approve === true))
       })
     const selectedDropdown = localStorage.getItem('selectedDropdown');
     if (selectedDropdown) {
@@ -95,7 +101,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     setSelectSubSubTopic(e.target.value)
     localStorage.removeItem('selectedDropdown');
   }
-  // console.log(selectSubSubTopic);
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   })
@@ -137,12 +142,19 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         const aquaticCreatures = allStratigys.filter(function (creature) {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
-        console.log(aquaticCreatures);
-        setStratigyFilData(aquaticCreatures)
+        const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        });
+
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+          setStratigyFilData(aquaticCreatures)
         }
-        if (aquaticCreatures.length !== 0) {
+        if (aquaticCreaturesUser) {
+          setStratigyFilUserData(aquaticCreaturesUser)
+          window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+        }
+        if (aquaticCreatures.length !== 0 || aquaticCreaturesUser.length !== 0) {
           if (location.pathname === '/home') {
             navigate('/search')
           }
@@ -167,15 +179,19 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       const aquaticCreatures = allStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
+      const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
+        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+      });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
       }
-      if (aquaticCreatures.length === 0) {
+      if (aquaticCreaturesUser) {
+        window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+      }
+      if (aquaticCreatures.length === 0 || aquaticCreaturesUser.length === 0) {
         setError("No strategies are available for this combination. Please try a different combination.")
       }
-      // console.log(selectSubject, selectGrade, selectSkill, selectTopic, selectSubTopic, selectSubSubTopic);
-      // console.log(selectedOption?.selectSubject, selectedOption?.selectGrade, selectedOption?.selectSkill, selectedOption?.selectTopic, selectedOption?.selectSubTopic, selectedOption?.selectSubSubTopic);
 
     }
 
@@ -183,14 +199,13 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
 
   return (
     <>
-      <div className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
-        <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+      <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
+        <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
           <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{console.log(selectedOption?.selectSubject)}</option>}
                 </> :
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -405,9 +420,13 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
             <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
           </div>
           :
-          <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-            <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-          </div>
+          location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ?
+            <div className='d-flex justify-content-center my-4 my-md-5'>
+              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            </div> :
+            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
+              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            </div>
       }
     </>
   );

@@ -27,7 +27,7 @@ export const getAllHindiStratigys = async () => {
 // delet Stratigy
 export const delHindiStratigys = async (id) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`hindstrategies/${id}`)
       .then(res => {
@@ -35,7 +35,7 @@ export const delHindiStratigys = async (id) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -70,7 +70,7 @@ export const updateHindiStratigys = async (id, data) => {
 // delet multi Stratigy
 export const multidelHiStratigys = async (ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`hindstrategies/ch/${ids}`)
       .then(res => {
@@ -78,7 +78,7 @@ export const multidelHiStratigys = async (ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 }
@@ -98,7 +98,7 @@ export const getMultitHiStr = async (ids) => {
 // reqDelet Stratigy
 export const reqDeletHiStr = async (data, ids) => {
   let stratigyResponse
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     const allId = {
       "reqDelId": ids,
@@ -110,7 +110,7 @@ export const reqDeletHiStr = async (data, ids) => {
       })
       .catch(err => console.log(err))
   } else {
-    alert("Stratigy save!")
+    alert("Strategy saved!")
   }
   return stratigyResponse;
 
@@ -146,5 +146,49 @@ export const deletRequestArrayidHi = async (id) => {
       stratigyResponse = res;
     })
     .catch(err => console.log(err))
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqHi = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to delete the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdelHi/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqDenyHi = async (id, ids) => {
+  let stratigyResponse
+  let text = "Are you sure you want to keep the strategy?";
+  if (window.confirm(text) === true) {
+    await axios.put(`supdelHi/reqDelet/single/${id}/${ids}`)
+      .then(res => {
+        stratigyResponse = res;
+      })
+      .catch(err => console.log(err))
+  } else {
+    alert("Strategy saved!")
+  }
+  return stratigyResponse;
+}
+
+// delet multi Stratigy
+export const multidelStratigysReqbyHi = async (ids) => {
+  let stratigyResponse
+  await axios.delete(`hindstrategies/ch/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
   return stratigyResponse;
 }

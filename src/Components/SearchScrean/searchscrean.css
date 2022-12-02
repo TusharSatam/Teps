@@ -31,6 +31,8 @@
     padding-top: 0!important;
     padding-left: 0!important;
     padding-bottom: 0!important;
+    position: relative;
+    bottom: 10px;
 }
 .Strategy_count{
     font-family: 'Inter';
@@ -40,6 +42,7 @@
     line-height: 29px;
     color: #1AA05B;
     margin-bottom: 2px;
+    margin-right: -5px;
 }
 .Strategy_count_article p{
     font-family: 'Inter';
@@ -64,6 +67,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    left: 8px;
 }
 .container_title_sec{
     margin: 0px 60px;
@@ -124,7 +129,7 @@
 }
 .threeIcons{
     width: 60px;
-    height: 60px;
+    height: 64px;
 }
 .threeIcons-nun{
   width: 75px;
@@ -255,8 +260,8 @@
       margin-left: -28px;
     }
     .threeIcons{
-        width: 20px;
-        height: 20px;
+        width: 35px;
+        height: 55px;
     }
     .threeIcons-nun{
       width: 20px;
@@ -290,12 +295,12 @@
         line-height: 24px;
     }
     .save_like{
-        width:9.33px;
-        height:12.04px;
+        width:15.33px;
+        height:16.04px;
     }
     .save_likes{
-        width:11.67px;
-        height:10.78px;
+        width:15.67px;
+        height:16.78px;
     }
     .empty_stratigys{
         font-family: 'Inter';
@@ -320,7 +325,15 @@
       border-radius: 4px;
       padding: 3px 7px;
     }
-
+.user_str{
+  font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+color: #000000;
+}
+.user_str_border{
+  border-top: 1px solid #000000;
+}
 @media only screen and (max-width: 990px) {
   .threeIcons-nun{
     width: 37px;

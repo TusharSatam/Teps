@@ -5,7 +5,7 @@ import { useAuth } from "../../Context/AuthContext";
 
 
 function NavBar(props) {
-  const { Adminlogout, setHumBurgs, humBurgs } = useAuth()
+  const { Adminlogout, setHumBurgs, humBurgs, admin } = useAuth()
   const handleHumBurgs = () => {
     props.toggle()
     if (humBurgs) {
@@ -25,12 +25,11 @@ function NavBar(props) {
         <FaAlignLeft />
       </Button>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      {
+        admin.type === 'super-admin' ? <h2 style={{ marginLeft: "350px", color: "#1AA05B", borderBottom: "#1AA05B" }} className="justify-content-center"><u>Super Admin</u> </h2> : <h2 style={{ marginLeft: "350px", color: "#1AA05B", borderBottom: "#1AA05B" }} className="text-center"><u>Admin</u></h2>
+      }
       <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
         <Nav className="ml-auto" navbar>
-          {/* <Nav.Link href="#">page</Nav.Link>
-            <Nav.Link href="#">page</Nav.Link>
-            <Nav.Link href="#">page</Nav.Link>
-            <Nav.Link href="#">page</Nav.Link> */}
           <Button onClick={Adminlogout} className="btn-sm btn-dark">Logout</Button>
         </Nav>
       </Navbar.Collapse>

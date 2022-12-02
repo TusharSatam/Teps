@@ -221,7 +221,6 @@ const DashboardCSV = () => {
           })
       }
     }
-    console.log(showCh);
   }, [allCheck])
   return (
     <div>

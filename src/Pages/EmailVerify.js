@@ -32,7 +32,6 @@ const EmailVerify = () => {
         }
       })
   }, []);
-  console.log(alredyVeridyd);
   return (
     <div>
       {

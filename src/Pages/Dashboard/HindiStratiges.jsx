@@ -213,7 +213,6 @@ const HindiStratiges = () => {
           })
       }
     }
-    console.log(showCh);
   }, [allCheck])
   return (
     <div>

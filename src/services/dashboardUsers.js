@@ -26,7 +26,6 @@ export const getSingleUser = async (id) => {
 // update user info
 export const updateUser = async (id, data) => {
   let updateResponse;
-  console.log(data);
   await axios.put(`users/${id}`, data)
     .then(res => {
       updateResponse = res.data;
@@ -37,7 +36,7 @@ export const updateUser = async (id, data) => {
 // Delet user 
 export const deletUser = async (id) => {
   let deletResponse;
-  let text = "Are you sure for delete?";
+  let text = "Are you sure you want to delete?";
   if (window.confirm(text) === true) {
     await axios.delete(`users/${id}`)
       .then(res => {
@@ -49,4 +48,16 @@ export const deletUser = async (id) => {
     alert("User save!")
   }
   return deletResponse;
+}
+
+// reqDelet get Stratigy
+export const getMultitUser = async (ids) => {
+  let stratigyResponse
+  await axios.get(`users/multi/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
 }

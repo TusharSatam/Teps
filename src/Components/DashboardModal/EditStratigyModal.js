@@ -5,7 +5,6 @@ import { getStratigys, updateStratigys } from '../../services/stratigyes';
 import './dashboardModal.css'
 
 const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
-  console.log(data);
   const handleUpdate = (e) => {
     e.preventDefault();
     const formData = new FormData();

@@ -6,7 +6,8 @@
   <link rel="icon" href="./things_logo.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Welcome to Things Education Pedagogical Strategies or TEPS! We have simple-to-use teaching strategies that can be contextualised and used in your classrooms. And they are very easy to access!" />
+  <meta name="description"
+    content="Welcome to Things Education Pedagogical Strategies or TEPS! We have simple-to-use teaching strategies that can be contextualised and used in your classrooms. And they are very easy to access!" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
   <!-- google fonts -->
@@ -45,31 +46,31 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-  if ("serviceWorker" in navigator) {
-  
-    window.addEventListener("load", function () {
-      navigator.serviceWorker
-        .register("/worker.js")
-        .then(
-          function (registration) {
-            console.log(
-              "Worker registration successful",
-              registration.scope);
-          },
-          function (err) {
-            console.log("Worker registration failed", err);
-          }
-        )
-        .catch(function (err) {
-          console.log(err);
-        });
-    });
-  } else {
-    console.log("Service Worker is not"
-      + " supported by browser.");
-  }
-</script>
+  <script>
+    if ("serviceWorker" in navigator) {
+
+      window.addEventListener("load", function () {
+        navigator.serviceWorker
+          .register("/worker.js")
+          .then(
+            function (registration) {
+              console.log(
+                "Worker registration successful",
+                registration.scope);
+            },
+            function (err) {
+              console.log("Worker registration failed", err);
+            }
+          )
+          .catch(function (err) {
+            console.log(err);
+          });
+      });
+    } else {
+      console.log("Service Worker is not"
+        + " supported by browser.");
+    }
+  </script>
 </body>
 
 </html>

@@ -22,7 +22,6 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
     updateHindiStratigys(data._id, formData)
       .then(res => {
         setShow(false)
-        console.log(res);
         getHindiStratigys()
           .then(res => {
             setStratigys(res.data.posts);

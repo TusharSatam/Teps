@@ -1,0 +1,343 @@
+.container{
+  max-width: 1250px;
+}
+.saveStrParent{
+   background: #1AA05B;
+   overflow: hidden; 
+    padding: 1px;
+}
+/* position: "relative", borderRadius: "27px", width: "98px", cursor: "pointer"  */
+.filter_bTn{
+  color: #1AA05B;
+  background: white;
+  display: flex;
+  transition: 0.5s;
+  position: relative;
+  border-radius: 27px;
+  width: 98px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.filter_bTn:hover{
+  color: #FFFFFF;
+  background: #1E6540;
+}
+.filtericon2{
+  position: relative;
+  padding-left: 10px;
+  display: block;
+}
+.filtericon3{
+  position: relative;
+  padding-left: 10px;
+  display: none;
+}
+.filter_bTn:hover .filtericon2{
+  display: none;
+}
+.filter_bTn:hover .filtericon3{
+  display: block;
+}
+.filtericon3{
+  position: relative;
+  padding-left: 10px;
+}
+.button:hover{
+  position: relative;
+  left: -25px;
+  border-radius: 27px;
+   width: 98px;
+   cursor: pointer;
+   background-color:#4CAF50 ;
+   transition-duration: 0.4s ;
+}
+.model-content{
+  top: 125px;
+}
+.savStrParent2{
+  background: #1AA05B;
+   overflow: hidden; 
+   height: 33px;
+    padding: 1px;
+}
+.button:hover{
+  background-color: blue;
+  color: red;
+}
+.headText{
+  font-size: 21px;
+  font-weight: 600px;
+}
+.str_text_left{
+  margin-top: 30px;
+}
+.savestr_head{
+  font-size: 20px!important;
+  font-weight: 600!important;
+  margin-bottom: 21px;
+  margin-top: 35px;
+}
+.str_title{
+  margin-bottom: 21px;
+  margin-top: 35px;
+}
+.savestr_body{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  text-align: justify;
+}
+.single_str_head{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
+  color: #1AA05B;
+  margin-top: 10px;
+}
+.uni_id{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 25px;
+  color: #6D747A;
+  margin: 0;
+}
+.dev_dom_single{
+  margin-top: 26px;
+  margin-bottom: 20px;
+}
+.dev_dpm_text{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  color: #08090A;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.dev_dom_bg{
+  background: #F4F8F7;
+  height: fit-content;
+  border-radius: 2px;
+  position: relative;
+  padding: 18px 14px;
+} 
+.icon_bg{
+  background: #FFFFFF;
+  border-radius: 17px;
+}
+.Dev_dom{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 12px;
+  color: #FFFFFF;
+  background: #1AA05B;
+  border-radius: 2px;
+  padding: 5px 10px;
+}
+.count_num{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: -0.05em;
+  color: #1AA05B;
+  margin-left: 8px;
+  cursor: pointer;
+}
+/* .count_num:hover{
+  color:#1AA05B;
+} */
+.comment_div{
+  margin: 10px 0px 10px 0px!important;
+  border: 2px solid #939CA3;
+  border-radius: 8px;
+  padding: 25px 40px;
+  margin-left: 150px;
+}
+.comment_div_p{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: #08090A
+}
+.comment_input{
+  border: 2px solid #1AA05B;
+  padding: 10px 90px 10px 20px;
+}
+.comment_input:focus{
+  border: 2px solid #1AA05B;
+}
+.comment_submit{
+  margin-top: -40px;
+  margin-right: 10px;
+}
+.comment_submit input{
+  background: #1AA05B;
+  border-radius: 20px;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 23px;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  padding: 5px 16px;
+}
+.see_comment{
+  background: #F4F8F7;
+border: 0.5px solid rgba(47, 50, 57, 0.3);
+border-radius: 3px;
+margin-top: 20px;
+margin-bottom: 5px;
+padding: 0px;
+cursor: pointer;
+}
+.col-md-1 bg-white py-1 px-3 :hover{
+  background-color: #555555;
+  color: white;
+}
+.see_comment p{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 25px;
+  color: #1C1D1F;
+
+
+  
+}
+.arrow{
+  width: 5px;
+}
+.comment_head{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 25px;
+  color: #08090A;
+}
+.comment_span{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 25px;
+  color: #6D747A;
+  padding-left: 5px;
+}
+.comment_text{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 25px;
+  color: #8E8E8E;
+}
+.icons_heading{
+  font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #FFFFFF;
+    background: #1AA05B;
+    border-radius: 2px;
+    padding: 2px 20px;
+    margin-left: -68px;
+}
+.threeIcons-nuns{
+  width: 60px;
+  height: 64px;
+}
+@media only screen and (max-width: 990px) {
+  .headText{
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+  }
+  .savestr_head{
+    font-weight: 500;
+font-size: 12px!important;
+line-height: 15px!important;
+margin-top: 15.5px;
+  }
+  .str_title{
+margin-top: 15.5px;
+  }
+  .savestr_body{
+    font-weight: 400;
+font-size: 10px;
+line-height: 14px;
+margin-right: 10px;
+  }
+  .single_str_head{
+    font-size: 12px;
+    margin-bottom: 0!important;
+  }
+  .dev_dpm_text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 11px;
+    color: #08090A;
+    margin-top: 0px;
+    margin-left: 0px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .comment_div{
+    margin: -10px 10px!important;
+    padding: 10px 10px;
+  }
+  .comment_input{
+    border: 1px solid #1AA05B;
+  }
+  .comment_head{
+    font-size: 12px;
+  }
+  .comment_span{
+    font-size: 10px;
+  }
+  .comment_text{
+    font-size: 12px;
+    line-height: 19px;
+  }
+  .count_num{
+    margin-left: 5px;
+  }
+  .uni_id{
+    font-size: 10px;
+  }
+  .str_text_left{
+    margin-top: 15px;
+  }
+    .filter_bTn{
+      position: relative;
+      border-radius: 27px;
+      width: 70px;
+      cursor: pointer;
+      padding: 3px 10px;
+      margin-top: 5px;
+      
+  }
+  .filtericon2{
+    padding: 0;
+  }
+  .filtericon3{
+    padding: 0;
+  }
+}

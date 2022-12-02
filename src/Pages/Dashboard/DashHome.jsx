@@ -32,6 +32,7 @@ const DashHome = () => {
         setStratigys(res.data)
       })
   }, [])
+
   React.useEffect(() => {
     setIsLoading(true)
     getUsers()
@@ -40,6 +41,7 @@ const DashHome = () => {
         setUser(res.data);
       })
   }, [])
+
   React.useEffect(() => {
     setIsLoading3(true)
     getAllHindiStratigys()
@@ -48,6 +50,7 @@ const DashHome = () => {
         setHindiStratigys(res.data);
       })
   }, [])
+
   const current = new Date();
   const month = current.getMonth();
   const year = current.getFullYear()
@@ -86,7 +89,7 @@ const DashHome = () => {
         setTotalSaves(res?.data?.totalSave);
       })
   }, [])
-  console.log(totalSaves);
+
   return (
     <div className="container">
       <div className="row">
@@ -111,7 +114,7 @@ const DashHome = () => {
             <span className="count-name">Total Users</span>
           </div>
         </div>
-        {/* <div className="col-md-3">
+        <div className="col-md-3">
           <div className="card-counter info">
             <i className="fa fa-users"></i>
             <span className="count-numbers">{isLoading4 ? <Spinner className="text-light " animation="border" /> : lastRegester}</span>
@@ -138,7 +141,7 @@ const DashHome = () => {
             <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves}</span>
             <span className="count-name">Total strategies Saved</span>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

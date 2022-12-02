@@ -26,7 +26,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
   const handleShow = () => setShow(true);
   const handleCloseloginModal = () => setLoginModal(false);
   const handleShowloginModal = () => setLoginModal(true);
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, setStratigyFilData } = useAuth();
   const profileId = document.getElementById('profile')
   const handleClick = (e) => {
     displayProfile === 'd-none' ?
@@ -37,6 +37,11 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
       displayProfile === 'd-block' &&
         setDisplayProfile('d-none')
     }
+  }
+  const handleStr = () => {
+    setDisplayProfile("d-none")
+    localStorage.removeItem("filterData")
+    setStratigyFilData([])
   }
   return (
     <>
@@ -65,7 +70,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' ? 'd-block' : 'd-none'}>
+          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' || location.pathname === '/addForm' ? 'd-block' : 'd-none'}>
             <LanguageSelect />
           </div>
           {
@@ -106,13 +111,14 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           <div className='d-flex align-items-center mt-2 navLink'>
             <img className="drop_down_icon" src={saveLogo} alt="" />
             <div className='ms-3 mt-2'>
-              <p >{t('Saved Strategies')}</p>
+              <p ><Link to="/saveStratigy" className='navLink' onClick={handleStr}>{t('Saved Strategies')}</Link></p>
+              {/* <Link to="/saveStratigy" className='navLink' onClick={() => setDisplayProfile("d-none")}>{t('Saved Strategies')}</Link> */}
             </div>
           </div>
           <div className='d-flex align-items-center mt-2 navLink'>
             <img className="drop_down_icon" src={favLogo} alt="" />
             <div className='ms-3 mt-2'>
-              <p >{t('Favourite Strategies')}</p>
+              <p><Link to="/favouriteStratigy" className='navLink' onClick={handleStr}>{t('Favourite Strategies')}</Link></p>
             </div>
           </div>
           <div onClick={logout} className="mt-2 navLink">

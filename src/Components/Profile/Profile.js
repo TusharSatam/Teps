@@ -13,6 +13,7 @@ import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
 import VerifyModal from '../ForgotPassModal/VerifyModal';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -25,7 +26,7 @@ const Profile = () => {
   const [citys, setCitys] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
   const [show, setShow] = React.useState(false)
-  const [success, setSuccess] = React.useState(false)
+  const [preview, setPreview] = React.useState(null)
 
 
 
@@ -33,6 +34,7 @@ const Profile = () => {
     setForgot(true);
   }
   const handleProfile = (e) => {
+    setPreview(URL.createObjectURL(e.target.files[0]))
     let formData = new FormData();
     formData.append('img', e.target.files[0]);
     updateInfo(user._id, formData)
@@ -70,7 +72,6 @@ const Profile = () => {
         console.log("error", error);
       }
     };
-
     fetchData();
   }, [])
 
@@ -104,7 +105,6 @@ const Profile = () => {
         if (res?.data[0].Message !== "No records found") {
           setLiveDetails(res?.data[0]?.PostOffice[0]);
           setCityFound(true)
-          console.log(res?.data[0]?.PostOffice[0]?.Country);
         }
         else {
           setCityFound(false)
@@ -142,7 +142,7 @@ const Profile = () => {
   const doneEmail = () => {
     const data = {
       "to": getEmail,
-      'subject': "Please Verified Your Account -TEPS",
+      'subject': "Email verification - TEPS",
       "html": `
       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
@@ -210,7 +210,6 @@ const Profile = () => {
                   toast.success(`${t('update_profile_messege')}`)
                   setIsLoading(false);
                   setEditAll(false);
-                  console.log("habdaud");
                 }
               })
               .catch(err => console.log(err))
@@ -246,9 +245,10 @@ const Profile = () => {
           <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
             <div className="button-wrapperr">
               {
-                profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                  user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    <img width={'40px'} className='label' src={defaultProfile} alt="" />
+                preview ? <img src={preview} alt="" /> :
+                  profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                      <img width={'40px'} className='label' src={defaultProfile} alt="" />
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
@@ -281,17 +281,20 @@ const Profile = () => {
               <div className='profile_school mt-5'>
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
-              <div style={{ marginTop: "110px" }}>
+              <div className='py-4' style={{ position: "relative", padding: "4px" }}>
                 <div className='d-flex justify-content-center py-5'>
-                  <button onClick={handleForgotShow} className='submit_btn'>{t('Change Password')}</button>
+                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>
                 <div className='d-flex'>
                   <div>
-                    <button className="authBtn me-3" >{t('favourites')}</button>
+                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('favourites')}</button></Link>
                   </div>
                   <div>
-                    <button className='authBtn'>{t('saved')}</button>
+                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('saved')}</button></Link>
                   </div>
+                </div>
+                <div className='d-flex justify-content-center py-5'>
+                  <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                 </div>
               </div>
             </div>
@@ -390,13 +393,18 @@ const Profile = () => {
                 <div className='d-block d-md-none'>
                   <div className='d-flex justify-content-center mt-3'>
                     <div>
-                      <button className="profileBtn me-3" >{t('favourites')}</button>
+                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('favourites')}</button></Link>
                     </div>
                     <div>
-                      <button className='profileBtn'>
-                        {t('saved')}
-                      </button>
+                      <Link to="/saveStratigy">
+                        <button className='profileBtn'>
+                          {t('saved')}
+                        </button>
+                      </Link>
                     </div>
+                  </div>
+                  <div className='d-flex justify-content-center py-5'>
+                    <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                   </div>
                 </div>
               </div>
