@@ -14,13 +14,14 @@ import SavedIcon from '../asstes/icons/Saved.svg'
 import DownArrow from '../asstes/icons/DownArrow.svg'
 import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
-import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
+import { getMultitUser, getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
 import { singleHindiStratigys } from '../services/hindiStratigys';
 import { postcomment } from '../services/stratigyes';
 import moment from 'moment';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import LikeByModal from '../Components/Modal/LikeByModal';
 const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -31,6 +32,8 @@ const SingleHindiStr = () => {
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  const [totalLikeUser, setTotalLikeUser] = React.useState([])
+
   React.useEffect(() => {
     singleHindiStratigys(id)
       .then(res => {
@@ -138,6 +141,8 @@ const SingleHindiStr = () => {
         setTotalUserLikes(totalLike.length)
         const userlike = res?.data?.filter(ress => ress.user_id === user._id)
         setUserLikes(userlike?.map(ress => ress.strategie_id))
+        getMultitUser(userlike?.map(user_id => user_id.user_id))
+          .then(resUser => setTotalLikeUser(resUser.data))
       })
   }, [])
   const handleApiLikes = (id) => {
@@ -208,8 +213,14 @@ const SingleHindiStr = () => {
           })
       })
   }
+  const [show, setShow] = useState(false)
   return (
     <div>
+      <LikeByModal
+        show={show}
+        handleClose={() => setShow(false)}
+        totalReact={totalLikeUser}
+      />
       <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div>

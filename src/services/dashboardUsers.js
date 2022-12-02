@@ -49,3 +49,15 @@ export const deletUser = async (id) => {
   }
   return deletResponse;
 }
+
+// reqDelet get Stratigy
+export const getMultitUser = async (ids) => {
+  let stratigyResponse
+  await axios.get(`users/multi/${ids}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+
+  return stratigyResponse;
+}

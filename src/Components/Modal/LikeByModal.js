@@ -20,7 +20,7 @@ const LikeByModal = (props) => {
               <div>
                 {
                   res.image ?
-                    <img width="48px" height="48px" className='label' style={{ width: "120px", borderRadius: '1000px' }} src={`data:${res?.image?.contentType};base64,${Buffer.from(res?.image?.data?.data).toString('base64')}`} alt="" />
+                    <img width="48px" height="48px" className='label' style={{ borderRadius: '1000px' }} src={`data:${res?.image?.contentType};base64,${Buffer.from(res?.image?.data?.data).toString('base64')}`} alt="" />
                     :
                     <img width="48px" height="48px" src={UserImage} alt="person pic" />
                 }

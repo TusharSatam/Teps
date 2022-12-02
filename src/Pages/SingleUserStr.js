@@ -14,7 +14,7 @@ import SavedIcon from '../asstes/icons/Saved.svg'
 import DownArrow from '../asstes/icons/DownArrow.svg'
 import UpArrow from '../asstes/icons/upArrow.svg'
 import { useTranslation } from 'react-i18next';
-import { getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
+import { getMultitUser, getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
 import { useAuth } from '../Context/AuthContext';
 import LikeByModal from '../Components/Modal/LikeByModal';
 import { singleUserEnStratigys } from '../services/userStratigy';
@@ -27,15 +27,13 @@ import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 
 const SingleUserStr = () => {
-  const { user, setUser } = useAuth()
+  const { user } = useAuth()
   const [str, setStr] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
-  const [allUser, setAllUser] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
-  const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const [comment, setComment] = React.useState([])
+  const [totalLikeUser, setTotalLikeUser] = React.useState([])
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
@@ -43,64 +41,6 @@ const SingleUserStr = () => {
         setComment(res.data[1]?.comments)
       })
   }, [])
-
-  const handleReact = async (e) => {
-    if (react?.includes(e)) {
-      for (var i = 0; i < react.length; i++) {
-        if (react[i] === e) {
-          react?.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      react?.push(e)
-    }
-    setReact([...react], [react]);
-  }
-  React.useEffect(() => {
-    const data = { "saveId": react }
-    if (react) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [react, user, setUser])
-
-  const handleLike = async (e) => {
-
-    if (like?.includes(e)) {
-      for (var i = 0; i < like.length; i++) {
-        if (like[i] === e) {
-          like.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    else {
-      like.push(e)
-    }
-    setLike([...like], [like]);
-  }
-
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
 
   const handleSeeComment = () => {
     if (seeComment) {
@@ -111,20 +51,12 @@ const SingleUserStr = () => {
     }
   }
 
-  React.useEffect(() => {
-    getUsers()
-      .then(res => {
-        setAllUser(res.data);
-      })
-  }, [])
-  const totalSave = allUser.filter(res => res.saveId.includes(id));
-  const totalReact = allUser.filter(res => res.saveReact.includes(id));
   const [show, setShow] = React.useState(false)
   const showReact = () => {
     if (show) {
       setShow(false)
     }
-    if (totalReact.length === 0) {
+    if (totalLikeUser.length === 0) {
       setShow(false)
     }
     else {
@@ -164,6 +96,8 @@ const SingleUserStr = () => {
         setTotalUserLikes(totalLike.length)
         const userlike = res?.data?.filter(ress => ress.user_id === user._id)
         setUserLikes(userlike?.map(ress => ress.strategie_id))
+        getMultitUser(userlike?.map(user_id => user_id.user_id))
+          .then(resUser => setTotalLikeUser(resUser.data))
       })
   }, [])
   const handleApiLikes = (id) => {
@@ -239,7 +173,7 @@ const SingleUserStr = () => {
       <LikeByModal
         show={show}
         handleClose={() => setShow(false)}
-        totalReact={totalReact}
+        totalReact={totalLikeUser}
       />
       <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>

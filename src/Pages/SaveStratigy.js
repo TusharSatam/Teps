@@ -23,6 +23,7 @@ import { buildQueries } from '@testing-library/react';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
+import { Spinner } from 'react-bootstrap';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -34,7 +35,7 @@ const SaveStratigy = () => {
   const [languageSelect, setLanguageSelect] = React.useState("en")
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const { t } = useTranslation();
-
+  const [isLoading, setIsLoading] = useState(false)
   const language = localStorage.getItem("i18nextLng")
   React.useEffect(() => {
     if (language === "hi") {
@@ -56,6 +57,7 @@ const SaveStratigy = () => {
   const [save, setSave] = useState([]);
 
   React.useEffect(() => {
+    setIsLoading(true)
     getSaves()
       .then(res => {
         const saves = res?.data?.filter(ress => ress.user_id === user._id)
@@ -65,27 +67,37 @@ const SaveStratigy = () => {
           getMultitStr(savesId)
             .then(res => {
               setSaveStratigy(res.data);
+              setIsLoading(false)
             })
-            .catch(err => setSaveStratigy([]))
+            .catch(err => {
+              setIsLoading(false)
+              setSaveStratigy([])
+            })
           getMultiUsertStr(savesId)
             .then(res => {
               setSaveUserStratigy(res.data);
+              setIsLoading(false)
             })
-            .catch(err => setSaveUserStratigy([]))
+            .catch(err => {
+              setSaveUserStratigy([])
+              setIsLoading(false)
+            })
         }
         else {
           getMultitHiStr(savesId)
             .then(res => {
               setSaveStratigyi(res.data)
+              setIsLoading(false)
             })
           getMultiUserHindiStr(savesId)
             .then(res => {
               setSaveStratigyiUser(res.data)
+              setIsLoading(false)
             })
         }
       })
 
-  }, [user.saveId, languageSelect, user._id])
+  }, [languageSelect])
 
   const handleApiSaves = (id) => {
     const data = {
@@ -179,7 +191,12 @@ const SaveStratigy = () => {
                 />
               </div>
             </div>
-            {
+            {isLoading ?
+              <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div> :
               saveStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
                 stratigyFilData?.length !== 0 ? <>{
                   stratigyFilData?.map((res, index) => (
@@ -565,284 +582,199 @@ const SaveStratigy = () => {
               </div>
             </div>
             {
-              saveStratigyHi?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
-                stratigyFilData?.length !== 0 ? <>
-                  {
-                    stratigyFilData?.map((res, index) => (
-                      <div key={index} className='container'>
-                        <div style={{ background: "#FFFFFF" }} className='card_pad'>
-                          <div className='my-4'>
-                            <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                <div className='me-1'>
-                                  <div>
-                                    <div className='d-flex mb-3'>
-                                      <p className='Strategy_count'>{t("strategy")}</p>
-                                      <p className='counter_str'>{index + 1}</p>
-                                    </div>
-                                    {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
-                                  </div>
-                                  <div className='d-block d-md-none mt-1'>
-                                    <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                    <div className=' mt-1' style={{ marginLeft: "20px" }}>
-                                      <div className='res_btn_icon'>
-                                        <div className='d-flex flex-column res_inner_div p-1 '>
-                                          {
-                                            !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                              res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
-                                          }
-                                          {
-                                            !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                              res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                          }
-                                        </div>
-                                      </div>
-                                      <div className='ms-1'>
-                                        {
-                                          res['Mode of Teaching'] === "ऑनलाइन" ?
-                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                        }
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-                              <div className='col-9 ms-4 col-md-8 '>
-                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                  <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
-                                  <p className='savestr_body'>
-                                    {res["शिक्षण रणनीति"]}
-                                  </p>
-                                </Link>
-                                <div className='d-flex align-items-center my-3'>
-                                  {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                </div>
-                              </div>
-                              <div className='col-md-2 d-none d-md-block ms-5'>
-                                <div className='d-flex flex-column align-items-center justify-content-center'>
-                                  <div>
-                                    <span className='icons_heading'>विकासात्मक क्षेत्र</span>
-                                  </div>
-                                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                      {
-                                        !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                            <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
-                                      }
-                                      {
-                                        !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                            <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                      }
-                                    </div>
-                                    {
-                                      res['Mode of Teaching'] === "ऑनलाइन" ?
-                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                    }
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      // </Link>
-                    ))
-                  }
-                  {
-                    saveStratigyHiUser?.map((res, index) => (
-                      <div key={index} className='container'>
-                        <div style={{ background: "#FFFFFF" }} className='card_pad'>
-                          <div className='my-4'>
-                            <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                <div className='me-1'>
-                                  <div>
-                                    <div className='d-flex mb-3'>
-                                      <p className='Strategy_count'>{t("strategy")}</p>
-                                      <p className='counter_str'>{index + 1}</p>
-                                    </div>
-                                    {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
-                                  </div>
-                                  <div className='d-block d-md-none mt-1'>
-                                    <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                    <div className=' mt-1' style={{ marginLeft: "20px" }}>
-                                      <div className='res_btn_icon'>
-                                        <div className='d-flex flex-column res_inner_div p-1 '>
-                                          {
-                                            !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                              res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
-                                          }
-                                          {
-                                            !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                              res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                          }
-                                        </div>
-                                      </div>
-                                      <div className='ms-1'>
-                                        {
-                                          res['Mode of Teaching'] === "ऑनलाइन" ?
-                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                        }
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-                              <div className='col-9 ms-4 col-md-8 '>
-                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                  <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
-                                  <p className='savestr_body'>
-                                    {res["शिक्षण रणनीति"]}
-                                  </p>
-                                </Link>
-                                <div className='d-flex align-items-center my-3'>
-                                  {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                </div>
-                              </div>
-                              <div className='col-md-2 d-none d-md-block ms-5'>
-                                <div className='d-flex flex-column align-items-center justify-content-center'>
-                                  <div>
-                                    <span className='icons_heading'>विकासात्मक क्षेत्र</span>
-                                  </div>
-                                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                      {
-                                        !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                            <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
-                                      }
-                                      {
-                                        !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                            <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                      }
-                                    </div>
-                                    {
-                                      res['Mode of Teaching'] === "ऑनलाइन" ?
-                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                    }
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      // </Link>
-                    ))
-                  }
-                </>
-                  :
-                  <>{
-                    saveStratigyHi?.map((data, index) => (
-                      <div key={index} className='container'>
-                        <div style={{ background: "#FFFFFF" }} className='card_pad'>
-                          <div className='my-4'>
-                            <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                <div className='me-1'>
-                                  <div>
-                                    <div className='d-flex mb-3'>
-                                      <p className='Strategy_count'>{t("strategy")}</p>
-                                      <p className='counter_str'>{index + 1}</p>
-                                    </div>
-                                    {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
-                                  </div>
-                                  <div className='d-block d-md-none mt-1'>
-                                    <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                    <div className=' mt-1' style={{ marginLeft: "20px" }}>
-                                      <div className='res_btn_icon'>
-                                        <div className='d-flex flex-column res_inner_div p-1 '>
-                                          {
-                                            !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                              data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
-                                          }
-                                          {
-                                            !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                              data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                          }
-                                        </div>
-                                      </div>
-                                      <div className='ms-1'>
-                                        {
-                                          data['Mode of Teaching'] === "ऑनलाइन" ?
-                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                        }
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-                              <div className='col-9 ms-4 col-md-8 '>
-                                <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                  <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
-                                  <p className='savestr_body'>
-                                    {data["शिक्षण रणनीति"]}
-                                  </p>
-                                </Link>
-                                <div className='d-flex align-items-center my-3'>
-                                  {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                </div>
-                              </div>
-                              <div className='col-md-2 d-none d-md-block ms-5'>
-                                <div className='d-flex flex-column align-items-center justify-content-center'>
-                                  <div>
-                                    <span className='icons_heading'>विकासात्मक क्षेत्र</span>
-                                  </div>
-                                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                      {
-                                        !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                            <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
-                                      }
-                                      {
-                                        !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
-                                          data['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                            <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                      }
-                                    </div>
-                                    {
-                                      data['Mode of Teaching'] === "ऑनलाइन" ?
-                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                    }
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  }
+              isLoading ? <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div> :
+                saveStratigyHi?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
+                  stratigyFilData?.length !== 0 ? <>
                     {
-                      saveStratigyHiUser?.map((data, index) => (
+                      stratigyFilData?.map((res, index) => (
+                        <div key={index} className='container'>
+                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                            <div className='my-4'>
+                              <div className='d-flex justify-content-between my-4 '>
+                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <div className='me-1'>
+                                    <div>
+                                      <div className='d-flex mb-3'>
+                                        <p className='Strategy_count'>{t("strategy")}</p>
+                                        <p className='counter_str'>{index + 1}</p>
+                                      </div>
+                                      {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                    </div>
+                                    <div className='d-block d-md-none mt-1'>
+                                      <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
+                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                        <div className='res_btn_icon'>
+                                          <div className='d-flex flex-column res_inner_div p-1 '>
+                                            {
+                                              !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                  <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                            }
+                                            {
+                                              !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                  <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                            }
+                                          </div>
+                                        </div>
+                                        <div className='ms-1'>
+                                          {
+                                            res['Mode of Teaching'] === "ऑनलाइन" ?
+                                              <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Link>
+                                <div className='col-9 ms-4 col-md-8 '>
+                                  <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
+                                    <p className='savestr_body'>
+                                      {res["शिक्षण रणनीति"]}
+                                    </p>
+                                  </Link>
+                                  <div className='d-flex align-items-center my-3'>
+                                    {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                  </div>
+                                </div>
+                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                  <div className='d-flex flex-column align-items-center justify-content-center'>
+                                    <div>
+                                      <span className='icons_heading'>विकासात्मक क्षेत्र</span>
+                                    </div>
+                                    <div className='d-flex align-items-center justify-content-center mt-md-2'>
+                                      <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                        {
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                            res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
+                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                        }
+                                        {
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                            res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
+                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                        }
+                                      </div>
+                                      {
+                                        res['Mode of Teaching'] === "ऑनलाइन" ?
+                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                      }
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        // </Link>
+                      ))
+                    }
+                    {
+                      saveStratigyHiUser?.map((res, index) => (
+                        <div key={index} className='container'>
+                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                            <div className='my-4'>
+                              <div className='d-flex justify-content-between my-4 '>
+                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <div className='me-1'>
+                                    <div>
+                                      <div className='d-flex mb-3'>
+                                        <p className='Strategy_count'>{t("strategy")}</p>
+                                        <p className='counter_str'>{index + 1}</p>
+                                      </div>
+                                      {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                    </div>
+                                    <div className='d-block d-md-none mt-1'>
+                                      <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
+                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                        <div className='res_btn_icon'>
+                                          <div className='d-flex flex-column res_inner_div p-1 '>
+                                            {
+                                              !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                  <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                            }
+                                            {
+                                              !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                  <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                            }
+                                          </div>
+                                        </div>
+                                        <div className='ms-1'>
+                                          {
+                                            res['Mode of Teaching'] === "ऑनलाइन" ?
+                                              <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Link>
+                                <div className='col-9 ms-4 col-md-8 '>
+                                  <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
+                                    <p className='savestr_body'>
+                                      {res["शिक्षण रणनीति"]}
+                                    </p>
+                                  </Link>
+                                  <div className='d-flex align-items-center my-3'>
+                                    {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                  </div>
+                                </div>
+                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                  <div className='d-flex flex-column align-items-center justify-content-center'>
+                                    <div>
+                                      <span className='icons_heading'>विकासात्मक क्षेत्र</span>
+                                    </div>
+                                    <div className='d-flex align-items-center justify-content-center mt-md-2'>
+                                      <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                        {
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                            res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
+                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                        }
+                                        {
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                            res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
+                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                        }
+                                      </div>
+                                      {
+                                        res['Mode of Teaching'] === "ऑनलाइन" ?
+                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                      }
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        // </Link>
+                      ))
+                    }
+                  </>
+                    :
+                    <>{
+                      saveStratigyHi?.map((data, index) => (
                         <div key={index} className='container'>
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
@@ -852,7 +784,7 @@ const SaveStratigy = () => {
                                     <div>
                                       <div className='d-flex mb-3'>
                                         <p className='Strategy_count'>{t("strategy")}</p>
-                                        <p className='counter_str'>{saveStratigyHi.length + index + 1}</p>
+                                        <p className='counter_str'>{index + 1}</p>
                                       </div>
                                       {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                     </div>
@@ -931,7 +863,97 @@ const SaveStratigy = () => {
                         </div>
                       ))
                     }
-                  </>
+                      {
+                        saveStratigyHiUser?.map((data, index) => (
+                          <div key={index} className='container'>
+                            <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                              <div className='my-4'>
+                                <div className='d-flex justify-content-between my-4 '>
+                                  <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <div className='me-1'>
+                                      <div>
+                                        <div className='d-flex mb-3'>
+                                          <p className='Strategy_count'>{t("strategy")}</p>
+                                          <p className='counter_str'>{saveStratigyHi.length + index + 1}</p>
+                                        </div>
+                                        {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                      </div>
+                                      <div className='d-block d-md-none mt-1'>
+                                        <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
+                                        <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                          <div className='res_btn_icon'>
+                                            <div className='d-flex flex-column res_inner_div p-1 '>
+                                              {
+                                                !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
+                                                  data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                    <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                    <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                              }
+                                              {
+                                                !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
+                                                  data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                    <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                    <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                              }
+                                            </div>
+                                          </div>
+                                          <div className='ms-1'>
+                                            {
+                                              data['Mode of Teaching'] === "ऑनलाइन" ?
+                                                <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                            }
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </Link>
+                                  <div className='col-9 ms-4 col-md-8 '>
+                                    <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                      <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
+                                      <p className='savestr_body'>
+                                        {data["शिक्षण रणनीति"]}
+                                      </p>
+                                    </Link>
+                                    <div className='d-flex align-items-center my-3'>
+                                      {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                                    </div>
+                                  </div>
+                                  <div className='col-md-2 d-none d-md-block ms-5'>
+                                    <div className='d-flex flex-column align-items-center justify-content-center'>
+                                      <div>
+                                        <span className='icons_heading'>विकासात्मक क्षेत्र</span>
+                                      </div>
+                                      <div className='d-flex align-items-center justify-content-center mt-md-2'>
+                                        <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
+                                          {
+                                            !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                              data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
+                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
+                                                <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                          }
+                                          {
+                                            !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                              data['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
+                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
+                                                <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                          }
+                                        </div>
+                                        {
+                                          data['Mode of Teaching'] === "ऑनलाइन" ?
+                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                        }
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      }
+                    </>
             }
           </>
       }
