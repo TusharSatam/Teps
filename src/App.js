@@ -28,7 +28,6 @@ import Verify from './Pages/Verify';
 import EmailVerify from './Pages/EmailVerify';
 import { getSingleUser } from './services/dashboardUsers';
 import { useAuth } from './Context/AuthContext';
-import AddForm from './Components/AddForm/AddForm';
 import SaveStratigy from './Pages/SaveStratigy';
 import FavouriteStr from './Pages/FavouriteStr';
 import SingleStr from './Pages/SingleStr';
@@ -39,6 +38,7 @@ import UserReqEn from './Pages/Dashboard/userReq/UserReqEn';
 import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
 import SingleUserStr from './Pages/SingleUserStr';
 import DashComments from './Pages/Dashboard/DashComments';
+import AddForm from './Components/AddForm/AddForm';
 
 
 
