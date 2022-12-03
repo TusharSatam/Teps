@@ -145,7 +145,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
-
+        console.log({ aquaticCreaturesUser });
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
           setStratigyFilData(aquaticCreatures)
@@ -182,6 +182,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
+      console.log({ aquaticCreaturesUser });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));

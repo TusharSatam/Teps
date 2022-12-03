@@ -169,6 +169,7 @@ const SaveStratigy = () => {
           })
       })
   }
+  console.log({ saveUserStratigy });
   return (
     <div>
       {
@@ -197,7 +198,7 @@ const SaveStratigy = () => {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               </div> :
-              saveStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
+              saveStratigy?.length === 0 && saveUserStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
                 stratigyFilData?.length !== 0 ? <>{
                   stratigyFilData?.map((res, index) => (
                     <div key={index} className='container'>
@@ -294,7 +295,7 @@ const SaveStratigy = () => {
                         <div style={{ background: "#FFFFFF" }} className='card_pad'>
                           <div className='my-4'>
                             <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                              <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                 <div className='me-1'>
                                   <div>
                                     <div className='d-flex mb-3 str_text_left'>
@@ -477,7 +478,7 @@ const SaveStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3 str_text_left'>

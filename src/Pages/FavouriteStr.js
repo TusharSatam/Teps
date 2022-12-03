@@ -232,7 +232,7 @@ const FavouriteStr = () => {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               </div> :
-                favStratigy?.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
+                favStratigy?.length === 0 && likeUserStratigy.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
                   stratigyFilData?.length !== 0 ? <>{
                     stratigyFilData?.map((res, index) => (
                       <div key={index} className='container'>
@@ -330,7 +330,7 @@ const FavouriteStr = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3 str_text_left'>
@@ -370,7 +370,7 @@ const FavouriteStr = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-4 col-md-8 '>
-                                  <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
                                       {res["Teaching Strategy"]}
@@ -513,7 +513,7 @@ const FavouriteStr = () => {
                             <div style={{ background: "#FFFFFF" }} className='card_pad'>
                               <div className='my-4'>
                                 <div className='d-flex justify-content-between my-4 '>
-                                  <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <div className='me-1'>
                                       <div>
                                         <div className='d-flex mb-3 str_text_left'>
@@ -553,7 +553,7 @@ const FavouriteStr = () => {
                                     </div>
                                   </Link>
                                   <div className='col-9 ms-4 col-md-8 '>
-                                    <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                       <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                       <p className='savestr_body'>
                                         {data["Teaching Strategy"]}

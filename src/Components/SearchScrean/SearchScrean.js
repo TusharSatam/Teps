@@ -40,6 +40,7 @@ const SearchScrean = () => {
   // const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
 
+
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
       return stratigyFilData?.find(a => a['Learning Outcome'] === learning_outcome)
@@ -215,7 +216,6 @@ const SearchScrean = () => {
           })
       })
   }
-  console.log("likes", userLikes);
 
   const [userSaves, setUserSaves] = useState([]);
   // const [c, setC] = useState();
@@ -396,13 +396,22 @@ const SearchScrean = () => {
                                     ))
                                   }
                                 </div>
+                                {
+                                  // console.log("unchecked", stratigyFilUserData)
+                                  console.log("data", data)
+                                }
                                 {check ?
                                   <div className='my-4'>
-
+                                    {
+                                      console.log("checked", stratigyFilUserData)
+                                    }
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
                                         <div className={index === 0 ? 'd-flex justify-content-between my-4 user_str_border pt-4 pt-md-5' : 'd-flex justify-content-between my-4 pt-5'}>
                                           <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            {
+                                              console.log(strUser._id)
+                                            }
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
@@ -467,7 +476,7 @@ const SearchScrean = () => {
                                                 {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                                 {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                               </div>
-                                              <div>
+                                              <div className='d-block d-md-none'>
                                                 <span className='user_str' style={{ fontSize: "8px" }}>Uploaded By - {
                                                   user.image ?
                                                     <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />

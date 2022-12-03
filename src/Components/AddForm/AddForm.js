@@ -118,7 +118,15 @@ const AddForm = () => {
       return aquaticCreaturesSubTopic?.find(a => a['Sub-sub topic'] === sub_sub_topic)
     });
 
+  const aquaticCreaturesLearningOutcome = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+  })
+  const uniqueLearningOutcome = Array.from(new Set(aquaticCreaturesLearningOutcome?.map(a => a['Learning Outcome'])))
+    .map(learning_outcome => {
+      return aquaticCreaturesSubTopic?.find(a => a['Learning Outcome'] === learning_outcome)
+    });
 
+  console.log(uniqueLearningOutcome);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.subject.value === '' && e.target.grade.value === "" && e.target.skill.value === "" && e.target.topic.value === ""
