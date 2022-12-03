@@ -221,8 +221,11 @@ const SingleHindiStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className='saveStrParent' >
+      {/* <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
+      </div> */}
+      <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
+        <div style={{ color: "black" }} className='text-center headText mt-2 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक} &gt; {str[`उप शीर्षक`]} &gt; {str['उप-उप शीर्षक']}</p>
@@ -233,8 +236,8 @@ const SingleHindiStr = () => {
             <div className='d-flex justify-content-between my-4 '>
               <div className='me-1'>
                 <div>
-                  <div className=' mb-4 mb-md-3'>
-                    <p className='Strategy_count'>{t("strategy")}</p>
+                  <div className=' mb-4 mb-md-3 str_title'>
+                    <p className='str_name '>{t("strategy")}</p>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                   </div>
                 </div>
@@ -361,12 +364,12 @@ const SingleHindiStr = () => {
               </form>
               <div className={!seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} (374) <img src={DownArrow} alt="" /></p>
+                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
                 </div>
               </div>
               <div className={seeComment ? "d-block" : "d-none"}>
                 <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} (374) <img src={UpArrow} alt="" /></p>
+                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
                 </div>
                 {
                   comment?.map((res, index) => (
@@ -395,12 +398,12 @@ const SingleHindiStr = () => {
         </form>
         <div className={!seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className="text-center see_comment">
-            <p className='m-0'>View comments (374) <img src={DownArrow} alt="" /></p>
+            <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
           </div>
         </div>
         <div className={seeComment ? "d-block" : "d-none"}>
           <div onClick={handleSeeComment} className='text-center see_comment'>
-            <p className='m-0'>Hide comments (374) <img src={UpArrow} alt="" /></p>
+            <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
           </div>
           {
             comment?.map((res, index) => (
@@ -412,56 +415,6 @@ const SingleHindiStr = () => {
               </div>
             ))
           }
-          {/* <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div>
-          <div className='mt-4'>
-            <p className='comment_head'>User name <span className='comment_span'>Days/weeks/months ago</span></p>
-            <p className='comment_text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus velit, auctor ut sagittis id,
-              suscipit eget purus. Phasellus lacus tellus, condimentum non sodales a, varius a justo. Etiam arcu
-              ipsum, luctus id semper sed, tincidunt a arcu. Vivamus libero diam, iaculis eu semper ac, tempor ut
-              quam. Duis egestas, augue a feugiat sodales, leo massa vehicula dui, at sollicitudin lacus lorem ac
-              nunc. Vestibulum id ligula lectus.
-            </p>
-            <hr />
-          </div> */}
         </div>
       </div>
     </div>

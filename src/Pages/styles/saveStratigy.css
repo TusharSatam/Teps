@@ -173,7 +173,7 @@
   color: #08090A
 }
 .comment_input{
-  border: 2px solid #1AA05B;
+  border: 2px solid #D5B39A;
   padding: 10px 90px 10px 20px;
 }
 .comment_input:focus{
@@ -184,7 +184,7 @@
   margin-right: 10px;
 }
 .comment_submit input{
-  background: #1AA05B;
+  background: #D5B39A;
   border-radius: 20px;
   border: none;
   font-weight: 700;
@@ -262,6 +262,16 @@ cursor: pointer;
   width: 60px;
   height: 64px;
 }
+.str_name{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #D5B39A;
+  margin-bottom: 2px;
+  margin-right: -5px;
+}
 @media only screen and (max-width: 990px) {
   .headText{
     font-weight: 600;
@@ -287,6 +297,11 @@ margin-right: 10px;
     font-size: 12px;
     margin-bottom: 0!important;
   }
+  .str_name{
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+}
   .dev_dpm_text{
     font-family: 'Inter';
     font-style: normal;
