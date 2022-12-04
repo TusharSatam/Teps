@@ -31,8 +31,8 @@ const AproveReqModal = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <span onClick={props.onHide} style={{ cursor: "pointer" }} className="text-end pe-5 pt-4">&#10005;</span>
-        <Modal.Body className='px-4'>
+        <span onClick={props.onHide} style={{ cursor: "pointer" }} className="text-end pe-md-5 pe-2 pt-2 pt-md-4">&#10005;</span>
+        <Modal.Body className='px-1 px-md-4'>
           <p className='re_mod_title'>Thank you for uploading your teaching strategy. <br />
             Your contribution to the teaching community is appreciated.
           </p>

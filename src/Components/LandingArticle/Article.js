@@ -52,7 +52,7 @@ const Article = () => {
                 location.pathname === '/home' &&
                 <div>
                   <h4 className='d-none d-md-block'>Want to upload your own strategy and contribute to <br /> the TEPS community?</h4>
-                  <h5 className='d-block d-md-none'>Want to upload your own strategy and contribute to the TEPS community?</h5>
+                  <p className='d-block d-md-none mb-1' style={{ fontSize: "16px", fontWeight: "500", lineHeight: "20px" }}>Want to upload your own strategy and contribute to the TEPS community?</p>
                   <Link to="/addForm"> <button className='home_btn'>Upload Strategy</button></Link>
                 </div>
               }

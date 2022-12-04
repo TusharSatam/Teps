@@ -159,7 +159,7 @@ const SingleStr = () => {
         totalReact={totalLikeUser}
       />
       <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText mt-2 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
@@ -185,13 +185,13 @@ const SingleStr = () => {
                             str['Dev Dom 1'] === "Cognitive Sensory" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                  <img title="Cognitive Sensory" width="20px" height="20px" src={KnowledgeIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Cognitive Sensory</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                  <img title="Motor-Physical" width="20px" height="20px" src={Physical} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Motor-Physical</p>
                               </div>
@@ -201,13 +201,13 @@ const SingleStr = () => {
                             str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" />
+                                  <img title='Socio-Emotional-Ethical' width="20px" height="20px" src={Social} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                  <img title='Language & Communication' width="20px" height="20px" src={ChatIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Language & Communication</p>
                               </div>

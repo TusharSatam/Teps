@@ -225,7 +225,7 @@ const SingleHindiStr = () => {
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div> */}
       <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText mt-2 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक} &gt; {str[`उप शीर्षक`]} &gt; {str['उप-उप शीर्षक']}</p>
@@ -251,13 +251,13 @@ const SingleHindiStr = () => {
                             str['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                  <img title="संज्ञानात्मक संवेदी" width="20px" height="20px" src={KnowledgeIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>संज्ञानात्मक संवेदी</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                  <img title="मोटर-भौतिक" width="20px" height="20px" src={Physical} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>मोटर-भौतिक</p>
                               </div>
@@ -267,13 +267,13 @@ const SingleHindiStr = () => {
                             str['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" />
+                                  <img title='सामाजिक-भावनात्मक-नैतिक' width="20px" height="20px" src={Social} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>सामाजिक-भावनात्मक-नैतिक</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                  <img title='भाषा और संचार' width="20px" height="20px" src={ChatIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>भाषा और संचार</p>
                               </div>

@@ -111,22 +111,20 @@ const AddForm = () => {
       return aquaticCreaturesTopic?.find(a => a['Sub Topic'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic && creature['Sub Topic'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
     .map(sub_sub_topic => {
       return aquaticCreaturesSubTopic?.find(a => a['Sub-sub topic'] === sub_sub_topic)
     });
-
   const aquaticCreaturesLearningOutcome = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
   })
   const uniqueLearningOutcome = Array.from(new Set(aquaticCreaturesLearningOutcome?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
-      return aquaticCreaturesSubTopic?.find(a => a['Learning Outcome'] === learning_outcome)
+      return aquaticCreaturesLearningOutcome?.find(a => a['Learning Outcome'] === learning_outcome)
     });
 
-  console.log(uniqueLearningOutcome);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.subject.value === '' && e.target.grade.value === "" && e.target.skill.value === "" && e.target.topic.value === ""
@@ -293,7 +291,7 @@ const AddForm = () => {
                     <select required onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
                       <option value="" selected disabled>Learning Outcome</option>
                       {
-                        uniqueSubSubTopic?.filter(res => res['Learning Outcome'] !== undefined).map(res => (
+                        uniqueLearningOutcome?.filter(res => res['Learning Outcome'] !== undefined).map(res => (
                           <option>{res['Learning Outcome']}</option>
                         ))
                       }

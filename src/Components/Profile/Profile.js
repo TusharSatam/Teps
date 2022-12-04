@@ -257,7 +257,7 @@ const Profile = () => {
                 <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
                 <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
               </div>
-              <div style={{ marginTop: "-5px" }}>
+              <div style={{ marginTop: "-20px" }}>
                 <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
               </div>
             </div>
@@ -403,7 +403,7 @@ const Profile = () => {
                       </Link>
                     </div>
                   </div>
-                  <div className='d-flex justify-content-center py-5'>
+                  <div className='d-flex justify-content-center' style={{ paddingTop: "35px" }}>
                     <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                   </div>
                 </div>

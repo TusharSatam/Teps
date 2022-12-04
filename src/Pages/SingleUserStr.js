@@ -179,7 +179,7 @@ const SingleUserStr = () => {
         totalReact={totalLikeUser}
       />
       <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText mt-2 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt; {str?.Skill}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt; {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str['Sub-sub topic']}</p>
@@ -202,10 +202,10 @@ const SingleUserStr = () => {
                           delay={{ show: 250, hide: 400 }}
                           overlay={renderTooltip}
                         >
-                          <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
                         </OverlayTrigger>
                         :
-                        <img src={UserImage} alt="person pic" />
+                        <img src={UserImage} className="user_image" alt="person pic" />
                     } </p>
                   </div>
                 </div>
@@ -219,13 +219,13 @@ const SingleUserStr = () => {
                             str['Dev Dom 1'] === "Cognitive Sensory" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" />
+                                  <img title="Cognitive Sensory" width="20px" height="20px" src={KnowledgeIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Cognitive Sensory</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                  <img title="Motor-Physical" width="20px" height="20px" src={Physical} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Motor-Physical</p>
                               </div>
@@ -235,13 +235,13 @@ const SingleUserStr = () => {
                             str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" />
+                                  <img title='Socio-Emotional-Ethical' width="20px" height="20px" src={Social} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
                               </div> :
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
-                                  <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                  <img title='Language & Communication' width="20px" height="20px" src={ChatIcon} alt="" />
                                 </div>
                                 <p className='dev_dpm_text'>Language & Communication</p>
                               </div>
@@ -251,7 +251,7 @@ const SingleUserStr = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-9 ms-4 col-md-7 '>
+              <div className='col-8 ms-3 ms-md-4 col-md-7 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
                 <p className='savestr_body'>
                   {str["Teaching Strategy"]}

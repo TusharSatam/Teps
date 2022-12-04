@@ -23,7 +23,9 @@ import { buildQueries } from '@testing-library/react';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
-import { Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import UserImage from '../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -169,7 +171,11 @@ const SaveStratigy = () => {
           })
       })
   }
-  console.log({ saveUserStratigy });
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {user.firstName}
+    </Tooltip>
+  );
   return (
     <div>
       {
@@ -180,7 +186,7 @@ const SaveStratigy = () => {
                 <div className=' text-white text-center headText '>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
                 <div className='d-flex justify-content-end' style={{ marginTop: "-30px" }}>
                   <div onClick={handleFilter} className='filter_bTn'>
-                    <span>{t("Filter")}</span>
+                    <span className='me-1 me-md-0'>{t("Filter")}</span>
                     <img src={Filter} alt="" className='filtericon2' />
                     <img src={FilterHover} alt="" className='filtericon3' />
                   </div>
@@ -244,7 +250,7 @@ const SaveStratigy = () => {
                                 </div>
                               </div>
                             </Link>
-                            <div className='col-8 ms-4 col-md-8 '>
+                            <div className='col-9 ms-md-4 col-md-8 '>
                               <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
@@ -255,7 +261,7 @@ const SaveStratigy = () => {
                                 {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                               </div>
                             </div>
-                            <div className='col-md-2 d-none d-md-block ms-5'>
+                            <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
                                   <span className='icons_heading'>Developmental Domains</span>
@@ -302,6 +308,18 @@ const SaveStratigy = () => {
                                       <p className='Strategy_count'>{t("strategy")}</p>
                                       <p className='counter_str'>{index + 1}</p>
                                     </div>
+                                    <p className='user_str'>Uploaded By - {
+                                      user.image ?
+                                        <OverlayTrigger
+                                          placement="right"
+                                          delay={{ show: 250, hide: 400 }}
+                                          overlay={renderTooltip}
+                                        >
+                                          <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                        </OverlayTrigger>
+                                        :
+                                        <img src={UserImage} alt="person pic" />
+                                    } </p>
                                     {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                   </div>
                                   <div className='d-block d-md-none mt-1'>
@@ -334,7 +352,7 @@ const SaveStratigy = () => {
                                   </div>
                                 </div>
                               </Link>
-                              <div className='col-8 ms-4 col-md-8 '>
+                              <div className='col-9 ms-md-4 col-md-8 '>
                                 <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
@@ -345,7 +363,7 @@ const SaveStratigy = () => {
                                   {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                 </div>
                               </div>
-                              <div className='col-md-2 d-none d-md-block ms-5'>
+                              <div className='col-3 ms-md-4 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                 <div className='d-flex flex-column align-items-center justify-content-center'>
                                   <div>
                                     <span className='icons_heading'>Developmental Domains</span>
@@ -427,7 +445,7 @@ const SaveStratigy = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-8 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
@@ -438,7 +456,7 @@ const SaveStratigy = () => {
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div>
                                 </div>
-                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
                                       <span className='icons_heading'>Development Domains</span>
@@ -485,6 +503,20 @@ const SaveStratigy = () => {
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{saveStratigy.length + index + 1}</p>
                                       </div>
+                                      <div>
+                                        <p className='user_str'>Uploaded By - {
+                                          user.image ?
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                            </OverlayTrigger>
+                                            :
+                                            <img src={UserImage} alt="person pic" />
+                                        } </p>
+                                      </div>
                                       {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
@@ -517,7 +549,7 @@ const SaveStratigy = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-8 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
@@ -528,7 +560,7 @@ const SaveStratigy = () => {
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div>
                                 </div>
-                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
                                       <span className='icons_heading'>Development Domains</span>
@@ -635,7 +667,7 @@ const SaveStratigy = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -646,7 +678,7 @@ const SaveStratigy = () => {
                                     {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div>
                                 </div>
-                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
                                       <span className='icons_heading'>विकासात्मक क्षेत्र</span>
@@ -726,7 +758,7 @@ const SaveStratigy = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -737,7 +769,7 @@ const SaveStratigy = () => {
                                     {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div>
                                 </div>
-                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
                                       <span className='icons_heading'>विकासात्मक क्षेत्र</span>
@@ -819,7 +851,7 @@ const SaveStratigy = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -830,7 +862,7 @@ const SaveStratigy = () => {
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div>
                                 </div>
-                                <div className='col-md-2 d-none d-md-block ms-5'>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
                                       <span className='icons_heading'>विकासात्मक क्षेत्र</span>
@@ -909,7 +941,7 @@ const SaveStratigy = () => {
                                       </div>
                                     </div>
                                   </Link>
-                                  <div className='col-9 ms-4 col-md-8 '>
+                                  <div className='col-9 ms-md-4 col-md-8 '>
                                     <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                       <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                       <p className='savestr_body'>
@@ -920,7 +952,7 @@ const SaveStratigy = () => {
                                       {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                     </div>
                                   </div>
-                                  <div className='col-md-2 d-none d-md-block ms-5'>
+                                  <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                     <div className='d-flex flex-column align-items-center justify-content-center'>
                                       <div>
                                         <span className='icons_heading'>विकासात्मक क्षेत्र</span>
