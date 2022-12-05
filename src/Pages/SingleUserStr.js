@@ -100,7 +100,10 @@ const SingleUserStr = () => {
         const userlike = res?.data?.filter(ress => ress.user_id === user._id)
         setUserLikes(userlike?.map(ress => ress.strategie_id))
         getMultitUser(userlike?.map(user_id => user_id.user_id))
-          .then(resUser => setTotalLikeUser(resUser.data))
+          .then(resUser => {
+            console.log(resUser.data);
+            setTotalLikeUser(resUser.data)
+          })
       })
   }, [])
   const handleApiLikes = (id) => {

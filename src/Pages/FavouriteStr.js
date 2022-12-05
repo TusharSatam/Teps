@@ -22,7 +22,8 @@ import { getMultitHiStr } from '../services/hindiStratigys';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
-import { Spinner } from 'react-bootstrap';
+import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
+import UserImage from '../asstes/Group 51.svg'
 
 const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -203,7 +204,10 @@ const FavouriteStr = () => {
         })
     }
   }, [like, user, setUser])
-
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {user.firstName}
+    </Tooltip>)
   return (
     <div>
       {
@@ -336,6 +340,26 @@ const FavouriteStr = () => {
                                       <div className='d-flex mb-3 str_text_left'>
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{index + 1}</p>
+                                      </div>
+                                      <div>
+                                        <p className='user_str'>Uploaded By - {
+                                          user.image ?
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                            </OverlayTrigger>
+                                            :
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img src={UserImage} alt="person pic" />
+                                            </OverlayTrigger>
+                                        } </p>
                                       </div>
                                       {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                     </div>
@@ -519,6 +543,26 @@ const FavouriteStr = () => {
                                         <div className='d-flex mb-3 str_text_left'>
                                           <p className='Strategy_count'>{t("strategy")}</p>
                                           <p className='counter_str'>{favStratigy.length + index + 1}</p>
+                                        </div>
+                                        <div>
+                                          <p className='user_str'>Uploaded By - {
+                                            user.image ?
+                                              <OverlayTrigger
+                                                placement="right"
+                                                delay={{ show: 250, hide: 400 }}
+                                                overlay={renderTooltip}
+                                              >
+                                                <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                              </OverlayTrigger>
+                                              :
+                                              <OverlayTrigger
+                                                placement="right"
+                                                delay={{ show: 250, hide: 400 }}
+                                                overlay={renderTooltip}
+                                              >
+                                                <img src={UserImage} alt="person pic" />
+                                              </OverlayTrigger>
+                                          } </p>
                                         </div>
                                         {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                       </div>

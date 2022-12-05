@@ -514,7 +514,13 @@ const SaveStratigy = () => {
                                               <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
                                             </OverlayTrigger>
                                             :
-                                            <img src={UserImage} alt="person pic" />
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img src={UserImage} alt="person pic" />
+                                            </OverlayTrigger>
                                         } </p>
                                       </div>
                                       {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
