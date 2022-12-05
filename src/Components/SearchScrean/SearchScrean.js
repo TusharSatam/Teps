@@ -408,29 +408,35 @@ const SearchScrean = () => {
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
                                         <div className={index === 0 ? 'd-flex justify-content-between my-4 user_str_border pt-4 pt-md-5' : 'd-flex justify-content-between my-4 pt-5'}>
-                                          <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                            {
-                                              console.log(strUser._id)
-                                            }
-                                            <div className='me-1'>
-                                              <div>
+                                          <div className='me-1'>
+                                            <div>
+                                              <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{index + 1}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index + 1)}</p>
                                                 </div>
-                                                <p className='user_str'>Uploaded By - {
-                                                  user.image ?
-                                                    <OverlayTrigger
-                                                      placement="right"
-                                                      delay={{ show: 250, hide: 400 }}
-                                                      overlay={renderTooltip}
-                                                    >
-                                                      <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                                                    </OverlayTrigger>
-                                                    :
-                                                    <img src={UserImage} alt="person pic" />
-                                                } </p>
-                                              </div>
+                                              </Link>
+                                              <p className='user_str d-none d-md-block'>Uploaded By - {
+                                                user.image ?
+                                                  <OverlayTrigger
+                                                    placement="right"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={renderTooltip}
+                                                  >
+                                                    <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                  </OverlayTrigger>
+                                                  :
+                                                  <OverlayTrigger
+                                                    placement="right"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={renderTooltip}
+                                                  >
+                                                    <img src={UserImage} className="user_image" alt="person pic" />
+                                                  </OverlayTrigger>
+
+                                              } </p>
+                                            </div>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
                                                 <div className=' mt-1' style={{ marginLeft: "10px" }}>
@@ -439,28 +445,28 @@ const SearchScrean = () => {
                                                       {
                                                         !strUser['Dev Dom 1'] ? <div className='threeIcons'></div> :
                                                           strUser['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                            <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                            <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
+                                                            <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                            <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                                       }
                                                       {
                                                         !strUser['Dev Dom 2'] ? <div className='threeIcons'></div> :
                                                           strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                            <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                            <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                            <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                            <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                                       }
                                                     </div>
                                                   </div>
                                                   <div className='ms-1'>
                                                     {
                                                       strUser['Mode of Teaching'] === "Online" ?
-                                                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                                        <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                        <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
                                                     }
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </Link>
+                                            </Link>
+                                          </div>
                                           <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
                                             <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
@@ -477,12 +483,18 @@ const SearchScrean = () => {
                                                 {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                               </div>
                                               <div className='d-block d-md-none'>
-                                                <span className='user_str' style={{ fontSize: "8px" }}>Uploaded By - {
+                                                <p className='user_str'>Uploaded By - {
                                                   user.image ?
-                                                    <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    <OverlayTrigger
+                                                      placement="right"
+                                                      delay={{ show: 250, hide: 400 }}
+                                                      overlay={renderTooltip}
+                                                    >
+                                                      <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    </OverlayTrigger>
                                                     :
-                                                    <img src={UserImage} alt="person pic" />
-                                                } </span>
+                                                    <img src={UserImage} className="user_image" alt="person pic" />
+                                                } </p>
                                               </div>
                                             </div>
                                           </div>

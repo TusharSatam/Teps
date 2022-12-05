@@ -278,6 +278,15 @@ cursor: pointer;
   height: 26px;
   border-radius: 10000px;
 }
+.res_btn_icon_user{
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.str_title_user{
+      margin-bottom: 21px;
+      margin-top: 35px;
+}
 @media only screen and (max-width: 990px) {
   .headText{
     font-weight: 600;
@@ -357,6 +366,10 @@ margin-right: 10px;
       margin-right: 7px;
       font-size: 14px;
   }
+  .filter_bTn:hover{
+    color: #1AA05B;
+  background: white;
+  }
   .filtericon2{
     padding: 0;
   }
@@ -367,4 +380,16 @@ margin-right: 10px;
     width: 16px;
     height: 16px;
   }
+  .res_btn_icon_user{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  .str_titlee{
+  margin-bottom: 0px;
+  }
+  .str_title_user{
+    margin-bottom: 5px;
+    margin-top: 15.5px;
+}
 }

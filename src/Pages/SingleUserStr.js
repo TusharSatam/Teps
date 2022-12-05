@@ -187,18 +187,18 @@ const SingleUserStr = () => {
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt; {str?.Skill}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt; {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str['Sub-sub topic']}</p>
       </div>
-      <div className='mx-5'>
+      <div className='mx-4 mx-md-5'>
         <div style={{ background: "#FFFFFF" }} className='card_pad'>
           <div className='my-4'>
             <div className='d-flex justify-content-between my-4 '>
               <div className='me-1'>
-                <div className='str_title'>
-                  <div className=' mb-4 mb-md-3 str_title'>
+                <div className='str_title_user'>
+                  <div className='mb-md-3 str_titlee'>
                     <p className='Strategy_count str_name'>{t("strategy")}</p>
                   </div>
                   <div>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
-                    <p className='user_str'>Uploaded By - {
+                    <p className='user_str d-none d-md-block'>Uploaded By - {
                       user.image ?
                         <OverlayTrigger
                           placement="right"
@@ -222,7 +222,7 @@ const SingleUserStr = () => {
                 <div className='d-block d-md-none mt-1'>
                   <div className='icon_heading_text p-1'>Development Domains</div>
                   <div className=' mt-1'>
-                    <div className='res_btn_icon'>
+                    <div className='res_btn_icon_user'>
                       <div className='d-flex flex-column res_inner_div p-1 '>
                         {
                           !str['Dev Dom 1'] ? <div className='threeIcons'></div> :
@@ -258,6 +258,25 @@ const SingleUserStr = () => {
                         }
                       </div>
                     </div>
+                    <p className='user_str d-block d-md-none mt-3'>Uploaded By - {
+                      user.image ?
+                        <OverlayTrigger
+                          placement="right"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={renderTooltip}
+                        >
+                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                        </OverlayTrigger>
+                        :
+                        <OverlayTrigger
+                          placement="right"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={renderTooltip}
+                        >
+                          <img src={UserImage} className="user_image" alt="person pic" />
+                        </OverlayTrigger>
+
+                    } </p>
                   </div>
                 </div>
               </div>

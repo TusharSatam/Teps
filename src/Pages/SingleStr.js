@@ -217,9 +217,9 @@ const SingleStr = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-9 ms-4 col-md-7 '>
+              <div className='col-9 ms-2 ms-md-4 col-md-7 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
-                <p className='savestr_body me-4'>
+                <p className='savestr_body me-2 me-md-2'>
                   {str["Teaching Strategy"]}
                 </p>
                 <div className='d-flex justify-content-between my-2'>

@@ -127,30 +127,32 @@ const AddForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (e.target.subject.value === '' && e.target.grade.value === "" && e.target.skill.value === "" && e.target.topic.value === ""
-      && e.target.sub_topic.value === "" && e.target.sub_sub_topic.value === "" && e.target.dev_dom_1.value === "" && e.target.dev_dom_2.value === ""
-      && e.target.mode_of_teaching.value === "" && e.target.learning_outcome.value === "" && e.target.teaching_str.value === "") {
+    if (e.target.subject.value === '' || e.target.grade.value === "" || e.target.skill.value === "" || e.target.topic.value === ""
+      || e.target.sub_topic.value === "" || e.target.sub_sub_topic.value === "" || e.target.dev_dom_1.value === "" || e.target.dev_dom_2.value === ""
+      || e.target.mode_of_teaching.value === "" || e.target.learning_outcome.value === "" || e.target.teaching_str.value === "") {
       setError(true)
     }
     else {
       setModalShow(true)
+      setError(false)
+      const data = {
+        'User_id': user._id,
+        'Subject': e.target.subject.value,
+        'Grade': e.target.grade.value,
+        'Skill': e.target.skill.value,
+        'Topic': e.target.topic.value,
+        'Sub Topic': e.target.sub_topic.value,
+        'Sub-sub topic': e.target.sub_sub_topic.value,
+        'Dev Dom 1': e.target.dev_dom_1.value,
+        'Dev Dom 2': e.target.dev_dom_2.value,
+        'Mode of Teaching': e.target.mode_of_teaching.value,
+        'Learning Outcome': e.target.learning_outcome.value,
+        'Teaching Strategy': e.target.teaching_str.value,
+        'Approve': false
+      }
+      setSubmitData(data)
     }
-    const data = {
-      'User_id': user._id,
-      'Subject': e.target.subject.value,
-      'Grade': e.target.grade.value,
-      'Skill': e.target.skill.value,
-      'Topic': e.target.topic.value,
-      'Sub Topic': e.target.sub_topic.value,
-      'Sub-sub topic': e.target.sub_sub_topic.value,
-      'Dev Dom 1': e.target.dev_dom_1.value,
-      'Dev Dom 2': e.target.dev_dom_2.value,
-      'Mode of Teaching': e.target.mode_of_teaching.value,
-      'Learning Outcome': e.target.learning_outcome.value,
-      'Teaching Strategy': e.target.teaching_str.value,
-      'Approve': false
-    }
-    setSubmitData(data)
+
 
   }
 
@@ -174,7 +176,7 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Subject <p>*</p></p>
-                    <select required onChange={handleSub} className={'select-field'} name="subject" id="">
+                    <select onChange={handleSub} className={'select-field'} name="subject" id="">
                       <option value="" selected disabled>Subject</option>
                       {
                         uniqueSubject?.filter(res => res.Subject !== undefined).map(res => (
@@ -185,7 +187,7 @@ const AddForm = () => {
                   </div>
                   <div>
                     <p className='select-title'>Grade <p>*</p></p>
-                    <select required onChange={handleGrade} className={'select-field'} name="grade" id="">
+                    <select onChange={handleGrade} className={'select-field'} name="grade" id="">
                       <option value="" selected disabled>Grade</option>
                       {
                         uniqueGrade?.filter(res => res.Grade !== undefined).map(res => (
@@ -198,7 +200,7 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Skill <p>*</p></p>
-                    <select required onChange={handleSkill} className={'select-field'} name="skill" id="">
+                    <select onChange={handleSkill} className={'select-field'} name="skill" id="">
                       <option value="" selected disabled>Skill</option>
                       {
                         uniqueSkill?.filter(res => res.Skill !== undefined).map(res => (
@@ -209,7 +211,7 @@ const AddForm = () => {
                   </div>
                   <div>
                     <p className='select-title'>Topic <p>*</p></p>
-                    <select required onChange={handleTopic} className={'select-field'} name="topic" id="">
+                    <select onChange={handleTopic} className={'select-field'} name="topic" id="">
                       <option value="" selected disabled>Topic</option>
                       {
                         uniqueTopic?.filter(res => res.Topic !== undefined).map(res => (
@@ -222,7 +224,7 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Sub-Topic <p>*</p></p>
-                    <select required onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
+                    <select onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
                       <option value="" selected disabled>Sub-Topic</option>
                       {
                         uniqueSubTopic?.filter(res => res['Sub Topic'] !== undefined).map(res => (
@@ -233,7 +235,7 @@ const AddForm = () => {
                   </div>
                   <div>
                     <p className='select-title'>Sub-Sub-Topic <p>*</p></p>
-                    <select required onChange={handleSubSubTopic} className={'select-field'} name="sub_sub_topic" id="">
+                    <select onChange={handleSubSubTopic} className={'select-field'} name="sub_sub_topic" id="">
                       <option value="" selected disabled>Sub-Sub-Topic</option>
 
                       {
@@ -248,7 +250,7 @@ const AddForm = () => {
                   <div>
                     <p className='select-title'>Dev Dom 1 <p>*</p></p>
 
-                    <select required className={'select-field'} name="dev_dom_1" id="" placeholder=''>
+                    <select className={'select-field'} name="dev_dom_1" id="" placeholder=''>
                       <option value="" selected disabled>Dev Dom 1</option>
                       <option>Cognitive Sensory</option>
                       <option>Motor-Physical</option>
@@ -263,7 +265,7 @@ const AddForm = () => {
                   </div>
                   <div>
                     <p className='select-title'>Dev Dom 2 <p>*</p></p>
-                    <select required className={'select-field'} name="dev_dom_2" id="">
+                    <select className={'select-field'} name="dev_dom_2" id="">
                       <option value="" selected disabled>Dev Dom 2</option>
                       <option>Socio-Emotional-Ethical</option>
                       <option>Language & Communication</option>
@@ -278,7 +280,7 @@ const AddForm = () => {
                 <div className='two-selects '>
                   <div>
                     <p className='select-title'>Mode Of Teaching <p>*</p></p>
-                    <select required className={'select-field'} name="mode_of_teaching" id="">
+                    <select className={'select-field'} name="mode_of_teaching" id="">
                       <option value="" selected disabled>Mode Of Teaching</option>
                       <option>Online</option>
                       <option>Offline</option>
@@ -288,7 +290,7 @@ const AddForm = () => {
                 <div className='one-selects'>
                   <div>
                     <p className='select-title'><p>*</p>Learning Outcome</p>
-                    <select required onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
+                    <select onChange={handleLearningOutcome} className={'select-field w-100'} name="learning_outcome" id="">
                       <option value="" selected disabled>Learning Outcome</option>
                       {
                         uniqueLearningOutcome?.filter(res => res['Learning Outcome'] !== undefined).map(res => (
@@ -301,7 +303,7 @@ const AddForm = () => {
                 <div className='one-selects-l'>
                   <div>
                     <p className='select-title'>Teaching Strategy <p>*</p></p>
-                    <textarea required className={'select-field-full-2'} name="teaching_str" id="" />
+                    <textarea className={'select-field-full-2'} name="teaching_str" id="" />
                   </div>
                 </div>
                 <div className='d-flex justify-content-center mt-4'>
