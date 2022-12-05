@@ -205,7 +205,14 @@ const SingleUserStr = () => {
                           <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
                         </OverlayTrigger>
                         :
-                        <img src={UserImage} className="user_image" alt="person pic" />
+                        <OverlayTrigger
+                          placement="right"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={renderTooltip}
+                        >
+                          <img src={UserImage} className="user_image" alt="person pic" />
+                        </OverlayTrigger>
+
                     } </p>
                   </div>
                 </div>

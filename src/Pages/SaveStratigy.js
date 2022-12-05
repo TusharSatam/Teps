@@ -353,7 +353,7 @@ const SaveStratigy = () => {
                                 </div>
                               </Link>
                               <div className='col-9 ms-md-4 col-md-8 '>
-                                <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
                                     {res["Teaching Strategy"]}
@@ -550,7 +550,7 @@ const SaveStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
                                       {data["Teaching Strategy"]}
