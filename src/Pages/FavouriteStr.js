@@ -24,6 +24,7 @@ import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import UserImage from '../asstes/Group 51.svg'
+import { Buffer } from 'buffer';
 
 const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth()
