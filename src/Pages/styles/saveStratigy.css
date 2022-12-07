@@ -17,7 +17,7 @@
   width: 98px;
   cursor: pointer;
   padding: 3px 10px;
-  margin-right: 50px;
+  /* margin-left: -5px; */
 }
 .filter_bTn:hover{
   color: #FFFFFF;
@@ -292,6 +292,7 @@ cursor: pointer;
     font-weight: 600;
     font-size: 12px;
     line-height: 20px;
+    width: 10px;
   }
   .savestr_head{
     font-weight: 500;
@@ -359,11 +360,11 @@ margin-right: 10px;
     .filter_bTn{
       position: relative;
       border-radius: 27px;
-      width: 70px;
+      width: 75px;
       cursor: pointer;
       padding: 3px 10px;
       margin-top: 7px;
-      margin-right: 7px;
+      margin-right: -7px;
       font-size: 14px;
   }
   .filter_bTn:hover{

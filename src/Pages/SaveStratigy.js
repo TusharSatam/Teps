@@ -183,8 +183,10 @@ const SaveStratigy = () => {
           <>
             <div className='saveStrParent' >
               <div className='row py-2'>
-                <div className=' text-white text-center headText '>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div className='d-flex justify-content-end' style={{ marginTop: "-30px" }}>
+                <div className='d-flex justify-content-center'>
+                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Saved Strategies")}</span>
+                </div>
+                <div className='d-flex justify-content-end ' style={{ position: "absolute", top: "100" }}>
                   <div onClick={handleFilter} className='filter_bTn'>
                     <span className='me-1 me-md-0'>{t("Filter")}</span>
                     <img src={Filter} alt="" className='filtericon2' />
