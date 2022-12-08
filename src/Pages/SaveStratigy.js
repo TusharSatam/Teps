@@ -310,18 +310,26 @@ const SaveStratigy = () => {
                                       <p className='Strategy_count'>{t("strategy")}</p>
                                       <p className='counter_str'>{index + 1}</p>
                                     </div>
-                                    <p className='user_str'>Uploaded By - {
-                                      user.image ?
-                                        <OverlayTrigger
-                                          placement="right"
-                                          delay={{ show: 250, hide: 400 }}
-                                          overlay={renderTooltip}
-                                        >
-                                          <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                                        </OverlayTrigger>
-                                        :
-                                        <img src={UserImage} alt="person pic" />
-                                    } </p>
+                                    <div style={{ marginTop: "-10px" }}>
+                                      <p className='user_str'>Uploaded By - {
+                                        user.image ?
+                                          <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 400 }}
+                                            overlay={renderTooltip}
+                                          >
+                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                          </OverlayTrigger>
+                                          :
+                                          <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 400 }}
+                                            overlay={renderTooltip}
+                                          >
+                                            <img src={UserImage} className="user_image" alt="person pic" />
+                                          </OverlayTrigger>
+                                      } </p>
+                                    </div>
                                     {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                   </div>
                                   <div className='d-block d-md-none mt-1'>
@@ -501,11 +509,11 @@ const SaveStratigy = () => {
                                 <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <div className='me-1'>
                                     <div>
-                                      <div className='d-flex mb-3 str_text_left'>
+                                      <div className='d-flex mb-md-3 str_text_left'>
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{saveStratigy.length + index + 1}</p>
                                       </div>
-                                      <div>
+                                      <div style={{ marginTop: "-10px" }}>
                                         <p className='user_str'>Uploaded By - {
                                           user.image ?
                                             <OverlayTrigger
@@ -513,7 +521,7 @@ const SaveStratigy = () => {
                                               delay={{ show: 250, hide: 400 }}
                                               overlay={renderTooltip}
                                             >
-                                              <img className='label' style={{ width: "26px", height: "26px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                              <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
                                             </OverlayTrigger>
                                             :
                                             <OverlayTrigger
@@ -521,7 +529,7 @@ const SaveStratigy = () => {
                                               delay={{ show: 250, hide: 400 }}
                                               overlay={renderTooltip}
                                             >
-                                              <img src={UserImage} alt="person pic" />
+                                              <img src={UserImage} className="user_image" alt="person pic" />
                                             </OverlayTrigger>
                                         } </p>
                                       </div>
