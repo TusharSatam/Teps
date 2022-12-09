@@ -217,7 +217,7 @@ const FavouriteStr = () => {
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='d-flex justify-content-center'>
-                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Saved Strategies")}</span>
+                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Favourite Strategies")}</span>
                 </div>
                 <div className='d-flex justify-content-end ' style={{ position: "absolute", top: "100" }}>
                   <div onClick={handleFilter} className='filter_bTn'>
@@ -239,7 +239,7 @@ const FavouriteStr = () => {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               </div> :
-                favStratigy?.length === 0 && likeUserStratigy.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1> :
+                favStratigy?.length === 0 && likeUserStratigy.length === 0 ? <h1 className='my-5 text-center py-5 text-danger'>{t("No Favourite Strategies available.")}</h1> :
                   stratigyFilData?.length !== 0 ? <>{
                     stratigyFilData?.map((res, index) => (
                       <div key={index} className='container'>
@@ -332,19 +332,19 @@ const FavouriteStr = () => {
                     ))
                   }
                     {
-                      likeUserStratigy?.map((res, index) => (
+                      likeUserStratigy?.map((data, index) => (
                         <div key={index} className='container'>
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <div className='me-1'>
                                     <div>
-                                      <div className='d-flex mb-3 str_text_left'>
+                                      <div className='d-flex mb-md-3 str_text_left'>
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{favStratigy.length + index + 1}</p>
                                       </div>
-                                      <div style={{ marginTop: "-10px" }}>
+                                      <div className='d-none d-md-block' style={{ marginTop: "-10px" }}>
                                         <p className='user_str'>Uploaded By - {
                                           user.image ?
                                             <OverlayTrigger
@@ -366,30 +366,30 @@ const FavouriteStr = () => {
                                       </div>
                                       {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                     </div>
-                                    <div className='d-block d-md-none mt-1'>
+                                    <div className='d-block d-md-none mt-3 mt-md-1'>
                                       <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
                                       <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                         <div className='res_btn_icon'>
                                           <div className='d-flex flex-column res_inner_div p-1 '>
                                             {
-                                              !res['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                res['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                  <img title="Cognitive Sensory" className='threeIcons mb-1' style={{ width: "20px", height: "20px" }} src={KnowledgeIcon} alt="" /> :
-                                                  <img title="Motor-Physical" className='threeIcons mb-1' style={{ width: "20px", height: "20px" }} src={Physical} alt="" />
+                                              !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
+                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
+                                                  <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
                                             }
                                             {
-                                              !res['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                res['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                  <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' style={{ width: "20px", height: "20px" }} src={Social} alt="" /> :
-                                                  <img title='Language & Communication' className='threeIcons mb-1' style={{ width: "20px", height: "20px" }} src={ChatIcon} alt="" />
+                                              !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
+                                                data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                                  <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
-                                            res['Mode of Teaching'] === "Online" ?
-                                              <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
+                                            data['Mode of Teaching'] === "Online" ?
+                                              <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
                                           }
                                         </div>
                                       </div>
@@ -397,38 +397,60 @@ const FavouriteStr = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                    <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
+                                  <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
-                                      {res["Teaching Strategy"]}
+                                      {data["Teaching Strategy"]}
                                     </p>
                                   </Link>
-                                  <div className='d-flex align-items-center my-3'>
-                                    {likes?.includes(res._id) ? <img onClick={() => handleApiUnLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                  <div className='d-flex justify-content-between my-3'>
+                                    <div>
+                                      {likes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                    </div>
+                                    <div className='d-block d-md-none'>
+                                      <p className='user_str'>Uploaded By - {
+                                        user.image ?
+                                          <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 400 }}
+                                            overlay={renderTooltip}
+                                          >
+                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                          </OverlayTrigger>
+                                          :
+                                          <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 400 }}
+                                            overlay={renderTooltip}
+                                          >
+                                            <img src={UserImage} className="user_image" alt="person pic" />
+                                          </OverlayTrigger>
+                                      } </p>
+                                    </div>
                                   </div>
                                 </div>
-                                <div className='col-3 ms-md-4 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     <div>
-                                      <span className='icons_heading'>Developmental Domains</span>
+                                      <span className='icons_heading'>Development Domains</span>
                                     </div>
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !res['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                                            res['Dev Dom 1'] === "Cognitive Sensory" ?
+                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                            data['Dev Dom 1'] === "Cognitive Sensory" ?
                                               <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
                                         }
                                         {
-                                          !res['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                                            res['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
+                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                            data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                               <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                               <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
                                         }
                                       </div>
                                       {
-                                        res['Mode of Teaching'] === "Online" ?
+                                        data['Mode of Teaching'] === "Online" ?
                                           <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
                                           <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
                                       }
@@ -439,7 +461,6 @@ const FavouriteStr = () => {
                             </div>
                           </div>
                         </div>
-                        // </Link>
                       ))
                     }
                   </>
@@ -547,7 +568,7 @@ const FavouriteStr = () => {
                                           <p className='Strategy_count'>{t("strategy")}</p>
                                           <p className='counter_str'>{favStratigy.length + index + 1}</p>
                                         </div>
-                                        <div style={{ marginTop: "-10px" }}>
+                                        <div className='d-none d-md-block' style={{ marginTop: "-10px" }}>
                                           <p className='user_str'>Uploaded By - {
                                             user.image ?
                                               <OverlayTrigger
@@ -569,7 +590,7 @@ const FavouriteStr = () => {
                                         </div>
                                         {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                       </div>
-                                      <div className='d-block d-md-none mt-1'>
+                                      <div className='d-block d-md-none mt-3 mt-md-1'>
                                         <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
                                         <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                           <div className='res_btn_icon'>
@@ -606,8 +627,30 @@ const FavouriteStr = () => {
                                         {data["Teaching Strategy"]}
                                       </p>
                                     </Link>
-                                    <div className='d-flex align-items-center my-3'>
-                                      {likes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                    <div className='d-flex justify-content-between my-3'>
+                                      <div>
+                                        {likes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={LikeIcon} alt="" />}
+                                      </div>
+                                      <div className='d-block d-md-none'>
+                                        <p className='user_str'>Uploaded By - {
+                                          user.image ?
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                            </OverlayTrigger>
+                                            :
+                                            <OverlayTrigger
+                                              placement="right"
+                                              delay={{ show: 250, hide: 400 }}
+                                              overlay={renderTooltip}
+                                            >
+                                              <img src={UserImage} className="user_image" alt="person pic" />
+                                            </OverlayTrigger>
+                                        } </p>
+                                      </div>
                                     </div>
                                   </div>
                                   <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
@@ -651,7 +694,7 @@ const FavouriteStr = () => {
             <div className='saveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
-                <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
+                <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Favourite Strategies")}</div>
                 <div onClick={handleFilter} className='col-md-1 bg-white py-1 px-3' style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
                   <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
                   <img src={Filter} className="filtericon3" alt="" />
