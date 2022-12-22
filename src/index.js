@@ -7,15 +7,19 @@ import AuthProvider from './Context/AuthContext';
 import './i18nextInit'
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </AuthProvider>
+    <GoogleOAuthProvider clientId="35955249464-jdrpq4e1o11i7dohrns44m27uqnh6q5s.apps.googleusercontent.com">
+
+      <AuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getUsers } from '../../services/dashboardUsers';
 import { getAllStratigys } from '../../services/stratigyes';
 import { Spinner } from 'react-bootstrap';
@@ -6,7 +6,10 @@ import { Spinner } from 'react-bootstrap';
 import './styles/dashHome.css'
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import { getLastmonthLogin, getLastmonthReg, getTotalLikes, getTotalSaves } from '../../services/dashboardNumbers';
-
+import axios from 'axios';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useLocation } from 'react-router-dom';
+import AnalyticsDash from './AnalyticsDash';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -22,7 +25,7 @@ const DashHome = () => {
   const [isLoading7, setIsLoading7] = React.useState(false);
   const [totalSaves, setTotalSaves] = React.useState(0);
   const [lastLogin, setLastLogin] = React.useState(0);
-
+  const [token, setToken] = React.useState('')
 
   React.useEffect(() => {
     setIsLoading2(true)
@@ -89,7 +92,35 @@ const DashHome = () => {
         setTotalSaves(res?.data?.totalSave);
       })
   }, [])
+  const handleClick = () => {
+    axios.get("https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:346131718&&metrics=rt:city",
+      {
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      }
+    )
+      .then(res => {
+        console.log(res);
+      })
+  }
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      setToken(codeResponse.access_token)
+    },
+    onError: errorResponse => console.log(errorResponse),
+  });
+  let location = useLocation();
+
+  useEffect(() => {
+    window.gtag('event', 'page_view', {
+      page_title: 'home',
+      page_path: location.pathname + location.search,
+      page_location: window.location.href
+    })
+  }, [location]);
   return (
     <div className="container">
       <div className="row">
@@ -141,6 +172,19 @@ const DashHome = () => {
             <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves}</span>
             <span className="count-name">Total strategies Saved</span>
           </div>
+        </div>
+        <div className="col-md-3">
+          {/* <GoogleLogin
+            onSuccess={credentialResponse => {
+              setToken(credentialResponse.credential);
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+          <button onClick={googleLogin}>submit</button>
+          <button onClick={handleClick}>submit</button> */}
+          <AnalyticsDash />
         </div>
       </div>
     </div>
