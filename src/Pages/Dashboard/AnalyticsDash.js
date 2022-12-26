@@ -26,6 +26,21 @@ const AnalyticsDash = () => {
     return gapi.client.analyticsdata.properties.runRealtimeReport({
       "property": "properties/346131718",
       "resource": {
+        "dimensions": [
+          {
+            "name": "appVersion"
+          },
+          {
+            "name": "deviceCategory"
+          },
+          {
+            "name": "platform"
+          },
+          {
+            "name": "unifiedScreenName"
+          },
+        ]
+        ,
         "metrics": [
           {
             "name": "screenPageViews",

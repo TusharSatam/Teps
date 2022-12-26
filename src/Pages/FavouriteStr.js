@@ -215,7 +215,7 @@ const FavouriteStr = () => {
         languageSelect === "en" ?
           <>
             <div className='saveStrParent' >
-              <div className='row py-2'>
+              <div className='row py-2 align-items-center' style={{ alignItems: "center" }}>
                 <div className='d-flex justify-content-center'>
                   <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Favourite Strategies")}</span>
                 </div>
@@ -285,7 +285,7 @@ const FavouriteStr = () => {
                                   </div>
                                 </div>
                               </Link>
-                              <div className='col-9 ms-4 col-md-8 '>
+                              <div className='col-9 ms-md-4 col-md-8 '>
                                 <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
@@ -511,7 +511,7 @@ const FavouriteStr = () => {
                                       </div>
                                     </div>
                                   </Link>
-                                  <div className='col-9 ms-4 col-md-8 '>
+                                  <div className='col-9 ms-md-4 col-md-8 '>
                                     <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                       <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                       <p className='savestr_body'>
@@ -759,7 +759,7 @@ const FavouriteStr = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -849,7 +849,7 @@ const FavouriteStr = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -943,7 +943,7 @@ const FavouriteStr = () => {
                                     </div>
                                   </div>
                                 </Link>
-                                <div className='col-9 ms-4 col-md-8 '>
+                                <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                     <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
@@ -1032,7 +1032,7 @@ const FavouriteStr = () => {
                                       </div>
                                     </div>
                                   </Link>
-                                  <div className='col-9 ms-4 col-md-8 '>
+                                  <div className='col-9 ms-md-4 col-md-8 '>
                                     <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                       <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                       <p className='savestr_body'>
