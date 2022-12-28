@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { getUsers } from '../../services/dashboardUsers';
-import { getAllStratigys } from '../../services/stratigyes';
-import { Spinner } from 'react-bootstrap';
+import { getAllStratigys, getComment, getMultitStr } from '../../services/stratigyes';
+import { Alert, Spinner } from 'react-bootstrap';
 import { gapi } from "gapi-script";
 
 import './styles/dashHome.css'
-import { getAllHindiStratigys } from '../../services/hindiStratigys';
-import { getLastmonthLogin, getLastmonthReg, getTotalLikes, getTotalSaves } from '../../services/dashboardNumbers';
+import { getAllHindiStratigys, getMultitHiStr } from '../../services/hindiStratigys';
+import { getLastmonthLogin, getLastmonthReg } from '../../services/dashboardNumbers';
+import { getLikes } from '../../services/userLikes';
+import { getSaves } from '../../services/userSaves';
 import axios from 'axios';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import { useLocation } from 'react-router-dom';
 import AnalyticsDash from './AnalyticsDash';
+import { CSVLink } from 'react-csv';
+import { useAuth } from '../../Context/AuthContext';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -22,12 +26,14 @@ const DashHome = () => {
   const [isLoading5, setIsLoading5] = React.useState(false);
   const [lastRegester, setLastRegester] = React.useState(0);
   const [isLoading6, setIsLoading6] = React.useState(false);
-  const [totalLikes, setTotalLikes] = React.useState(0);
+  const [totalLikes, setTotalLikes] = React.useState([]);
+  const [totalComments, setTotalComments] = React.useState([]);
   const [isLoading7, setIsLoading7] = React.useState(false);
-  const [totalSaves, setTotalSaves] = React.useState(0);
+  const [isLoading8, setIsLoading8] = React.useState(false);
+  const [totalSaves, setTotalSaves] = React.useState([]);
   const [lastLogin, setLastLogin] = React.useState(0);
   const [token, setToken] = React.useState('')
-
+  const { admin } = useAuth()
   React.useEffect(() => {
     setIsLoading2(true)
     getAllStratigys()
@@ -78,21 +84,33 @@ const DashHome = () => {
 
   React.useEffect(() => {
     setIsLoading6(true)
-    getTotalLikes()
+    getLikes()
       .then(res => {
         setIsLoading6(false)
-        setTotalLikes(res?.data?.totalLikes);
+        setTotalLikes(res?.data);
       })
   }, [])
 
   React.useEffect(() => {
     setIsLoading7(true)
-    getTotalSaves()
+    getSaves()
       .then(res => {
         setIsLoading7(false)
-        setTotalSaves(res?.data?.totalSave);
+        setTotalSaves(res?.data);
       })
   }, [])
+
+  React.useEffect(() => {
+    setIsLoading8(true)
+    getComment()
+      .then(res => {
+        setIsLoading8(false)
+        setTotalComments(res?.data);
+      })
+  }, [])
+
+
+
   const handleClick = () => {
     axios.get("https://www.googleapis.com/analytics/v3/data/realtime?ids=ga:346131718&&metrics=rt:city",
       {
@@ -208,7 +226,89 @@ const DashHome = () => {
     gapi.auth2.init({ client_id: "35955249464-jdrpq4e1o11i7dohrns44m27uqnh6q5s.apps.googleusercontent.com" });
   });
 
+  const topLikestratigy = totalLikes?.map(res => res.strategie_id)
+  const topSaveStratigy = totalSaves?.map(res => res.strategie_id)
+  const topCommentsStratigy = totalComments?.map(res => res.strategie_id)
+  const spreaded = [...topLikestratigy, ...topSaveStratigy, ...topCommentsStratigy];
+  const filter = spreaded.filter(el => {
+    return (topLikestratigy.includes(el) && topSaveStratigy.includes(el)) && topCommentsStratigy.includes(el);
+  })
 
+
+  var outputArray = [];
+  var count = 0;
+  var start = false;
+  for (let j = 0; j < filter.length; j++) {
+    for (let k = 0; k < outputArray.length; k++) {
+      if (filter[j] == outputArray[k]) {
+        start = true;
+      }
+    }
+    count++;
+    if (count == 1 && start == false) {
+      outputArray.push(filter[j]);
+    }
+    start = false;
+    count = 0;
+  }
+  const filterLess = spreaded.filter(el => {
+    return (!outputArray.includes(el));
+  })
+
+  var outputArray1 = [];
+  var count1 = 0;
+  var start1 = false;
+  for (let j = 0; j < filterLess.length; j++) {
+    for (let k = 0; k < outputArray1.length; k++) {
+      if (filterLess[j] == outputArray1[k]) {
+        start1 = true;
+      }
+    }
+    count1++;
+    if (count1 == 1 && start1 == false) {
+      outputArray1.push(filterLess[j]);
+    }
+    start1 = false;
+    count1 = 0;
+  }
+
+  const [topPulled, setTopPulled] = useState([])
+  const [topPulled1, setTopPulled1] = useState([])
+  useEffect(() => {
+    if (outputArray.length !== 0 && outputArray1.length !== 0) {
+      getMultitStr([...outputArray, ...outputArray1])
+        .then(res => {
+          setTopPulled(res?.data);
+        })
+      getMultitHiStr([...outputArray, ...outputArray1])
+        .then(res => {
+          setTopPulled1(res?.data);
+        })
+    }
+    if (outputArray.length !== 0 && outputArray1.length === 0) {
+      getMultitStr(outputArray)
+        .then(res => {
+          setTopPulled(res?.data);
+        })
+      getMultitHiStr(outputArray)
+        .then(res => {
+          setTopPulled1(res?.data);
+        })
+    }
+    if (outputArray.length === 0 && outputArray1.length !== 0) {
+      getMultitStr(outputArray1)
+        .then(res => {
+          setTopPulled(res?.data);
+        })
+      getMultitHiStr(outputArray1)
+        .then(res => {
+          setTopPulled1(res?.data);
+        })
+    }
+  })
+  const csvData = topPulled ? topPulled : [];
+  const csvData1 = topPulled1 ? topPulled1 : [];
+  console.log(topPulled1);
   return (
     <div className="container">
       <div className="row">
@@ -228,37 +328,64 @@ const DashHome = () => {
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{isLoading ? <Spinner className="text-light " animation="border" /> : user?.length}</span>
             <span className="count-name">Total Users</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{isLoading4 ? <Spinner className="text-light " animation="border" /> : lastRegester}</span>
             <span className="count-name">Registrations in last month</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{isLoading5 ? <Spinner className="text-light " animation="border" /> : lastLogin}</span>
             <span className="count-name">Logins in last month</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
-            <span className="count-numbers">{isLoading6 ? <Spinner className="text-light " animation="border" /> : totalLikes}</span>
+
+            <span className="count-numbers">{isLoading6 ? <Spinner className="text-light " animation="border" /> : totalLikes?.length}</span>
             <span className="count-name">Total strategies liked</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
-            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves}</span>
+
+            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves?.length}</span>
             <span className="count-name">Total strategies Saved</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card-counter info">
+
+            <span className="count-numbers">{isLoading8 ? <Spinner className="text-light " animation="border" /> : totalComments?.length}</span>
+            <span className="count-name">Total strategies Comments</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card-counter info">
+            {
+              admin.type === 'super-admin' && (topPulled.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
+                Wait! Data is loading.
+              </Alert>)
+            }
+            <span className="count-name">Top Pulled English strategies</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card-counter info">
+            {
+              admin.type === 'super-admin' && (topPulled1.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
+                Wait! Data is loading.
+              </Alert>)
+            }
+            <span className="count-name">Top Pulled Hindi strategies</span>
           </div>
         </div>
         <div className="col-md-3 mt-4">
@@ -267,28 +394,28 @@ const DashHome = () => {
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{data?.rows[0].metricValues[1].value}</span>
             <span className="count-name">Total Unique Login</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{data?.rows[0]?.metricValues[0].value}</span>
             <span className="count-name">Total Unique Page View</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{data?.rows[0]?.dimensionValues[1].value}</span>
             <span className="count-name">Usage Devices</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <i className="fa fa-users"></i>
+
             <span className="count-numbers">{data?.rows[0]?.dimensionValues[2].value}</span>
             <span className="count-name">Usage Browser</span>
           </div>
