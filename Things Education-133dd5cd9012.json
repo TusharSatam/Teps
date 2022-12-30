@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "things-education-1671288060565",
+  "private_key_id": "133dd5cd90120b54b4fc33a977960044b03431cd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDe1BO2GkowOFSn\nr+5cGWbd/VfWZcznxZ+MBehk/tIIHU5vqXipAPPLzkBBIRyVqWzHCe7F+nwEBaAX\ndvh/Y8bYB9YqROB9nYHHlfdsGD+5Go9CdNvNwsDvfTygyOGm7wVioJosYtK/Wvwx\ngkV/AtzApWvBUiCUEgAetkLNkJ0FDokduDsNH0sS7/Vce+x4THotXltV2YxaEBGj\nMzENTkRAa/vcLX3pyANkpkPnsqqMISqVTdBgPV6y5e9VTA7RQuFADruhCgA76Xdu\nEuQMs6C3NsmITKRjN5Al90QrLxOU6eKodlJbrt6OTVOkNOSaHizxSWnlT9xtY1W0\n+fLj26I9AgMBAAECggEAUVQ2nZCa416sB0g/R349/WgqVyZw02deBE1jtPkMz8li\nh37je0vNr+Vnrl3XgQiFm2AUtk3mVdF3zRivOk/Ak7jIgkUBatfCNoaV9+4h0/3N\nrAPa9g7PPJoJNuYa9kLnREg5/VlUcmNTCP7zPphc2jOGUNkY6vJm+M6tMzpFFUK6\nW+sDUUypcs8v8igrzKzNwwOt/0sRNZTb3IAMxPPEjFsBa90OiJa0X3ipxhcynQU2\nkbKr5ln8TgQfUIl9ae8i0b84t4MvqaXCMeTmvdLMZ77CMDdRzS/rnIC7PaSNiq1v\n72Pa523eexX3ntbcu4Ob9XOqFWHUcqERMN+qDBsOQQKBgQD6qTbwzK7CyZzHAEqB\nXiG8BmHpuV8OMaQcYdvIk7gUJTO8Ni4KjQ0qNzXqU8qWjB0o4SKzEeRlOgVKGqHz\nD3jQTrXeSo5TDX9L1gAiWox+bx8qwB3j5wMhqqLA05VuYbhm0VaTJxgovDeMcCpW\n+ss2CIEFZfhJNltjh4XNRBr9kwKBgQDjkxlbajjD4fnv2BUDy04/nBjbvySGtnve\nH6bDWTeQK1IhGDrCPgW2LdAk2Zb9WgC2+GStDIeFzR8s+Hj8NnBfXC1t9h7J+6ug\no3hhFr0HSNQ3tT6nx1wQgruD35CfCy1uhIwHsHiCWoODK6q1JxyaLEEetPuvw47X\nGexo9zNC7wKBgHe6rAuJOVDBjKlhcjUpCWQOiGZjrQvSmlkURS8hoCO/QV79YjCX\n/1nS1WYAcBxJAQStxS1TtozDkhM7dW/sTAD0F9r+Mc1p/Qv0REwkhEdAPNrmuWBK\n0CwcnXENn6sB8lrqUzgmzFtoy//A8/hoAvjkRvyVIGuYEz8PVNIfXeURAoGBAMVU\nWMluirg3axywllBK6pe3h8qLrGVvOGr7sQN0ifxlw/pUYybo1tUIVpKNZiJa94Gw\nUsPGuICpw12gOnAf2EKnz/CoWDw2ELTi6k/tgo0ddn6zlxeug0MByQzpPyLZc1SA\ndFd6ipQlXiHQLF6WAnQg6Xpx3kei32ne3aKKrxVbAoGAFHGBUF6S/XIYjk+T/21j\n8trfdFc6XltICm0bZGoI9ei5dspfMU88GsJVEjd9KAAN0EcW3RJLIWZ3YRwDiYnJ\nTFM7D7PpiCBYn3Ie5l7Vfv9yMJdove0FKyz2z4O4EMu4HyQ6dOFv9dQN/0Ui1j8M\n077QrKgrihs9ycZ1aouXFHc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "starting-account-efu5wxahpb93@things-education-1671288060565.iam.gserviceaccount.com",
+  "client_id": "111481164720834407850",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/starting-account-efu5wxahpb93%40things-education-1671288060565.iam.gserviceaccount.com",
+  "client_email ": "thingseducation@things-education.iam.gserviceaccount.com"
+}

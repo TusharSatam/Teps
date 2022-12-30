@@ -6,6 +6,7 @@ import { Spinner } from 'react-bootstrap';
 import './styles/dashHome.css'
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import { getLastmonthLogin, getLastmonthReg, getTotalLikes, getTotalSaves } from '../../services/dashboardNumbers';
+import axios from 'axios';
 
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
@@ -90,6 +91,21 @@ const DashHome = () => {
       })
   }, [])
 
+  React.useEffect(() => {
+    axios.post("https://analyticsdata.googleapis.com/v1beta/properties/346131718:runRealtimeReport",
+      {
+        "dimensions": [{ "name": "country" }],
+        "metrics": [{ "name": "activeUsers" }]
+      },
+      {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTRkMDRjN2I1MTViYWZkYzZmY2ZkMiIsImVtYWlsIjoia2FtcnV6LnphbWFuODk5MUBnbWFpbC5jb20iLCJqd3RLZXkiOiIxYTBiMTE2Zi1lODIyLTQ0MTQtYTZlNC1hYzk0ZGJjYmJmZmYiLCJpYXQiOjE2NzEzMDEwNDQsImV4cCI6MTcwMjgzNzA0NH0.JFMDdrQ9YWSQfqpTc7yoeih4v5rznKGvSwtzekk5efs"
+      },
+
+    )
+      .then(res => {
+        console.log(res);
+      })
+  }, [])
   return (
     <div className="container">
       <div className="row">
