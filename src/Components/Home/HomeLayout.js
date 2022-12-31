@@ -6,6 +6,7 @@ import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
 import { getUserStratigys } from '../../services/userStratigy';
+import { postPulledStr } from '../../services/pulledStratigy';
 const HomeLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
@@ -26,7 +27,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [error6, setError6] = React.useState(false)
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData, setStratigyFilUserData } = useAuth();
+  const { setStratigyFilData, setStratigyFilUserData, user } = useAuth();
   React.useEffect(() => {
     getAllStratigys()
       .then(res => {
@@ -148,16 +149,29 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
           setStratigyFilData(aquaticCreatures)
+          const pulledStr = aquaticCreatures.map(res => res._id)
+          const data = {
+            "strategie_id": pulledStr[0],
+            "user_id": user._id
+          }
+          postPulledStr(data)
         }
         if (aquaticCreaturesUser) {
           setStratigyFilUserData(aquaticCreaturesUser)
           window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+          const pulledStr = aquaticCreaturesUser.map(res => res._id)
+          const data = {
+            "strategie_id": pulledStr[0],
+            "user_id": user._id
+          }
+          postPulledStr(data)
         }
         if (aquaticCreatures.length !== 0 || aquaticCreaturesUser.length !== 0) {
           if (location.pathname === '/home') {
             navigate('/search')
           }
           window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+
         }
         else {
           setError("No strategies are available for this combination. Please try a different combination.")
@@ -185,9 +199,21 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+        const pulledStr = aquaticCreatures.map(res => res._id)
+        const data = {
+          "strategie_id": pulledStr[0],
+          "user_id": user._id
+        }
+        postPulledStr(data)
       }
       if (aquaticCreaturesUser) {
         window.localStorage.setItem('filterUserData', JSON.stringify(aquaticCreaturesUser));
+        const pulledStr = aquaticCreaturesUser.map(res => res._id)
+        const data = {
+          "strategie_id": pulledStr[0],
+          "user_id": user._id
+        }
+        postPulledStr(data)
       }
       if (aquaticCreatures.length === 0 || aquaticCreaturesUser.length === 0) {
         setError("No strategies are available for this combination. Please try a different combination.")

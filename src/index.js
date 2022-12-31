@@ -8,8 +8,21 @@ import './i18nextInit'
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import axios from 'axios';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+document.addEventListener("DOMContentLoaded", () => {
+  const start = new Date().getTime();
+  window.addEventListener("beforeunload", () => {
+    const end = new Date().getTime();
+    const totalTime = (end - start) / 1000
+    const data = {
+      time: totalTime
+    }
+    axios.post("http://localhost:8080/api/pulledStr/averageTime", data)
+    console.log(JSON.parse(localStorage.getItem("data")._id))
+  });
+});
 root.render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId="35955249464-jdrpq4e1o11i7dohrns44m27uqnh6q5s.apps.googleusercontent.com">

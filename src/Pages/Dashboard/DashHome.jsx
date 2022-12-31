@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom';
 import AnalyticsDash from './AnalyticsDash';
 import { CSVLink } from 'react-csv';
 import { useAuth } from '../../Context/AuthContext';
+import { getPulledStr } from '../../services/pulledStratigy';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -235,46 +236,47 @@ const DashHome = () => {
   })
 
 
-  var outputArray = [];
-  var count = 0;
-  var start = false;
-  for (let j = 0; j < filter.length; j++) {
-    for (let k = 0; k < outputArray.length; k++) {
-      if (filter[j] == outputArray[k]) {
-        start = true;
-      }
-    }
-    count++;
-    if (count == 1 && start == false) {
-      outputArray.push(filter[j]);
-    }
-    start = false;
-    count = 0;
-  }
-  const filterLess = spreaded.filter(el => {
-    return (!outputArray.includes(el));
-  })
-
-  var outputArray1 = [];
-  var count1 = 0;
-  var start1 = false;
-  for (let j = 0; j < filterLess.length; j++) {
-    for (let k = 0; k < outputArray1.length; k++) {
-      if (filterLess[j] == outputArray1[k]) {
-        start1 = true;
-      }
-    }
-    count1++;
-    if (count1 == 1 && start1 == false) {
-      outputArray1.push(filterLess[j]);
-    }
-    start1 = false;
-    count1 = 0;
-  }
 
   const [topPulled, setTopPulled] = useState([])
   const [topPulled1, setTopPulled1] = useState([])
   useEffect(() => {
+    var outputArray = [];
+    var count = 0;
+    var start = false;
+    for (let j = 0; j < filter.length; j++) {
+      for (let k = 0; k < outputArray.length; k++) {
+        if (filter[j] == outputArray[k]) {
+          start = true;
+        }
+      }
+      count++;
+      if (count == 1 && start == false) {
+        outputArray.push(filter[j]);
+      }
+      start = false;
+      count = 0;
+    }
+    const filterLess = spreaded.filter(el => {
+      return (!outputArray.includes(el));
+    })
+
+    var outputArray1 = [];
+    var count1 = 0;
+    var start1 = false;
+    for (let j = 0; j < filterLess.length; j++) {
+      for (let k = 0; k < outputArray1.length; k++) {
+        if (filterLess[j] == outputArray1[k]) {
+          start1 = true;
+        }
+      }
+      count1++;
+      if (count1 == 1 && start1 == false) {
+        outputArray1.push(filterLess[j]);
+      }
+      start1 = false;
+      count1 = 0;
+    }
+
     if (outputArray.length !== 0 && outputArray1.length !== 0) {
       getMultitStr([...outputArray, ...outputArray1])
         .then(res => {
@@ -305,10 +307,24 @@ const DashHome = () => {
           setTopPulled1(res?.data);
         })
     }
-  })
+  }, [filter, spreaded])
   const csvData = topPulled ? topPulled : [];
   const csvData1 = topPulled1 ? topPulled1 : [];
-  console.log(topPulled1);
+
+  const [searchStra, setSearchStra] = useState([])
+  useEffect(() => {
+    getPulledStr()
+      .then(res => {
+        setSearchStra(res.data);
+      })
+  }, [])
+
+
+
+  const searchableData = searchStra.map(res => res.strategie_id)
+
+  console.log(searchableData.map((res, ind) => [res[0], ind === 1 && res]));
+
   return (
     <div className="container">
       <div className="row">
@@ -371,7 +387,7 @@ const DashHome = () => {
         <div className="col-md-3">
           <div className="card-counter info">
             {
-              admin.type === 'super-admin' && (topPulled.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
+              admin.type === 'super-admin' && (topPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
                 Wait! Data is loading.
               </Alert>)
             }
@@ -381,7 +397,7 @@ const DashHome = () => {
         <div className="col-md-3">
           <div className="card-counter info">
             {
-              admin.type === 'super-admin' && (topPulled1.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
+              admin.type === 'super-admin' && (topPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
                 Wait! Data is loading.
               </Alert>)
             }

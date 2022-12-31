@@ -5,6 +5,7 @@ import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
+import { postPulledStr } from '../../services/pulledStratigy';
 const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
@@ -22,7 +23,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const [error4, setError4] = React.useState(false)
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData } = useAuth();
+  const { setStratigyFilData, user } = useAuth();
   React.useEffect(() => {
     getAllHindiStratigys()
       .then(res => {
@@ -134,12 +135,24 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         setStratigyFilData(aquaticCreatures);
         if (aquaticCreatures) {
           window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
+          const pulledStr = aquaticCreatures.map(res => res._id)
+          const data = {
+            "strategie_id": pulledStr,
+            "user_id": user._id
+          }
+          postPulledStr(data)
         }
         if (aquaticCreatures.length !== 0) {
           if (location.pathname === '/home') {
             navigate('/search')
           }
           window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+          const pulledStr = aquaticCreatures.map(res => res._id)
+          const data = {
+            "strategie_id": pulledStr,
+            "user_id": user._id
+          }
+          postPulledStr(data)
         }
         else {
           setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
@@ -162,6 +175,12 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
+        const pulledStr = aquaticCreatures.map(res => res._id)
+        const data = {
+          "strategie_id": pulledStr,
+          "user_id": user._id
+        }
+        postPulledStr(data)
       }
       if (aquaticCreatures.length === 0) {
         setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
