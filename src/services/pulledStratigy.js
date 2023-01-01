@@ -20,3 +20,13 @@ export const getPulledStr = async () => {
   return stratigyResponse;
 
 }
+export const averageTime = async () => {
+  let stratigyResponse
+  await axios.get(`pulledStr/averageTime`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}

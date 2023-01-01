@@ -11,11 +11,12 @@ import { getLikes } from '../../services/userLikes';
 import { getSaves } from '../../services/userSaves';
 import axios from 'axios';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AnalyticsDash from './AnalyticsDash';
 import { CSVLink } from 'react-csv';
 import { useAuth } from '../../Context/AuthContext';
-import { getPulledStr } from '../../services/pulledStratigy';
+import { averageTime, getPulledStr } from '../../services/pulledStratigy';
+import { totalLogins } from '../../services/totalLogins';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -318,13 +319,103 @@ const DashHome = () => {
         setSearchStra(res.data);
       })
   }, [])
+  const [topSearcPulled, setTopSearcPulled] = useState([])
+  const [topSearcPulled1, setTopSearcPulled1] = useState([])
+  useEffect(() => {
+    const searchableData = searchStra.map(res => res.strategie_id)
+    var outputArray = [];
+    var count = 0;
+    var start = false;
+    for (let j = 0; j < filter.length; j++) {
+      for (let k = 0; k < outputArray.length; k++) {
+        if (filter[j] == outputArray[k]) {
+          start = true;
+        }
+      }
+      count++;
+      if (count == 1 && start == false) {
+        outputArray.push(filter[j]);
+      }
+      start = false;
+      count = 0;
+    }
+    const filterLess = searchableData.filter(el => {
+      return (!outputArray.includes(el));
+    })
 
+    var outputArray1 = [];
+    var count1 = 0;
+    var start1 = false;
+    for (let j = 0; j < filterLess.length; j++) {
+      for (let k = 0; k < outputArray1.length; k++) {
+        if (filterLess[j] == outputArray1[k]) {
+          start1 = true;
+        }
+      }
+      count1++;
+      if (count1 == 1 && start1 == false) {
+        outputArray1.push(searchableData[j]);
+      }
+      start1 = false;
+      count1 = 0;
+    }
 
+    if (outputArray.length !== 0 && outputArray1.length !== 0) {
+      getMultitStr([...outputArray, ...outputArray1])
+        .then(res => {
+          setTopSearcPulled(res?.data);
+        })
+      getMultitHiStr([...outputArray, ...outputArray1])
+        .then(res => {
+          setTopSearcPulled1(res?.data);
+        })
+    }
+    if (outputArray.length !== 0 && outputArray1.length === 0) {
+      getMultitStr(outputArray)
+        .then(res => {
+          setTopSearcPulled(res?.data);
+        })
+      getMultitHiStr(outputArray)
+        .then(res => {
+          setTopSearcPulled1(res?.data);
+        })
+    }
+    if (outputArray.length === 0 && outputArray1.length !== 0) {
+      getMultitStr(outputArray1)
+        .then(res => {
+          setTopSearcPulled(res?.data);
+        })
+      getMultitHiStr(outputArray1)
+        .then(res => {
+          setTopSearcPulled1(res?.data);
+        })
+    }
+  }, [searchStra, filter])
 
+  const csvData3 = topSearcPulled ? topSearcPulled : [];
+  const csvData4 = topSearcPulled1 ? topSearcPulled1 : [];
   const searchableData = searchStra.map(res => res.strategie_id)
 
-  console.log(searchableData.map((res, ind) => [res[0], ind === 1 && res]));
 
+  const [avarageFullTime, setAvaregeFulltime] = useState([])
+  const [totalLoginses, setTotalLoginses] = useState([])
+  useEffect(() => {
+    averageTime()
+      .then(res => {
+        setAvaregeFulltime(res.data);
+      })
+    totalLogins()
+      .then(res => {
+        setTotalLoginses(res.data);
+      })
+  }, [])
+
+  const totalSecArray = avarageFullTime.map(res => res.time)
+  let sum = 0;
+  for (let index = 0; index < totalSecArray.length; index++) {
+    sum += totalSecArray[index]
+  }
+  // console.log();
   return (
     <div className="container">
       <div className="row">
@@ -386,23 +477,50 @@ const DashHome = () => {
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            {
-              admin.type === 'super-admin' && (topPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
-                Wait! Data is loading.
-              </Alert>)
-            }
-            <span className="count-name">Top Pulled English strategies</span>
+            <span className="count-numbers">{(((sum / 60) / totalSecArray.length).toFixed(2)) > 60 ? `${(((sum / 3600) / totalSecArray.length).toFixed(2))} Hours` : `${(((sum / 60) / totalSecArray.length).toFixed(2))} Min`}</span>
+            <span className="count-name">Average Time Spent</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            {
-              admin.type === 'super-admin' && (topPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
-                Wait! Data is loading.
-              </Alert>)
-            }
-            <span className="count-name">Top Pulled Hindi strategies</span>
+            <span className="count-numbers">{totalLoginses.length}</span>
+            <span className="count-name">Total Logins</span>
           </div>
+        </div>
+        <div className="col-md-3">
+          {
+            admin.type === 'super-admin' && (topPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
+              Wait! Data is loading.
+            </Alert>)
+          }
+          <p className="count-name">Top English strategies</p>
+        </div>
+        <div className="col-md-3">
+          {
+            admin.type === 'super-admin' && (topPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
+              Wait! Data is loading.
+            </Alert>)
+          }
+          <p className="count-name">Top Hindi strategies</p>
+        </div>
+        <div className="col-md-3">
+          {
+            admin.type === 'super-admin' && (topSearcPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData3}>Download</CSVLink> : <Alert variant={"danger"}>
+              No Data Available for Download
+            </Alert>)
+          }
+          <p className="count-name">Top Pulled English strategies</p>
+        </div>
+        <div className="col-md-3">
+          {
+            admin.type === 'super-admin' && (topSearcPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData4}>Download</CSVLink> : <Alert variant={"danger"}>
+              No Data Available for Download
+            </Alert>)
+          }
+          <p className="count-name">Top Pulled Hindi strategies</p>
+        </div>
+        <div className="col-md-3">
+          <Link to="/browsers-devices"><button className='btn btn-primary'>See Device and Browser</button></Link>
         </div>
         <div className="col-md-3 mt-4">
           <button className='btn btn-primary' onClick={() => authenticate().then(loadClient())}>Login with Google</button>
@@ -415,7 +533,7 @@ const DashHome = () => {
             <span className="count-name">Total Unique Login</span>
           </div>
         </div>
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <div className="card-counter info">
 
             <span className="count-numbers">{data?.rows[0]?.metricValues[0].value}</span>
@@ -435,7 +553,7 @@ const DashHome = () => {
             <span className="count-numbers">{data?.rows[0]?.dimensionValues[2].value}</span>
             <span className="count-name">Usage Browser</span>
           </div>
-        </div>
+        </div> */}
 
         {/* <GoogleLogin
             onSuccess={credentialResponse => {

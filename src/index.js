@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = new Date().getTime();
     const totalTime = (end - start) / 1000
     const data = {
-      time: totalTime
+      time: totalTime,
+      user_id: JSON.parse(localStorage.getItem("data"))._id
     }
     axios.post("http://localhost:8080/api/pulledStr/averageTime", data)
-    console.log(JSON.parse(localStorage.getItem("data")._id))
   });
 });
 root.render(

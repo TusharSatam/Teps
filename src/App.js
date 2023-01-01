@@ -39,6 +39,7 @@ import UserReqHi from './Pages/Dashboard/userReq/UserReqHi';
 import SingleUserStr from './Pages/SingleUserStr';
 import DashComments from './Pages/Dashboard/DashComments';
 import AddForm from './Components/AddForm/AddForm';
+import DeviceList from './Pages/Dashboard/DeviceList';
 
 
 
@@ -125,7 +126,8 @@ function App() {
           loc.pathname === '/approve-hi' ||
           loc.pathname === '/reqbyuser-en' ||
           loc.pathname === '/reqbyuser-hi' ||
-          loc.pathname === '/admin-comments'
+          loc.pathname === '/admin-comments' ||
+          loc.pathname === '/browsers-devices'
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -168,6 +170,7 @@ function App() {
               <Route exact path='/reqbyuser-en' element={<UserReqEn />} />
               <Route exact path='/reqbyuser-hi' element={<UserReqHi />} />
               <Route exact path='/admin-comments' element={<DashComments />} />
+              <Route exact path='/browsers-devices' element={<DeviceList />} />
             </Route>
           </Route>
         </Routes>
@@ -191,7 +194,8 @@ function App() {
           loc.pathname === '/approve-hi' ||
           loc.pathname === '/reqbyuser-en' ||
           loc.pathname === '/reqbyuser-hi' ||
-          loc.pathname === '/admin-comments'
+          loc.pathname === '/admin-comments' ||
+          loc.pathname === '/browsers-devices'
           ? ('') : (
             <Footer />
           )
