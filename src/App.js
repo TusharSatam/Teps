@@ -40,6 +40,7 @@ import SingleUserStr from './Pages/SingleUserStr';
 import DashComments from './Pages/Dashboard/DashComments';
 import AddForm from './Components/AddForm/AddForm';
 import DeviceList from './Pages/Dashboard/DeviceList';
+import UserDetails from './Pages/Dashboard/UserDetails';
 
 
 
@@ -127,7 +128,8 @@ function App() {
           loc.pathname === '/reqbyuser-en' ||
           loc.pathname === '/reqbyuser-hi' ||
           loc.pathname === '/admin-comments' ||
-          loc.pathname === '/browsers-devices'
+          loc.pathname === '/browsers-devices' ||
+          loc.pathname.includes('/user-details')
           ? ('') : (
             <Navbar
               displayProfile={displayProfile}
@@ -171,6 +173,7 @@ function App() {
               <Route exact path='/reqbyuser-hi' element={<UserReqHi />} />
               <Route exact path='/admin-comments' element={<DashComments />} />
               <Route exact path='/browsers-devices' element={<DeviceList />} />
+              <Route exact path='/user-details/:id' element={<UserDetails />} />
             </Route>
           </Route>
         </Routes>
@@ -195,7 +198,8 @@ function App() {
           loc.pathname === '/reqbyuser-en' ||
           loc.pathname === '/reqbyuser-hi' ||
           loc.pathname === '/admin-comments' ||
-          loc.pathname === '/browsers-devices'
+          loc.pathname === '/browsers-devices' ||
+          loc.pathname.includes('/user-details')
           ? ('') : (
             <Footer />
           )

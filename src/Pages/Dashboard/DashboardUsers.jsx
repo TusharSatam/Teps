@@ -1,9 +1,10 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
-import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
+import { FaEye, FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { deletUser, getSingleUser, getUsers } from '../../services/dashboardUsers';
 import DashboardEditUserModal from '../../Components/DashboardModal/DashboardEditUserModal';
 import toast, { Toaster } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const DashboardUsers = () => {
 
@@ -94,6 +95,11 @@ const DashboardUsers = () => {
                       <td>{item.city}</td>
                       <td>{item.pincode}</td>
                       <td>
+                        <Link to={`/user-details/${item._id}`}>
+                          <button className='btn p-0 me-2'>
+                            <FaEye />
+                          </button>
+                        </Link>
                         <button onClick={() => handleDelet(item._id)} className='btn p-0 me-2'>
                           <FaRegTrashAlt />
                         </button>

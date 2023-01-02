@@ -6,7 +6,7 @@ import { gapi } from "gapi-script";
 
 import './styles/dashHome.css'
 import { getAllHindiStratigys, getMultitHiStr } from '../../services/hindiStratigys';
-import { getLastmonthLogin, getLastmonthReg } from '../../services/dashboardNumbers';
+import { getLastmonthAvgr, getLastmonthLogin, getLastmonthReg } from '../../services/dashboardNumbers';
 import { getLikes } from '../../services/userLikes';
 import { getSaves } from '../../services/userSaves';
 import axios from 'axios';
@@ -17,6 +17,7 @@ import { CSVLink } from 'react-csv';
 import { useAuth } from '../../Context/AuthContext';
 import { averageTime, getPulledStr } from '../../services/pulledStratigy';
 import { totalLogins } from '../../services/totalLogins';
+import moment from 'moment';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -33,7 +34,7 @@ const DashHome = () => {
   const [isLoading7, setIsLoading7] = React.useState(false);
   const [isLoading8, setIsLoading8] = React.useState(false);
   const [totalSaves, setTotalSaves] = React.useState([]);
-  const [lastLogin, setLastLogin] = React.useState(0);
+  const [lastLogin, setLastLogin] = React.useState([]);
   const [token, setToken] = React.useState('')
   const { admin } = useAuth()
   React.useEffect(() => {
@@ -64,6 +65,7 @@ const DashHome = () => {
   }, [])
 
   const current = new Date();
+
   const month = current.getMonth();
   const year = current.getFullYear()
   React.useEffect(() => {
@@ -81,6 +83,16 @@ const DashHome = () => {
       .then(res => {
         setIsLoading5(false)
         setLastLogin(res?.data?.lastmonthLogin);
+      })
+  }, [])
+  const [isLoading10, setIsLoading10] = useState(false)
+  const [lastAvgr, setLastAvgr] = useState([])
+  React.useEffect(() => {
+    setIsLoading10(true)
+    getLastmonthAvgr(month, year)
+      .then(res => {
+        setIsLoading10(false)
+        setLastAvgr(res?.data?.lastmonthAvrg);
       })
   }, [])
 
@@ -240,7 +252,9 @@ const DashHome = () => {
 
   const [topPulled, setTopPulled] = useState([])
   const [topPulled1, setTopPulled1] = useState([])
-  useEffect(() => {
+  const [show, setShow] = useState(false)
+  const getSearchData = () => {
+    setShow(true)
     var outputArray = [];
     var count = 0;
     var start = false;
@@ -308,7 +322,7 @@ const DashHome = () => {
           setTopPulled1(res?.data);
         })
     }
-  }, [filter, spreaded])
+  }
   const csvData = topPulled ? topPulled : [];
   const csvData1 = topPulled1 ? topPulled1 : [];
 
@@ -321,7 +335,9 @@ const DashHome = () => {
   }, [])
   const [topSearcPulled, setTopSearcPulled] = useState([])
   const [topSearcPulled1, setTopSearcPulled1] = useState([])
-  useEffect(() => {
+  const [show2, setShow2] = useState(false)
+  const pulledData = () => {
+    setShow2(true)
     const searchableData = searchStra.map(res => res.strategie_id)
     var outputArray = [];
     var count = 0;
@@ -390,7 +406,7 @@ const DashHome = () => {
           setTopSearcPulled1(res?.data);
         })
     }
-  }, [searchStra, filter])
+  }
 
   const csvData3 = topSearcPulled ? topSearcPulled : [];
   const csvData4 = topSearcPulled1 ? topSearcPulled1 : [];
@@ -410,10 +426,15 @@ const DashHome = () => {
       })
   }, [])
 
-  const totalSecArray = avarageFullTime.map(res => res.time)
+  const totalSecArray = avarageFullTime?.map(res => res.time)
   let sum = 0;
   for (let index = 0; index < totalSecArray.length; index++) {
     sum += totalSecArray[index]
+  }
+  const totalSecArray2 = lastAvgr?.map(res => res.time)
+  let sum2 = 0;
+  for (let index = 0; index < totalSecArray2.length; index++) {
+    sum2 += totalSecArray2[index]
   }
   // console.log();
   return (
@@ -450,7 +471,7 @@ const DashHome = () => {
         <div className="col-md-3">
           <div className="card-counter info">
 
-            <span className="count-numbers">{isLoading5 ? <Spinner className="text-light " animation="border" /> : lastLogin}</span>
+            <span className="count-numbers">{isLoading5 ? <Spinner className="text-light " animation="border" /> : lastLogin.length}</span>
             <span className="count-name">Logins in last month</span>
           </div>
         </div>
@@ -477,8 +498,14 @@ const DashHome = () => {
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
+            <span className="count-numbers">{(((sum2 / 60) / totalSecArray2.length).toFixed(2)) > 60 ? `${(((sum2 / 3600) / totalSecArray2.length).toFixed(2))} Hours` : `${isNaN((((sum2 / 60) / totalSecArray2.length).toFixed(2))) ? "0" : (((sum2 / 60) / totalSecArray2.length).toFixed(2))} Min`}</span>
+            <span className="count-name">Average Time Spent(Last Month)</span>
+          </div>
+        </div>
+        <div className="col-md-3">
+          <div className="card-counter info">
             <span className="count-numbers">{(((sum / 60) / totalSecArray.length).toFixed(2)) > 60 ? `${(((sum / 3600) / totalSecArray.length).toFixed(2))} Hours` : `${(((sum / 60) / totalSecArray.length).toFixed(2))} Min`}</span>
-            <span className="count-name">Average Time Spent</span>
+            <span className="count-name">Average Time Spent(lifeTime)</span>
           </div>
         </div>
         <div className="col-md-3">
@@ -488,39 +515,7 @@ const DashHome = () => {
           </div>
         </div>
         <div className="col-md-3">
-          {
-            admin.type === 'super-admin' && (topPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink> : <Alert variant={"danger"}>
-              Wait! Data is loading.
-            </Alert>)
-          }
-          <p className="count-name">Top English strategies</p>
-        </div>
-        <div className="col-md-3">
-          {
-            admin.type === 'super-admin' && (topPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink> : <Alert variant={"danger"}>
-              Wait! Data is loading.
-            </Alert>)
-          }
-          <p className="count-name">Top Hindi strategies</p>
-        </div>
-        <div className="col-md-3">
-          {
-            admin.type === 'super-admin' && (topSearcPulled?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData3}>Download</CSVLink> : <Alert variant={"danger"}>
-              No Data Available for Download
-            </Alert>)
-          }
-          <p className="count-name">Top Pulled English strategies</p>
-        </div>
-        <div className="col-md-3">
-          {
-            admin.type === 'super-admin' && (topSearcPulled1?.length !== 0 ? <CSVLink className=' btn btn-primary me-4' data={csvData4}>Download</CSVLink> : <Alert variant={"danger"}>
-              No Data Available for Download
-            </Alert>)
-          }
-          <p className="count-name">Top Pulled Hindi strategies</p>
-        </div>
-        <div className="col-md-3">
-          <Link to="/browsers-devices"><button className='btn btn-primary'>See Device and Browser</button></Link>
+          <Link to="/browsers-devices"><button className='btn btn-primary mt-4'>See Device and Browser</button></Link>
         </div>
         <div className="col-md-3 mt-4">
           <button className='btn btn-primary' onClick={() => authenticate().then(loadClient())}>Login with Google</button>
@@ -566,6 +561,48 @@ const DashHome = () => {
           <button onClick={googleLogin}>submit</button>
           <button onClick={handleClick}>submit</button> */}
         {/* <AnalyticsDash /> */}
+        <div className='row mt-3'>
+          {
+            show === false ?
+              <div className="col-md-3">
+                <button onClick={getSearchData} className='btn btn-primary'>See Top Strategies</button>
+              </div> : <>
+                <div className="col-md-3">
+                  {
+                    admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData}>Download</CSVLink>
+                  }
+                  <p className="count-name">Top English strategies</p>
+                </div>
+                <div className="col-md-3">
+                  {
+                    admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData1}>Download</CSVLink>
+                  }
+                  <p className="count-name">Top Hindi strategies</p>
+                </div>
+              </>
+          }
+          {
+            show2 === false ?
+              <div className="col-md-3">
+                <button onClick={pulledData} className='btn btn-primary'>See Top Pulled Strategies</button>
+              </div> : <>
+                <div className="col-md-3">
+                  {
+                    admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData3}>Download</CSVLink>
+                  }
+                  <p className="count-name">Top Pulled English strategies</p>
+                </div>
+                <div className="col-md-3">
+                  {
+                    admin.type === 'super-admin' && <CSVLink className=' btn btn-primary me-4' data={csvData4}>Download</CSVLink>
+                  }
+                  <p className="count-name">Top Pulled Hindi strategies</p>
+                </div>
+              </>
+          }
+
+
+        </div>
       </div>
     </div>
   );

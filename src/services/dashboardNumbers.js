@@ -35,6 +35,22 @@ export const getLastmonthLogin = async (month, year) => {
     .catch(err => console.log(err));
   return userResponse;
 }
+// getLastmonthAvgr response
+export const getLastmonthAvgr = async (month, year) => {
+  let userResponse
+  const headerData = {
+    headers: {
+      'month': month,
+      'year': year
+    }
+  }
+  await axios.get(`lastAvrgTime`, headerData)
+    .then(res => {
+      userResponse = res
+    })
+    .catch(err => console.log(err));
+  return userResponse;
+}
 
 // totalLikes response
 export const getTotalLikes = async () => {

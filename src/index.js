@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const end = new Date().getTime();
     const totalTime = (end - start) / 1000
     const data = {
+      date: Date.now(),
       time: totalTime,
       user_id: JSON.parse(localStorage.getItem("data"))._id
     }
