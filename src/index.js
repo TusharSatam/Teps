@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       time: totalTime,
       user_id: JSON.parse(localStorage.getItem("data"))._id
     }
-    axios.post("http://localhost:8080/api/pulledStr/averageTime", data)
+    axios.post(`${process.env.REACT_APP_BASE_URL}pulledStr/averageTime`, data)
   });
 });
 root.render(
