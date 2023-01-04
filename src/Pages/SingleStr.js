@@ -72,14 +72,16 @@ const SingleStr = () => {
 
   const [userLikes, setUserLikes] = useState([]);
   const [totalUserLikes, setTotalUserLikes] = useState(0);
+  const [likeUser, setLikeUser] = useState([]);
   React.useEffect(() => {
     getLikes()
       .then(res => {
         const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
         setTotalUserLikes(totalLike.length)
-        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        const userlike = totalLike?.filter(ress => ress.user_id === user._id)
+        setLikeUser(userlike)
         setUserLikes(userlike?.map(ress => ress.strategie_id))
-        getMultitUser(userlike?.map(user_id => user_id.user_id))
+        getMultitUser(totalLike?.map(user_id => user_id.user_id))
           .then(resUser => setTotalLikeUser(resUser.data))
       })
   }, [])
@@ -94,32 +96,38 @@ const SingleStr = () => {
           .then(res => {
             const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
             setTotalUserLikes(totalLike.length)
-            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+            const userlike = totalLike?.filter(ress => ress.user_id === user._id)
+            setLikeUser(userlike)
             setUserLikes(userlike?.map(ress => ress.strategie_id))
           })
       })
   }
   const handleApiUnLikes = (id) => {
-    delLikes(id)
-      .then(res => {
-        getLikes()
-          .then(res => {
-            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
-            setTotalUserLikes(totalLike.length)
-            const userlike = res?.data?.filter(ress => ress.user_id === user._id)
-            setUserLikes(userlike?.map(ress => ress.strategie_id))
-          })
-      })
+    if (likeUser.length !== 0) {
+      delLikes(likeUser[0]._id)
+        .then(res => {
+          getLikes()
+            .then(res => {
+              const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
+              setTotalUserLikes(totalLike.length)
+              const userlike = totalLike?.filter(ress => ress.user_id === user._id)
+              setLikeUser(userlike)
+              setUserLikes(userlike?.map(ress => ress.strategie_id))
+            })
+        })
+    }
   }
 
   const [userSaves, setUserSaves] = useState([]);
+  const [saveUser, setSaveUser] = useState([]);
   const [totalUserSaves, setTotalUserSaves] = useState(0);
   React.useEffect(() => {
     getSaves()
       .then(res => {
         const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
         setTotalUserSaves(totalSave.length)
-        const userlike = res?.data?.filter(ress => ress.user_id === user._id)
+        const userlike = totalSave?.filter(ress => ress.user_id === user._id)
+        setSaveUser(userlike)
         setUserSaves(userlike?.map(ress => ress.strategie_id))
       })
   }, [])
@@ -134,22 +142,30 @@ const SingleStr = () => {
           .then(res => {
             const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
             setTotalUserSaves(totalSave.length)
-            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
+            const userSave = totalSave?.filter(ress => ress.user_id === user._id)
+            setSaveUser(userSave)
             setUserSaves(userSave?.map(ress => ress.strategie_id))
           })
       })
   }
+
   const handleApiUnSaves = (id) => {
-    delSaves(id)
-      .then(res => {
-        getSaves()
-          .then(res => {
-            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
-            setTotalUserSaves(totalSave.length)
-            const userSave = res?.data?.filter(ress => ress.user_id === user._id)
-            setUserSaves(userSave?.map(ress => ress.strategie_id))
-          })
-      })
+    if (saveUser.length !== 0) {
+      delSaves(saveUser[0]._id)
+        .then(res => {
+          if (res.data) {
+            getSaves()
+              .then(res => {
+                const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+                setTotalUserSaves(totalSave.length)
+                const userSave = totalSave?.filter(ress => ress.user_id === user._id)
+                setSaveUser(userSave)
+                console.log(userSave);
+                setUserSaves(userSave?.map(ress => ress.strategie_id))
+              })
+          }
+        })
+    }
   }
   return (
     <div>
@@ -226,6 +242,9 @@ const SingleStr = () => {
                   <div className='d-flex align-items-center'>
                     <div>
                       <div className='mx-md-2 mx-1 mx-1'>
+                        {
+                          console.log(userSaves?.includes(str?._id))
+                        }
                         {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                       </div>
                       <p className='count_num'>{totalUserSaves}</p>

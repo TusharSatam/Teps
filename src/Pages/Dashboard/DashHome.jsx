@@ -18,6 +18,8 @@ import { useAuth } from '../../Context/AuthContext';
 import { averageTime, getPulledStr } from '../../services/pulledStratigy';
 import { totalLogins } from '../../services/totalLogins';
 import moment from 'moment';
+import { getUserStratigys } from '../../services/userStratigy';
+import { getUserStratigysHi } from '../../services/userStratigyHi';
 const DashHome = () => {
   const [user, setUser] = React.useState(0);
   const [stratigys, setStratigys] = React.useState(0);
@@ -436,21 +438,41 @@ const DashHome = () => {
   for (let index = 0; index < totalSecArray2.length; index++) {
     sum2 += totalSecArray2[index]
   }
-  // console.log();
+  const [enStr, setEnStr] = React.useState([])
+
+  React.useEffect(() => {
+    setIsLoading2(true)
+    getUserStratigys()
+      .then(res => {
+        setEnStr(res.data?.filter(res => res.Approve === true))
+        setIsLoading2(false)
+        console.log(res.data?.posts);
+      })
+  }, [])
+  const [userHiStr, setUserHiStr] = useState([])
+  React.useEffect(() => {
+    setIsLoading3(true)
+    getUserStratigysHi()
+      .then(res => {
+        setUserHiStr(res.data?.filter(res => res.Approve === true))
+        setIsLoading3(false)
+      })
+  }, [])
+
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-3">
           <div className="card-counter primary">
             <i className="fa fa-code-fork"></i>
-            <span className="count-numbers">{isLoading2 ? <Spinner className="text-light " animation="border" /> : stratigys?.length}</span>
+            <span className="count-numbers">{isLoading2 ? <Spinner className="text-light " animation="border" /> : (stratigys?.length + enStr.length)}</span>
             <span className="count-name">English Strategies</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter primary">
             <i className="fa fa-code-fork"></i>
-            <span className="count-numbers">{isLoading3 ? <Spinner className="text-light " animation="border" /> : hindiStratigys?.length}</span>
+            <span className="count-numbers">{isLoading3 ? <Spinner className="text-light " animation="border" /> : (hindiStratigys?.length + userHiStr.length)}</span>
             <span className="count-name">Hindi Strategies</span>
           </div>
         </div>
