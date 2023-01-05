@@ -1,35 +1,29 @@
-import React from 'react';
-import './searchscrean.css'
-import likeIcon from '../../asstes/like.svg'
-import icon1 from '../../asstes/Group 70.svg'
-import icon2 from '../../asstes/Group 71.svg'
-import { useTranslation } from 'react-i18next';
-import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
-import EmptyCheckbox from '../../asstes/Rectangle 161.svg'
-import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg'
-import OnlineIcon from '../../asstes/icons/online.svg'
-import OfflineIcon from '../../asstes/icons/offline.svg'
-import ChatIcon from '../../asstes/icons/chat.svg'
-import KnowledgeIcon from '../../asstes/icons/knowledge.svg'
-import Physical from '../../asstes/icons/Motor-Physical.png'
-import Social from '../../asstes/icons/Socio-Emotional-Ethical.png'
-import LikeIcon from '../../asstes/icons/Like.svg'
-import LikedIcon from '../../asstes/icons/Liked.svg'
-import SaveIcon from '../../asstes/icons/Save.svg'
-import SavedIcon from '../../asstes/icons/Saved.svg'
-import LanguageSelect from '../../languageSelect';
-import { useAuth } from '../../Context/AuthContext';
-import HomeLayout from '../Home/HomeLayout';
-import HomeHindiLayout from '../Home/HomeHindiLayout';
-import { getSingleUser, updateUser } from '../../services/dashboardUsers';
-import { Link } from 'react-router-dom';
-import UserImage from '../../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
+import React, { useState } from 'react';
+import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import ScrollToTop from 'react-scroll-to-top';
+import UserImage from '../../asstes/Group 51.svg';
+import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg';
+import ChatIcon from '../../asstes/icons/chat.svg';
+import KnowledgeIcon from '../../asstes/icons/knowledge.svg';
+import LikeIcon from '../../asstes/icons/Like.svg';
+import LikedIcon from '../../asstes/icons/Liked.svg';
+import Physical from '../../asstes/icons/Motor-Physical.png';
+import OfflineIcon from '../../asstes/icons/offline.svg';
+import OnlineIcon from '../../asstes/icons/online.svg';
+import SaveIcon from '../../asstes/icons/Save.svg';
+import SavedIcon from '../../asstes/icons/Saved.svg';
+import Social from '../../asstes/icons/Socio-Emotional-Ethical.png';
+import EmptyCheckbox from '../../asstes/Rectangle 161.svg';
+import { useAuth } from '../../Context/AuthContext';
 import { delLikes, getLikes, postLikes } from '../../services/userLikes';
-import { useState } from 'react';
 import { delSaves, getSaves, postSaves } from '../../services/userSaves';
+import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
+import HomeHindiLayout from '../Home/HomeHindiLayout';
+import HomeLayout from '../Home/HomeLayout';
+import './searchscrean.css';
 
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()

@@ -1,31 +1,27 @@
-import React from 'react';
-import OfflineIcon from '../asstes/icons/offline.svg'
-import ChatIcon from '../asstes/icons/chat.svg'
-import KnowledgeIcon from '../asstes/icons/knowledge.svg'
-import Physical from '../asstes/icons/Motor-Physical.png'
-import Social from '../asstes/icons/Socio-Emotional-Ethical.png'
-import SavedIcon from '../asstes/icons/Saved.svg'
-import OnlineIcon from '../asstes/icons/online.svg'
-import SaveIcon from '../asstes/icons/Save.svg'
+import { Buffer } from 'buffer';
+import React, { useState } from 'react';
+import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../Context/AuthContext';
-import Filter from "../asstes/Filter.svg"
-import FilterHover from "../asstes/icons/filter_icon.svg"
-import HomeLayout from "../Components/Home/HomeLayout"
-import { useState } from 'react';
-import './styles/saveStratigy.css'
-import { getMultitStr } from '../services/stratigyes';
-import { getSingleUser, updateUser } from '../services/dashboardUsers';
-import FilterStr from '../Components/Home/FilterStr';
 import { Link } from 'react-router-dom';
+import Filter from "../asstes/Filter.svg";
+import UserImage from '../asstes/Group 51.svg';
+import ChatIcon from '../asstes/icons/chat.svg';
+import FilterHover from "../asstes/icons/filter_icon.svg";
+import KnowledgeIcon from '../asstes/icons/knowledge.svg';
+import Physical from '../asstes/icons/Motor-Physical.png';
+import OfflineIcon from '../asstes/icons/offline.svg';
+import OnlineIcon from '../asstes/icons/online.svg';
+import SaveIcon from '../asstes/icons/Save.svg';
+import SavedIcon from '../asstes/icons/Saved.svg';
+import Social from '../asstes/icons/Socio-Emotional-Ethical.png';
+import FilterStr from '../Components/Home/FilterStr';
+import { useAuth } from '../Context/AuthContext';
 import { getMultitHiStr } from '../services/hindiStratigys';
-import { buildQueries } from '@testing-library/react';
+import { getMultitStr } from '../services/stratigyes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
-import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
-import UserImage from '../asstes/Group 51.svg'
-import { Buffer } from 'buffer';
+import './styles/saveStratigy.css';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -182,11 +178,12 @@ const SaveStratigy = () => {
         languageSelect === "en" ?
           <>
             <div className='saveStrParent' >
-              <div className='row py-2 align-items-center' style={{ alignItems: "center" }}>
+              <div className='row py-2 align-items-center' style={{ alignItems: "center",position:'relative' }}>
                 <div className='d-flex justify-content-center'>
                   <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Saved Strategies")}</span>
                 </div>
-                <div className='d-flex justify-content-end ' style={{ position: "absolute", top: "100" }}>
+
+                <div className='filter_btn_container d-flex justify-content-end' style={{ position: "absolute", top: "100" }}>
                   <div onClick={handleFilter} className='filter_bTn'>
                     <span className='me-1 me-md-0'>{t("Filter")}</span>
                     <img src={Filter} alt="" className='filtericon2' />
@@ -252,6 +249,9 @@ const SaveStratigy = () => {
                                 </div>
                               </div>
                             </Link>
+
+
+
                             <div className='col-9 ms-md-4 col-md-8 '>
                               <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
@@ -263,6 +263,7 @@ const SaveStratigy = () => {
                                 {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                               </div>
                             </div>
+
                             <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 <div>
@@ -271,13 +272,13 @@ const SaveStratigy = () => {
                                 <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                   <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                     {
-                                      !res['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                      !res['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
                                         res['Dev Dom 1'] === "Cognitive Sensory" ?
                                           <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                           <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
                                     }
                                     {
-                                      !res['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                      !res['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
                                         res['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                           <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                           <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -403,13 +404,13 @@ const SaveStratigy = () => {
                                   <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                     <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                       {
-                                        !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                        !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
                                           data['Dev Dom 1'] === "Cognitive Sensory" ?
                                             <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                             <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
                                       }
                                       {
-                                        !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                        !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
                                           data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                             <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                             <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -496,13 +497,13 @@ const SaveStratigy = () => {
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
                                             data['Dev Dom 1'] === "Cognitive Sensory" ?
                                               <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
                                         }
                                         {
-                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
                                             data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                               <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                               <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -628,13 +629,13 @@ const SaveStratigy = () => {
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
+                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
                                             data['Dev Dom 1'] === "Cognitive Sensory" ?
                                               <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
                                         }
                                         {
-                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
+                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
                                             data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
                                               <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
                                               <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -746,13 +747,13 @@ const SaveStratigy = () => {
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                               <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
                                         }
                                         {
-                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
                                               <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
                                               <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -837,13 +838,13 @@ const SaveStratigy = () => {
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                               <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
                                         }
                                         {
-                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                          !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
                                               <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
                                               <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
@@ -930,7 +931,7 @@ const SaveStratigy = () => {
                                     <div className='d-flex align-items-center justify-content-center mt-md-2'>
                                       <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
                                         {
-                                          !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
+                                          !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
                                               <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
                                               <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />

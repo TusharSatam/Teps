@@ -1,356 +1,379 @@
-.stratigy_bg{
-    background: #1AA05B;
+.stratigy_bg {
+  background: #1aa05b;
 }
-.sub-title{
-    color: #1AA05B;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 39px;
+.sub-title {
+  color: #1aa05b;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
 }
-.sub-subtitle{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 39px;
-    color: #000000;
+.sub-subtitle {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  color: #000000;
 }
-.search-head{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 39px;
+.search-head {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
 }
-.acordonia_coll{
-    background: none!important;
+.acordonia_coll {
+  background: none !important;
 }
-.card_pad{
-    padding-top: 0!important;
-    padding-left: 0!important;
-    padding-bottom: 0!important;
-    position: relative;
-    bottom: 10px;
+.card_pad {
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-bottom: 0 !important;
+  position: relative;
+  bottom: 10px;
 }
-.Strategy_count{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    color: #1AA05B;
-    margin-bottom: 2px;
-    margin-right: -5px;
+.Strategy_count {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #1aa05b;
+  margin-bottom: 2px;
+  margin-right: -5px;
 }
-.Strategy_count_article p{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 26px;
+.Strategy_count_article p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
 }
-.counter_str{
-    width: 35px;
-    height: 35px;
-    background: #1AA05B;
-    padding: 2px 8px;
-    border-radius: 105px;
-    margin-left: 5px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    left: 8px;
+.counter_str {
+  width: 35px;
+  height: 35px;
+  background: #1aa05b;
+  padding: 2px 8px;
+  border-radius: 105px;
+  margin-left: 5px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 8px;
 }
-.container_title_sec{
-    margin: 0px 60px;
+.container_title_sec {
+  margin: 0px 60px;
 }
-.dropDownContainer{
-    margin: 0px 60px;
+.dropDownContainer {
+  margin: 0px 60px;
 }
-.sub_sub_title{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 29px;
-    color: #08090A;
+.sub_sub_title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  color: #08090a;
 }
-.card_border{
-    border-left: none !important;
-    border-top: none !important;
+.card_border {
+  border-left: none !important;
+  border-top: none !important;
 }
-.checkbox_size{
-    width: 35px;
-    height: 35px;
+.checkbox_size {
+  width: 35px;
+  height: 35px;
 }
-.checkBox_title{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
+.checkBox_title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
 }
-.dsfdasfas{
+.dsfdasfas {
   width: 200px;
 }
-.icons_heading{
-  font-family: 'Inter';
+.icons_heading {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 12px;
-  color: #FFFFFF;
-  background: #1AA05B;
+  color: #ffffff;
+  background: #1aa05b;
   border-radius: 2px;
   padding: 2px 7.6px;
   margin-left: -68px;
 }
-.icons_hindi_heading{
-  font-family: 'Inter';
+.icons_hindi_heading {
+  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 12px;
-  color: #FFFFFF;
-  background: #1AA05B;
+  color: #ffffff;
+  background: #1aa05b;
   border-radius: 2px;
   padding: 2px 33px;
   margin-left: -68px;
 }
-.threeIcons{
-    width: 60px;
-    height: 64px;
+.threeIcons {
+  width: 60px;
+  height: 60px;
 }
-.threeIcons-nun{
+.threeIcons-nun {
   width: 75px;
   height: 60px;
 }
-.threeIcons-nunH{
+.threeIcons-nun-save {
+  width: 75px;
+  height: 60px;
+}
+.threeIcons-nunH {
   width: 68px;
   height: 60px;
 }
-.res_btn_icon{
-    width: 40%;
-    display: flex;
-    align-items: center;
+.res_btn_icon {
+  width: 70%;
+  display: flex;
+  align-items: center;
 }
-.res_inner_div{
-    border: 0.5px solid #1AA05B;
-    border-radius: 2px;
+.res_btn_icon-sm {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.icon_heading_text{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 8px;
-    line-height: 8px;
-    text-align: center;
-    color: #FFFFFF;
-    background: #1AA05B;
-    border-radius: 0.852839px;
+.res_inner_div {
+  border: 0.5px solid #1aa05b;
+  border-radius: 2px;
 }
-.find_strategies_btn{
-    padding: 8px 16px;
-    background: #FFFFFF;
-    border: none;
-    border-radius: 20px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.01em;
-    color: #1AA05B;
+.icon_heading_text {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 8px;
+  line-height: 8px;
+  text-align: center;
+  color: #ffffff;
+  background: #1aa05b;
+  border-radius: 0.852839px;
 }
-.empty_stratigys{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 44px;
-    text-align: center;
-    color: #000000;
-    margin: 100px 100px 500px 100px;
+.find_strategies_btn {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: #1aa05b;
+}
+.empty_stratigys {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  text-align: center;
+  color: #000000;
+  margin: 100px 100px 500px 100px;
 }
 @media only screen and (max-width: 1440px) {
-  .icons_heading{
+  .icons_heading {
     margin-left: -68px;
   }
-  .icons_hindi_heading{
+  .icons_hindi_heading {
     margin-left: -68px;
   }
 }
+@media only screen and (max-width: 500px) {
+  .res_btn_icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .res_btn_icon-sm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+
 @media only screen and (max-width: 990px) {
-    .container_title_sec{
-        margin: 0px 20px;
-    }
-    .dropDownContainer{
-        margin: 0px 20px;
-    }
-    .sub-title{
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 15px;
-    }
-    .sub-subtitle{
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 12px;
-    }
-    .sub_sub_title{
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 15px;
-    }
-    .checkbox_size{
-        width: 14px;
-        height: 14px;
-    }
-    .checkBox_title{
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 12px;
-    }
-    .card-header{
-        padding: 0px!important;
-    }
-    .Strategy_count{
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 15px;
-    }
-    .Strategy_count_article p{
-        font-weight: 400;
-        font-size: 10px;
-        line-height: 14px;
-        text-align: justify;
-    }
-    .icons_heading{
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 5.5px;
-      line-height: 12px;
-      color: #FFFFFF;
-      background: #1AA05B;
-      border-radius: 2px;
-      padding: 1.5px 6px;
-      margin-left: -28px;
-    }
-    .icons_hindi_heading{
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 9.8px;
-      line-height: 12px;
-      color: #FFFFFF;
-      background: #1AA05B;
-      border-radius: 2px;
-      padding: 2px 6px;
-      margin-left: -28px;
-    }
-    .threeIcons{
-        width: 35px;
-        height: 55px;
-    }
-    .threeIcons-nun{
-      width: 20px;
-      height: 20px;
-    }
-    .threeIcons-nunH{
-      width: 20px;
-      height: 20px;
-    }
-    .counter_str{
-        width: 14px;
-        height: 14px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 8px;
-        line-height: 10px;
-        padding: 2px 3px;
-    }
-    .domain_title{
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 5px;
-        line-height: 4px;
-    }
-    .find_strategies_btn{
-        padding: 2px 16px;
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 24px;
-    }
-    .save_like{
-        width:15.33px;
-        height:16.04px;
-    }
-    .save_likes{
-        width:15.67px;
-        height:16.78px;
-    }
-    .empty_stratigys{
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 18px;
-        text-align: center;
-        color: #000000;
-        margin: 100px 80px 200px 80px;
-    }
+  .container_title_sec {
+    margin: 0px 20px;
+  }
+  .dropDownContainer {
+    margin: 0px 20px;
+  }
+  .sub-title {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .sub-subtitle {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .sub_sub_title {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .checkbox_size {
+    width: 14px;
+    height: 14px;
+  }
+  .checkBox_title {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+  }
+  .card-header {
+    padding: 0px !important;
+  }
+  .Strategy_count {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .Strategy_count_article p {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    text-align: justify;
+  }
+  .icons_heading {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 5.5px;
+    line-height: 12px;
+    color: #ffffff;
+    background: #1aa05b;
+    border-radius: 2px;
+    padding: 1.5px 6px;
+    margin-left: -28px;
+  }
+  .icons_hindi_heading {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 9.8px;
+    line-height: 12px;
+    color: #ffffff;
+    background: #1aa05b;
+    border-radius: 2px;
+    padding: 2px 6px;
+    margin-left: -28px;
+  }
+  .threeIcons {
+    width: 20px;
+    height: 20px;
+  }
+  .threeIcons-nun {
+    width: 20px;
+    height: 20px;
+  }
+  .threeIcons-nunH {
+    width: 20px;
+    height: 20px;
+  }
+  .counter_str {
+    width: 14px;
+    height: 14px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 8px;
+    line-height: 10px;
+    padding: 2px 3px;
+  }
+  .domain_title {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 5px;
+    line-height: 4px;
+  }
+  .find_strategies_btn {
+    padding: 2px 16px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 24px;
+  }
+  .save_like {
+    width: 15.33px;
+    height: 16.04px;
+  }
+  .save_likes {
+    width: 15.67px;
+    height: 16.78px;
+  }
+  .empty_stratigys {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    color: #000000;
+    margin: 100px 80px 200px 80px;
+  }
 }
-    .unique_id{
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 15px;
-      color: #000000;
-      background: #EBEDF0;
-      border: 1px solid #CED4DA;
-      border-radius: 4px;
-      padding: 3px 7px;
-    }
-.user_str{
+.unique_id {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;
+  background: #ebedf0;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 3px 7px;
+}
+.user_str {
   font-weight: 500;
-font-size: 14px;
-line-height: 17px;
-color: #000000;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
 }
-.user_str_border{
+.user_str_border {
   border-top: 1px solid #000000;
 }
 @media only screen and (max-width: 990px) {
-  .threeIcons-nun{
+  .threeIcons-nun {
     width: 37px;
-      height: 20px;
+    height: 20px;
   }
-  .threeIcons-nunH{
+  .threeIcons-nunH {
     width: 28px;
     height: 20px;
   }
-  .unique_id{
+  .unique_id {
     font-size: 6.66667px;
     line-height: 8px;
     display: flex;
     justify-content: center;
     margin: -9px 10px 5px 10px;
   }
-  .user_str{
-  font-size: 8px;
+  .user_str {
+    font-size: 8px;
   }
 }
