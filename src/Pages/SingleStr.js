@@ -100,6 +100,8 @@ const SingleStr = () => {
             const userlike = totalLike?.filter(ress => ress.user_id === user._id)
             setLikeUser(userlike)
             setUserLikes(userlike?.map(ress => ress.strategie_id))
+            getMultitUser(totalLike?.map(user_id => user_id.user_id))
+              .then(resUser => setTotalLikeUser(resUser.data))
           })
       })
   }
@@ -114,6 +116,8 @@ const SingleStr = () => {
               const userlike = totalLike?.filter(ress => ress.user_id === user._id)
               setLikeUser(userlike)
               setUserLikes(userlike?.map(ress => ress.strategie_id))
+              getMultitUser(totalLike?.map(user_id => user_id.user_id))
+                .then(resUser => setTotalLikeUser(resUser.data))
             })
         })
     }
@@ -303,7 +307,7 @@ const SingleStr = () => {
 
 
             {/* ================ FOR LARGE SCREEN =============  */}
-            <div  className='largeCommentContainer'>
+            <div className='largeCommentContainer'>
               <div className='comment_div d-none d-md-block'>
                 <p className='comment_div_p'>{t("Comments")}</p>
                 <form onSubmit={handleComment}>

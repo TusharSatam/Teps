@@ -295,31 +295,31 @@ const DashHome = () => {
     }
 
     if (outputArray.length !== 0 && outputArray1.length !== 0) {
-      getMultitStr([...outputArray, ...outputArray1])
+      getMultitStr([...outputArray, ...outputArray1].filter(res => res !== undefined))
         .then(res => {
           setTopPulled(res?.data);
         })
-      getMultitHiStr([...outputArray, ...outputArray1])
+      getMultitHiStr([...outputArray, ...outputArray1].filter(res => res !== undefined))
         .then(res => {
           setTopPulled1(res?.data);
         })
     }
     if (outputArray.length !== 0 && outputArray1.length === 0) {
-      getMultitStr(outputArray)
+      getMultitStr(outputArray.filter(res => res !== undefined))
         .then(res => {
           setTopPulled(res?.data);
         })
-      getMultitHiStr(outputArray)
+      getMultitHiStr(outputArray.filter(res => res !== undefined))
         .then(res => {
           setTopPulled1(res?.data);
         })
     }
     if (outputArray.length === 0 && outputArray1.length !== 0) {
-      getMultitStr(outputArray1)
+      getMultitStr(outputArray1.filter(res => res !== undefined))
         .then(res => {
           setTopPulled(res?.data);
         })
-      getMultitHiStr(outputArray1)
+      getMultitHiStr(outputArray1.filter(res => res !== undefined))
         .then(res => {
           setTopPulled1(res?.data);
         })
@@ -379,31 +379,31 @@ const DashHome = () => {
     }
 
     if (outputArray.length !== 0 && outputArray1.length !== 0) {
-      getMultitStr([...outputArray, ...outputArray1])
+      getMultitStr([...outputArray, ...outputArray1].filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled(res?.data);
         })
-      getMultitHiStr([...outputArray, ...outputArray1])
+      getMultitHiStr([...outputArray, ...outputArray1].filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled1(res?.data);
         })
     }
     if (outputArray.length !== 0 && outputArray1.length === 0) {
-      getMultitStr(outputArray)
+      getMultitStr(outputArray.filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled(res?.data);
         })
-      getMultitHiStr(outputArray)
+      getMultitHiStr(outputArray.filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled1(res?.data);
         })
     }
     if (outputArray.length === 0 && outputArray1.length !== 0) {
-      getMultitStr(outputArray1)
+      getMultitStr(outputArray1.filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled(res?.data);
         })
-      getMultitHiStr(outputArray1)
+      getMultitHiStr(outputArray1.filter(res => res !== undefined))
         .then(res => {
           setTopSearcPulled1(res?.data);
         })
@@ -464,56 +464,48 @@ const DashHome = () => {
       <div className="row">
         <div className="col-md-3">
           <div className="card-counter primary">
-            <i className="fa fa-code-fork"></i>
             <span className="count-numbers">{isLoading2 ? <Spinner className="text-light " animation="border" /> : (stratigys?.length + enStr.length)}</span>
             <span className="count-name">English Strategies</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter primary">
-            <i className="fa fa-code-fork"></i>
             <span className="count-numbers">{isLoading3 ? <Spinner className="text-light " animation="border" /> : (hindiStratigys?.length + userHiStr.length)}</span>
             <span className="count-name">Hindi Strategies</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading ? <Spinner className="text-light " animation="border" /> : user?.length}</span>
             <span className="count-name">Total Users</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading4 ? <Spinner className="text-light " animation="border" /> : lastRegester}</span>
             <span className="count-name">Registrations in last month</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading5 ? <Spinner className="text-light " animation="border" /> : lastLogin.length}</span>
             <span className="count-name">Logins in last month</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading6 ? <Spinner className="text-light " animation="border" /> : totalLikes?.length}</span>
             <span className="count-name">Total strategies liked</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves?.length}</span>
             <span className="count-name">Total strategies Saved</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-
             <span className="count-numbers">{isLoading8 ? <Spinner className="text-light " animation="border" /> : totalComments?.length}</span>
             <span className="count-name">Total strategies Comments</span>
           </div>
@@ -536,20 +528,27 @@ const DashHome = () => {
             <span className="count-name">Total Logins</span>
           </div>
         </div>
-        <div className="col-md-3">
-          <Link to="/browsers-devices"><button className='btn btn-primary mt-4'>See Device and Browser</button></Link>
+        {
+          data?.rows[0].metricValues[1].value ?
+            <div className="col-md-3">
+              <div className="card-counter info">
+                <span className="count-numbers">{data?.rows[0].metricValues[1].value}</span>
+                <span className="count-name">Total Unique Login</span>
+              </div>
+            </div>
+            :
+            <div className="col-md-3">
+            </div>
+        }
+
+        <div className="col-md-3 mt-4">
+          <button className='btn btn-primary w-100' onClick={() => authenticate().then(loadClient().then(execute()))}>Get Total Unique Login</button>
+          {/* <button className='btn btn-primary mt-3 w-100' onClick={() => execute()}>Get GA Data</button> */}
         </div>
         <div className="col-md-3 mt-4">
-          <button className='btn btn-primary' onClick={() => authenticate().then(loadClient())}>Login with Google</button>
-          <button className='btn btn-primary mt-3' onClick={() => execute()}>Get GA Data</button>
+          <Link to="/browsers-devices"><button className='btn btn-primary w-100'>See Device and Browser</button></Link>
         </div>
-        <div className="col-md-3">
-          <div className="card-counter info">
 
-            <span className="count-numbers">{data?.rows[0].metricValues[1].value}</span>
-            <span className="count-name">Total Unique Login</span>
-          </div>
-        </div>
         {/* <div className="col-md-3">
           <div className="card-counter info">
 
@@ -583,11 +582,11 @@ const DashHome = () => {
           <button onClick={googleLogin}>submit</button>
           <button onClick={handleClick}>submit</button> */}
         {/* <AnalyticsDash /> */}
-        <div className='row mt-3'>
+        <div className='row  my-5'>
           {
             show === false ?
               <div className="col-md-3">
-                <button onClick={getSearchData} className='btn btn-primary'>See Top Strategies</button>
+                <button onClick={getSearchData} className='btn btn-primary w-100'>See Top Strategies</button>
               </div> : <>
                 <div className="col-md-3">
                   {
@@ -606,7 +605,7 @@ const DashHome = () => {
           {
             show2 === false ?
               <div className="col-md-3">
-                <button onClick={pulledData} className='btn btn-primary'>See Top Pulled Strategies</button>
+                <button onClick={pulledData} className='btn btn-primary  w-100'>See Top Pulled Strategies</button>
               </div> : <>
                 <div className="col-md-3">
                   {
