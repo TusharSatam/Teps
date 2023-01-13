@@ -120,6 +120,8 @@ const SingleUserStr = () => {
             const userlike = totalLike?.filter(ress => ress.user_id === user._id)
             setLikeUser(userlike)
             setUserLikes(userlike?.map(ress => ress.strategie_id))
+            getMultitUser(totalLike?.map(user_id => user_id.user_id))
+              .then(resUser => setTotalLikeUser(resUser.data))
           })
       })
   }
@@ -133,7 +135,9 @@ const SingleUserStr = () => {
               setTotalUserLikes(totalLike.length)
               const userlike = totalLike?.filter(ress => ress.user_id === user._id)
               setLikeUser(userlike)
-              setUserLikes(userlike?.map(ress => ress.strategie_id))
+              setUserLikes(userlike?.map(ress => ress.strategie_id));
+              getMultitUser(totalLike?.map(user_id => user_id.user_id))
+                .then(resUser => setTotalLikeUser(resUser.data))
             })
         })
     }
@@ -311,7 +315,7 @@ const SingleUserStr = () => {
                       <div>
                         {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalUserLikes}</p>
+                      <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalLikeUser.length}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>

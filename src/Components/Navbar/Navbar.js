@@ -39,9 +39,9 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
     }
   }
   const handleStr = () => {
-    setDisplayProfile("d-none")
-    localStorage.removeItem("filterData")
-    setStratigyFilData([])
+    // setDisplayProfile("d-none")
+    // localStorage.removeItem("filterData")
+    // setStratigyFilData([])
   }
   return (
     <>

@@ -178,7 +178,7 @@ const SaveStratigy = () => {
         languageSelect === "en" ?
           <>
             <div className='saveStrParent' >
-              <div className='row py-2 align-items-center' style={{ alignItems: "center",position:'relative' }}>
+              <div className='row py-2 align-items-center' style={{ alignItems: "center", position: 'relative' }}>
                 <div className='d-flex justify-content-center'>
                   <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Saved Strategies")}</span>
                 </div>

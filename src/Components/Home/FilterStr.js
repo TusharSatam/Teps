@@ -126,7 +126,7 @@ const FilterStr = ({ stratigy }) => {
       });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
-        window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
+        window.localStorage.setItem('filterSaveData', JSON.stringify(aquaticCreatures));
       }
       if (aquaticCreatures.length !== 0) {
         window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));

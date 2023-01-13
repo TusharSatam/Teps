@@ -390,10 +390,6 @@ const SearchScrean = () => {
                                     ))
                                   }
                                 </div>
-                                {
-                                  // console.log("unchecked", stratigyFilUserData)
-                                  console.log("data", data)
-                                }
                                 {check ?
                                   <div className='my-4'>
                                     {
