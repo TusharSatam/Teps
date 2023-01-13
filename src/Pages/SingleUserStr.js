@@ -93,6 +93,7 @@ const SingleUserStr = () => {
   const [userLikes, setUserLikes] = useState([]);
   const [totalUserLikes, setTotalUserLikes] = useState(0);
   const [likeUser, setLikeUser] = useState([]);
+  console.log(userLikes);
   React.useEffect(() => {
     getLikes()
       .then(res => {

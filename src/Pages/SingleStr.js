@@ -257,7 +257,7 @@ const SingleStr = () => {
                           :
                           <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num mx-1' onClick={() => setShow(true)}>{totalUserLikes}</p>
+                      <p className='count_num mx-1' onClick={() => setShow(true)}>{totalLikeUser?.length}</p>
                     </div>
 
 
