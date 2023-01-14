@@ -122,6 +122,7 @@ const SingleUserStr = () => {
             setUserLikes(userlike?.map(ress => ress.strategie_id))
             getMultitUser(totalLike?.map(user_id => user_id.user_id))
               .then(resUser => setTotalLikeUser(resUser.data))
+              .catch(err => setTotalLikeUser([]))
           })
       })
   }
@@ -138,6 +139,7 @@ const SingleUserStr = () => {
               setUserLikes(userlike?.map(ress => ress.strategie_id));
               getMultitUser(totalLike?.map(user_id => user_id.user_id))
                 .then(resUser => setTotalLikeUser(resUser.data))
+                .catch(err => setTotalLikeUser([]))
             })
         })
     }

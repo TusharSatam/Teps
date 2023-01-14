@@ -31,3 +31,13 @@ export const delLikes = async (id) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+export const delUserLikes = async (id) => {
+  let stratigyResponse;
+  await axios.delete(`likes/user/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}

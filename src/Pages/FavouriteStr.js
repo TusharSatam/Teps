@@ -19,7 +19,7 @@ import { getSingleUser, updateUser } from '../services/dashboardUsers';
 import FilterStr from '../Components/Home/FilterStr';
 import { Link } from 'react-router-dom';
 import { getMultitHiStr } from '../services/hindiStratigys';
-import { delLikes, getLikes, postLikes } from '../services/userLikes';
+import { delUserLikes, getLikes, postLikes } from '../services/userLikes';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
@@ -30,7 +30,7 @@ const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth()
   const [filetr, setFilter] = useState(false)
   const [favStratigy, setFavStratigy] = useState([])
-  const [like, setLike] = React.useState(user ? user?.saveReact : []);
+  const [like, setLike] = React.useState([]);
   const [favStratigyHi, setfavStratigyi] = useState([])
   const [languageSelect, setLanguageSelect] = React.useState("en")
   const { t } = useTranslation();
@@ -144,7 +144,7 @@ const FavouriteStr = () => {
       })
   }
   const handleApiUnLikes = (id) => {
-    delLikes(id)
+    delUserLikes(id)
       .then(res => {
         getLikes()
           .then(res => {
@@ -192,23 +192,25 @@ const FavouriteStr = () => {
     setLike([...like], [like]);
   }
 
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveReact": like }
+  //   if (like) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [like, user, setUser])
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
-    </Tooltip>)
+    </Tooltip>
+  )
   return (
     <div>
       {

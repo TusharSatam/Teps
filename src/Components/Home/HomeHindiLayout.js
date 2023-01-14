@@ -137,7 +137,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
           window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
           const pulledStr = aquaticCreatures.map(res => res._id)
           const data = {
-            "strategie_id": pulledStr,
+            "strategie_id": pulledStr[0],
             "user_id": user._id
           }
           postPulledStr(data)
@@ -149,7 +149,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
           window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
           const pulledStr = aquaticCreatures.map(res => res._id)
           const data = {
-            "strategie_id": pulledStr,
+            "strategie_id": pulledStr[0],
             "user_id": user._id
           }
           postPulledStr(data)
@@ -177,7 +177,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
         const pulledStr = aquaticCreatures.map(res => res._id)
         const data = {
-          "strategie_id": pulledStr,
+          "strategie_id": pulledStr[0],
           "user_id": user._id
         }
         postPulledStr(data)

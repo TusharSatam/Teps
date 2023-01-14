@@ -18,8 +18,8 @@ import SavedIcon from '../../asstes/icons/Saved.svg';
 import Social from '../../asstes/icons/Socio-Emotional-Ethical.png';
 import EmptyCheckbox from '../../asstes/Rectangle 161.svg';
 import { useAuth } from '../../Context/AuthContext';
-import { delLikes, getLikes, postLikes } from '../../services/userLikes';
-import { delSaves, getSaves, postSaves } from '../../services/userSaves';
+import { delUserLikes, getLikes, postLikes } from '../../services/userLikes';
+import { delUserSaves, getSaves, postSaves } from '../../services/userSaves';
 import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
 import HomeLayout from '../Home/HomeLayout';
@@ -201,7 +201,7 @@ const SearchScrean = () => {
       })
   }
   const handleApiUnLikes = (id) => {
-    delLikes(id)
+    delUserLikes(id)
       .then(res => {
         getLikes()
           .then(res => {
@@ -235,7 +235,7 @@ const SearchScrean = () => {
       })
   }
   const handleApiUnSaves = (id) => {
-    delSaves(id)
+    delUserSaves(id)
       .then(res => {
         getSaves()
           .then(res => {

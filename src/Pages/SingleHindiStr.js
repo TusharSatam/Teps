@@ -54,19 +54,19 @@ const SingleHindiStr = () => {
     }
     setReact([...react], [react]);
   }
-  React.useEffect(() => {
-    const data = { "saveId": react }
-    if (react) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [react, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveId": react }
+  //   if (react) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [react, user, setUser])
 
   const handleLike = async (e) => {
 
@@ -84,19 +84,19 @@ const SingleHindiStr = () => {
     setLike([...like], [like]);
   }
 
-  React.useEffect(() => {
-    const data = { "saveReact": like }
-    if (like) {
-      updateUser(user._id, data)
-        .then(res => {
-          getSingleUser(user._id)
-            .then(res => {
-              window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-              setUser(res.data[0]);
-            })
-        })
-    }
-  }, [like, user, setUser])
+  // React.useEffect(() => {
+  //   const data = { "saveReact": like }
+  //   if (like) {
+  //     updateUser(user._id, data)
+  //       .then(res => {
+  //         getSingleUser(user._id)
+  //           .then(res => {
+  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+  //             setUser(res.data[0]);
+  //           })
+  //       })
+  //   }
+  // }, [like, user, setUser])
 
   const handleSeeComment = () => {
     if (seeComment) {
@@ -161,6 +161,9 @@ const SingleHindiStr = () => {
             const userlike = totalLike?.filter(ress => ress.user_id === user._id)
             setLikeUser(userlike)
             setUserLikes(userlike?.map(ress => ress.strategie_id))
+            getMultitUser(totalLike?.map(user_id => user_id.user_id))
+              .then(resUser => setTotalLikeUser(resUser.data))
+              .catch(err => setTotalLikeUser([]))
           })
       })
   }
@@ -175,6 +178,9 @@ const SingleHindiStr = () => {
               const userlike = totalLike?.filter(ress => ress.user_id === user._id)
               setLikeUser(userlike)
               setUserLikes(userlike?.map(ress => ress.strategie_id))
+              getMultitUser(totalLike?.map(user_id => user_id.user_id))
+                .then(resUser => setTotalLikeUser(resUser.data))
+                .catch(err => setTotalLikeUser([]))
             })
         })
     }
@@ -316,7 +322,7 @@ const SingleHindiStr = () => {
                       <div>
                         {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
                       </div>
-                      <p className='count_num'>{totalUserLikes}</p>
+                      <p className='count_num' onClick={() => setShow(!show)}>{totalUserLikes}</p>
                     </div>
                   </div>
                   <div className='me-md-3 me-0'>
@@ -372,7 +378,7 @@ const SingleHindiStr = () => {
               <p className='comment_div_p'>{t("Comments")}</p>
               <form onSubmit={handleComment}>
                 <div>
-                  <input placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
+                  <input name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
                 </div>
                 <div className='d-flex justify-content-end comment_submit'>
                   <input type="submit" value={`${t('Submit')}`} />
@@ -406,7 +412,7 @@ const SingleHindiStr = () => {
         <p className='comment_div_p'>Comments</p>
         <form onSubmit={handleComment}>
           <div>
-            <input placeholder='Add a comment...' className='w-100 comment_input' type="text" />
+            <input name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
           </div>
           <div className='d-flex justify-content-end comment_submit'>
             <input type="submit" />

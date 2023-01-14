@@ -18,7 +18,7 @@ import FilterStr from '../Components/Home/FilterStr';
 import { useAuth } from '../Context/AuthContext';
 import { getMultitHiStr } from '../services/hindiStratigys';
 import { getMultitStr } from '../services/stratigyes';
-import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import { delUserSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
@@ -135,7 +135,7 @@ const SaveStratigy = () => {
       })
   }
   const handleApiUnSaves = (id) => {
-    delSaves(id)
+    delUserSaves(id)
       .then(res => {
         getSaves()
           .then(res => {
