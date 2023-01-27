@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="35955249464-jdrpq4e1o11i7dohrns44m27uqnh6q5s.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="750670617713-ui98njvoppd8evq323752skbaok6lr10.apps.googleusercontent.com">
 
       <AuthProvider>
         <BrowserRouter>

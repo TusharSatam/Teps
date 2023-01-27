@@ -167,22 +167,26 @@ const DashHome = () => {
   const authenticate = () => {
     return gapi.auth2.getAuthInstance()
       .signIn({ scope: "https://www.googleapis.com/auth/analytics https://www.googleapis.com/auth/analytics.readonly" })
-      .then(function () { console.log("Sign-in successful"); },
+      .then(function () {
+        loadClient()
+        console.log("Sign-in successful");
+      },
         function (err) { console.error("Error signing in", err); });
   }
   function loadClient() {
-    gapi.client.setApiKey("AIzaSyDSKxk75p9eKHSbW9FOLk2PgXw3aDuXTtc");
+    gapi.client.setApiKey("AIzaSyBuWz5biNvtQfMCzysItTKxIxHwGJtAUWs");
     return gapi.client.load("https://analyticsdata.googleapis.com/$discovery/rest?version=v1beta")
       .then(function () {
         console.log("GAPI client loaded for API");
-        //execute()
+        execute()
       },
         function (err) { console.error("Error loading GAPI client for API", err); });
   }
+  const [dataLoading, setDataLoading] = useState(false);
   const execute = () => {
-    console.log('k', gapi.client.analyticsdata)
+    setDataLoading(true)
     return gapi.client.analyticsdata.properties.runRealtimeReport({
-      "property": "properties/346131718",
+      "property": "properties/351098594",
       "resource": {
         "dimensions": [
           {
@@ -211,7 +215,7 @@ const DashHome = () => {
     })
       .then(function (response) {
         // Handle the results here (response.result has the parsed body).
-        console.log("Response1", response);
+        setDataLoading(false);
         setData(response.result)
       },
         function (err) { console.error("Execute error", err); });
@@ -221,7 +225,7 @@ const DashHome = () => {
     const startDate = "7daysAgo";
     const endDate = "today";
     return gapi.client.analyticsdata.properties.runReport({
-      "property": "properties/346131718",
+      "property": "properties/351098594",
       "dateRanges": [{ startDate, endDate }],
       "metrics": [
         {
@@ -239,7 +243,7 @@ const DashHome = () => {
   }
 
   gapi.load("client:auth2", function () {
-    gapi.auth2.init({ client_id: "35955249464-jdrpq4e1o11i7dohrns44m27uqnh6q5s.apps.googleusercontent.com" });
+    gapi.auth2.init({ client_id: "750670617713-ui98njvoppd8evq323752skbaok6lr10.apps.googleusercontent.com" });
   });
 
   const topLikestratigy = totalLikes?.map(res => res.strategie_id)
@@ -541,10 +545,18 @@ const DashHome = () => {
             </div>
         }
 
-        <div className="col-md-3 mt-4">
-          <button className='btn btn-primary w-100' onClick={() => authenticate().then(loadClient().then(execute()))}>Get Total Unique Login</button>
-          {/* <button className='btn btn-primary mt-3 w-100' onClick={() => execute()}>Get GA Data</button> */}
-        </div>
+        {
+          dataLoading ? <div className="col-md-3">
+            <div className="card-counter info d-flex justify-content-center align-items-center">
+              <span className="count-numbers "> <Spinner className="text-light" animation="border" /></span>
+            </div>
+          </div> :
+            !data?.rows[0].metricValues[1].value &&
+            <div className="col-md-3 mt-4">
+              <button className='btn btn-primary w-100' onClick={() => authenticate()}>Get Total Unique Login</button>
+              {/* <button className='btn btn-primary mt-3 w-100' onClick={() => execute()}>Get GA Data</button> */}
+            </div>
+        }
         <div className="col-md-3 mt-4">
           <Link to="/browsers-devices"><button className='btn btn-primary w-100'>See Device and Browser</button></Link>
         </div>
