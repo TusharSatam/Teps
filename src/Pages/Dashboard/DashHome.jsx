@@ -185,7 +185,7 @@ const DashHome = () => {
   const [dataLoading, setDataLoading] = useState(false);
   const execute = () => {
     setDataLoading(true)
-    return gapi.client.analyticsdata.properties.runRealtimeReport({
+    return gapi?.client?.analyticsdata?.properties?.runRealtimeReport({
       "property": "properties/351098594",
       "resource": {
         "dimensions": [
