@@ -60,6 +60,7 @@ const DashboardUsers = () => {
         keyboard={false}
         user={singleUser}
         setShow={setShow}
+        setUsers={setUsers}
       />
       <div className="container">
         <div className="d-flex justify-content-between">

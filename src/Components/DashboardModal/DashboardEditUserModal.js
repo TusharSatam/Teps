@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
-import { updateUser } from '../../services/dashboardUsers';
+import { getUsers, updateUser } from '../../services/dashboardUsers';
 
-const DashboardEditUserModal = ({ show, onHide, user, setShow }) => {
+const DashboardEditUserModal = ({ show, onHide, user, setShow, setUsers }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -16,7 +16,11 @@ const DashboardEditUserModal = ({ show, onHide, user, setShow }) => {
     updateUser(user._id, formData)
       .then(res => {
         setShow(false)
-        toast.success('User Update successfull!')
+        getUsers()
+          .then(res => {
+            setUsers(res.data);
+            toast.success('User Update successfull!')
+          })
       })
   }
   return (
