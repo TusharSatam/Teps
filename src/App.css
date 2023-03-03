@@ -4,11 +4,6 @@
   margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 ::-webkit-scrollbar-track {
   background-color: #ffffff;
   opacity: 0.75;
@@ -26,12 +21,6 @@
   width: 10px;
   height: 10px;
   opacity: 0.75;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
