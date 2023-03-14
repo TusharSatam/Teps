@@ -26,7 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 root.render(
   <>
-    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+    <GoogleOAuthProvider
+      clientId={
+        "750670617713-ui98njvoppd8evq323752skbaok6lr10.apps.googleusercontent.com"
+      }
+    >
       <AuthProvider>
         <BrowserRouter>
           <App />
