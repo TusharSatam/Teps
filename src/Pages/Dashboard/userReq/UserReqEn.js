@@ -160,8 +160,8 @@ const UserReqEn = () => {
                                   {item?._id === indi1 ? teaching['Teaching Strategy'] : item['Teaching Strategy']?.slice(0, 20)}
                                   {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
                                 </td> */}
-                          <td>{item['Learning Outcome'].slice(0, 20)}</td>
-                          <td>{item['Teaching Strategy'].slice(0, 20)}</td>
+                          <td>{item['Learning Outcome']?.slice(0, 20)}</td>
+                          <td>{item['Teaching Strategy']?.slice(0, 20)}</td>
                           <td> <button onClick={() => handleEdit(item._id)} className='btn p-0'><FaRegEdit /></button></td>
                         </tr>
                       </tbody>
