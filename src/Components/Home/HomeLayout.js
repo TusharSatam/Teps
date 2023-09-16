@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAllStratigys } from '../../services/stratigyes';
@@ -25,19 +25,22 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [error4, setError4] = React.useState(false)
   const [error5, setError5] = React.useState(false)
   const [error6, setError6] = React.useState(false)
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData, setStratigyFilUserData, user } = useAuth();
+  const { setStratigyFilData, setStratigyFilUserData, user} = useAuth();
   React.useEffect(() => {
     getAllStratigys()
       .then(res => {
         setAllStratigys(res.data);
+        setLoading(false); // Data has been fetched, set loading to false
       })
     getUserStratigys()
       .then(res => {
         setAllUserStratigys(res.data?.filter(res => res.Approve === true))
+        setLoading(false); // Data has been fetched, set loading to false
       })
-    const selectedDropdown = localStorage.getItem('selectedDropdown');
+    const selectedDropdown = localStorage.getItem('selectedDropdown'); 
     if (selectedDropdown) {
       setSelectedOption(JSON.parse(selectedDropdown))
     }
@@ -55,9 +58,10 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     }
   }, [selectedOption, location.pathname])
   const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
-    .map(subject => {
-      return allStratigys.find(a => a.Subject === subject)
-    })
+  .map(subject => {
+    return allStratigys.find(a => a.Subject === subject)
+  })
+  console.log(uniqueSubject);
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
     .map(grade => {
       return allStratigys.find(a => a.Grade === grade)
@@ -224,6 +228,8 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   }
 
   return (
+
+    !loading && uniqueSubject.length?(
     <>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
@@ -455,6 +461,10 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
             </div>
       }
     </>
+
+
+    ) 
+    :(<div className="loading-spinner" ></div>)   
   );
 };
 

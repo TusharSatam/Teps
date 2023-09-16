@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import HeroSection from '../Components/Home/HeroSection';
-import HomeHindiLayout from '../Components/Home/HomeHindiLayout';
-import HomeLayout from '../Components/Home/HomeLayout';
-import Article from '../Components/LandingArticle/Article';
 import { useAuth } from '../Context/AuthContext';
+
+const HomeHindiLayout = lazy(() => import('../Components/Home/HomeHindiLayout'));
+const HomeLayout = lazy(() => import('../Components/Home/HomeLayout'));
+const Article = lazy(() => import('../Components/LandingArticle/Article'));
+
 const Home = () => {
     const { selectLang } = useAuth();
+
     return (
         <>
             <HeroSection />
-            {
-                selectLang === 'hindi' ?
-                    <HomeHindiLayout /> :
-                    <HomeLayout />
-            }
-            <Article />
-
+            <Suspense fallback={<div>Loading...</div>}>
+                {selectLang === 'hindi' ? <HomeHindiLayout /> : <HomeLayout />}
+                <Article />
+            </Suspense>
         </>
     );
 };

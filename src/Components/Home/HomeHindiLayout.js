@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
@@ -21,14 +21,21 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const [error2, setError2] = React.useState(false)
   const [error3, setError3] = React.useState(false)
   const [error4, setError4] = React.useState(false)
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const { setStratigyFilData, user } = useAuth();
   React.useEffect(() => {
-    getAllHindiStratigys()
-      .then(res => {
+      // Fetch data from the API and set loading to false when done
+      getAllHindiStratigys()
+      .then((res) => {
         setAllStratigys(res.data);
+        setLoading(false); // Data has been fetched, set loading to false
       })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false); // Even if there's an error, set loading to false
+      });
     const selectedDropdown = localStorage.getItem('selectedHiDropdown');
     if (selectedDropdown) {
       setSelectedOption(JSON.parse(selectedDropdown))
@@ -191,144 +198,183 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }
 
   return (
-    <>
-      <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
-        <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-          <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+    !loading?  (
+      <>
+        <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
+          <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+            <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Subject')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
-                </> :
-                <option value="" selected disabled>{t('Subject')}</option>
-
-            }
-            {
-              uniqueSubject?.map((item, index) => (
-                <option key={index} >{item.विषय}</option>
-              ))
-            }
-          </select>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+              }
+              {
+                uniqueSubject?.map((item, index) => (
+                  <option key={index} >{item.विषय}</option>
+                ))
+              }
+            </select>
+            <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Subject')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
-                </> :
-                <option value="" selected disabled>{t('Subject')}</option>
-
-            }
-            {
-              uniqueSubject?.map((item, index) => (
-                <option key={index} >{item.विषय}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+  
+              }
+              {
+                uniqueSubject?.map((item, index) => (
+                  <option key={index} >{item.विषय}</option>
+                ))
+              }
+            </select>
+            <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Grade')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            }
-            {
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+  
+              }
+              {
+                uniqueGrade?.map((item, index) => (
+                  <option key={index} >{item.श्रेणी}</option>
+                ))
+              }
+            </select>
+            <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Grade')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            }
-            {
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
-          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+  
+              }
+              {
+                uniqueGrade?.map((item, index) => (
+                  <option key={index} >{item.श्रेणी}</option>
+                ))
+              }
+            </select>
+            <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Skill')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Skill')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
-                </> :
-                <option value="" selected disabled>{t('Skill')}</option>
-
-            }
-            {
-              uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.कौशल}</option>
-              ))
-            }
-          </select>
-          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+  
+              }
+              {
+                uniqueSkill?.map((item, index) => (
+                  <option key={index} >{item.कौशल}</option>
+                ))
+              }
+            </select>
+            <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Topic')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
-                </> :
-                <option value="" selected disabled>{t('Topic')}</option>
-
-            }
-            {
-              uniqueTopic?.map((item, index) => (
-                <option key={index} >{item.शीर्षक}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div className='mb-3'>
-          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Skill')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
-                </> :
-                <>
-                  <option value="" selected disabled>{t('Skill')}</option>
-                </>
-            }
-            {
-              uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.कौशल}</option>
-              ))
-            }
-          </select>
-          <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100 mt-3' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100 mt-3'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
+  
+              }
+              {
+                uniqueTopic?.map((item, index) => (
+                  <option key={index} >{item.शीर्षक}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div className='mb-3'>
+            <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2 w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Skill')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  </> :
+                  <>
+                    <option value="" selected disabled>{t('Skill')}</option>
+                  </>
+              }
+              {
+                uniqueSkill?.map((item, index) => (
+                  <option key={index} >{item.कौशल}</option>
+                ))
+              }
+            </select>
+            <select value={selectTopic} onChange={handleTopicFilter} defaultValue={selectedOption?.selectTopic} className={error2 ? 'd-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100 mt-3' : 'd-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 w-100 mt-3'} style={{ paddingLeft: "2px", paddingRight: "5px" }} name="" id="">
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Topic')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
+                  </> :
                   <option value="" selected disabled>{t('Topic')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectTopic && <option value="" selected disabled>{selectedOption?.selectTopic}</option>}
-                </> :
-                <option value="" selected disabled>{t('Topic')}</option>
-
-            }
-            {
-              uniqueTopic?.map((item, index) => (
-                <option key={index} >{item.शीर्षक}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div className='d-block justify-content-center align-items-center d-md-none'>
-          <div>
-            <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
+  
+              }
+              {
+                uniqueTopic?.map((item, index) => (
+                  <option key={index} >{item.शीर्षक}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div className='d-block justify-content-center align-items-center d-md-none'>
+            <div>
+              <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
+                {
+                  selectedOption && location.pathname !== '/home' ?
+                    <>
+                      <option value="" selected disabled>{t('Sub - topic')}</option>
+                      {localStorage.getItem('selectedHiDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
+                    </> :
+                    <>
+                      <option value="" selected disabled>{t('Sub - topic')}</option>
+                    </>
+                }
+                {
+                  uniqueSubTopic?.map((item, index) => (
+                    <option key={index} >{item['उप शीर्षक']}</option>
+                  ))
+                }
+              </select>
+            </div>
+            <div className='mt-3'>
+              <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
+                {
+                  selectedOption && location.pathname !== '/home' ?
+                    <>
+                      <option value="" selected disabled>{t('Sub sub - topic')}</option>
+                      {localStorage.getItem('selectedHiDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
+                    </> :
+                    <>
+                      <option value="" selected disabled>{t('Sub sub - topic')}</option>
+                    </>
+                }
+                {
+                  uniqueSubSubTopic?.map((item, index) => (
+                    <option key={index} >{item['उप-उप शीर्षक']}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+          <div className='d-none d-md-block'>
+            <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -345,9 +391,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
                 ))
               }
             </select>
-          </div>
-          <div className='mt-3'>
-            <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border w-100'} name="" id="">
+            <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -366,59 +410,24 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
             </select>
           </div>
         </div>
-        <div className='d-none d-md-block'>
-          <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Sub - topic')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
-                </> :
-                <>
-                  <option value="" selected disabled>{t('Sub - topic')}</option>
-                </>
-            }
-            {
-              uniqueSubTopic?.map((item, index) => (
-                <option key={index} >{item['उप शीर्षक']}</option>
-              ))
-            }
-          </select>
-          <select value={selectSubSubTopic} onChange={handleSubSUbTopicFilter} defaultValue={selectedOption?.selectSubSubTopic} className={error4 ? 'px-1 px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                  {localStorage.getItem('selectedHiDropdown') && !selectSubSubTopic && <option value="" selected disabled>{selectedOption?.selectSubSubTopic}</option>}
-                </> :
-                <>
-                  <option value="" selected disabled>{t('Sub sub - topic')}</option>
-                </>
-            }
-            {
-              uniqueSubSubTopic?.map((item, index) => (
-                <option key={index} >{item['उप-उप शीर्षक']}</option>
-              ))
-            }
-          </select>
+        <div>
+          {
+            error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+          }
         </div>
-      </div>
-      <div>
         {
-          error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+          location.pathname === '/home' ?
+            <div className='d-flex justify-content-center my-5'>
+              <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
+            </div>
+            :
+            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
+              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            </div>
         }
-      </div>
-      {
-        location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-5'>
-            <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
-          </div>
-          :
-          <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-            <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-          </div>
-      }
-    </>
+      </>
+    ) 
+    :(<div className="loading-spinner" ></div>)   
   );
 };
 
