@@ -22,6 +22,7 @@ import { delUserSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
+import FilterStrHi from '../Components/Home/FilterStrHI';
 
 const SaveStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -35,6 +36,7 @@ const SaveStratigy = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false)
   const language = localStorage.getItem("i18nextLng")
+  console.log(stratigyFilData);
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi")
@@ -194,6 +196,7 @@ const SaveStratigy = () => {
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
                   stratigy={saveStratigy}
+                  language={languageSelect}
                 />
               </div>
             </div>
@@ -664,14 +667,15 @@ const SaveStratigy = () => {
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
-                <div onClick={handleFilter} className="button" style={{ borderRadius: "27px", width: "90px", cursor: "pointer" }}>
-                  <span style={{ color: "#1AA05B" }}>{t("Filter")}</span>
-                  <img src={Filter} alt="" />
+                <div onClick={handleFilter} className="col-md-1 d-flex justify-content-center  align-items-center filter_bTn">
+                  <span>{t("Filter")}</span>
+                  {/* <img src={Filter} className="filtericon3" alt="" /> */}
                 </div>
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
-                  stratigy={saveStratigy}
+                  stratigy={saveStratigyHi}
+                  language={languageSelect}
                 />
               </div>
             </div>

@@ -25,6 +25,7 @@ import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import { OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import UserImage from '../asstes/Group 51.svg'
 import { Buffer } from 'buffer';
+import FilterStrHI from '../Components/Home/FilterStrHI';
 
 const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth()
@@ -704,7 +705,7 @@ const FavouriteStr = () => {
               </div>
               <div className={filetr ? 'd-block' : 'd-none'}>
                 <FilterStr
-                  stratigy={favStratigy}
+                  stratigy={favStratigyHi}
                 />
               </div>
             </div>
