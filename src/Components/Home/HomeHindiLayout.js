@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
@@ -24,23 +24,18 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData, user } = useAuth();
+  const { setStratigyFilData, user,allHindiStrategies,
+    loadingdropdown } = useAuth();
   React.useEffect(() => {
-      // Fetch data from the API and set loading to false when done
-      getAllHindiStratigys()
-      .then((res) => {
-        setAllStratigys(res.data);
-        setLoading(false); // Data has been fetched, set loading to false
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-        setLoading(false); // Even if there's an error, set loading to false
-      });
     const selectedDropdown = localStorage.getItem('selectedHiDropdown');
     if (selectedDropdown) {
       setSelectedOption(JSON.parse(selectedDropdown))
     }
   }, [])
+  useEffect(() => {
+    setAllStratigys(allHindiStrategies)
+  }, [allHindiStrategies])
+  
   React.useEffect(() => {
     if (location.pathname !== '/home') {
       if (selectedOption) {
@@ -198,11 +193,11 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }
 
   return (
-    !loading?  (
+    !loadingdropdown?  (
       <>
         <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
           <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-            <select onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
+            <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>

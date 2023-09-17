@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getAllStratigys } from '../../services/stratigyes';
@@ -28,23 +28,22 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { setStratigyFilData, setStratigyFilUserData, user} = useAuth();
-  React.useEffect(() => {
-    getAllStratigys()
-      .then(res => {
-        setAllStratigys(res.data);
-        setLoading(false); // Data has been fetched, set loading to false
-      })
-    getUserStratigys()
-      .then(res => {
-        setAllUserStratigys(res.data?.filter(res => res.Approve === true))
-        setLoading(false); // Data has been fetched, set loading to false
-      })
-    const selectedDropdown = localStorage.getItem('selectedDropdown'); 
+  const { setStratigyFilData, setStratigyFilUserData, user, allStrategies,
+    allUserStrategies,
+    loadingdropdown} = useAuth();
+    useEffect(() => {
+      const selectedDropdown = localStorage.getItem('selectedDropdown'); 
     if (selectedDropdown) {
       setSelectedOption(JSON.parse(selectedDropdown))
     }
-  }, [])
+    }, [])
+    
+  React.useEffect(() => {
+    setAllStratigys(allStrategies)
+    setAllUserStratigys(allUserStrategies)
+    console.log(allStrategies,allUserStrategies,loadingdropdown);
+
+  }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {
     if (location.pathname !== '/home') {
       if (selectedOption) {
@@ -61,7 +60,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   .map(subject => {
     return allStratigys.find(a => a.Subject === subject)
   })
-  console.log(uniqueSubject);
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
     .map(grade => {
       return allStratigys.find(a => a.Grade === grade)
@@ -229,73 +227,74 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
 
   return (
 
-    !loading && uniqueSubject.length?(
+    !loadingdropdown && uniqueSubject.length?(
     <>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Subject')}</option>
-                </> :
-                <option value="" selected disabled>{t('Subject')}</option>
+        <select
+          value={selectSubject}
+          onChange={handlesubFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectSubject) ? "" : selectedOption.selectSubject}
+          className={error5 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Subject')}</option>
+          {uniqueSubject?.map((item, index) => (
+            <option key={index}>{item.Subject}</option>
+          ))}
+        </select>
+        <select
+          value={selectSubject}
+          onChange={handlesubFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectSubject) ? "" : selectedOption.selectSubject}
+          className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Subject')}</option>
+          {localStorage.getItem('selectedDropdown') && !selectSubject && (
+            <option value="" selected disabled>{selectedOption?.selectSubject}</option>
+          )}
+          {uniqueSubject?.map((item, index) => (
+            <option key={index}>{item.Subject}</option>
+          ))}
+        </select>
 
-            }
-            {
-              uniqueSubject?.map((item, index) => (
-                <option key={index} >{item.Subject}</option>
-              ))
-            }
-          </select>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Subject')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
-                </> :
-                <option value="" selected disabled>{t('Subject')}</option>
+        <select
+          value={selectGrade}
+          onChange={handlegradeFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
+          className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Grade')}</option>
+          {localStorage.getItem('selectedDropdown') && !selectGrade && (
+            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+          )}
+          {uniqueGrade?.map((item, index) => (
+            <option key={index}>{item.Grade}</option>
+          ))}
+        </select>
 
-            }
-            {
-              uniqueSubject?.map((item, index) => (
-                <option key={index} >{item.Subject}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
+        <select
+          value={selectGrade}
+          onChange={handlegradeFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
+          className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Grade')}</option>
+          {localStorage.getItem('selectedDropdown') && !selectGrade && (
+            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+          )}
+          {uniqueGrade?.map((item, index) => (
+            <option key={index}>{item.Grade}</option>
+          ))}
+        </select>
 
-            }
-            {
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            }
-            {
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
-              ))
-            }
-          </select>
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
