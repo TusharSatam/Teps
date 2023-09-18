@@ -38,7 +38,8 @@
   "Welcome": "Welcome",
   "Subject": "Subject",
   "Grade": "Grade",
-  "Skill": "Skill",
+  "Skill": "Super Topic",
+  "Pedagogical Approach":" Pedagogical Approach",
   "Topic": "Topic",
   "Sub - topic": "Sub - topic",
   "Sub sub - topic": "Sub sub - topic",
@@ -87,5 +88,7 @@
   "Add a comment": "Add a comment",
   "View comments": "View comments",
   "Hide comments": "Hide comments",
-  "Developmental Domains": "Developmental Domains"
+  "Developmental Domains": "Developmental Domains",
+  "Back":"Back"
+
 }

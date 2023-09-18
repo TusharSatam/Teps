@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -22,6 +22,8 @@ import moment from 'moment';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import LikeByModal from '../Components/Modal/LikeByModal';
+import LeftArrow from '../asstes/left-arrow.svg'
+
 const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
   const [str, setStr] = React.useState([])
@@ -236,6 +238,11 @@ const SingleHindiStr = () => {
     }
   }
   const [show, setShow] = useState(false)
+let temp=str["शिक्षण रणनीति"]?.split(/\d+\./).filter(segment => segment.trim() !== '') // Remove empty segments
+.map((segment, index) => {
+  return index === 0 ? `${segment.trim()}` : `${index}. ${segment.trim()}`;
+}).join('\n')
+  console.log("temp",temp)
   return (
     <div>
       <LikeByModal
@@ -246,8 +253,9 @@ const SingleHindiStr = () => {
       {/* <div className='saveStrParent' >
         <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
       </div> */}
-      <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+      <div className='saveStrParent2'>
+        <Link to="/search" className='GoBack'><img src={LeftArrow}/>{t('Back')}</Link>
+        <div  className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक} &gt; {str[`उप शीर्षक`]} &gt; {str['उप-उप शीर्षक']}</p>
@@ -263,52 +271,15 @@ const SingleHindiStr = () => {
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                   </div>
                 </div>
-                <div className='d-block d-md-none mt-1'>
-                  <div className='icon_heading_text p-1'>Development Domains</div>
-                  <div className=' mt-1'>
-                    <div className='res_btn_icon'>
-                      <div className='d-flex flex-column res_inner_div p-1 '>
-                        {
-                          !str['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                            str['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="संज्ञानात्मक संवेदी" width="20px" height="20px" src={KnowledgeIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>संज्ञानात्मक संवेदी</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="मोटर-भौतिक" width="20px" height="20px" src={Physical} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>मोटर-भौतिक</p>
-                              </div>
-                        }
-                        {
-                          !str['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                            str['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='सामाजिक-भावनात्मक-नैतिक' width="20px" height="20px" src={Social} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>सामाजिक-भावनात्मक-नैतिक</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='भाषा और संचार' width="20px" height="20px" src={ChatIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>भाषा और संचार</p>
-                              </div>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
               </div>
-              <div className='col-9 ms-4 col-md-7 '>
+              <div className='col-9 ms-4 col-md-11 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["शिक्षण के परिणाम"]}</p>
-                <p className='savestr_body'>
-                  {str["शिक्षण रणनीति"]}
+                <p className='savestr_body disableCopy'>          
+                  {str["शिक्षण रणनीति"]?.split(/\d+\./).filter(segment => segment.trim() !== '') // Remove empty segments
+                    ?.map((segment, index) => {
+                      return index === 0 ? `${segment.trim()}` : `${index}. ${segment.trim()}`;
+                    })?.join('\n')}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
@@ -334,45 +305,7 @@ const SingleHindiStr = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-md-3 d-none d-md-block dev_dom_bg'>
-                <div className='d-flex flex-column align-items-center justify-content-center'>
-                  <div className='mt-3'>
-                    <span className='Dev_dom'>{t("Developmental Domains")}</span>
-                  </div>
-                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                    <div className='p-3 m-2 icon_bg'>
-                      <div>
-                        {
-                          !str['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" />
-                                <p className='dev_dpm_text'>Cognitive Sensory</p>
-                              </div> :
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                <p className='dev_dpm_text'>Motor-Physical</p>
-                              </div>
-                        }
-                      </div>
-                      <div>
-                        {
-                          !str['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <div className='d-flex'>
-                                <img title='Socio-Emotional-Ethical' className='threeIcons' src={Social} alt="" />
-                                <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
-                              </div> :
-                              <div className='d-flex'>
-                                <img title='Language & Communication' className='threeIcons' src={ChatIcon} alt="" />
-                                <p className='dev_dpm_text'>Language and Communication</p>
-                              </div>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+           
             </div>
             <div className='comment_div d-none d-md-block'>
               <p className='comment_div_p'>{t("Comments")}</p>

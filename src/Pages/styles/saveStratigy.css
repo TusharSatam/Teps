@@ -293,6 +293,31 @@
 .filter_btn_container {
   right: 35px;
 }
+.disableCopy{
+  user-select: none;
+}
+.saveStrParent2{
+  background: #1aa05b;
+  overflow: hidden;
+  padding: 0.313rem;
+  color: #FFF;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.GoBack{
+  position: absolute;
+  left:10px;
+ display: flex;
+ gap: 12px;
+ color: #FFF;
+ text-decoration: none;
+}
+.GoBack a:hover{
+  color: #FFF;
+}
+
 @media only screen and (max-width: 888px) {
   .Dev_dom {
     font-family: "Inter";

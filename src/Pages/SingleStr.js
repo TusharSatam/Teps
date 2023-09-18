@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ChatIcon from '../asstes/icons/chat.svg';
 import DownArrow from '../asstes/icons/DownArrow.svg';
 import KnowledgeIcon from '../asstes/icons/knowledge.svg';
@@ -22,6 +22,8 @@ import { getMultitUser } from '../services/dashboardUsers';
 import { postcomment, singleStratigys } from '../services/stratigyes';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import LeftArrow from '../asstes/left-arrow.svg'
+
 import './styles/saveStratigy.css';
 const SingleStr = () => {
   const { user } = useAuth()
@@ -182,8 +184,9 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+      <div className='saveStrParent2'>
+      <Link to="/search" className='GoBack'><img src={LeftArrow}/>{t("Back")}</Link>
+        <div  className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
@@ -200,41 +203,24 @@ const SingleStr = () => {
                   </div>
                 </div>
 
-                {/* ============== FOR SMALL SCREEN ======== */}
-                <div className='d-flex d-md-none mt-1 flex-column justify-content-center align-item-center'>
-                  <div className='icon_heading_text p-1'>Development Domains</div>
-                  <div className='mt-1 d-flex justify-content-center align-items-center'>
-                    <div className='res_btn_icon-sm'>
-                      <div className='d-flex flex-column res_inner_div p-1 '>
-                        {
-                          !str['Dev Dom 1'] ?
-                            <div className='threeIcons'></div>
-                            :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <DevelopmentalDomainIconSM text={'Cognitive Sensory'} icon={KnowledgeIcon} />
-                              :
-                              <DevelopmentalDomainIconSM text={'Motor-Physical'} icon={Physical} />
-                        }
-
-                        {
-                          !str['Dev Dom 2'] ?
-                            <div className='threeIcons'></div>
-                            :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <DevelopmentalDomainIconSM text={'Socio-Emotional-Ethical'} icon={Social} />
-                              :
-                              <DevelopmentalDomainIconSM text={'Language & Communication'} icon={ChatIcon} />
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
               </div>
 
-              <div className='col-9 ms-2 ms-md-4 col-md-7 '>
+              <div className='col-9 ms-2 ms-md-4 col-md-11 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
-                <p className='savestr_body me-2 me-md-2'>
-                  {str["Teaching Strategy"]}
+                <p className='savestr_body me-2 me-md-2 disableCopy'>
+                {str["Teaching Strategy"]?.split(/\n/g)
+                  .map((step, index) => (
+                    <div key={index}>
+                      {step.match(/^\d+\.\s/) ? (
+                      <div> {step}</div>
+                      ) : (
+                        <div>
+                          {step}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center mt-2'>
@@ -276,36 +262,7 @@ const SingleStr = () => {
               </div>
 
 
-              {/* ===================== FOR LARGE SCREEN ========================== */}
-              <div className='col-md-3 d-none d-md-block dev_dom_bg'>
-                <div className='d-flex flex-column align-items-center justify-content-center'>
-                  <div className='mt-3'>
-                    <span className='Dev_dom'>{t("Developmental Domains")}</span>
-                  </div>
-                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                    <div className='p-3 m-1 mt-3 icon_bg'>
-                      <div>
-                        {
-                          !str['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <DevelopmentalDomainIconXL text={'Cognitive Sensory'} icon={KnowledgeIcon} />
-                              :
-                              <DevelopmentalDomainIconXL text={'Motor-Physical'} icon={Physical} />
-                        }
-                      </div>
-                      <div>
-                        {
-                          !str['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <DevelopmentalDomainIconXL text={'Socio-Emotional-Ethical'} icon={Social} />
-                              :
-                              <DevelopmentalDomainIconXL text={'Language & Communication'} icon={ChatIcon} />
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      
             </div>
 
 
