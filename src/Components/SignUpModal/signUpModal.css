@@ -9,15 +9,17 @@
   }
   
   .modal_full {
-    width: 100% !important;
     margin-top: 0;
     margin-bottom: 0;
+    max-width:unset !important;
+    min-width:unset !important;
+    width: 100% !important;
   }
-  .modal_full{
-      .modal-dialog {
-          max-width: fit-content;
-        }
-  }
+  /* .modal_full{
+  } */
+  .modal_full > div{
+      max-width: fit-content !important;
+    }
   .modal_full::-webkit-scrollbar {
     display: none;
   }
