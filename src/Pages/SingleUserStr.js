@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -25,6 +25,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import moment from 'moment';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import LeftArrow from '../asstes/left-arrow.svg'
 
 const SingleUserStr = () => {
   const { user } = useAuth()
@@ -34,14 +35,22 @@ const SingleUserStr = () => {
   const { t } = useTranslation();
   const [comment, setComment] = React.useState([])
   const [totalLikeUser, setTotalLikeUser] = React.useState([])
+  const [uploader, setuploader] =  React.useState('')
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
+        console.log("startegy scrren ", res.data[0]);
+        // setuploadByUserID(res.data[0].User_id)
         setStr(res.data[0]);
         setComment(res.data[1]?.comments)
+        getSingleUser(res.data[0].User_id)
+        .then(res=>{
+          console.log("uploader",res);
+          setuploader(res.data[0])
+        })
       })
   }, [])
-
+console.log(uploader);
   const handleSeeComment = () => {
     if (seeComment) {
       setSeecomment(false)
@@ -87,7 +96,7 @@ const SingleUserStr = () => {
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      {user.firstName}
+      {uploader.firstName}
     </Tooltip>
   );
   const [userLikes, setUserLikes] = useState([]);
@@ -202,6 +211,7 @@ const SingleUserStr = () => {
         totalReact={totalLikeUser}
       />
       <div className='saveStrParent2'>
+      <Link to="/search" className='GoBack'><img src={LeftArrow}/>{t('Back')}</Link>
         <div className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
       <div className='mx-3 mx-md-5'>
@@ -219,13 +229,13 @@ const SingleUserStr = () => {
                   <div>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                     <p className='user_str d-none d-md-block'>Uploaded By - {
-                      user.image ?
+                      uploader?.image ?
                         <OverlayTrigger
                           placement="right"
                           delay={{ show: 250, hide: 400 }}
                           overlay={renderTooltip}
                         >
-                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                          <img className='label user_image' src={`data:${uploader?.image?.contentType};base64,${Buffer.from(uploader?.image?.data?.data).toString('base64')}`} alt="" />
                         </OverlayTrigger>
                         :
                         <OverlayTrigger
@@ -240,52 +250,16 @@ const SingleUserStr = () => {
                   </div>
                 </div>
                 <div className='d-block d-md-none mt-1'>
-                  <div className='icon_heading_text p-1'>Development Domains</div>
                   <div className=' mt-1'>
-                    <div className='res_btn_icon_user'>
-                      <div className='d-flex flex-column res_inner_div p-1 '>
-                        {
-                          !str['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="Cognitive Sensory" width="20px" height="20px" src={KnowledgeIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>Cognitive Sensory</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="Motor-Physical" width="20px" height="20px" src={Physical} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>Motor-Physical</p>
-                              </div>
-                        }
-                        {
-                          !str['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='Socio-Emotional-Ethical' width="20px" height="20px" src={Social} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='Language & Communication' width="20px" height="20px" src={ChatIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>Language & Communication</p>
-                              </div>
-                        }
-                      </div>
-                    </div>
+           
                     <p className='user_str d-block d-md-none mt-3'>Uploaded By - {
-                      user.image ?
+                      uploader?.image ?
                         <OverlayTrigger
                           placement="right"
                           delay={{ show: 250, hide: 400 }}
                           overlay={renderTooltip}
                         >
-                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                          <img className='label user_image' src={`data:${uploader?.image?.contentType};base64,${Buffer.from(uploader?.image?.data?.data).toString('base64')}`} alt="" />
                         </OverlayTrigger>
                         :
                         <OverlayTrigger
@@ -300,7 +274,7 @@ const SingleUserStr = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-8 ms-3 ms-md-4 col-md-7 '>
+              <div className='col-8 ms-3 ms-md-4 col-md-11 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
                 <p className='savestr_body'>
                   {str["Teaching Strategy"]}
@@ -329,45 +303,7 @@ const SingleUserStr = () => {
                   </div>
                 </div>
               </div>
-              <div className='col-md-3 d-none d-md-block dev_dom_bg'>
-                <div className='d-flex flex-column align-items-center justify-content-center'>
-                  <div className='mt-3'>
-                    <span className='Dev_dom'>{t("Developmental Domains")}</span>
-                  </div>
-                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                    <div className='p-3 m-2 icon_bg'>
-                      <div>
-                        {
-                          !str['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" />
-                                <p className='dev_dpm_text'>Cognitive Sensory</p>
-                              </div> :
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                <p className='dev_dpm_text'>Motor-Physical</p>
-                              </div>
-                        }
-                      </div>
-                      <div>
-                        {
-                          !str['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <div className='d-flex'>
-                                <img title='Socio-Emotional-Ethical' className='threeIcons' src={Social} alt="" />
-                                <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
-                              </div> :
-                              <div className='d-flex'>
-                                <img title='Language & Communication' className='threeIcons' src={ChatIcon} alt="" />
-                                <p className='dev_dpm_text'>Language and Communication</p>
-                              </div>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+           
             </div>
             <div className='comment_div d-none d-md-block'>
               <p className='comment_div_p'>{t("Comments")}</p>

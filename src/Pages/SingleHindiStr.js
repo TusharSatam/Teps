@@ -238,11 +238,7 @@ const SingleHindiStr = () => {
     }
   }
   const [show, setShow] = useState(false)
-let temp=str["शिक्षण रणनीति"]?.split(/\d+\./).filter(segment => segment.trim() !== '') // Remove empty segments
-.map((segment, index) => {
-  return index === 0 ? `${segment.trim()}` : `${index}. ${segment.trim()}`;
-}).join('\n')
-  console.log("temp",temp)
+
   return (
     <div>
       <LikeByModal
@@ -276,10 +272,9 @@ let temp=str["शिक्षण रणनीति"]?.split(/\d+\./).filter(seg
               <div className='col-9 ms-4 col-md-11 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["शिक्षण के परिणाम"]}</p>
                 <p className='savestr_body disableCopy'>          
-                  {str["शिक्षण रणनीति"]?.split(/\d+\./).filter(segment => segment.trim() !== '') // Remove empty segments
-                    ?.map((segment, index) => {
-                      return index === 0 ? `${segment.trim()}` : `${index}. ${segment.trim()}`;
-                    })?.join('\n')}
+                    {str["शिक्षण रणनीति"]?.split(/[:।]\s+/).flatMap((sentence) => (
+                      <p>{sentence}।</p>
+                    ))}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>

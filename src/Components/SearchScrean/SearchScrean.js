@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -24,15 +24,23 @@ import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
 import HomeLayout from '../Home/HomeLayout';
 import './searchscrean.css';
+import { singleUserEnStratigys } from '../../services/userStratigy';
+import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
   const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
+  const [uploadeduserIDs, setuploadeduserIDs] = useState([])
+  const [userDetails, setUserDetails] = useState([]);
+
+  // const [uploader, setuploader] =  React.useState('')
+
   // const [react, setReact] = React.useState(user ? user?.saveId : []);
   // const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
+
 
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
@@ -244,6 +252,24 @@ const SearchScrean = () => {
           })
       })
   }
+
+  useEffect(() => {
+   const userIDs = stratigyFilUserData?.map(item => item.User_id);
+
+    const fetchUserDataForAll = async () => {
+      try {
+        const userPromises = userIDs?.map(User_id => getSingleUser(User_id));
+        const userData = await Promise.all(userPromises);
+        console.log("userData",userData);
+        setUserDetails(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    // Call the function to start fetching data
+    fetchUserDataForAll();
+  }, []);
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -347,7 +373,7 @@ const SearchScrean = () => {
                                             </div>
                                           </div>
                                         </Link>
-                                        <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
+                                        <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
                                           <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <p>
                                               {strRes["Teaching Strategy"]}
@@ -358,34 +384,7 @@ const SearchScrean = () => {
                                             {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                           </div>
                                         </div>
-                                        <div className='col-md-2 d-none d-md-block ms-5'>
-                                          <div className='d-flex flex-column align-items-center justify-content-center'>
-                                            <div>
-                                              <span className='icons_heading'>Developmental Domains</span>
-                                            </div>
-                                            <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                              <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                {
-                                                  !strRes['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                                                    strRes['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                      <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
-                                                      <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                                }
-                                                {
-                                                  !strRes['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                                                    strRes['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                      <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                      <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                                }
-                                              </div>
-                                              {
-                                                strRes['Mode of Teaching'] === "Online" ?
-                                                  <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                  <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                              }
-                                            </div>
-                                          </div>
-                                        </div>
+                              
                                       </div>
                                     ))
                                   }
@@ -407,13 +406,13 @@ const SearchScrean = () => {
                                                 </div>
                                               </Link>
                                               <p className='user_str d-none d-md-block'>Uploaded By - {
-                                                user.image ?
+                                                userDetails[index]?.data[0]?.image ?
                                                   <OverlayTrigger
                                                     placement="right"
                                                     delay={{ show: 250, hide: 400 }}
                                                     overlay={renderTooltip}
                                                   >
-                                                    <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="" />
                                                   </OverlayTrigger>
                                                   :
                                                   <OverlayTrigger
@@ -457,7 +456,7 @@ const SearchScrean = () => {
                                               </div>
                                             </Link>
                                           </div>
-                                          <div className='col-9 ms-4 col-md-8 Strategy_count_article'>
+                                          <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
                                             <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
                                                 {strUser["Teaching Strategy"]}
@@ -474,13 +473,13 @@ const SearchScrean = () => {
                                               </div>
                                               <div className='d-block d-md-none'>
                                                 <p className='user_str'>Uploaded By - {
-                                                  user.image ?
+                                                  userDetails[index]?.data[0]?.image ?
                                                     <OverlayTrigger
                                                       placement="right"
                                                       delay={{ show: 250, hide: 400 }}
                                                       overlay={renderTooltip}
                                                     >
-                                                      <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                                      <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="" />
                                                     </OverlayTrigger>
                                                     :
                                                     <img src={UserImage} className="user_image" alt="person pic" />
@@ -488,34 +487,7 @@ const SearchScrean = () => {
                                               </div>
                                             </div>
                                           </div>
-                                          <div className='col-md-2 d-none d-md-block ms-5'>
-                                            <div className='d-flex flex-column align-items-center justify-content-center'>
-                                              <div>
-                                                <span className='icons_heading'>Developmental Domains</span>
-                                              </div>
-                                              <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                  {
-                                                    !strUser['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                                                      strUser['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                        <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" /> :
-                                                        <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                                  }
-                                                  {
-                                                    !strUser['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                                                      strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                        <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                        <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                                  }
-                                                </div>
-                                                {
-                                                  strUser['Mode of Teaching'] === "Online" ?
-                                                    <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                    <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                                }
-                                              </div>
-                                            </div>
-                                          </div>
+                           
                                         </div>
                                       ))
                                     }
