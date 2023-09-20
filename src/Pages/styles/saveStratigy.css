@@ -72,10 +72,13 @@
 .str_text_left {
   margin-top: 30px;
 }
-.savestr_head {
+.savestr_head,.padalogicalTitle {
   font-size: 20px !important;
   font-weight: 600 !important;
-  margin-bottom: 21px;
+  margin-bottom: 1rem;
+}
+.padalogicalTitle{
+  color: #1AA05B;
   margin-top: 35px;
 }
 .str_title {
@@ -166,7 +169,8 @@
   border: 2px solid #939ca3;
   border-radius: 8px;
   padding: 25px 40px;
-  margin-left: 150px;
+  margin-left: auto !important;
+
 }
 .comment_div_p {
   font-family: "Inter";
@@ -317,7 +321,28 @@
 .GoBack a:hover{
   color: #FFF;
 }
-
+.editStrategy,.markUsed,.UsedStartegy{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 0.8rem;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  background: none;
+  border: none;
+  border-radius: 24px;
+  height: 44px;
+}
+.editStrategy{
+  border: 2px solid #1AA05B;
+}
+.markUsed,.UsedStartegy{
+  color: #FFF;
+  background: #1AA05B;
+  box-shadow: 0px 4px 8px 0px rgba(26, 160, 91, 0.20);
+}
 @media only screen and (max-width: 888px) {
   .Dev_dom {
     font-family: "Inter";

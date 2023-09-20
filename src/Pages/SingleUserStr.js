@@ -26,6 +26,11 @@ import moment from 'moment';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import LeftArrow from '../asstes/left-arrow.svg'
+import ratingStar from "../asstes/icons/ratingStar.svg"
+import editIcon from "../asstes/icons/editIcon.svg"
+import ratingStarFill from "../asstes/icons/ratingStarFill.svg"
+
+
 
 const SingleUserStr = () => {
   const { user } = useAuth()
@@ -36,6 +41,16 @@ const SingleUserStr = () => {
   const [comment, setComment] = React.useState([])
   const [totalLikeUser, setTotalLikeUser] = React.useState([])
   const [uploader, setuploader] =  React.useState('')
+  const [isUsedStrategy, setisUsedStrategy] = useState(false)
+  const [rating, setRating] = useState(0);
+
+  // Function to handle a star click
+  const handleStarClick = (starIndex) => {
+    setRating(starIndex);
+  };
+const toggleUsedStrategy=()=>{
+  setisUsedStrategy(!isUsedStrategy);
+}
   React.useEffect(() => {
     singleUserEnStratigys(id)
       .then(res => {
@@ -203,6 +218,83 @@ console.log(uploader);
         })
     }
   }
+
+  // const wrapLinksAndText = (text) => {
+  //   const parts = text?.split(/(https?:\/\/\S+|www\.\S+|\n)/g); // Split by URLs and line breaks
+
+  //   let result = [];
+  //   let currentLine = '';
+
+  //   parts?.forEach((part, index) => {
+  //     if (part?.startsWith('http') || part?.startsWith('www.')) {
+  //       const url = part?.startsWith('http') ? part : `https://${part}`;
+  //       currentLine += (
+  //         <a
+  //           key={index}
+  //           href={url}
+  //           target="_blank"
+  //           rel="noopener noreferrer"
+  //         >
+  //           {url}
+  //         </a>
+  //       );
+  //     } else {
+  //       currentLine += part;
+  //     }
+
+  //     // If the next part is a line break or we've reached the end, add the current line to the result
+  //     if (index === parts.length - 1 || parts[index + 1] === '\n') {
+  //       result?.push(<div key={index}>{currentLine}</div>);
+  //       currentLine = '';
+  //     }
+  //   });
+
+  //   return result;
+  // };
+  function wrapLinksAndText(text) {
+    const lines = text?.split(/\n/g).filter((line) => line.trim() !== '');
+  
+    return lines?.map((line, index) => {
+      const points = line.match(/^\d+\./); // Match point numbers at the beginning of each line
+      const parts = line.split(/(https?:\/\/[^\s]+)/); // Split line by URLs
+  
+      return (
+        <div key={index}>
+          {points && <span>{points[0]}</span>}
+          {parts.map((part, partIndex) => {
+            if (part.match(/https?:\/\/[^\s]+/)) {
+              // Extract the URL from the part
+              const url = part.match(/(https?:\/\/[^\s]+)/)[0];
+              
+              return (
+                <a
+                  key={partIndex}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {part}
+                </a>
+              );
+            } else {
+              return (
+                <div key={partIndex}>
+                  {part}
+                </div>
+              );
+            }
+          })}
+          <br /> {/* Add a line break after each line */}
+        </div>
+      );
+    });
+  }
+  
+  
+  
+  
+ 
+ 
   return (
     <div>
       <LikeByModal
@@ -274,10 +366,23 @@ console.log(uploader);
                   </div>
                 </div>
               </div>
-              <div className='col-8 ms-3 ms-md-4 col-md-11 '>
+              <div className='col-8 ms-3  col-md-11 '>
+                <p className='padalogicalTitle'>Inquiry Based Learning</p>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
                 <p className='savestr_body'>
-                  {str["Teaching Strategy"]}
+                {/* {str["Teaching Strategy"]?.split(/\n/g)
+                  .map((step, index) => (
+                    <div key={index}>
+                      {step.match(/^\d+\.\s/) ? (
+                      <div> {step}</div>
+                      ) : (
+                        <div>
+                          {step}
+                        </div>
+                      )}
+                    </div>
+                  ))} */}
+                  {wrapLinksAndText(str["Teaching Strategy"])}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
@@ -294,18 +399,33 @@ console.log(uploader);
                       <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalLikeUser.length}</p>
                     </div>
                   </div>
-                  <div className='me-md-3 me-0'>
-                    {
+                  <div className='me-md-3 me-0 d-flex gap-3'>
+                    {/* {
                       str['Mode of Teaching'] === "Online" ?
                         <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
                         <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                    }
+                    } */}
+                      <button className='editStrategy'>Edit Strategy <img src={editIcon} alt="edit"/></button>
+                      {
+                        !isUsedStrategy?<button className='markUsed' onClick={toggleUsedStrategy}>Mark as Used</button>:<button className='UsedStartegy' onClick={toggleUsedStrategy}>Used startegy</button>
+                      }                      
+
                   </div>
+                </div>
+                <div className='rateStrategy'>
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
+                    <img
+                      key={starIndex}
+                      src={starIndex <= rating ? ratingStarFill : ratingStar}
+                      alt={`Star ${starIndex}`}
+                      onClick={() => handleStarClick(starIndex)}
+                    />
+                  ))}
                 </div>
               </div>
            
             </div>
-            <div className='comment_div d-none d-md-block'>
+            <div className='comment_div d-none d-md-block col-md-11'>
               <p className='comment_div_p'>{t("Comments")}</p>
               <form onSubmit={handleComment}>
                 <div>

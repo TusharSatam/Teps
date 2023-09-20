@@ -19,8 +19,10 @@ const AddForm = () => {
   const [selectSubTopic, setSelectSubTopic] = React.useState();
   const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
   const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
+  const [teachingStrategy, setteachingStrategy] = React.useState();
   const [devDom1, setDevDom1] = React.useState("");
   const [devDom2, setDevDom2] = React.useState("");
+
   //-----------------------------------------------------------------
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
@@ -40,7 +42,18 @@ const AddForm = () => {
       setAllStratigys(res.data);
     });
   }, []);
-
+  const resetDropdowns = () => {
+    setSelectSubject("");
+    setSelectGrade("");
+    setSelectSkill("");
+    setSelectTopic("");
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectLearningOutcome("");
+    setDevDom1("");
+    setDevDom2("");
+    setteachingStrategy("");
+  };
   // english stratiges--------------------------------------------------------
   const uniqueSubject = Array.from(
     new Set(allStratigys.map((a) => a.Subject))
@@ -194,6 +207,7 @@ const AddForm = () => {
         Approve: false,
       };
       setSubmitData(data);
+      resetDropdowns()
     }
   };
   const devDom1Options = [
@@ -229,6 +243,8 @@ const AddForm = () => {
                     className={"select-field"}
                     name="subject"
                     id=""
+                    aria-label="Default select example"
+                    value={selectSubject}
                   >
                     <option value="" selected disabled>
                       Subject
@@ -251,6 +267,7 @@ const AddForm = () => {
                     className={"select-field"}
                     name="grade"
                     id=""
+                    value={selectGrade}
                   >
                     <option value="" selected disabled>
                       Grade
@@ -273,6 +290,7 @@ const AddForm = () => {
                     className={"select-field"}
                     name="skill"
                     id=""
+                    value={selectSkill}
                   >
                     <option value="" selected disabled>
                       Skill
@@ -293,6 +311,7 @@ const AddForm = () => {
                     className={"select-field"}
                     name="topic"
                     id=""
+                    value={selectTopic}
                   >
                     <option value="" selected disabled>
                       Topic
@@ -315,6 +334,8 @@ const AddForm = () => {
                     className={"select-field"}
                     name="sub_topic"
                     id=""
+                    value={selectSubTopic}
+
                   >
                     <option value="" selected disabled>
                       Sub-Topic
@@ -335,6 +356,7 @@ const AddForm = () => {
                     className={"select-field"}
                     name="sub_sub_topic"
                     id=""
+                    value={selectSubSubTopic}
                   >
                     <option value="" selected disabled>
                       Sub-Sub-Topic
@@ -364,6 +386,9 @@ const AddForm = () => {
                     }}
                     value={devDom1}
                   >
+                    <option value="" selected disabled>
+                    Dev Dom 1
+                    </option>
                     {devDom1Options.map((option, i) => (
                       <option key={i}>{option}</option>
                     ))}
@@ -391,6 +416,9 @@ const AddForm = () => {
                     }}
                     value={devDom2}
                   >
+                  <option value="" selected disabled>
+                    Dev Dom 2
+                    </option>
                     {devDom1Options.map(
                       (option, i) =>
                         !(devDom1 === option) && (
@@ -414,6 +442,7 @@ const AddForm = () => {
                     className={"select-field"}
                     name="mode_of_teaching"
                     id=""
+                    // value={}
                   >
                     <option value="" selected disabled>
                       Mode Of Teaching
@@ -433,6 +462,7 @@ const AddForm = () => {
                     className={"select-field w-100"}
                     name="learning_outcome"
                     id=""
+                    value={selectLearningOutcome}
                   >
                     <option value="" selected disabled>
                       Learning Outcome
@@ -454,6 +484,7 @@ const AddForm = () => {
                     className={"select-field-full-2"}
                     name="teaching_str"
                     id=""
+                    value={teachingStrategy}
                   />
                 </div>
               </div>
