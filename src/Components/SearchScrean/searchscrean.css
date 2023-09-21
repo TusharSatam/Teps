@@ -9,6 +9,19 @@
   font-size: 32px;
   line-height: 39px;
 }
+#usercon{
+  display: flex;
+  margin-left: 3.5%;
+  padding: 0.5%;
+  color: white;
+  font-style: italic;
+  background-color: rgb(0, 0, 0);
+  width: 25%;
+  margin-bottom: 2%;
+  border-radius: 20px;
+  /* opacity:0.5; */
+  /* margin: 1%; */
+}
 .sub-subtitle {
   font-family: "Inter";
   font-style: normal;

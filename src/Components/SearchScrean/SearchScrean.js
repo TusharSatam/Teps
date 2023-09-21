@@ -34,14 +34,8 @@ const SearchScrean = () => {
   const [check, setCheck] = React.useState(false);
   const [uploadeduserIDs, setuploadeduserIDs] = useState([])
   const [userDetails, setUserDetails] = useState([]);
-
-  // const [uploader, setuploader] =  React.useState('')
-
-  // const [react, setReact] = React.useState(user ? user?.saveId : []);
-  // const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const { t } = useTranslation();
-
-
+ 
+ const { t } = useTranslation();
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
@@ -86,64 +80,6 @@ const SearchScrean = () => {
     }
     setShowH([...showH], [showH]);
   }
-  // const handleReact = async (e) => {
-  //   if (react?.includes(e)) {
-  //     for (var i = 0; i < react.length; i++) {
-  //       if (react[i] === e) {
-  //         react?.splice(i, 1);
-  //         i--;
-  //       }
-  //     }
-  //   }
-  //   else {
-  //     react?.push(e)
-  //   }
-  //   setReact([...react], [react]);
-  // }
-  // React.useEffect(() => {
-  //   const data = { "saveId": react }
-  //   if (react) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [react, user, setUser])
-
-  // const handleLike = async (e) => {
-
-  //   if (like?.includes(e)) {
-  //     for (var i = 0; i < like.length; i++) {
-  //       if (like[i] === e) {
-  //         like.splice(i, 1);
-  //         i--;
-  //       }
-  //     }
-  //   }
-  //   else {
-  //     like.push(e)
-  //   }
-  //   setLike([...like], [like]);
-  // }
-
-  // React.useEffect(() => {
-  //   const data = { "saveReact": like }
-  //   if (like) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [like, user, setUser])
-
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
     localStorage.removeItem('filterData');
@@ -170,7 +106,7 @@ const SearchScrean = () => {
 
   }, [stratigyFilData, selectLang])
 
-  // let accordion_key = 12345;
+
   const [accorKey, setAccorKey] = React.useState(12345)
   const handleReinitialize = () => {
     setAccorKey(accorKey + 1)
@@ -278,7 +214,53 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
-      <>
+     
+      {
+        (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
+          <>
+            {
+              selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
+                <>
+                  <div className='mb-md-3 container_title_sec'>
+                    <div className='d-flex justify-content-between mt-md-5'>
+                      <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                      
+
+                      
+                    </div>
+                    <div className='d-block d-md-none mb-2'>
+                      {
+                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                      }
+                      <span className='ms-2 ' style={{ fontSize: "12px" }}>Show user contributed strategies</span>
+                    </div>
+                     <p className='mt-md-4 sub_sub_title' data-bs-toggle="modal" data-bs-target="#exampleModal" >
+        Learning Outcomes
+      </p>
+
+      <div className="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="staticBackdropLabel">Learning Outcomes</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+           ﻿
+
+Learning Outcomes: Visualizes the feelings of being hungry
+Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the students about the concept of hunger and how it feels like. Ask them to share their experiences of feeling hungry. 2. Provide each student with a blank sheet of paper and ask them to draw a circle in the center of the paper. In the circle, they can write the word "Hunger" or draw a picture that symbolizes hunger. 3. Next, ask the students to brainstorm different emotions, thoughts, and physical sensations that they experience when they are hungry. Ask them to write down these words or draw symbols around the central circle. Encourage them to be creative and come up with as many ideas as possible. 4. Instruct the students to group the ideas that are similar or related to each other. For example, they can group together words like "grumbling stomach," "weakness," and "dizziness" under the category of physical sensations.
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Understood</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+                  </div>
+                   <>
         <div className='stratigy_bg'>
           {
             selectLang === 'hindi' ?
@@ -291,30 +273,6 @@ const SearchScrean = () => {
           }
         </div>
       </>
-      {
-        (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
-          <>
-            {
-              selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
-                <>
-                  <div className='mb-md-3 container_title_sec'>
-                    <div className='d-flex justify-content-between mt-md-5'>
-                      <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      <div className='d-none d-md-block'>
-                        {
-                          !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
-                        }
-                        <span className='ms-2'>Show user contributed strategies</span>
-                      </div>
-                    </div>
-                    <div className='d-block d-md-none mb-2'>
-                      {
-                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
-                      }
-                      <span className='ms-2 ' style={{ fontSize: "12px" }}>Show user contributed strategies</span>
-                    </div>
-                    <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
-                  </div>
                   <div className='dropDownContainer mb-5' key={accorKey}>
                     <Accordion alwaysOpen >
                       {
@@ -328,8 +286,13 @@ const SearchScrean = () => {
                               </ContextAwareToggle>
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
+
+
+                           
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
+                              
                               <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
+                                
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
@@ -462,10 +425,7 @@ const SearchScrean = () => {
                                                 {strUser["Teaching Strategy"]}
                                               </p>
                                             </Link>
-                                            {/* <div className='d-flex align-items-center my-3'>
-                                              {react?.includes(strUser._id) ? <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like.includes(strUser._id) ? <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-                                            </div> */}
+                                            
                                             <div className='d-flex justify-content-between align-items-center'>
                                               <div className='d-flex align-items-center my-3'>
                                                 {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
@@ -500,7 +460,9 @@ const SearchScrean = () => {
                         ))
                       }
                     </Accordion>
+                    
                   </div>
+                   <div id="usercon" className='d-none d-md-block'> { !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" /> } <span className='ms-2'>Show user contributed strategies</span> </div>
                 </> :
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
@@ -570,10 +532,7 @@ const SearchScrean = () => {
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
-                                            {/* <div className='d-flex align-items-center my-3'>
-                                              {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-                                            </div> */}
+                                            
                                             <div className='d-flex align-items-center my-3'>
                                               {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                               {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
@@ -634,6 +593,3 @@ const SearchScrean = () => {
 };
 
 export default SearchScrean;
-
-
-
