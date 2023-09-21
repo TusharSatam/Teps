@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import ChatIcon from '../asstes/icons/chat.svg';
@@ -33,7 +33,9 @@ const SingleStr = () => {
   const [totalLikeUser, setTotalLikeUser] = React.useState([])
   const { id } = useParams();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [formatted, setformatted] = useState('')
+  const pRef = useRef(null)
   React.useEffect(() => {
     singleStratigys(id)
       .then(res => {
@@ -176,7 +178,38 @@ const SingleStr = () => {
         })
     }
   }
-  console.log(totalLikeUser);
+
+  function replaceNewlinesWithLineBreaks(text) {
+    if (text) {
+      // Replace newlines with line breaks
+      let newText = text.replace(/\r\n/g, '<br>');
+  
+      // Wrap links (http, https, www, and email addresses) in <a> tags
+      newText = newText.replace(
+        /(\bhttps?:\/\/[^\s<]+|\bwww\.[^\s<]+|\b[\w\.-]+@[\w\.-]+\.\w+\b)/g,
+        match => {
+          if (match.startsWith('http://') || match.startsWith('https://')) {
+            return `<a href="${match}" target="_blank">${match}</a>`;
+          } else if (match.startsWith('www.')) {
+            return `<a href="http://${match}" target="_blank">${match}</a>`;
+          } else if (match.includes('@')) {
+            return `<a href="mailto:${match}">${match}</a>`;
+          }
+          return match; // Return the matched text as is
+        }
+      );
+  
+      return newText;
+    }
+    return '';
+  }
+  
+  useEffect(() => {
+    const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
+    pRef.current.innerHTML = newText;
+    setformatted("") // Assign the new HTML to the innerHTML property
+  }, [str])
+
   return (
     <div>
       <LikeByModal
@@ -185,12 +218,16 @@ const SingleStr = () => {
         totalReact={totalLikeUser}
       />
       <div className='saveStrParent2'>
-      <Link to="/search" className='GoBack'><img src={LeftArrow}/>{t("Back")}</Link>
+        <Link to="/search" className='GoBack'><img src={LeftArrow}/>{t("Back")}</Link>
         <div  className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
       </div>
+
       <div className='mx-3 mx-md-5'>
         <p className='single_str_head'>{str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str['Sub-sub topic']}</p>
       </div>
+
+
+
       <div className='mx-4'>
         <div style={{ background: "#FFFFFF" }} className='card_pad'>
           <div className='my-4'>
@@ -201,35 +238,19 @@ const SingleStr = () => {
                     <p className='str_name'>{t("strategy")}</p>
                     <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
                   </div>
-                </div>
-
-            
+                </div>            
               </div>
 
               <div className='col-9 ms-2 ms-md-4 col-md-11 '>
-                <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
-                <p className='savestr_body me-2 me-md-2 disableCopy'>
-                {str["Teaching Strategy"]?.split(/\n/g)
-                  .map((step, index) => (
-                    <div key={index}>
-                      {step.match(/^\d+\.\s/) ? (
-                      <div> {step}</div>
-                      ) : (
-                        <div>
-                          {step}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <p className='savestr_head'>{t("Learning Outcomes")}:{str["Learning Outcome"]}</p>
+                <p ref={pRef} className='newLine savestr_body me-2 me-md-2 disableCopy'>
                 </p>
+
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center mt-2'>
 
                     <div className='mx-lg-3 mx-md-2 mx-2 d-flex align-items-center flex-column'>
                       <div>
-                        {/* {
-                          console.log(userSaves?.includes(str?._id))
-                        } */}
                         {userSaves?.includes(str?._id) ?
                           <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" />
                           :

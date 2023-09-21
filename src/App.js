@@ -40,6 +40,7 @@ import SingleStr from './Pages/SingleStr';
 import SingleUserStr from './Pages/SingleUserStr';
 import Stratigy from './Pages/Stratigy';
 import Verify from './Pages/Verify';
+import EditStrategy from './Components/EditStrategy/EditStrategyForm';
 
 
 
@@ -153,6 +154,8 @@ function App() {
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
+            <Route path='/editform' element={<EditStrategy />} />
+
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

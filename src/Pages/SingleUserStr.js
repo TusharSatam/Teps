@@ -219,82 +219,6 @@ console.log(uploader);
     }
   }
 
-  // const wrapLinksAndText = (text) => {
-  //   const parts = text?.split(/(https?:\/\/\S+|www\.\S+|\n)/g); // Split by URLs and line breaks
-
-  //   let result = [];
-  //   let currentLine = '';
-
-  //   parts?.forEach((part, index) => {
-  //     if (part?.startsWith('http') || part?.startsWith('www.')) {
-  //       const url = part?.startsWith('http') ? part : `https://${part}`;
-  //       currentLine += (
-  //         <a
-  //           key={index}
-  //           href={url}
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //         >
-  //           {url}
-  //         </a>
-  //       );
-  //     } else {
-  //       currentLine += part;
-  //     }
-
-  //     // If the next part is a line break or we've reached the end, add the current line to the result
-  //     if (index === parts.length - 1 || parts[index + 1] === '\n') {
-  //       result?.push(<div key={index}>{currentLine}</div>);
-  //       currentLine = '';
-  //     }
-  //   });
-
-  //   return result;
-  // };
-  function wrapLinksAndText(text) {
-    const lines = text?.split(/\n/g).filter((line) => line.trim() !== '');
-  
-    return lines?.map((line, index) => {
-      const points = line.match(/^\d+\./); // Match point numbers at the beginning of each line
-      const parts = line.split(/(https?:\/\/[^\s]+)/); // Split line by URLs
-  
-      return (
-        <div key={index}>
-          {points && <span>{points[0]}</span>}
-          {parts.map((part, partIndex) => {
-            if (part.match(/https?:\/\/[^\s]+/)) {
-              // Extract the URL from the part
-              const url = part.match(/(https?:\/\/[^\s]+)/)[0];
-              
-              return (
-                <a
-                  key={partIndex}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {part}
-                </a>
-              );
-            } else {
-              return (
-                <div key={partIndex}>
-                  {part}
-                </div>
-              );
-            }
-          })}
-          <br /> {/* Add a line break after each line */}
-        </div>
-      );
-    });
-  }
-  
-  
-  
-  
- 
- 
   return (
     <div>
       <LikeByModal
@@ -370,7 +294,7 @@ console.log(uploader);
                 <p className='padalogicalTitle'>Inquiry Based Learning</p>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
                 <p className='savestr_body'>
-                {/* {str["Teaching Strategy"]?.split(/\n/g)
+                {str["Teaching Strategy"]?.split(/\n/g)
                   .map((step, index) => (
                     <div key={index}>
                       {step.match(/^\d+\.\s/) ? (
@@ -381,8 +305,7 @@ console.log(uploader);
                         </div>
                       )}
                     </div>
-                  ))} */}
-                  {wrapLinksAndText(str["Teaching Strategy"])}
+                  ))}
                 </p>
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
