@@ -154,7 +154,7 @@ function App() {
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
-            <Route path='/editform' element={<EditStrategy />} />
+            <Route path='/editStrategyform/:id' element={<EditStrategy />} />
 
           </Route>
           <Route element={<PrivateAdminOutlet />} >

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -23,6 +23,10 @@ import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import LikeByModal from '../Components/Modal/LikeByModal';
 import LeftArrow from '../asstes/left-arrow.svg'
+import { replaceNewlinesWithLineBreaks } from '../utils/utils';
+import ratingStar from "../asstes/icons/ratingStar.svg"
+import ratingStarFill from "../asstes/icons/ratingStarFill.svg"
+import editIcon from "../asstes/icons/editIcon.svg"
 
 const SingleHindiStr = () => {
   const { user, setUser } = useAuth()
@@ -34,8 +38,21 @@ const SingleHindiStr = () => {
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [totalLikeUser, setTotalLikeUser] = React.useState([])
+  const [totalLikeUser, setTotalLikeUser] = React.useState([]);
+  const [isUsedStrategy, setisUsedStrategy] = useState(false);
+  const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
+  const pRef = useRef(null)
 
+
+
+  // Function to handle a star click
+  const handleStarClick = (starIndex) => {
+    setRating(starIndex);
+  };
+const toggleUsedStrategy=()=>{
+  setisUsedStrategy(!isUsedStrategy);
+}
   React.useEffect(() => {
     singleHindiStratigys(id)
       .then(res => {
@@ -238,7 +255,13 @@ const SingleHindiStr = () => {
     }
   }
   const [show, setShow] = useState(false)
-
+  const handleEditStrategy=()=>{
+    navigate('/editStrategyform')
+  }
+  useEffect(() => {
+    const newText = replaceNewlinesWithLineBreaks(str["शिक्षण रणनीति"]);
+    pRef.current.innerHTML = newText;
+  }, [str["शिक्षण रणनीति"]])
   return (
     <div>
       <LikeByModal
@@ -271,11 +294,9 @@ const SingleHindiStr = () => {
               </div>
               <div className='col-9 ms-4 col-md-11 '>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["शिक्षण के परिणाम"]}</p>
-                <p className='savestr_body disableCopy'>          
-                    {str["शिक्षण रणनीति"]?.split(/[:।]\s+/).flatMap((sentence) => (
-                      <p>{sentence}।</p>
-                    ))}
+                <p ref={pRef} className='newLine savestr_body me-2 me-md-2 disableCopy'>
                 </p>
+
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
                     <div>
@@ -291,13 +312,24 @@ const SingleHindiStr = () => {
                       <p className='count_num' onClick={() => setShow(!show)}>{totalUserLikes}</p>
                     </div>
                   </div>
-                  <div className='me-md-3 me-0'>
-                    {
-                      str['Mode of Teaching'] === "ऑनलाइन" ?
-                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                    }
+                  <div className='me-md-3 me-0 d-flex gap-3'>
+                  
+                      <button className='editStrategy' onClick={handleEditStrategy}>Edit Strategy <img src={editIcon} alt="edit"/></button>
+                      {
+                        !isUsedStrategy?<button className='markUsed' onClick={toggleUsedStrategy}>Mark as Used</button>:<button className='UsedStartegy' onClick={toggleUsedStrategy}>Used startegy</button>
+                      }                      
+
                   </div>
+                </div>
+                <div className='rateStrategy'>
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
+                    <img
+                      key={starIndex}
+                      src={starIndex <= rating ? ratingStarFill : ratingStar}
+                      alt={`Star ${starIndex}`}
+                      onClick={() => handleStarClick(starIndex)}
+                    />
+                  ))}
                 </div>
               </div>
            

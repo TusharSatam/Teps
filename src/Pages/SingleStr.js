@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import ChatIcon from '../asstes/icons/chat.svg';
 import DownArrow from '../asstes/icons/DownArrow.svg';
 import KnowledgeIcon from '../asstes/icons/knowledge.svg';
@@ -23,10 +23,13 @@ import { postcomment, singleStratigys } from '../services/stratigyes';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import LeftArrow from '../asstes/left-arrow.svg'
-
+import editIcon from "../asstes/icons/editIcon.svg"
 import './styles/saveStratigy.css';
+import { replaceNewlinesWithLineBreaks } from '../utils/utils';
+import ratingStar from "../asstes/icons/ratingStar.svg"
+import ratingStarFill from "../asstes/icons/ratingStarFill.svg"
 const SingleStr = () => {
-  const { user } = useAuth()
+  const { user,seteditStrategyFormData } = useAuth()
   const [str, setStr] = React.useState([])
   const [comment, setComment] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
@@ -35,7 +38,16 @@ const SingleStr = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [formatted, setformatted] = useState('')
+  const [isUsedStrategy, setisUsedStrategy] = useState(false)
+  const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
   const pRef = useRef(null)
+
+
+    // Function to handle a star click
+    const handleStarClick = (starIndex) => {
+      setRating(starIndex);
+    };
   React.useEffect(() => {
     singleStratigys(id)
       .then(res => {
@@ -178,37 +190,18 @@ const SingleStr = () => {
         })
     }
   }
-
-  function replaceNewlinesWithLineBreaks(text) {
-    if (text) {
-      // Replace newlines with line breaks
-      let newText = text.replace(/\r\n/g, '<br>');
-  
-      // Wrap links (http, https, www, and email addresses) in <a> tags
-      newText = newText.replace(
-        /(\bhttps?:\/\/[^\s<]+|\bwww\.[^\s<]+|\b[\w\.-]+@[\w\.-]+\.\w+\b)/g,
-        match => {
-          if (match.startsWith('http://') || match.startsWith('https://')) {
-            return `<a href="${match}" target="_blank">${match}</a>`;
-          } else if (match.startsWith('www.')) {
-            return `<a href="http://${match}" target="_blank">${match}</a>`;
-          } else if (match.includes('@')) {
-            return `<a href="mailto:${match}">${match}</a>`;
-          }
-          return match; // Return the matched text as is
-        }
-      );
-  
-      return newText;
-    }
-    return '';
+  const handleEditStrategy = async () => {
+    await seteditStrategyFormData(str);
+    navigate(`/editStrategyform/${str._id}`);
+  };
+  const toggleUsedStrategy=()=>{
+    setisUsedStrategy(!isUsedStrategy);
   }
-  
   useEffect(() => {
     const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
     pRef.current.innerHTML = newText;
     setformatted("") // Assign the new HTML to the innerHTML property
-  }, [str])
+  }, [str["Teaching Strategy"]])
 
   return (
     <div>
@@ -272,13 +265,24 @@ const SingleStr = () => {
 
 
                   </div>
-                  <div className='me-md-3  mt-2 me-4'>
-                    {
-                      str['Mode of Teaching'] === "Online" ?
-                        <img title='Online' width={'20px'} height={'20px'} className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='Classroom' width={'20px'} height={'20px'} className='threeIcons' src={OfflineIcon} alt="" />
-                    }
+                  <div className='me-md-3  mt-2 me-4 d-flex gap-3'>
+       
+                          <button className='editStrategy' onClick={handleEditStrategy}>Edit Strategy <img src={editIcon} alt="edit"/></button>
+                      {
+                        !isUsedStrategy?<button className='markUsed' onClick={toggleUsedStrategy}>Mark as Used</button>:<button className='UsedStartegy' onClick={toggleUsedStrategy}>Used startegy</button>
+                      }                      
+
                   </div>
+                </div>
+                <div className='rateStrategy'>
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
+                    <img
+                      key={starIndex}
+                      src={starIndex <= rating ? ratingStarFill : ratingStar}
+                      alt={`Star ${starIndex}`}
+                      onClick={() => handleStarClick(starIndex)}
+                    />
+                  ))}
                 </div>
               </div>
 

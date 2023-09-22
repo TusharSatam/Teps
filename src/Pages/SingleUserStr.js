@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import './styles/saveStratigy.css'
 import OfflineIcon from '../asstes/icons/offline.svg'
 import ChatIcon from '../asstes/icons/chat.svg'
@@ -26,9 +26,10 @@ import moment from 'moment';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
 import LeftArrow from '../asstes/left-arrow.svg'
-import ratingStar from "../asstes/icons/ratingStar.svg"
 import editIcon from "../asstes/icons/editIcon.svg"
+import ratingStar from "../asstes/icons/ratingStar.svg"
 import ratingStarFill from "../asstes/icons/ratingStarFill.svg"
+import { replaceNewlinesWithLineBreaks } from '../utils/utils';
 
 
 
@@ -42,8 +43,10 @@ const SingleUserStr = () => {
   const [totalLikeUser, setTotalLikeUser] = React.useState([])
   const [uploader, setuploader] =  React.useState('')
   const [isUsedStrategy, setisUsedStrategy] = useState(false)
+  const [formatted, setformatted] = useState("")
   const [rating, setRating] = useState(0);
-
+  const pRef = useRef(null)
+  const navigate = useNavigate();
   // Function to handle a star click
   const handleStarClick = (starIndex) => {
     setRating(starIndex);
@@ -219,6 +222,18 @@ console.log(uploader);
     }
   }
 
+
+  const handleEditStrategy=()=>{
+    navigate('/editStrategyform')
+  }
+  useEffect(() => {
+    const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
+    pRef.current.innerHTML = newText;
+  }, [str,formatted])
+
+
+
+
   return (
     <div>
       <LikeByModal
@@ -290,23 +305,12 @@ console.log(uploader);
                   </div>
                 </div>
               </div>
-              <div className='col-8 ms-3  col-md-11 '>
+              <div className='col-8 ms-3  col-md-11'>
                 <p className='padalogicalTitle'>Inquiry Based Learning</p>
                 <p className='savestr_head'>{t("Learning Outcomes")}: {str["Learning Outcome"]}</p>
-                <p className='savestr_body'>
-                {str["Teaching Strategy"]?.split(/\n/g)
-                  .map((step, index) => (
-                    <div key={index}>
-                      {step.match(/^\d+\.\s/) ? (
-                      <div> {step}</div>
-                      ) : (
-                        <div>
-                          {step}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <p ref={pRef} className='newLine savestr_body me-2 me-md-2'>
                 </p>
+  
                 <div className='d-flex justify-content-between my-2'>
                   <div className='d-flex align-items-center'>
                     <div>
@@ -323,12 +327,8 @@ console.log(uploader);
                     </div>
                   </div>
                   <div className='me-md-3 me-0 d-flex gap-3'>
-                    {/* {
-                      str['Mode of Teaching'] === "Online" ?
-                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                    } */}
-                      <button className='editStrategy'>Edit Strategy <img src={editIcon} alt="edit"/></button>
+               
+                      <button className='editStrategy' onClick={handleEditStrategy}>Edit Strategy <img src={editIcon} alt="edit"/></button>
                       {
                         !isUsedStrategy?<button className='markUsed' onClick={toggleUsedStrategy}>Mark as Used</button>:<button className='UsedStartegy' onClick={toggleUsedStrategy}>Used startegy</button>
                       }                      

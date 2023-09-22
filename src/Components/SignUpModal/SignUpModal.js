@@ -199,8 +199,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
           className="modal_body"
         >
           <div>
-            <span className='d-none d-md-block d-xxl-none' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "800px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
-            <span className='d-md-none d-xxl-block' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "850px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
+            <span className='d-none d-md-block d-xxl-none closeModalIcon' onClick={handleClose}  ><img width='15px' src={CrossIcon} alt="" /></span>
+            <span className='d-md-none d-xxl-block closeModalIcon' onClick={handleClose} ><img width='15px' src={CrossIcon} alt="" /></span>
             <p className='text-center sign_up'>{t('Register')}</p>
           </div>
           <div className='mx-4 mt-4'>

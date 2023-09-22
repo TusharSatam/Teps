@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { getStratigys, updateStratigys } from '../../services/stratigyes';
 import './dashboardModal.css'
+import { useAuth } from '../../Context/AuthContext';
 
 const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const handleUpdate = (e) => {

@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
   const [allUserStrategies, setAllUserStrategies] = useState([]);
   const [allHindiStrategies, setAllHindiStrategies] = useState([]);
   const [loadingdropdown, setLoadingdropdown] = useState(false);
-
+const [editStrategyFormData, seteditStrategyFormData] = useState([])
 // Fetch and cache data
 useEffect(() => {
   const fetchDataEN = async () => {
@@ -151,7 +151,7 @@ useEffect(() => {
         isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
         setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin,
         admin, Adminlogout, setAdmin, humBurgs, setHumBurgs, stratigyFilUserData, setStratigyFilUserData, setComments, comments, allStrategies,
-        allUserStrategies,allHindiStrategies,
+        allUserStrategies,allHindiStrategies,seteditStrategyFormData,editStrategyFormData,
         loadingdropdown,
       }}>
       {children}
