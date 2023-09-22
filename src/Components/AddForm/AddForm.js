@@ -232,275 +232,279 @@ const AddForm = () => {
             <p>Add Your Strategy</p>
           </div>
           <div className="center-div">
-            <form onSubmit={handleSubmit} className="form-main-div">
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Subject <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSub}
-                    className={"select-field"}
-                    name="subject"
-                    id=""
-                    aria-label="Default select example"
-                    value={selectSubject}
-                  >
-                    <option value="" selected disabled>
-                      Subject
-                    </option>
-                    {uniqueSubject
-                      ?.filter((res) => res.Subject !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>
-                          {res.Subject !== "" && res.Subject}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Grade <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleGrade}
-                    className={"select-field"}
-                    name="grade"
-                    id=""
-                    value={selectGrade}
-                  >
-                    <option value="" selected disabled>
-                      Grade
-                    </option>
-                    {uniqueGrade
-                      ?.filter((res) => res.Grade !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Grade}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Skill <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSkill}
-                    className={"select-field"}
-                    name="skill"
-                    id=""
-                    value={selectSkill}
-                  >
-                    <option value="" selected disabled>
-                      Skill
-                    </option>
-                    {uniqueSkill
-                      ?.filter((res) => res.Skill !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Skill}</option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleTopic}
-                    className={"select-field"}
-                    name="topic"
-                    id=""
-                    value={selectTopic}
-                  >
-                    <option value="" selected disabled>
-                      Topic
-                    </option>
-                    {uniqueTopic
-                      ?.filter((res) => res.Topic !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Topic}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Sub-Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSubTopic}
-                    className={"select-field"}
-                    name="sub_topic"
-                    id=""
-                    value={selectSubTopic}
+            {allStratigys.length?
+             <form onSubmit={handleSubmit} className="form-main-div">
+             <div className="two-selects ">
+               <div>
+                 <p className="select-title">
+                   Subject <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleSub}
+                   className={"select-field"}
+                   name="subject"
+                   id=""
+                   aria-label="Default select example"
+                   value={selectSubject}
+                 >
+                   <option value="" selected disabled>
+                     Subject
+                   </option>
+                   {uniqueSubject
+                     ?.filter((res) => res.Subject !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>
+                         {res.Subject !== "" && res.Subject}
+                       </option>
+                     ))}
+                 </select>
+               </div>
+               <div>
+                 <p className="select-title">
+                   Grade <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleGrade}
+                   className={"select-field"}
+                   name="grade"
+                   id=""
+                   value={selectGrade}
+                 >
+                   <option value="" selected disabled>
+                     Grade
+                   </option>
+                   {uniqueGrade
+                     ?.filter((res) => res.Grade !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res.Grade}</option>
+                     ))}
+                 </select>
+               </div>
+             </div>
+             <div className="two-selects ">
+               <div>
+                 <p className="select-title">
+                   Skill <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleSkill}
+                   className={"select-field"}
+                   name="skill"
+                   id=""
+                   value={selectSkill}
+                 >
+                   <option value="" selected disabled>
+                     Skill
+                   </option>
+                   {uniqueSkill
+                     ?.filter((res) => res.Skill !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res.Skill}</option>
+                     ))}
+                 </select>
+               </div>
+               <div>
+                 <p className="select-title">
+                   Topic <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleTopic}
+                   className={"select-field"}
+                   name="topic"
+                   id=""
+                   value={selectTopic}
+                 >
+                   <option value="" selected disabled>
+                     Topic
+                   </option>
+                   {uniqueTopic
+                     ?.filter((res) => res.Topic !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res.Topic}</option>
+                     ))}
+                 </select>
+               </div>
+             </div>
+             <div className="two-selects ">
+               <div>
+                 <p className="select-title">
+                   Sub-Topic <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleSubTopic}
+                   className={"select-field"}
+                   name="sub_topic"
+                   id=""
+                   value={selectSubTopic}
 
-                  >
-                    <option value="" selected disabled>
-                      Sub-Topic
-                    </option>
-                    {uniqueSubTopic
-                      ?.filter((res) => res["Sub Topic"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Sub Topic"]}</option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Sub-Sub-Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSubSubTopic}
-                    className={"select-field"}
-                    name="sub_sub_topic"
-                    id=""
-                    value={selectSubSubTopic}
-                  >
-                    <option value="" selected disabled>
-                      Sub-Sub-Topic
-                    </option>
+                 >
+                   <option value="" selected disabled>
+                     Sub-Topic
+                   </option>
+                   {uniqueSubTopic
+                     ?.filter((res) => res["Sub Topic"] !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res["Sub Topic"]}</option>
+                     ))}
+                 </select>
+               </div>
+               <div>
+                 <p className="select-title">
+                   Sub-Sub-Topic <p>*</p>
+                 </p>
+                 <select
+                   onChange={handleSubSubTopic}
+                   className={"select-field"}
+                   name="sub_sub_topic"
+                   id=""
+                   value={selectSubSubTopic}
+                 >
+                   <option value="" selected disabled>
+                     Sub-Sub-Topic
+                   </option>
 
-                    {uniqueSubSubTopic
-                      ?.filter((res) => res["Sub-sub topic"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Sub-sub topic"]}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Dev Dom 1 <p>*</p>
-                  </p>
+                   {uniqueSubSubTopic
+                     ?.filter((res) => res["Sub-sub topic"] !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res["Sub-sub topic"]}</option>
+                     ))}
+                 </select>
+               </div>
+             </div>
+             <div className="two-selects ">
+               <div>
+                 <p className="select-title">
+                   Dev Dom 1 <p>*</p>
+                 </p>
 
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_1"
-                    id=""
-                    placeholder="Dev Dom 1"
-                    onChange={(e) => {
-                      setDevDom1(e.target.value);
-                    }}
-                    value={devDom1}
-                  >
-                    <option value="" selected disabled>
-                    Dev Dom 1
-                    </option>
-                    {devDom1Options.map((option, i) => (
-                      <option key={i}>{option}</option>
-                    ))}
+                 <select
+                   className={"select-field"}
+                   name="dev_dom_1"
+                   id=""
+                   placeholder="Dev Dom 1"
+                   onChange={(e) => {
+                     setDevDom1(e.target.value);
+                   }}
+                   value={devDom1}
+                 >
+                   <option value="" selected disabled>
+                   Dev Dom 1
+                   </option>
+                   {devDom1Options.map((option, i) => (
+                     <option key={i}>{option}</option>
+                   ))}
 
-                    {/* {uniqueDevDom1
-                      ?.filter((res) => res["Dev Dom 1"] !== "")
-                      .map((res) => (
-                        <option>
-                          {res["Dev Dom 1"] !== undefined && res["Dev Dom 1"]}
-                        </option>
-                      ))} */}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Dev Dom 2 <p>*</p>
-                  </p>
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_2"
-                    placeholder="Dev Dom 2"
-                    id=""
-                    onChange={(e) => {
-                      setDevDom2(e.target.value);
-                    }}
-                    value={devDom2}
-                  >
-                  <option value="" selected disabled>
-                    Dev Dom 2
-                    </option>
-                    {devDom1Options.map(
-                      (option, i) =>
-                        !(devDom1 === option) && (
-                          <option key={i}>{option}</option>
-                        )
-                    )}
-                    {/* {
-                        uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
-                          <option>{res['Dev Dom 2']}</option>
-                        ))
-                      } */}
-                  </select>
-                </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Mode Of Teaching <p>*</p>
-                  </p>
-                  <select
-                    className={"select-field"}
-                    name="mode_of_teaching"
-                    id=""
-                    // value={}
-                  >
-                    <option value="" selected disabled>
-                      Mode Of Teaching
-                    </option>
-                    <option>Online</option>
-                    <option>Offline</option>
-                  </select>
-                </div>
-              </div>
-              <div className="one-selects">
-                <div>
-                  <p className="select-title">
-                    <p>*</p>Learning Outcome
-                  </p>
-                  <select
-                    onChange={handleLearningOutcome}
-                    className={"select-field w-100"}
-                    name="learning_outcome"
-                    id=""
-                    value={selectLearningOutcome}
-                  >
-                    <option value="" selected disabled>
-                      Learning Outcome
-                    </option>
-                    {uniqueLearningOutcome
-                      ?.filter((res) => res["Learning Outcome"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Learning Outcome"]}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="one-selects-l">
-                <div>
-                  <p className="select-title">
-                    Teaching Strategy <p>*</p>
-                  </p>
-                  <textarea
-                    className={"select-field-full-2"}
-                    name="teaching_str"
-                    id=""
-                    value={teachingStrategy}
-                  />
-                </div>
-              </div>
-              <div className="d-flex justify-content-center mt-4">
-                {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
-                <button type="submit" className="form-btn">
-                  Submit Strategy
-                </button>
-              </div>
-              {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
-              {error && (
-                <p className="form-error">
-                  Please fill all of the above fields !
-                </p>
-              )}
-            </form>
+                   {/* {uniqueDevDom1
+                     ?.filter((res) => res["Dev Dom 1"] !== "")
+                     .map((res) => (
+                       <option>
+                         {res["Dev Dom 1"] !== undefined && res["Dev Dom 1"]}
+                       </option>
+                     ))} */}
+                 </select>
+               </div>
+               <div>
+                 <p className="select-title">
+                   Dev Dom 2 <p>*</p>
+                 </p>
+                 <select
+                   className={"select-field"}
+                   name="dev_dom_2"
+                   placeholder="Dev Dom 2"
+                   id=""
+                   onChange={(e) => {
+                     setDevDom2(e.target.value);
+                   }}
+                   value={devDom2}
+                 >
+                 <option value="" selected disabled>
+                   Dev Dom 2
+                   </option>
+                   {devDom1Options.map(
+                     (option, i) =>
+                       !(devDom1 === option) && (
+                         <option key={i}>{option}</option>
+                       )
+                   )}
+                   {/* {
+                       uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
+                         <option>{res['Dev Dom 2']}</option>
+                       ))
+                     } */}
+                 </select>
+               </div>
+             </div>
+             <div className="two-selects ">
+               <div>
+                 <p className="select-title">
+                   Mode Of Teaching <p>*</p>
+                 </p>
+                 <select
+                   className={"select-field"}
+                   name="mode_of_teaching"
+                   id=""
+                   // value={}
+                 >
+                   <option value="" selected disabled>
+                     Mode Of Teaching
+                   </option>
+                   <option>Online</option>
+                   <option>Offline</option>
+                 </select>
+               </div>
+             </div>
+             <div className="one-selects">
+               <div>
+                 <p className="select-title">
+                   <p>*</p>Learning Outcome
+                 </p>
+                 <select
+                   onChange={handleLearningOutcome}
+                   className={"select-field w-100"}
+                   name="learning_outcome"
+                   id=""
+                   value={selectLearningOutcome}
+                 >
+                   <option value="" selected disabled>
+                     Learning Outcome
+                   </option>
+                   {uniqueLearningOutcome
+                     ?.filter((res) => res["Learning Outcome"] !== undefined)
+                     .map((res, i) => (
+                       <option key={i}>{res["Learning Outcome"]}</option>
+                     ))}
+                 </select>
+               </div>
+             </div>
+             <div className="one-selects-l">
+               <div>
+                 <p className="select-title">
+                   Teaching Strategy <p>*</p>
+                 </p>
+                 <textarea
+                   className={"select-field-full-2"}
+                   name="teaching_str"
+                   id=""
+                   value={teachingStrategy}
+                 />
+               </div>
+             </div>
+             <div className="d-flex justify-content-center mt-4">
+               {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
+               <button type="submit" className="form-btn">
+                 Submit Strategy
+               </button>
+             </div>
+             {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
+             {error && (
+               <p className="form-error">
+                 Please fill all of the above fields !
+               </p>
+             )}
+           </form>
+            :<div className="loading-spinner"></div>
+            }
+           
           </div>
         </>
       ) : (
