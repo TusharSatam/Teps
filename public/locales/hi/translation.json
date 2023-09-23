@@ -38,7 +38,7 @@
   "Welcome": "स्वागत है",
   "Subject": "विषय",
   "Grade": "कक्षा",
-  "Skill": "मुख्य शीर्षक",
+  "Skill": "कौशल",
   "Topic": "शीर्षक",
   "Pedagogical Approach":"शैक्षणिक दृष्टिकोण",
   "Sub - topic": "उप - शीर्षक",
@@ -89,5 +89,6 @@
   "View comments": "टिप्पणियाँ देखें",
   "Hide comments": "टिप्पणियां छुपाएं",
   "Developmental Domains": "Developmental Domains",
-  "Back":"पीछे"
+  "Back":"पीछे",
+  "Super topic":"मुख्य शीर्षक"
 }

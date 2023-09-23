@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { t } from "i18next";
 import { useState } from "react";
 import {
@@ -27,7 +27,7 @@ const EditStrategyEn = () => {
   const [formData, setformData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedContent, setSubmittedContent] = useState("");
-
+  const successTextRef = useRef(null);
   //-----------------------------------------------------------------
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
@@ -61,13 +61,10 @@ const EditStrategyEn = () => {
     singleStratigys(id).then((res) => {
       console.log(res);
       setformData(res[0]);
+      setSubmittedContent(res[0]["Teaching Strategy"]);
     });
   }, [id]);
-  React.useEffect(() => {
-    getAllStratigys().then((res) => {
-      setAllStratigys(res.data);
-    });
-  }, []);
+
   const resetDropdowns = () => {
     formData["Grade"] = "";
     formData["Subject"] = "";
@@ -238,6 +235,14 @@ const EditStrategyEn = () => {
     "Language & Communication",
   ];
 
+  useEffect(() => {
+    if (successTextRef.current && formSubmitted) {
+      successTextRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [formSubmitted])
   return (
     <>
       <div className="form-title">
@@ -248,12 +253,12 @@ const EditStrategyEn = () => {
           <div className="me-1 col-md-2 ml-0">
             <div className=" mb-4 mb-md-3 str_title">
               <p className="str_name">{t("strategy")}</p>
-              {/* <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p> */}
-              <p className="uni_id">ID-3232323</p>
+              <p className='uni_id'>ID-{ formData?._id?.slice(19, 26)}</p>
             </div>
           </div>
+<div className="d-flex flex-column col-md-8">
 
-          <form onSubmit={handleSubmit} className=" col-md-8">
+          <form onSubmit={handleSubmit} className="">
             <div className="two-selects ">
               <div>
                 <p className="select-title">
@@ -510,6 +515,7 @@ const EditStrategyEn = () => {
                 Please fill all of the above fields !
               </p>
             )}
+          </form>
            {formSubmitted && <div className="afterSubmitText my-3">
               <h2 className="sucessText">Thank you for submitting the strategy</h2>
               <textarea readOnly   className={"select-field-full-2 StrategyTextarea submittedTextarea"}  value={submittedContent}>
@@ -521,7 +527,8 @@ const EditStrategyEn = () => {
                 <button className="publishStrategy">Publish Strategy</button>
               </div>
             </div>}
-          </form>
+            <div className="scrollpoint" ref={successTextRef}></div>
+</div>
         </div>
       ) : (
         <div className="loadContainer">

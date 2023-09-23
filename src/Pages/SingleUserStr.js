@@ -34,7 +34,7 @@ import { replaceNewlinesWithLineBreaks } from '../utils/utils';
 
 
 const SingleUserStr = () => {
-  const { user } = useAuth()
+  const { user,seteditStrategyFormData } = useAuth()
   const [str, setStr] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const { id } = useParams();
@@ -223,9 +223,10 @@ console.log(uploader);
   }
 
 
-  const handleEditStrategy=()=>{
-    navigate('/editStrategyform')
-  }
+  const handleEditStrategy = async () => {
+    await seteditStrategyFormData(str);
+    navigate(`/editStrategyform/${str._id}`);
+  };
   useEffect(() => {
     const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
     pRef.current.innerHTML = newText;

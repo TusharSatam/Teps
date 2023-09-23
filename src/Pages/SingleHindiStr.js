@@ -29,7 +29,7 @@ import ratingStarFill from "../asstes/icons/ratingStarFill.svg"
 import editIcon from "../asstes/icons/editIcon.svg"
 
 const SingleHindiStr = () => {
-  const { user, setUser } = useAuth()
+  const { user, setUser,seteditStrategyFormData } = useAuth()
   const [str, setStr] = React.useState([])
   const [seeComment, setSeecomment] = React.useState(false)
   const [allUser, setAllUser] = React.useState([])
@@ -255,9 +255,13 @@ const toggleUsedStrategy=()=>{
     }
   }
   const [show, setShow] = useState(false)
-  const handleEditStrategy=()=>{
-    navigate('/editStrategyform')
-  }
+  
+
+  const handleEditStrategy = async () => {
+    await seteditStrategyFormData(str);
+    navigate(`/editStrategyform/${str._id}`);
+  };
+  
   useEffect(() => {
     const newText = replaceNewlinesWithLineBreaks(str["शिक्षण रणनीति"]);
     pRef.current.innerHTML = newText;

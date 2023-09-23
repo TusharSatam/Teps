@@ -1,9 +1,452 @@
-import React from 'react'
-
+import React, { useEffect, useRef } from "react";
+import { t } from "i18next";
+import { useState } from "react";
+import {
+  getAllStratigys,
+  getStratigys,
+  singleStratigys,
+} from "../../services/stratigyes";
+import { useAuth } from "../../Context/AuthContext";
+import { postUserStratigys } from "../../services/userStratigy";
+import AproveReqModal from "../Modal/AproveReqModal";
+import { useParams } from "react-router-dom";
+import "./EditStrategy.css";
+import { useTranslation } from "react-i18next";
+import { singleHindiStratigys } from "../../services/hindiStratigys";
 const EditStrategyHi = () => {
-  return (
-    <div>EditStrategyHi</div>
-  )
-}
+  const [allStratigys, setAllStratigys] = React.useState([]);
+  //---------------------------------------------------------
+  const [selectSubject, setSelectSubject] = React.useState();
+  const [selectGrade, setSelectGrade] = React.useState();
+  const [selectTopic, setSelectTopic] = React.useState();
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState();
+  const [selectSubTopic, setSelectSubTopic] = React.useState();
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
+  const [teachingStrategy, setteachingStrategy] = React.useState();
+  const [devDom1, setDevDom1] = React.useState("");
+  const [devDom2, setDevDom2] = React.useState("");
+  const [formData, setformData] = useState([]);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [submittedContent, setSubmittedContent] = useState("");
+  const { t } = useTranslation();
+  //-----------------------------------------------------------------
+  const [modalShow, setModalShow] = React.useState(false);
+  const [languageSelect, setLanguageSelect] = React.useState("en");
+  const [error, setError] = useState(false);
+  const [submitData, setSubmitData] = useState({});
+  const { id } = useParams();
+  const successTextRef = useRef(null);
 
-export default EditStrategyHi
+  const { user, editStrategyFormData } = useAuth();
+  const handleTeachingStrategyChange = (event) => {
+    const { name, value } = event.target;
+    setformData({
+      ...formData,
+      [name]: value,
+    });
+    setSubmittedContent(value);
+  };
+
+  const handlePublishStrategy = () => {
+    console.log("publish");
+  };
+  useEffect(() => {
+    singleHindiStratigys(id).then((res) => {
+      console.log(res);
+      setformData(res[0]);
+      setSubmittedContent(res[0]["शिक्षण रणनीति"]);
+    });
+  }, [id]);
+
+  const resetDropdowns = () => {
+    for (const key in formData) {
+      formData[key] = "";
+    }
+  };
+
+  const handleSub = (e) => {
+    setSelectSubject(e.target.value);
+  };
+  const handleGrade = (e) => {
+    setSelectGrade(e.target.value);
+  };
+  const handleSuperTopic = (e) => {
+    setSelectSuperTopic(e.target.value);
+  };
+  const handleTopic = (e) => {
+    setSelectTopic(e.target.value);
+  };
+  const handleSubTopic = (e) => {
+    setSelectSubTopic(e.target.value);
+  };
+  const handleSubSubTopic = (e) => {
+    setSelectSubSubTopic(e.target.value);
+  };
+  const handleLearningOutcome = (e) => {
+    setSelectLearningOutcome(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (e.target?.["शिक्षण रणनीति"].value === "") {
+      setError(true);
+    } else {
+      setModalShow(true);
+      setError(false);
+      const data = {
+        User_id: user._id,
+        विषय: formData.विषय,
+        श्रेणी: formData.श्रेणी,
+        कौशल: formData.कौशल,
+        शीर्षक: formData.शीर्षक,
+        "उप शीर्षक": formData["उप शीर्षक"],
+        "उप-उप शीर्षक": formData["उप-उप शीर्षक"],
+        "विकासात्मक क्षेत्र 1": formData["विकासात्मक क्षेत्र 1"],
+        "विकासात्मक क्षेत्र 2": formData["विकासात्मक क्षेत्र 2"],
+        "शिक्षण का तरीका": formData["शिक्षण का तरीका"],
+        "शिक्षण के परिणाम": formData["शिक्षण के परिणाम"],
+        "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
+        Approve: false,
+      };
+      // setSubmitData(data);
+      console.log(formData, data);
+      resetDropdowns();
+      setFormSubmitted(true);
+      // Scroll to the success text after the form is submitted
+
+    }
+  };
+
+useEffect(() => {
+  if (successTextRef.current && formSubmitted) {
+    successTextRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}, [formSubmitted])
+
+
+
+  return (
+    <>
+      <div className="form-title">
+        <p>उपयोगकर्ता रणनीति संपादित करें</p>
+      </div>
+      {formData.length != 0 ? (
+        <div className="center-div d-flex ">
+          <div className="me-1 col-md-2 ml-0">
+            <div className=" mb-4 mb-md-3 str_title">
+              <p className="str_name">{t("strategy")}</p>
+              <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
+            </div>
+          </div>
+          <div className="d-flex flex-column col-md-8">
+            <form onSubmit={handleSubmit} className="">
+              <div className="two-selects ">
+                <div>
+                  <p className="select-title">
+                    {t("Grade")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleGrade}
+                    className={"select-field"}
+                    name="grade"
+                    id=""
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.श्रेणी}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p className="select-title">
+                    {t("Subject")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleSub}
+                    className={"select-field"}
+                    name="subject"
+                    id=""
+                    aria-label="Default select example"
+                    value={formData.Subject}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData.विषय}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="two-selects ">
+                <div>
+                  <p className="select-title">
+                    {t("Super topic")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleSuperTopic}
+                    className={"select-field"}
+                    name="Super_Topic"
+                    id=""
+                    value={
+                      formData?.["Super Topic"]
+                        ? formData?.["Super Topic"]
+                        : formData?.["कौशल"]
+                    }
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["मुख्य शीर्षक"]
+                        ? formData?.["मुख्य शीर्षक"]
+                        : formData?.["कौशल"]}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p className="select-title">
+                    {t("Topic")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleTopic}
+                    className={"select-field"}
+                    name="topic"
+                    id=""
+                    value={formData?.शीर्षक}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.शीर्षक}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="two-selects ">
+                <div>
+                  <p className="select-title">
+                    {t("Pedagogical Approach")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleSubTopic}
+                    className={"select-field"}
+                    name="sub_topic"
+                    id=""
+                    value={formData?.["शैक्षणिक दृष्टिकोण"]}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.[" शैक्षणिक दृष्टिकोण"]}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p className="select-title">
+                    {t("Sub - topic")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleSubTopic}
+                    className={"select-field"}
+                    name="sub_topic"
+                    id=""
+                    value={formData?.["उप शीर्षक"]}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["उप शीर्षक"]}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="two-selects ">
+                <div>
+                  <p className="select-title">
+                    {t("Sub sub - topic")} <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleSubSubTopic}
+                    className={"select-field"}
+                    name="sub_sub_topic"
+                    id=""
+                    value={formData["उप-उप शीर्षक"]}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData["उप-उप शीर्षक"]}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p className="select-title">
+                    {t("विकासात्मक क्षेत्र 1")} <p>*</p>
+                  </p>
+
+                  <select
+                    className={"select-field"}
+                    name="dev_dom_1"
+                    id=""
+                    placeholder="Dev Dom 1"
+                    onChange={(e) => {
+                      setDevDom1(e.target.value);
+                    }}
+                    value={
+                      formData?.["विकासात्मक क्षेत्र 1"]
+                        ? formData?.["विकासात्मक क्षेत्र 1"]
+                        : ""
+                    }
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["विकासात्मक क्षेत्र 1"]
+                        ? formData?.["विकासात्मक क्षेत्र 1"]
+                        : ""}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="two-selects ">
+                <div>
+                  <p className="select-title">
+                    {t("विकासात्मक क्षेत्र 2")} <p>*</p>
+                  </p>
+                  <select
+                    className={"select-field"}
+                    name="dev_dom_2"
+                    placeholder="Dev Dom 2"
+                    id=""
+                    onChange={(e) => {
+                      setDevDom2(e.target.value);
+                    }}
+                    disabled
+                    value={
+                      formData?.["विकासात्मक क्षेत्र 2"]
+                        ? formData?.["विकासात्मक क्षेत्र 2"]
+                        : ""
+                    }
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["विकासात्मक क्षेत्र 2"]
+                        ? formData?.["विकासात्मक क्षेत्र 2"]
+                        : ""}
+                    </option>
+                  </select>
+                </div>
+                <div>
+                  <p className="select-title">
+                    {t("शिक्षण का तरीका")} <p>*</p>
+                  </p>
+                  <select
+                    className={"select-field"}
+                    name="Mode of Teaching"
+                    id=""
+                    disabled
+                    value={
+                      formData?.["शिक्षण का तरीका"]
+                        ? formData?.["शिक्षण का तरीका"]
+                        : ""
+                    }
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["शिक्षण का तरीका"]
+                        ? formData?.["शिक्षण का तरीका"]
+                        : ""}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="one-selects">
+                <div>
+                  <p className="select-title">
+                    {t("शिक्षण के परिणाम")}
+                    <p>*</p>
+                  </p>
+                  <select
+                    onChange={handleLearningOutcome}
+                    className={"select-field w-100"}
+                    name="learning_outcome"
+                    id=""
+                    value={formData["शिक्षण के परिणाम"]}
+                    disabled
+                  >
+                    <option value="" selected disabled>
+                      {formData?.["शिक्षण के परिणाम"]}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="one-selects-l">
+                <div>
+                  <p className="select-title">
+                    {t("शिक्षण रणनीति")} <p>*</p>
+                  </p>
+                  <textarea
+                    className={"select-field-full-2 StrategyTextarea"}
+                    name="शिक्षण रणनीति"
+                    id=""
+                    value={
+                      formData?.["शिक्षण रणनीति"]
+                        ? formData?.["शिक्षण रणनीति"]
+                        : ""
+                    }
+                    onChange={handleTeachingStrategyChange}
+                  />
+                </div>
+              </div>
+              <div className="d-flex gap-3 mt-4">
+                {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
+                <button
+                  type="submit"
+                  className=" saveStrategy"
+                  disabled={formSubmitted}
+                >
+                  रणनीति देखें
+                </button>
+                <button
+                  onClick={handlePublishStrategy}
+                  className="publishStrategy"
+                >
+                  रणनीति प्रकाशित करें
+                </button>
+              </div>
+              {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
+              {error && (
+                <p className="form-error">
+                  कृपया उपरोक्त फ़ील्ड में शिक्षण रणनीति भरें!
+                </p>
+              )}
+            </form>
+            {formSubmitted && (
+              <div className="afterSubmitText my-3">
+                <h2 className="sucessText">रणनीति सबमिट करने के लिए धन्यवाद</h2>
+                <textarea
+                  readOnly
+                  className={
+                    "select-field-full-2 StrategyTextarea submittedTextarea"
+                  }
+                  value={submittedContent}
+                >
+                  {/* {formData['Teaching Strategy']} */}
+                </textarea>
+                <div className="bottomButtons d-flex gap-3 align-items-center">
+                  <button className="viewStrategy">रणनीति देखें</button>
+                  <button className="editStrategy">रणनीति संपादित करें</button>
+                  <button className="publishStrategy">
+                    रणनीति प्रकाशित करें
+                  </button>
+                </div>
+              </div>
+            )}
+            <div className="scrollpoint" ref={successTextRef}></div>
+          </div>
+        </div>
+      ) : (
+        <div className="loadContainer">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default EditStrategyHi;
