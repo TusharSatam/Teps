@@ -29,7 +29,6 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
   React.useEffect(() => {
     setAllStratigys(stratigy)
-    console.log(stratigy);
   }, [stratigy,language])
   useEffect(() => {
     setSelectSubject('')

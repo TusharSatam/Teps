@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -26,10 +26,32 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const [passError, setPassError] = React.useState('');
   const [emailErr, setEmailErr] = React.useState('');
   const [verifyModal, setVerifyModal] = React.useState(false)
+  const [phoneError, setPhoneError] = useState(''); 
+  const [registrationOption, setRegistrationOption] = useState('email')
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
+  const [phoneValue, setPhoneValue] = React.useState('');
+const [isPhoneInputType, setisPhoneInputType] = useState(false)
 
 
+
+  const handleRegistrationOptionChange = (option) => {
+    setRegistrationOption(option);
+    if (option === 'email') {
+      // Clear phone number input and its error
+      setPhoneError('');
+    } else {
+      // Clear email input and its error
+      setEmailError('');
+    }
+  };
+  const handlePhoneBlur = () => {
+    if (phoneValue.length < 10) {
+      setPhoneError('must be 10 digits long');
+    } else {
+      setPhoneError(''); // Clear the error message
+    }
+  };
   React.useEffect(() => {
     if (checked) {
       setCityDisable(true);
@@ -77,95 +99,110 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     e.preventDefault();
     let equalPass;
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && e.target.designation.value &&
-      e.target.organization.value && (e.target.city.value || checked) && e.target.pincode.value && equalPass !== ''
-    ) {
-      setRequired("");
-      if (e.target.email.value.match(pattern)) {
-        setEmailErr('')
-        if (e.target.checkmark.checked === true) {
-          setCheckError('');
-          if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
-            setPassError(``)
-            if (e.target.password.value === e.target.confirm_password.value) {
-              setError("");
-              setEmailError("")
-              equalPass = e.target.password.value;
-              const city = e.target.city.value;
-              const formData = new FormData();
-              formData.append('firstName', e.target.firstName.value);
-              formData.append('lastName', e.target.lastName.value);
-              formData.append('email', e.target.email.value);
-              formData.append('designation', e.target.designation.value);
-              formData.append('organization', e.target.organization.value);
-              formData.append('city', checked ? "International" : city);
-              formData.append('pincode', e.target.pincode.value);
-              formData.append('password', equalPass);
-              formData.append('state', !checked ? liveDetails?.State : '');
-              formData.append('country', !checked ? liveDetails?.Country : '');
-              userRegister(formData)
-                .then(res => {
-                  e.target.reset();
-                  setShow(false)
-                  const data = {
-                    "to": res?.data?.data?.email,
-                    'subject': "Email verification - TEPS",
-                    "html": `
-                    <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
-                    <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                    <p>https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
-                    <p>Regards,</p>
-                    <p>Things Education</p>
-                    `
-                  }
-                  axios.post('email', data)
-                    .then(res => {
-                      if (res) {
-                        setVerifyModal(true)
-                        setWrongEMailfound('')
-                      }
-                    })
-                    .catch(err => setWrongEMailfound(wrongEmail))
-                })
-                .catch(err => {
-                  if (err.response.status === 409) {
-                    setEmailError(`${t('already_email')}`)
-                    setDisplay("d-block")
-                  }
-                  else console.log(err);
-                })
 
+    if (registrationOption === 'email') {
+      if (e.target.firstName.value && e.target.lastName.value && e.target.email.value && equalPass !== ''
+      ) {
+        setRequired("");
+        if (e.target.email.value.match(pattern)) {
+          setEmailError('');
+          setEmailErr('')
+          if (e.target.checkmark.checked === true) {
+            setCheckError('');
+            if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
+              setPassError(``)
+              if (e.target.password.value === e.target.confirm_password.value) {
+                setError("");
+                setEmailError("")
+                equalPass = e.target.password.value;
+                const formData = new FormData();
+                formData.append('firstName', e.target.firstName.value);
+                formData.append('lastName', e.target.lastName.value);
+                formData.append('email', e.target.email.value);
+                formData.append('password', equalPass);
+
+                if (formData) {
+                  console.log("formData",e.target.firstName.value,e.target.lastName.value,e.target.email.value,equalPass)
+                }
+                userRegister(formData,"temp")
+                  .then(res => {
+                    console.log("response",res);
+                    e.target.reset();
+                    setShow(false)
+                    const data = {
+                      "to": res?.data?.data?.email,
+                      'subject': "Email verification - TEPS",
+                      "html": `
+                      <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
+                      <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
+                      <p>https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                      <p>Regards,</p>
+                      <p>Things Education</p>
+                      `
+                    }
+                    axios.post('email', data)
+                      .then(res => {
+                        if (res) {
+                          setVerifyModal(true)
+                          setWrongEMailfound('')
+                        }
+                      })
+                      .catch(err => setWrongEMailfound(wrongEmail))
+                  })
+                  .catch(err => {
+                    if (err.response.status === 409) {
+                      setEmailError(`${t('already_email')}`)
+                      setDisplay("d-block")
+                    }
+                    else console.log(err);
+                  })
+  
+              }
+              else {
+                setError(`${t('password_match')}`);
+              }
+  
             }
             else {
-              setError(`${t('password_match')}`);
+              setPassError(`${t('password_five')}`)
+              setError(``);
             }
-
           }
           else {
-            setPassError(`${t('password_five')}`)
-            setError(``);
+            setCheckError(`${t("checkbox_error")}`)
+            setPassError('')
+            setError(``)
+            setRequired(``)
           }
         }
         else {
-          setCheckError(`${t("checkbox_error")}`)
+          setEmailErr(t('Email_Error'));
+          setCheckError(``)
           setPassError('')
           setError(``)
           setRequired(``)
         }
       }
       else {
-        setEmailErr(t('Email_Error'));
-        setCheckError(``)
+        setRequired(`${t('fill_all_box')}`)
         setPassError('')
         setError(``)
-        setRequired(``)
+        setEmailError(t('Email_Error'));
       }
     }
-    else {
-      setRequired(`${t('fill_all_box')}`)
-      setPassError('')
-      setError(``)
+    else{
+      // Phone number registration option is selected
+      if (e.target.firstName.value && e.target.lastName.value && e.target.phone_number.value && e.target.designation.value &&
+        e.target.organization.value && (e.target.city.value || checked) && e.target.pincode.value && equalPass !== ''
+      ) {
+        setRequired('');
+        // ... other phone number-related validations ...
+      } else {
+        setRequired(t('fill_all_box'));
+        // ... other error handling ...
+      }
     }
+
   }
   const handleForgotShow = () => {
     setForgot(true);
@@ -177,6 +214,15 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       setPassError(``)
     }
   }
+  const handlePhoneInput = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+    if (inputValue.length <= 10) {
+      setPhoneValue(inputValue); // Update the state with the cleaned input value
+      setPhoneError(''); // Clear any previous error
+    } else {
+      setPhoneError('must be 10 digits long');
+    }
+  };
   return (
     <>
       <ForgotModal
@@ -198,10 +244,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         <Modal.Body
           className="modal_body"
         >
-          <div>
+          <div className=''>
             <span className='d-none d-md-block d-xxl-none closeModalIcon' onClick={handleClose}  ><img width='15px' src={CrossIcon} alt="" /></span>
             <span className='d-md-none d-xxl-block closeModalIcon' onClick={handleClose} ><img width='15px' src={CrossIcon} alt="" /></span>
-            <p className='text-center sign_up'>{t('Register')}</p>
+            <p className='text-center sign_up '>{t('Register')} now!</p>
           </div>
           <div className='mx-4 mt-4'>
             <form className='ms-md-3 ms-xxl-5' onSubmit={handleSignUp}>
@@ -215,37 +261,73 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                 </div>
               </div>
-              <div className='my-3'>
-                <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; 	&nbsp;&nbsp;{emailError ? emailError : ''}</span></label> <br />
-                <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
-                <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
+{/* ----------------------------------------------------------------------------- */}
+              <div className="registration-option">
+               
+              
               </div>
-              <div className='d-flex  my-3'>
-                <div className='me-5'>
-                  <label htmlFor="">{t('Designation')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' name='designation' placeholder={t('Designation')} type="text" />
-                </div>
-                <div>
-                  <label htmlFor="">{t('School/Organization')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' name='organization' placeholder={t('School/Organization')} type="text" />
-                </div>
-              </div>
-              <div className='d-flex  my-3'>
-                <div className='me-5'>
-                  <label htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
-                  <br />
-                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                  <label htmlFor="">&nbsp;{t('International')}</label>
-                </div>
-                <div>
-                  <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
-                  {
-                    !cityDisable ?
-                      <input value={town} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" /> :
-                      <input className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
-                  }
-                </div>
+{/* --------------------------------------------------------------------- */}
+
+              <div className='d-flex my-3 flex-column'>
+                <h1 className='selectOne'>Select One <span className='text-danger'>&#x2736;</span></h1>
+                {/* -------------------------------------------------- */}
+                 {/* Email input */}
+      <div className='d-flex'>
+        <div className=' me-5'>
+        <label>
+                  <input
+                    type="radio"
+                    value="email"
+                    checked={registrationOption === 'email'}
+                    onChange={() => handleRegistrationOptionChange('email')}
+                    
+                  />
+                  {t('Email')}
+                </label>
+          <label className={emailError ? "text-danger res-label" : "res-label"} htmlFor=""><span style={{ fontSize: "14px" }} className='text-danger mt-5'>&nbsp; {emailError ? emailError : ''}</span></label> <br />
+          <input onChange={handleEmailError} className={emailError ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+          <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "10px" }} onClick={handleForgotShow}><p className='text-start forgot_passs mt-1'>{t('retrieve_password')}</p></a>
+        </div>
+        <div className=''>
+        <label>
+                  <input
+                    type="radio"
+                    value="phone"
+                    checked={registrationOption === 'phone'}
+                    onChange={() => handleRegistrationOptionChange('phone')}
+                  />
+                  {t('Phone Number')}
+        </label>
+          <label className={phoneError ? "text-danger res-label" : "res-label"} htmlFor=""><span style={{ fontSize: "14px" }} className='text-danger mt-5'>&nbsp; {phoneError ? phoneError : ''}</span></label> <br />
+          <input
+            onChange={handlePhoneInput}
+            onBlur={handlePhoneBlur}
+            className={phoneError ? "signup_Input border-danger text-danger" : "signup_Input"}
+            name='phone_number'
+            placeholder={t('Phone Number')}
+            value={phoneValue}
+            type="tel"
+            pattern="[0-9]{10}"
+            maxLength="10"
+          />
+        </div>
+      </div>
+
+
+{/* ---------------------------------------- */}
+
+
+                {/* <div className='d-flex'>
+                  <div className='me-5'>
+                    <label className={emailError || emailErr ? "text-danger" : ""} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger'>&#x2736; 	&nbsp;&nbsp;{emailError ? emailError : ''}</span></label> <br />
+                    <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
+                    <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow} ><p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p></a>
+                  </div>
+                  <div>
+                    <label htmlFor="">{t('Phone Number')}</label> <br />
+                    <input className='signup_Input' name='phone_number' placeholder={t('Phone Number')} type="password" />
+                  </div>
+                </div> */}
               </div>
               <div className='d-flex my-3'>
                 <div className='me-5'>
@@ -274,6 +356,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               <div className='d-flex justify-content-center me-5 pe-4'>
                 <button className='submit_btn'>{t('Submit')}</button>
               </div>
+              <div className='d-flex justify-content-center me-5 pe-4'>
+              <button className='remindLater_btn' onClick={handleClose}>{t('Remind me Later')}</button>
+              </div>
+
             </form>
           </div>
         </Modal.Body>
@@ -305,30 +391,48 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <label className='res-label ' htmlFor="">{t('Last Name')}<span className='text-danger'>&#x2736;</span></label> <br />
                   <input className='signup_Input' name='lastName' placeholder='Blom' type="text" />
                 </div>
+
+
+{/* ------------------- */}
+<div className="input-type-selector">
+  <label>
+    <input
+      type="radio"
+      name="inputType"
+      value="email"
+      checked={!isPhoneInputType}
+      onChange={() => setisPhoneInputType(false)}
+    />
+    {t("Email")}
+  </label>
+  <label>
+    <input
+      type="radio"
+      name="inputType"
+      value="phone"
+      checked={isPhoneInputType}
+      onChange={() => setisPhoneInputType(true)}
+    />
+    {t("Phone Number")}
+  </label>
+</div>
+
+{/* ------------------- */}
+
+{
+  !isPhoneInputType?
+
                 <div className='mt-3'>
                   <label className={emailError || emailErr ? "text-danger res-label" : "res-label"} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
                   <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
                   <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "10px" }} onClick={handleForgotShow}><p className='text-start forgot_passs mt-1'>{t('retrieve_password')}</p></a>
-                </div>
+                </div>:
                 <div className='mt-3'>
-                  <label className='res-label ' htmlFor="">{t('Designation')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' name='designation' placeholder={t('Designation')} type="text" />
+                  <label className={emailError || emailErr ? "text-danger res-label" : "res-label"} htmlFor="">{t('Phone Number')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2736; {emailError ? emailError : ''}</span></label> <br />
+                  <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='phone_number' placeholder='Phone Number' type="text" />
                 </div>
-                <div className='mt-3'>
-                  <label className='res-label ' htmlFor="">{t('School/Organization')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input className='signup_Input' name='organization' placeholder={t('School/Organization')} type="text" />
-                </div>
-                <div className='mt-3'>
-                  <label className='res-label ' htmlFor="">{t('Pincode')}<span className='text-danger'>&#x2736;</span></label> <br />
-                  <input onChange={handlePincode} className='signup_Input' min="0" name='pincode' placeholder={t('Pincode')} type="number" />
-                  <br />
-                  <input defaultChecked={checked} onChange={() => setChecked(!checked)} disabled={interNAtionalDisable} type="checkbox" name="International" id="" />
-                  <label className='res-label ' htmlFor="">&nbsp;{t('International')}</label>
-                </div>
-                <div className='mt-3'>
-                  <label className={cityFound && !cityDisable ? "text-danger res-label " : "res-label "} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2736; {cityFound}</span> : ''}</label><br />
-                  <input value={!cityDisable ? town : ''} disabled={cityDisable} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
-                </div>
+}
+
                 <div className='mt-3'>
                   <label className='res-label ' htmlFor="">{t('Password')}</label> <br />
                   <input className='signup_Input' name='password' placeholder={t('Password')} type="password" />

@@ -14,6 +14,9 @@
   "First Name": "First Name",
   "Last Name": "Last Name",
   "Email": "Email",
+  "Phone Number":"Phone Number",
+  "Remind me Later":"Remind me Later",
+  "Sign In with OTP":"Sign In with OTP",
   "School/Organization": "School/Organization",
   "Designation": "Designation",
   "City/Town": "City/Town",
@@ -27,6 +30,7 @@
   "retrieve_password": "Do you want to retrieve your password?",
   "fill_form": "Please fill all the fields above.",
   "Let’s get started!": "Let’s get started!",
+  "Login now": "Login now!",
   "Forgot Password?": "Forgot Password?",
   "password_error": "(Password is incorrect.)",
   "Change Password": "Change Password",
@@ -89,6 +93,7 @@
   "View comments": "View comments",
   "Hide comments": "Hide comments",
   "Developmental Domains": "Developmental Domains",
-  "Back":"Back"
-
+  "Back":"Back",
+  "Get OTP":"Get OTP",
+  "Sign In with Gmail":"Sign In with Gmail"
 }

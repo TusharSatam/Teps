@@ -14,6 +14,8 @@
   "First Name": "मुख्य नाम",
   "Last Name": "उपनाम",
   "Email": "ईमेल",
+  "Phone Number":"फ़ोन नंबर",
+  "Remind me Later":"बाद में",
   "School/Organization": "स्कूल/संगठन",
   "Designation": "पदनाम",
   "City/Town": "शहर/ नगर",
@@ -28,6 +30,7 @@
   "fill_form": "कृपया उपरोक्त सभी क्षेत्रों को भरें।",
   "Let’s get started!": "आएँ शुरू करें!",
   "Forgot Password?": "पासवर्ड भूल गए हैं?",
+  "Sign In with OTP":"ओटीपी साइन इन",
   "password_error": "(पासवर्ड गलत है।)",
   "Change Password": "पासवर्ड बदलें",
   "state": "राज्य",
@@ -90,5 +93,8 @@
   "Hide comments": "टिप्पणियां छुपाएं",
   "Developmental Domains": "Developmental Domains",
   "Back":"पीछे",
-  "Super topic":"मुख्य शीर्षक"
+  "Super topic":"मुख्य शीर्षक",
+  "Get OTP":"ओटीपी प्राप्त करें",
+  "Sign In with Gmail":"जीमेल साइन इन",
+  "Login now":"अभी लॉगिन करें!"
 }

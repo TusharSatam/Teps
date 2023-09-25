@@ -2,10 +2,11 @@
     font-family: "Inter";
     font-style: normal;
     font-weight: 700;
-    font-size: 48px;
     line-height: 48px;
     letter-spacing: -0.01em;
     color: #1aa05b;
+    font-size: 28px;
+    margin-bottom: 3rem;
   }
 
   
@@ -30,8 +31,8 @@
     padding: 2rem 1rem;
   }
   .modal-backdrop.show {
-    opacity: 1 !important;
-    background: rgba(8, 9, 10, 0.5) !important;
+    /* opacity: 0.8 !important; */
+    background-color: rgba(213, 179, 154, 0.40) !important;
   }
   .signup_Input {
     background: #f8f9fa;
@@ -39,6 +40,10 @@
     border-radius: 8px;
     padding: 5px 10px;
     width: 350px;
+    border-radius: 12px;
+    height: 40px;
+    padding: 0.5rem 0.8rem;
+    box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.20) inset, 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
   }
   .signup_Input:focus {
     outline: none;
@@ -76,6 +81,19 @@
     background: #9fdfbe;
     border: 1px solid #9fdfbe;
   }
+  .selectOne{
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .remindLater_btn{
+    border-radius: 24px;
+    color: #1aa05b;
+    padding: .5rem 1rem;
+    border: 1px solid #1AA05B;
+    background: #FFF;
+    margin-top: 1rem;
+    box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+  }
   .res-label {
     font-family: "Inter";
     font-style: normal;
@@ -98,6 +116,21 @@
     position: absolute;
     right: 3%;
   }
+
+  .input-type-selector{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .modal-backdrop{
+    opacity: 1 !important;
+    backdrop-filter: blur(60px);
+    /* --bs-backdrop-bg: rgba(213, 179, 154, 0.40); */
+  }
+.text-danger{
+  font-size: 12px !important;
+}
   @media only screen and (max-width: 990px) {
 .modal.show .modal-dialog {
     margin: auto !important;

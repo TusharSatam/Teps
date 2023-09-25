@@ -1,100 +1,175 @@
-.log_in{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 48px;
-    letter-spacing: -0.01em;
-    color: #1AA05B;
+.log_in {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 48px;
+  letter-spacing: -0.01em;
+  color: #1aa05b;
+  margin-bottom: 3rem;
 }
-.signIn_body{
-    background: white;
-    border-radius: 12px;
+.modal.show .modal-dialog {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
-.login_input{
-    width: 367px;
-    background: #F8F9FA;
-    border: 1px solid #CED4DA;
-    border-radius: 8px;
-    padding: 5px 10px;
+.fade{
+margin-top: 0 !important;
 }
-.forgot_pass{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    text-decoration-line: underline;
-    color: #1AA05B;
+.modal-content{
+  width: 100%;
+}
+.pinInput {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+.resendOTP {
+  color: #1aa05b;
+  background: none;
+  border: none;
+}
+.OTPinput {
+  border: none;
+  border-bottom: 2px solid #1aa05b;
+  color: #1aa05b;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+}
+.OTPinput:focus {
+  outline: none;
+}
+.submit_btn,
+.submitOTP_btn {
+  width: 237px;
+  padding: 0.5rem 1rem;
+  border-radius: 24px;
+  background: #1aa05b;
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.3) inset,
+    0px 4px 8px 0px rgba(26, 160, 91, 0.2), 4px 6px 14px 0px #3ae48d inset;
+}
+.submitOTP_btn {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 24px;
+  background: #1aa05b;
+  border: none;
+  /* primary button */
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.3) inset,
+    0px 4px 8px 0px rgba(26, 160, 91, 0.2), 4px 6px 14px 0px #3ae48d inset;
+}
+.signOTP_btn {
+  width: 237px;
+  padding: 0.5rem 1rem;
+  border-radius: 24px;
+  border: 1px solid #1aa05b;
+  background: #fff;
+  /* secondary button */
+  box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+  color: #1aa05b;
+  font-size: 20px;
+  font-weight: 600;
+}
+.signIn_body {
+  background: white;
+  border-radius: 12px;
+}
+.login_input {
+  width: 367px;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 5px 10px;
+  height: 40px;
+  border-radius: 12px;
+  box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+.forgot_pass {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-decoration-line: underline;
+  color: #1aa05b;
 }
 .containerr {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .containerr input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: white;
-    border: 2px solid #1AA05B;
-  }
- 
-  /* When the checkbox is checked, add a blue background */
-  .containerr input:checked ~ .checkmark {
-    background-color: #1AA05B;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .containerr input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .containerr .checkmark:after {
-    left: 5px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-@media only screen and (max-width: 990px) {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-    .log_in{
-        font-size: 20px;
-    }
-    .login_input{
-        width:268px;
-    }
+/* Hide the browser's default checkbox */
+.containerr input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border: 2px solid #1aa05b;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerr input:checked ~ .checkmark {
+  background-color: #1aa05b;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.containerr input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerr .checkmark:after {
+  left: 5px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+@media only screen and (max-width: 990px) {
+  .log_in {
+    font-size: 20px;
+  }
+  .login_input {
+    width: 268px;
+  }
+  .modal.show .modal-dialog {
+    max-width: fit-content !important;
+  }
 }
