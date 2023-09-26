@@ -25,6 +25,7 @@ export const getSingleUser = async (id) => {
 
 // update user info
 export const updateUser = async (id, data) => {
+  console.log(data)
   let updateResponse;
   await axios.put(`users/${id}`, data)
     .then(res => {

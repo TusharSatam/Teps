@@ -165,7 +165,7 @@ const Profile = () => {
     state: user?.state
   });
   const handleCountry = (e) => {
-    if (e.target.value !== "India") {
+    if (e.target.value !== " ") {
       setSelectedCountry(
         {
           city: "International",
@@ -174,6 +174,7 @@ const Profile = () => {
       )
     }
     else {
+      
       setSelectedCountry(user?.city)
     }
   }
@@ -181,6 +182,7 @@ const Profile = () => {
   const handleUpdate = (e) => {
     setIsLoading(true);
     e.preventDefault();
+    console.log(e.target.organization.value)
     const formData = new FormData();
     formData.append('organization', e.target.organization.value);
     formData.append('designation', e.target.designation.value);
@@ -188,6 +190,7 @@ const Profile = () => {
     formData.append('state', liveDetails ? liveDetails?.State : user.state);
     formData.append('pincode', e.target.pincode.value);
     formData.append('country', e.target.country.value);
+    // console.log(formData,user._id);
     updateUser(user._id, formData)
       .then(res => {
         getSingleUser(user._id)
@@ -203,8 +206,8 @@ const Profile = () => {
                   `
             }
             axios.post('email', data)
-              .then(ress => {
-                if (ress) {
+              .then(res => {
+                if (res) {
                   window.localStorage.setItem('data', JSON.stringify(res.data[0]));
                   setUser(res.data[0]);
                   toast.success(`${t('update_profile_messege')}`)
@@ -217,7 +220,7 @@ const Profile = () => {
           })
       })
       .catch(err => {
-        toast.error('Something is wrong please try again!')
+        toast.error('Something is wrong please try again!',err  )
         setIsLoading(false);
       })
 
