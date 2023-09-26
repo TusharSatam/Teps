@@ -29,6 +29,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
   React.useEffect(() => {
     setAllStratigys(stratigy)
+    console.log(stratigy);
   }, [stratigy,language])
   useEffect(() => {
     setSelectSubject('')
@@ -542,7 +543,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
               <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
             </div> :
               location.pathname === '/'?
-              <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
+              <div className='d-flex justify-content-center my-4 my-md-0 mt-md-2 pb-0 pb-md-0'>
               <button onClick={handleLandingFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
             </div>:
             <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
