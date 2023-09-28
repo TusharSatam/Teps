@@ -60,15 +60,23 @@ const FilterStr = ({ stratigy,handleShow }) => {
   let uniqueSubject, uniqueGrade, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
 
   if (language === "en") {
-    uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
-      .map(subject => {
-        return allStratigys.find(a => a.Subject === subject)
-      });
+    let uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
+    .map(subject => {
+      return allStratigys.find(a => a.Subject === subject)
+    });
+  uniqueSubject.push({ Subject: 'Social Studies' });
   
-    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-      .map(grade => {
-        return allStratigys.find(a => a.Grade === grade)
-      });
+    const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
+    .filter(grade => grade !== 'LKG' && grade !== 'UKG')
+    .map(grade => {
+      return allStratigys.find(a => a.Grade === grade)
+    });
+      if (!uniqueGrade.find(item => item.Grade === 'K1')) {
+    uniqueGrade.push({ Grade: 'K1' });
+  }
+  if (!uniqueGrade.find(item => item.Grade === 'K2')) {
+    uniqueGrade.push({ Grade: 'K2' });
+  }
   
     aquaticCreatures = allStratigys.filter(function (creature) {
       return creature.Subject === selectSubject && creature.Grade === selectGrade;
@@ -225,6 +233,26 @@ const FilterStr = ({ stratigy,handleShow }) => {
     }   
 
   }
+     
+  const getGradeOptions = () => {
+    switch (selectSubject) {
+      case 'Science':
+    return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '6', '7', '8', '9', '10'].includes(item.Grade));
+      case 'English':
+        return uniqueGrade;
+        case 'Numeracy':
+          return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2'].includes(item.Grade));
+        case 'EVS':
+          return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '1', '2', '3', '4', '5'].includes(item.Grade));      
+      case 'Mathematics':
+        return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 1 && parseInt(item.Grade) <= 10);
+      case 'Social Studies':
+        return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 6 && parseInt(item.Grade) <= 10);
+      default:
+        return [];
+    }
+  }
+  
  
   const handleFindStratigys = () => {
     if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
@@ -309,8 +337,9 @@ const FilterStr = ({ stratigy,handleShow }) => {
                 <option value="" selected disabled>{t('Grade')}</option>
 
             {language=="en"?
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
+              getGradeOptions().map((item, index) => (
+                <option key={index}>{item.Grade}</option>
+              
               )):   uniqueGrade?.map((item, index) => (
                 <option key={index} >{item.श्रेणी}</option>
               ))
@@ -327,8 +356,9 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
             }
             {language=="en"?
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
+               getGradeOptions().map((item, index) => (
+                <option key={index}>{item.Grade}</option>
+            
               )):   uniqueGrade?.map((item, index) => (
                 <option key={index} >{item.श्रेणी}</option>
               ))

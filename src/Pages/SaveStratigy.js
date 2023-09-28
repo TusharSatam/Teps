@@ -220,34 +220,12 @@ const SaveStratigy = () => {
                                     <p className='Strategy_count'>{t("strategy")}</p>
                                     <p className='counter_str'>{index + 1}</p>
                                   </div>
-                                  {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                 
                                 </div>
                                 <div className='d-block d-md-none mt-1'>
-                                  <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                
                                   <div className=' mt-1' style={{ marginLeft: "20px" }}>
-                                    <div className='res_btn_icon'>
-                                      <div className='d-flex flex-column res_inner_div p-1 '>
-                                        {
-                                          !res['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                            res['Dev Dom 1'] === "Cognitive Sensory" ?
-                                              <img title="Cognitive Sensory" style={{ width: "20px", height: "20px" }} className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                              <img title="Motor-Physical" style={{ width: "20px", height: "20px" }} className='threeIcons mb-1' src={Physical} alt="" />
-                                        }
-                                        {
-                                          !res['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                            res['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                              <img title='Socio-Emotional-Ethical' style={{ width: "20px", height: "20px" }} className='threeIcons mb-1' src={Social} alt="" /> :
-                                              <img title='Language & Communication' style={{ width: "20px", height: "20px" }} className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                        }
-                                      </div>
-                                    </div>
-                                    <div className='ms-1'>
-                                      {
-                                        res['Mode of Teaching'] === "Online" ?
-                                          <img title='Online' className='threeIcons' style={{ width: "20px", height: "20px" }} src={OnlineIcon} alt="" /> :
-                                          <img title='Classroom' className='threeIcons' style={{ width: "20px", height: "20px" }} src={OfflineIcon} alt="" />
-                                      }
-                                    </div>
+                                   
                                   </div>
                                 </div>
                               </div>
@@ -269,30 +247,7 @@ const SaveStratigy = () => {
 
                             <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                               <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <span className='icons_heading'>Developmental Domains</span>
-                                </div>
-                                <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                  <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                    {
-                                      !res['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
-                                        res['Dev Dom 1'] === "Cognitive Sensory" ?
-                                          <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                          <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
-                                    }
-                                    {
-                                      !res['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
-                                        res['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                          <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                          <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                    }
-                                  </div>
-                                  {
-                                    res['Mode of Teaching'] === "Online" ?
-                                      <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                      <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                  }
-                                </div>
+                                
                               </div>
                             </div>
                           </div>
@@ -334,34 +289,14 @@ const SaveStratigy = () => {
                                           </OverlayTrigger>
                                       } </p>
                                     </div>
-                                    {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                   
                                   </div>
                                   <div className='d-block d-md-none mt-1'>
-                                    <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                  
                                     <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                       <div className='res_btn_icon'>
-                                        <div className='d-flex flex-column res_inner_div p-1 '>
-                                          {
-                                            !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                              data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                          }
-                                          {
-                                            !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                              data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                          }
-                                        </div>
-                                      </div>
-                                      <div className='ms-1'>
-                                        {
-                                          data['Mode of Teaching'] === "Online" ?
-                                            <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                            <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                        }
-                                      </div>
+                                                                            </div>
+                                    
                                     </div>
                                   </div>
                                 </div>
@@ -401,30 +336,7 @@ const SaveStratigy = () => {
                               </div>
                               <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                 <div className='d-flex flex-column align-items-center justify-content-center'>
-                                  <div>
-                                    <span className='icons_heading'>Development Domains</span>
-                                  </div>
-                                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                    <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                      {
-                                        !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
-                                          data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                            <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                            <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
-                                      }
-                                      {
-                                        !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
-                                          data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                            <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                            <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                      }
-                                    </div>
-                                    {
-                                      data['Mode of Teaching'] === "Online" ?
-                                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                    }
-                                  </div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -449,26 +361,13 @@ const SaveStratigy = () => {
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{index + 1}</p>
                                       </div>
-                                      {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                     
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
-                                      <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                    
                                       <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                         <div className='res_btn_icon'>
-                                          <div className='d-flex flex-column res_inner_div p-1 '>
-                                            {
-                                              !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                            }
-                                            {
-                                              !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                            }
-                                          </div>
+                                         
                                         </div>
                                         <div className='ms-1'>
                                           {
@@ -494,30 +393,7 @@ const SaveStratigy = () => {
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
-                                    <div>
-                                      <span className='icons_heading'>Development Domains</span>
-                                    </div>
-                                    <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                      <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                        {
-                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
-                                            data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                              <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                              <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
-                                        }
-                                        {
-                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
-                                            data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                              <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                              <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                        }
-                                      </div>
-                                      {
-                                        data['Mode of Teaching'] === "Online" ?
-                                          <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                          <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                      }
-                                    </div>
+                                   
                                   </div>
                                 </div>
                               </div>
@@ -559,34 +435,15 @@ const SaveStratigy = () => {
                                             </OverlayTrigger>
                                         } </p>
                                       </div>
-                                      {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                     
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
-                                      <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                      
                                       <div className=' mt-1' style={{ marginLeft: "20px" }}>
                                         <div className='res_btn_icon'>
-                                          <div className='d-flex flex-column res_inner_div p-1 '>
-                                            {
-                                              !data['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                            }
-                                            {
-                                              !data['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                            }
-                                          </div>
+                                         
                                         </div>
-                                        <div className='ms-1'>
-                                          {
-                                            data['Mode of Teaching'] === "Online" ?
-                                              <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                          }
-                                        </div>
+                                       
                                       </div>
                                     </div>
                                   </div>
@@ -626,30 +483,7 @@ const SaveStratigy = () => {
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
-                                    <div>
-                                      <span className='icons_heading'>Development Domains</span>
-                                    </div>
-                                    <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                                      <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                        {
-                                          !data['Dev Dom 1'] ? <div className='threeIcons-nun-save'></div> :
-                                            data['Dev Dom 1'] === "Cognitive Sensory" ?
-                                              <img title="Cognitive Sensory" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                              <img title="Motor-Physical" className='threeIcons mx-2' src={Physical} alt="" />
-                                        }
-                                        {
-                                          !data['Dev Dom 2'] ? <div className='threeIcons-nun-save'></div> :
-                                            data['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                              <img title='Socio-Emotional-Ethical' className='threeIcons ms-3' src={Social} alt="" /> :
-                                              <img title='Language & Communication' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                        }
-                                      </div>
-                                      {
-                                        data['Mode of Teaching'] === "Online" ?
-                                          <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                          <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                      }
-                                    </div>
+                                    
                                   </div>
                                 </div>
                               </div>

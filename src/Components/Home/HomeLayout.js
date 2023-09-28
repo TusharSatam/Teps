@@ -38,6 +38,26 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     }
     }, [])
     
+    const getGradeOptions = () => {
+      switch (selectSubject) {
+        case 'Science':
+      return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '6', '7', '8', '9', '10'].includes(item.Grade));
+        case 'English':
+          return uniqueGrade;
+          case 'Numeracy':
+            return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2'].includes(item.Grade));
+          case 'EVS':
+            return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '1', '2', '3', '4', '5'].includes(item.Grade));      
+        case 'Mathematics':
+          return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 1 && parseInt(item.Grade) <= 10);
+        case 'Social Studies':
+          return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 6 && parseInt(item.Grade) <= 10);
+        default:
+          return [];
+      }
+    }
+    
+
   React.useEffect(() => {
     setAllStratigys(allStrategies)
     setAllUserStratigys(allUserStrategies)
@@ -56,14 +76,23 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       }
     }
   }, [selectedOption, location.pathname])
-  const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
+   let uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
   .map(subject => {
     return allStratigys.find(a => a.Subject === subject)
-  })
+  });
+uniqueSubject.push({ Subject: 'Social Studies' });
+
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-    .map(grade => {
-      return allStratigys.find(a => a.Grade === grade)
-    });
+  .filter(grade => grade !== 'LKG' && grade !== 'UKG')
+  .map(grade => {
+    return allStratigys.find(a => a.Grade === grade)
+  });
+    if (!uniqueGrade.find(item => item.Grade === 'K1')) {
+  uniqueGrade.push({ Grade: 'K1' });
+}
+if (!uniqueGrade.find(item => item.Grade === 'K2')) {
+  uniqueGrade.push({ Grade: 'K2' });
+}
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
     setSelectGrade('')
@@ -273,7 +302,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
           {localStorage.getItem('selectedDropdown') && !selectGrade && (
             <option value="" selected disabled>{selectedOption?.selectGrade}</option>
           )}
-          {uniqueGrade?.map((item, index) => (
+          { getGradeOptions().map((item, index) => (
             <option key={index}>{item.Grade}</option>
           ))}
         </select>
@@ -290,18 +319,17 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
           {localStorage.getItem('selectedDropdown') && !selectGrade && (
             <option value="" selected disabled>{selectedOption?.selectGrade}</option>
           )}
-          {uniqueGrade?.map((item, index) => (
+          { getGradeOptions().map((item, index) => (
            <option key={index}>{item.Grade}</option>
           
           
-          ))} <option >K0</option><option >K1</option>
-          <option >K2</option>
+          ))} 
         </select>
-<select className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}>
+{/* <select className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}>
 <option disabled selected >{t('Pedagogical Approach')} </option>
 <option value="P. Approach 1">P. Approach 1</option>
 <option value="P. Approach 2">P. Approach 2</option>
-</select>
+</select> */}
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?

@@ -561,39 +561,6 @@ const DashHome = () => {
           <Link to="/browsers-devices"><button className='btn btn-primary w-100'>See Device and Browser</button></Link>
         </div>
 
-        {/* <div className="col-md-3">
-          <div className="card-counter info">
-
-            <span className="count-numbers">{data?.rows[0]?.metricValues[0].value}</span>
-            <span className="count-name">Total Unique Page View</span>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card-counter info">
-
-            <span className="count-numbers">{data?.rows[0]?.dimensionValues[1].value}</span>
-            <span className="count-name">Usage Devices</span>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card-counter info">
-
-            <span className="count-numbers">{data?.rows[0]?.dimensionValues[2].value}</span>
-            <span className="count-name">Usage Browser</span>
-          </div>
-        </div> */}
-
-        {/* <GoogleLogin
-            onSuccess={credentialResponse => {
-              setToken(credentialResponse.credential);
-            }}
-            onError={() => {
-              console.log('Login Failed');
-            }}
-          />
-          <button onClick={googleLogin}>submit</button>
-          <button onClick={handleClick}>submit</button> */}
-        {/* <AnalyticsDash /> */}
         <div className='row  my-5'>
           {
             show === false ?

@@ -182,19 +182,20 @@ const Profile = () => {
   const handleUpdate = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    console.log(e.target.organization.value)
-    const formData = new FormData();
-    formData.append('organization', e.target.organization.value);
-    formData.append('designation', e.target.designation.value);
-    formData.append('city', liveDetails ? liveDetails?.Block : user.city);
-    formData.append('state', liveDetails ? liveDetails?.State : user.state);
-    formData.append('pincode', e.target.pincode.value);
-    formData.append('country', e.target.country.value);
-    // console.log(formData,user._id);
+    const formData= {
+      organization: e.target.organization.value,
+      designation: e.target.designation.value,
+      city: liveDetails ? liveDetails.Block : user.city,
+      state: liveDetails ? liveDetails.State : user.state,
+      pincode: e.target.pincode.value,
+      country: e.target.country.value,
+    };
+   
     updateUser(user._id, formData)
       .then(res => {
         getSingleUser(user._id)
           .then(res => {
+            // console.log(res);
             const data = {
               "to": getEmail,
               'subject': "Profile details - TEPS",
