@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { t } from "i18next";
 import { postUserStratigys } from "../../../services/userStratigy";
+import { postUserStratigysHi } from "../../../services/userStratigyHi";
+import { useAuth } from "../../../Context/AuthContext";
 
 // Subcomponent for each modal content
 const ModalContent = ({ text, buttonText, onClick,onClickNo }) => {
@@ -30,7 +32,7 @@ const PublishModal = ({
   editedDatas,
 }) => {
   const [currentModal, setCurrentModal] = useState(1);
-
+const {selectLang}=useAuth()
   const handleYes = () => {
     // Update isPublic to true
     const updatedData = { ...editedDatas, isPublic: true };
@@ -38,10 +40,16 @@ const PublishModal = ({
     seteditedDatas(updatedData);
 
     // Call postUserStratigys with updated data
-    postUserStratigys(updatedData).then((res) => {
-      console.log("Response from postUserStratigys:", res);
-    });
-
+    if(selectLang=="en"){
+      postUserStratigys(updatedData).then((res) => {
+        console.log("Response from postUserStratigys:", res);
+      });
+    }
+    else{
+      postUserStratigysHi(updatedData).then((res) => {
+        console.log("Response from postUserStratigys:", res);
+      });
+    }
     setCurrentModal(2);
 
   };

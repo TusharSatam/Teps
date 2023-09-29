@@ -40,7 +40,7 @@ const EditStrategyHi = () => {
   const successTextRef = useRef(null);
   const [isPublishModalOpen, setisPublishModalOpen] = useState(false);
   const [isStrategyPublic, setisStrategyPublic] = useState(false)
-
+  const [editedDatas, seteditedDatas] = useState("")
   const { user, editStrategyFormData } = useAuth();
   const handleTeachingStrategyChange = (event) => {
     const { name, value } = event.target;
@@ -111,8 +111,10 @@ const EditStrategyHi = () => {
         "शिक्षण के परिणाम": formData["शिक्षण के परिणाम"],
         "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
         Approve: false,
+        isPublic:false,
       };
       console.log(formData, data);
+      seteditedDatas(data)
       resetDropdowns();
       setFormSubmitted(true);
       setisPublishModalOpen(true)
@@ -149,7 +151,8 @@ useEffect(() => {
                 <p className="str_name">{t("strategy")}</p>
                 <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
               </div>
-          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}/>
+          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}   seteditedDatas={seteditedDatas}
+              editedDatas={editedDatas}/>
 
             <form onSubmit={handleSubmit} >
               <div className="two-selects d-flex gap-2">

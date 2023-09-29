@@ -157,7 +157,7 @@
   
   @media only screen  and (max-width: 1240px) {
     .formWrapper{
-      width:auto;
+      width:100%;
     }
   }
   @media only screen and (min-width: 840px) and (max-width: 1040px) {

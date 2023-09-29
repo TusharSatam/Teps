@@ -45,7 +45,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
 
   }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/home') {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject)
         setSelectGrade(selectedOption?.selectGrade)
@@ -195,7 +195,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
-        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic && creature.isPublic === true;
       });
       console.log({ aquaticCreaturesUser });
       setStratigyFilData(aquaticCreatures)

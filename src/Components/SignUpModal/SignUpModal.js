@@ -124,7 +124,7 @@ const [isPhoneInputType, setisPhoneInputType] = useState(false)
                 if (formData) {
                   console.log("formData",e.target.firstName.value,e.target.lastName.value,e.target.email.value,equalPass)
                 }
-                userRegister(formData,"temp")
+                userRegister(formData)
                   .then(res => {
                     console.log("response",res);
                     e.target.reset();
@@ -135,7 +135,7 @@ const [isPhoneInputType, setisPhoneInputType] = useState(false)
                       "html": `
                       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                      <p>https://teps.school/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                      <p>http://localhost:3000/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
                       <p>Regards,</p>
                       <p>Things Education</p>
                       `
