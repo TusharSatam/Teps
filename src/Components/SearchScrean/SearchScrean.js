@@ -304,42 +304,24 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
                                                 <p className='Strategy_count'>{t("strategy")}</p>
                                                 <p className='counter_str'>{index + 1}</p>
                                               </div>
-                                              {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
+                                             
                                             </div>
                                             <div className='d-block d-md-none mt-1'>
-                                              <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                            
                                               <div className=' mt-1' style={{ marginLeft: "10px" }}>
                                                 <div className='res_btn_icon'>
-                                                  <div className='d-flex flex-column res_inner_div p-1 '>
-                                                    {
-                                                      !strRes['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                        strRes['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                          <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                          <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                                    }
-                                                    {
-                                                      !strRes['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                        strRes['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                          <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                          <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                    }
-                                                  </div>
+                                                 
                                                 </div>
-                                                <div className='ms-1'>
-                                                  {
-                                                    strRes['Mode of Teaching'] === "Online" ?
-                                                      <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                      <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                                  }
-                                                </div>
+                                              
                                               </div>
                                             </div>
                                           </div>
                                         </Link>
                                         <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
-                                          <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                          <Link  style={{ textDecoration: "none", color: 'black' }}>
                                             <p>
-                                              {strRes["Teaching Strategy"]}
+                                              {strRes["Teaching Strategy"].slice(0, 150) + '...'}
+                                              <Link to={`/single/${strRes._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none",fontWeight:"600"}}>Read More</Link>
                                             </p>
                                           </Link>
                                           <div className='d-flex align-items-center my-3'>
@@ -390,39 +372,21 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
                                             </div>
                                             <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <div className='d-block d-md-none mt-1'>
-                                                <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
+                                               
                                                 <div className=' mt-1' style={{ marginLeft: "10px" }}>
                                                   <div className='res_btn_icon'>
-                                                    <div className='d-flex flex-column res_inner_div p-1 '>
-                                                      {
-                                                        !strUser['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                          strUser['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                            <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                            <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                                      }
-                                                      {
-                                                        !strUser['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                          strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                            <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                            <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                      }
-                                                    </div>
+                                                    
                                                   </div>
-                                                  <div className='ms-1'>
-                                                    {
-                                                      strUser['Mode of Teaching'] === "Online" ?
-                                                        <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                        <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                                    }
-                                                  </div>
+                                                 
                                                 </div>
                                               </div>
                                             </Link>
                                           </div>
                                           <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link  style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
-                                                {strUser["Teaching Strategy"]}
+                                                {strUser["Teaching Strategy"].slice(0,150) + '...'}
+                                                <Link to={`/singleUserStratigy/${strUser._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none",fontWeight:"600"}}>Read More</Link>
                                               </p>
                                             </Link>
                                             

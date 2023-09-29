@@ -36,7 +36,7 @@ const SaveStratigy = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false)
   const language = localStorage.getItem("i18nextLng")
-  console.log(stratigyFilData);
+ 
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi")
@@ -234,10 +234,13 @@ const SaveStratigy = () => {
 
 
                             <div className='col-9 ms-md-4 col-md-8 '>
-                              <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                              <Link  style={{ textDecoration: "none", color: 'black' }}>
+                                <p style={{color:"brown",fontSize:"13px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
-                                  {res["Teaching Strategy"]}
+                                  {res["Teaching Strategy"].slice(0, 150) + '...'}
+                                  <Link to={`/single/${res._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                 
                                 </p>
                               </Link>
                               <div className='d-flex align-items-center my-3'>
@@ -302,10 +305,13 @@ const SaveStratigy = () => {
                                 </div>
                               </Link>
                               <div className='col-9 ms-md-4 col-md-8 '>
-                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link style={{ textDecoration: "none", color: 'black' }}>
+                                <p style={{color:"brown",fontSize:"13px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
                                   <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
-                                    {data["Teaching Strategy"]}
+                                  {data["Teaching Strategy"].slice(0, 150) + '...'}
+                            <Link  to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                 
                                   </p>
                                 </Link>
                                 <div className='d-flex justify-content-between my-3'>
@@ -369,22 +375,18 @@ const SaveStratigy = () => {
                                         <div className='res_btn_icon'>
                                          
                                         </div>
-                                        <div className='ms-1'>
-                                          {
-                                            data['Mode of Teaching'] === "Online" ?
-                                              <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                          }
-                                        </div>
+                                        
                                       </div>
                                     </div>
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link style={{ textDecoration: "none", color: 'black' }}>
+                                  <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Inquiry-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
-                                      {data["Teaching Strategy"]}
+                                      {data["Teaching Strategy"].slice(0, 150) + '...'}
+                                      <Link to={`/single/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
                                     </p>
                                   </Link>
                                   <div className='d-flex align-items-center my-3'>
@@ -449,11 +451,13 @@ const SaveStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link  style={{ textDecoration: "none", color: 'black' }}>
+                                  <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
-                                      {data["Teaching Strategy"]}
-                                    </p>
+                                    {data["Teaching Strategy"].slice(0, 150) + '...'}
+                                      <Link to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                  </p>
                                   </Link>
                                   <div className='d-flex justify-content-between my-3'>
                                     <div>
@@ -892,6 +896,6 @@ const SaveStratigy = () => {
 
     </div>
   );
-};
+  };
 
 export default SaveStratigy;

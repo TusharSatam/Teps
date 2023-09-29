@@ -251,13 +251,7 @@ const SingleStr = () => {
 
 
                   </div>
-                  <div className='me-md-3  mt-2 me-4'>
-                    {
-                      str['Mode of Teaching'] === "Online" ?
-                        <img title='Online' width={'20px'} height={'20px'} className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='Classroom' width={'20px'} height={'20px'} className='threeIcons' src={OfflineIcon} alt="" />
-                    }
-                  </div>
+                 
                 </div>
               </div>
 

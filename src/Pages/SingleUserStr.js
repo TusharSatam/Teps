@@ -294,13 +294,7 @@ console.log(uploader);
                       <p style={{ cursor: "pointer" }} onClick={showReact} className='count_num'>{totalLikeUser.length}</p>
                     </div>
                   </div>
-                  <div className='me-md-3 me-0'>
-                    {
-                      str['Mode of Teaching'] === "Online" ?
-                        <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                    }
-                  </div>
+                 
                 </div>
               </div>
            

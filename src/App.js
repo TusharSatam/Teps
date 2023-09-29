@@ -42,7 +42,6 @@ import Stratigy from './Pages/Stratigy';
 import Verify from './Pages/Verify';
 
 
-
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
@@ -103,7 +102,7 @@ function App() {
           <Route path='/admin-login' element={<AdminAuth />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profiles />} />
+             <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />

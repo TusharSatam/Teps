@@ -29,7 +29,6 @@ const Profile = () => {
   const [preview, setPreview] = React.useState(null)
 
 
-
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -178,6 +177,7 @@ const Profile = () => {
       setSelectedCountry(user?.city)
     }
   }
+ 
   // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
