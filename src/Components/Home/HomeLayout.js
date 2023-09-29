@@ -45,7 +45,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
 
   }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {
-    if (location.pathname !== '/home') {
+    if (location.pathname !== '/') {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject)
         setSelectGrade(selectedOption?.selectGrade)

@@ -271,3 +271,26 @@ export const multidelStratigysReqby = async (ids) => {
 
   return stratigyResponse;
 }
+
+
+export const getRatings = async (id) => {
+  try {
+    const response = await axios.get(`/rating/get/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; // You can choose to handle or rethrow the error as needed
+  }
+};
+
+export const postRating = async (data) => {
+  try {
+    const response = await axios.post('/rating/add', data);
+    return response.data;
+  } catch (error) {
+    console.error('Error posting data:', error);
+    throw error; // You can choose to handle or rethrow the error as needed
+  }
+};
+
+

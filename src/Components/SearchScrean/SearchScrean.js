@@ -34,11 +34,6 @@ const SearchScrean = () => {
   const [check, setCheck] = React.useState(false);
   const [uploadeduserIDs, setuploadeduserIDs] = useState([])
   const [userDetails, setUserDetails] = useState([]);
-
-  // const [uploader, setuploader] =  React.useState('')
-
-  // const [react, setReact] = React.useState(user ? user?.saveId : []);
-  // const [like, setLike] = React.useState(user ? user?.saveReact : []);
   const { t } = useTranslation();
 
 
@@ -86,64 +81,7 @@ const SearchScrean = () => {
     }
     setShowH([...showH], [showH]);
   }
-  // const handleReact = async (e) => {
-  //   if (react?.includes(e)) {
-  //     for (var i = 0; i < react.length; i++) {
-  //       if (react[i] === e) {
-  //         react?.splice(i, 1);
-  //         i--;
-  //       }
-  //     }
-  //   }
-  //   else {
-  //     react?.push(e)
-  //   }
-  //   setReact([...react], [react]);
-  // }
-  // React.useEffect(() => {
-  //   const data = { "saveId": react }
-  //   if (react) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [react, user, setUser])
-
-  // const handleLike = async (e) => {
-
-  //   if (like?.includes(e)) {
-  //     for (var i = 0; i < like.length; i++) {
-  //       if (like[i] === e) {
-  //         like.splice(i, 1);
-  //         i--;
-  //       }
-  //     }
-  //   }
-  //   else {
-  //     like.push(e)
-  //   }
-  //   setLike([...like], [like]);
-  // }
-
-  // React.useEffect(() => {
-  //   const data = { "saveReact": like }
-  //   if (like) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [like, user, setUser])
-
+ 
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
     localStorage.removeItem('filterData');
@@ -170,7 +108,6 @@ const SearchScrean = () => {
 
   }, [stratigyFilData, selectLang])
 
-  // let accordion_key = 12345;
   const [accorKey, setAccorKey] = React.useState(12345)
   const handleReinitialize = () => {
     setAccorKey(accorKey + 1)
@@ -186,7 +123,6 @@ const SearchScrean = () => {
     }
   }
   const [userLikes, setUserLikes] = useState([]);
-  // const [c, setC] = useState();
   React.useEffect(() => {
     getLikes()
       .then(res => {
@@ -220,7 +156,6 @@ const SearchScrean = () => {
   }
 
   const [userSaves, setUserSaves] = useState([]);
-  // const [c, setC] = useState();
   React.useEffect(() => {
     getSaves()
       .then(res => {
@@ -266,7 +201,6 @@ const SearchScrean = () => {
         console.error('Error fetching user data:', error);
       }
     };
-    // Call the function to start fetching data
     fetchUserDataForAll();
   }, []);
 
@@ -341,7 +275,6 @@ const SearchScrean = () => {
                                                 <p className='Strategy_count'>{t("strategy")}</p>
                                                 <p className='counter_str'>{index + 1}</p>
                                               </div>
-                                              {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                             </div>
                                             <div className='d-block d-md-none mt-1'>
                                               <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
@@ -462,10 +395,7 @@ const SearchScrean = () => {
                                                 {strUser["Teaching Strategy"]}
                                               </p>
                                             </Link>
-                                            {/* <div className='d-flex align-items-center my-3'>
-                                              {react?.includes(strUser._id) ? <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(strUser._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like.includes(strUser._id) ? <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(strUser._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-                                            </div> */}
+                                  
                                             <div className='d-flex justify-content-between align-items-center'>
                                               <div className='d-flex align-items-center my-3'>
                                                 {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
@@ -531,7 +461,6 @@ const SearchScrean = () => {
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                               </div>
                                               <div className='d-block d-md-none mt-1'>
                                                 <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
@@ -570,10 +499,7 @@ const SearchScrean = () => {
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
-                                            {/* <div className='d-flex align-items-center my-3'>
-                                              {react?.includes(data._id) ? <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleReact(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                              {like?.includes(data._id) ? <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleLike(data._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
-                                            </div> */}
+                                       
                                             <div className='d-flex align-items-center my-3'>
                                               {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                               {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}

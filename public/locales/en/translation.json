@@ -95,5 +95,18 @@
   "Developmental Domains": "Developmental Domains",
   "Back":"Back",
   "Get OTP":"Get OTP",
-  "Sign In with Gmail":"Sign In with Gmail"
+  "Sign In with Gmail":"Sign In with Gmail",
+  "Want to upload your own strategy and":"Want to upload your own strategy and",
+  "contribute to the TEPS community?":"contribute to the TEPS community?",
+  "Upload Strategies":"Upload Strategies",
+  "Get started by logging in or registering":"Get started by logging in or registering",
+  "Rate this strategy":"Rate this strategy",
+  "Edit Strategy": "Edit Strategy",
+  "I used this!":"I used this!",
+  "Mark as used":"Mark as used",
+  "Uploaded By:":"uploaded By",
+ "Do you want to make this strategy public?" :"Do you want to make this strategy public?",
+"Your edited strategy is in your Edited Strategies list on the Profile Page.":"Your edited strategy is in your Edited Strategies list on the Profile Page.",
+"Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page.":"Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page."
+
 }

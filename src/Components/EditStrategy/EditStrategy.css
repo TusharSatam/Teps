@@ -142,10 +142,35 @@
     height: 40px;
     animation: spin 1s linear infinite;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
-  
+  .formWrapper{
+    border-radius: 16px;
+    background: #F4F8F7;
+    padding: 2rem;
+    width: 65%;
+  }
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  
+  @media only screen  and (max-width: 1240px) {
+    .formWrapper{
+      width:auto;
+    }
+  }
+  @media only screen and (min-width: 840px) and (max-width: 1040px) {
+    .formWrapper{
+      width:85%;
+    }
+    .formWrapper .select-field {
+      width: 300px;
+    }
+  }
+  
+  @media only screen  and (max-width: 900px) {
+    .halfwidth{
+      width: 50%;
+    }
   }

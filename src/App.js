@@ -47,8 +47,8 @@ import EditStrategy from './Components/EditStrategy/EditStrategyForm';
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = `http://localhost:8080/api/`;
+  // axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://localhost:8080/api/`;
   // axios.defaults.baseURL = `https://backend.teps.school/api/`;
   const handleOnclick = () => {
     setDisplayProfile('d-none')
@@ -56,47 +56,7 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
-  // const handlesend = () => {
-  //   axios.post('email')
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  // }
 
-  // React.useEffect(() => {
-  //   if (data) {
-  //     getSingleUser(data?._id)
-  //       .then(res => {
-  //         if (res?.data[0]?.email !== data?.email) {
-  //           localStorage.removeItem('data');
-  //           localStorage.removeItem('jwt');
-  //           localStorage.removeItem('filterData');
-  //           localStorage.removeItem('filterDataH');
-  //           localStorage.removeItem('selectedDropdown');
-  //           localStorage.removeItem('selectedHiDropdown');
-  //           setIsAuthenticated(false)
-  //           navigate('/')
-  //           setUser(null);
-  //           setDisplayProfile('d-none')
-  //           console.log('email');
-  //         }
-  //       })
-  //       .catch(err => {
-  //         if (err) {
-  //           localStorage.removeItem('data');
-  //           localStorage.removeItem('jwt');
-  //           localStorage.removeItem('filterData');
-  //           localStorage.removeItem('filterDataH');
-  //           localStorage.removeItem('selectedDropdown');
-  //           localStorage.removeItem('selectedHiDropdown');
-  //           setIsAuthenticated(false)
-  //           console.log(err);
-  //           setUser(null)
-  //           navigate('/')
-  //           setDisplayProfile('d-none')
-  //         }
-  //       })
-  //   }
-  // }, [user, setIsAuthenticated, setUser, data]);
 
   useEffect(() => {
     window.scrollTo({
@@ -154,7 +114,7 @@ function App() {
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
-            <Route path='/editStrategyform/:id' element={<EditStrategy />} />
+            <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
 
           </Route>
           <Route element={<PrivateAdminOutlet />} >
@@ -206,9 +166,6 @@ function App() {
             <Footer />
           )
       }
-      {/* <div>
-        <button onClick={handlesend}>submits</button>
-      </div> */}
     </div>
   );
 }

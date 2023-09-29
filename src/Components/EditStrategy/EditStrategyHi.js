@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import "./EditStrategy.css";
 import { useTranslation } from "react-i18next";
 import { singleHindiStratigys } from "../../services/hindiStratigys";
+import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 const EditStrategyHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
@@ -37,6 +38,8 @@ const EditStrategyHi = () => {
   const [submitData, setSubmitData] = useState({});
   const { id } = useParams();
   const successTextRef = useRef(null);
+  const [isPublishModalOpen, setisPublishModalOpen] = useState(false);
+  const [isStrategyPublic, setisStrategyPublic] = useState(false)
 
   const { user, editStrategyFormData } = useAuth();
   const handleTeachingStrategyChange = (event) => {
@@ -109,11 +112,10 @@ const EditStrategyHi = () => {
         "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
         Approve: false,
       };
-      // setSubmitData(data);
       console.log(formData, data);
       resetDropdowns();
       setFormSubmitted(true);
-      // Scroll to the success text after the form is submitted
+      setisPublishModalOpen(true)
 
     }
   };
@@ -135,17 +137,23 @@ useEffect(() => {
         <p>उपयोगकर्ता रणनीति संपादित करें</p>
       </div>
       {formData.length != 0 ? (
-        <div className="center-div d-flex ">
+        <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
-            <div className=" mb-4 mb-md-3 str_title">
-              <p className="str_name">{t("strategy")}</p>
-              <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
-            </div>
+             <div className="d-none d-md-block mb-4 mb-md-3 str_title">
+                <p className="str_name">{t("strategy")}</p>
+                <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
+              </div>
           </div>
-          <div className="d-flex flex-column col-md-8">
-            <form onSubmit={handleSubmit} className="">
-              <div className="two-selects ">
-                <div>
+          <div className="d-flex flex-column formWrapper">
+          <div className=" d-md-none mb-4 mb-md-3 str_title">
+                <p className="str_name">{t("strategy")}</p>
+                <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
+              </div>
+          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}/>
+
+            <form onSubmit={handleSubmit} >
+              <div className="two-selects d-flex gap-2">
+                <div className="halfwidth">
                   <p className="select-title">
                     {t("Grade")} <p>*</p>
                   </p>
@@ -153,15 +161,14 @@ useEffect(() => {
                     onChange={handleGrade}
                     className={"select-field"}
                     name="grade"
-                    id=""
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.श्रेणी}
                     </option>
                   </select>
                 </div>
-                <div>
+                <div className="halfwidth">
                   <p className="select-title">
                     {t("Subject")} <p>*</p>
                   </p>
@@ -169,12 +176,11 @@ useEffect(() => {
                     onChange={handleSub}
                     className={"select-field"}
                     name="subject"
-                    id=""
                     aria-label="Default select example"
                     value={formData.Subject}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData.विषय}
                     </option>
                   </select>
@@ -189,7 +195,6 @@ useEffect(() => {
                     onChange={handleSuperTopic}
                     className={"select-field"}
                     name="Super_Topic"
-                    id=""
                     value={
                       formData?.["Super Topic"]
                         ? formData?.["Super Topic"]
@@ -197,7 +202,7 @@ useEffect(() => {
                     }
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.["मुख्य शीर्षक"]
                         ? formData?.["मुख्य शीर्षक"]
                         : formData?.["कौशल"]}
@@ -212,11 +217,10 @@ useEffect(() => {
                     onChange={handleTopic}
                     className={"select-field"}
                     name="topic"
-                    id=""
                     value={formData?.शीर्षक}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.शीर्षक}
                     </option>
                   </select>
@@ -231,11 +235,10 @@ useEffect(() => {
                     onChange={handleSubTopic}
                     className={"select-field"}
                     name="sub_topic"
-                    id=""
                     value={formData?.["शैक्षणिक दृष्टिकोण"]}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.[" शैक्षणिक दृष्टिकोण"]}
                     </option>
                   </select>
@@ -248,11 +251,10 @@ useEffect(() => {
                     onChange={handleSubTopic}
                     className={"select-field"}
                     name="sub_topic"
-                    id=""
                     value={formData?.["उप शीर्षक"]}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.["उप शीर्षक"]}
                     </option>
                   </select>
@@ -267,11 +269,10 @@ useEffect(() => {
                     onChange={handleSubSubTopic}
                     className={"select-field"}
                     name="sub_sub_topic"
-                    id=""
                     value={formData["उप-उप शीर्षक"]}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData["उप-उप शीर्षक"]}
                     </option>
                   </select>
@@ -284,7 +285,6 @@ useEffect(() => {
                   <select
                     className={"select-field"}
                     name="dev_dom_1"
-                    id=""
                     placeholder="Dev Dom 1"
                     onChange={(e) => {
                       setDevDom1(e.target.value);
@@ -296,7 +296,7 @@ useEffect(() => {
                     }
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.["विकासात्मक क्षेत्र 1"]
                         ? formData?.["विकासात्मक क्षेत्र 1"]
                         : ""}
@@ -313,7 +313,6 @@ useEffect(() => {
                     className={"select-field"}
                     name="dev_dom_2"
                     placeholder="Dev Dom 2"
-                    id=""
                     onChange={(e) => {
                       setDevDom2(e.target.value);
                     }}
@@ -338,7 +337,6 @@ useEffect(() => {
                   <select
                     className={"select-field"}
                     name="Mode of Teaching"
-                    id=""
                     disabled
                     value={
                       formData?.["शिक्षण का तरीका"]
@@ -364,11 +362,10 @@ useEffect(() => {
                     onChange={handleLearningOutcome}
                     className={"select-field w-100"}
                     name="learning_outcome"
-                    id=""
                     value={formData["शिक्षण के परिणाम"]}
                     disabled
                   >
-                    <option value="" selected disabled>
+                    <option  selected disabled>
                       {formData?.["शिक्षण के परिणाम"]}
                     </option>
                   </select>
@@ -383,7 +380,6 @@ useEffect(() => {
                   <textarea
                     className={"select-field-full-2 StrategyTextarea"}
                     name="शिक्षण रणनीति"
-                    id=""
                     value={
                       formData?.["शिक्षण रणनीति"]
                         ? formData?.["शिक्षण रणनीति"]
@@ -394,50 +390,26 @@ useEffect(() => {
                 </div>
               </div>
               <div className="d-flex gap-3 mt-4">
-                {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
                 <button
                   type="submit"
-                  className=" saveStrategy"
+                  className="primaryButton"
                   disabled={formSubmitted}
-                >
-                  रणनीति देखें
-                </button>
-                <button
-                  onClick={handlePublishStrategy}
-                  className="publishStrategy"
                 >
                   रणनीति प्रकाशित करें
                 </button>
+                <button
+                  onClick={handlePublishStrategy}
+                  className="secondaryButton"
+                >
+                  रद्द 
+                </button>
               </div>
-              {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
               {error && (
                 <p className="form-error">
                   कृपया उपरोक्त फ़ील्ड में शिक्षण रणनीति भरें!
                 </p>
               )}
             </form>
-            {formSubmitted && (
-              <div className="afterSubmitText my-3">
-                <h2 className="sucessText">रणनीति सबमिट करने के लिए धन्यवाद</h2>
-                <textarea
-                  readOnly
-                  className={
-                    "select-field-full-2 StrategyTextarea submittedTextarea"
-                  }
-                  value={submittedContent}
-                >
-                  {/* {formData['Teaching Strategy']} */}
-                </textarea>
-                <div className="bottomButtons d-flex gap-3 align-items-center">
-                  <button className="viewStrategy">रणनीति देखें</button>
-                  <button className="editStrategy">रणनीति संपादित करें</button>
-                  <button className="publishStrategy">
-                    रणनीति प्रकाशित करें
-                  </button>
-                </div>
-              </div>
-            )}
-            <div className="scrollpoint" ref={successTextRef}></div>
           </div>
         </div>
       ) : (

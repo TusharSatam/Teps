@@ -5,7 +5,7 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
-const FilterStr = ({ stratigy,handleShow }) => {
+const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
@@ -401,7 +401,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
         <div className='d-block justify-content-center align-items-center d-md-none'>
           {/* -----Pedagogical Approach---- */}
-          <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
+   { location.pathname !== '/' &&     <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -419,7 +419,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                   <option key={index} >{item['उप शीर्षक']}</option>
                 ))
               }
-            </select>
+            </select>}
           {/* --------- */}
 
           <div className='mt-3'>           
@@ -467,7 +467,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
         </div>
         <div className='d-none d-md-block'>
           {/* ---Pedagogical Approach desktop-- */}
-<select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
+{  location.pathname !== '/' &&  <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -485,7 +485,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                   <option key={index} >{item['उप शीर्षक']}</option>
                 ))
               }
-          </select>
+          </select>}
 {/* ---------- */}
           <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
@@ -532,24 +532,35 @@ const FilterStr = ({ stratigy,handleShow }) => {
           error && location.pathname === '/saveStratigy' && <p className='error_text'>{error}</p>
         }
       </div>
-      {
-        location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-4 my-md-5 '>
-            <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
-          </div>
-          :
-          location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ?
-            <div className='d-flex justify-content-center my-4 my-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-            </div> :
-              location.pathname === '/'?
-              <div className='d-flex justify-content-center my-4 my-md-0 mt-md-2 pb-0 pb-md-0'>
-              <button onClick={handleLandingFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
-            </div>:
-            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-            </div>
-      }
+      {location.pathname === "/home" ? (
+        <div className="d-flex justify-content-center my-4 my-md-5 ">
+          <button onClick={handleFindStratigys} className="submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : location.pathname === "/saveStratigy" ||
+        location.pathname === "/favouriteStratigy" ? (
+        <div className="d-flex justify-content-center my-4 my-md-5">
+          <button onClick={handleFindStratigys} className="Sec_submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : location.pathname === "/" ? (
+        <div className="d-flex justify-content-center my-4 my-md-3 mt-md-2 pb-0 pb-md-0 mt-md-3">
+          <button
+            onClick={()=>handleOptionModalShow(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic)}
+            className="submit_btn w-100"
+          >
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5">
+          <button onClick={handleFindStratigys} className="Sec_submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      )}
     </>
   );
 };

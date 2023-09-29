@@ -11,7 +11,6 @@ import AddFormHi from "./AddFormHi";
 const AddForm = () => {
   const { user } = useAuth();
   const [allStratigys, setAllStratigys] = React.useState([]);
-  //---------------------------------------------------------
   const [selectSubject, setSelectSubject] = React.useState();
   const [selectGrade, setSelectGrade] = React.useState();
   const [selectTopic, setSelectTopic] = React.useState();
@@ -23,7 +22,6 @@ const AddForm = () => {
   const [devDom1, setDevDom1] = React.useState("");
   const [devDom2, setDevDom2] = React.useState("");
 
-  //-----------------------------------------------------------------
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const [error, setError] = useState(false);
@@ -54,7 +52,6 @@ const AddForm = () => {
     setDevDom2("");
     setteachingStrategy("");
   };
-  // english stratiges--------------------------------------------------------
   const uniqueSubject = Array.from(
     new Set(allStratigys.map((a) => a.Subject))
   ).map((subject) => {
@@ -243,11 +240,10 @@ const AddForm = () => {
                    onChange={handleSub}
                    className={"select-field"}
                    name="subject"
-                   id=""
                    aria-label="Default select example"
                    value={selectSubject}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Subject
                    </option>
                    {uniqueSubject
@@ -267,10 +263,9 @@ const AddForm = () => {
                    onChange={handleGrade}
                    className={"select-field"}
                    name="grade"
-                   id=""
                    value={selectGrade}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Grade
                    </option>
                    {uniqueGrade
@@ -290,10 +285,9 @@ const AddForm = () => {
                    onChange={handleSkill}
                    className={"select-field"}
                    name="skill"
-                   id=""
                    value={selectSkill}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Skill
                    </option>
                    {uniqueSkill
@@ -311,10 +305,9 @@ const AddForm = () => {
                    onChange={handleTopic}
                    className={"select-field"}
                    name="topic"
-                   id=""
                    value={selectTopic}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Topic
                    </option>
                    {uniqueTopic
@@ -334,11 +327,10 @@ const AddForm = () => {
                    onChange={handleSubTopic}
                    className={"select-field"}
                    name="sub_topic"
-                   id=""
                    value={selectSubTopic}
 
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Sub-Topic
                    </option>
                    {uniqueSubTopic
@@ -356,10 +348,9 @@ const AddForm = () => {
                    onChange={handleSubSubTopic}
                    className={"select-field"}
                    name="sub_sub_topic"
-                   id=""
                    value={selectSubSubTopic}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Sub-Sub-Topic
                    </option>
 
@@ -380,27 +371,19 @@ const AddForm = () => {
                  <select
                    className={"select-field"}
                    name="dev_dom_1"
-                   id=""
                    placeholder="Dev Dom 1"
                    onChange={(e) => {
                      setDevDom1(e.target.value);
                    }}
                    value={devDom1}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                    Dev Dom 1
                    </option>
                    {devDom1Options.map((option, i) => (
                      <option key={i}>{option}</option>
                    ))}
 
-                   {/* {uniqueDevDom1
-                     ?.filter((res) => res["Dev Dom 1"] !== "")
-                     .map((res) => (
-                       <option>
-                         {res["Dev Dom 1"] !== undefined && res["Dev Dom 1"]}
-                       </option>
-                     ))} */}
                  </select>
                </div>
                <div>
@@ -411,13 +394,12 @@ const AddForm = () => {
                    className={"select-field"}
                    name="dev_dom_2"
                    placeholder="Dev Dom 2"
-                   id=""
                    onChange={(e) => {
                      setDevDom2(e.target.value);
                    }}
                    value={devDom2}
                  >
-                 <option value="" selected disabled>
+                 <option  selected disabled>
                    Dev Dom 2
                    </option>
                    {devDom1Options.map(
@@ -426,11 +408,7 @@ const AddForm = () => {
                          <option key={i}>{option}</option>
                        )
                    )}
-                   {/* {
-                       uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
-                         <option>{res['Dev Dom 2']}</option>
-                       ))
-                     } */}
+       
                  </select>
                </div>
              </div>
@@ -442,10 +420,8 @@ const AddForm = () => {
                  <select
                    className={"select-field"}
                    name="mode_of_teaching"
-                   id=""
-                   // value={}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Mode Of Teaching
                    </option>
                    <option>Online</option>
@@ -462,10 +438,9 @@ const AddForm = () => {
                    onChange={handleLearningOutcome}
                    className={"select-field w-100"}
                    name="learning_outcome"
-                   id=""
                    value={selectLearningOutcome}
                  >
-                   <option value="" selected disabled>
+                   <option  selected disabled>
                      Learning Outcome
                    </option>
                    {uniqueLearningOutcome
@@ -484,18 +459,15 @@ const AddForm = () => {
                  <textarea
                    className={"select-field-full-2"}
                    name="teaching_str"
-                   id=""
                    value={teachingStrategy}
                  />
                </div>
              </div>
              <div className="d-flex justify-content-center mt-4">
-               {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
                <button type="submit" className="form-btn">
                  Submit Strategy
                </button>
              </div>
-             {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
              {error && (
                <p className="form-error">
                  Please fill all of the above fields !

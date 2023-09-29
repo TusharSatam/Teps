@@ -1,0 +1,68 @@
+.optionModal{
+    min-height: 50vh;
+}
+
+.closebutton {
+  cursor: pointer;
+  color: #6D747A;
+}
+.getStarted {
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+}
+.primaryButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  height:40px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 24px;
+  padding: 0.3rem .8rem;
+  background: #1aa05b;
+  border: none; 
+  min-width: 120px;
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.3) inset,
+    0px 4px 8px 0px rgba(26, 160, 91, 0.2), 4px 6px 14px 0px #3ae48d inset;
+}
+.primaryButton:hover,.secondaryButton:hover{
+  box-shadow: none;
+}
+.primaryButton:disabled{
+  background-color: gray;
+  box-shadow: none;
+}
+.secondaryButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:40px;
+  color: #1aa05b;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  min-width: 120px;
+  padding: 0.4rem .8rem;
+  line-height: 24px; /* 100% */
+  letter-spacing: -0.24px;
+  border-radius: 24px;
+  border: 1px solid #1aa05b;
+  background: #fff;
+  box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+}
+
+@media only screen and (max-width: 888px) {
+  .primaryButton,.secondaryButton{
+    font-size: 10px;
+    height: 28px;
+    padding: 0rem .5rem;
+    min-width: 85px; 
+  }
+  .secondaryButton img{
+    height: 15px;
+  }
+  
+}

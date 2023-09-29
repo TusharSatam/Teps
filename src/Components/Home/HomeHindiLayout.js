@@ -37,7 +37,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }, [allHindiStrategies])
   
   React.useEffect(() => {
-    if (location.pathname !== '/home') {
+    if (location.pathname !== '/') {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject)
         setSelectGrade(selectedOption?.selectGrade)

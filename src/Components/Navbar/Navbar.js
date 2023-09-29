@@ -70,14 +70,14 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' || location.pathname === '/addForm' ? 'd-block' : 'd-none'}>
+          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' || location.pathname === '/addForm' || location.pathname ==='/' ? 'd-block' : 'd-none'}>
             <LanguageSelect />
           </div>
           {
             !isAuthenticated ?
               <div className='d-flex me-1 me-md-4'>
                 <div>
-                  <button onClick={handleShowloginModal} className="authBtnn me-3" >{t('Login')}</button>
+                  <button onClick={handleShowloginModal} className="authBtnn me-1" >{t('Login')}</button>
                 </div>
                 <div>
                   <button onClick={handleShow} className='authBtn'>{t('Register')}</button>

@@ -96,5 +96,19 @@
   "Super topic":"मुख्य शीर्षक",
   "Get OTP":"ओटीपी प्राप्त करें",
   "Sign In with Gmail":"जीमेल साइन इन",
-  "Login now":"अभी लॉगिन करें!"
+  "Login now":"अभी लॉगिन करें!",
+  "Want to upload your own strategy and":"अपनी खुद की रणनीति अपलोड करना चाहते हैं और",
+  "contribute to the TEPS community?":"TEPS समुदाय में योगदान करें?",
+  "Upload Strategies":"रणनीतियाँ अपलोड करें",
+  "Get started by logging in or registering":"लॉग इन या पंजीकरण करके आरंभ करें",
+  "Rate this strategy":"इस रणनीति को रेटिंग दें",
+  "Edit Strategy": "रणनीति संपादित करें",
+  "I used this!":"मैंने इसका प्रयोग किया!",
+  "Mark as used":"उपयोग के रूप में चिह्नित करें",
+  "Uploaded By:":"द्वारा अपलोड किया गया",
+ "Do you want to make this strategy public?" :"क्या आप इस रणनीति को सार्वजनिक करना चाहते हैं?",
+"Your edited strategy is in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में है।",
+"Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रकाशित होने से पहले TEPS टीम द्वारा समीक्षा की जाएगी। प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में आपकी रणनीति होगी।"
+
+
 }

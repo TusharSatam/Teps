@@ -29,6 +29,12 @@
   box-shadow: 24px 24px 2px 0px #c3c3c3, 24px 24px 4px 0px #c3c3c3,
     -6px 20px 4px 0px #c3c3c3;
 }
+.firstCard {
+  background-color: #FFF;
+}
+.firstCard .carousalTextArea h1,.firstCard .carousalTextArea .cardDetails p{
+  color: #1aa05b;
+}
 .carousalTextArea {
   gap: 24px;
 }

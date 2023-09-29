@@ -33,6 +33,7 @@
   padding-bottom: 0 !important;
   position: relative;
   bottom: 10px;
+  background: "#FFFFFF",
 }
 .Strategy_count {
   font-family: "Inter";
@@ -320,10 +321,13 @@
   .save_like {
     width: 15.33px;
     height: 16.04px;
+    cursor: pointer;
   }
   .save_likes {
     width: 15.67px;
     height: 16.78px;
+    cursor: pointer;
+    transform: scale(1.1)
   }
   .empty_stratigys {
     font-family: "Inter";

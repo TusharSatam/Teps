@@ -59,18 +59,19 @@ line-height: 35px;
 .like{
   font-size: 20px;
   position: relative;
-  padding-left: 10px;
-  padding-top: 10px;
+  padding-left: 0.625rem;
+  padding-top: 0.625rem;
 }
-.like-modal{
-  /* margin-top: 150px!important; */
+.noBorder{
+  border:none !important; 
 }
+
 .note-text{
-  margin-left: 12px;
+  margin-left: .8rem;
 }
 @media only screen and (max-width: 990px) {
   .like-title{
-    padding-left: 100px;
+    padding-left: 6.25rem;
   }
   .re_mod_title{
     font-family: 'Inter';

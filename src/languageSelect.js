@@ -19,27 +19,11 @@ const LanguageSelect = () => {
     }
     return (
         <>
-            <select onChange={handleLanguageSelect} className='language_btn mx-3' name="" id="">
+            <select onChange={handleLanguageSelect} className='language_btn mx-1 mx-md-3' name="" id="">
                 <option disabled selected>Language</option>
                 <option>English</option>
-                {/* <option>{t('english')}</option> */}
                 <option>हिंदीं</option>
-                {/* <option>{t('hindi')}</option> */}
             </select>
-            {/* <button
-                onClick={() => {
-                    i18next.changeLanguage('en')
-                }}
-            >
-                English
-            </button>
-            <button
-                onClick={() => {
-                    i18next.changeLanguage('hi')
-                }}
-            >
-                हिन्दी
-            </button> */}
         </ >
     );
 };
