@@ -22,7 +22,10 @@
     max-width: 943px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 136px;
+    margin-bottom: 4rem;
+    border-radius: 12px;
+    background: #F4F8F7;
+    padding:1.5rem;
 }
 
 .two-selects {

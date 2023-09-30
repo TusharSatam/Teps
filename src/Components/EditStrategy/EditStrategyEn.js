@@ -179,8 +179,8 @@ const EditStrategyEn = () => {
               show={isPublishModalOpen}
               handleClose={() => setisPublishModalOpen(false)}
               setisStrategyPublic={setisStrategyPublic}
-              seteditedDatas={seteditedDatas}
-              editedDatas={editedDatas}
+              setDatas={seteditedDatas}
+              Datas={editedDatas}
             />
 
             <form onSubmit={handleSubmit} className="">

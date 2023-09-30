@@ -28,16 +28,16 @@ const PublishModal = ({
   show,
   handleClose,
   setisStrategyPublic,
-  seteditedDatas,
-  editedDatas,
+  setDatas,
+  Datas,
 }) => {
   const [currentModal, setCurrentModal] = useState(1);
 const {selectLang}=useAuth()
   const handleYes = () => {
     // Update isPublic to true
-    const updatedData = { ...editedDatas, isPublic: true };
+    const updatedData = { ...Datas, isPublic: true };
     console.log("Updated Data:", updatedData); // Log the updated data
-    seteditedDatas(updatedData);
+    setDatas(updatedData);
 
     // Call postUserStratigys with updated data
     if(selectLang=="en"){
@@ -45,10 +45,13 @@ const {selectLang}=useAuth()
         console.log("Response from postUserStratigys:", res);
       });
     }
-    else{
+    else if(selectLang=="hi"){
       postUserStratigysHi(updatedData).then((res) => {
         console.log("Response from postUserStratigys:", res);
-      });
+      });     
+    }
+    else{
+      console.log("error");
     }
     setCurrentModal(2);
 
@@ -56,9 +59,9 @@ const {selectLang}=useAuth()
 
   const handleNo = () => {
     // Update isPublic to false
-    const updatedData = { ...editedDatas, isPublic: false };
+    const updatedData = { ...Datas, isPublic: false };
     console.log("Updated Data No: ", updatedData); // Log the updated data
-    seteditedDatas(updatedData);
+    setDatas(updatedData);
 
     // Call postUserStratigys with updated data
     postUserStratigys(updatedData).then((res) => {

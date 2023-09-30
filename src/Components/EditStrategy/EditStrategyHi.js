@@ -151,8 +151,8 @@ useEffect(() => {
                 <p className="str_name">{t("strategy")}</p>
                 <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
               </div>
-          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}   seteditedDatas={seteditedDatas}
-              editedDatas={editedDatas}/>
+          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}   setDatas={seteditedDatas}
+              Datas={editedDatas}/>
 
             <form onSubmit={handleSubmit} >
               <div className="two-selects d-flex gap-2">
