@@ -91,6 +91,10 @@
     text-decoration-line: underline;
     color: #1aa05b;
   }
+.checkmark::after{
+  background-color: green;
+  color:#1aa05b;
+}
   @media only screen and (max-width: 990px) {
     .submit_btn {
       padding: 8px, 16px, 8px, 16px;

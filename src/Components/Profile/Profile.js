@@ -14,8 +14,11 @@ import axios from 'axios';
 import emailjs from '@emailjs/browser';
 import VerifyModal from '../ForgotPassModal/VerifyModal';
 import { Link } from 'react-router-dom';
+import {getLikes } from "../../services/userLikes";
+import { getSaves } from '../../services/userSaves';
 
 const Profile = () => {
+ 
   const { t } = useTranslation();
   const { user, setUser } = useAuth();
   const [forgot, setForgot] = useState(false);
@@ -27,8 +30,21 @@ const Profile = () => {
   const [emailErr, setEmailErr] = React.useState('');
   const [show, setShow] = React.useState(false)
   const [preview, setPreview] = React.useState(null)
+  const [f, setF] = React.useState(0);
+  const [l, setL] = React.useState(0);
+  React.useEffect(() => {
+    getSaves()
+    .then(res => {
+      const saves = res?.data?.filter(ress => ress.user_id === user._id)
+     setF(saves.length); 
+    })
+  }, []);
 
-
+  React.useEffect(() => {
+    getLikes().then((res) => {
+      const like = res?.data?.filter((ress) => ress.user_id === user._id);
+     setL(like.length);
+    })})
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -122,9 +138,9 @@ const Profile = () => {
         console.log("error", error);
       }
     };
-
-    fetchData();
+        fetchData();
   }, [])
+ 
   // gamil handler
   const [getEmail, setGetEmail] = useState()
   const handleEmail = (e) => {
@@ -291,12 +307,21 @@ const Profile = () => {
                 </div>
                 <div className='d-flex'>
                   <div>
-                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('favourites')}</button></Link>
+                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('Favourites')}{" "}({l})</button></Link>
                   </div>
                   <div>
-                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('saved')}</button></Link>
+                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('Saved')}{" "}({f})</button></Link>
                   </div>
+                  
                 </div>
+                <div className='d-flex'>
+                <div>
+                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({})</button></Link>
+                  </div>
+                  <div>
+                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({})</button></Link>
+                  </div>
+                  </div>
                 <div className='d-flex justify-content-center py-5'>
                   <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                 </div>

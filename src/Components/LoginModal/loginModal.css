@@ -62,31 +62,34 @@
  
   /* When the checkbox is checked, add a blue background */
   .containerr input:checked ~ .checkmark {
-    background-color: #1AA05B;
+    /* background-color: #1AA05B; */
+    background-color: white;
   }
   
   /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
+  .checkmark::after {
     content: "";
     position: absolute;
     display: none;
+    background-color: white;
   }
   
   /* Show the checkmark when checked */
-  .containerr input:checked ~ .checkmark:after {
+  .containerr input:checked ~ .checkmark::after {
     display: block;
+    color: #1AA05B;
+    background-color: white;
   }
   
   /* Style the checkmark/indicator */
-  .containerr .checkmark:after {
-    left: 5px;
-    top: 3px;
+  .containerr .checkmark::after {
+    content: "";
+    left: 5.2px;
+    top: -1px;
     width: 5px;
-    height: 10px;
-    border: solid white;
+    height: 16px; 
+    border: solid green;
     border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
 @media only screen and (max-width: 990px) {

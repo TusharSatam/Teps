@@ -131,7 +131,7 @@ const LoginModal = ({ show, setShow }) => {
                         <span className="checkmark"></span>
                       </label>
                     </div>
-                    <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
+                    <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot")}{" "}<span className='text-danger'>&#x2A;</span></p>
                   </div>
                   {/* <input type="checkbox" required name="" id="" /> <span> </span> */}
                   <p className='text-danger'>{checkError ? checkError : ""}</p>

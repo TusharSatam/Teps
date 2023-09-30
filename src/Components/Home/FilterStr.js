@@ -5,6 +5,7 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
+
 const FilterStr = ({ stratigy,handleShow }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
@@ -29,7 +30,8 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
   React.useEffect(() => {
     setAllStratigys(stratigy)
-    console.log(stratigy);
+  
+    
   }, [stratigy,language])
   useEffect(() => {
     setSelectSubject('')

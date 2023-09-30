@@ -60,6 +60,7 @@ const FavouriteStr = () => {
     setIsLoading(true);
     getLikes().then((res) => {
       const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      
       const likeId = like?.map((ress) => ress.strategie_id);
       setLikes(like?.map((ress) => ress.strategie_id));
       if (languageSelect === "en") {

@@ -62,6 +62,7 @@ const SaveStratigy = () => {
       .then(res => {
         const saves = res?.data?.filter(ress => ress.user_id === user._id)
         const savesId = saves?.map(ress => ress.strategie_id)
+       
         setSave(saves?.map(ress => ress.strategie_id))
         if (languageSelect === "en") {
           getMultitStr(savesId)
