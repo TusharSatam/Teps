@@ -130,6 +130,12 @@
 .text-danger{
   font-size: 12px !important;
 }
+input:disabled{
+background-color: #DDD;
+}
+.hide{
+  visibility: hidden;
+}
   @media only screen and (max-width: 990px) {
     .modal.show .modal-dialog {
         margin: auto !important;
