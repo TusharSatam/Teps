@@ -241,10 +241,12 @@ select {
 }
 
 @media only screen and (max-width: 600px) {
-
+    .center-div {
+        margin: 1rem;
+    }
     .form-title {
-        padding: 10px 0 11px 0;
-        margin-bottom: 24px;
+        padding: 0.625rem 0 0.625rem 0;
+        margin-bottom: 1.5rem;
     }
 
     .form-title p {

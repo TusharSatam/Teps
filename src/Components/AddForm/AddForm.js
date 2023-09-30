@@ -55,7 +55,6 @@ const [uniqueSubjects, setuniqueSubjects] = useState()
     setSelectSuperTopic("");
   };
 useEffect(() => {
-console.log("change grade");
 }, [selectGrade])
 
   const handleSub = (e) => {
@@ -116,7 +115,6 @@ console.log("change grade");
   ).map((subject) => {
     return allStratigys.find((a) => a.Subject === subject);
   });
-  console.log(uniqueSubject);
 
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
@@ -215,18 +213,8 @@ console.log("change grade");
   });
 
 
-  // console.log("uniqueGrade",uniqueGrade,selectGrade)
-  // console.log("uniqueSubject",uniqueSubject,selectSubject)
-  // console.log("uniqueSuperTopic",uniqueSuperTopic,selectSuperTopic)
-  // console.log("uniqueTopic",uniqueTopic,selectTopic)
-  // console.log("uniqueSubTopic",uniqueSubTopic,selectSubTopic)
-  // console.log("uniqueSubSubTopic",uniqueSubSubTopic,selectSubSubTopic)
-  // console.log("uniquePedagogical",uniquePedagogical,selectPedagogical)
-  // console.log("uniqueLearningOutcome",uniqueLearningOutcome,selectLearningOutcome)
-
 
   const handleSubmit = (e) => {
-    console.log(e.target.pedagogical.value);
     e.preventDefault();
     if (
       e.target.subject.value === "" ||
@@ -268,13 +256,7 @@ console.log("change grade");
     <div>
       {languageSelect === "en" ? (
         <>
-          {/* <AproveReqModal
-            show={modalShow}
-            setModalShow={setModalShow}
-            onHide={() => setModalShow(false)}
-            data={submitData}
-          /> */}
-          <PublishModal   show={modalShow} handleClose={handleClosePublishModal} setDatas={setSubmitData} Datas={submitData}/>
+          <PublishModal show={modalShow} handleClose={handleClosePublishModal} setDatas={setSubmitData} Datas={submitData}/>
           <div className="form-title">
             <p>Add Your Strategy</p>
           </div>

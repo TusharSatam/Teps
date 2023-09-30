@@ -231,15 +231,15 @@ const EditStrategyEn = () => {
                     name="Super_Topic"
                     id=""
                     value={
-                      formData?.["Super Topic"]
-                        ? formData?.["Super Topic"]
+                      formData?.["Super topic"]
+                        ? formData?.["Super topic"]
                         : formData?.["Skill"]
                     }
                     disabled
                   >
                     <option value="" selected disabled>
-                      {formData?.["Super Topic"]
-                        ? formData?.["Super Topic"]
+                      {formData?.["Super topic"]
+                        ? formData?.["Super topic"]
                         : formData?.["Skill"]}
                     </option>
                   </select>

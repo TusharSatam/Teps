@@ -56,7 +56,6 @@ const EditStrategyHi = () => {
   };
   useEffect(() => {
     singleHindiStratigys(id).then((res) => {
-      console.log(res);
       setformData(res[0]);
       setSubmittedContent(res[0]["शिक्षण रणनीति"]);
     });
@@ -113,7 +112,6 @@ const EditStrategyHi = () => {
         Approve: false,
         isPublic:false,
       };
-      console.log(formData, data);
       seteditedDatas(data)
       resetDropdowns();
       setFormSubmitted(true);
@@ -230,7 +228,7 @@ useEffect(() => {
                 </div>
               </div>
               <div className="two-selects ">
-                <div>
+                {/* <div>
                   <p className="select-title">
                     {t("Pedagogical Approach")} <p>*</p>
                   </p>
@@ -245,7 +243,7 @@ useEffect(() => {
                       {formData?.[" शैक्षणिक दृष्टिकोण"]}
                     </option>
                   </select>
-                </div>
+                </div> */}
                 <div>
                   <p className="select-title">
                     {t("Sub - topic")} <p>*</p>
@@ -262,8 +260,6 @@ useEffect(() => {
                     </option>
                   </select>
                 </div>
-              </div>
-              <div className="two-selects ">
                 <div>
                   <p className="select-title">
                     {t("Sub sub - topic")} <p>*</p>
@@ -280,59 +276,9 @@ useEffect(() => {
                     </option>
                   </select>
                 </div>
-                <div>
-                  <p className="select-title">
-                    {t("विकासात्मक क्षेत्र 1")} <p>*</p>
-                  </p>
-
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_1"
-                    placeholder="Dev Dom 1"
-                    onChange={(e) => {
-                      setDevDom1(e.target.value);
-                    }}
-                    value={
-                      formData?.["विकासात्मक क्षेत्र 1"]
-                        ? formData?.["विकासात्मक क्षेत्र 1"]
-                        : ""
-                    }
-                    disabled
-                  >
-                    <option  selected disabled>
-                      {formData?.["विकासात्मक क्षेत्र 1"]
-                        ? formData?.["विकासात्मक क्षेत्र 1"]
-                        : ""}
-                    </option>
-                  </select>
-                </div>
               </div>
+  
               <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    {t("विकासात्मक क्षेत्र 2")} <p>*</p>
-                  </p>
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_2"
-                    placeholder="Dev Dom 2"
-                    onChange={(e) => {
-                      setDevDom2(e.target.value);
-                    }}
-                    disabled
-                    value={
-                      formData?.["विकासात्मक क्षेत्र 2"]
-                        ? formData?.["विकासात्मक क्षेत्र 2"]
-                        : ""
-                    }
-                  >
-                    <option value="" selected disabled>
-                      {formData?.["विकासात्मक क्षेत्र 2"]
-                        ? formData?.["विकासात्मक क्षेत्र 2"]
-                        : ""}
-                    </option>
-                  </select>
-                </div>
                 <div>
                   <p className="select-title">
                     {t("शिक्षण का तरीका")} <p>*</p>
@@ -354,8 +300,6 @@ useEffect(() => {
                     </option>
                   </select>
                 </div>
-              </div>
-              <div className="one-selects">
                 <div>
                   <p className="select-title">
                     {t("शिक्षण के परिणाम")}
@@ -363,7 +307,7 @@ useEffect(() => {
                   </p>
                   <select
                     onChange={handleLearningOutcome}
-                    className={"select-field w-100"}
+                    className={"select-field"}
                     name="learning_outcome"
                     value={formData["शिक्षण के परिणाम"]}
                     disabled
@@ -374,6 +318,7 @@ useEffect(() => {
                   </select>
                 </div>
               </div>
+ 
 
               <div className="one-selects-l">
                 <div>

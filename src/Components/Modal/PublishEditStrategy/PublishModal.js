@@ -40,12 +40,12 @@ const {selectLang}=useAuth()
     setDatas(updatedData);
 
     // Call postUserStratigys with updated data
-    if(selectLang=="en"){
+    if(selectLang=="english"){
       postUserStratigys(updatedData).then((res) => {
         console.log("Response from postUserStratigys:", res);
       });
     }
-    else if(selectLang=="hi"){
+    else if(selectLang=="hindi"){
       postUserStratigysHi(updatedData).then((res) => {
         console.log("Response from postUserStratigys:", res);
       });     
@@ -64,9 +64,19 @@ const {selectLang}=useAuth()
     setDatas(updatedData);
 
     // Call postUserStratigys with updated data
-    postUserStratigys(updatedData).then((res) => {
-      console.log("Response from postUserStratigys:", res);
-    });
+    if(selectLang=="english"){
+      postUserStratigys(updatedData).then((res) => {
+        console.log("Response from postUserStratigys:", res);
+      });
+    }
+    else if(selectLang=="hindi"){
+      postUserStratigysHi(updatedData).then((res) => {
+        console.log("Response from postUserStratigys:", res);
+      });     
+    }
+    else{
+      console.log("error");
+    }
 
     setCurrentModal(2);
 
@@ -115,7 +125,6 @@ const {selectLang}=useAuth()
         return null;
     }
   };
-
   return (
     <div>
       <Modal

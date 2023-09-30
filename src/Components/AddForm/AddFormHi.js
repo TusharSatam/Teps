@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../Context/AuthContext';
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import ApproveReqModalHi from '../Modal/ApproveReqModalHi';
+import PublishModal from '../Modal/PublishEditStrategy/PublishModal';
 
 const AddFormHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([])
@@ -11,6 +12,7 @@ const AddFormHi = () => {
   const [selectTopic, setSelectTopic] = React.useState()
   const [selectSkill, setSelectSkill] = React.useState()
   const [selectSubTopic, setSelectSubTopic] = React.useState()
+  const [selectSubSubTopic, setSelectSubSubTopic] = useState()
   const [submitData, setSubmitData] = React.useState({})
   const { user } = useAuth()
   const [modalShow, setModalShow] = React.useState(false);
@@ -55,6 +57,9 @@ const AddFormHi = () => {
   const handleSubTopic = (e) => {
     setSelectSubTopic(e.target.value)
   }
+  const handleSubSubTopic=(e)=>{
+    setSelectSubSubTopic(e.target.value)
+  }
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
@@ -85,10 +90,20 @@ const AddFormHi = () => {
       return aquaticCreaturesSubTopic?.find(a => a['उप-उप शीर्षक'] === sub_sub_topic)
     });
   const handleSubmit = (e) => {
+    console.log(selectSubject ,
+      selectGrade ,
+      selectSkill ,
+      selectTopic ,
+      selectSubTopic,
+      selectSubSubTopic);
     e.preventDefault();
-    if (e.target.subject.value === '' && e.target.grade.value === "" && e.target.skill.value === "" && e.target.topic.value === ""
-      && e.target.sub_topic.value === "" && e.target.sub_sub_topic.value === "" && e.target.dev_dom_1.value === "" && e.target.dev_dom_2.value === ""
-      && e.target.mode_of_teaching.value === "" && e.target.learning_outcome.value === "" && e.target.teaching_str.value === "") {
+    if (!selectSubject ||
+      !selectGrade ||
+      !selectSkill ||
+      !selectTopic ||
+      !selectSubTopic ||
+      !selectSubSubTopic||
+      e.target.teaching_str.value === "") {
       setError(true)
     }
     else {
@@ -102,29 +117,37 @@ const AddFormHi = () => {
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
-      'विकासात्मक क्षेत्र 1': e.target.dev_dom_1.value,
-      'विकासात्मक क्षेत्र 2': e.target.dev_dom_2.value,
-      'शिक्षण का तरीका': e.target.mode_of_teaching.value,
       'शिक्षण के परिणाम': e.target.learning_outcome.value,
       'शिक्षण रणनीति': e.target.teaching_str.value,
       'Approve': false
     }
     setSubmitData(data)
   }
+  const handleClosePublishModal=()=>{
+    setModalShow(false)
+  }
   return (
     <div>
-      <ApproveReqModalHi
-        show={modalShow}
-        setModalShow={setModalShow}
-        onHide={() => setModalShow(false)}
-        data={submitData}
-      />
+
+          <PublishModal show={modalShow} handleClose={handleClosePublishModal} setDatas={setSubmitData} Datas={submitData}/>
+
       <div className='form-title'>
         <p>अपनी रणनीति जोड़ें</p>
       </div>
       <div className='center-div'>
         <form className='form-main-div' onSubmit={handleSubmit}>
           <div className='two-selects '>
+          <div>
+              <p className='select-title'>श्रेणी <p>*</p></p>
+              <select onChange={handleGrade} className={'select-field'} name="grade" id="">
+                <option value="" selected disabled>श्रेणी</option>
+                {
+                  uniqueGrade?.map(res => (
+                    <option>{res.श्रेणी}</option>
+                  ))
+                }
+              </select>
+            </div>
             <div>
               <p className='select-title'>विषय <p>*</p></p>
               <select onChange={handleSub} className={'select-field'} name="subject" id="">
@@ -136,17 +159,7 @@ const AddFormHi = () => {
                 }
               </select>
             </div>
-            <div>
-              <p className='select-title'>श्रेणी <p>*</p></p>
-              <select onChange={handleGrade} className={'select-field'} name="grade" id="">
-                <option value="" selected disabled>श्रेणी</option>
-                {
-                  uniqueGrade?.map(res => (
-                    <option>{res.श्रेणी}</option>
-                  ))
-                }
-              </select>
-            </div>
+         
           </div>
           <div className='two-selects '>
             <div>
@@ -186,7 +199,7 @@ const AddFormHi = () => {
             </div>
             <div>
               <p className='select-title'>उप-उप शीर्षक <p>*</p></p>
-              <select className={'select-field'} name="sub_sub_topic" id="">
+              <select className={'select-field'} name="sub_sub_topic" id="" onChange={handleSubSubTopic}>
                 <option value="" selected disabled >उप-उप शीर्षक</option>
                 {
                   uniqueSubSubTopic?.map(res => (
@@ -196,39 +209,8 @@ const AddFormHi = () => {
               </select>
             </div>
           </div>
-          <div className='two-selects '>
-            <div>
-              <p className='select-title'>विकासात्मक क्षेत्र 1 <p>*</p></p>
-              <select className={'select-field'} name="dev_dom_1" id="">
-                <option value="" selected disabled>विकासात्मक क्षेत्र 1</option>
-                {
-                  uniqueDevDom1?.map(res => (
-                    <option>{res['विकासात्मक क्षेत्र 1']}</option>
-                  ))
-                }
-              </select>
-            </div>
-            <div>
-              <p className='select-title'>विकासात्मक क्षेत्र 2 <p>*</p></p>
-              <select className={'select-field'} name="dev_dom_2" id="">
-                <option value="" selected disabled>विकासात्मक क्षेत्र 2</option>
-                {
-                  uniqueDevDom2?.map(res => (
-                    <option>{res['विकासात्मक क्षेत्र 2']}</option>
-                  ))
-                }
-              </select>
-            </div>
-          </div>
-          <div className='two-selects '>
-            <div>
-              <p className='select-title'>शिक्षण का तरीका <p>*</p></p>
-              <select className={'select-field'} name="mode_of_teaching" id="">
-                <option>ऑनलाइन</option>
-                <option>विद्यालय में</option>
-              </select>
-            </div>
-          </div>
+      
+          
           <div className='one-selects'>
             <div>
               <p className='select-title'><p>*</p>शिक्षण के परिणाम</p>
@@ -249,11 +231,9 @@ const AddFormHi = () => {
             </div>
           </div>
           <div className='d-flex justify-content-center mt-4'>
-            {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
             <button type='submit' className='form-btn'>अद्यतन रणनीति</button>
           </div>
-          {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
-          {error && <p className='form-error'>Please fill all of the above fields !</p>}
+          {error && <p className='form-error'>कृपया उपरोक्त सभी फ़ील्ड भरें!</p>}
         </form>
       </div>
     </div>
