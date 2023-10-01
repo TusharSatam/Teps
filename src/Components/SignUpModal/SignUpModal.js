@@ -2,13 +2,12 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { userRegister } from '../../services/auth';
+import { userRegister } from "../../services/auth";
 import CrossIcon from '../../asstes/cross-icon.png'
 import { useAuth } from '../../Context/AuthContext';
 import ForgotModal from '../ForgotPassModal/ForgotModal';
 import './signUpModal.css'
 import axios from 'axios';
-import emailjs from '@emailjs/browser';
 import VerifyModal from '../ForgotPassModal/VerifyModal';
 
 const SignUpModal = ({ handleClose, show, setShow }) => {
@@ -76,6 +75,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         }
       })
   }
+
+
   const wrongEmail = "Your email could not be found, please register with the correct email."
   const [wrongEMailfound, setWrongEMailfound] = React.useState()
   const handleSignUp = (e) => {
@@ -256,8 +257,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                    <label className={cityFound && !cityDisable ? "text-danger" : ""} htmlFor="">{t('City/Town')}{!checked ? <span className='text-danger'>&#x2A; {cityFound}</span> : ''}</label><br />
                   {
                     !cityDisable ?
-                      <input value={town} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" /> :
-                      <input className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
+                    <input className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />:
+                      <input value={town} className={cityFound && !cityDisable ? "signup_Input border-danger text-danger" : "signup_Input"} name='city' placeholder={t('City/Town')} type="text" />
+                      
                   }
                  
                 </div>

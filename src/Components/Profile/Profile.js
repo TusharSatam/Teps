@@ -142,6 +142,7 @@ const Profile = () => {
   }, [])
  
   // gamil handler
+  
   const [getEmail, setGetEmail] = useState()
   const handleEmail = (e) => {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -209,11 +210,11 @@ const Profile = () => {
    
     updateUser(user._id, formData)
       .then(res => {
-        getSingleUser(user._id)
+           getSingleUser(user._id)
           .then(res => {
-            // console.log(res);
+            let f=user.email;
             const data = {
-              "to": getEmail,
+              "to": f,
               'subject': "Profile details - TEPS",
               "html": `
                   <p>Hello,</p>
@@ -222,14 +223,18 @@ const Profile = () => {
                   <p>Things Education</p>
                   `
             }
+            
             axios.post('email', data)
               .then(res => {
+               
                 if (res) {
-                  window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-                  setUser(res.data[0]);
-                  toast.success(`${t('update_profile_messege')}`)
+                  getSingleUser(user._id).then(res => {
+                   
+                    window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                    setUser(res.data[0])
+                 toast.success(`${t('update_profile_messege')}`)
                   setIsLoading(false);
-                  setEditAll(false);
+                  setEditAll(false);})
                 }
               })
               .catch(err => console.log(err))

@@ -61,7 +61,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   React.useEffect(() => {
     setAllStratigys(allStrategies)
     setAllUserStratigys(allUserStrategies)
-    console.log(allStrategies,allUserStrategies,loadingdropdown);
+    // console.log(allStrategies,allUserStrategies,loadingdropdown);z
 
   }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {

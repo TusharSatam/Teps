@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FaEye, FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { deletUser, getSingleUser, getUsers } from '../../services/dashboardUsers';
+import { deletUser, getSingleUser, getUsers, updateUser } from '../../services/dashboardUsers';
 import DashboardEditUserModal from '../../Components/DashboardModal/DashboardEditUserModal';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
@@ -82,6 +82,8 @@ const DashboardUsers = () => {
   
   const addRandomUsers = () => {
     const randomUsers = generateRandomUsers(15);
+    let data=prevUsers=>[...prevUsers,...randomUsers]
+    updateUser(data);
     setUsers(prevUsers => [...prevUsers, ...randomUsers]);
   };
   

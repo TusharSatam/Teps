@@ -24,14 +24,15 @@ const LoginModal = ({ show, setShow }) => {
     setCheckError('')
     setError('')
   }
+  
   const handleSIgnIn = (e) => {
     e.preventDefault();
     if (e.target.checkmark.checked === true) {
       setIsLoading(true);
       setCheckError('');
       const data = {
-        'email': e.target.email.value,
-        'password': e.target.password.value
+        email: e.target.email.value,
+        password: e.target.password.value 
       }
       userLogin(data)
         .then(res => {
