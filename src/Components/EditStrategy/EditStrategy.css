@@ -127,6 +127,15 @@
   border: none;
   box-shadow: none;
 }
+.responseText{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: #1AA05B;
+  margin: 1rem 0rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 .loadContainer{
     display: flex;
     justify-content: center;
@@ -149,6 +158,33 @@
     background: #F4F8F7;
     padding: 2rem;
     width: 65%;
+  }
+  textarea:disabled{
+    background: #DDD;
+  }
+  button:disabled{
+    background-color: #8c9f95;
+    box-shadow: none;
+    border: none;
+    color: white;
+  }
+  .headText{
+    width:65%;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+  .line{
+    height: 5px;
+    width: 100%;
+    background: #1AA05B;
+    opacity: 1;
+  }
+  .backbutton{
+    position: absolute;
+    left: 5%;
+    background: white;
+    z-index: 1;
+    border: none;
   }
   @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -173,4 +209,12 @@
     .halfwidth{
       width: 50%;
     }
+    .headText{
+      font-size: 1rem;
+    }
+  }
+  @media only screen  and (max-width: 600px) {
+  .headText{
+    display: none;
+  }
   }

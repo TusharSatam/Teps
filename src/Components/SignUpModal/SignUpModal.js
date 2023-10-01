@@ -34,7 +34,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
   const [isPhoneInputType, setisPhoneInputType] = useState(false);
   const emailInputRef = useRef(null);
-  console.log(phoneValue);
   const handleRegistrationOptionChange = (option) => {
     setRegistrationOption(option);
     if (option === "email") {
@@ -96,10 +95,14 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         }
       });
   };
+  const handleNameChange = (e) => {
+    const input = e.target;
+    const text = input.value;
+    input.value = text.replace(/[^A-Za-z]/g, '');
+  };
   const wrongEmail =
     "Your email could not be found, please register with the correct email.";
   const [wrongEMailfound, setWrongEMailfound] = React.useState();
-  console.log(registrationOption);
   
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -273,7 +276,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         setRequired(`${t("fill_all_box")}`);
         setPassError("");
         setError(``);
-        setEmailError(t("Email_Error"));
       }
     }
   };
@@ -342,6 +344,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="firstName"
                     placeholder="Lily"
                     type="text"
+                    pattern="[A-Za-z]+"
+                    onInput={handleNameChange}
                   />
                 </div>
                 <div>
@@ -355,6 +359,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="lastName"
                     placeholder="Blom"
                     type="text"
+                    onInput={handleNameChange}
                   />
                 </div>
               </div>

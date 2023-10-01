@@ -21,7 +21,7 @@ const Home = () => {
       <LandingCarousel />
 
       <div className="filterCard p-3 homeFilterCard">
-        <h1 className="mx-auto">{t("Welcome")},{user.firstName}!</h1>
+        <h1 className="mx-auto welcomeText">{t("Welcome")},{user.firstName}!</h1>
 
         <Suspense fallback={<div>Loading...</div>}>
           {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout />}

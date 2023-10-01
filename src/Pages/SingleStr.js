@@ -53,6 +53,8 @@ const SingleStr = () => {
   const [totalUserLikes, setTotalUserLikes] = useState(0);
   const [isAlreadyRated, setisAlreadyRated] = useState(false);
   const [likeUser, setLikeUser] = useState([]);
+  const [isLoadingContent, setIsLoadingContent] = useState(true);
+  const [isFecthingStrategy, setisFecthingStrategy] = useState(false)
   const navigate = useNavigate();
   const pRef = useRef(null);
 
@@ -76,6 +78,9 @@ const SingleStr = () => {
     } else {
       setSeecomment(true);
     }
+  };
+  const handleBackClick = () => {
+    window.history.go(-1);
   };
   const handleComment = (e) => {
     e.preventDefault();
@@ -202,10 +207,16 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
+
   useEffect(() => {
-    const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
-    pRef.current.innerHTML = newText;
-    setformatted(""); // Assign the new HTML to the innerHTML property
+    setTimeout(() => {
+      const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
+      if (pRef.current) {
+        pRef.current.innerHTML = newText;
+      }
+      setformatted(""); // Assign the new HTML to the innerHTML property
+      setIsLoadingContent(false); // Mark loading as complete
+    }, 100); 
   }, [str["Teaching Strategy"]]);
 
   const sendRating = async (starIndex) => {
@@ -239,14 +250,11 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className="saveStrParent2">
-        <Link to="/search" className="GoBack">
-          <img src={LeftArrow} />
-          {t("Back")}
-        </Link>
-        <div className="text-center headText my-1 mt-md-0 fw-bold">
-          {t("Strategy screen")}
-        </div>
+      <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <hr className="line"/>
+        <p className="headText text-center"> {t("Strategy screen")}</p>
+        <hr className="line"/>
       </div>
 
       <div className="mx-3 mx-md-4">
@@ -278,10 +286,12 @@ const SingleStr = () => {
                     </div>
                   </div>
                 </div>
-                <p
-                  ref={pRef}
-                  className="newLine savestr_body me-2 me-md-2 disableCopy"
-                ></p>
+                {isLoadingContent?"Loading...": (
+                  <p
+                    ref={pRef}
+                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                  ></p>
+                )}
 
                 <div className="d-flex justify-content-between my-2">
                   <div className="d-flex align-items-center">

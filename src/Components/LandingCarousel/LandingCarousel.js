@@ -18,7 +18,7 @@ const LandingCarousel = () => {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     speed: 1000,
     slidesToShow: 1,
@@ -28,9 +28,9 @@ const LandingCarousel = () => {
     <div className="mx-4 mx-md-4 mx-xl-0 carousalContainer">
       {selectLang === "english" ? (
         <Slider {...settings} className="">
-          <div className="d-flex justify-content-center  align-items-center carousalCard firstCard">
+          <div className="d-flex justify-content-center align-items-center carousalCard firstCard">
             <img src={Carousel1} alt="Carousel1" className="carousalImage" />
-            <div className="carousalTextArea d-flex flex-column justify-content-center">
+            <div className="carousalTextArea d-flex flex-column">
               <h1>Empowering Educators</h1>
               <div className="cardDetails">
                 <p>

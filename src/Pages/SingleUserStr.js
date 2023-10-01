@@ -52,6 +52,7 @@ const SingleUserStr = () => {
   const pRef = useRef(null);
   const navigate = useNavigate();
   const [isAlreadyRated, setisAlreadyRated] = useState(false);
+  const [isLoadingContent, setIsLoadingContent] = useState(true);
 
   // Function to handle a star click
   const handleStarClick = (starIndex) => {
@@ -253,10 +254,20 @@ const SingleUserStr = () => {
     await seteditStrategyFormData(str);
     navigate(`/editStrategyform/${str._id}/user`);
   };
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   useEffect(() => {
-    const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
-    pRef.current.innerHTML = newText;
-  }, [str, formatted]);
+    setTimeout(() => {
+      const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
+      if (pRef.current) {
+        pRef.current.innerHTML = newText;
+      }
+      setformatted(""); // Assign the new HTML to the innerHTML property
+      setIsLoadingContent(false); // Mark loading as complete
+    }, 100); 
+  }, [str["Teaching Strategy"]]);
+
 
   return (
     <div>
@@ -265,14 +276,11 @@ const SingleUserStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className="saveStrParent2">
-        <Link to="/search" className="GoBack">
-          <img src={LeftArrow} />
-          {t("Back")}
-        </Link>
-        <div className="text-center headText my-1 mt-md-0 fw-bold">
-          {t("Strategy screen")}
-        </div>
+         <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <hr className="line"/>
+        <p className="headText text-center"> {t("Strategy screen")}</p>
+        <hr className="line"/>
       </div>
       <div className="mx-3 mx-md-5">
         <p className="single_str_head">
@@ -299,7 +307,12 @@ const SingleUserStr = () => {
                     </div>
                   </div>
                 </div>
-                <p ref={pRef} className="newLine savestr_body me-2 me-md-2"></p>
+                {isLoadingContent?"Loading...": (
+                  <p
+                    ref={pRef}
+                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                  ></p>
+                )}
 
                 <div className="d-flex justify-content-between my-2">
                   <div className="d-flex align-items-center">

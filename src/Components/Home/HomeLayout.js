@@ -41,8 +41,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   React.useEffect(() => {
     setAllStratigys(allStrategies)
     setAllUserStratigys(allUserStrategies)
-    console.log(allStrategies,allUserStrategies,loadingdropdown);
-
   }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {
     if (location.pathname !== '/home') {
@@ -148,6 +146,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
+        console.log(aquaticCreatures,allUserStratigys,aquaticCreaturesUser);
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
           setStratigyFilData(aquaticCreatures)
@@ -197,7 +196,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
         return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic && creature.isPublic === true;
       });
-      console.log({ aquaticCreaturesUser });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
@@ -442,12 +440,12 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       </div>
       <div>
         {
-          error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+          error && location.pathname === '/home' && <p className='error_text mt-2'>{error}</p>
         }
       </div>
       {
         location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-4 my-md-5 '>
+          <div className='d-flex justify-content-center my-4 my-md-3'>
             <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
           </div>
           :

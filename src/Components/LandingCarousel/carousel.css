@@ -3,11 +3,12 @@
   border: none;
 }
 .slick-slide > div {
-  margin: 2rem 4rem;
+  margin: 3rem auto;
+  width: 75% !important;
   margin-bottom: 3rem;
 }
 .slick-dots {
-  height: 50px;
+  height: 55px;
 }
 .slick-dots li button:before {
   font-size: 10px;
@@ -20,31 +21,29 @@
   width: 90%;
 }
 .carousalCard {
-  height: 440px;
   background: #1aa05b;
+  height: 210px;
   color: #fff;
-  padding: 2rem 3rem;
+  padding: 1rem 3rem;
+  justify-content: flex-start;
   gap: 24px;
-  border-radius: 120px;
-  box-shadow: 24px 24px 2px 0px #c3c3c3, 24px 24px 4px 0px #c3c3c3,
-    -6px 20px 4px 0px #c3c3c3;
+  border-radius: 60px;
+  background: var(--brand-color-green, #1AA05B);
+  box-shadow: 10.28548px 10.73267px 0px 0px #CED1D0, 0px 10.73267px 0px 0px #CED1D0, 8.94389px 0px 0px 0px #CED1D0;
+  margin: auto;
 }
-.firstCard {
-  background-color: #FFF;
-}
-.firstCard .carousalTextArea h1,.firstCard .carousalTextArea .cardDetails p{
-  color: #1aa05b;
-}
+
 .carousalTextArea {
-  gap: 24px;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: start;
 }
 .innerWidth {
   width: 85%;
 }
 .carousalTextArea h1 {
   color: #fff;
-  text-align: center;
-  font-size: 42px;
+  font-size: 24px;
   font-weight: 700;
 }
 .cardDetails {
@@ -53,16 +52,21 @@
 }
 .cardDetails > p {
   color: #fff;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 500;
-  line-height: 40px; /* 117.647% */
-  letter-spacing: -0.34px;
+  line-height: 22px; /* 137.5% */
+  letter-spacing: -0.16px;
+  
 }
 .carousalImage{
     height:-webkit-fill-available;
   }
 
 @media only screen and (max-width: 1040px) {
+  .slick-slide > div {
+    width: 90% !important;
+    margin-bottom: 3rem;
+  }
   .carousalCard {
     height: 350px;
   }
@@ -73,9 +77,7 @@
     font-size: 20px;
     line-height: 26px;
   }
-  .slick-slide > div {
-    margin: 3rem 2rem;
-  }
+
 }
 
 @media only screen and (max-width: 990px) {
@@ -96,24 +98,24 @@
 }
 @media only screen and (max-width: 700px) {
   .carousalCard {
-    height: 190px;
+    height:150px;
     padding: .5rem;
     border-radius: 36px;
     gap: 8px;
   }
   .carousalTextArea h1 {
-    font-size: 14px;
+    font-size: 12px;
   }
   .cardDetails > p {
-    font-size: 12px;
-    line-height: 12px;
+    font-size: 9px;
+    line-height: 10.5px;
+    margin-bottom: .5rem;
   }
   .carousalTextArea {
     gap: 4px;
   }
   .slick-slide > div {
-    margin: 0.3rem;
-    margin-bottom: 2rem;
+    margin: 2rem auto;
   }
   .carousalImage{
     height: 100px;

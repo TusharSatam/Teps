@@ -335,7 +335,7 @@ const SearchScrean = () => {
                                               <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index + 1)}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index + 1)}</p>
                                                 </div>
                                               </Link>
                                               <p className='user_str d-none d-md-block'>Uploaded By - {

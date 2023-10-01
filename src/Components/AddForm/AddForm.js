@@ -54,8 +54,7 @@ const [uniqueSubjects, setuniqueSubjects] = useState()
     setSelectPedagogical("");
     setSelectSuperTopic("");
   };
-useEffect(() => {
-}, [selectGrade])
+
 
   const handleSub = (e) => {
     setSelectSubject(e.target.value);
@@ -245,10 +244,21 @@ useEffect(() => {
         Approve: false,
       };
       setSubmitData(data);
-      resetDropdowns()
+  // Reset the form fields
+      // Clear all input fields
+      setSelectSubject("");
+      setSelectGrade("");
+      setSelectSkill("");
+      setSelectTopic("");
+      setSelectSubTopic("");
+      setSelectSubSubTopic("");
+      setSelectLearningOutcome("");
+      setteachingStrategy("");
+      setSelectPedagogical("");
+      setSelectSuperTopic(""); 
     }
   };
-
+  
   const handleClosePublishModal=()=>{
     setModalShow(false)
   }
@@ -273,10 +283,11 @@ useEffect(() => {
                    className={"select-field"}
                    name="grade"
                    value={selectGrade}
+                   id="grade"
                  >
-                   <option  selected disabled>
-                     Grade
-                   </option>
+                   <option value="" selected disabled>
+                      Grade
+                    </option>
                    {uniqueGrade
                      ?.filter((res) => res.Grade !== undefined)
                      .map((res, i) => (
@@ -292,12 +303,12 @@ useEffect(() => {
                    onChange={handleSub}
                    className={"select-field"}
                    name="subject"
-                   aria-label="Default select example"
                    value={selectSubject}
+                   id="subject"
                  >
-                   <option  selected disabled>
-                     Subject
-                   </option>
+                    <option  value="" selected disabled>
+                      Subject
+                    </option>
                    {uniqueSubjects
                      ?.filter((res) => res.Subject !== undefined)
                      .map((res, i) => (
@@ -310,26 +321,6 @@ useEffect(() => {
           
              </div>
              <div className="two-selects ">
-               {/* <div>
-                 <p className="select-title">
-                   Skill <p>*</p>
-                 </p>
-                 <select
-                   onChange={handleSkill}
-                   className={"select-field"}
-                   name="skill"
-                   value={selectSkill}
-                 >
-                   <option  selected disabled>
-                     Skill
-                   </option>
-                   {uniqueSkill
-                     ?.filter((res) => res.Skill !== undefined)
-                     .map((res, i) => (
-                       <option key={i}>{res.Skill}</option>
-                     ))}
-                 </select>
-               </div> */}
                 <div>
                  <p className="select-title">
                    Super Topic <p>*</p>
@@ -340,7 +331,7 @@ useEffect(() => {
                    name="superTopic"
                    value={selectSuperTopic}
                  >
-                   <option  selected disabled>
+                   <option value="" selected disabled>
                      Super Topic
                    </option>
                    {uniqueSuperTopic
@@ -360,7 +351,7 @@ useEffect(() => {
                    name="topic"
                    value={selectTopic}
                  >
-                   <option  selected disabled>
+                   <option  value="" selected disabled>
                      Topic
                    </option>
                    {uniqueTopic
@@ -383,7 +374,7 @@ useEffect(() => {
                    value={selectSubTopic}
 
                  >
-                   <option  selected disabled>
+                   <option  value="" selected disabled>
                      Sub-Topic
                    </option>
                    {uniqueSubTopic
@@ -403,7 +394,7 @@ useEffect(() => {
                    name="sub_sub_topic"
                    value={selectSubSubTopic}
                  >
-                   <option  selected disabled>
+                   <option  value="" selected disabled>
                      Sub-Sub-Topic
                    </option>
 
@@ -427,7 +418,7 @@ useEffect(() => {
                    name="pedagogical"
                    value={selectPedagogical}
                  >
-                   <option  selected disabled>
+                   <option  value=""  selected disabled>
                    Pedagogical Approach
                    </option>
                    
@@ -442,7 +433,7 @@ useEffect(() => {
                </div>
                <div>
                  <p className="select-title">
-                   <p>*</p>Learning Outcome
+                   Learning Outcome<p>*</p>
                  </p>
                  <select
                    onChange={handleLearningOutcome}
@@ -450,7 +441,7 @@ useEffect(() => {
                    name="learning_outcome"
                    value={selectLearningOutcome}
                  >
-                   <option  selected disabled>
+                   <option value="" selected disabled>
                      Learning Outcome
                    </option>
                    {uniqueLearningOutcome

@@ -88,7 +88,9 @@ const EditStrategyHi = () => {
   const handleLearningOutcome = (e) => {
     setSelectLearningOutcome(e.target.value);
   };
-
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target?.["शिक्षण रणनीति"].value === "") {
@@ -110,10 +112,10 @@ const EditStrategyHi = () => {
         "शिक्षण के परिणाम": formData["शिक्षण के परिणाम"],
         "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
         Approve: false,
+        EditedBy:user._id,
         isPublic:false,
       };
       seteditedDatas(data)
-      resetDropdowns();
       setFormSubmitted(true);
       setisPublishModalOpen(true)
 
@@ -133,8 +135,11 @@ useEffect(() => {
 
   return (
     <>
-      <div className="form-title">
-        <p>उपयोगकर्ता रणनीति संपादित करें</p>
+      <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <hr className="line"/>
+        <p className="headText text-center">उपयोगकर्ता रणनीति संपादित करें</p>
+        <hr className="line"/>
       </div>
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
@@ -228,22 +233,6 @@ useEffect(() => {
                 </div>
               </div>
               <div className="two-selects ">
-                {/* <div>
-                  <p className="select-title">
-                    {t("Pedagogical Approach")} <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSubTopic}
-                    className={"select-field"}
-                    name="sub_topic"
-                    value={formData?.["शैक्षणिक दृष्टिकोण"]}
-                    disabled
-                  >
-                    <option  selected disabled>
-                      {formData?.[" शैक्षणिक दृष्टिकोण"]}
-                    </option>
-                  </select>
-                </div> */}
                 <div>
                   <p className="select-title">
                     {t("Sub - topic")} <p>*</p>
@@ -334,6 +323,7 @@ useEffect(() => {
                         : ""
                     }
                     onChange={handleTeachingStrategyChange}
+                  disabled={formSubmitted}
                   />
                 </div>
               </div>
@@ -348,6 +338,7 @@ useEffect(() => {
                 <button
                   onClick={handlePublishStrategy}
                   className="secondaryButton"
+                  disabled={formSubmitted}
                 >
                   रद्द 
                 </button>
@@ -365,6 +356,7 @@ useEffect(() => {
           <div className="loading-spinner"></div>
         </div>
       )}
+      {formSubmitted && <p className="responseText">अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!</p>}
     </>
   );
 };

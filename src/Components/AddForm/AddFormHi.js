@@ -7,12 +7,13 @@ import PublishModal from '../Modal/PublishEditStrategy/PublishModal';
 const AddFormHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([])
   //---------------------------------------------------------
-  const [selectSubject, setSelectSubject] = React.useState()
-  const [selectGrade, setSelectGrade] = React.useState()
-  const [selectTopic, setSelectTopic] = React.useState()
-  const [selectSkill, setSelectSkill] = React.useState()
-  const [selectSubTopic, setSelectSubTopic] = React.useState()
-  const [selectSubSubTopic, setSelectSubSubTopic] = useState()
+  const [selectSubject, setSelectSubject] = React.useState('')
+  const [selectGrade, setSelectGrade] = React.useState('')
+  const [selectTopic, setSelectTopic] = React.useState('')
+  const [selectSkill, setSelectSkill] = React.useState('')
+  const [selectSubTopic, setSelectSubTopic] = React.useState('')
+  const [selectSubSubTopic, setSelectSubSubTopic] = useState('')
+  const [learning_outcome, setlearning_outcome] = useState('')
   const [submitData, setSubmitData] = React.useState({})
   const { user } = useAuth()
   const [modalShow, setModalShow] = React.useState(false);
@@ -60,6 +61,10 @@ const AddFormHi = () => {
   const handleSubSubTopic=(e)=>{
     setSelectSubSubTopic(e.target.value)
   }
+  const handleLearning=(e)=>{
+    setlearning_outcome(e.target.value)
+  }
+  
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
@@ -122,6 +127,15 @@ const AddFormHi = () => {
       'Approve': false
     }
     setSubmitData(data)
+         // Clear all select values
+         setSelectSubject('');
+         setSelectGrade('');
+         setSelectSkill('');
+         setSelectTopic('');
+         setSelectSubTopic('');
+         setSelectSubSubTopic('');
+         setlearning_outcome('')
+    e.target.reset()
   }
   const handleClosePublishModal=()=>{
     setModalShow(false)
@@ -139,7 +153,7 @@ const AddFormHi = () => {
           <div className='two-selects '>
           <div>
               <p className='select-title'>श्रेणी <p>*</p></p>
-              <select onChange={handleGrade} className={'select-field'} name="grade" id="">
+              <select onChange={handleGrade} className={'select-field'} name="grade" value={selectGrade}>
                 <option value="" selected disabled>श्रेणी</option>
                 {
                   uniqueGrade?.map(res => (
@@ -150,7 +164,7 @@ const AddFormHi = () => {
             </div>
             <div>
               <p className='select-title'>विषय <p>*</p></p>
-              <select onChange={handleSub} className={'select-field'} name="subject" id="">
+              <select onChange={handleSub} className={'select-field'} name="subject" value={selectSubject}>
                 <option value="" selected disabled>विषय</option>
                 {
                   uniqueSubject?.map(res => (
@@ -164,7 +178,7 @@ const AddFormHi = () => {
           <div className='two-selects '>
             <div>
               <p className='select-title'>कौशल <p>*</p></p>
-              <select onChange={handleSkill} className={'select-field'} name="skill" id="">
+              <select onChange={handleSkill} className={'select-field'} name="skill" value={selectSkill}>
                 <option value="" selected disabled>कौशल</option>
                 {
                   uniqueSkill?.map(res => (
@@ -175,7 +189,7 @@ const AddFormHi = () => {
             </div>
             <div>
               <p className='select-title'>शीर्षक <p>*</p></p>
-              <select onChange={handleTopic} className={'select-field'} name="topic" id="">
+              <select onChange={handleTopic} className={'select-field'} name="topic" value={selectTopic} >
                 <option value="" selected disabled >शीर्षक</option>
                 {
                   uniqueTopic?.map(res => (
@@ -188,7 +202,7 @@ const AddFormHi = () => {
           <div className='two-selects '>
             <div>
               <p className='select-title'>उप शीर्षक <p>*</p></p>
-              <select onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
+              <select onChange={handleSubTopic} className={'select-field'} name="sub_topic"value={selectSubTopic} >
                 <option value="" selected disabled >उप शीर्षक</option>
                 {
                   uniqueSubTopic?.map(res => (
@@ -199,7 +213,7 @@ const AddFormHi = () => {
             </div>
             <div>
               <p className='select-title'>उप-उप शीर्षक <p>*</p></p>
-              <select className={'select-field'} name="sub_sub_topic" id="" onChange={handleSubSubTopic}>
+              <select className={'select-field'} name="sub_sub_topic"  onChange={handleSubSubTopic} value={selectSubSubTopic}>
                 <option value="" selected disabled >उप-उप शीर्षक</option>
                 {
                   uniqueSubSubTopic?.map(res => (
@@ -214,7 +228,7 @@ const AddFormHi = () => {
           <div className='one-selects'>
             <div>
               <p className='select-title'><p>*</p>शिक्षण के परिणाम</p>
-              <select className={'select-field w-100'} name="learning_outcome" id="">
+              <select className={'select-field w-100'} name="learning_outcome" value={learning_outcome} onChange={handleLearning}>
                 <option value="" selected disabled>शिक्षण के परिणाम</option>
                 {
                   uniqueSubSubTopic?.map(res => (
@@ -227,7 +241,7 @@ const AddFormHi = () => {
           <div className='one-selects-l'>
             <div>
               <p className='select-title'>शिक्षण रणनीति <p>*</p></p>
-              <textarea className={'select-field-full-2'} name="teaching_str" id="" />
+              <textarea className={'select-field-full-2'} name="teaching_str"  />
             </div>
           </div>
           <div className='d-flex justify-content-center mt-4'>

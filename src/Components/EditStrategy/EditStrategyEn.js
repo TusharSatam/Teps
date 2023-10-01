@@ -77,7 +77,7 @@ const EditStrategyEn = () => {
   const resetDropdowns = () => {
     formData["Grade"] = "";
     formData["Subject"] = "";
-    formData["Super topic"] = "";
+    formData["Super Topic"] = "";
     formData["Skill"] = "";
     formData["Topic"] = "";
     formData["Sub Topic"] = "";
@@ -111,7 +111,9 @@ const EditStrategyEn = () => {
   const handleLearningOutcome = (e) => {
     setSelectLearningOutcome(e.target.value);
   };
-
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target?.["Teaching Strategy"].value === "") {
@@ -128,16 +130,17 @@ const EditStrategyEn = () => {
         "Pedagogical Approach":formData["Pedagogical Approach"],
         "Sub Topic": formData["Sub Topic"],
         "Sub-sub topic": formData["Sub-sub topic"],
+        "Super Topic": formData["Super Topic"],
         "Dev Dom 1": formData["Dev Dom 1"],
         "Dev Dom 2": formData["Dev Dom 2"],
         "Mode of Teaching": formData["Mode of Teaching"],
         "Learning Outcome": formData["Learning Outcome"],
         "Teaching Strategy": formData["Teaching Strategy"],
         Approve: false,
+        EditedBy:user._id,
         isPublic:false,
       };
       seteditedDatas(data)
-      resetDropdowns();
       setFormSubmitted(true);
       setisPublishModalOpen(true);
     }
@@ -145,9 +148,13 @@ const EditStrategyEn = () => {
 
   return (
     <>
-      <div className="form-title">
-        <p>Edit User Strategy</p>
+        <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <hr className="line"/>
+        <p className="headText text-center">Edit User Strategy</p>
+        <hr className="line"/>
       </div>
+    
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
@@ -231,15 +238,15 @@ const EditStrategyEn = () => {
                     name="Super_Topic"
                     id=""
                     value={
-                      formData?.["Super topic"]
-                        ? formData?.["Super topic"]
+                      formData?.["Super Topic"]
+                        ? formData?.["Super Topic"]
                         : formData?.["Skill"]
                     }
                     disabled
                   >
                     <option value="" selected disabled>
-                      {formData?.["Super topic"]
-                        ? formData?.["Super topic"]
+                      {formData?.["Super Topic"]
+                        ? formData?.["Super Topic"]
                         : formData?.["Skill"]}
                     </option>
                   </select>
@@ -349,6 +356,7 @@ const EditStrategyEn = () => {
                         : ""
                     }
                     onChange={handleTeachingStrategyChange}
+                    disabled={formSubmitted}
                   />
                 </div>
               </div>
@@ -360,7 +368,7 @@ const EditStrategyEn = () => {
                 >
                   Publish Strategy
                 </button>
-                <button type="button" className="secondaryButton">
+                <button type="button" className="secondaryButton" disabled={formSubmitted}>
                   Cancel
                 </button>
               </div>
@@ -377,6 +385,7 @@ const EditStrategyEn = () => {
           <div className="loading-spinner"></div>
         </div>
       )}
+         {formSubmitted && <p className="responseText">Thank you for publishing your strategy!</p>}
     </>
   );
 };

@@ -280,6 +280,36 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     allStratigys.length ==0?<div className="loading-spinner"></div> :<>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+        <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
+
+<option value="" selected disabled>{t('Grade')}</option>
+
+{language=="en"?
+uniqueGrade?.map((item, index) => (
+<option key={index} >{item.Grade}</option>
+)):   uniqueGrade?.map((item, index) => (
+<option key={index} >{item.श्रेणी}</option>
+))
+}
+</select>
+<select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
+{
+selectedOption && location.pathname !== '/home' ?
+<>
+  <option value="" selected disabled>{t('Grade')}</option>
+  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+</> :
+<option value="" selected disabled>{t('Grade')}</option>
+
+}
+{language=="en"?
+uniqueGrade?.map((item, index) => (
+<option key={index} >{item.Grade}</option>
+)):   uniqueGrade?.map((item, index) => (
+<option key={index} >{item.श्रेणी}</option>
+))
+}
+</select>
           <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
     
                 <option value="" selected disabled>{t('Subject')}</option>
@@ -304,36 +334,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
               ))
             }
           </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
-
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            {language=="en"?
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
-              )):   uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            }
-            {language=="en"?
-              uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.Grade}</option>
-              )):   uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
+      
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
 
                 <option value="" selected disabled>{t('Skill')}</option>
@@ -533,7 +534,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
         }
       </div>
       {location.pathname === "/home" ? (
-        <div className="d-flex justify-content-center my-4 my-md-5 ">
+        <div className="d-flex justify-content-center my-4 my-md-0">
           <button onClick={handleFindStratigys} className="submit_btn">
             {t("Find Strategies")}
           </button>

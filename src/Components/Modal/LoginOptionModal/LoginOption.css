@@ -32,7 +32,6 @@
   box-shadow: none;
 }
 .primaryButton:disabled{
-  background-color: gray;
   box-shadow: none;
 }
 .secondaryButton {
