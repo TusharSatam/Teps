@@ -26,7 +26,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   const location = useLocation();
   const { setStratigyFilData,isAuthenticated } = useAuth();
   const language = localStorage.getItem("i18nextLng")
-
   React.useEffect(() => {
     setAllStratigys(stratigy)
   }, [stratigy,language])
@@ -58,7 +57,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
   let uniqueSubject, uniqueGrade,aquaticCreaturesSubject, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
   let allowedSubjects=[];
-  if (language === "en") {
+  if (language === "en" || language === "en-US") {
     
     uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
     .map(grade => {
@@ -179,7 +178,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -193,7 +192,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -204,7 +203,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     setSelectTopic(e.target.value)
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -216,7 +215,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     setSelectTopic('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US"){
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -226,7 +225,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -235,7 +234,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -246,7 +245,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   const handleFindStratigys = () => {
     if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
       const aquaticCreatures = allStratigys.filter(function (creature) {
-        if(language=="en"){
+        if(language === "en" || language === "en-US"){
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         }
         else{
@@ -255,14 +254,14 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
-        if (language=="en") {
+        if (language === "en" || language === "en-US") {
             window.localStorage.setItem('filterSaveData', JSON.stringify(aquaticCreatures));
         } else {
             window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
         }          
       }
       if (aquaticCreatures.length !== 0) {
-        if(language=="en"){
+        if(language === "en" || language === "en-US"){
             window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
         }
         else{
@@ -270,7 +269,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
         }
       }
       else {
-        if (language=="en") {        
+        if (language === "en" || language === "en-US") {        
           setError("No strategies are available for this combination. Please try a different combination.")
         } else {
         setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
@@ -292,16 +291,14 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       handleShow()
       }  
       }
-
+console.log(uniqueGrade);
   return (
-    allStratigys.length ==0?<div className="loading-spinner"></div> :<>
+    allStratigys.length ==0 && uniqueGrade.length?<div className="loading-spinner"></div> :<>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
         <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'} name="" id="">
-
           <option value="" selected disabled>{t('Grade')}</option>
-
-          {language=="en"?
+          {(language === "en" || language === "en-US")?
           uniqueGrade?.map((item, index) => (
           <option key={index} >{item.Grade}</option>
           )):   uniqueGrade?.map((item, index) => (
@@ -319,7 +316,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
           <option value="" selected disabled>{t('Grade')}</option>
 
           }
-          {language=="en"?
+          {(language === "en" || language === "en-US")?
           uniqueGrade?.map((item, index) => (
           <option key={index} >{item.Grade}</option>
           )):   uniqueGrade?.map((item, index) => (
@@ -331,7 +328,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     
                 <option value="" selected disabled>{t('Subject')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSubject?.map((item, index) => (
                 <option key={index} >{item.Subject}</option>
               )): uniqueSubject?.map((item, index) => (
@@ -343,7 +340,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
                 <option value="" selected disabled>{t('Subject')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSubject?.map((item, index) => (
                 <option key={index} >{item.Subject}</option>
               )): uniqueSubject?.map((item, index) => (
@@ -356,7 +353,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
                 <option value="" selected disabled>{t('Super topic')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSkill?.map((item, index) => (
                 <option key={index} >{item['Super Topic']}</option>
               )):uniqueSkill?.map((item, index) => (
@@ -374,7 +371,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                 <option value="" selected disabled>{t('Topic')}</option>
 
             }
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueTopic?.map((item, index) => (
                 <option key={index} >{item.Topic}</option>
               )):uniqueTopic?.map((item, index) => (
@@ -388,7 +385,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
    
                   <option value="" selected disabled>{t('Skill')}</option>
   
-               {language=="en"?
+               {(language === "en" || language === "en-US")?
                   uniqueSkill?.map((item, index) => (
                     <option key={index} >{item.Skill}</option>
                   )):uniqueSkill?.map((item, index) => (
@@ -406,7 +403,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                 <option value="" selected disabled>{t('Topic')}</option>
 
             }
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueTopic?.map((item, index) => (
                 <option key={index} >{item.Topic}</option>
               )):uniqueTopic?.map((item, index) => (
@@ -430,7 +427,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                     <option value="" selected disabled>{t('Pedagogical Approach')}</option>
                   </>
               }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -452,7 +449,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                     <option value="" selected disabled>{t('Sub - topic')}</option>
                   </>
               }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -473,7 +470,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
                   </>
               }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub-sub topic']}</option>
                 )):uniqueSubSubTopic?.map((item, index) => (
@@ -496,7 +493,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                   <option value="" selected disabled>{t('Pedagogical Approach')}</option>
                 </>
             }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -516,7 +513,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                   <option value="" selected disabled>{t('Sub - topic')}</option>
                 </>
             }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -535,7 +532,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
                 </>
             }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub-sub topic']}</option>
                 )):uniqueSubSubTopic?.map((item, index) => (
