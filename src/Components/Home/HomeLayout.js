@@ -325,11 +325,11 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
           
           ))} 
         </select>
-{/* <select className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}>
+<select className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}>
 <option disabled selected >{t('Pedagogical Approach')} </option>
 <option value="P. Approach 1">P. Approach 1</option>
 <option value="P. Approach 2">P. Approach 2</option>
-</select> */}
+</select>
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?

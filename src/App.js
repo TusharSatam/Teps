@@ -35,12 +35,13 @@ import Home from './Pages/Home';
 import Landing from './Pages/Landing';
 import Profiles from './Pages/Profiles';
 import SaveStratigy from './Pages/SaveStratigy';
+import EditedStratigy from './Pages/EditedStratigy';
+import CreatedStratigy from './Pages/CreatedStratigy';
 import SingleHindiStr from './Pages/SingleHindiStr';
 import SingleStr from './Pages/SingleStr';
 import SingleUserStr from './Pages/SingleUserStr';
 import Stratigy from './Pages/Stratigy';
 import Verify from './Pages/Verify';
-
 
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
@@ -105,6 +106,8 @@ function App() {
              <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
+            <Route path="/editedStratigy" element={<EditedStratigy />} />
+            <Route path="/createdStratigy" element={<CreatedStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />

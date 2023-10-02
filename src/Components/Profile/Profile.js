@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
 import { updateInfo } from '../../services/auth';
+import { getEdits } from '../../services/userEdited';
 import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import defaultProfile from '../../asstes/defaultProfile.png'
 import { useAuth } from '../../Context/AuthContext';
@@ -16,7 +17,11 @@ import VerifyModal from '../ForgotPassModal/VerifyModal';
 import { Link } from 'react-router-dom';
 import {getLikes } from "../../services/userLikes";
 import { getSaves } from '../../services/userSaves';
-
+import { getUserCreated } from '../../services/userCreated';
+import ProfileDataC from "../../Pages/ProfileDataC";
+import ProfileDataE from "../../Pages/ProfileDataE";
+import ProfileDataS from "../../Pages/ProfileDataS";
+import ProfileDataF from "../../Pages/ProfileDataF";
 const Profile = () => {
  
   const { t } = useTranslation();
@@ -24,6 +29,7 @@ const Profile = () => {
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
+  const [isMyStrategies, setIsMyStrategies] = useState(true);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState('');
@@ -32,11 +38,28 @@ const Profile = () => {
   const [preview, setPreview] = React.useState(null)
   const [f, setF] = React.useState(0);
   const [l, setL] = React.useState(0);
+  const [e, setE] = React.useState(0);
+    const [c, setC] = React.useState(0);
+
   React.useEffect(() => {
     getSaves()
     .then(res => {
       const saves = res?.data?.filter(ress => ress.user_id === user._id)
      setF(saves.length); 
+    })
+  }, []);
+   React.useEffect(() => {
+    getUserCreated(user._id)
+    .then(res => {
+      const created = res?.data?.filter(ress => ress.user_id === user._id)
+     setC(created.length); 
+    })
+  }, []);
+  React.useEffect(() => {
+    getEdits(user._id)
+    .then(res => {
+      const saves = res?.data?.filter(ress => ress.user_id === user._id)
+     setE(saves.length); 
     })
   }, []);
 
@@ -61,6 +84,9 @@ const Profile = () => {
           })
       })
   }
+  const toggleButton = () => {
+    setIsMyStrategies(prevState => !prevState);
+  };
   React.useEffect(() => {
     const url = "./countrys.json"
     const fetchData = async () => {
@@ -277,22 +303,26 @@ const Profile = () => {
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
-            <div>
+            <div >
               <div className='profile_school mt-4'>
                 <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
                 <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
               </div>
               <div style={{ marginTop: "-20px" }}>
                 <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-              </div>
-            </div>
+              
+          
+                </div>
+                {/* <button className='btn btn-primary'>{t('My Strategies')}</button> */}
+             </div>  
           </div>
         </div>
+        
         <div className='d-block d-md-none mx-3 mt-md-4'>
           <hr style={{ border: "1px solid #CED4DA", marginTop: "5px", marginBottom: '0px', marginLeft: "15px", marginRight: "15px" }} />
         </div>
         <div className='container p-md-5 d-md-flex ' >
-          <div className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
+          <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 1px 1px black"}} className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
             <div className='pb-4'>
               <div className="button-wrapper">
                 {
@@ -307,9 +337,18 @@ const Profile = () => {
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
               <div className='py-4' style={{ position: "relative", padding: "4px" }}>
-                <div className='d-flex justify-content-center py-5'>
+                <div style={{ display:"grid", placeContent:"center",rowGap:"30px"}}
+                className='justify-content-center py-5'>
                   <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-                </div>
+                  <button
+        style={{ padding: '2%' }}
+        className={`btn btn-primary ${isMyStrategies ? 'active' : ''}`}
+        onClick={toggleButton}
+      >
+        {isMyStrategies ? 'My Strategies' : 'My Profile'}
+      </button>
+                  </div>
+                
                 <div className='d-flex'>
                   <div>
                     <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('Favourites')}{" "}({l})</button></Link>
@@ -321,10 +360,10 @@ const Profile = () => {
                 </div>
                 <div className='d-flex'>
                 <div>
-                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({})</button></Link>
+                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({e})</button></Link>
                   </div>
                   <div>
-                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({})</button></Link>
+                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({c})</button></Link>
                   </div>
                   </div>
                 <div className='d-flex justify-content-center py-5'>
@@ -333,7 +372,9 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className='ms-md-5 form_container mt-0 mb-5'>
+       
+       {isMyStrategies?
+          <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
             <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
                 <div className='d-flex justify-content-between align-items-center mt-0 my-md-3'>
@@ -444,6 +485,26 @@ const Profile = () => {
               </div>
             </form>
           </div>
+:
+  <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+<div>
+<ProfileDataS/>
+</div>
+<div>
+<ProfileDataF/>
+</div>
+<div>
+<ProfileDataE/>
+</div>
+<div>
+<ProfileDataC/>
+</div>
+
+  </div>
+
+
+}
+
           <div style={{ height: "10px" }}></div>
         </div>
       </section>

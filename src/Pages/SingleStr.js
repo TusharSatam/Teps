@@ -22,6 +22,7 @@ import { getMultitUser } from '../services/dashboardUsers';
 import { postcomment, singleStratigys } from '../services/stratigyes';
 import { delLikes, getLikes, postLikes } from '../services/userLikes';
 import { delSaves, getSaves, postSaves } from '../services/userSaves';
+import { getUserStbyID, getUserCreated, PostUserCreated } from '../services/userCreated';
 import LeftArrow from '../asstes/left-arrow.svg'
 
 import './styles/saveStratigy.css';
@@ -129,6 +130,7 @@ const SingleStr = () => {
 
   const [userSaves, setUserSaves] = useState([]);
   const [saveUser, setSaveUser] = useState([]);
+  const [userEdits,setUserEdits]=useState([]);
   const [totalUserSaves, setTotalUserSaves] = useState(0);
   React.useEffect(() => {
     getSaves()
@@ -138,6 +140,16 @@ const SingleStr = () => {
         const userlike = totalSave?.filter(ress => ress.user_id === user._id)
         setSaveUser(userlike)
         setUserSaves(userlike?.map(ress => ress.strategie_id))
+      })
+  }, [])
+  React.useEffect(() => {
+    getUserCreated(user._id)
+      .then(res => {
+        const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
+        // setTotalUserSaves(totalSave.length)
+        const userlike = totalSave?.filter(ress => ress.user_id === user._id)
+        // setUserEdits(userlike)
+        setUserEdits(userlike?.map(ress => ress.strategie_id))
       })
   }, [])
   const handleApiSaves = (id) => {

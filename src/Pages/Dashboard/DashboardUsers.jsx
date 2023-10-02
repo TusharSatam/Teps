@@ -4,8 +4,9 @@ import { FaEye, FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { deletUser, getSingleUser, getUsers, updateUser } from '../../services/dashboardUsers';
 import DashboardEditUserModal from '../../Components/DashboardModal/DashboardEditUserModal';
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'; 
+// require("dotenv").config();
+import axios from "axios";
 const DashboardUsers = () => {
 
   const [users, setUsers] = React.useState([]);
@@ -16,77 +17,6 @@ const DashboardUsers = () => {
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
 
-  const generateRandomUsers = (numUsers) => {
-    const firstNames = [
-      'John', 'Jane', 'Michael', 'Emily', 'David',
-      'Sarah', 'Robert', 'Laura', 'James', 'Jennifer'
-    ];
-  
-    const lastNames = [
-      'Doe', 'Doe', 'Smith', 'Johnson', 'Brown',
-      'Davis', 'Wilson', 'Taylor', 'Harris', 'Clark'
-    ];
-  
-    const emails = [
-      'john@example.com', 'jane@example.com', 'michael@example.com', 'emily@example.com', 'david@example.com',
-      'sarah@example.com', 'robert@example.com', 'laura@example.com', 'james@example.com', 'jennifer@example.com'
-    ];
-  
-    const designations = [
-      'Teacher', 'Principal', 'Administrator', 'Staff', 'Librarian',
-      'Counselor', 'Coach', 'Janitor', 'Nurse', 'IT Specialist'
-    ];
-  
-    const organizations = [
-      'School A', 'School B', 'Organization X', 'Institution Y',
-      'Academy Z', 'Learning Center', 'Educational Foundation', 'Training Institute',
-      'Childcare Center', 'Community College'
-    ];
-  
-    const cities = [
-      'New York', 'Los Angeles', 'Chicago', 'San Francisco',
-      'Houston', 'Miami', 'Seattle', 'Boston', 'Denver', 'Atlanta'
-    ];
-  
-    const pincodes = [
-      '10001', '90210', '60601', '94102',
-      '77001', '33101', '98101', '02108', '80202', '30301'
-    ];
-  
-    const randomUsers = [];
-  
-    for (let i = 0; i < numUsers; i++) {
-      const randomFName = firstNames[Math.floor(Math.random() * firstNames.length)];
-      const randomLName = lastNames[Math.floor(Math.random() * lastNames.length)];
-      const randomEmail = emails[Math.floor(Math.random() * emails.length)];
-      const randomDesignation = designations[Math.floor(Math.random() * designations.length)];
-      const randomOrganization = organizations[Math.floor(Math.random() * organizations.length)];
-      const randomCity = cities[Math.floor(Math.random() * cities.length)];
-      const randomPincode = pincodes[Math.floor(Math.random() * pincodes.length)];
-  
-      const randomUser = {
-        firstName: randomFName,
-        lastName: randomLName,
-        email: randomEmail,
-        designation: randomDesignation,
-        organization: randomOrganization,
-        city: randomCity,
-        pincode: randomPincode,
-      };
-  
-      randomUsers.push(randomUser);
-    }
-  
-    return randomUsers;
-  };
-  
-  const addRandomUsers = () => {
-    const randomUsers = generateRandomUsers(15);
-    let data=prevUsers=>[...prevUsers,...randomUsers]
-    updateUser(data);
-    setUsers(prevUsers => [...prevUsers, ...randomUsers]);
-  };
-  
   const handleShow = (id) => {
     setEditId(id)
     setEditIsLoading(true)
@@ -98,8 +28,7 @@ const DashboardUsers = () => {
       })
       ;
   }
- 
-
+  
   React.useEffect(() => {
     setIsLoading(true)
     getUsers()
@@ -118,6 +47,33 @@ const DashboardUsers = () => {
         })
       })
   }
+
+  
+  function uploadCSVFile() {
+    const fileInput = document.getElementById("csvInput");
+    const file = fileInput.files[0];
+  
+    if (file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+  
+      axios.post(`${process.env.REACT_APP_BASE_URL}bulk-upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          console.log(response.data.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }
+
+  
+
+
   return (
     <>
       <Toaster
@@ -189,7 +145,11 @@ const DashboardUsers = () => {
           </table>
         </div>
       </div>
-      <button className='btn btn-primary' onClick={addRandomUsers}>Generate</button>
+      <div className='bulkinput' style={{display:"flex", alignItems:"center"}}>
+      <input type="file" id="csvInput" accept=".csv" />
+      <button className='btn btn-primary' onClick={uploadCSVFile}>Upload</button>
+</div>
+     
     </>
   );
 };

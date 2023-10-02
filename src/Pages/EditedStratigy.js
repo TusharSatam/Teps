@@ -18,7 +18,7 @@ import FilterStr from '../Components/Home/FilterStr';
 import { useAuth } from '../Context/AuthContext';
 import { getMultitHiStr } from '../services/hindiStratigys';
 import { getMultitStr } from '../services/stratigyes';
-import { delUserSaves, getSaves, postSaves } from '../services/userSaves';
+import { getEdits, postEdits } from '../services/userEdited';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
@@ -58,14 +58,15 @@ const SaveStratigy = () => {
 
   React.useEffect(() => {
     setIsLoading(true)
-    getSaves()
+    getEdits(user._id)
       .then(res => {
         const saves = res?.data?.filter(ress => ress.user_id === user._id)
         const savesId = saves?.map(ress => ress.strategie_id)
        
         setSave(saves?.map(ress => ress.strategie_id))
         if (languageSelect === "en") {
-          getMultitStr(savesId)
+          
+         getEdits(user._id)
             .then(res => {
               setSaveStratigy(res.data);
               setIsLoading(false)
@@ -99,21 +100,21 @@ const SaveStratigy = () => {
       })
 
   }, [languageSelect])
-// console.log(user._id)
+
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,
       user_id: user._id
     }
-    postSaves(data)
+    postEdits(data)
       .then(res => {
-        getSaves()
+        getEdits(user._id)
           .then(res => {
             const saves = res?.data?.filter(ress => ress.user_id === user._id)
             const savesId = saves?.map(ress => ress.strategie_id)
             setSave(saves?.map(ress => ress.strategie_id))
             if (languageSelect === "en") {
-              getMultitStr(savesId)
+              getEdits(user._id)
                 .then(res => {
                   setSaveStratigy(res.data);
                 })
@@ -137,39 +138,39 @@ const SaveStratigy = () => {
           })
       })
   }
-  const handleApiUnSaves = (id) => {
-    delUserSaves(id)
-      .then(res => {
-        getSaves()
-          .then(res => {
-            const saves = res?.data?.filter(ress => ress.user_id === user._id)
-            const savesId = saves?.map(ress => ress.strategie_id)
-            setSave(saves?.map(ress => ress.strategie_id))
-            if (languageSelect === "en") {
-              getMultitStr(savesId)
-                .then(res => {
-                  setSaveStratigy(res.data);
-                })
-                .catch(err => setSaveStratigy([]))
-              getMultiUsertStr(savesId)
-                .then(res => {
-                  setSaveUserStratigy(res.data);
-                })
-                .catch(err => setSaveUserStratigy([]))
-            }
-            else {
-              getMultitHiStr(savesId)
-                .then(res => {
-                  setSaveStratigyi(res.data)
-                })
-              getMultiUserHindiStr(savesId)
-                .then(res => {
-                  setSaveStratigyiUser(res.data)
-                })
-            }
-          })
-      })
-  }
+  // const handleApiUnSaves = (id) => {
+  //   delUserSaves(id)
+  //     .then(res => {
+  //       getEdits()
+  //         .then(res => {
+  //           const saves = res?.data?.filter(ress => ress.user_id === user._id)
+  //           const savesId = saves?.map(ress => ress.strategie_id)
+  //           setSave(saves?.map(ress => ress.strategie_id))
+  //           if (languageSelect === "en") {
+  //             getMultitStr(savesId)
+  //               .then(res => {
+  //                 setSaveStratigy(res.data);
+  //               })
+  //               .catch(err => setSaveStratigy([]))
+  //             getMultiUsertStr(savesId)
+  //               .then(res => {
+  //                 setSaveUserStratigy(res.data);
+  //               })
+  //               .catch(err => setSaveUserStratigy([]))
+  //           }
+  //           else {
+  //             getMultitHiStr(savesId)
+  //               .then(res => {
+  //                 setSaveStratigyi(res.data)
+  //               })
+  //             getMultiUserHindiStr(savesId)
+  //               .then(res => {
+  //                 setSaveStratigyiUser(res.data)
+  //               })
+  //           }
+  //         })
+  //     })
+  // }
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -183,7 +184,7 @@ const SaveStratigy = () => {
             <div className='saveStrParent' >
               <div className='row py-2 align-items-center' style={{ alignItems: "center", position: 'relative' }}>
                 <div className='d-flex justify-content-center'>
-                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Saved Strategies")}</span>
+                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Edited Strategies")}</span>
                 </div>
 
                 <div className='filter_btn_container d-flex justify-content-end' style={{ position: "absolute", top: "100" }}>
@@ -244,14 +245,15 @@ const SaveStratigy = () => {
                                  
                                 </p>
                               </Link>
-                              <div className='d-flex align-items-center my-3'>
+                              {/* <div className='d-flex align-items-center my-3'>
                                 {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                              </div>
+                              </div> */}
                             </div>
 
                             <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                               <div className='d-flex flex-column align-items-center justify-content-center'>
-                       </div>
+                                
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -315,9 +317,9 @@ const SaveStratigy = () => {
                                   </p>
                                 </Link>
                                 <div className='d-flex justify-content-between my-3'>
-                                  <div>
+                                  {/* <div>
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div>
+                                  </div> */}
                                   <div className='d-block d-md-none'>
                                     <p className='user_str'>Uploaded By - {
                                       user.image ?
@@ -389,9 +391,9 @@ const SaveStratigy = () => {
                                       <Link to={`/single/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
                                     </p>
                                   </Link>
-                                  <div className='d-flex align-items-center my-3'>
+                                  {/* <div className='d-flex align-items-center my-3'>
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -460,9 +462,9 @@ const SaveStratigy = () => {
                                   </p>
                                   </Link>
                                   <div className='d-flex justify-content-between my-3'>
-                                    <div>
+                                    {/* <div>
                                       {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                    </div>
+                                    </div> */}
                                     <div className='d-block d-md-none'>
                                       <p className='user_str'>Uploaded By - {
                                         user.image ?
@@ -577,9 +579,9 @@ const SaveStratigy = () => {
                                       {res["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  <div className='d-flex align-items-center my-3'>
+                                  {/* <div className='d-flex align-items-center my-3'>
                                     {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -668,9 +670,9 @@ const SaveStratigy = () => {
                                       {res["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  <div className='d-flex align-items-center my-3'>
+                                  {/* <div className='d-flex align-items-center my-3'>
                                     {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -761,9 +763,9 @@ const SaveStratigy = () => {
                                       {data["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  <div className='d-flex align-items-center my-3'>
+                                  {/* <div className='d-flex align-items-center my-3'>
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -851,9 +853,9 @@ const SaveStratigy = () => {
                                         {data["शिक्षण रणनीति"]}
                                       </p>
                                     </Link>
-                                    <div className='d-flex align-items-center my-3'>
+                                    {/* <div className='d-flex align-items-center my-3'>
                                       {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                    </div>
+                                    </div> */}
                                   </div>
                                   <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                     <div className='d-flex flex-column align-items-center justify-content-center'>
