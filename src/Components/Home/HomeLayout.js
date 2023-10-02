@@ -490,8 +490,8 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
             <div className='d-flex justify-content-center my-4 my-md-5'>
               <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
             </div> :
-            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            <div className='d-flex justify-content-center  my-4  pb-md-0 '>
+              <button onClick={handleFindStratigys} className='primaryButton'>{t('Find Strategies')}</button>
             </div>
       }
     </>

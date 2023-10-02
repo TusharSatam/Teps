@@ -173,11 +173,14 @@
     margin-bottom: 0;
     font-size: 1.2rem;
   }
-  .line{
+  .line,.lightgreenline{
     height: 5px;
     width: 100%;
     background: #1AA05B;
     opacity: 1;
+  }
+  .lightgreenline{
+    opacity: 0.5;
   }
   .backbutton{
     position: absolute;

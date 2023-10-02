@@ -4,18 +4,18 @@
 .sub-title {
   color: #1aa05b;
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 39px;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px;
 }
 .sub-subtitle {
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  color: #000000;
+  color: #000;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px;
 }
 .search-head {
   font-family: "Inter";
@@ -41,7 +41,6 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  color: #1aa05b;
   margin-bottom: 2px;
   margin-right: -5px;
 }
@@ -77,13 +76,41 @@
 .dropDownContainer {
   margin: 0px 60px;
 }
-.sub_sub_title {
+.sub_sub_title,.clickLearningText {
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
+  color: #000;
   font-size: 24px;
-  line-height: 29px;
-  color: #08090a;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px
+}
+.clickLearningText{
+  color: #004AAD;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+}
+.outcomeList{
+  padding: 1rem;
+  border-radius: 24px;
+background: #F4F8F7;
+box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
+}
+.strategyReadmore{
+  width:100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.strategyReadmore a{
+  color:  #1AA05B;
+font-size: 16px;
+font-style: italic;
+font-weight: 700;
+line-height: 26px; /* 162.5% */
+letter-spacing: -0.16px;
+text-decoration: none;
 }
 .card_border {
   border-left: none !important;
@@ -201,18 +228,7 @@
     margin-left: -68px;
   }
 }
-@media only screen and (max-width: 500px) {
-  .res_btn_icon {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  .res_btn_icon-sm {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-}
+
 
 @media only screen and (max-width: 990px) {
   .container_title_sec {
@@ -232,9 +248,11 @@
     line-height: 12px;
   }
   .sub_sub_title {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 15px;
+    color: #000;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 24px
   }
   .checkbox_size {
     width: 14px;
@@ -379,5 +397,29 @@
   }
   .user_str {
     font-size: 8px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .res_btn_icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .res_btn_icon-sm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .clickLearningText{
+    color: #004AAD;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+  }
+  .sub_sub_title{
+    font-size: 10px;
+  }
+  .strategyReadmore a{
+    font-size: 10px;
   }
 }

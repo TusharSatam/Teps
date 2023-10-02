@@ -212,19 +212,7 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
-      <>
-        <div className='stratigy_bg'>
-          {
-            selectLang === 'hindi' ?
-              <HomeHindiLayout
-                setAccorKey={handleReinitialize}
-              /> :
-              <HomeLayout
-                setAccorKey={handleReinitialize}
-              />
-          }
-        </div>
-      </>
+
       {
         (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
           <>
@@ -232,21 +220,11 @@ const SearchScrean = () => {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
                 <>
                   <div className='mb-md-3 container_title_sec'>
-                    <div className='d-flex justify-content-between mt-md-5'>
+                    <div className='d-flex  flex-column justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      <div className='d-none d-md-block'>
-                        {
-                          !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
-                        }
-                        <span className='ms-2'>Show user contributed strategies</span>
-                      </div>
+                <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
                     </div>
-                    <div className='d-block d-md-none mb-2'>
-                      {
-                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
-                      }
-                      <span className='ms-2 ' style={{ fontSize: "12px" }}>Show user contributed strategies</span>
-                    </div>
+                  
                     <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                   </div>
                   <div className='dropDownContainer mb-5' key={accorKey}>
@@ -263,11 +241,11 @@ const SearchScrean = () => {
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                              <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
+                              <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
-                                      <div className='d-flex justify-content-between my-4 '>
+                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
                                         <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                           <div className='me-1'>
                                             <div>
@@ -276,46 +254,25 @@ const SearchScrean = () => {
                                                 <p className='counter_str'>{index + 1}</p>
                                               </div>
                                             </div>
-                                            <div className='d-block d-md-none mt-1'>
-                                              <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
-                                              <div className=' mt-1' style={{ marginLeft: "10px" }}>
-                                                <div className='res_btn_icon'>
-                                                  <div className='d-flex flex-column res_inner_div p-1 '>
-                                                    {
-                                                      !strRes['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                        strRes['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                          <img title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                          <img title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                                    }
-                                                    {
-                                                      !strRes['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                        strRes['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                          <img title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                          <img title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                    }
-                                                  </div>
-                                                </div>
-                                                <div className='ms-1'>
-                                                  {
-                                                    strRes['Mode of Teaching'] === "Online" ?
-                                                      <img title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                      <img title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                                  }
-                                                </div>
-                                              </div>
-                                            </div>
+                                      
                                           </div>
                                         </Link>
-                                        <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
+                                        <div className='Strategy_count_article'>
+                                          <p className='padalogicalText'>{strRes["Pedagogical Approach"]}</p>
                                           <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <p>
-                                              {strRes["Teaching Strategy"]}
+                                              {strRes["Teaching Strategy"].slice(0,200)}...
                                             </p>
                                           </Link>
-                                          <div className='d-flex align-items-center my-3'>
+                                          <div className='d-flex align-items-center'>
                                             {userSaves?.includes(strRes._id) ? <img onClick={() => handleApiUnSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                             {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                           </div>
+                                          <div className='strategyReadmore'>
+                                          <Link to={`/single/${strRes._id}`} >
+                                            Read more...
+                                          </Link>
+                                            </div>
                                         </div>
                               
                                       </div>
@@ -327,15 +284,16 @@ const SearchScrean = () => {
                                     {
                                       console.log("checked", stratigyFilUserData)
                                     }
+                                      <div className='user_str_border'></div>
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 user_str_border pt-4 pt-md-5' : 'd-flex justify-content-between my-4 pt-5'}>
-                                          <div className='me-1'>
+                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'}>
+                                          <div className=''>
                                             <div>
                                               <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index + 1)}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index )}</p>
                                                 </div>
                                               </Link>
                                               <p className='user_str d-none d-md-block'>Uploaded By - {
@@ -359,48 +317,28 @@ const SearchScrean = () => {
                                               } </p>
                                             </div>
                                             <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                              <div className='d-block d-md-none mt-1'>
-                                                <div className='icon_heading_text me-1 p-1'>Developmental Domains</div>
-                                                <div className=' mt-1' style={{ marginLeft: "10px" }}>
-                                                  <div className='res_btn_icon'>
-                                                    <div className='d-flex flex-column res_inner_div p-1 '>
-                                                      {
-                                                        !strUser['Dev Dom 1'] ? <div className='threeIcons'></div> :
-                                                          strUser['Dev Dom 1'] === "Cognitive Sensory" ?
-                                                            <img style={{ width: "20px", height: "20px" }} title="Cognitive Sensory" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                            <img style={{ width: "20px", height: "20px" }} title="Motor-Physical" className='threeIcons mb-1' src={Physical} alt="" />
-                                                      }
-                                                      {
-                                                        !strUser['Dev Dom 2'] ? <div className='threeIcons'></div> :
-                                                          strUser['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                                                            <img style={{ width: "20px", height: "20px" }} title='Socio-Emotional-Ethical' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                            <img style={{ width: "20px", height: "20px" }} title='Language & Communication' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                      }
-                                                    </div>
-                                                  </div>
-                                                  <div className='ms-1'>
-                                                    {
-                                                      strUser['Mode of Teaching'] === "Online" ?
-                                                        <img style={{ width: "20px", height: "20px" }} title='Online' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                        <img style={{ width: "20px", height: "20px" }} title='Classroom' className='threeIcons' src={OfflineIcon} alt="" />
-                                                    }
-                                                  </div>
-                                                </div>
-                                              </div>
+                                    
                                             </Link>
                                           </div>
-                                          <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
+                                          <div className='Strategy_count_article'>
+                                          <p className='padalogicalText'>{strUser["Pedagogical Approach"]}</p>
+
                                             <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
-                                                {strUser["Teaching Strategy"]}
+                                                {strUser["Teaching Strategy"].slice(0,200)}...
                                               </p>
                                             </Link>
                                   
                                             <div className='d-flex justify-content-between align-items-center'>
-                                              <div className='d-flex align-items-center my-3'>
+                                              <div className='d-flex align-items-center'>
                                                 {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                                 {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                               </div>
+                                                </div>
+                                              <div className='strategyReadmore'>
+                                                <Link to={`/singleUserStratigy/${strUser._id}`} >
+                                                  Read more...
+                                                </Link>
                                               <div className='d-block d-md-none'>
                                                 <p className='user_str'>Uploaded By - {
                                                   userDetails[index]?.data[0]?.image ?
@@ -431,6 +369,19 @@ const SearchScrean = () => {
                       }
                     </Accordion>
                   </div>
+                  <div className='d-block d-md-none mb-2 container_title_sec'>
+                      {
+                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                      }
+                      <span className='ms-2'>Show user contributed strategies</span>
+                    </div>
+                     <div className='d-none d-md-block mt-6 mb-3 container_title_sec'>
+                       <div className='lightgreenline my-5'></div>
+                        {
+                          !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                        }
+                        <span className='ms-2'>Show user contributed strategies</span>
+                      </div>
                 </> :
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
@@ -449,11 +400,11 @@ const SearchScrean = () => {
                                 <p className='mt-3 checkBox_title'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
                               <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                                <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
+                                <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
-                                        <div className='d-flex justify-content-between my-4 '>
+                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
                                           <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                             <div className='me-1'>
                                               <div>
@@ -462,75 +413,24 @@ const SearchScrean = () => {
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
                                               </div>
-                                              <div className='d-block d-md-none mt-1'>
-                                                <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
-                                                <div className=' mt-1' style={{ marginLeft: "15px" }}>
-                                                  <div className='res_btn_icon'>
-                                                    <div className='d-flex flex-column res_inner_div p-1 '>
-                                                      {
-                                                        !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                                          data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                            <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
-                                                      }
-                                                      {
-                                                        !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                                          data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                            <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                      }
-                                                    </div>
-                                                  </div>
-                                                  <div className='ms-1'>
-                                                    {
-                                                      data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                                    }
-
-                                                  </div>
-                                                </div>
-                                              </div>
+                                    
                                             </div>
                                           </Link>
-                                          <div className='col-9 col-md-8 Strategy_count_article'>
+                                          <div className='Strategy_count_article'>
                                             <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                               <p>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
                                        
-                                            <div className='d-flex align-items-center my-3'>
+                                            <div className='d-flex align-items-center'>
                                               {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
                                               {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
                                             </div>
-                                          </div>
-                                          <div className='col-md-2 d-none d-md-block ms-5'>
-                                            <div className='d-flex flex-column align-items-center justify-content-center'>
-                                              <div>
-                                                <span className='icons_hindi_heading'>विकासात्मक क्षेत्र</span>
-                                              </div>
-                                              <div className='d-flex align-items-center justify-content-center mt-2'>
-                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                  {
-                                                    !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nunH'></div> :
-                                                      data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                        <img title="संज्ञानात्मक संवेदी" className='threeIcons' src={KnowledgeIcon} alt="" /> :
-                                                        <img title="मोटर-भौतिक" className='threeIcons' src={Physical} alt="" />
-                                                  }
-                                                  {
-                                                    !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons-nunH'></div> :
-                                                      data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                        <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                        <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                                  }
-                                                </div>
-                                                {
-                                                  data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                    <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                    <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                                }
-                                              </div>
+                                            <div className='strategyReadmore'>
+                                          <Link to={`/singleHi/${data._id}`} >
+                                          और पढ़ें...
+                                          </Link>
                                             </div>
                                           </div>
                                         </div>
@@ -555,6 +455,19 @@ const SearchScrean = () => {
           </div>
 
       }
+            <>
+        <div className='filterCard p-1 p-md-3 blackshadow mb-md-3 container_title_sec'>
+          {
+            selectLang === 'hindi' ?
+              <HomeHindiLayout
+                setAccorKey={handleReinitialize}
+              /> :
+              <HomeLayout
+                setAccorKey={handleReinitialize}
+              />
+          }
+        </div>
+      </>
     </>
   );
 };
