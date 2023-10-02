@@ -259,7 +259,7 @@ const SingleStr = () => {
 
       <div className="mx-3 mx-md-4">
         <p className="single_str_head">
-          {str?.Subject} &gt; {str?.Grade} &gt; {str?.Skill} &gt; {str?.Topic}{" "}
+          {str?.Subject} &gt; {str?.Grade} &gt; {str?.['Super Topic']} &gt; {str?.Topic}{" "}
           &gt; {str[`Sub Topic`]} &gt; {str["Sub-sub topic"]}
         </p>
       </div>
@@ -281,9 +281,12 @@ const SingleStr = () => {
                     <div className=" mb-md-3 str_title">
                       <p className="str_name">{t("strategy")}</p>
                     </div>
+                    {
+                      str["Pedagogical Approach"]&&
                     <div className="mb-md-3 ">
-                      <i className="padalogicalText">Project Based Learning</i>
+                      <i className="padalogicalText">{str["Pedagogical Approach"]}</i>
                     </div>
+                    }
                   </div>
                 </div>
                 {isLoadingContent?"Loading...": (

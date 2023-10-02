@@ -21,7 +21,7 @@ const AddForm = () => {
   const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
   const [selectPedagogical, setSelectPedagogical] = React.useState();
   const [selectSuperTopic, setSelectSuperTopic] = React.useState();
-const [uniqueSubjects, setuniqueSubjects] = useState()
+  const [uniqueSubjects, setuniqueSubjects] = useState()
   const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
   const [teachingStrategy, setteachingStrategy] = React.useState();
   const [modalShow, setModalShow] = React.useState(false);
@@ -58,50 +58,64 @@ const [uniqueSubjects, setuniqueSubjects] = useState()
 
   const handleSub = (e) => {
     setSelectSubject(e.target.value);
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSuperTopic('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
   };
   const handleGrade = (e) => {
-    const grade = e.target.value;
-    setSelectGrade(grade);
-  
-    let allowedSubjects = [];
-  
-    if (grade === "Pre-K" || grade === "K1" || grade === "K2") {
-      // For Pre-K, K1, K2 grades
-      allowedSubjects = ["English", "Numeracy", "Science","EVS"];
-    } else if (grade === "1" || grade === "2" || grade === "3" || grade === "4" || grade === "5") {
-      // For grades 1 to 5
-      allowedSubjects = ["English", "Mathematics", "EVS"];
-    } else {
-      // For other grades
-      allowedSubjects = ["English", "Mathematics", "Science", "Social Studies"];
-    }
-  
-    // Filter unique subjects based on allowed subjects
-    const filteredSubjects = uniqueSubject?.filter((res) => allowedSubjects.includes(res.Subject));
-    setuniqueSubjects(filteredSubjects);
+    setSelectGrade(e.target.value);
+    setSelectSubject('')
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSuperTopic('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
   };
   const handleSkill = (e) => {
     setSelectSkill(e.target.value);
   };
+  const handleSuperTopic = (e) => {
+    setSelectSuperTopic(e.target.value);
+    setSelectTopic('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
+
+  };
   const handleTopic = (e) => {
     setSelectTopic(e.target.value);
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
   };
   const handleSubTopic = (e) => {
     setSelectSubTopic(e.target.value);
+    setSelectSubSubTopic('')
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
   };
   const handleSubSubTopic = (e) => {
     setSelectSubSubTopic(e.target.value);
+    setSelectPedagogical('')
+    setSelectLearningOutcome('')
+  };
+  const handlePedagogical = (e) => {
+    setSelectPedagogical(e.target.value);
+    setSelectLearningOutcome('')
   };
   const handleLearningOutcome = (e) => {
     setSelectLearningOutcome(e.target.value);
   };
 
-  const handleSuperTopic = (e) => {
-    setSelectSuperTopic(e.target.value);
-  };
-  const handlePedagogical = (e) => {
-    setSelectPedagogical(e.target.value);
-  };
+
 
 
   const uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).map(
@@ -109,11 +123,30 @@ const [uniqueSubjects, setuniqueSubjects] = useState()
       return allStratigys.find((a) => a.Grade === grade);
     }
   );
-  const uniqueSubject = Array.from(
-    new Set(allStratigys.map((a) => a.Subject))
-  ).map((subject) => {
-    return allStratigys.find((a) => a.Subject === subject);
-  });
+
+  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+    return creature.Grade === selectGrade;
+  })
+  let allowedSubjects=[];
+  const uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.Subject)))
+  .map(subject => {
+    return aquaticCreaturesSubject.find(a => a.Subject === subject)
+  }).filter((e)=>{
+    if (selectGrade === "Pre-K" || selectGrade === "K1" || selectGrade === "K2") {
+      // For Pre-K, K1, K2 selectGrades
+      allowedSubjects = ["English", "Numeracy", "Science","EVS"];
+      return allowedSubjects.includes(e.Subject)
+    } else if (selectGrade === "1" || selectGrade === "2" || selectGrade === "3" || selectGrade === "4" || selectGrade === "5") {
+      // For selectGrades 1 to 5
+      allowedSubjects = ["English", "Mathematics", "EVS"];
+      return allowedSubjects.includes(e.Subject)
+    } else {
+      // For other selectGrades
+      allowedSubjects = ["English", "Mathematics", "Science", "Social Studies"];
+      return allowedSubjects.includes(e.Subject)
+    }
+  })
+
 
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
@@ -309,7 +342,7 @@ const [uniqueSubjects, setuniqueSubjects] = useState()
                     <option  value="" selected disabled>
                       Subject
                     </option>
-                   {uniqueSubjects
+                   {uniqueSubject
                      ?.filter((res) => res.Subject !== undefined)
                      .map((res, i) => (
                        <option key={i}>

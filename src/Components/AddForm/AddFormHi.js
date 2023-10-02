@@ -25,15 +25,17 @@ const AddFormHi = () => {
         setAllStratigys(res.data);
       })
   }, []);
-  // english stratiges--------------------------------------------------------
-  const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
-    .map(subject => {
-      return allStratigys.find(a => a.विषय === subject)
-    })
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-    .map(grade => {
-      return allStratigys.find(a => a.श्रेणी === grade)
-    });
+  .map(grade => {
+    return allStratigys.find(a => a.श्रेणी === grade)
+  });
+  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+    return  creature.श्रेणी === selectGrade;
+  })
+  const uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.विषय)))
+    .map(subject => {
+      return aquaticCreaturesSubject.find(a => a.विषय === subject)
+    })
 
   const uniqueDevDom1 = Array.from(new Set(allStratigys.map(a => a['विकासात्मक क्षेत्र 1'])))
     .map(devDom1 => {
@@ -45,18 +47,33 @@ const AddFormHi = () => {
     });
   const handleSub = (e) => {
     setSelectSubject(e.target.value)
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleGrade = (e) => {
     setSelectGrade(e.target.value)
+    setSelectSubject('')
+    setSelectTopic('')
+    setSelectSkill('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSkill = (e) => {
     setSelectSkill(e.target.value)
+    setSelectTopic('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleTopic = (e) => {
     setSelectTopic(e.target.value)
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
   }
   const handleSubTopic = (e) => {
     setSelectSubTopic(e.target.value)
+    setSelectSubSubTopic('')
   }
   const handleSubSubTopic=(e)=>{
     setSelectSubSubTopic(e.target.value)
@@ -68,19 +85,19 @@ const AddFormHi = () => {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
+  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
     .map(skill => {
-      return aquaticCreatures?.find(a => a.कौशल === skill)
+      return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
     });
   const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
   })
   const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
     .map(topic => {
       return aquaticCreaturesSkill?.find(a => a.शीर्षक === topic)
     });
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill && creature.शीर्षक === selectTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -88,7 +105,7 @@ const AddFormHi = () => {
       return aquaticCreaturesTopic?.find(a => a['उप शीर्षक'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
     .map(sub_sub_topic => {
@@ -118,7 +135,7 @@ const AddFormHi = () => {
       'User_id': user._id,
       'विषय': e.target.subject.value,
       'श्रेणी': e.target.grade.value,
-      'कौशल': e.target.skill.value,
+      'अच्छा विषय': e.target.skill.value,
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
@@ -177,12 +194,12 @@ const AddFormHi = () => {
           </div>
           <div className='two-selects '>
             <div>
-              <p className='select-title'>कौशल <p>*</p></p>
+              <p className='select-title'>अच्छा विषय <p>*</p></p>
               <select onChange={handleSkill} className={'select-field'} name="skill" value={selectSkill}>
-                <option value="" selected disabled>कौशल</option>
+                <option value="" selected disabled>अच्छा विषय</option>
                 {
                   uniqueSkill?.map(res => (
-                    <option>{res.कौशल}</option>
+                    <option>{res['अच्छा विषय']}</option>
                   ))
                 }
               </select>

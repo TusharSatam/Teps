@@ -293,7 +293,7 @@ const SingleHindiStr = () => {
       </div>
       <div className="mx-3 mx-md-5">
         <p className="single_str_head">
-          {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक}{" "}
+          {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.['अच्छा विषय']} &gt; {str?.शीर्षक}{" "}
           &gt; {str[`उप शीर्षक`]} &gt; {str["उप-उप शीर्षक"]}
         </p>
       </div>
@@ -306,9 +306,6 @@ const SingleHindiStr = () => {
                   <div>
                     <div className=" mb-4 mb-md-3 str_title">
                       <p className="str_name ">{t("strategy")}</p>
-                    </div>
-                    <div className="mb-md-3 ">
-                      <i className="padalogicalText">परियोजना आधारित ज्ञान</i>
                     </div>
                   </div>
                 </div>

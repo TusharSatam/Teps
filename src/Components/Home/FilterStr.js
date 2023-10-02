@@ -29,7 +29,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
   React.useEffect(() => {
     setAllStratigys(stratigy)
-    console.log(stratigy);
   }, [stratigy,language])
   useEffect(() => {
     setSelectSubject('')
@@ -57,39 +56,54 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   }, [selectedOption, location.pathname])
 
 
-  let uniqueSubject, uniqueGrade, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
-
+  let uniqueSubject, uniqueGrade,aquaticCreaturesSubject, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
+  let allowedSubjects=[];
   if (language === "en") {
-    uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
-      .map(subject => {
-        return allStratigys.find(a => a.Subject === subject)
-      });
-  
+    
     uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-      .map(grade => {
-        return allStratigys.find(a => a.Grade === grade)
+    .map(grade => {
+      return allStratigys.find(a => a.Grade === grade)
+    });
+    aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+      return creature.Grade === selectGrade;
+    });
+    uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.Subject)))
+      .map(subject => {
+        return aquaticCreaturesSubject.find(a => a.Subject === subject)
+      }).filter((e)=>{
+        if (selectGrade === "Pre-K" || selectGrade === "K1" || selectGrade === "K2") {
+          // For Pre-K, K1, K2 selectGrades
+          allowedSubjects = ["English", "Numeracy", "Science","EVS"];
+          return allowedSubjects.includes(e.Subject)
+        } else if (selectGrade === "1" || selectGrade === "2" || selectGrade === "3" || selectGrade === "4" || selectGrade === "5") {
+          // For selectGrades 1 to 5
+          allowedSubjects = ["English", "Mathematics", "EVS"];
+          return allowedSubjects.includes(e.Subject)
+        } else {
+          // For other selectGrades
+          allowedSubjects = ["English", "Mathematics", "Science", "Social Studies"];
+          return allowedSubjects.includes(e.Subject)
+        }
       });
   
     aquaticCreatures = allStratigys.filter(function (creature) {
       return creature.Subject === selectSubject && creature.Grade === selectGrade;
     });
-  
-    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
+    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['Super Topic'])))
       .map(skill => {
-        return aquaticCreatures?.find(a => a.Skill === skill)
+        return aquaticCreatures?.find(a => a['Super Topic'] === skill)
       });
-  
     aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill;
     });
-  
+    
     uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.Topic)))
-      .map(topic => {
-        return aquaticCreaturesSkill?.find(a => a.Topic === topic)
-      });
-  
+    .map(topic => {
+      return aquaticCreaturesSkill?.find(a => a.Topic === topic)
+    });
+    
     aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill && creature.Topic === selectTopic;
     });
   
     uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['Sub Topic'])))
@@ -98,7 +112,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
   
     aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic;
     });
   
     uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
@@ -108,27 +122,30 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   
   } 
   else {
-    uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
+    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
+    .map(grade => {
+      return allStratigys.find(a => a.श्रेणी === grade)
+    });
+    aquaticCreaturesSubject = allStratigys?.filter(function (creature) {
+      return  creature.श्रेणी === selectGrade;
+    });
+    uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.विषय)))
       .map(subject => {
-        return allStratigys.find(a => a.विषय === subject)
+        return aquaticCreaturesSubject.find(a => a.विषय === subject)
       });
   
-    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-      .map(grade => {
-        return allStratigys.find(a => a.श्रेणी === grade)
-      });
   
     aquaticCreatures = allStratigys?.filter(function (creature) {
       return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
     });
   
-    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
+    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
       .map(skill => {
-        return aquaticCreatures?.find(a => a.कौशल === skill)
+        return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
       });
   
     aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
     });
   
     uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
@@ -137,7 +154,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
   
     aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill && creature.शीर्षक === selectTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
     });
   
     uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -146,7 +163,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
   
     aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय']=== selectSkill && creature['उप शीर्षक'] === selectSubTopic;
     });
   
     uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
@@ -158,7 +175,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
-    setSelectGrade('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
@@ -172,6 +188,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectSubject('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
@@ -230,10 +247,10 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
       const aquaticCreatures = allStratigys.filter(function (creature) {
         if(language=="en"){
-          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         }
         else{
-        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
         }
       });
       setStratigyFilData(aquaticCreatures)
@@ -280,36 +297,36 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
     allStratigys.length ==0?<div className="loading-spinner"></div> :<>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-        <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
+        <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'} name="" id="">
 
-<option value="" selected disabled>{t('Grade')}</option>
+          <option value="" selected disabled>{t('Grade')}</option>
 
-{language=="en"?
-uniqueGrade?.map((item, index) => (
-<option key={index} >{item.Grade}</option>
-)):   uniqueGrade?.map((item, index) => (
-<option key={index} >{item.श्रेणी}</option>
-))
-}
-</select>
-<select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
-{
-selectedOption && location.pathname !== '/home' ?
-<>
-  <option value="" selected disabled>{t('Grade')}</option>
-  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-</> :
-<option value="" selected disabled>{t('Grade')}</option>
+          {language=="en"?
+          uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.Grade}</option>
+          )):   uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.श्रेणी}</option>
+          ))
+          }
+          </select>
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
+          {
+          selectedOption && location.pathname !== '/home' ?
+          <>
+            <option value="" selected disabled>{t('Grade')}</option>
+            {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+          </> :
+          <option value="" selected disabled>{t('Grade')}</option>
 
-}
-{language=="en"?
-uniqueGrade?.map((item, index) => (
-<option key={index} >{item.Grade}</option>
-)):   uniqueGrade?.map((item, index) => (
-<option key={index} >{item.श्रेणी}</option>
-))
-}
-</select>
+          }
+          {language=="en"?
+          uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.Grade}</option>
+          )):   uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.श्रेणी}</option>
+          ))
+          }
+          </select>
           <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
     
                 <option value="" selected disabled>{t('Subject')}</option>
@@ -322,7 +339,7 @@ uniqueGrade?.map((item, index) => (
               ))
             }
           </select>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'} name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border ms-2 w-50'} name="" id="">
 
                 <option value="" selected disabled>{t('Subject')}</option>
 
@@ -337,13 +354,13 @@ uniqueGrade?.map((item, index) => (
       
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
 
-                <option value="" selected disabled>{t('Skill')}</option>
+                <option value="" selected disabled>{t('Super topic')}</option>
 
             {language=="en"?
               uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.Skill}</option>
+                <option key={index} >{item['Super Topic']}</option>
               )):uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.कौशल}</option>
+                <option key={index} >{item['अच्छा विषय']}</option>
               ))
             }
           </select>
@@ -375,7 +392,7 @@ uniqueGrade?.map((item, index) => (
                   uniqueSkill?.map((item, index) => (
                     <option key={index} >{item.Skill}</option>
                   )):uniqueSkill?.map((item, index) => (
-                    <option key={index} >{item.कौशल}</option>
+                    <option key={index} >{item['अच्छा विषय']}</option>
                   ))
                 }
           </select>

@@ -285,7 +285,7 @@ const SingleUserStr = () => {
       <div className="mx-3 mx-md-5">
         <p className="single_str_head">
           {str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt;{" "}
-          {str?.Skill}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
+          {str?.['Super Topic']}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
           {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str["Sub-sub topic"]}
         </p>
       </div>
@@ -302,9 +302,12 @@ const SingleUserStr = () => {
                     <div className=" str_titlee">
                       <p className="Strategy_count str_name">{t("strategy")}</p>
                     </div>
+                    {
+                      str["Pedagogical Approach"]&&
                     <div className="mb-md-3 ">
-                      <i className="padalogicalText">Project Based Learning</i>
+                      <i className="padalogicalText">{str["Pedagogical Approach"]}</i>
                     </div>
+                    }
                   </div>
                 </div>
                 {isLoadingContent?"Loading...": (

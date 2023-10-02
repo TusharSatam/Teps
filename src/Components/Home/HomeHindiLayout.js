@@ -21,6 +21,8 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const [error2, setError2] = React.useState(false)
   const [error3, setError3] = React.useState(false)
   const [error4, setError4] = React.useState(false)
+  const [error5, setError5] = React.useState(false)
+  const [error6, setError6] = React.useState(false)
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,7 +39,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }, [allHindiStrategies])
   
   React.useEffect(() => {
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/home') {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject)
         setSelectGrade(selectedOption?.selectGrade)
@@ -49,17 +51,20 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     }
   }, [selectedOption, location.pathname])
 
-  const uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
-    .map(subject => {
-      return allStratigys.find(a => a.विषय === subject)
-    })
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-    .map(grade => {
-      return allStratigys.find(a => a.श्रेणी === grade)
-    });
+  .map(grade => {
+    return allStratigys.find(a => a.श्रेणी === grade)
+  });
+  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+    return   creature.श्रेणी === selectGrade;
+  })
+  const uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.विषय)))
+    .map(subject => {
+      return aquaticCreaturesSubject.find(a => a.विषय === subject)
+    })
+
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
-    setSelectGrade('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
@@ -68,6 +73,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectSubject('');
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
@@ -99,19 +105,19 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
+  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
     .map(skill => {
-      return aquaticCreatures?.find(a => a.कौशल === skill)
+      return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
     });
   const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
   })
   const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
     .map(topic => {
       return aquaticCreaturesSkill?.find(a => a.शीर्षक === topic)
     });
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill && creature.शीर्षक === selectTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -119,7 +125,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       return aquaticCreaturesTopic?.find(a => a['उप शीर्षक'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
     .map(sub_sub_topic => {
@@ -132,7 +138,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     if (location.pathname === '/home') {
       if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
         const aquaticCreatures = allStratigys.filter(function (creature) {
-          return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+          return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
         });
         setStratigyFilData(aquaticCreatures);
         if (aquaticCreatures) {
@@ -161,6 +167,8 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         }
       }
       else {
+        if (!selectSubject) { setError5(true) }
+        if (!selectGrade) { setError6(true) }
         if (!selectSkill) { setError1(true) }
         if (!selectTopic) { setError2(true) }
         if (!selectSubTopic) { setError3(true) }
@@ -171,7 +179,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     else {
       window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
       const aquaticCreatures = allStratigys.filter(function (creature) {
-        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
       });
 
       setStratigyFilData(aquaticCreatures)
@@ -197,38 +205,10 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       <>
         <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
           <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
-            <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3' name="" id="">
-              {
-                selectedOption && location.pathname !== '/home' ?
-                  <>
-                    <option value="" selected disabled>{t('Subject')}</option>
-                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
-                  </> :
-                  <option value="" selected disabled>{t('Subject')}</option>
-              }
-              {
-                uniqueSubject?.map((item, index) => (
-                  <option key={index} >{item.विषय}</option>
-                ))
-              }
-            </select>
-            <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50' name="" id="">
-              {
-                selectedOption && location.pathname !== '/home' ?
-                  <>
-                    <option value="" selected disabled>{t('Subject')}</option>
-                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
-                  </> :
-                  <option value="" selected disabled>{t('Subject')}</option>
-  
-              }
-              {
-                uniqueSubject?.map((item, index) => (
-                  <option key={index} >{item.विषय}</option>
-                ))
-              }
-            </select>
-            <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50' name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} 
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
+          className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'}
+            name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -244,7 +224,9 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
                 ))
               }
             </select>
-            <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className='d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border ' name="" id="">
+            <select value={selectGrade} onChange={handlegradeFilter} defaultValue={selectedOption?.selectGrade}
+          className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'}
+         >
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
@@ -260,19 +242,55 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
                 ))
               }
             </select>
+            <select value={selectSubject} onChange={handlesubFilter} defaultValue={selectedOption?.selectSubject}
+          className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'}            
+            >
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Subject')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  </> :
+                  <option value="" selected disabled>{t('Subject')}</option>
+              }
+              {
+                uniqueSubject?.map((item, index) => (
+                  <option key={index} >{item.विषय}</option>
+                ))
+              }
+            </select>
+            <select value={selectSubject} onChange={handlesubFilter} defaultValue={selectedOption?.selectSubject} 
+          className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'}
+            >
+              {
+                selectedOption && location.pathname !== '/home' ?
+                  <>
+                    <option value="" selected disabled>{t('Subject')}</option>
+                    {localStorage.getItem('selectedHiDropdown') && !selectSubject && <option value="" selected disabled>{selectedOption?.selectSubject}</option>}
+                  </> :
+                  <option value="" selected disabled>{t('Subject')}</option>
+  
+              }
+              {
+                uniqueSubject?.map((item, index) => (
+                  <option key={index} >{item.विषय}</option>
+                ))
+              }
+            </select>
+   
             <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
               {
                 selectedOption && location.pathname !== '/home' ?
                   <>
-                    <option value="" selected disabled>{t('Skill')}</option>
+                    <option value="" selected disabled>{t('Super topic')}</option>
                     {localStorage.getItem('selectedHiDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
                   </> :
-                  <option value="" selected disabled>{t('Skill')}</option>
+                  <option value="" selected disabled>{t('Super topic')}</option>
   
               }
               {
                 uniqueSkill?.map((item, index) => (
-                  <option key={index} >{item.कौशल}</option>
+                  <option key={index} >{item['अच्छा विषय']}</option>
                 ))
               }
             </select>
@@ -307,7 +325,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
               }
               {
                 uniqueSkill?.map((item, index) => (
-                  <option key={index} >{item.कौशल}</option>
+                  <option key={index} >{item['अच्छा विषय']}</option>
                 ))
               }
             </select>
@@ -407,12 +425,12 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         </div>
         <div>
           {
-            error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+            error && location.pathname === '/home' && <p className='error_text mt-2'>{error}</p>
           }
         </div>
         {
           location.pathname === '/home' ?
-            <div className='d-flex justify-content-center my-5'>
+            <div className='d-flex justify-content-center my-3 mb-0'>
               <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
             </div>
             :

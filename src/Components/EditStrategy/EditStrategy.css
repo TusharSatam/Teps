@@ -217,4 +217,7 @@
   .headText{
     display: none;
   }
+  .responseText{
+    font-size: .8rem;
+  }
   }
