@@ -18,7 +18,7 @@ const LandingCarousel = () => {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     speed: 1000,
     slidesToShow: 1,

@@ -69,7 +69,7 @@ const DashComments = () => {
           {
             comment?.map((res, i) => (
               <tr key={i}>
-                <td>{(res?.strategie_id).slice(19, 26)}</td>
+                <td>{res?._id.slice(19, 26)}</td>
                 <td>{res?.comment}</td>
                 <td>
                   <button onClick={() => handleCommentDelet(res?._id)} className='btn p-0 me-2'>

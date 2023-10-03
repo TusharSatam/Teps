@@ -278,13 +278,10 @@ const DashboardCSV = () => {
                 <th>Id</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Grade</th>
-                <th scope="col">Skill</th>
+                <th scope="col">Super Topic</th>
                 <th scope="col">Topic</th>
                 <th scope="col">Sub Topic</th>
                 <th scope="col">Sub-sub topic </th>
-                <th scope="col">Dev Dom 1 </th>
-                <th scope="col">Dev Dom 2 </th>
-                <th scope="col">Mode of Teaching </th>
                 <th scope="col">Learning Outcome </th>
                 <th scope="col">Teaching Strategy </th>
                 <th scope="col"></th>
@@ -307,13 +304,10 @@ const DashboardCSV = () => {
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.Subject}</td>
                         <td>{item.Grade}</td>
-                        <td>{item.Skill}</td>
+                        <td>{item['Super Topic']}</td>
                         <td>{item.Topic}</td>
                         <td>{item['Sub Topic']}</td>
                         <td>{item['Sub-sub topic']}</td>
-                        <td>{item['Dev Dom 1']}</td>
-                        <td>{item['Dev Dom 2']}</td>
-                        <td>{item['Mode of Teaching']}</td>
                         <td>
                           {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
                           {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
@@ -343,13 +337,10 @@ const DashboardCSV = () => {
                 <th>Id</th>
                 <th scope="col">Subject</th>
                 <th scope="col">Grade</th>
-                <th scope="col">Skill</th>
+                <th scope="col">Super Topic</th>
                 <th scope="col">Topic</th>
                 <th scope="col">Sub Topic</th>
                 <th scope="col">Sub-sub topic </th>
-                <th scope="col">Dev Dom 1 </th>
-                <th scope="col">Dev Dom 2 </th>
-                <th scope="col">Mode of Teaching </th>
                 <th scope="col">Learning Outcome </th>
                 <th scope="col">Teaching Strategy </th>
                 <th scope="col"></th>
@@ -372,13 +363,10 @@ const DashboardCSV = () => {
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.Subject}</td>
                         <td>{item.Grade}</td>
-                        <td>{item.Skill}</td>
+                        <td>{item['Super Topic']}</td>
                         <td>{item.Topic}</td>
                         <td>{item['Sub Topic']}</td>
                         <td>{item['Sub-sub topic']}</td>
-                        <td>{item['Dev Dom 1']}</td>
-                        <td>{item['Dev Dom 2']}</td>
-                        <td>{item['Mode of Teaching']}</td>
                         <td>
                           {index === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
                           {index !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
