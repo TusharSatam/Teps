@@ -188,6 +188,7 @@
     background: white;
     z-index: 1;
     border: none;
+    font-weight: 600;
   }
   @keyframes spin {
     0% { transform: rotate(0deg); }

@@ -51,7 +51,7 @@ const Landing = () => {
     <>
       <LandingCarousel />
       <div className="filterCard p-3">
-        <h1 className="mx-auto welcomeText">{t("Welcome")}</h1>
+        <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
         <FilterStr
           stratigy={
             selectLang == "english" ? allStrategies : allHindiStrategies

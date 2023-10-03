@@ -209,10 +209,16 @@ const SearchScrean = () => {
       {user.firstName}
     </Tooltip>
   );
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
-
+      <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
+        <hr className="line"/>
+      </div>
       {
         (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
           <>
@@ -222,21 +228,20 @@ const SearchScrean = () => {
                   <div className='mb-md-3 container_title_sec'>
                     <div className='d-flex  flex-column justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
+                      <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
                     </div>
                   
-                    <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
                   </div>
                   <div className='dropDownContainer mb-5' key={accorKey}>
                     <Accordion alwaysOpen >
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
-                                  <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> :
-                                  <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}
+                                  <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
+                                  <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="checkbox" />}
                               </ContextAwareToggle>
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
@@ -246,7 +251,7 @@ const SearchScrean = () => {
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
                                       <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
-                                        <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                        <Link to={`/single/${strRes._id}`} className="linkStyle">
                                           <div className='me-1'>
                                             <div>
                                               <div className='d-flex'>
@@ -258,21 +263,18 @@ const SearchScrean = () => {
                                           </div>
                                         </Link>
                                         <div className='Strategy_count_article'>
-                                          <p className='padalogicalText'>{strRes["Pedagogical Approach"]}</p>
-                                          <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                          <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
+                                          <Link to={`/single/${strRes._id}`} className="linkStyle">
                                             <p>
                                               {strRes["Teaching Strategy"].slice(0,200)}...
                                             </p>
                                           </Link>
-                                          <div className='d-flex align-items-center'>
-                                            {userSaves?.includes(strRes._id) ? <img onClick={() => handleApiUnSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                            {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
-                                          </div>
+                             
                                           <div className='strategyReadmore'>
-                                          <Link to={`/single/${strRes._id}`} >
-                                            Read more...
-                                          </Link>
-                                            </div>
+                                            <Link to={`/single/${strRes._id}`} >
+                                              Read more...
+                                            </Link>
+                                          </div>
                                         </div>
                               
                                       </div>
@@ -290,10 +292,10 @@ const SearchScrean = () => {
                                         <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'}>
                                           <div className=''>
                                             <div>
-                                              <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                              <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index )}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index +1)}</p>
                                                 </div>
                                               </Link>
                                               <p className='user_str d-none d-md-block'>Uploaded By - {
@@ -316,24 +318,21 @@ const SearchScrean = () => {
 
                                               } </p>
                                             </div>
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                     
                                             </Link>
                                           </div>
                                           <div className='Strategy_count_article'>
-                                          <p className='padalogicalText'>{strUser["Pedagogical Approach"]}</p>
+                                          <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
 
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                               <p>
                                                 {strUser["Teaching Strategy"].slice(0,200)}...
                                               </p>
                                             </Link>
                                   
                                             <div className='d-flex justify-content-between align-items-center'>
-                                              <div className='d-flex align-items-center'>
-                                                {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                                {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
-                                              </div>
+                                       
                                                 </div>
                                               <div className='strategyReadmore'>
                                                 <Link to={`/singleUserStratigy/${strUser._id}`} >
@@ -371,14 +370,14 @@ const SearchScrean = () => {
                   </div>
                   <div className='d-block d-md-none mb-2 container_title_sec'>
                       {
-                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" />
                       }
                       <span className='ms-2'>Show user contributed strategies</span>
                     </div>
                      <div className='d-none d-md-block mt-6 mb-3 container_title_sec'>
                        <div className='lightgreenline my-5'></div>
                         {
-                          !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
+                          !check ? <img onClick={handleUserDataCheck} className='checkbox_size' src={EmptyCheckbox} alt="checkbox" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" className='checkbox_size'/>
                         }
                         <span className='ms-2'>Show user contributed strategies</span>
                       </div>
@@ -387,7 +386,7 @@ const SearchScrean = () => {
                   <>
                     <div className='mb-md-3 container_title_sec'>
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
+                <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>
                     <div className='dropDownContainer mb-5' key={accorKey}>
                       <Accordion alwaysOpen >
@@ -395,7 +394,7 @@ const SearchScrean = () => {
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
-                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
+                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
                                 <ContextAwareToggle eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
                                 <p className='mt-3 checkBox_title'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
@@ -405,7 +404,7 @@ const SearchScrean = () => {
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
                                         <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
-                                          <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                          <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
@@ -417,16 +416,13 @@ const SearchScrean = () => {
                                             </div>
                                           </Link>
                                           <div className='Strategy_count_article'>
-                                            <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                            <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                               <p>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
                                        
-                                            <div className='d-flex align-items-center'>
-                                              {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                              {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
-                                            </div>
+               
                                             <div className='strategyReadmore'>
                                           <Link to={`/singleHi/${data._id}`} >
                                           और पढ़ें...

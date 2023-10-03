@@ -149,7 +149,7 @@ const EditStrategyEn = () => {
   return (
     <>
         <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
         <hr className="line"/>
         <p className="headText text-center">Edit User Strategy</p>
         <hr className="line"/>
@@ -366,7 +366,7 @@ const EditStrategyEn = () => {
                   className="primaryButton"
                   disabled={formSubmitted}
                 >
-                  Publish Strategy
+                  Publish strategy
                 </button>
                 <button type="button" className="secondaryButton" disabled={formSubmitted}>
                   Cancel

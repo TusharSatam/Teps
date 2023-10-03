@@ -47,6 +47,10 @@
   .signup_Input:focus {
     outline: none;
   }
+  .signup_Input::placeholder,label{
+    color:  #000000;
+    font-weight: 500;
+  } 
   .res_modal {
     background: #ffffff;
     border-radius: 12px;
@@ -74,6 +78,9 @@
     font-size: 16px;
     line-height: 24px;
     transition: 0.3s;
+  }
+  .subBtn{
+    width: 195px;
   }
   .submit_btn:hover {
     border: none;
@@ -157,7 +164,10 @@ background-color: #DDD;
       width: 268px;
     }
     .sign_up {
-      margin: 0px;
+      margin: 0;
+    }
+    .subBtn{
+      padding-left: 1rem 0.5rem;
     }
   }
   

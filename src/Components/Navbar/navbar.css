@@ -95,7 +95,10 @@ transition: 0.5s;
   background: rgba(26, 160, 91, 0.5);
   color: #FFFFFF;
 }
-
+.profileImg{
+    height: 25px;
+    width: 25px;
+}
 
 @media only screen and (max-width: 990px) {
     .logo_img{
@@ -136,5 +139,9 @@ transition: 0.5s;
     .Go_back img {
       width: 2.68px;
       height: 4.55px;
+    }
+    .profileImg{
+        height: 20px;
+        width: 20px;
     }
   }

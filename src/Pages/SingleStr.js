@@ -251,7 +251,7 @@ const SingleStr = () => {
         totalReact={totalLikeUser}
       />
       <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
         <hr className="line"/>
         <p className="headText text-center"> {t("Strategy screen")}</p>
         <hr className="line"/>
@@ -284,7 +284,7 @@ const SingleStr = () => {
                     {
                       str["Pedagogical Approach"]&&
                     <div className="mb-md-3 ">
-                      <i className="padalogicalText">{str["Pedagogical Approach"]}</i>
+                      <i className="pedalogicalText">{str["Pedagogical Approach"]}</i>
                     </div>
                     }
                   </div>
@@ -297,7 +297,7 @@ const SingleStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex align-items-center">
+                  <div className="d-flex">
                     <div className="mx-lg-3 mx-md-2 mx-2 d-flex align-items-center flex-column">
                       <div>
                         {userSaves?.includes(str?._id) ? (
@@ -358,7 +358,7 @@ const SingleStr = () => {
                       </button>
                     )}
                   </div>
-                  <div className=" d-flex gap-3 justify-content-center align-items-center">
+                  <div className=" d-flex gap-3 justify-content-center">
                     <button
                       className="secondaryButton"
                       onClick={handleEditStrategy}

@@ -68,7 +68,7 @@
   font-weight: 600px;
 }
 .str_text_left {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 .savestr_head,.padalogicalTitle {
   font-size: 20px !important;
@@ -77,14 +77,15 @@
 }
 .padalogicalTitle{
   color: #1AA05B;
-  margin-top: 35px;
+  margin-top: 2.188rem;
 }
 .learningOutcome{
   font-weight: 400;
 }
-.padalogicalText{
+.pedalogicalText{
   font-size: 24px;
   color: #FF3131;
+  font-style: italic !important;
 }
 .savestr_body {
   font-family: "Inter";
@@ -432,7 +433,7 @@ select:disabled{
     font-size: 12px;
     line-height: 15px;
   }
-  .padalogicalText{
+  .pedalogicalText{
     font-size: 12px;
   }
   .comment_div {

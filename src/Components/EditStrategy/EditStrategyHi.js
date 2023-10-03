@@ -136,7 +136,7 @@ console.log(formData);
   return (
     <>
       <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{t('Back')}</button>
+      <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
         <hr className="line"/>
         <p className="headText text-center">उपयोगकर्ता रणनीति संपादित करें</p>
         <hr className="line"/>

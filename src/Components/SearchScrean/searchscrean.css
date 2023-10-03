@@ -117,14 +117,14 @@ text-decoration: none;
   border-top: none !important;
 }
 .checkbox_size {
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
 }
 .checkBox_title {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 24px;
   line-height: 24px;
   color: #000000;
 }
@@ -219,6 +219,14 @@ text-decoration: none;
   text-align: center;
   color: #000000;
   margin: 100px 100px 500px 100px;
+}
+.borderNone,.card-header{
+  border:none;
+  background:none;
+}
+.linkStyle{
+  text-decoration: none;
+  color: #000000;
 }
 @media only screen and (max-width: 1440px) {
   .icons_heading {

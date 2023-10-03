@@ -336,7 +336,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className="me-5">
                   <label htmlFor="">
                     {t("First Name")}
-                    <span className="text-danger">&#x2736;</span>
+                    <span className="text-danger position-absolute">*</span>
                   </label>{" "}
                   <br />
                   <input
@@ -351,7 +351,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div>
                   <label htmlFor="">
                     {t("Last Name")}
-                    <span className="text-danger">&#x2736;</span>
+                    <span className="text-danger position-absolute">*</span>
                   </label>{" "}
                   <br />
                   <input
@@ -369,7 +369,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
               <div className="d-flex my-3 flex-column">
                 <h1 className="selectOne">
-                  Select One <span className="text-danger">&#x2736;</span>
+                  Select One<span className="text-danger position-absolute">*</span>
                 </h1>
                 {/* -------------------------------------------------- */}
                 {/* Email input */}
@@ -474,7 +474,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               <div className="d-flex my-3">
                 <div className="me-5">
-                  <label htmlFor="">{t("Password")}</label> <br />
+                  <label htmlFor="">{t("Password")}</label> 
+                  <span className="text-danger position-absolute">*</span>
+                  <br />
                   <input
                     className="signup_Input"
                     min="0"
@@ -485,7 +487,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="">{t("Confirm Password")}</label> <br />
+                    
+                  <label htmlFor="">{t("Confirm Password")}</label>
+                  <span className="text-danger position-absolute">*</span>
+                   <br />
                   <input
                     className="signup_Input"
                     name="confirm_password"
@@ -503,6 +508,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <p style={{ marginTop: "2px", marginLeft: "-6px" }}>
                   {t("I am not a robot.")}
+                  <span className="text-danger position-absolute">*</span>
                 </p>
               </div>
               {required ? (
@@ -528,10 +534,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 {passError ? passError : ""}
               </p>
               <div className="d-flex justify-content-center me-5 pe-4">
-                <button className="submit_btn">{t("Submit")}</button>
+                <button className="primaryButton subBtn">{t("Submit")}</button>
               </div>
-              <div className="d-flex justify-content-center me-5 pe-4">
-                <button className="remindLater_btn" onClick={handleClose}>
+              <div className="d-flex justify-content-center me-5 pe-4 mt-3">
+                <button className="secondaryButton subBtn" onClick={handleClose}>
                   {t("Remind me Later")}
                 </button>
               </div>
@@ -565,7 +571,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className="">
                   <label className="res-label " htmlFor="">
                     {t("First Name")}
-                    <span className="text-danger">&#x2736;</span>
+                    <span className="text-danger position-absolute">*</span>
                   </label>{" "}
                   <br />
                   <input
@@ -578,7 +584,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className="mt-3">
                   <label className="res-label " htmlFor="">
                     {t("Last Name")}
-                    <span className="text-danger">&#x2736;</span>
+                    <span className="text-danger position-absolute">*</span>
                   </label>{" "}
                   <br />
                   <input
@@ -632,7 +638,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         style={{ fontSize: "14px" }}
                         className="text-danger mt-5"
                       >
-                        &#x2736; {emailError ? emailError : ""}
+                        * {emailError ? emailError : ""}
                       </span>
                     </label>{" "}
                     <br />
@@ -678,7 +684,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         style={{ fontSize: "14px" }}
                         className="text-danger mt-5"
                       >
-                        &#x2736; {phoneError ? phoneError : ""}
+                        * {phoneError ? phoneError : ""}
                       </span>
                     </label>{" "}
                     <br />
@@ -707,6 +713,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <label className="res-label " htmlFor="">
                     {t("Password")}
                   </label>{" "}
+                  <span className="text-danger position-absolute">*</span>
                   <br />
                   <input
                     className="signup_Input"
@@ -719,6 +726,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <label className="res-label " htmlFor="">
                     {t("Confirm Password")}
                   </label>{" "}
+                  <span className="text-danger position-absolute">*</span>
                   <br />
                   <input
                     className="signup_Input"
@@ -736,6 +744,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </div>
                   <p style={{ marginTop: "2px", marginLeft: "-6px" }}>
                     {t("I am not a robot.")}
+                  <span className="text-danger position-absolute">*</span>
                   </p>
                 </div>
                 {required ? (
@@ -761,9 +770,15 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 >
                   {passError ? passError : ""}
                 </p>
-                <div className="d-flex justify-content-center my-5">
-                  <button className="submit_btn">{t("Submit")}</button>
+                <div className="d-flex justify-content-center">
+                  <button className="primaryButton subBtn">{t("Submit")}</button>
                 </div>
+                <div className="d-flex justify-content-center mt-2">
+                <button className="secondaryButton subBtn" onClick={handleClose}>
+                  {t("Remind me Later")}
+                </button>
+                </div>
+           
               </form>
             </div>
           </div>
