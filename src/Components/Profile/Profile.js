@@ -29,10 +29,11 @@ const Profile = () => {
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
-  const [isMyStrategies, setIsMyStrategies] = useState(true);
+  const [isMyStrategies, setIsMyStrategies] = useState(false);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState('');
+  const [dropdownVisible, setDropdownVisible] = useState(true);
   const [emailErr, setEmailErr] = React.useState('');
   const [show, setShow] = React.useState(false)
   const [preview, setPreview] = React.useState(null)
@@ -40,7 +41,8 @@ const Profile = () => {
   const [l, setL] = React.useState(0);
   const [e, setE] = React.useState(0);
     const [c, setC] = React.useState(0);
-
+    
+const [pincode, setPincode] = useState(user?.pincode);
   React.useEffect(() => {
     getSaves()
     .then(res => {
@@ -51,15 +53,17 @@ const Profile = () => {
    React.useEffect(() => {
     getUserCreated(user._id)
     .then(res => {
-      const created = res?.data?.filter(ress => ress.user_id === user._id)
-     setC(created.length); 
+      
+     setC(res.data.length); 
     })
   }, []);
   React.useEffect(() => {
     getEdits(user._id)
+    
     .then(res => {
-      const saves = res?.data?.filter(ress => ress.user_id === user._id)
-     setE(saves.length); 
+      
+      
+     setE(res.data.length); 
     })
   }, []);
 
@@ -84,8 +88,10 @@ const Profile = () => {
           })
       })
   }
+  // const prof=()=>{setIsMyStrategies(true);}
   const toggleButton = () => {
-    setIsMyStrategies(prevState => !prevState);
+    setDropdownVisible(!dropdownVisible);
+    setIsMyStrategies(false);
   };
   React.useEffect(() => {
     const url = "./countrys.json"
@@ -128,6 +134,7 @@ const Profile = () => {
   // edit all handler
   const [editAll, setEditAll] = useState(false)
   const handleAllEdit = () => {
+    setIsMyStrategies(true)
     if (editAll === false) {
       setEditAll(true);
     }
@@ -137,21 +144,28 @@ const Profile = () => {
   // pincode handler
   const [cityFound, setCityFound] = React.useState(true)
   const [liveDetails, setLiveDetails] = React.useState()
-  const handlePincode = (e) => {
-    if (e.target.value === '') {
-      setCityFound(false)
+  
+const handlePincode = (e) => {
+  const inputValue = e.target.value;
+  const onlyDigits = /^\d+$/;
+
+  if (onlyDigits.test(inputValue) || inputValue === '') {
+    setPincode(inputValue);
+
+    if (inputValue !== '') {
+      axios.get(`https://api.postalpincode.in/pincode/${inputValue}`)
+        .then(res => {
+          if (res?.data[0].Message !== "No records found") {
+            setLiveDetails(res?.data[0]?.PostOffice[0]);
+            setCityFound(true)
+          }
+          else {
+            setCityFound(false)
+          }
+        })
     }
-    axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
-      .then(res => {
-        if (res?.data[0].Message !== "No records found") {
-          setLiveDetails(res?.data[0]?.PostOffice[0]);
-          setCityFound(true)
-        }
-        else {
-          setCityFound(false)
-        }
-      })
   }
+}
 
   React.useEffect(() => {
     const url = "./citys.json"
@@ -221,6 +235,7 @@ const Profile = () => {
     }
   }
  
+ 
   // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
@@ -233,7 +248,7 @@ const Profile = () => {
       pincode: e.target.pincode.value,
       country: e.target.country.value,
     };
-   
+    
     updateUser(user._id, formData)
       .then(res => {
            getSingleUser(user._id)
@@ -294,23 +309,30 @@ const Profile = () => {
         <div style={{ height: "10px" }}></div>
         <div className='d-block d-md-none text-start mx-3 mt-3 bg-light'>
           <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
-            <div className="button-wrapperr">
+            <div className="button-wrapper">
               {
                 preview ? <img src={preview} alt="" /> :
                   profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px'}} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
                       <img width={'40px'} className='label' src={defaultProfile} alt="" />
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
             <div >
-              <div className='profile_school mt-4'>
+              <div className='profile_school mt-6'>
                 <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
                 <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
               </div>
-              <div style={{ marginTop: "-20px" }}>
-                <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-              
+              <div style={{display:"grid" ,gap:"14px",marginTop: "-20px" }}>
+             
+                <button
+        style={{ padding: '1%', marginTop:"10px" }}
+        className={`change_btn`}
+        onClick={toggleButton}
+      >
+          {t('View My Strategies')}
+          <span className={`arrow ${dropdownVisible ? 'up' : 'down'}`}></span>
+      </button>
           
                 </div>
                 {/* <button className='btn btn-primary'>{t('My Strategies')}</button> */}
@@ -322,7 +344,7 @@ const Profile = () => {
           <hr style={{ border: "1px solid #CED4DA", marginTop: "5px", marginBottom: '0px', marginLeft: "15px", marginRight: "15px" }} />
         </div>
         <div className='container p-md-5 d-md-flex ' >
-          <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 1px 1px black"}} className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
+          <div style={{border:"1px solid black", backgroundColor:"white", boxShadow:"1px 2px 1px 1px black"}} className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
             <div className='pb-4'>
               <div className="button-wrapper">
                 {
@@ -337,44 +359,58 @@ const Profile = () => {
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
               <div className='py-4' style={{ position: "relative", padding: "4px" }}>
-                <div style={{ display:"grid", placeContent:"center",rowGap:"30px"}}
+                <div style={{ display:"flex", placeContent:"center"}}
                 className='justify-content-center py-5'>
-                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-                  <button
-        style={{ padding: '2%' }}
-        className={`btn btn-primary ${isMyStrategies ? 'active' : ''}`}
-        onClick={toggleButton}
-      >
-        {isMyStrategies ? 'My Strategies' : 'My Profile'}
-      </button>
+                  
+                 <button
+          style={{ padding: '2%' }}
+          className={`btn btn-primary change_btn`}
+          onClick={toggleButton}
+        >
+          View My Strategies
+           <span className={`arrow ${dropdownVisible ? 'up' : 'down'}`}></span>
+        </button>
                   </div>
                 
-                <div className='d-flex'>
-                  <div>
-                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('Favourites')}{" "}({l})</button></Link>
-                  </div>
-                  <div>
-                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('Saved')}{" "}({f})</button></Link>
-                  </div>
-                  
+                {dropdownVisible && (
+          <div className='d-block'>
+            <div>
+              <Link to="/favouriteStratigy">
+                <button className="authBtn_p me-3" >Favourites ({l})</button>
+              </Link>
+            </div>
+            <div>
+              <Link to="/saveStratigy">
+                <button className='authBtn_p mt-2 me-3'>Saved ({f})</button>
+              </Link>
+            </div>
+          
+
+      
+            <div>
+              <Link to="/editedStratigy">
+                <button className="authBtn_p mt-2 me-3" >Edited ({e})</button>
+              </Link>
+            </div>
+            <div>
+              <Link to="/createdStratigy">
+                <button className="authBtn_p mt-2 me-3" >Created ({c})</button>
+              </Link>
+            </div>
+       </div>
+        )}
+                <div className='d-flex justify-content-center py-4'>
+                  <Link to="/addForm"><button className='upload_Str_btn my-3'>Upload Strategy</button></Link>
+               
                 </div>
-                <div className='d-flex'>
-                <div>
-                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({e})</button></Link>
-                  </div>
-                  <div>
-                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({c})</button></Link>
-                  </div>
-                  </div>
-                <div className='d-flex justify-content-center py-5'>
-                  <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
-                </div>
+                <button onClick={handleAllEdit} className='change_btn mb-3'>{t('Edit Information')}</button>
+                    <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button> 
               </div>
             </div>
           </div>
        
        {isMyStrategies?
-          <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+          <div style={{border:"1px solid black", backgroundColor:"white", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
             <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
                 <div className='d-flex justify-content-between align-items-center mt-0 my-md-3'>
@@ -403,13 +439,20 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
-                    <h4 className='input_label'>{t('Pincode')}:</h4>
-                    {
-                      <div>
-                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : !cityFound && selectedCountry.city !== "International" ? "border-danger profile_input" : "profile_input"} title={cityFound ? '' : "No city/town found"} onChange={handlePincode} defaultValue={user?.pincode} type="text" name="pincode" id="" />
-                      </div>
-                    }
-                  </div>
+      <h4 className='input_label'>{t('Pincode')}:</h4>
+      <div>
+        <input
+          disabled={!editAll}
+          className={!editAll ? "border-0 profile_input" : !cityFound && selectedCountry.city !== "International" ? "border-danger profile_input" : "profile_input"}
+          title={cityFound ? '' : "No city/town found"}
+          onChange={handlePincode}
+          value={pincode}
+          type="text"
+          name="pincode"
+          id=""
+        />
+      </div>
+    </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
                     <h4 className='input_label'>{t('City/Town')}:</h4>
                     {
@@ -458,35 +501,45 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className='d-flex justify-content-center button_div'>
-                  <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div>
+                  {/* <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div> */}
                   <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
-                      isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')
+                      isLoading ? <Spinner className="text-success " animation="border" /> : t('Save Changes')
                     }
                   </button>
                 </div>
                 <div className='d-block d-md-none'>
                   <div className='d-flex justify-content-center mt-3'>
                     <div>
-                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('favourites')}</button></Link>
+                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('Favourites')}</button></Link>
                     </div>
                     <div>
                       <Link to="/saveStratigy">
                         <button className='profileBtn'>
-                          {t('saved')}
+                          {t('Saved')}
                         </button>
                       </Link>
                     </div>
                   </div>
+                  <div className='d-flex justify-content-center'>
+                <div>
+                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({e})</button></Link>
+                  </div>
+                  <div>
+                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({c})</button></Link>
+                  </div>
+                  </div>
                   <div className='d-flex justify-content-center' style={{ paddingTop: "35px" }}>
                     <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
+                    
                   </div>
+                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>
               </div>
             </form>
           </div>
 :
-  <div style={{border:"1px solid black", backgroundColor:"whitesmoke", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+  <div style={{border:"1px solid black", backgroundColor:"white", borderRadius:"10px"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
 <div>
 <ProfileDataS/>
 </div>

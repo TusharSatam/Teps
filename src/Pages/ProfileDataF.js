@@ -154,8 +154,7 @@ const ProfileDataF= () => {
           <div className="row py-2 align-items-center" style={{ alignItems: "center" }}>
             <div className="d-flex justify-content-center">
               <span className="text-white text-center headText w-50">
-                {user.firstName} {user.lastName}
-                {t("’s")} {t("Favourite Strategies")}
+               {t("Favourite Strategies")}
               </span>
             </div>
             <div className="d-flex justify-content-end " style={{ position: "absolute", top: "100" }}>
@@ -179,7 +178,7 @@ const ProfileDataF= () => {
             <>
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
-                  <div style={{ background: "#FFFFFF" }} className="card_pad">
+                  <div style={{ background: "whitesmoke" }} className="card_pad">
                     <div className="my-4">
                       <div className="d-flex justify-content-between my-4 ">
                         <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: "black" }}>
@@ -199,7 +198,7 @@ const ProfileDataF= () => {
                         </Link>
                         <div className="col-9 ms-md-4 col-md-8 ">
                           <Link style={{ textDecoration: "none", color: "black" }}>
-                            <p style={{ color: "brown", fontSize: "17px", fontWeight: "500", margin: "30px 0px -30px" }}>Project-based Learning</p>
+                            <p style={{ color: "brown", fontSize: "19px", fontWeight: "500", margin:"14px 0px 0px "}}>Project-based Learning</p>
                             <p className="savestr_head">
                               Learning Outcome: {res["Learning Outcome"]}
                             </p>
@@ -219,11 +218,15 @@ const ProfileDataF= () => {
                               </Link>
                             </p>
                           </Link>
+                        
+                        </div>
+                        <div className="col-md-2 d-none d-md-block ms-5">
+                          <div className="d-flex flex-column align-items-center justify-content-center">
                           <div className="d-flex align-items-center my-3">
                             {likes?.includes(res._id) ? (
                               <img
                                 onClick={() => handleApiUnLikes(res._id)}
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer" ,marginTop:"16px",marginLeft:"-58px"}}
                                 className="me-2 me-md-3 save_like"
                                 src={LikedIcon}
                                 alt=""
@@ -231,16 +234,13 @@ const ProfileDataF= () => {
                             ) : (
                               <img
                                 onClick={() => handleApiLikes(res._id)}
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer" ,marginTop:"6px",marginLeft:"-38px"}}
                                 className="me-2 me-md-3 save_like"
                                 src={LikeIcon}
                                 alt=""
                               />
                             )}
                           </div>
-                        </div>
-                        <div className="col-md-2 d-none d-md-block ms-5">
-                          <div className="d-flex flex-column align-items-center justify-content-center">
                           </div>
                         </div>
                       </div>

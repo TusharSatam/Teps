@@ -214,7 +214,7 @@ const CreatedStratigy = () => {
                       <div style={{ background: "#FFFFFF" }} className='card_pad'>
                         <div className='my-4'>
                           <div className='d-flex justify-content-between my-4 '>
-                            <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                            <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
                               <div className='me-1'>
                                 <div>
                                   <div className='d-flex mb-3 str_text_left'>
@@ -240,7 +240,7 @@ const CreatedStratigy = () => {
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
                                   {res["Teaching Strategy"].slice(0,150) + '...'}  
-                                  <Link to={`/single/${res._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                  <Link to={`/singleUserStratigy/${res._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
                                  
                                 </p>
                               </Link>
@@ -361,7 +361,7 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/single/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3 str_text_left'>
@@ -387,7 +387,7 @@ const CreatedStratigy = () => {
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
                                       {data["Teaching Strategy"] + '...'}
-                                      <Link to={`/single/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                      <Link to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
                                     </p>
                                   </Link>
                                   {/* <div className='d-flex align-items-center my-3'>
