@@ -363,15 +363,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   />
                 </div>
               </div>
-              {/* ----------------------------------------------------------------------------- */}
-              <div className="registration-option"></div>
-              {/* --------------------------------------------------------------------- */}
 
               <div className="d-flex my-3 flex-column">
                 <h1 className="selectOne">
                   Select One<span className="text-danger position-absolute">*</span>
                 </h1>
-                {/* -------------------------------------------------- */}
                 {/* Email input */}
                 <div className="d-flex">
                   <div className=" me-5">

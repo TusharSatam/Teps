@@ -232,7 +232,7 @@ const SearchScrean = () => {
                     </div>
                   
                   </div>
-                  <div className='dropDownContainer mb-5' key={accorKey}>
+                  <div className='dropDownContainer mb-2 mb-md-5' key={accorKey}>
                     <Accordion alwaysOpen >
                       {
                         uniqueSubSubTopic?.map((data, index) => (
@@ -388,7 +388,7 @@ const SearchScrean = () => {
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                 <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>
-                    <div className='dropDownContainer mb-5' key={accorKey}>
+                    <div className='dropDownContainer mb-md-5' key={accorKey}>
                       <Accordion alwaysOpen >
 
                         {

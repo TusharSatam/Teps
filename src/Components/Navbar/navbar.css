@@ -8,7 +8,7 @@
     font-size: 16px;
     font-weight: 700;
     border-radius: 20px;    
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     gap: 10px;
     transition: 0.5s;
     border-radius: 24px;
@@ -35,9 +35,7 @@
     color: #1AA05B;
     border: 1px solid #1AA05B;
 }
-/* .logo_aligh{
-    margin-left: 239px;
-} */
+
 .logo2_img{
     width: 184px;
     height: 43px;
@@ -57,8 +55,8 @@
     background-color: #F8F9FA;
     right: 0;
     top: 0;
-    margin-top: 20px;
-    margin-right: 80px;
+    margin-top: 1.25rem;
+    margin-right: 5rem;
     border-radius: 5px;
     z-index: 1;
 }
@@ -109,23 +107,23 @@ transition: 0.5s;
         height: 13.32px;
     }
     .authBtn{
-        padding: 4px 16px;
+        padding: 0.2rem 1rem;
         gap: 10px;
         font-size: 10px;
     }
     .authBtnn{
-        padding: 4px 16px;
+        padding: 0.2rem 1rem;
         font-size: 10px;
     }
     .profile_section{
         width: 207px;
         right: 0;
         top: 0;
-        margin-top: 45px;
+        margin-top: 2.813rem;
         font-weight: 400;
         font-size: 15.0091px;
         line-height: 18px;
-        margin-right: 55px;
+        margin-right: 3.4rem;
     }
     .drop_down_icon{
         width: 24.91px;
@@ -134,7 +132,7 @@ transition: 0.5s;
     .Go_back{
       font-size: 5.51515px;
       line-height: 7px;
-      padding: 3.15152px 9.45455px;
+      padding: 0.2rem 0.625rem;
     }
     .Go_back img {
       width: 2.68px;

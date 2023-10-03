@@ -24,10 +24,10 @@
 
 }
 .heroTitleName{
-    padding-top: 150px;
+    padding-top: 9.375rem;
 }
 .Sec_submit_btn{
-    padding: 8px 16px;
+    padding:.5rem 1rem;
     background: #FFFFFF;
     border-radius: 20px;
     font-family: 'Inter';
@@ -76,7 +76,7 @@ select option{
     height: 40px;
     animation: spin 1s linear infinite;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 1.25rem;
   }
   
   @keyframes spin {

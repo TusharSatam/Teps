@@ -41,8 +41,8 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  margin-bottom: 2px;
-  margin-right: -5px;
+  margin-bottom: 0.1rem;
+  margin-right: -0.3rem;
 }
 .Strategy_count_article p {
   font-family: "Inter";
@@ -71,10 +71,10 @@
   left: 8px;
 }
 .container_title_sec {
-  margin: 0px 60px;
+  margin: 0px 3.75rem;
 }
 .dropDownContainer {
-  margin: 0px 60px;
+  margin: 0px 3.75rem;
 }
 .sub_sub_title,.clickLearningText {
   font-family: "Inter";
@@ -230,20 +230,20 @@ text-decoration: none;
 }
 @media only screen and (max-width: 1440px) {
   .icons_heading {
-    margin-left: -68px;
+    margin-left: -4.25rem;
   }
   .icons_hindi_heading {
-    margin-left: -68px;
+    margin-left: -4.25rem;
   }
 }
 
 
 @media only screen and (max-width: 990px) {
   .container_title_sec {
-    margin: 0px 20px;
+    margin: 0 1.25rem;
   }
   .dropDownContainer {
-    margin: 0px 20px;
+    margin: 0 1.25rem;
   }
   .sub-title {
     font-weight: 700;
@@ -267,8 +267,8 @@ text-decoration: none;
     height: 14px;
   }
   .checkBox_title {
-    font-weight: 400;
-    font-size: 10px;
+    font-weight: 500;
+    font-size: 12px;
     line-height: 12px;
   }
   .card-header {

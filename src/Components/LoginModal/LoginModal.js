@@ -215,17 +215,6 @@ const handleLoginForm=()=>{
                     </>
                   }
 
-
-                  {/* <div className='d-flex'>
-                    <div className='mt-1'>
-                      <label className="containerr">
-                        <input name='checkmark' type="checkbox" />
-                        <span className="checkmark"></span>
-                      </label>
-                    </div>
-                    <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot.")}</p>
-                  </div> */}
-                  {/* <input type="checkbox" required name="" id="" /> <span> </span> */}
                   <p className='text-danger'>{checkError ? checkError : ""}</p>
                   {
                     !isOTPLoginOpen?
