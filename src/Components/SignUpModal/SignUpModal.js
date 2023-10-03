@@ -137,11 +137,12 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 setError("");
                 setEmailError("");
                 equalPass = e.target.password.value;
-                const formData = new FormData();
-                formData.append("firstName", e.target.firstName.value);
-                formData.append("lastName", e.target.lastName.value);
-                formData.append("email", e.target.email.value);
-                formData.append("password", equalPass);
+                const formData = {
+                  firstName: e.target.firstName.value,
+                  lastName: e.target.lastName.value,
+                  email: e.target.email.value,
+                  password: equalPass,
+                };
   
                 if (formData) {
                   console.log(
@@ -233,15 +234,15 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 setError("");
                 setEmailError("");
                 equalPass = e.target.password.value;
-                const formData = new FormData();
-                formData.append("firstName", e.target.firstName.value);
-                formData.append("lastName", e.target.lastName.value);
-                formData.append("phoneNumber", phoneValue);
-                formData.append("password", equalPass);
   
+                const formData = {
+                  firstName: e.target.firstName.value,
+                  lastName: e.target.lastName.value,
+                  phoneNumber: phoneValue,
+                  password: equalPass,
+                };
                 userRegister(formData)
                   .then((res) => {
-                    console.log("response", res);
                     e.target.reset();
                     setShow(false);
                     setPhoneValue("");
@@ -401,7 +402,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         emailError
                           ? "signup_Input border-danger text-danger"
                           : registrationOption === "phone"
-                          ? "signup_Input hide"
+                          ? "signup_Input "
                           : "signup_Input"
                       }
                       name="email"
@@ -452,7 +453,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         phoneError
                           ? "signup_Input border-danger text-danger"
                           : registrationOption === "email"
-                          ? "signup_Input hide"
+                          ? "signup_Input "
                           : "signup_Input"
                       }
                       name="phone_number"
@@ -575,6 +576,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="firstName"
                     placeholder="Lily"
                     type="text"
+                    onInput={handleNameChange}
                   />
                 </div>
                 <div className="mt-3">
@@ -588,6 +590,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="lastName"
                     placeholder="Blom"
                     type="text"
+                    onInput={handleNameChange}
                   />
                 </div>
 

@@ -54,6 +54,7 @@
 .welcomeText{
   color: #1aa05b;
   font-size: 28px;
+  text-align: center;
 }
 
 @media only screen and (max-width: 900px) {

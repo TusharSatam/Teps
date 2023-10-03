@@ -228,6 +228,9 @@ text-decoration: none;
   text-decoration: none;
   color: #000000;
 }
+.linkStyle:hover{
+  color: #000000;
+}
 @media only screen and (max-width: 1440px) {
   .icons_heading {
     margin-left: -4.25rem;
