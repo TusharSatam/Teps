@@ -224,4 +224,7 @@
   .responseText{
     font-size: .8rem;
   }
+  .formWrapper{
+    padding: 1rem;
+  }
   }

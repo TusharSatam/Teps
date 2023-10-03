@@ -10,6 +10,7 @@ import "./styles/Landing.css";
 import LoginOptionModal from "../Components/Modal/LoginOptionModal/LoginOptionModal";
 import LoginModal from "../Components/LoginModal/LoginModal";
 import { t } from "i18next";
+import ScrollToTop from "react-scroll-to-top";
 const Landing = () => {
   const { isAuthenticated, allStrategies, selectLang, allHindiStrategies } =
     useAuth();
@@ -49,8 +50,9 @@ const Landing = () => {
   });
   return (
     <>
+      <ScrollToTop smooth  color="#00000" />
       <LandingCarousel />
-      <div className="filterCard p-3">
+      <div className="filterCard p-2 p-md-3">
         <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
         <FilterStr
           stratigy={

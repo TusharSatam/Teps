@@ -55,8 +55,8 @@
 
 @media only screen and (max-width: 888px) {
   .primaryButton,.secondaryButton{
-    font-size: 10px;
-    height: 28px;
+    font-size: 12px;
+    height: 32px;
     padding: 0rem .5rem;
     min-width: 85px; 
   }

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { t } from "i18next";
+import { Accordion, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Buffer } from "buffer";
 import { useState } from "react";
 import {
   getAllStratigys,
@@ -16,6 +18,7 @@ import { useParams } from "react-router-dom";
 import "./EditStrategy.css";
 import { getSingleUser } from "../../services/dashboardUsers";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
+import UserImage from "../../asstes/Group 51.svg";
 const EditStrategyEn = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
@@ -42,8 +45,9 @@ const EditStrategyEn = () => {
   const { id } = useParams();
   const [isPublishModalOpen, setisPublishModalOpen] = useState(false);
   const [isStrategyPublic, setisStrategyPublic] = useState(false);
-  const [editedDatas, seteditedDatas] = useState("")
+  const [editedDatas, seteditedDatas] = useState("");
   const { user, editStrategyFormData } = useAuth();
+  const [uploaderDatas, setuploaderDatas] = useState([]);
   const handleTeachingStrategyChange = (event) => {
     const { name, value } = event.target;
     setformData({
@@ -63,12 +67,11 @@ const EditStrategyEn = () => {
       });
     } else {
       singleUserEnStratigys(id).then((res) => {
-        console.log(res);
         setformData(res.data[0]);
         setSubmittedContent(res.data[0]["Teaching Strategy"]);
         getSingleUser(res.data[0].User_id).then((res) => {
-          console.log("resrers", res);
           setuploaderName(`${res?.data[0].firstName} ${res?.data[0].lastName}`);
+          setuploaderDatas(res?.data[0]);
         });
       });
     }
@@ -127,7 +130,7 @@ const EditStrategyEn = () => {
         Grade: formData.Grade,
         Skill: formData.Skill,
         Topic: formData.Topic,
-        "Pedagogical Approach":formData["Pedagogical Approach"],
+        "Pedagogical Approach": formData["Pedagogical Approach"],
         "Sub Topic": formData["Sub Topic"],
         "Sub-sub topic": formData["Sub-sub topic"],
         "Super Topic": formData["Super Topic"],
@@ -137,31 +140,69 @@ const EditStrategyEn = () => {
         "Learning Outcome": formData["Learning Outcome"],
         "Teaching Strategy": formData["Teaching Strategy"],
         Approve: false,
-        EditedBy:user._id,
-        isPublic:false,
+        EditedBy: user._id,
+        isPublic: false,
       };
-      seteditedDatas(data)
+      seteditedDatas(data);
       setFormSubmitted(true);
       setisPublishModalOpen(true);
     }
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {uploaderName}
+    </Tooltip>
+  );
   return (
     <>
-        <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
+      <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{`< ${t(
+          "Back"
+        )}`}</button>
+        <hr className="line" />
         <p className="headText text-center">Edit User Strategy</p>
-        <hr className="line"/>
+        <hr className="line" />
       </div>
-    
+
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
             {isUserStrategyForm ? (
               <div className="d-none d-md-block mb-4 mb-md-3 str_title d-flex gap-2 align-items-center">
-                <p className="">{t("uploaded By:")}</p>
-                <p className="uni_id">{uploaderName}</p>
+                <p className="mb-1">{t("Uploaded By:")}</p>
+                <p className="d-flex gap-2">
+                  {uploaderDatas?.image ? (
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip}
+                    >
+                      <img
+                        className="label user_image"
+                        src={`data:${
+                          uploaderDatas?.image?.contentType
+                        };base64,${Buffer.from(
+                          uploaderDatas?.image?.data?.data
+                        ).toString("base64")}`}
+                        alt=""
+                      />
+                    </OverlayTrigger>
+                  ) : (
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip}
+                    >
+                      <img
+                        src={UserImage}
+                        className="user_image"
+                        alt="person pic"
+                      />
+                    </OverlayTrigger>
+                  )}
+                  <p className="uni_id">{uploaderName}</p>
+                </p>
               </div>
             ) : (
               <div className="d-none d-md-block mb-4 mb-md-3 str_title">
@@ -173,8 +214,39 @@ const EditStrategyEn = () => {
           <div className="d-flex flex-column  formWrapper">
             {isUserStrategyForm ? (
               <div className=" d-md-none mb-4 mb-md-3 str_title d-flex gap-2 align-items-center">
-                <p className="m-0">{t("uploaded By:")}</p>
-                <p className="uni_id">{uploaderName}</p>
+                <p className="m-0">{t("Uploaded By:")}</p>
+                <p className="d-flex gap-1 mb-0 align-items-center">
+                  {uploaderDatas?.image ? (
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip}
+                    >
+                      <img
+                        className="label user_image"
+                        src={`data:${
+                          uploaderDatas?.image?.contentType
+                        };base64,${Buffer.from(
+                          uploaderDatas?.image?.data?.data
+                        ).toString("base64")}`}
+                        alt=""
+                      />
+                    </OverlayTrigger>
+                  ) : (
+                    <OverlayTrigger
+                      placement="right"
+                      delay={{ show: 250, hide: 400 }}
+                      overlay={renderTooltip}
+                    >
+                      <img
+                        src={UserImage}
+                        className="user_image"
+                        alt="person pic"
+                      />
+                    </OverlayTrigger>
+                  )}
+                  <p className="uni_id">{uploaderName}</p>
+                </p>
               </div>
             ) : (
               <div className=" d-md-none mb-4 mb-md-3 str_title">
@@ -191,7 +263,7 @@ const EditStrategyEn = () => {
             />
 
             <form onSubmit={handleSubmit} className="">
-              <div className="two-selects gap-5 d-flex flex-row">
+              <div className="two-selects gap-3 d-flex flex-row">
                 <div className="halfwidth">
                   <p className="select-title ">
                     Grade <p>*</p>
@@ -314,10 +386,14 @@ const EditStrategyEn = () => {
                     className={"select-field"}
                     name="Pedagogical_Approach"
                     id=""
-                    value={formData["Pedagogical Approach"]?formData["Pedagogical Approach"]:"sasa"}
+                    value={
+                      formData["Pedagogical Approach"]
+                        ? formData["Pedagogical Approach"]
+                        : "sasa"
+                    }
                     disabled
                   >
-                     <option value="" selected disabled>
+                    <option value="" selected disabled>
                       {formData?.["Pedagogical Approach"]}
                     </option>
                   </select>
@@ -368,7 +444,11 @@ const EditStrategyEn = () => {
                 >
                   Publish strategy
                 </button>
-                <button type="button" className="secondaryButton" disabled={formSubmitted}>
+                <button
+                  type="button"
+                  className="secondaryButton"
+                  disabled={formSubmitted}
+                >
                   Cancel
                 </button>
               </div>
@@ -377,7 +457,7 @@ const EditStrategyEn = () => {
                   Please fill all of the above fields !
                 </p>
               )}
-            </form>      
+            </form>
           </div>
         </div>
       ) : (
@@ -385,7 +465,9 @@ const EditStrategyEn = () => {
           <div className="loading-spinner"></div>
         </div>
       )}
-         {formSubmitted && <p className="responseText">Thank you for publishing your strategy!</p>}
+      {formSubmitted && (
+        <p className="responseText">Thank you for publishing your strategy!</p>
+      )}
     </>
   );
 };

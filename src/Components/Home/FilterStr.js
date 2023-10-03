@@ -291,7 +291,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       handleShow()
       }  
       }
-console.log(uniqueGrade);
   return (
     allStratigys.length ==0 && uniqueGrade.length?<div className="loading-spinner"></div> :<>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
@@ -380,14 +379,14 @@ console.log(uniqueGrade);
             }
           </select>
         </div>
-        <div className='mb-3'>
+        <div className='mb-0 mb-md-3'>
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
    
-                  <option value="" selected disabled>{t('Skill')}</option>
+                  <option value="" selected disabled>{t('Super topic')}</option>
   
                {(language === "en" || language === "en-US")?
                   uniqueSkill?.map((item, index) => (
-                    <option key={index} >{item.Skill}</option>
+                    <option key={index} >{item['Super Topic']}</option>
                   )):uniqueSkill?.map((item, index) => (
                     <option key={index} >{item['अच्छा विषय']}</option>
                   ))

@@ -1,12 +1,10 @@
 .log_in {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 24px;
   line-height: 48px;
   letter-spacing: -0.01em;
-  color: #1aa05b;
-  margin-bottom: 3rem;
 }
 .modal.show .modal-dialog {
   height: 100vh;
@@ -95,7 +93,6 @@ margin-top: 0 !important;
   font-size: 14px;
   line-height: 17px;
   text-decoration-line: underline;
-  color: #1aa05b;
 }
 .containerr {
   display: block;

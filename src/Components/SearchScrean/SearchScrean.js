@@ -214,7 +214,7 @@ const SearchScrean = () => {
   };
   return (
     <>
-      <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
+      <ScrollToTop smooth  color="#00000" />
       <div className=" d-flex justify-content-center align-items-center mb-3">
         <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
         <hr className="line"/>
@@ -265,7 +265,7 @@ const SearchScrean = () => {
                                         <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
                                           <Link to={`/single/${strRes._id}`} className="linkStyle">
-                                            <p>
+                                            <p className='mb-0'>
                                               {strRes["Teaching Strategy"].slice(0,200)}...
                                             </p>
                                           </Link>
@@ -326,7 +326,7 @@ const SearchScrean = () => {
                                           <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
 
                                             <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
-                                              <p>
+                                              <p className='mb-0'>
                                                 {strUser["Teaching Strategy"].slice(0,200)}...
                                               </p>
                                             </Link>
@@ -417,7 +417,7 @@ const SearchScrean = () => {
                                           </Link>
                                           <div className='Strategy_count_article'>
                                             <Link to={`/singleHi/${data._id}`} className="linkStyle">
-                                              <p>
+                                              <p className='mb-0'>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>

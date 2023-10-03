@@ -47,7 +47,7 @@
   .signup_Input:focus {
     outline: none;
   }
-  .signup_Input::placeholder,label{
+  .signup_Input::placeholder,label,.login_input::placeholder{
     color:  #000000;
     font-weight: 500;
   } 

@@ -181,7 +181,6 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
-        console.log(aquaticCreatures,allUserStratigys,aquaticCreaturesUser);
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
           setStratigyFilData(aquaticCreatures)
@@ -483,7 +482,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
       {
         location.pathname === '/home' ?
           <div className='d-flex justify-content-center my-4 my-md-3'>
-            <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
+            <button onClick={handleFindStratigys} className='primaryButton subBtn'>{t('Find Strategies')}</button>
           </div>
           :
           location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ?
@@ -491,7 +490,7 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
               <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
             </div> :
             <div className='d-flex justify-content-center  my-4  pb-md-0 '>
-              <button onClick={handleFindStratigys} className='primaryButton'>{t('Find Strategies')}</button>
+              <button onClick={handleFindStratigys} className='primaryButton subBtn'>{t('Find Strategies')}</button>
             </div>
       }
     </>
