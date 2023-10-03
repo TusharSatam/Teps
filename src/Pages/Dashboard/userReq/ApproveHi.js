@@ -128,17 +128,17 @@ const ApproveHi = () => {
                     <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
                     <th>#</th>
                     <th>Id</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Skill</th>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Sub Topic</th>
-                    <th scope="col">Sub-sub topic </th>
-                    <th scope="col">Dev Dom 1 </th>
-                    <th scope="col">Dev Dom 2 </th>
-                    <th scope="col">Mode of Teaching </th>
-                    <th scope="col">Learning Outcome </th>
-                    <th scope="col">Teaching Strategy </th>
+                    <th scope="col">विषय</th>
+                    <th scope="col">श्रेणी</th>
+                    <th scope="col">अच्छा विषय</th>
+                    <th scope="col">शीर्षक</th>
+                    <th scope="col">उप शीर्षक</th>
+                    <th scope="col">उप-उप शीर्षक </th>
+                    <th scope="col">विकासात्मक क्षेत्र 1</th>
+                    <th scope="col">विकासात्मक क्षेत्र 2</th>
+                    <th scope="col">शिक्षण का तरीका</th>
+                    <th scope="col">शिक्षण के परिणाम</th>
+                    <th scope="col">शिक्षण रणनीति</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -153,7 +153,7 @@ const ApproveHi = () => {
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.विषय}</td>
                         <td>{item.श्रेणी}</td>
-                        <td>{item.कौशल}</td>
+                        <td>{item['अच्छा विषय']}</td>
                         <td>{item.शीर्षक}</td>
                         <td>{item['उप शीर्षक']}</td>
                         <td>{item['उप-उप शीर्षक']}</td>
@@ -188,17 +188,17 @@ const ApproveHi = () => {
                     <th><input type="checkbox" checked={allCheck} onChange={handleAllSelect} name="" id="" /></th>
                     <th>#</th>
                     <th>Id</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Skill</th>
-                    <th scope="col">Topic</th>
-                    <th scope="col">Sub Topic</th>
-                    <th scope="col">Sub-sub topic </th>
-                    <th scope="col">Dev Dom 1 </th>
-                    <th scope="col">Dev Dom 2 </th>
-                    <th scope="col">Mode of Teaching </th>
-                    <th scope="col">Learning Outcome </th>
-                    <th scope="col">Teaching Strategy </th>
+                    <th scope="col">विषय</th>
+                    <th scope="col">श्रेणी</th>
+                    <th scope="col">अच्छा विषय</th>
+                    <th scope="col">शीर्षक</th>
+                    <th scope="col">उप शीर्षक</th>
+                    <th scope="col">उप-उप शीर्षक </th>
+                    <th scope="col">विकासात्मक क्षेत्र 1</th>
+                    <th scope="col">विकासात्मक क्षेत्र 2</th>
+                    <th scope="col">शिक्षण का तरीका</th>
+                    <th scope="col">शिक्षण के परिणाम</th>
+                    <th scope="col">शिक्षण रणनीति</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -211,7 +211,7 @@ const ApproveHi = () => {
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.विषय}</td>
                         <td>{item.श्रेणी}</td>
-                        <td>{item.कौशल}</td>
+                        <td>{item?.['अच्छा विषय']}</td>
                         <td>{item.शीर्षक}</td>
                         <td>{item['उप शीर्षक']}</td>
                         <td>{item['उप-उप शीर्षक']}</td>
