@@ -190,7 +190,6 @@ const SingleStr = () => {
               (ress) => ress.user_id === user._id
             );
             setSaveUser(userSave);
-            console.log(userSave);
             setUserSaves(userSave?.map((ress) => ress.strategie_id));
           });
         }
@@ -227,7 +226,6 @@ const SingleStr = () => {
     };
     try {
       const response = await postRating(dataToSend);
-      console.log("Response from POST request:", response);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -305,14 +303,14 @@ const SingleStr = () => {
                             onClick={() => handleApiUnSaves(str?._id)}
                             className="me-2 me-md-3 save_like"
                             src={SavedIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
                             className="me-2 me-md-3 save_like"
                             src={SaveIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         )}
                         <p className="count_num mx-1">{totalUserSaves}</p>
@@ -403,7 +401,7 @@ const SingleStr = () => {
                       >
                         <p className="m-0">
                           {t("View comments")} {comment?.length}{" "}
-                          <img width="10px" src={DownArrow} alt="" />
+                          <img width="10px" src={DownArrow} alt="DownArrow" />
                         </p>
                       </div>
                     </div>
@@ -414,7 +412,7 @@ const SingleStr = () => {
                       >
                         <p className="m-0">
                           {t("Hide comments")} {comment?.length}{" "}
-                          <img width="10px" src={UpArrow} alt="" />
+                          <img width="10px" src={UpArrow} alt="DownArrow" />
                         </p>
                       </div>
                       {comment?.map((res, index) => (
@@ -458,7 +456,7 @@ const SingleStr = () => {
                     >
                       <p className="m-0">
                         View comments {comment?.length}{" "}
-                        <img width="7px" height="5px" src={DownArrow} alt="" />
+                        <img width="7px" height="5px" src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -469,7 +467,7 @@ const SingleStr = () => {
                     >
                       <p className="m-0">
                         Hide comments {comment?.length}{" "}
-                        <img width="7px" height="5px" src={UpArrow} alt="" />
+                        <img width="7px" height="5px" src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (

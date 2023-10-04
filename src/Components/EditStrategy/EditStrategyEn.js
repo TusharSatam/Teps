@@ -22,21 +22,20 @@ import UserImage from "../../asstes/Group 51.svg";
 const EditStrategyEn = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
-  const [selectSubject, setSelectSubject] = React.useState();
-  const [selectGrade, setSelectGrade] = React.useState();
-  const [selectTopic, setSelectTopic] = React.useState();
-  const [selectSuperTopic, setSelectSuperTopic] = React.useState();
-  const [selectSubTopic, setSelectSubTopic] = React.useState();
-  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
-  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
-  const [teachingStrategy, setteachingStrategy] = React.useState();
+  const [selectSubject, setSelectSubject] = React.useState("");
+  const [selectGrade, setSelectGrade] = React.useState("");
+  const [selectTopic, setSelectTopic] = React.useState("");
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState("");
+  const [selectSubTopic, setSelectSubTopic] = React.useState("");
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState("");
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
+  const [teachingStrategy, setteachingStrategy] = React.useState("");
   const [devDom1, setDevDom1] = React.useState("");
   const [devDom2, setDevDom2] = React.useState("");
   const [formData, setformData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedContent, setSubmittedContent] = useState("");
   const successTextRef = useRef(null);
-  //-----------------------------------------------------------------
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const [error, setError] = useState(false);

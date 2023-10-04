@@ -72,7 +72,6 @@ const SingleUserStr = () => {
     };
     try {
       const response = await postRating(dataToSend);
-      console.log("Response from POST request:", response);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -144,7 +143,6 @@ const SingleUserStr = () => {
   const [userLikes, setUserLikes] = useState([]);
   const [totalUserLikes, setTotalUserLikes] = useState(0);
   const [likeUser, setLikeUser] = useState([]);
-  console.log(userLikes);
   React.useEffect(() => {
     getLikes().then((res) => {
       const totalLike = res?.data?.filter((ress) => ress.strategie_id === id);
@@ -237,7 +235,6 @@ const SingleUserStr = () => {
               (ress) => ress.user_id === user._id
             );
             setSaveUser(userSave);
-            console.log(userSave);
             setUserSaves(userSave?.map((ress) => ress.strategie_id));
           });
         }
@@ -290,7 +287,7 @@ const SingleUserStr = () => {
         </p>
       </div>
       <div className="mx-4 mx-md-5">
-        <div style={{ background: "#FFFFFF" }} className="card_pad">
+        <div  className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head">
@@ -298,7 +295,7 @@ const SingleUserStr = () => {
               </p>
               <div className="col-9  w-100 textContainer p-2 p-md-4">
                 <div className="me-1">
-                  <div className="">
+                  <div>
                     <div className=" str_titlee">
                       <p className="Strategy_count str_name">{t("strategy")}</p>
                     </div>
@@ -324,18 +321,16 @@ const SingleUserStr = () => {
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="me-2 me-md-3 save_like"
+                            className="me-2 me-md-3 save_like cursor-pointer"
                             src={SavedIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="me-2 me-md-3 save_like"
+                            className="me-2 me-md-3 save_like cursor-pointer"
                             src={SaveIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         )}
                       </div>
@@ -346,25 +341,22 @@ const SingleUserStr = () => {
                         {userLikes.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnLikes(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikedIcon}
-                            alt=""
+                            alt="LikedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiLikes(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikeIcon}
-                            alt=""
+                            alt="LikedIcon"
                           />
                         )}
                       </div>
                       <p
-                        style={{ cursor: "pointer" }}
                         onClick={showReact}
-                        className="count_num"
+                        className="count_num cursor-pointer"
                       >
                         {totalLikeUser.length}
                       </p>
@@ -425,7 +417,7 @@ const SingleUserStr = () => {
                     >
                       <p className="m-0">
                         {t("View comments")} {comment?.length}{" "}
-                        <img src={DownArrow} alt="" />
+                        <img src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -436,7 +428,7 @@ const SingleUserStr = () => {
                     >
                       <p className="m-0">
                         {t("Hide comments")} {comment?.length}{" "}
-                        <img src={UpArrow} alt="" />
+                        <img src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (
@@ -478,7 +470,7 @@ const SingleUserStr = () => {
                     >
                       <p className="m-0">
                         View comments {comment?.length}{" "}
-                        <img src={DownArrow} alt="" />
+                        <img src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -489,7 +481,7 @@ const SingleUserStr = () => {
                     >
                       <p className="m-0">
                         Hide comments {comment?.length}{" "}
-                        <img src={UpArrow} alt="" />
+                        <img src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (

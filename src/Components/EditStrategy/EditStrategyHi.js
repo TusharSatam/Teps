@@ -16,15 +16,14 @@ import { singleHindiStratigys } from "../../services/hindiStratigys";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 const EditStrategyHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
-  //---------------------------------------------------------
-  const [selectSubject, setSelectSubject] = React.useState();
-  const [selectGrade, setSelectGrade] = React.useState();
-  const [selectTopic, setSelectTopic] = React.useState();
-  const [selectSuperTopic, setSelectSuperTopic] = React.useState();
-  const [selectSubTopic, setSelectSubTopic] = React.useState();
-  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
-  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
-  const [teachingStrategy, setteachingStrategy] = React.useState();
+  const [selectSubject, setSelectSubject] = React.useState("");
+  const [selectGrade, setSelectGrade] = React.useState("");
+  const [selectTopic, setSelectTopic] = React.useState("");
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState("");
+  const [selectSubTopic, setSelectSubTopic] = React.useState("");
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState("");
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
+  const [teachingStrategy, setteachingStrategy] = React.useState("");
   const [devDom1, setDevDom1] = React.useState("");
   const [devDom2, setDevDom2] = React.useState("");
   const [formData, setformData] = useState([]);
@@ -335,7 +334,6 @@ useEffect(() => {
                   रणनीति प्रकाशित करें
                 </button>
                 <button
-                  onClick={handlePublishStrategy}
                   className="secondaryButton"
                   disabled={formSubmitted}
                 >

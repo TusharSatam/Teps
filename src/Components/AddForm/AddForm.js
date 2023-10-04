@@ -14,17 +14,17 @@ import { t } from "i18next";
 const AddForm = () => {
   const { user,selectLang } = useAuth();
   const [allStratigys, setAllStratigys] = React.useState([]);
-  const [selectSubject, setSelectSubject] = React.useState();
-  const [selectGrade, setSelectGrade] = React.useState();
-  const [selectTopic, setSelectTopic] = React.useState();
-  const [selectSkill, setSelectSkill] = React.useState();
-  const [selectSubTopic, setSelectSubTopic] = React.useState();
-  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
-  const [selectPedagogical, setSelectPedagogical] = React.useState();
-  const [selectSuperTopic, setSelectSuperTopic] = React.useState();
-  const [uniqueSubjects, setuniqueSubjects] = useState()
-  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
-  const [teachingStrategy, setteachingStrategy] = React.useState();
+  const [selectSubject, setSelectSubject] = React.useState("");
+  const [selectGrade, setSelectGrade] = React.useState("");
+  const [selectTopic, setSelectTopic] = React.useState("");
+  const [selectSkill, setSelectSkill] = React.useState("");
+  const [selectSubTopic, setSelectSubTopic] = React.useState("");
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState("");
+  const [selectPedagogical, setSelectPedagogical] = React.useState("");
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState("");
+  const [uniqueSubjects, setuniqueSubjects] = useState("")
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
+  const [teachingStrategy, setteachingStrategy] = React.useState("");
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const [error, setError] = useState(false);
@@ -502,6 +502,7 @@ const AddForm = () => {
                    className={"select-field-full-2"}
                    name="teaching_str"
                    value={teachingStrategy}
+                   onChange={(e) => setteachingStrategy(e.target.value)}
                  />
                </div>
              </div>

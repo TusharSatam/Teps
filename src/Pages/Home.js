@@ -22,10 +22,10 @@ const Home = () => {
 
       <div className="blueShadow">
         <div className="filterCard p-3 homeFilterCard">
-          <h1 className="mx-auto welcomeText">
-            {t("Welcome")},{" "}
-            {user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}!
-          </h1>
+        <h1 className="mx-auto welcomeText">
+          {t("Welcome")},{" "}
+          {user.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : 'Guest'}!
+        </h1>
           <Suspense fallback={<div>Loading...</div>}>
             {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout />}
           </Suspense>

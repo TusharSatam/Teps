@@ -77,7 +77,6 @@ const SingleHindiStr = () => {
     };
     try {
       const response = await postRating(dataToSend);
-      console.log("Response from POST request:", response);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -251,7 +250,6 @@ const SingleHindiStr = () => {
               (ress) => ress.user_id === user._id
             );
             setSaveUser(userSave);
-            console.log(userSave);
             setUserSaves(userSave?.map((ress) => ress.strategie_id));
           });
         }
@@ -298,7 +296,7 @@ const SingleHindiStr = () => {
         </p>
       </div>
       <div className="mx-3 mx-md-5">
-        <div style={{ background: "#FFFFFF" }} className="card_pad">
+        <div  className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 ">
               <div className="col-9  w-100 textContainer p-2 p-md-4">
@@ -323,18 +321,16 @@ const SingleHindiStr = () => {
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="me-2 me-md-3 save_like"
+                            className="me-2 me-md-3 save_like cursor-pointer"
                             src={SavedIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="me-2 me-md-3 save_like"
+                            className="me-2 me-md-3 save_like cursor-pointer"
                             src={SaveIcon}
-                            alt=""
+                            alt="SavedIcon"
                           />
                         )}
                       </div>
@@ -345,18 +341,16 @@ const SingleHindiStr = () => {
                         {userLikes.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnLikes(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikedIcon}
-                            alt=""
+                            alt="LikedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiLikes(str?._id)}
-                            style={{ cursor: "pointer" }}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikeIcon}
-                            alt=""
+                            alt="LikedIcon"
                           />
                         )}
                       </div>
@@ -415,7 +409,7 @@ const SingleHindiStr = () => {
                     >
                       <p className="m-0">
                         {t("View comments")} {comment?.length}{" "}
-                        <img src={DownArrow} alt="" />
+                        <img src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -426,7 +420,7 @@ const SingleHindiStr = () => {
                     >
                       <p className="m-0">
                         {t("Hide comments")} {comment?.length}{" "}
-                        <img src={UpArrow} alt="" />
+                        <img src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (
@@ -467,7 +461,7 @@ const SingleHindiStr = () => {
                     >
                       <p className="m-0">
                         {t("View comments")} {comment?.length}{" "}
-                        <img src={DownArrow} alt="" />
+                        <img src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -478,7 +472,7 @@ const SingleHindiStr = () => {
                     >
                       <p className="m-0">
                         {t("Hide comments")} {comment?.length}{" "}
-                        <img src={UpArrow} alt="" />
+                        <img src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (
