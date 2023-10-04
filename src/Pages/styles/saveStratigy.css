@@ -82,10 +82,26 @@
 .learningOutcome{
   font-weight: 400;
 }
+.loadingWrap{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filterBtn{
+   border-radius:27px;
+   width: 90px;
+   cursor: "pointer"
+}
+.filterBtn > span {
+  color:#1AA05B
+}
 .pedalogicalText{
   font-size: 24px;
   color: #FF3131;
   font-style: italic !important;
+  margin-bottom: 0;
 }
 .savestr_body {
   font-family: "Inter";
@@ -94,6 +110,7 @@
   font-size: 20px;
   line-height: 26px;
   text-align: justify;
+  margin: 0;
 }
 .single_str_head {
   font-family: "Inter";
@@ -165,7 +182,7 @@
 
 .comment_div {
   margin: 0.625rem 0px 0.625rem 0px !important;
-  border: 2px solid #939ca3;
+  border: 2px solid #1AA05B;
   border-radius: 8px;
   padding: 1.5rem 2.5rem;
   margin-left: auto !important;
@@ -356,7 +373,9 @@
   border: none;
 }
 .textContainer{
+  border-radius: 16px 16px 0px 0px;
   background: #F4F8F7;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
 }
 select:disabled{
   background: #DDD;

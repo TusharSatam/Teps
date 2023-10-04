@@ -414,27 +414,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
 
         <div className='d-block justify-content-center align-items-center d-md-none'>
-          {/* -----Pedagogical Approach---- */}
-   { location.pathname !== '/' &&     <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
-              {
-                selectedOption && location.pathname !== '/home' ?
-                  <>
-                    <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                    {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
-                  </> :
-                  <>
-                    <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                  </>
-              }
-              {(language === "en" || language === "en-US")?
-                uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['Sub Topic']}</option>
-                )):uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['उप शीर्षक']}</option>
-                ))
-              }
-            </select>}
-          {/* --------- */}
 
           <div className='mt-3'>           
             <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
@@ -480,27 +459,6 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
           </div>
         </div>
         <div className='d-none d-md-block'>
-          {/* ---Pedagogical Approach desktop-- */}
-{  location.pathname !== '/' &&  <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
-                </> :
-                <>
-                  <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                </>
-            }
-              {(language === "en" || language === "en-US")?
-                uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['Sub Topic']}</option>
-                )):uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['उप शीर्षक']}</option>
-                ))
-              }
-          </select>}
-{/* ---------- */}
           <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?

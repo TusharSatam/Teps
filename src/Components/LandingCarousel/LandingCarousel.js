@@ -25,7 +25,7 @@ const LandingCarousel = () => {
     slidesToScroll: 1,
   };
   return (
-    <div className="mx-4 mx-md-4 mx-xl-0 carousalContainer">
+    <div className=" mx-md-4 mx-xl-0 carousalContainer">
       {selectLang === "english" ? (
         <Slider {...settings} className="">
           <div className="d-flex justify-content-center align-items-center carousalCard firstCard">

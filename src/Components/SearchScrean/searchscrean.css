@@ -218,7 +218,7 @@ text-decoration: none;
   line-height: 44px;
   text-align: center;
   color: #000000;
-  margin: 100px 100px 500px 100px;
+  margin: 100px 100px 100px 100px;
 }
 .borderNone,.card-header{
   border:none;
@@ -366,7 +366,7 @@ text-decoration: none;
     line-height: 18px;
     text-align: center;
     color: #000000;
-    margin: 100px 80px 200px 80px;
+    margin: 100px 80px 100px 80px;
   }
 }
 .unique_id {

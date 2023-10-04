@@ -25,8 +25,8 @@ const LoginOptionModal = ({show,handleClose,handleShow,handleRegisterForm,openLo
               <p className="text-center getStarted">{t("Get started by logging in or registering")}</p>
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center gap-4 mt-5"> 
-                <button className="primaryButton" onClick={openLoginModal}>{t("Login")}</button>
-                <button className="secondaryButton" onClick={handleRegisterForm}>{t("Register")}</button>
+                <button className="primaryButton subBtn" onClick={openLoginModal}>{t("Login")}</button>
+                <button className="secondaryButton subBtn" onClick={handleRegisterForm}>{t("Register")}</button>
             </div>
           </div>
         </Modal.Body>

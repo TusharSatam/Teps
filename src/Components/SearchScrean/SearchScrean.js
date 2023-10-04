@@ -225,7 +225,7 @@ const SearchScrean = () => {
             {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
                 <>
-                  <div className='mb-md-3 container_title_sec'>
+                  <div className='container_title_sec'>
                     <div className='d-flex  flex-column justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                       <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
@@ -266,7 +266,7 @@ const SearchScrean = () => {
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
                                           <Link to={`/single/${strRes._id}`} className="linkStyle">
                                             <p className='mb-0'>
-                                              {strRes["Teaching Strategy"].slice(0,200)}...
+                                              {strRes["Teaching Strategy"].slice(0,250)}...
                                             </p>
                                           </Link>
                              
@@ -327,7 +327,7 @@ const SearchScrean = () => {
 
                                             <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                               <p className='mb-0'>
-                                                {strUser["Teaching Strategy"].slice(0,200)}...
+                                                {strUser["Teaching Strategy"].slice(0,250)}...
                                               </p>
                                             </Link>
                                   
@@ -384,7 +384,7 @@ const SearchScrean = () => {
                 </> :
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
-                    <div className='mb-md-3 container_title_sec'>
+                    <div className='container_title_sec'>
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                 <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>

@@ -69,9 +69,8 @@ const Landing = () => {
            {t("contribute to the TEPS community?")}
           </span>
         </h2>
-        <button className="uploadStrategies" onClick={()=>handleOptionModalShow()}>
+        <button className="secondaryButton subBtn" onClick={()=>handleOptionModalShow()}>
           {t("Upload Strategies")}
-          <img src={editIcon} alt="editIcon" className="d-md-none" />
         </button>
       </div>
       <SignUpModal

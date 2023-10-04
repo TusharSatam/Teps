@@ -63,6 +63,9 @@
   }
 }
 @media only screen and (max-width: 768px) {
+  .filterCard{
+margin: 1rem 0.5rem;
+  }
   .filterCard select{
     min-width:auto;
   }

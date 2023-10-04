@@ -33,9 +33,8 @@ const Home = () => {
            {t("contribute to the TEPS community?")}
           </span>
         </h2>
-        <button className="uploadStrategies" onClick={()=>navigate('/profile')}>
+        <button className="secondaryButton subBtn" onClick={()=>navigate('/profile')}>
           {t("Upload Strategies")}
-          <img src={editIcon} alt="editIcon" className="d-md-none" />
         </button>
       </div>
     </>
