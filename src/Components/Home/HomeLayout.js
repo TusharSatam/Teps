@@ -12,9 +12,11 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
   const [allStratigys, setAllStratigys] = React.useState([])
   const [allUserStratigys, setAllUserStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
+  const [uniqueSubjects, setuniqueSubjects] = useState()
   const [selectGrade, setSelectGrade] = React.useState()
   const [selectTopic, setSelectTopic] = React.useState()
   const [selectSkill, setSelectSkill] = React.useState()
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState()
   const [selectSubTopic, setSelectSubTopic] = React.useState()
   const [selectSubSubTopic, setSelectSubSubTopic] = React.useState()
   const [selectedOption, setSelectedOption] = React.useState()
@@ -38,31 +40,9 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
     }
     }, [])
     
-    const getGradeOptions = () => {
-      switch (selectSubject) {
-        case 'Science':
-      return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '6', '7', '8', '9', '10'].includes(item.Grade));
-        case 'English':
-          return uniqueGrade;
-          case 'Numeracy':
-            return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2'].includes(item.Grade));
-          case 'EVS':
-            return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '1', '2', '3', '4', '5'].includes(item.Grade));      
-        case 'Mathematics':
-          return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 1 && parseInt(item.Grade) <= 10);
-        case 'Social Studies':
-          return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 6 && parseInt(item.Grade) <= 10);
-        default:
-          return [];
-      }
-    }
-    
-
   React.useEffect(() => {
     setAllStratigys(allStrategies)
     setAllUserStratigys(allUserStrategies)
-    // console.log(allStrategies,allUserStrategies,loadingdropdown);z
-
   }, [allStrategies,allUserStrategies,loadingdropdown])
   React.useEffect(() => {
     if (location.pathname !== '/home') {
@@ -71,33 +51,44 @@ const HomeLayout = ({ setAccorKey = () => { } }) => {
         setSelectGrade(selectedOption?.selectGrade)
         setSelectTopic(selectedOption?.selectTopic)
         setSelectSkill(selectedOption?.selectSkill)
+        setSelectSuperTopic(selectedOption?.selectSuperTopic)
         setSelectSubTopic(selectedOption?.selectSubTopic)
         setSelectSubSubTopic(selectedOption?.selectSubSubTopic)
       }
     }
   }, [selectedOption, location.pathname])
-   let uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
-  .map(subject => {
-    return allStratigys.find(a => a.Subject === subject)
-  });
-uniqueSubject.push({ Subject: 'Social Studies' });
-
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-  .filter(grade => grade !== 'LKG' && grade !== 'UKG')
   .map(grade => {
     return allStratigys.find(a => a.Grade === grade)
   });
-    if (!uniqueGrade.find(item => item.Grade === 'K1')) {
-  uniqueGrade.push({ Grade: 'K1' });
-}
-if (!uniqueGrade.find(item => item.Grade === 'K2')) {
-  uniqueGrade.push({ Grade: 'K2' });
-}
+  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+    return creature.Grade === selectGrade;
+  })
+  let allowedSubjects=[];
+  const uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.Subject)))
+  .map(subject => {
+    return aquaticCreaturesSubject.find(a => a.Subject === subject)
+  }).filter((e)=>{
+    if (selectGrade === "Pre-K" || selectGrade === "K1" || selectGrade === "K2") {
+      // For Pre-K, K1, K2 selectGrades
+      allowedSubjects = ["English", "Numeracy", "Science","EVS"];
+      return allowedSubjects.includes(e.Subject)
+    } else if (selectGrade === "1" || selectGrade === "2" || selectGrade === "3" || selectGrade === "4" || selectGrade === "5") {
+      // For selectGrades 1 to 5
+      allowedSubjects = ["English", "Mathematics", "EVS"];
+      return allowedSubjects.includes(e.Subject)
+    } else {
+      // For other selectGrades
+      allowedSubjects = ["English", "Mathematics", "Science", "Social Studies"];
+      return allowedSubjects.includes(e.Subject)
+    }
+  })
+
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
-    setSelectGrade('')
     setSelectTopic('')
     setSelectSkill('')
+    setSelectSuperTopic('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
     localStorage.removeItem('selectedDropdown');
@@ -105,8 +96,10 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
 
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectSubject('')
     setSelectTopic('')
     setSelectSkill('')
+    setSelectSuperTopic('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
     localStorage.removeItem('selectedDropdown');
@@ -119,6 +112,14 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
   }
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value)
+    setSelectSuperTopic('')
+    setSelectTopic('')
+    setSelectSubTopic('')
+    setSelectSubSubTopic('')
+    localStorage.removeItem('selectedDropdown');
+  }
+  const handleSuperTopicFilter = (e) => {
+    setSelectSuperTopic(e.target.value)
     setSelectTopic('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
@@ -136,20 +137,23 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
-    .map(skill => {
-      return aquaticCreatures?.find(a => a.Skill === skill)
+
+  // ---------------
+  const uniqueSuperTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Super Topic'])))
+    .map(SuperTopic => {
+      return aquaticCreatures?.find(a => a['Super Topic'] === SuperTopic)
     });
-  const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill;
+  const aquaticCreaturesSuperTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic;
   })
-  const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.Topic)))
+// ---------------
+  const uniqueTopic = Array.from(new Set(aquaticCreaturesSuperTopic?.map(a => a.Topic)))
     .map(topic => {
-      return aquaticCreaturesSkill?.find(a => a.Topic === topic)
+      return aquaticCreaturesSuperTopic?.find(a => a.Topic === topic)
     });
 
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic && creature.Topic === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['Sub Topic'])))
@@ -157,7 +161,7 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
       return aquaticCreaturesTopic?.find(a => a['Sub Topic'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
     .map(sub_sub_topic => {
@@ -170,13 +174,14 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
     setAccorKey()
 
     if (location.pathname === '/home') {
-      if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
+      if (selectSubject && selectGrade && selectSuperTopic && selectTopic && selectSubject && selectSubSubTopic) {
         const aquaticCreatures = allStratigys.filter(function (creature) {
-          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
         const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
-          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         });
+        console.log(aquaticCreatures,allUserStratigys,aquaticCreaturesUser);
         if (aquaticCreatures) {
           window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
           setStratigyFilData(aquaticCreatures)
@@ -201,7 +206,7 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
           if (location.pathname === '/home') {
             navigate('/search')
           }
-          window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+          window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSuperTopic, selectSubTopic, selectSubSubTopic }));
 
         }
         else {
@@ -211,7 +216,7 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
       else {
         if (!selectSubject) { setError5(true) }
         if (!selectGrade) { setError6(true) }
-        if (!selectSkill) { setError1(true) }
+        if (!selectSuperTopic) { setError1(true) }
         if (!selectTopic) { setError2(true) }
         if (!selectSubTopic) { setError3(true) }
         if (!selectSubSubTopic) { setError4(true) }
@@ -219,14 +224,13 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
       }
     }
     else {
-      window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
+      window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSuperTopic, selectSubTopic, selectSubSubTopic }));
       const aquaticCreatures = allStratigys.filter(function (creature) {
-        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
       });
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
-        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic && creature.isPublic === true;
       });
-      console.log({ aquaticCreaturesUser });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
         window.localStorage.setItem('filterData', JSON.stringify(aquaticCreatures));
@@ -256,10 +260,44 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
 
   return (
 
-    !loadingdropdown && uniqueSubject.length?(
+    !loadingdropdown && uniqueGrade.length?(
     <>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+        <select
+          value={selectGrade}
+          onChange={handlegradeFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
+          className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Grade')}</option>
+          {localStorage.getItem('selectedDropdown') && !selectGrade && (
+            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+          )}
+          {uniqueGrade?.map((item, index) => (
+            <option key={index}>{item.Grade}</option>
+          ))}
+        </select>
+
+        <select
+          value={selectGrade}
+          onChange={handlegradeFilter}
+          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
+          className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}
+          name=""
+          id=""
+        >
+          <option value="" disabled>{t('Grade')}</option>
+          {localStorage.getItem('selectedDropdown') && !selectGrade && (
+            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
+          )}
+          {uniqueGrade?.map((item, index) => (
+            <option key={index}>{item.Grade}</option>
+          ))}
+        </select>
+      
         <select
           value={selectSubject}
           onChange={handlesubFilter}
@@ -277,7 +315,7 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
           value={selectSubject}
           onChange={handlesubFilter}
           defaultValue={(location.pathname === '/home' || !selectedOption?.selectSubject) ? "" : selectedOption.selectSubject}
-          className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'}
+          className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border ms-2 w-50'}
           name=""
           id=""
         >
@@ -290,59 +328,21 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
           ))}
         </select>
 
-        <select
-          value={selectGrade}
-          onChange={handlegradeFilter}
-          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
-          className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'}
-          name=""
-          id=""
-        >
-          <option value="" disabled>{t('Grade')}</option>
-          {localStorage.getItem('selectedDropdown') && !selectGrade && (
-            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
-          )}
-          { getGradeOptions().map((item, index) => (
-            <option key={index}>{item.Grade}</option>
-          ))}
-        </select>
+   
 
-        <select
-          value={selectGrade}
-          onChange={handlegradeFilter}
-          defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
-          className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}
-          name=""
-          id=""
-        >
-          <option value="" disabled>{t('Grade')}</option>
-          {localStorage.getItem('selectedDropdown') && !selectGrade && (
-            <option value="" selected disabled>{selectedOption?.selectGrade}</option>
-          )}
-          { getGradeOptions().map((item, index) => (
-           <option key={index}>{item.Grade}</option>
-          
-          
-          ))} 
-        </select>
-<select className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '}>
-<option disabled selected >{t('Pedagogical Approach')} </option>
-<option value="P. Approach 1">P. Approach 1</option>
-<option value="P. Approach 2">P. Approach 2</option>
-</select>
-          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
+          <select value={selectSuperTopic} onChange={handleSuperTopicFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
-                  <option value="" selected disabled>{t('Skill')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  <option value="" selected disabled>{t('Super Topic')}</option>
+                  {localStorage.getItem('selectedDropdown') && !selectSuperTopic && <option value="" selected disabled>{selectedOption?.selectSuperTopic}</option>}
                 </> :
-                <option value="" selected disabled>{t('Skill')}</option>
+                <option value="" selected disabled>{t('Super Topic')}</option>
 
             }
             {
-              uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.Skill}</option>
+              uniqueSuperTopic?.map((item, index) => (
+                <option key={index} >{item['Super Topic']}</option>
               ))
             }
           </select>
@@ -364,20 +364,20 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
           </select>
         </div>
         <div className='mb-3'>
-          <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
+          <select value={selectSuperTopic} onChange={handleSuperTopicFilter} defaultValue={selectedOption?.selectSuperTopic} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
-                  <option value="" selected disabled>{t('Skill')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSkill && <option value="" selected disabled>{selectedOption?.selectSkill}</option>}
+                  <option value="" selected disabled>{t('SuperTopic')}</option>
+                  {localStorage.getItem('selectedDropdown') && !selectSuperTopic && <option value="" selected disabled>{selectedOption?.selectSuperTopic}</option>}
                 </> :
                 <>
-                  <option value="" selected disabled>{t('Skill')}</option>
+                  <option value="" selected disabled>{t('SuperTopic')}</option>
                 </>
             }
             {
-              uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.Skill}</option>
+              uniqueSuperTopic?.map((item, index) => (
+                <option key={index} >{item['Super Topic']}</option>
               ))
             }
           </select>
@@ -477,12 +477,12 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
       </div>
       <div>
         {
-          error && location.pathname === '/home' && <p className='error_text'>{error}</p>
+          error && location.pathname === '/home' && <p className='error_text mt-2'>{error}</p>
         }
       </div>
       {
         location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-4 my-md-5 '>
+          <div className='d-flex justify-content-center my-4 my-md-3'>
             <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
           </div>
           :
@@ -490,8 +490,8 @@ if (!uniqueGrade.find(item => item.Grade === 'K2')) {
             <div className='d-flex justify-content-center my-4 my-md-5'>
               <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
             </div> :
-            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
+            <div className='d-flex justify-content-center  my-4  pb-md-0 '>
+              <button onClick={handleFindStratigys} className='primaryButton'>{t('Find Strategies')}</button>
             </div>
       }
     </>

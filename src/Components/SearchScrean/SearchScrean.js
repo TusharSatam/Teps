@@ -34,8 +34,9 @@ const SearchScrean = () => {
   const [check, setCheck] = React.useState(false);
   const [uploadeduserIDs, setuploadeduserIDs] = useState([])
   const [userDetails, setUserDetails] = useState([]);
- 
- const { t } = useTranslation();
+  const { t } = useTranslation();
+
+
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
@@ -80,6 +81,7 @@ const SearchScrean = () => {
     }
     setShowH([...showH], [showH]);
   }
+ 
   if (selectLang !== 'english') {
     localStorage.removeItem('selectedDropdown');
     localStorage.removeItem('filterData');
@@ -106,7 +108,6 @@ const SearchScrean = () => {
 
   }, [stratigyFilData, selectLang])
 
-
   const [accorKey, setAccorKey] = React.useState(12345)
   const handleReinitialize = () => {
     setAccorKey(accorKey + 1)
@@ -122,7 +123,6 @@ const SearchScrean = () => {
     }
   }
   const [userLikes, setUserLikes] = useState([]);
-  // const [c, setC] = useState();
   React.useEffect(() => {
     getLikes()
       .then(res => {
@@ -156,7 +156,6 @@ const SearchScrean = () => {
   }
 
   const [userSaves, setUserSaves] = useState([]);
-  // const [c, setC] = useState();
   React.useEffect(() => {
     getSaves()
       .then(res => {
@@ -202,7 +201,6 @@ const SearchScrean = () => {
         console.error('Error fetching user data:', error);
       }
     };
-    // Call the function to start fetching data
     fetchUserDataForAll();
   }, []);
 
@@ -211,10 +209,16 @@ const SearchScrean = () => {
       {user.firstName}
     </Tooltip>
   );
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <>
       <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
-     
+      <div className=" d-flex justify-content-center align-items-center mb-3">
+        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
+        <hr className="line"/>
+      </div>
       {
         (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
           <>
@@ -222,111 +226,54 @@ const SearchScrean = () => {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
                 <>
                   <div className='mb-md-3 container_title_sec'>
-                    <div className='d-flex justify-content-between mt-md-5'>
+                    <div className='d-flex  flex-column justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      
-
-                      
+                      <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
                     </div>
-                    <div className='d-block d-md-none mb-2'>
-                      {
-                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="" />
-                      }
-                      <span className='ms-2 ' style={{ fontSize: "12px" }}>Show user contributed strategies</span>
-                    </div>
-                     <p className='mt-md-4 sub_sub_title' data-bs-toggle="modal" data-bs-target="#exampleModal" >
-        Learning Outcomes
-      </p>
-
-      <div className="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">Learning Outcomes</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-           ﻿
-
-Learning Outcomes: Visualizes the feelings of being hungry
-Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the students about the concept of hunger and how it feels like. Ask them to share their experiences of feeling hungry. 2. Provide each student with a blank sheet of paper and ask them to draw a circle in the center of the paper. In the circle, they can write the word "Hunger" or draw a picture that symbolizes hunger. 3. Next, ask the students to brainstorm different emotions, thoughts, and physical sensations that they experience when they are hungry. Ask them to write down these words or draw symbols around the central circle. Encourage them to be creative and come up with as many ideas as possible. 4. Instruct the students to group the ideas that are similar or related to each other. For example, they can group together words like "grumbling stomach," "weakness," and "dizziness" under the category of physical sensations.
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Understood</button>
-            </div>
-          </div>
-        </div>
-      </div>
- 
+                  
                   </div>
-                   <>
-        <div className='stratigy_bg'>
-          {
-            selectLang === 'hindi' ?
-              <HomeHindiLayout
-                setAccorKey={handleReinitialize}
-              /> :
-              <HomeLayout
-                setAccorKey={handleReinitialize}
-              />
-          }
-        </div>
-      </>
-                  <div className='dropDownContainer mb-5' key={accorKey}>
+                  <div className='dropDownContainer mb-2 mb-md-5' key={accorKey}>
                     <Accordion alwaysOpen >
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
-                                  <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="" /> :
-                                  <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="" />}
+                                  <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
+                                  <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="checkbox" />}
                               </ContextAwareToggle>
                               <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
                             </Card.Header>
-
-
-                           
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                              
-                              <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
-                                
+                              <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
-                                      <div className='d-flex justify-content-between my-4 '>
-                                        <Link to={`/single/${strRes._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                        <Link to={`/single/${strRes._id}`} className="linkStyle">
                                           <div className='me-1'>
                                             <div>
                                               <div className='d-flex'>
                                                 <p className='Strategy_count'>{t("strategy")}</p>
                                                 <p className='counter_str'>{index + 1}</p>
                                               </div>
-                                             
                                             </div>
-                                            <div className='d-block d-md-none mt-1'>
-                                            
-                                              <div className=' mt-1' style={{ marginLeft: "10px" }}>
-                                                <div className='res_btn_icon'>
-                                                 
-                                                </div>
-                                              
-                                              </div>
-                                            </div>
+                                      
                                           </div>
                                         </Link>
-                                        <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
-                                          <Link  style={{ textDecoration: "none", color: 'black' }}>
+                                        <div className='Strategy_count_article'>
+                                          <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
+                                          <Link to={`/single/${strRes._id}`} className="linkStyle">
                                             <p>
-                                              {strRes["Teaching Strategy"].slice(0, 150) + '...'}
-                                              <Link to={`/single/${strRes._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none",fontWeight:"600"}}>Read More</Link>
+                                              {strRes["Teaching Strategy"].slice(0,200)}...
                                             </p>
                                           </Link>
-                                          <div className='d-flex align-items-center my-3'>
-                                            {userSaves?.includes(strRes._id) ? <img onClick={() => handleApiUnSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strRes._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                            {userLikes?.includes(strRes._id) ? <img onClick={() => handleApiUnLikes(strRes._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strRes._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
+                             
+                                          <div className='strategyReadmore'>
+                                            <Link to={`/single/${strRes._id}`} >
+                                              Read more...
+                                            </Link>
                                           </div>
                                         </div>
                               
@@ -339,15 +286,16 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
                                     {
                                       console.log("checked", stratigyFilUserData)
                                     }
+                                      <div className='user_str_border'></div>
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className={index === 0 ? 'd-flex justify-content-between my-4 user_str_border pt-4 pt-md-5' : 'd-flex justify-content-between my-4 pt-5'}>
-                                          <div className='me-1'>
+                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'}>
+                                          <div className=''>
                                             <div>
-                                              <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                              <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index + 1)}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index +1)}</p>
                                                 </div>
                                               </Link>
                                               <p className='user_str d-none d-md-block'>Uploaded By - {
@@ -370,31 +318,26 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
 
                                               } </p>
                                             </div>
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} style={{ textDecoration: "none", color: 'black' }}>
-                                              <div className='d-block d-md-none mt-1'>
-                                               
-                                                <div className=' mt-1' style={{ marginLeft: "10px" }}>
-                                                  <div className='res_btn_icon'>
-                                                    
-                                                  </div>
-                                                 
-                                                </div>
-                                              </div>
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
+                                    
                                             </Link>
                                           </div>
-                                          <div className='col-9 ms-4 col-md-11 Strategy_count_article'>
-                                            <Link  style={{ textDecoration: "none", color: 'black' }}>
+                                          <div className='Strategy_count_article'>
+                                          <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
+
+                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
                                               <p>
-                                                {strUser["Teaching Strategy"].slice(0,150) + '...'}
-                                                <Link to={`/singleUserStratigy/${strUser._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none",fontWeight:"600"}}>Read More</Link>
+                                                {strUser["Teaching Strategy"].slice(0,200)}...
                                               </p>
                                             </Link>
-                                            
+                                  
                                             <div className='d-flex justify-content-between align-items-center'>
-                                              <div className='d-flex align-items-center my-3'>
-                                                {userSaves?.includes(strUser._id) ? <img onClick={() => handleApiUnSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(strUser._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                                {userLikes?.includes(strUser._id) ? <img onClick={() => handleApiUnLikes(strUser._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(strUser._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
-                                              </div>
+                                       
+                                                </div>
+                                              <div className='strategyReadmore'>
+                                                <Link to={`/singleUserStratigy/${strUser._id}`} >
+                                                  Read more...
+                                                </Link>
                                               <div className='d-block d-md-none'>
                                                 <p className='user_str'>Uploaded By - {
                                                   userDetails[index]?.data[0]?.image ?
@@ -424,110 +367,66 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
                         ))
                       }
                     </Accordion>
-                    
                   </div>
-                   <div id="usercon" className='d-none d-md-block'> { !check ? <img onClick={handleUserDataCheck} src={EmptyCheckbox} alt="" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="" /> } <span className='ms-2'>Show user contributed strategies</span> </div>
+                  <div className='d-block d-md-none mb-2 container_title_sec'>
+                      {
+                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" />
+                      }
+                      <span className='ms-2'>Show user contributed strategies</span>
+                    </div>
+                     <div className='d-none d-md-block mt-6 mb-3 container_title_sec'>
+                       <div className='lightgreenline my-5'></div>
+                        {
+                          !check ? <img onClick={handleUserDataCheck} className='checkbox_size' src={EmptyCheckbox} alt="checkbox" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" className='checkbox_size'/>
+                        }
+                        <span className='ms-2'>Show user contributed strategies</span>
+                      </div>
                 </> :
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
                     <div className='mb-md-3 container_title_sec'>
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
-                      <p className='mt-md-4 sub_sub_title'> {t("Learning Outcomes")} </p>
+                <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>
-                    <div className='dropDownContainer mb-5' key={accorKey}>
+                    <div className='dropDownContainer mb-md-5' key={accorKey}>
                       <Accordion alwaysOpen >
 
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
-                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 border-top' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
+                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
                                 <ContextAwareToggle eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
                                 <p className='mt-3 checkBox_title'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
                               <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                                <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad'>
+                                <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
-                                        <div className='d-flex justify-content-between my-4 '>
-                                          <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                          <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{index + 1}</p>
                                                 </div>
-                                                {/* <span className='unique_id'>ID {data._id.slice(19, 26)}</span> */}
                                               </div>
-                                              <div className='d-block d-md-none mt-1'>
-                                                <div className='icon_heading_text me-1 p-1'>विकासात्मक क्षेत्र</div>
-                                                <div className=' mt-1' style={{ marginLeft: "15px" }}>
-                                                  <div className='res_btn_icon'>
-                                                    <div className='d-flex flex-column res_inner_div p-1 '>
-                                                      {
-                                                        !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                                                          data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                            <img title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                            <img title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
-                                                      }
-                                                      {
-                                                        !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                                                          data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                            <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                            <img title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
-                                                      }
-                                                    </div>
-                                                  </div>
-                                                  <div className='ms-1'>
-                                                    {
-                                                      data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                                    }
-
-                                                  </div>
-                                                </div>
-                                              </div>
+                                    
                                             </div>
                                           </Link>
-                                          <div className='col-9 col-md-8 Strategy_count_article'>
-                                            <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                          <div className='Strategy_count_article'>
+                                            <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                               <p>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
-                                            
-                                            <div className='d-flex align-items-center my-3'>
-                                              {userSaves?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3" src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className="save_likes me-2 me-md-3 " src={SaveIcon} alt="" />}
-                                              {userLikes?.includes(data._id) ? <img onClick={() => handleApiUnLikes(data._id)} style={{ cursor: "pointer" }} className=' save_like' src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(data._id)} style={{ cursor: "pointer" }} className='save_like' src={LikeIcon} alt="" />}
-                                            </div>
-                                          </div>
-                                          <div className='col-md-2 d-none d-md-block ms-5'>
-                                            <div className='d-flex flex-column align-items-center justify-content-center'>
-                                              <div>
-                                                <span className='icons_hindi_heading'>विकासात्मक क्षेत्र</span>
-                                              </div>
-                                              <div className='d-flex align-items-center justify-content-center mt-2'>
-                                                <div className='d-flex align-items-center justify-content-center border p-2 me-2'>
-                                                  {
-                                                    !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nunH'></div> :
-                                                      data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                        <img title="संज्ञानात्मक संवेदी" className='threeIcons' src={KnowledgeIcon} alt="" /> :
-                                                        <img title="मोटर-भौतिक" className='threeIcons' src={Physical} alt="" />
-                                                  }
-                                                  {
-                                                    !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons-nunH'></div> :
-                                                      data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                        <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                        <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
-                                                  }
-                                                </div>
-                                                {
-                                                  data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                    <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                    <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                                                }
-                                              </div>
+                                       
+               
+                                            <div className='strategyReadmore'>
+                                          <Link to={`/singleHi/${data._id}`} >
+                                          और पढ़ें...
+                                          </Link>
                                             </div>
                                           </div>
                                         </div>
@@ -552,6 +451,19 @@ Teaching strategy: Mind mapping Step by step instructions: 1. Explain to the stu
           </div>
 
       }
+            <>
+        <div className='filterCard p-1 p-md-3 blackshadow mb-md-3 container_title_sec'>
+          {
+            selectLang === 'hindi' ?
+              <HomeHindiLayout
+                setAccorKey={handleReinitialize}
+              /> :
+              <HomeLayout
+                setAccorKey={handleReinitialize}
+              />
+          }
+        </div>
+      </>
     </>
   );
 };
