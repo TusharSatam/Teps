@@ -52,6 +52,7 @@ const Landing = () => {
     <>
       <ScrollToTop smooth  color="#00000" />
       <LandingCarousel />
+      <div className="blueShadow">
       <div className="filterCard p-2 p-md-3">
         <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
         <FilterStr
@@ -61,6 +62,7 @@ const Landing = () => {
           handleShow={handleShow}
           handleOptionModalShow={handleOptionModalShow}
         />
+      </div>
       </div>
       <div className="uploadStartegyContainer mx-4">
         <h2>

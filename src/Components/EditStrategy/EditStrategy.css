@@ -158,6 +158,7 @@
     background: #F4F8F7;
     padding: 2rem;
     width: 65%;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
   }
   textarea:disabled{
     background: #DDD;

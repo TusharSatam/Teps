@@ -9,6 +9,7 @@ import AproveReqModal from "../Modal/AproveReqModal";
 import AddFormHi from "./AddFormHi";
 import { useEffect } from "react";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
+import { t } from "i18next";
 
 const AddForm = () => {
   const { user,selectLang } = useAuth();
@@ -295,13 +296,19 @@ const AddForm = () => {
   const handleClosePublishModal=()=>{
     setModalShow(false)
   }
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <div>
       {languageSelect === "en" ? (
         <>
           <PublishModal show={modalShow} handleClose={handleClosePublishModal} setDatas={setSubmitData} Datas={submitData}/>
-          <div className="form-title">
-            <p>Add Your Strategy</p>
+          <div className=" d-flex justify-content-center align-items-center mb-3">
+            <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
+              <hr className="line"/>
+              <p className="headText text-center">Add Your Strategy</p>
+              <hr className="line"/>
           </div>
           <div className="center-div">
             {allStratigys.length?

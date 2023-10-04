@@ -3,6 +3,7 @@ import { useAuth } from '../../Context/AuthContext';
 import { getAllHindiStratigys } from '../../services/hindiStratigys';
 import ApproveReqModalHi from '../Modal/ApproveReqModalHi';
 import PublishModal from '../Modal/PublishEditStrategy/PublishModal';
+import { t } from 'i18next';
 
 const AddFormHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([])
@@ -157,14 +158,20 @@ const AddFormHi = () => {
   const handleClosePublishModal=()=>{
     setModalShow(false)
   }
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <div>
 
           <PublishModal show={modalShow} handleClose={handleClosePublishModal} setDatas={setSubmitData} Datas={submitData}/>
 
-      <div className='form-title'>
-        <p>अपनी रणनीति जोड़ें</p>
-      </div>
+         <div className=" d-flex justify-content-center align-items-center mb-3">
+            <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
+              <hr className="line"/>
+              <p className="headText text-center">अपनी रणनीति जोड़ें</p>
+              <hr className="line"/>
+          </div>
       <div className='center-div'>
         <form className='form-main-div' onSubmit={handleSubmit}>
           <div className='two-selects '>
@@ -244,7 +251,7 @@ const AddFormHi = () => {
           
           <div className='one-selects'>
             <div>
-              <p className='select-title'><p>*</p>शिक्षण के परिणाम</p>
+              <p className='select-title'>शिक्षण के परिणाम<p>*</p></p>
               <select className={'select-field w-100'} name="learning_outcome" value={learning_outcome} onChange={handleLearning}>
                 <option value="" selected disabled>शिक्षण के परिणाम</option>
                 {

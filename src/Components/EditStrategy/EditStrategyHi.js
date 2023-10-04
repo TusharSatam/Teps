@@ -131,7 +131,6 @@ useEffect(() => {
   }
 }, [formSubmitted])
 
-console.log(formData);
 
   return (
     <>

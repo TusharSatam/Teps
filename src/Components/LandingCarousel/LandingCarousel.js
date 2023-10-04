@@ -47,7 +47,7 @@ const LandingCarousel = () => {
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
             <div className="carousalTextArea d-flex flex-column innerWidth">
-              <h1>Choose from 50,000+ teaching strategies! </h1>
+              <h1>Choose from 5000+ teaching strategies! </h1>
               <div className="cardDetails">
                 <p>
                   Get strategies spread over various pedagogical approaches like
@@ -111,7 +111,7 @@ const LandingCarousel = () => {
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
             <div className="carousalTextArea d-flex flex-column innerWidth">
-              <h1>50,000+ शिक्षण रणनीतियों में से चुनें!</h1>
+              <h1>5000+ शिक्षण रणनीतियों में से चुनें!</h1>
               <div className="cardDetails">
                 <p>
                   विभिन्न शैक्षणिक दृष्टिकोणों में फैली हुई रणनीतियाँ प्राप्त

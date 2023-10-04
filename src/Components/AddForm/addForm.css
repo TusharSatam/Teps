@@ -26,6 +26,7 @@
     border-radius: 12px;
     background: #F4F8F7;
     padding:1.5rem;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
 }
 
 .two-selects {
