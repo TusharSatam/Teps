@@ -231,6 +231,8 @@ input[type="text"][disabled] {
   background: #1AA05B;
   color: #ffff;
 }
+
+
 .change_btn{
   background: #1AA05B;
   border-radius: 20px;
@@ -253,6 +255,7 @@ input[type="text"][disabled] {
   background: #9FDFBE;
   border: 1px solid #9FDFBE;
 }
+
 .upload_Str_btn{
   background: #1AA05B;
   border-radius: 20px;
@@ -289,6 +292,11 @@ input[type="text"][disabled] {
 }
 .authBtn_p:hover{
   background: #1AA05B;
+  color: #ffff;
+}
+
+.authBtn_p:disabled{
+  background: gray;
   color: #ffff;
 }
 @media only screen and (max-width: 990px) {

@@ -149,7 +149,7 @@ const handlePincode = (e) => {
   const inputValue = e.target.value;
   const onlyDigits = /^\d+$/;
 
-  if (onlyDigits.test(inputValue) || inputValue === '') {
+  if (onlyDigits.test(inputValue) && (inputValue.length)<=6|| inputValue === '') {
     setPincode(inputValue);
 
     if (inputValue !== '') {
@@ -182,20 +182,32 @@ const handlePincode = (e) => {
   }, [])
  
   // gamil handler
-  
+//   var btn=document.getElementById("favBtn");
+// if(l.length===0){
+//   btn.disabled=true;
+// }else{
+//   btn.disabled=false;
+// }
+
+
   const [getEmail, setGetEmail] = useState()
   const handleEmail = (e) => {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (e.target.value.match(pattern)) {
       setEmailErr('');
+      
       setGetEmail(e.target.value)
     }
     else {
+      setEmailErr("Enter correct email");
       setIsLoading(false);
     }
   }
   const token = JSON.stringify(localStorage.getItem('jwt'));
   const doneEmail = () => {
+    const getEmail = document.getElementById("email").value;
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(pattern.test(getEmail)){
     const data = {
       "to": getEmail,
       'subject': "Email verification - TEPS",
@@ -213,9 +225,14 @@ const handlePincode = (e) => {
           setShow(true);
           setEditEmail(false);
         }
-      })
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
+      
   }
+  else{
+   
+    toast.error("Incorrect email format");
+  }}
+
   const [selectedCountry, setSelectedCountry] = React.useState({
     city: user?.city,
     state: user?.state
@@ -234,8 +251,7 @@ const handlePincode = (e) => {
       setSelectedCountry(user?.city)
     }
   }
- 
- 
+
   // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
@@ -278,6 +294,7 @@ const handlePincode = (e) => {
                   setEditAll(false);})
                 }
               })
+              
               .catch(err => console.log(err))
 
           })
@@ -335,7 +352,7 @@ const handlePincode = (e) => {
       </button>
           
                 </div>
-                {/* <button className='btn btn-primary'>{t('My Strategies')}</button> */}
+                
              </div>  
           </div>
         </div>
@@ -375,27 +392,38 @@ const handlePincode = (e) => {
                 {dropdownVisible && (
           <div className='d-block'>
             <div>
-              <Link to="/favouriteStratigy">
-                <button className="authBtn_p me-3" >Favourites ({l})</button>
-              </Link>
+            { l === 0 ? (
+  <button className="authBtn_p me-3" disabled>Favourites ({l})</button>
+) : (
+  <Link to="/favouriteStratigy">
+    <button className="authBtn_p me-3">Favourites ({l})</button>
+  </Link>
+)}
+
             </div>
             <div>
-              <Link to="/saveStratigy">
-                <button className='authBtn_p mt-2 me-3'>Saved ({f})</button>
-              </Link>
+              {f===0?(
+                             <button className='authBtn_p mt-2 me-3' disabled>Saved ({f})</button> ):
+                             ( <Link to="/saveStratigy">
+                             <button className='authBtn_p mt-2 me-3'>Saved ({f})</button>
+                           </Link>)}
+             
             </div>
           
 
       
             <div>
-              <Link to="/editedStratigy">
+              {e===0?(
+                <button className="authBtn_p mt-2 me-3" disabled>Edited ({e})</button>):(<Link to="/editedStratigy">
                 <button className="authBtn_p mt-2 me-3" >Edited ({e})</button>
-              </Link>
+              </Link>)}
+              
             </div>
             <div>
-              <Link to="/createdStratigy">
+              {c===0?(   <button className="authBtn_p mt-2 me-3" disabled>Created ({c})</button>):( <Link to="/createdStratigy">
                 <button className="authBtn_p mt-2 me-3" >Created ({c})</button>
-              </Link>
+              </Link>)}
+             
             </div>
        </div>
         )}
@@ -413,12 +441,12 @@ const handlePincode = (e) => {
           <div style={{border:"1px solid black", backgroundColor:"white", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
             <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
-                <div className='d-flex justify-content-between align-items-center mt-0 my-md-3'>
+                <div className='d-flex justify-content-bdetween align-items-center mt-0 my-md-3'>
                   <div>
                     <h4 className='input_label'>{t('Email')}:</h4>
                   </div>
                   <div className='mt-3'>
-                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
+                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="email" />
                     <div className=' d-flex'>
                       <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>{t('Edit')}</div>
                       <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>{t('Save Email')}</div>
@@ -500,7 +528,7 @@ const handlePincode = (e) => {
                     </div>
                   </div>
                 </div>
-                <div className='d-flex justify-content-center button_div'>
+                <div className='d-flex justify-content-d button_div'>
                   {/* <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div> */}
                   <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
@@ -556,7 +584,7 @@ const handlePincode = (e) => {
   </div>
 
 
-}
+}         
 
           <div style={{ height: "10px" }}></div>
         </div>
