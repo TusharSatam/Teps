@@ -205,8 +205,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
           className="modal_body"
         >
           <div>
-            <span className='d-none d-md-block d-xxl-none' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "800px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
-            <span className='d-md-none d-xxl-block' onClick={handleClose} style={{ cursor: 'pointer', marginLeft: "850px" }} ><img width='15px' src={CrossIcon} alt="" /></span>
+            <span className='d-none d-md-block d-xxl-none' id="span1" onClick={handleClose} ><img width='15px' src={CrossIcon} alt="" /></span>
+            <span className='d-md-none d-xxl-block' id="span2" onClick={handleClose}  ><img width='15px' src={CrossIcon} alt="" /></span>
             <p className='text-center sign_up'>{t('Register')}</p>
           </div>
           <div className='mx-4 mt-4'>
@@ -223,7 +223,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               </div>
               <div className='my-4'>
   <label className={(emailError || emailErr || isEmailValid) ? "text" : ""} htmlFor="">{t('Email')}
-    <span style={{ fontSize: "14px" }} className={isEmailValid ? 'text-success' : 'text-danger'}>
+    <span id="id1" className={isEmailValid ? 'text-success' : 'text-danger'}>
       {isEmailValid ? '\u2714' : '\u002A'}
       &nbsp;&nbsp; {" "}
       {emailError ? emailError : ''}
@@ -237,7 +237,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     type="text"
   />
   <a href="#" className={emailError ? 'd-block' : 'd-none'} onClick={handleForgotShow}>
-    <p className='text-start forgot_pass mt-1' style={{ fontSize: "12px" }}>{t('retrieve_password')}</p>
+    <p className='text-start forgot_pass mt-1' id="id3" >{t('retrieve_password')}</p>
   </a>
 </div>
 
@@ -288,11 +288,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     <span className="checkmark"></span>
                   </label>
                 </div>
-                <p style={{ marginTop: "2px", marginLeft: "-6px" }}>{t("I am not a robot")}{" "}<span className='text-danger'>&#x2A;</span></p>
+                <p id="id2">{t("I am not a robot")}{" "}<span className='text-danger'>&#x2A;</span></p>
               </div>
               {required ? <p className='text-danger text-center me-5 pe-4 mb-4'>{required}</p> : ""}
               {error ? <p className='text-danger text-center me-5 pe-4'>{error}</p> : ""}
-              <div className='text-danger me-5 pe-4 text-center' style={{ fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
+              <div className='text-danger me-5 pe-4 text-center' id="id3">{emailErr ? emailErr : ''}</div>
               <p className='text-danger '>{checkError ? checkError : ""}</p>
               <p className='text-danger text-center me-5 pe-4'>{passError ? passError : ""}</p>
               <div className='d-flex justify-content-center me-5 pe-4'>
@@ -312,12 +312,11 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       >
         <Modal.Body
           className="res_modal "
-          style={{ height: "651px" }}
-        >
+               >
           <div>
             <div>
-              <span onClick={handleClose} style={{ cursor: 'pointer' }} className='d-flex justify-content-end '><img width='15px' src={CrossIcon} alt="" /></span>
-              <p className='text-center sign_up' style={{ fontSize: "20px" }}>{t('Register')}</p>
+              <span onClick={handleClose} id="id4" className='d-flex justify-content-end '><img width='15px' src={CrossIcon} alt="" /></span>
+              <p id="id5" className='text-center sign_up' >{t('Register')}</p>
             </div>
             <div className='mx-4 d-flex justify-content-center'>
               <form onSubmit={handleSignUp}>
@@ -332,7 +331,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 <div className='mt-3'>
                   <label className={emailError || emailErr ? "text-danger res-label" : "res-label"} htmlFor="">{t('Email')}<span style={{ fontSize: "14px" }} className='text-danger mt-5'>&#x2A; {emailError ? emailError : ''}</span></label> <br />
                   <input onChange={handleEmailError} className={emailError || emailErr ? "signup_Input border-danger text-danger" : "signup_Input"} name='email' placeholder='Lilyblom201@gmail.com' type="text" />
-                  <a href="#" className={emailError ? 'd-block' : 'd-none'} style={{ fontSize: "10px" }} onClick={handleForgotShow}><p className='text-start forgot_passs mt-1'>{t('retrieve_password')}</p></a>
+                  <a href="#" className={emailError ? 'd-block' : 'd-none'} id="id6" onClick={handleForgotShow}><p className='text-start forgot_passs mt-1'>{t('retrieve_password')}</p></a>
                 </div>
                 <div className='mt-3'>
                   <label className='res-label ' htmlFor="">{t('Designation')}<span className='text-danger'>&#x2A;</span></label> <br />
@@ -372,9 +371,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 {required ? <p className='text-danger text-center'>{required}</p> : ""}
                 {error ? <p className='text-danger text-center'>{error}</p> : ""}
-                <div className='text-danger' style={{ textAlign: 'center', fontSize: "15px" }}>{emailErr ? emailErr : ''}</div>
+                <div className='text-danger' id='id7' >{emailErr ? emailErr : ''}</div>
                 <p className='text-danger '>{checkError ? checkError : ""}</p>
-                <p className='text-danger text-center' style={{ fontSize: "10px" }}>{passError ? passError : ""}</p>
+                <p className='text-danger text-center' id="id6">{passError ? passError : ""}</p>
                 <div className='d-flex justify-content-center my-5'>
                   <button className='submit_btn'>{t('Submit')}</button>
                 </div>

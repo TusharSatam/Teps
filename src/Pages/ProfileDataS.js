@@ -11,6 +11,7 @@ import { delUserSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
+import './styles/profileData.css';
 import FilterStrHi from '../Components/Home/FilterStrHI';
 
 const ProfileDataS = () => {
@@ -164,19 +165,19 @@ const ProfileDataS = () => {
     <div>
   {languageSelect === "en" ?
     <>
-      <div tyle={{borderRadius:"15px"}} className='saveStrParent'>
-        <div className='row py-2 align-items-center' style={{ alignItems: "center", position: 'relative' }}>
-          <div s className='d-flex justify-content-center'>
+      <div id="bs" className='saveStrParent'>
+        <div className='row py-2 align-items-center' id="div1">
+          <div className='d-flex justify-content-center'>
             <span className='text-white text-center headText w-50'>{t("Saved Strategies")}</span>
           </div>
-          <div className='filter_btn_container d-flex justify-content-end' style={{ position: "absolute", top: "100" }}>
+          <div className='filter_btn_container d-flex justify-content-end' id="at">
           
           </div>
         </div>
     
       </div>
       {isLoading ?
-        <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+        <div id="div2">
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
@@ -188,10 +189,10 @@ const ProfileDataS = () => {
               {
                 stratigyFilData?.map((res, index) => (
                   <div key={index} className='container'>
-                    <div style={{ background: "whitesmoke" }} className='card_pad'>
+                    <div id="ws" className='card_pad'>
                       <div className='my-4'>
                         <div className='d-flex justify-content-between my-4 '>
-                          <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                          <Link to={`/single/${res._id}`} id="nb">
                             <div className='me-1'>
                             
                               <div>
@@ -201,25 +202,25 @@ const ProfileDataS = () => {
                                 </div>
                               </div>
                               <div className='d-block d-md-none mt-1'>
-                                <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                <div className=' mt-1' id="ml">
                                 </div>
                               </div>
                             </div>
                           </Link>
                           <div className='col-9 ms-md-4 col-md-8 '>
-                            <Link  style={{ textDecoration: "none", color: 'black' }}>
-                              <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"14px 0px 0px"}}>Project-based Learning</p>
+                            <Link id="nb">
+                              <p id="bswm">Project-based Learning</p>
                               <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                               <p className='savestr_body'>
                                 {res["Teaching Strategy"].slice(0, 150) + '...'}
-                                <Link to={`/saveStratigy`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Load All</Link>
+                                <Link to={`/saveStratigy`} id="pgnw">Load All</Link>
                               </p>
                             </Link>
                            
                           </div>
-                          <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                          <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                           <div className=' align-items-center '>
-                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{marginTop:"-32px", cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer",marginTop:"-32px" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
+                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} id="pt" className='me-2 me-md-3 save_like' src={SavedIcon} alt="unlike" /> : <img onClick={() => handleApiSaves(res._id)} id="pt" className='me-2 me-md-3 save_like' src={SaveIcon} alt="like" />}
                             </div>
                             <div className='d-flex flex-column align-items-center justify-content-center'>
                             </div>

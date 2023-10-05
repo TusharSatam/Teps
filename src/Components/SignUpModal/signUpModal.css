@@ -7,7 +7,38 @@
     letter-spacing: -0.01em;
     color: #1aa05b;
   }
+  #id1{
+    font-size: 13px;
+  }
   
+  #id2{
+  margin-top: 2px;
+  margin-left: -6px;
+  }
+  #id3{
+    font-size: 14.5px;
+  }
+  #id4{
+    cursor: pointer;
+  }
+  #id5{
+    font-size: 20px;
+  }
+  #id6{
+    font-size: 10px;
+  }
+  #id7{
+    text-align: center;
+    font-size: 15px;
+  }
+  #span1{
+    cursor: pointer;
+    margin-left: 800px;
+  }
+  #span2{
+    cursor: pointer;
+    margin-left: 850px;
+  }
   .modal_full {
     width: 100% !important;
     margin-top: 0;
@@ -45,6 +76,7 @@
     background: #ffffff;
     border-radius: 12px;
     max-height: 500px;
+    height: 650px;
     overflow-y: scroll;
   }
   .select_input {

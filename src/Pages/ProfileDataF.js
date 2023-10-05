@@ -12,7 +12,7 @@ import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import {  Spinner } from "react-bootstrap";
-
+import './styles/profileData.css'
 import FilterStrHI from "../Components/Home/FilterStrHI";
 
 const ProfileDataF= () => {
@@ -151,20 +151,20 @@ const ProfileDataF= () => {
     {languageSelect === "en" ? (
       <>
         <div className="saveStrParent">
-          <div className="row py-2 align-items-center" style={{ alignItems: "center" }}>
+          <div className="row py-2 align-items-center" id="c">
             <div className="d-flex justify-content-center">
               <span className="text-white text-center headText w-50">
                {t("Favourite Strategies")}
               </span>
             </div>
-            <div className="d-flex justify-content-end " style={{ position: "absolute", top: "100" }}>
+            <div className="d-flex justify-content-end" id="at" >
            
             </div>
           </div>
          
         </div>
         {isLoading ? (
-          <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+          <div id="div2">
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
@@ -178,10 +178,10 @@ const ProfileDataF= () => {
             <>
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
-                  <div style={{ background: "whitesmoke" }} className="card_pad">
+                  <div id="ws" className="card_pad">
                     <div className="my-4">
                       <div className="d-flex justify-content-between my-4 ">
-                        <Link to={`/single/${res._id}`} style={{ textDecoration: "none", color: "black" }}>
+                        <Link to={`/single/${res._id}`} id="nb">
                           <div className="me-1">
                             <div>
                               <div className="d-flex mb-3 str_text_left">
@@ -190,15 +190,15 @@ const ProfileDataF= () => {
                               </div>
                             </div>
                             <div className="d-block d-md-none mt-1">
-                              <div className="mt-1" style={{ marginLeft: "20px" }}>
+                              <div className="mt-1" id="ml">
                                 <div className="res_btn_icon"></div>
                               </div>
                             </div>
                           </div>
                         </Link>
                         <div className="col-9 ms-md-4 col-md-8 ">
-                          <Link style={{ textDecoration: "none", color: "black" }}>
-                            <p style={{ color: "brown", fontSize: "19px", fontWeight: "500", margin:"14px 0px 0px "}}>Project-based Learning</p>
+                          <Link id="nb">
+                            <p id="bswm">Project-based Learning</p>
                             <p className="savestr_head">
                               Learning Outcome: {res["Learning Outcome"]}
                             </p>
@@ -207,12 +207,7 @@ const ProfileDataF= () => {
   
                               <Link
                                 to={`/favouriteStratigy`}
-                                style={{
-                                  cursor: "pointer",
-                                  color: "green",
-                                  textDecoration: "none",
-                                  fontWeight: "600"
-                                }}
+                                id="pgnw"
                               >
                                 Load All
                               </Link>
@@ -224,20 +219,21 @@ const ProfileDataF= () => {
                           <div className="d-flex flex-column align-items-center justify-content-center">
                           <div className="d-flex align-items-center my-3">
                             {likes?.includes(res._id) ? (
-                              <img
+                              <img id="img1"
                                 onClick={() => handleApiUnLikes(res._id)}
-                                style={{ cursor: "pointer" ,marginTop:"16px",marginLeft:"-58px"}}
+                               
                                 className="me-2 me-md-3 save_like"
                                 src={LikedIcon}
-                                alt=""
+                                alt="unlike"
                               />
                             ) : (
                               <img
                                 onClick={() => handleApiLikes(res._id)}
-                                style={{ cursor: "pointer" ,marginTop:"6px",marginLeft:"-38px"}}
+                                id="img2"
+                                
                                 className="me-2 me-md-3 save_like"
                                 src={LikeIcon}
-                                alt=""
+                                alt="like"
                               />
                             )}
                           </div>

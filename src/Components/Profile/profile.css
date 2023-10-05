@@ -142,6 +142,7 @@ padding-left: 12px;
   color: #FFFFFF;
 }
 .prfile_pic{
+  height: 120px;
   background: #F8F9FA;
   box-shadow: 1.14444px 1.14444px 2.28889px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -249,6 +250,59 @@ input[type="text"][disabled] {
   transition: 0.3s;
   position: relative;
     bottom: -20px;
+}
+#rp{
+position: "relative";
+padding: "4px";}
+#wb{
+  border-radius: 1000px;
+  width: 40px;
+}
+#wb1{
+  border-radius: 1000px;
+  width: 120px;
+}
+#fc{
+  display:"flex";
+   place-content:"center";
+}
+#dgm{
+  display: grid;
+gap:14px;
+margin-top: -20px;
+}
+#h10{
+  height: 10px;
+}
+#p2{
+  padding: 2%;
+}
+#pm{
+  padding:1%;
+  margin-top: 10px;
+}
+#pt{
+  padding-top: 35px;
+}
+#bmm{
+  border: "1px solid #CED4DA";
+  margin-top: "5px";
+   margin-bottom: '0px';
+   margin-left: "15px";
+   margin-right: "15px";
+}
+#bwb{
+  border:"1px solid black";
+   background-color:"white";
+    box-shadow:"1px 2px 1px 1px black";
+}
+#mtop{
+  margin-top: -12px;
+}
+#bbb{
+  border:"1px solid black";
+  background-color:"white";
+   border-radius:"10px";
 }
 .change_btn:hover{
   border: none;

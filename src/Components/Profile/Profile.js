@@ -181,15 +181,7 @@ const handlePincode = (e) => {
         fetchData();
   }, [])
  
-  // gamil handler
-//   var btn=document.getElementById("favBtn");
-// if(l.length===0){
-//   btn.disabled=true;
-// }else{
-//   btn.disabled=false;
-// }
-
-
+ 
   const [getEmail, setGetEmail] = useState()
   const handleEmail = (e) => {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -323,51 +315,50 @@ const handlePincode = (e) => {
       />
       <HeroSection />
       <section className='profile_container pb-5'>
-        <div style={{ height: "10px" }}></div>
+        <div id="h10"></div>
         <div className='d-block d-md-none text-start mx-3 mt-3 bg-light'>
-          <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
+          <div className='d-flex align-items-start prfile_pic'>
             <div className="button-wrapper">
               {
-                preview ? <img src={preview} alt="" /> :
-                  profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px'}} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                      <img width={'40px'} className='label' src={defaultProfile} alt="" />
+                preview ? <img src={preview} alt="image" /> :
+                  profileImage?.image ? <img className='label' id="wb" src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    user?.image ? <img className='label' id="wb" src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                      <img width={'40px'} className='label' src={defaultProfile} alt="image" />
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
             <div >
               <div className='profile_school mt-6'>
                 <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
-                <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
+                <p className='res_userName' id='mtop'>{user?.organization}</p>
               </div>
-              <div style={{display:"grid" ,gap:"14px",marginTop: "-20px" }}>
+              <div id="dgm">
              
                 <button
-        style={{ padding: '1%', marginTop:"10px" }}
+        id="pm"
         className={`change_btn`}
         onClick={toggleButton}
       >
           {t('View My Strategies')}
           <span className={`arrow ${dropdownVisible ? 'up' : 'down'}`}></span>
       </button>
-          
-                </div>
+          </div>
                 
              </div>  
           </div>
         </div>
         
         <div className='d-block d-md-none mx-3 mt-md-4'>
-          <hr style={{ border: "1px solid #CED4DA", marginTop: "5px", marginBottom: '0px', marginLeft: "15px", marginRight: "15px" }} />
+          <hr id="bmm" />
         </div>
         <div className='container p-md-5 d-md-flex ' >
-          <div style={{border:"1px solid black", backgroundColor:"white", boxShadow:"1px 2px 1px 1px black"}} className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
+          <div id="bwb" className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
             <div className='pb-4'>
               <div className="button-wrapper">
                 {
-                  profileImage?.image ? <img className='label' style={{ width: "120px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    user?.image ? <img className='label' style={{ width: "120px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                      <img className='label' width={'120px'} src={defaultProfile} alt="" />
+                  profileImage?.image ? <img className='label' id="wb1" src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                    user?.image ? <img className='label' id="wb1" src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                      <img className='label' width={'120px'} src={defaultProfile} alt="image" />
                 }
 
                 <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
@@ -375,12 +366,12 @@ const handlePincode = (e) => {
               <div className='profile_school mt-5'>
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
-              <div className='py-4' style={{ position: "relative", padding: "4px" }}>
-                <div style={{ display:"flex", placeContent:"center"}}
+              <div className='py-4' id="rp" >
+                <div id="fc" 
                 className='justify-content-center py-5'>
                   
                  <button
-          style={{ padding: '2%' }}
+          id="p2"
           className={`btn btn-primary change_btn`}
           onClick={toggleButton}
         >
@@ -438,7 +429,7 @@ const handlePincode = (e) => {
           </div>
        
        {isMyStrategies?
-          <div style={{border:"1px solid black", backgroundColor:"white", boxShadow:"1px 2px 2px 2px black"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+          <div id="bwb" className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
             <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
                 <div className='d-flex justify-content-bdetween align-items-center mt-0 my-md-3'>
@@ -557,7 +548,7 @@ const handlePincode = (e) => {
                     <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({c})</button></Link>
                   </div>
                   </div>
-                  <div className='d-flex justify-content-center' style={{ paddingTop: "35px" }}>
+                  <div className='d-flex justify-content-center' id="pt">
                     <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
                     
                   </div>
@@ -567,7 +558,7 @@ const handlePincode = (e) => {
             </form>
           </div>
 :
-  <div style={{border:"1px solid black", backgroundColor:"white", borderRadius:"10px"}} className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+  <div id="bbb" className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
 <div>
 <ProfileDataS/>
 </div>
@@ -586,7 +577,7 @@ const handlePincode = (e) => {
 
 }         
 
-          <div style={{ height: "10px" }}></div>
+          <div id="h10"></div>
         </div>
       </section>
     </>
