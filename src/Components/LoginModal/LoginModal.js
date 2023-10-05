@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Modal, Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { userLogin } from "../../services/auth";
+import { sendOTP, userLogin, verifyOTP } from "../../services/auth";
 import { useAuth } from "../../Context/AuthContext";
 import ForgotModal from "../ForgotPassModal/ForgotModal";
 import "./loginModal.css";
@@ -20,22 +20,42 @@ const LoginModal = ({ show, setShow }) => {
   const [checkError, setCheckError] = React.useState("");
   const [verifyModal, setVerifyModal] = React.useState(false);
   const [isOTPLoginOpen, setisOTPLoginOpen] = useState(false);
+  const [email, setemail] = useState("");
   const [phoneValue, setPhoneValue] = React.useState("");
-  const [otp, setOTP] = useState(["", "", "", ""]);
+  const [inputotp, setInputotp] = useState(["", "", "", "", ""]);
+  const [OTP, setOTP] = useState(0);
   const [showOTPInputs, setshowOTPInputs] = useState(false);
   const inputRefs = useRef([]);
 
   const handleGetOTP = (e) => {
     if (phoneValue.length < 10) {
       // Show an error message for invalid phone number
-      setCheckError("Phone number must be 10 digits");
+      setCheckError(t("Phone number must be 10 digits"));
     } else {
+      let data = {
+        phoneNumber: phoneValue,
+      };
       // Phone number is valid, proceed to OTP input
+      sendOTP(data).then((res) => {
+        setOTP(res);
+      });
       setCheckError(""); // Clear any previous error messages
       setshowOTPInputs(true);
     }
   };
+  const resendOTP = () => {
+    setIsLoading(true);
+    setCheckError("");
+    let data = {
+      phoneNumber: phoneValue,
+    };
+    sendOTP(data).then((res) => {
+      setIsLoading(false);
+    });
+    setshowOTPInputs(true);
+  };
   const handlePhoneInput = (e) => {
+    setError("");
     const inputValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
     if (inputValue.length <= 10) {
       setPhoneValue(inputValue); // Update the state with the cleaned input value
@@ -52,9 +72,9 @@ const LoginModal = ({ show, setShow }) => {
       value = value.slice(0, 1); // Limit input to a single character
     }
 
-    const newOTP = [...otp];
+    const newOTP = [...inputotp];
     newOTP[index] = value;
-    setOTP(newOTP);
+    setInputotp(newOTP);
 
     if (value && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].focus();
@@ -62,7 +82,7 @@ const LoginModal = ({ show, setShow }) => {
   };
 
   const handleInputKeyDown = (event, index) => {
-    if (event.key === "Backspace" && !otp[index] && index > 0) {
+    if (event.key === "Backspace" && !inputotp[index] && index > 0) {
       inputRefs.current[index - 1].focus();
     }
   };
@@ -70,6 +90,8 @@ const LoginModal = ({ show, setShow }) => {
   const handleLoginForm = () => {
     setisOTPLoginOpen(!isOTPLoginOpen);
     setIsLoading(false);
+    setCheckError("");
+    setError("");
   };
 
   const handleClose = () => {
@@ -77,13 +99,26 @@ const LoginModal = ({ show, setShow }) => {
     setCheckError("");
     setError("");
   };
+  const resetModalState = () => {
+    setForgot(false);
+    setIsLoading(false);
+    setError("");
+    setCheckError("");
+    setVerifyModal(false);
+    setisOTPLoginOpen(false);
+    setemail(""); // Reset the email state if needed
+    setPhoneValue("");
+    setInputotp(["", "", "", "", ""]);
+    setOTP(99999); // Reset the OTP state if needed
+    setshowOTPInputs(false);
+  };
   const handleSIgnIn = (e) => {
     e.preventDefault();
     if (!isOTPLoginOpen) {
       setIsLoading(true);
       setCheckError("");
       const data = {
-        email: e.target.email.value,
+        email: email,
         password: e.target.password.value,
       };
       userLogin(data)
@@ -97,8 +132,8 @@ const LoginModal = ({ show, setShow }) => {
               window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
               window.localStorage.setItem("data", JSON.stringify(res.data));
               navigate("/home");
-            } 
-            else {
+              resetModalState();
+            } else {
               const data = {
                 to: res?.data?.email,
                 subject: "Email verification - TEPS",
@@ -127,10 +162,44 @@ const LoginModal = ({ show, setShow }) => {
           setError(err.response.data.message);
           setIsLoading(false);
         });
-    } 
-    else if (e.target.checkmark.checked === true && isOTPLoginOpen) {
-    } else {
-      setCheckError(`${t("checkbox_error")}`);
+    } else if (isOTPLoginOpen) {
+      setIsLoading(true);
+      let givenOTP = parseInt(inputotp.join(""), 10);
+      let data = {
+        phoneNumber: phoneValue,
+        OTP: givenOTP,
+      };
+      verifyOTP(data)
+        .then((res) => {
+          setCheckError("");
+          if (res.message === "logged in successfully") {
+            setIsLoading(false);
+            setShow(false);
+            setshowOTPInputs(false);
+            setPhoneValue("");
+            setInputotp(["", "", "", "", ""]);
+            setUser(res.data);
+            setIsAuthenticated(true);
+            window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
+            window.localStorage.setItem("data", JSON.stringify(res.data));
+            navigate("/home");
+            resetModalState();
+          } else if (res.message === "OTP not verified") {
+            setCheckError("Invalid OTP");
+            setInputotp(["", "", "", "", ""]);
+            setIsLoading(false);
+          } else if (
+            res.message === "New user" ||
+            res.message === "No user found"
+          ) {
+            setError("No user found");
+            setIsLoading(false);
+          }
+        })
+        .catch((e) => {
+          setCheckError(e?.response.data.message);
+          setIsLoading(false);
+        });
     }
   };
   const handleForgotShow = () => {
@@ -153,8 +222,7 @@ const LoginModal = ({ show, setShow }) => {
             <div>
               <p
                 onClick={handleClose}
-                style={{ cursor: "pointer", color: "#6D747A" }}
-                className=" me-1 fs-5 text-end"
+                className=" me-1 fs-5 text-end signinCloseIcon"
               >
                 &#10006;
               </p>
@@ -167,50 +235,52 @@ const LoginModal = ({ show, setShow }) => {
                     <>
                       <div className="my-3">
                         <label
-                          htmlFor=""
-                          style={{ marginBottom: "-20px" }}
+                          htmlFor="emailInput"
                           className={
                             error === "Invalid Email"
                               ? "d-flex text-danger"
                               : "d-flex"
                           }
                         >
-                          {t("Email")}{" "}
-                    <span className="text-danger">*</span>
+                          {t("Email")} <span className="text-danger">*</span>
                           <span
                             className={
-                              ( error === "Invalid Email" || error === "Invalid Credential") ? "d-block text-danger" : "d-none"
+                              error === "Invalid Email" ||
+                              error === "Invalid Credential"
+                                ? "d-block text-danger"
+                                : "d-none"
                             }
                           >
-                            {" "}
                             &nbsp;{t("email_not_found")}
                           </span>
                         </label>
                         <br />
                         <input
+                          id="emailInput"
                           placeholder="LilyBlom201@gmail.com"
                           name="email"
                           className={
-                           ( error === "Invalid Email" || error === "Invalid Credential")
+                            error === "Invalid Email" ||
+                            error === "Invalid Credential"
                               ? "login_input text-danger border border-danger"
                               : "login_input"
                           }
                           type="email"
+                          value={email}
+                          onChange={(e) => setemail(e.target.value)}
                         />
                       </div>
 
                       <div className="my-4">
                         <label
-                          htmlFor=""
-                          style={{ marginBottom: "-20px" }}
+                          htmlFor="authPass"
                           className={
                             error === "Invalid Password"
                               ? "d-flex text-danger"
                               : "d-flex"
                           }
                         >
-                          {t("Password")}{" "}
-                    <span className="text-danger">*</span>
+                          {t("Password")} <span className="text-danger">*</span>
                           <span
                             className={
                               error === "Invalid Password"
@@ -218,7 +288,6 @@ const LoginModal = ({ show, setShow }) => {
                                 : "d-none"
                             }
                           >
-                            {" "}
                             &nbsp;{t("password_error")}
                           </span>
                         </label>
@@ -246,32 +315,31 @@ const LoginModal = ({ show, setShow }) => {
                     <>
                       <div className="my-3">
                         <label
-                          htmlFor=""
-                          style={{ marginBottom: "-20px" }}
+                          htmlFor="phoneInput"
                           className={
-                            error === "Invalid Phone"
+                            error === "No user found"
                               ? "d-flex text-danger"
                               : "d-flex"
                           }
                         >
-                          {t("Phone Number")}{" "}
-                    <span className="text-danger">*</span>
+                          {t("Phone Number")}
+                          <span className="text-danger">*</span>
                           <span
                             className={
-                              error === "Invalid Email" ? "d-block" : "d-none"
+                              error === "No user found" ? "d-block" : "d-none"
                             }
                           >
-                            {" "}
-                            &nbsp;{t("email_not_found")}
+                            &nbsp;No user found
                           </span>
                         </label>
                         <br />
                         <input
+                          id="phoneInput"
                           value={phoneValue}
                           placeholder="Phone Number"
                           name="phone"
                           className={
-                            error === "Invalid Phone"
+                            error === "No user found"
                               ? "login_input text-danger border border-danger"
                               : "login_input"
                           }
@@ -282,7 +350,7 @@ const LoginModal = ({ show, setShow }) => {
                       </div>
                       {showOTPInputs && (
                         <div id="pin-input" className="pinInput">
-                          {otp.map((digit, index) => (
+                          {inputotp.map((digit, index) => (
                             <input
                               key={index}
                               type="text"
@@ -302,23 +370,41 @@ const LoginModal = ({ show, setShow }) => {
                               ref={(inputRef) =>
                                 (inputRefs.current[index] = inputRef)
                               }
-                              style={{ width: "30px", marginRight: "10px" }}
                               className="OTPinput"
                               inputMode="numeric" // Specify numeric input mode
                               pattern="[0-9]*" // Allow only numeric input
                             />
                           ))}
-                          <button className="resendOTP">resend OTP</button>
+                          <button
+                            type="button"
+                            className="resendOTP"
+                            onClick={resendOTP}
+                          >
+                            {isLoading ? (
+                              <Spinner
+                                className="text-light"
+                                animation="border"
+                              />
+                            ) : (
+                              t("Resend OTP")
+                            )}
+                          </button>
                         </div>
                       )}
                     </>
                   )}
-
-                  <p className="text-danger">{checkError ? checkError : ""}</p>
+                  <p
+                    className={`text-danger ${checkError ? "text-center" : ""}`}
+                  >
+                    {checkError ? t(checkError) : ""}
+                  </p>
                   {!isOTPLoginOpen ? (
                     <>
                       <div className="d-flex justify-content-center my-3">
-                        <button disabled={isLoading} className="primaryButton subBtn">
+                        <button
+                          disabled={isLoading}
+                          className="primaryButton subBtn"
+                        >
                           {isLoading ? (
                             <Spinner
                               className="text-light "
@@ -326,7 +412,7 @@ const LoginModal = ({ show, setShow }) => {
                             />
                           ) : (
                             t("Login")
-                          )}{" "}
+                          )}
                         </button>
                       </div>
                     </>
@@ -343,13 +429,25 @@ const LoginModal = ({ show, setShow }) => {
                     className="d-flex justify-content-center my-3"
                     onClick={handleGetOTP}
                   >
-                    <button className="primaryButton subBtn">{t("Get OTP")} </button>
+                    <button className="primaryButton subBtn">
+                      {t("Get OTP")}
+                    </button>
                   </div>
                 )}
                 {showOTPInputs && (
                   <div className="d-flex justify-content-center mb-3">
-                    <button disabled={isLoading} className="secondaryButton subBtn">
-                      {t("Submit")}{" "}
+                    <button
+                      disabled={
+                        isLoading || inputotp.some((digit) => digit === "")
+                      }
+                      className="primaryButton subBtn"
+                      onClick={handleSIgnIn}
+                    >
+                      {isLoading ? (
+                        <Spinner className="text-light" animation="border" />
+                      ) : (
+                        t("Submit")
+                      )}
                     </button>
                   </div>
                 )}
@@ -359,8 +457,7 @@ const LoginModal = ({ show, setShow }) => {
                     className="secondaryButton subBtn"
                     onClick={handleLoginForm}
                   >
-                    {" "}
-                    {t("Sign In with Gmail")}{" "}
+                    {t("Sign In with Gmail")}
                   </button>
                 </div>
               </>
@@ -371,8 +468,7 @@ const LoginModal = ({ show, setShow }) => {
                   className="secondaryButton subBtn"
                   onClick={handleLoginForm}
                 >
-                  {" "}
-                  {t("Sign In with OTP")}{" "}
+                  {t("Sign In with OTP")}
                 </button>
               </div>
             )}

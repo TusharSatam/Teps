@@ -108,7 +108,8 @@
   "Uploaded By:":"द्वारा अपलोड किया गया",
  "Do you want to make this strategy public?" :"क्या आप इस रणनीति को सार्वजनिक करना चाहते हैं?",
 "Your edited strategy is in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में है।",
-"Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रकाशित होने से पहले TEPS टीम द्वारा समीक्षा की जाएगी। प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में आपकी रणनीति होगी।"
-
-
+"Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रकाशित होने से पहले TEPS टीम द्वारा समीक्षा की जाएगी। प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में आपकी रणनीति होगी।",
+"Resend OTP":"ओटीपी पुनः भेजें",
+"Invalid OTP":"अमान्य ओटीपी",
+"Phone number must be 10 digits":"फ़ोन नंबर 10 अंकों का होना चाहिए"
 }
