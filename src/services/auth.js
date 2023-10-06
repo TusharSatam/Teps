@@ -43,7 +43,8 @@ export const verifyOTP = async (data) => {
 // update user info
 export const updateInfo = async (id, data) => {
   let updateResponse;
-  await axios.put(`users/${id}`, data)
+  console.log(id,data);
+  await axios.post(`users/${id}`, data)
     .then(res => {
       updateResponse = res.data;
     })

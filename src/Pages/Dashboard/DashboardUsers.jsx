@@ -1,11 +1,12 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { FaEye, FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { deletUser, getSingleUser, getUsers } from '../../services/dashboardUsers';
+import { deletUser, getSingleUser, getUsers, updateUser } from '../../services/dashboardUsers';
 import DashboardEditUserModal from '../../Components/DashboardModal/DashboardEditUserModal';
 import toast, { Toaster } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'; 
+// require("dotenv").config();
+import axios from "axios";
 const DashboardUsers = () => {
 
   const [users, setUsers] = React.useState([]);
@@ -15,7 +16,6 @@ const DashboardUsers = () => {
   const [editId, setEditId] = React.useState();
   const [show, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
-
 
   const handleShow = (id) => {
     setEditId(id)
@@ -28,7 +28,7 @@ const DashboardUsers = () => {
       })
       ;
   }
-
+  
   React.useEffect(() => {
     setIsLoading(true)
     getUsers()
@@ -47,6 +47,33 @@ const DashboardUsers = () => {
         })
       })
   }
+
+  
+  function uploadCSVFile() {
+    const fileInput = document.getElementById("csvInput");
+    const file = fileInput.files[0];
+  
+    if (file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
+  
+      axios.post(`${process.env.REACT_APP_BASE_URL}bulk-upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then(response => {
+          console.log(response.data.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }
+
+  
+
+
   return (
     <>
       <Toaster
@@ -118,6 +145,11 @@ const DashboardUsers = () => {
           </table>
         </div>
       </div>
+      <div className='bulkinput' style={{display:"flex", alignItems:"center"}}>
+      <input type="file" id="csvInput" accept=".csv" />
+      <button className='btn btn-primary' onClick={uploadCSVFile}>Upload</button>
+</div>
+     
     </>
   );
 };

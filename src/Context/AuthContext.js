@@ -156,7 +156,6 @@ useEffect(() => {
       }}>
       {children}
     </AuthContext.Provider>
-  );
+);
 };
-
 export default AuthProvider;
