@@ -1,45 +1,97 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import './styles/saveStratigy.css'
-import OfflineIcon from '../asstes/icons/offline.svg'
-import ChatIcon from '../asstes/icons/chat.svg'
-import KnowledgeIcon from '../asstes/icons/knowledge.svg'
-import Physical from '../asstes/icons/Motor-Physical.png'
-import Social from '../asstes/icons/Socio-Emotional-Ethical.png'
-import OnlineIcon from '../asstes/icons/online.svg'
-import LikeIcon from '../asstes/icons/Like.svg'
-import LikedIcon from '../asstes/icons/Liked.svg'
-import SaveIcon from '../asstes/icons/Save.svg'
-import SavedIcon from '../asstes/icons/Saved.svg'
-import DownArrow from '../asstes/icons/DownArrow.svg'
-import UpArrow from '../asstes/icons/upArrow.svg'
-import { useTranslation } from 'react-i18next';
-import { getMultitUser, getSingleUser, getUsers, updateUser } from '../services/dashboardUsers';
-import { useAuth } from '../Context/AuthContext';
-import { singleHindiStratigys } from '../services/hindiStratigys';
-import { postcomment } from '../services/stratigyes';
-import moment from 'moment';
-import { delLikes, getLikes, postLikes } from '../services/userLikes';
-import { delSaves, getSaves, postSaves } from '../services/userSaves';
-import LikeByModal from '../Components/Modal/LikeByModal';
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import "./styles/saveStratigy.css";
+import backArrow from "../asstes/icons/backArrow.svg";
+import LikeIcon from "../asstes/icons/Like.svg";
+import LikedIcon from "../asstes/icons/Liked.svg";
+import SaveIcon from "../asstes/icons/Save.svg";
+import SavedIcon from "../asstes/icons/Saved.svg";
+import DownArrow from "../asstes/icons/DownArrow.svg";
+import UpArrow from "../asstes/icons/upArrow.svg";
+import { useTranslation } from "react-i18next";
+import {
+  getMultitUser,
+  getSingleUser,
+  getUsers,
+  updateUser,
+} from "../services/dashboardUsers";
+import { useAuth } from "../Context/AuthContext";
+import { singleHindiStratigys } from "../services/hindiStratigys";
+import { getRatings, postRating, postcomment } from "../services/stratigyes";
+import moment from "moment";
+import { delLikes, getLikes, postLikes } from "../services/userLikes";
+import { delSaves, getSaves, postSaves } from "../services/userSaves";
+import LikeByModal from "../Components/Modal/LikeByModal";
+import LeftArrow from "../asstes/left-arrow.svg";
+import { replaceNewlinesWithLineBreaks } from "../utils/utils";
+import ratingStar from "../asstes/icons/ratingStar.svg";
+import ratingStarFill from "../asstes/icons/ratingStarFill.svg";
+import editIcon from "../asstes/icons/editIcon.svg";
+import RatingModal from "../Components/Modal/RatingModal/RatingModal";
+
 const SingleHindiStr = () => {
-  const { user, setUser } = useAuth()
-  const [str, setStr] = React.useState([])
-  const [seeComment, setSeecomment] = React.useState(false)
-  const [allUser, setAllUser] = React.useState([])
-  const [comment, setComment] = React.useState([])
+  const { user, setUser, seteditStrategyFormData } = useAuth();
+  const [str, setStr] = React.useState([]);
+  const [seeComment, setSeecomment] = React.useState(false);
+  const [allUser, setAllUser] = React.useState([]);
+  const [comment, setComment] = React.useState([]);
   const { id } = useParams();
   const { t } = useTranslation();
   const [react, setReact] = React.useState(user ? user?.saveId : []);
   const [like, setLike] = React.useState(user ? user?.saveReact : []);
-  const [totalLikeUser, setTotalLikeUser] = React.useState([])
+  const [totalLikeUser, setTotalLikeUser] = React.useState([]);
+  const [isUsedStrategy, setisUsedStrategy] = useState(false);
+  const [isLoadingContent, setIsLoadingContent] = useState(true);
+  const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
+  const pRef = useRef(null);
+  const [isAlreadyRated, setisAlreadyRated] = useState(false);
+
+  // Function to handle a star click
+  const handleStarClick = (starIndex) => {
+    setRating(starIndex);
+    setisUsedStrategy(false);
+    sendRating(starIndex);
+    setisAlreadyRated(true);
+  };
+  const handleUsedStrategy = () => {
+    setisUsedStrategy(true);
+  };
+  const handleCloseRatingModal = () => {
+    setisUsedStrategy(false);
+  };
+  const toggleUsedStrategy = () => {
+    setisUsedStrategy(!isUsedStrategy);
+  };
+  //handling rating
+  const sendRating = async (starIndex) => {
+    const dataToSend = {
+      rating: starIndex,
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await postRating(dataToSend);
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  };
+  useEffect(() => {
+    getRatings(id).then((res) => {
+      const filteredData = res.filter(
+        (obj) => obj.user_id === user._id && obj.strategy_id === id
+      );
+      if (filteredData.length) {
+        setisAlreadyRated(true);
+      }
+    });
+  }, [isAlreadyRated]);
 
   React.useEffect(() => {
-    singleHindiStratigys(id)
-      .then(res => {
-        setStr(res[0]);
-      })
-  }, [])
+    singleHindiStratigys(id).then((res) => {
+      setStr(res[0]);
+    });
+  }, []);
   const handleReact = async (e) => {
     if (react?.includes(e)) {
       for (var i = 0; i < react.length; i++) {
@@ -48,28 +100,13 @@ const SingleHindiStr = () => {
           i--;
         }
       }
-    }
-    else {
-      react?.push(e)
+    } else {
+      react?.push(e);
     }
     setReact([...react], [react]);
-  }
-  // React.useEffect(() => {
-  //   const data = { "saveId": react }
-  //   if (react) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [react, user, setUser])
+  };
 
   const handleLike = async (e) => {
-
     if (like?.includes(e)) {
       for (var i = 0; i < like.length; i++) {
         if (like[i] === e) {
@@ -77,165 +114,162 @@ const SingleHindiStr = () => {
           i--;
         }
       }
-    }
-    else {
-      like.push(e)
+    } else {
+      like.push(e);
     }
     setLike([...like], [like]);
-  }
-
-  // React.useEffect(() => {
-  //   const data = { "saveReact": like }
-  //   if (like) {
-  //     updateUser(user._id, data)
-  //       .then(res => {
-  //         getSingleUser(user._id)
-  //           .then(res => {
-  //             window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-  //             setUser(res.data[0]);
-  //           })
-  //       })
-  //   }
-  // }, [like, user, setUser])
+  };
 
   const handleSeeComment = () => {
     if (seeComment) {
-      setSeecomment(false)
+      setSeecomment(false);
+    } else {
+      setSeecomment(true);
     }
-    else {
-      setSeecomment(true)
-    }
-  }
+  };
 
   React.useEffect(() => {
-    getUsers()
-      .then(res => {
-        setAllUser(res.data);
-      })
-  }, [])
-  const totalSave = allUser.filter(res => res.saveId.includes(id));
-  const totalReact = allUser.filter(res => res.saveReact.includes(id));
+    getUsers().then((res) => {
+      setAllUser(res.data);
+    });
+  }, []);
+  const totalSave = allUser.filter((res) => res.saveId.includes(id));
+  const totalReact = allUser.filter((res) => res.saveReact.includes(id));
   const handleComment = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = {
-      "strategie_id": id,
-      "user_name": `${user.firstName} ${user.lastName}`,
-      "comment": e.target.comment.value
-    }
-    postcomment(data)
-      .then(res => {
-        singleHindiStratigys(id)
-          .then(res => {
-            setStr(res[0]);
-            setComment(res[1]?.comments);
-            e.target.reset()
-          })
-      })
-  }
+      strategie_id: id,
+      user_name: `${user.firstName} ${user.lastName}`,
+      comment: e.target.comment.value,
+    };
+    postcomment(data).then((res) => {
+      singleHindiStratigys(id).then((res) => {
+        setStr(res[0]);
+        setComment(res[1]?.comments);
+        e.target.reset();
+      });
+    });
+  };
   const [userLikes, setUserLikes] = useState([]);
   const [totalUserLikes, setTotalUserLikes] = useState(0);
   const [likeUser, setLikeUser] = useState([]);
   React.useEffect(() => {
-    getLikes()
-      .then(res => {
-        const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
-        setTotalUserLikes(totalLike.length)
-        const userlike = totalLike?.filter(ress => ress.user_id === user._id)
-        setLikeUser(userlike)
-        setUserLikes(userlike?.map(ress => ress.strategie_id))
-        getMultitUser(totalLike?.map(user_id => user_id.user_id))
-          .then(resUser => setTotalLikeUser(resUser.data))
-      })
-  }, [])
+    getLikes().then((res) => {
+      const totalLike = res?.data?.filter((ress) => ress.strategie_id === id);
+      setTotalUserLikes(totalLike.length);
+      const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
+      setLikeUser(userlike);
+      setUserLikes(userlike?.map((ress) => ress.strategie_id));
+      getMultitUser(totalLike?.map((user_id) => user_id.user_id)).then(
+        (resUser) => setTotalLikeUser(resUser.data)
+      );
+    });
+  }, []);
   const handleApiLikes = (id) => {
     const data = {
       strategie_id: id,
-      user_id: user._id
-    }
-    postLikes(data)
-      .then(res => {
-        getLikes()
-          .then(res => {
-            const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
-            setTotalUserLikes(totalLike.length)
-            const userlike = totalLike?.filter(ress => ress.user_id === user._id)
-            setLikeUser(userlike)
-            setUserLikes(userlike?.map(ress => ress.strategie_id))
-            getMultitUser(totalLike?.map(user_id => user_id.user_id))
-              .then(resUser => setTotalLikeUser(resUser.data))
-              .catch(err => setTotalLikeUser([]))
-          })
-      })
-  }
+      user_id: user._id,
+    };
+    postLikes(data).then((res) => {
+      getLikes().then((res) => {
+        const totalLike = res?.data?.filter((ress) => ress.strategie_id === id);
+        setTotalUserLikes(totalLike.length);
+        const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
+        setLikeUser(userlike);
+        setUserLikes(userlike?.map((ress) => ress.strategie_id));
+        getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+          .then((resUser) => setTotalLikeUser(resUser.data))
+          .catch((err) => setTotalLikeUser([]));
+      });
+    });
+  };
   const handleApiUnLikes = (id) => {
     if (likeUser.length !== 0) {
-      delLikes(likeUser[0]._id)
-        .then(res => {
-          getLikes()
-            .then(res => {
-              const totalLike = res?.data?.filter(ress => ress.strategie_id === id)
-              setTotalUserLikes(totalLike.length)
-              const userlike = totalLike?.filter(ress => ress.user_id === user._id)
-              setLikeUser(userlike)
-              setUserLikes(userlike?.map(ress => ress.strategie_id))
-              getMultitUser(totalLike?.map(user_id => user_id.user_id))
-                .then(resUser => setTotalLikeUser(resUser.data))
-                .catch(err => setTotalLikeUser([]))
-            })
-        })
+      delLikes(likeUser[0]._id).then((res) => {
+        getLikes().then((res) => {
+          const totalLike = res?.data?.filter(
+            (ress) => ress.strategie_id === id
+          );
+          setTotalUserLikes(totalLike.length);
+          const userlike = totalLike?.filter(
+            (ress) => ress.user_id === user._id
+          );
+          setLikeUser(userlike);
+          setUserLikes(userlike?.map((ress) => ress.strategie_id));
+          getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+            .then((resUser) => setTotalLikeUser(resUser.data))
+            .catch((err) => setTotalLikeUser([]));
+        });
+      });
     }
-  }
+  };
 
   const [userSaves, setUserSaves] = useState([]);
   const [saveUser, setSaveUser] = useState([]);
   const [totalUserSaves, setTotalUserSaves] = useState(0);
   React.useEffect(() => {
-    getSaves()
-      .then(res => {
-        const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
-        setTotalUserSaves(totalSave.length)
-        const userlike = totalSave?.filter(ress => ress.user_id === user._id)
-        setSaveUser(userlike)
-        setUserSaves(userlike?.map(ress => ress.strategie_id))
-      })
-  }, [])
+    getSaves().then((res) => {
+      const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
+      setTotalUserSaves(totalSave.length);
+      const userlike = totalSave?.filter((ress) => ress.user_id === user._id);
+      setSaveUser(userlike);
+      setUserSaves(userlike?.map((ress) => ress.strategie_id));
+    });
+  }, []);
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,
-      user_id: user._id
-    }
-    postSaves(data)
-      .then(res => {
-        getSaves()
-          .then(res => {
-            const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
-            setTotalUserSaves(totalSave.length)
-            const userSave = totalSave?.filter(ress => ress.user_id === user._id)
-            setSaveUser(userSave)
-            setUserSaves(userSave?.map(ress => ress.strategie_id))
-          })
-      })
-  }
+      user_id: user._id,
+    };
+    postSaves(data).then((res) => {
+      getSaves().then((res) => {
+        const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
+        setTotalUserSaves(totalSave.length);
+        const userSave = totalSave?.filter((ress) => ress.user_id === user._id);
+        setSaveUser(userSave);
+        setUserSaves(userSave?.map((ress) => ress.strategie_id));
+      });
+    });
+  };
 
   const handleApiUnSaves = (id) => {
     if (saveUser.length !== 0) {
-      delSaves(saveUser[0]._id)
-        .then(res => {
-          if (res.data) {
-            getSaves()
-              .then(res => {
-                const totalSave = res?.data?.filter(ress => ress.strategie_id === id)
-                setTotalUserSaves(totalSave.length)
-                const userSave = totalSave?.filter(ress => ress.user_id === user._id)
-                setSaveUser(userSave)
-                console.log(userSave);
-                setUserSaves(userSave?.map(ress => ress.strategie_id))
-              })
-          }
-        })
+      delSaves(saveUser[0]._id).then((res) => {
+        if (res.data) {
+          getSaves().then((res) => {
+            const totalSave = res?.data?.filter(
+              (ress) => ress.strategie_id === id
+            );
+            setTotalUserSaves(totalSave.length);
+            const userSave = totalSave?.filter(
+              (ress) => ress.user_id === user._id
+            );
+            setSaveUser(userSave);
+            setUserSaves(userSave?.map((ress) => ress.strategie_id));
+          });
+        }
+      });
     }
-  }
-  const [show, setShow] = useState(false)
+  };
+  const [show, setShow] = useState(false);
+
+  const handleEditStrategy = async () => {
+    await seteditStrategyFormData(str);
+    navigate(`/editStrategyform/${str._id}`);
+  };
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
+  useEffect(() => {
+    setTimeout(() => {
+      const newText = replaceNewlinesWithLineBreaks(str["शिक्षण रणनीति"]);
+      if (pRef.current) {
+        pRef.current.innerHTML = newText;
+      }
+      setIsLoadingContent(false); // Mark loading as complete
+    }, 100); 
+  }, [str["शिक्षण रणनीति"]]);
+
   return (
     <div>
       <LikeByModal
@@ -243,200 +277,220 @@ const SingleHindiStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      {/* <div className='saveStrParent' >
-        <div className='text-white text-center headText mt-2 mt-md-0'>{t("Strategy screen")}</div>
-      </div> */}
-      <div className='saveStrParent2' style={{ background: "#D5B39A", overflow: "hidden", padding: "5px" }} >
-        <div style={{ color: "black" }} className='text-center headText my-1 mt-md-0 fw-bold'>{t("Strategy screen")}</div>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
+        <p className="headText text-center">{t("Strategy screen")}</p>
+        <hr className="line" />
       </div>
-      <div className='mx-3 mx-md-5'>
-        <p className='single_str_head'>{str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.कौशल} &gt; {str?.शीर्षक} &gt; {str[`उप शीर्षक`]} &gt; {str['उप-उप शीर्षक']}</p>
+      <div className="mx-2 mx-md-5">
+        <p className="single_str_head">
+          {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.['अच्छा विषय']} &gt; {str?.शीर्षक}{" "}
+          &gt; {str[`उप शीर्षक`]} &gt; {str["उप-उप शीर्षक"]}
+        </p>
       </div>
-      <div className='mx-5'>
-        <div style={{ background: "#FFFFFF" }} className='card_pad'>
-          <div className='my-4'>
-            <div className='d-flex justify-content-between my-4 '>
-              <div className='me-1'>
-                <div>
-                  <div className=' mb-4 mb-md-3 str_title'>
-                    <p className='str_name '>{t("strategy")}</p>
-                    <p className='uni_id'>ID-{str && str?._id?.slice(19, 26)}</p>
-                  </div>
-                </div>
-                <div className='d-block d-md-none mt-1'>
-                  <div className='icon_heading_text p-1'>Development Domains</div>
-                  <div className=' mt-1'>
-                    <div className='res_btn_icon'>
-                      <div className='d-flex flex-column res_inner_div p-1 '>
-                        {
-                          !str['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
-                            str['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="संज्ञानात्मक संवेदी" width="20px" height="20px" src={KnowledgeIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>संज्ञानात्मक संवेदी</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title="मोटर-भौतिक" width="20px" height="20px" src={Physical} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>मोटर-भौतिक</p>
-                              </div>
-                        }
-                        {
-                          !str['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
-                            str['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='सामाजिक-भावनात्मक-नैतिक' width="20px" height="20px" src={Social} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>सामाजिक-भावनात्मक-नैतिक</p>
-                              </div> :
-                              <div className='d-flex flex-column align-items-center justify-content-center'>
-                                <div>
-                                  <img title='भाषा और संचार' width="20px" height="20px" src={ChatIcon} alt="" />
-                                </div>
-                                <p className='dev_dpm_text'>भाषा और संचार</p>
-                              </div>
-                        }
-                      </div>
+      <div className="mx-2 mx-md-5">
+        <div  className="card_pad">
+          <div className="my-4">
+            <div className="d-flex justify-content-between my-4 ">
+              <div className="col-9  w-100 textContainer p-2 p-md-4">
+                <div className="me-1">
+                  <div>
+                    <div className=" mb-4 mb-md-3 str_title">
+                      <p className="str_name ">{t("strategy")}</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className='col-9 ms-4 col-md-7 '>
-                <p className='savestr_head'>{t("Learning Outcomes")}: {str["शिक्षण के परिणाम"]}</p>
-                <p className='savestr_body'>
-                  {str["शिक्षण रणनीति"]}
-                </p>
-                <div className='d-flex justify-content-between my-2'>
-                  <div className='d-flex align-items-center'>
-                    <div>
-                      <div className='mx-2'>
-                        {userSaves?.includes(str?._id) ? <img onClick={() => handleApiUnSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(str?._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                      </div>
-                      <p className='count_num'>{totalUserSaves}</p>
-                    </div>
-                    <div className='mx-3'>
+                {isLoadingContent?"Loading...": (
+                  <p
+                    ref={pRef}
+                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                  ></p>
+                )}
+
+                <div className="d-flex justify-content-between my-2">
+                  <div className="d-flex gap-2 gap-md-4">
+                    <div className="d-flex align-items-center flex-column">
                       <div>
-                        {userLikes.includes(str?._id) ? <img onClick={() => handleApiUnLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikedIcon} alt="" /> : <img onClick={() => handleApiLikes(str?._id)} style={{ cursor: "pointer" }} className="save_likes" src={LikeIcon} alt="" />}
+                        {userSaves?.includes(str?._id) ? (
+                          <img
+                            onClick={() => handleApiUnSaves(str?._id)}
+                            className="save_like cursor-pointer"
+                            src={SavedIcon}
+                            alt="SavedIcon"
+                          />
+                        ) : (
+                          <img
+                            onClick={() => handleApiSaves(str?._id)}
+                            className="save_like cursor-pointer"
+                            src={SaveIcon}
+                            alt="SavedIcon"
+                          />
+                        )}
                       </div>
-                      <p className='count_num' onClick={() => setShow(!show)}>{totalUserLikes}</p>
+                      <p className="count_num mx-0">{totalUserSaves}</p>
                     </div>
-                  </div>
-                  <div className='me-md-3 me-0'>
-                    {
-                      str['Mode of Teaching'] === "ऑनलाइन" ?
-                        <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                        <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
-                    }
-                  </div>
-                </div>
-              </div>
-              <div className='col-md-3 d-none d-md-block dev_dom_bg'>
-                <div className='d-flex flex-column align-items-center justify-content-center'>
-                  <div className='mt-3'>
-                    <span className='Dev_dom'>{t("Developmental Domains")}</span>
-                  </div>
-                  <div className='d-flex align-items-center justify-content-center mt-md-2'>
-                    <div className='p-3 m-2 icon_bg'>
+                    <div className="d-flex align-items-center flex-column">
                       <div>
-                        {
-                          !str['Dev Dom 1'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 1'] === "Cognitive Sensory" ?
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Cognitive Sensory" className='threeIcons ' src={KnowledgeIcon} alt="" />
-                                <p className='dev_dpm_text'>Cognitive Sensory</p>
-                              </div> :
-                              <div className='d-flex dev_dom_single'>
-                                <img title="Motor-Physical" className='threeIcons ' src={Physical} alt="" />
-                                <p className='dev_dpm_text'>Motor-Physical</p>
-                              </div>
-                        }
+                        {userLikes.includes(str?._id) ? (
+                          <img
+                            onClick={() => handleApiUnLikes(str?._id)}
+                            className="save_likes cursor-pointer"
+                            src={LikedIcon}
+                            alt="LikedIcon"
+                          />
+                        ) : (
+                          <img
+                            onClick={() => handleApiLikes(str?._id)}
+                            className="save_likes cursor-pointer"
+                            src={LikeIcon}
+                            alt="LikedIcon"
+                          />
+                        )}
                       </div>
-                      <div>
-                        {
-                          !str['Dev Dom 2'] ? <div className='threeIcons-nun'></div> :
-                            str['Dev Dom 2'] === "Socio-Emotional-Ethical" ?
-                              <div className='d-flex'>
-                                <img title='Socio-Emotional-Ethical' className='threeIcons' src={Social} alt="" />
-                                <p className='dev_dpm_text'>Socio-Emotional-Ethical</p>
-                              </div> :
-                              <div className='d-flex'>
-                                <img title='Language & Communication' className='threeIcons' src={ChatIcon} alt="" />
-                                <p className='dev_dpm_text'>Language and Communication</p>
-                              </div>
-                        }
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='comment_div d-none d-md-block'>
-              <p className='comment_div_p'>{t("Comments")}</p>
-              <form onSubmit={handleComment}>
-                <div>
-                  <input name='comment' placeholder={`${t("Add a comment")}...`} className='w-100 comment_input' type="text" />
-                </div>
-                <div className='d-flex justify-content-end comment_submit'>
-                  <input type="submit" value={`${t('Submit')}`} />
-                </div>
-              </form>
-              <div className={!seeComment ? "d-block" : "d-none"}>
-                <div onClick={handleSeeComment} className="text-center see_comment">
-                  <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
-                </div>
-              </div>
-              <div className={seeComment ? "d-block" : "d-none"}>
-                <div onClick={handleSeeComment} className='text-center see_comment'>
-                  <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
-                </div>
-                {
-                  comment?.map((res, index) => (
-                    <div key={index} className='mt-4'>
-                      <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
-                      <p className='comment_text'>{res.comment}
+                      <p className="count_num mx-0" onClick={() => setShow(!show)}>
+                        {totalUserLikes}
                       </p>
-                      <hr />
                     </div>
-                  ))
-                }
+                    {!isAlreadyRated ? (
+                      <button
+                        className="secondaryButton"
+                        onClick={toggleUsedStrategy}
+                      >
+                        {t("Mark as used")}
+                      </button>
+                    ) : (
+                      <button className="primaryButton">
+                        {t("I used this!")}
+                      </button>
+                    )}
+                  </div>
+                  <div className="justify-content-center d-flex gap-3">
+                    <button
+                      className="secondaryButton"
+                      onClick={handleEditStrategy}
+                    >
+                      {t("Edit Strategy")} <img src={editIcon} alt="edit" className="mx-md-2"/>
+                    </button>
+                  </div>
+                </div>
+                <RatingModal
+                  show={isUsedStrategy}
+                  handleClose={handleCloseRatingModal}
+                  handleStarClick={handleStarClick}
+                  rating={rating}
+                  setRating={setRating}
+                />
+                <div className="comment_div d-none d-md-block">
+                  <p className="comment_div_p">{t("Comments")}</p>
+                  <form onSubmit={handleComment}>
+                    <div>
+                      <input
+                        name="comment"
+                        placeholder={`${t("Add a comment")}...`}
+                        className="w-100 comment_input"
+                        type="text"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-end comment_submit">
+                      <input type="submit" value={`${t("Submit")}`} />
+                    </div>
+                  </form>
+                  <div className={!seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        {t("View comments")} {comment?.length}{" "}
+                        <img src={DownArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className={seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        {t("Hide comments")} {comment?.length}{" "}
+                        <img src={UpArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                    {comment?.map((res, index) => (
+                      <div key={index} className="mt-4">
+                        <p className="comment_head">
+                          {res.user_name}{" "}
+                          <span className="comment_span">
+                            {moment(res.postTime)
+                              .startOf("MMMM Do YYYY, h:mm:ss a")
+                              .fromNow()}
+                          </span>
+                        </p>
+                        <p className="comment_text">{res.comment}</p>
+                        <hr />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="comment_div d-block d-md-none">
+                  <p className="comment_div_p">Comments</p>
+                  <form onSubmit={handleComment}>
+                    <div>
+                      <input
+                        name="comment"
+                        placeholder="Add a comment..."
+                        className="w-100 comment_input"
+                        type="text"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-end comment_submit">
+                      <input type="submit" />
+                    </div>
+                  </form>
+                  <div className={!seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        {t("View comments")} {comment?.length}{" "}
+                        <img src={DownArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className={seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        {t("Hide comments")} {comment?.length}{" "}
+                        <img src={UpArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                    {comment?.map((res, index) => (
+                      <div key={index} className="mt-4">
+                        <p className="comment_head">
+                          {res.user_name}{" "}
+                          <span className="comment_span">
+                            {moment(res.postTime)
+                              .startOf("MMMM Do YYYY, h:mm:ss a")
+                              .fromNow()}
+                          </span>
+                        </p>
+                        <p className="comment_text">{res.comment}</p>
+                        <hr />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className='comment_div d-block d-md-none'>
-        <p className='comment_div_p'>Comments</p>
-        <form onSubmit={handleComment}>
-          <div>
-            <input name='comment' placeholder='Add a comment...' className='w-100 comment_input' type="text" />
-          </div>
-          <div className='d-flex justify-content-end comment_submit'>
-            <input type="submit" />
-          </div>
-        </form>
-        <div className={!seeComment ? "d-block" : "d-none"}>
-          <div onClick={handleSeeComment} className="text-center see_comment">
-            <p className='m-0'>{t("View comments")} {comment?.length} <img src={DownArrow} alt="" /></p>
-          </div>
-        </div>
-        <div className={seeComment ? "d-block" : "d-none"}>
-          <div onClick={handleSeeComment} className='text-center see_comment'>
-            <p className='m-0'>{t("Hide comments")} {comment?.length} <img src={UpArrow} alt="" /></p>
-          </div>
-          {
-            comment?.map((res, index) => (
-              <div key={index} className='mt-4'>
-                <p className='comment_head'>{res.user_name} <span className='comment_span'>{moment(res.postTime).startOf('MMMM Do YYYY, h:mm:ss a').fromNow()}</span></p>
-                <p className='comment_text'>{res.comment}
-                </p>
-                <hr />
-              </div>
-            ))
-          }
         </div>
       </div>
     </div>

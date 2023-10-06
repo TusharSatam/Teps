@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { getComment } from '../services/stratigyes';
+import { getAllStratigys, getComment } from '../services/stratigyes';
+import { getUserStratigys } from '../services/userStratigy';
+import { getAllHindiStratigys } from '../services/hindiStratigys';
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -14,6 +16,48 @@ const AuthProvider = ({ children }) => {
   const [stratigyFilUserData, setStratigyFilUserData] = React.useState([]);
   const [selectLang, setselectLang] = React.useState('')
   const [humBurgs, setHumBurgs] = React.useState(true)
+
+  const [allStrategies, setAllStrategies] = useState([]);
+  const [allUserStrategies, setAllUserStrategies] = useState([]);
+  const [allHindiStrategies, setAllHindiStrategies] = useState([]);
+  const [loadingdropdown, setLoadingdropdown] = useState(false);
+const [editStrategyFormData, seteditStrategyFormData] = useState([])
+// Fetch and cache data
+useEffect(() => {
+  const fetchDataEN = async () => {
+    setLoadingdropdown(true)
+    try {
+      // Check if the data is already cached
+      if (allStrategies.length === 0 || allUserStrategies.length === 0) {
+        const allStrategiesResponse = await getAllStratigys();
+        const userStrategiesResponse = await getUserStratigys();
+
+        setAllStrategies(allStrategiesResponse.data);
+        setAllUserStrategies(userStrategiesResponse.data?.filter(res => res.Approve === true));
+      }
+      setLoadingdropdown(false)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchDataEN();
+}, [allStrategies, allUserStrategies]);
+// Fetch and cache data (hindi)
+useEffect(() => {
+  const fetchDataHindi = async () => {
+    setLoadingdropdown(true);
+    try {
+      // Fetch Hindi strategies and store in allHindiStrategies
+      const allHindiStrategiesResponse = await getAllHindiStratigys();
+      setAllHindiStrategies(allHindiStrategiesResponse.data);
+      setLoadingdropdown(false);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchDataHindi();
+}, []);
 
   const logout = () => {
     const confirmation = window.confirm('Are you sure you want to logout?');
@@ -106,7 +150,9 @@ const AuthProvider = ({ children }) => {
       value={{
         isAuthenticated, user, setIsAuthenticated, setUser, logout, laoding, stratigyFilData,
         setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin,
-        admin, Adminlogout, setAdmin, humBurgs, setHumBurgs, stratigyFilUserData, setStratigyFilUserData, setComments, comments
+        admin, Adminlogout, setAdmin, humBurgs, setHumBurgs, stratigyFilUserData, setStratigyFilUserData, setComments, comments, allStrategies,
+        allUserStrategies,allHindiStrategies,seteditStrategyFormData,editStrategyFormData,
+        loadingdropdown,
       }}>
       {children}
     </AuthContext.Provider>

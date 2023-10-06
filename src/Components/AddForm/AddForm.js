@@ -1,52 +1,118 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./addForm.css";
-import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { getAllStratigys } from "../../services/stratigyes";
 import { useAuth } from "../../Context/AuthContext";
-import { postUserStratigys } from "../../services/userStratigy";
-import AproveReqModal from "../Modal/AproveReqModal";
 import AddFormHi from "./AddFormHi";
+import { useEffect } from "react";
+import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
+import { t } from "i18next";
+import backArrow from "../../asstes/icons/backArrow.svg";
 
 const AddForm = () => {
-  const { user } = useAuth();
+  const { user, selectLang } = useAuth();
   const [allStratigys, setAllStratigys] = React.useState([]);
-  //---------------------------------------------------------
-  const [selectSubject, setSelectSubject] = React.useState();
-  const [selectGrade, setSelectGrade] = React.useState();
-  const [selectTopic, setSelectTopic] = React.useState();
-  const [selectSkill, setSelectSkill] = React.useState();
-  const [selectSubTopic, setSelectSubTopic] = React.useState();
-  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState();
-  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState();
-  const [devDom1, setDevDom1] = React.useState("");
-  const [devDom2, setDevDom2] = React.useState("");
-  //-----------------------------------------------------------------
+  const [selectSubject, setSelectSubject] = React.useState("");
+  const [selectGrade, setSelectGrade] = React.useState("");
+  const [selectTopic, setSelectTopic] = React.useState("");
+  const [selectSkill, setSelectSkill] = React.useState("");
+  const [selectSubTopic, setSelectSubTopic] = React.useState("");
+  const [selectSubSubTopic, setSelectSubSubTopic] = React.useState("");
+  const [selectPedagogical, setSelectPedagogical] = React.useState("");
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [uniqueSubjects, setuniqueSubjects] = useState("");
+  const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
+  const [teachingStrategy, setteachingStrategy] = React.useState("");
   const [modalShow, setModalShow] = React.useState(false);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const [error, setError] = useState(false);
   const [submitData, setSubmitData] = useState({});
   const language = localStorage.getItem("i18nextLng");
+  const successMessageRef = useRef(null);
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
     } else {
       setLanguageSelect("en");
     }
-  }, [language]);
+  }, [language, selectLang]);
 
   React.useEffect(() => {
     getAllStratigys().then((res) => {
       setAllStratigys(res.data);
     });
   }, []);
+  const resetDropdowns = () => {
+    setSelectSubject("");
+    setSelectGrade("");
+    setSelectSkill("");
+    setSelectTopic("");
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectLearningOutcome("");
+    setteachingStrategy("");
+    setSelectPedagogical("");
+    setSelectSuperTopic("");
+  };
 
-  // english stratiges--------------------------------------------------------
-  const uniqueSubject = Array.from(
-    new Set(allStratigys.map((a) => a.Subject))
-  ).map((subject) => {
-    return allStratigys.find((a) => a.Subject === subject);
-  });
+  const handleSub = (e) => {
+    setSelectSubject(e.target.value);
+    setSelectTopic("");
+    setSelectSkill("");
+    setSelectSuperTopic("");
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handleGrade = (e) => {
+    setSelectGrade(e.target.value);
+    setSelectSubject("");
+    setSelectTopic("");
+    setSelectSkill("");
+    setSelectSuperTopic("");
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handleSkill = (e) => {
+    setSelectSkill(e.target.value);
+  };
+  const handleSuperTopic = (e) => {
+    setSelectSuperTopic(e.target.value);
+    setSelectTopic("");
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handleTopic = (e) => {
+    setSelectTopic(e.target.value);
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handleSubTopic = (e) => {
+    setSelectSubTopic(e.target.value);
+    setSelectSubSubTopic("");
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handleSubSubTopic = (e) => {
+    setSelectSubSubTopic(e.target.value);
+    setSelectPedagogical("");
+    setSelectLearningOutcome("");
+  };
+  const handlePedagogical = (e) => {
+    setSelectPedagogical(e.target.value);
+    setSelectLearningOutcome("");
+  };
+  const handleLearningOutcome = (e) => {
+    setSelectLearningOutcome(e.target.value);
+  };
 
   const uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).map(
     (grade) => {
@@ -54,66 +120,76 @@ const AddForm = () => {
     }
   );
 
-  const uniqueDevDom1 = Array.from(
-    new Set(allStratigys.map((a) => a["Dev Dom 1"]))
-  ).map((devDom1) => {
-    return allStratigys.find((a) => a["Dev Dom 1"] === devDom1);
+  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+    return creature.Grade === selectGrade;
   });
+  let allowedSubjects = [];
+  const uniqueSubject = Array.from(
+    new Set(aquaticCreaturesSubject.map((a) => a.Subject))
+  )
+    .map((subject) => {
+      return aquaticCreaturesSubject.find((a) => a.Subject === subject);
+    })
+    .filter((e) => {
+      if (
+        selectGrade === "Pre-K" ||
+        selectGrade === "K1" ||
+        selectGrade === "K2"
+      ) {
+        // For Pre-K, K1, K2 selectGrades
+        allowedSubjects = ["English", "Numeracy", "Science", "EVS"];
+        return allowedSubjects.includes(e.Subject);
+      } else if (
+        selectGrade === "1" ||
+        selectGrade === "2" ||
+        selectGrade === "3" ||
+        selectGrade === "4" ||
+        selectGrade === "5"
+      ) {
+        // For selectGrades 1 to 5
+        allowedSubjects = ["English", "Mathematics", "EVS"];
+        return allowedSubjects.includes(e.Subject);
+      } else {
+        // For other selectGrades
+        allowedSubjects = [
+          "English",
+          "Mathematics",
+          "Science",
+          "Social Studies",
+        ];
+        return allowedSubjects.includes(e.Subject);
+      }
+    });
 
-  const uniqueDevDom2 = Array.from(
-    new Set(allStratigys.map((a) => a["Dev Dom 2"]))
-  ).map((devDom1) => {
-    return allStratigys.find((a) => a["Dev Dom 2"] === devDom1);
-  });
-
-  const handleSub = (e) => {
-    setSelectSubject(e.target.value);
-  };
-  const handleGrade = (e) => {
-    setSelectGrade(e.target.value);
-  };
-  const handleSkill = (e) => {
-    setSelectSkill(e.target.value);
-  };
-  const handleTopic = (e) => {
-    setSelectTopic(e.target.value);
-  };
-  const handleSubTopic = (e) => {
-    setSelectSubTopic(e.target.value);
-  };
-  const handleSubSubTopic = (e) => {
-    setSelectSubSubTopic(e.target.value);
-  };
-  const handleLearningOutcome = (e) => {
-    setSelectLearningOutcome(e.target.value);
-  };
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   });
-  const uniqueSkill = Array.from(
-    new Set(aquaticCreatures?.map((a) => a.Skill))
-  ).map((skill) => {
-    return aquaticCreatures?.find((a) => a.Skill === skill);
+
+  const uniqueSuperTopic = Array.from(
+    new Set(aquaticCreatures?.map((a) => a["Super Topic"]))
+  ).map((SuperTopic) => {
+    return aquaticCreatures?.find((a) => a["Super Topic"] === SuperTopic);
   });
-  const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
+
+  const aquaticCreaturesSuperTopic = allStratigys.filter(function (creature) {
     return (
       creature.Subject === selectSubject &&
       creature.Grade === selectGrade &&
-      creature.Skill === selectSkill
+      creature["Super Topic"] === selectSuperTopic
     );
   });
 
   const uniqueTopic = Array.from(
-    new Set(aquaticCreaturesSkill?.map((a) => a.Topic))
+    new Set(aquaticCreaturesSuperTopic?.map((a) => a.Topic))
   ).map((topic) => {
-    return aquaticCreaturesSkill?.find((a) => a.Topic === topic);
+    return aquaticCreaturesSuperTopic?.find((a) => a.Topic === topic);
   });
 
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
     return (
       creature.Subject === selectSubject &&
       creature.Grade === selectGrade &&
-      creature.Skill === selectSkill &&
+      creature["Super Topic"] === selectSuperTopic &&
       creature.Topic === selectTopic
     );
   });
@@ -123,11 +199,12 @@ const AddForm = () => {
   ).map((sub_topic) => {
     return aquaticCreaturesTopic?.find((a) => a["Sub Topic"] === sub_topic);
   });
+
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
     return (
       creature.Subject === selectSubject &&
       creature.Grade === selectGrade &&
-      creature.Skill === selectSkill &&
+      creature["Super Topic"] === selectSuperTopic &&
       creature.Topic === selectTopic &&
       creature["Sub Topic"] === selectSubTopic
     );
@@ -139,16 +216,36 @@ const AddForm = () => {
       (a) => a["Sub-sub topic"] === sub_sub_topic
     );
   });
+
+  const aquaticCreaturesSubSubTopic = allStratigys.filter(function (creature) {
+    return (
+      creature.Subject === selectSubject &&
+      creature.Grade === selectGrade &&
+      creature["Super Topic"] === selectSuperTopic &&
+      creature.Topic === selectTopic &&
+      creature["Sub Topic"] === selectSubTopic &&
+      creature["Sub-sub topic"] === selectSubSubTopic
+    );
+  });
+  const uniquePedagogical = Array.from(
+    new Set(aquaticCreaturesSubSubTopic?.map((a) => a["Pedagogical Approach"]))
+  ).map((PedagogicalApproach) => {
+    return aquaticCreaturesSubSubTopic?.find(
+      (a) => a["Pedagogical Approach"] === PedagogicalApproach
+    );
+  });
+
   const aquaticCreaturesLearningOutcome = allStratigys.filter(function (
     creature
   ) {
     return (
       creature.Subject === selectSubject &&
       creature.Grade === selectGrade &&
-      creature.Skill === selectSkill &&
+      creature["Super Topic"] === selectSuperTopic &&
       creature.Topic === selectTopic &&
       creature["Sub Topic"] === selectSubTopic &&
-      creature["Sub-sub topic"] === selectSubSubTopic
+      creature["Sub-sub topic"] === selectSubSubTopic &&
+      creature["Pedagogical Approach"] === selectPedagogical
     );
   });
   const uniqueLearningOutcome = Array.from(
@@ -164,13 +261,11 @@ const AddForm = () => {
     if (
       e.target.subject.value === "" ||
       e.target.grade.value === "" ||
-      e.target.skill.value === "" ||
+      e.target.superTopic.value === "" ||
       e.target.topic.value === "" ||
       e.target.sub_topic.value === "" ||
       e.target.sub_sub_topic.value === "" ||
-      e.target.dev_dom_1.value === "" ||
-      e.target.dev_dom_2.value === "" ||
-      e.target.mode_of_teaching.value === "" ||
+      e.target.pedagogical.value === "" ||
       e.target.learning_outcome.value === "" ||
       e.target.teaching_str.value === ""
     ) {
@@ -182,294 +277,282 @@ const AddForm = () => {
         User_id: user._id,
         Subject: e.target.subject.value,
         Grade: e.target.grade.value,
-        Skill: e.target.skill.value,
         Topic: e.target.topic.value,
+        "Super Topic": e.target.superTopic.value,
         "Sub Topic": e.target.sub_topic.value,
         "Sub-sub topic": e.target.sub_sub_topic.value,
-        "Dev Dom 1": e.target.dev_dom_1.value,
-        "Dev Dom 2": e.target.dev_dom_2.value,
-        "Mode of Teaching": e.target.mode_of_teaching.value,
+        "Pedagogical Approach": e.target.pedagogical.value,
         "Learning Outcome": e.target.learning_outcome.value,
         "Teaching Strategy": e.target.teaching_str.value,
         Approve: false,
       };
+      setFormSubmitted(true);
       setSubmitData(data);
+      // Reset the form fields
+      // Clear all input fields
+      setSelectSubject("");
+      setSelectGrade("");
+      setSelectSkill("");
+      setSelectTopic("");
+      setSelectSubTopic("");
+      setSelectSubSubTopic("");
+      setSelectLearningOutcome("");
+      setteachingStrategy("");
+      setSelectPedagogical("");
+      setSelectSuperTopic("");
     }
   };
-  const devDom1Options = [
-    null,
-    "Cognitive Sensory",
-    "Motor-Physical",
-    "Socio-Emotional-Ethical",
-    "Language & Communication",
-  ];
+  React.useEffect(() => {
+    if (formSubmitted) {
+      successMessageRef.current.scrollIntoView({
+        behavior: "smooth", // You can use "auto" for instant scrolling
+        block: "start", // Scroll to the top of the message
+      });
+    }
+  }, [formSubmitted]);
 
+  const handleClosePublishModal = () => {
+    setModalShow(false);
+  };
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <div>
       {languageSelect === "en" ? (
         <>
-          <AproveReqModal
+          <PublishModal
             show={modalShow}
-            setModalShow={setModalShow}
-            onHide={() => setModalShow(false)}
-            data={submitData}
+            handleClose={handleClosePublishModal}
+            setDatas={setSubmitData}
+            Datas={submitData}
           />
-          <div className="form-title">
-            <p>Add Your Strategy</p>
+          <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+            <button className="backbutton" onClick={handleBackClick}>
+              <img src={backArrow} alt="backArrow"  className="mb-md-1"/>
+              {`${t("Back")}`}
+            </button>
+            <hr className="line" />
+            <p className="headText text-center">Add Your Strategy</p>
+            <hr className="line" />
           </div>
           <div className="center-div">
-            <form onSubmit={handleSubmit} className="form-main-div">
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Subject <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSub}
-                    className={"select-field"}
-                    name="subject"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Subject
-                    </option>
-                    {uniqueSubject
-                      ?.filter((res) => res.Subject !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>
-                          {res.Subject !== "" && res.Subject}
-                        </option>
-                      ))}
-                  </select>
+            {allStratigys.length ? (
+              <form onSubmit={handleSubmit} className="form-main-div">
+                <div className="two-selects ">
+                  <div>
+                    <p className="select-title">
+                      Grade <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleGrade}
+                      className={"select-field"}
+                      name="grade"
+                      value={selectGrade}
+                      id="grade"
+                    >
+                      <option value="" selected disabled>
+                        Grade
+                      </option>
+                      {uniqueGrade
+                        ?.filter((res) => res.Grade !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res.Grade}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <div>
+                    <p className="select-title">
+                      Subject <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleSub}
+                      className={"select-field"}
+                      name="subject"
+                      value={selectSubject}
+                      id="subject"
+                    >
+                      <option value="" selected disabled>
+                        Subject
+                      </option>
+                      {uniqueSubject
+                        ?.filter((res) => res.Subject !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>
+                            {res.Subject !== "" && res.Subject}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
                 </div>
-                <div>
-                  <p className="select-title">
-                    Grade <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleGrade}
-                    className={"select-field"}
-                    name="grade"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Grade
-                    </option>
-                    {uniqueGrade
-                      ?.filter((res) => res.Grade !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Grade}</option>
-                      ))}
-                  </select>
+                <div className="two-selects ">
+                  <div>
+                    <p className="select-title">
+                      Super Topic <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleSuperTopic}
+                      className={"select-field"}
+                      name="superTopic"
+                      value={selectSuperTopic}
+                    >
+                      <option value="" selected disabled>
+                        Super Topic
+                      </option>
+                      {uniqueSuperTopic
+                        ?.filter((res) => res["Super Topic"] !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res["Super Topic"]}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <div>
+                    <p className="select-title">
+                      Topic <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleTopic}
+                      className={"select-field"}
+                      name="topic"
+                      value={selectTopic}
+                    >
+                      <option value="" selected disabled>
+                        Topic
+                      </option>
+                      {uniqueTopic
+                        ?.filter((res) => res.Topic !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res.Topic}</option>
+                        ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Skill <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSkill}
-                    className={"select-field"}
-                    name="skill"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Skill
-                    </option>
-                    {uniqueSkill
-                      ?.filter((res) => res.Skill !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Skill}</option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleTopic}
-                    className={"select-field"}
-                    name="topic"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Topic
-                    </option>
-                    {uniqueTopic
-                      ?.filter((res) => res.Topic !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res.Topic}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Sub-Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSubTopic}
-                    className={"select-field"}
-                    name="sub_topic"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Sub-Topic
-                    </option>
-                    {uniqueSubTopic
-                      ?.filter((res) => res["Sub Topic"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Sub Topic"]}</option>
-                      ))}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Sub-Sub-Topic <p>*</p>
-                  </p>
-                  <select
-                    onChange={handleSubSubTopic}
-                    className={"select-field"}
-                    name="sub_sub_topic"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Sub-Sub-Topic
-                    </option>
+                <div className="two-selects ">
+                  <div>
+                    <p className="select-title">
+                      Sub-Topic <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleSubTopic}
+                      className={"select-field"}
+                      name="sub_topic"
+                      value={selectSubTopic}
+                    >
+                      <option value="" selected disabled>
+                        Sub-Topic
+                      </option>
+                      {uniqueSubTopic
+                        ?.filter((res) => res["Sub Topic"] !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res["Sub Topic"]}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <div>
+                    <p className="select-title">
+                      Sub-Sub-Topic <p>*</p>
+                    </p>
+                    <select
+                      onChange={handleSubSubTopic}
+                      className={"select-field"}
+                      name="sub_sub_topic"
+                      value={selectSubSubTopic}
+                    >
+                      <option value="" selected disabled>
+                        Sub-Sub-Topic
+                      </option>
 
-                    {uniqueSubSubTopic
-                      ?.filter((res) => res["Sub-sub topic"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Sub-sub topic"]}</option>
-                      ))}
-                  </select>
+                      {uniqueSubSubTopic
+                        ?.filter((res) => res["Sub-sub topic"] !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res["Sub-sub topic"]}</option>
+                        ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Dev Dom 1 <p>*</p>
-                  </p>
 
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_1"
-                    id=""
-                    placeholder="Dev Dom 1"
-                    onChange={(e) => {
-                      setDevDom1(e.target.value);
-                    }}
-                    value={devDom1}
-                  >
-                    {devDom1Options.map((option, i) => (
-                      <option key={i}>{option}</option>
-                    ))}
+                <div className="two-selects ">
+                  <div>
+                    <p className="select-title">
+                      Pedagogical Approach <p>*</p>
+                    </p>
+                    <select
+                      onChange={handlePedagogical}
+                      className={"select-field"}
+                      name="pedagogical"
+                      value={selectPedagogical}
+                    >
+                      <option value="" selected disabled>
+                        Pedagogical Approach
+                      </option>
 
-                    {/* {uniqueDevDom1
-                      ?.filter((res) => res["Dev Dom 1"] !== "")
-                      .map((res) => (
-                        <option>
-                          {res["Dev Dom 1"] !== undefined && res["Dev Dom 1"]}
-                        </option>
-                      ))} */}
-                  </select>
-                </div>
-                <div>
-                  <p className="select-title">
-                    Dev Dom 2 <p>*</p>
-                  </p>
-                  <select
-                    className={"select-field"}
-                    name="dev_dom_2"
-                    placeholder="Dev Dom 2"
-                    id=""
-                    onChange={(e) => {
-                      setDevDom2(e.target.value);
-                    }}
-                    value={devDom2}
-                  >
-                    {devDom1Options.map(
-                      (option, i) =>
-                        !(devDom1 === option) && (
-                          <option key={i}>{option}</option>
+                      {uniquePedagogical
+                        ?.filter(
+                          (res) => res["Pedagogical Approach"] !== undefined
                         )
-                    )}
-                    {/* {
-                        uniqueDevDom2?.filter(res => res['Dev Dom 2'] !== undefined).map(res => (
-                          <option>{res['Dev Dom 2']}</option>
-                        ))
-                      } */}
-                  </select>
+                        .map((res, i) => (
+                          <option key={i}>{res["Pedagogical Approach"]}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <div>
+                    <p className="select-title">
+                      Learning Outcome<p>*</p>
+                    </p>
+                    <select
+                      onChange={handleLearningOutcome}
+                      className={"select-field"}
+                      name="learning_outcome"
+                      value={selectLearningOutcome}
+                    >
+                      <option value="" selected disabled>
+                        Learning Outcome
+                      </option>
+                      {uniqueLearningOutcome
+                        ?.filter((res) => res["Learning Outcome"] !== undefined)
+                        .map((res, i) => (
+                          <option key={i}>{res["Learning Outcome"]}</option>
+                        ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    Mode Of Teaching <p>*</p>
+
+                <div className="one-selects-l">
+                  <div>
+                    <p className="select-title">
+                      Teaching Strategy <p>*</p>
+                    </p>
+                    <textarea
+                      className={"select-field-full-2"}
+                      name="teaching_str"
+                      value={teachingStrategy}
+                      onClick={()=>setFormSubmitted(false)}
+                      onChange={(e) => setteachingStrategy(e.target.value)}
+                    />
+                  </div>
+                </div>
+                {error && (
+                  <p className="form-error">
+                    Please fill all of the above fields !
                   </p>
-                  <select
-                    className={"select-field"}
-                    name="mode_of_teaching"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Mode Of Teaching
-                    </option>
-                    <option>Online</option>
-                    <option>Offline</option>
-                  </select>
+                )}
+                <div className="d-flex gap-3 mt-4">
+                  <button type="submit" className="primaryButton">
+                    Publish strategy
+                  </button>
+                  <button type="button" className="secondaryButton">
+                    Cancel
+                  </button>
                 </div>
-              </div>
-              <div className="one-selects">
-                <div>
-                  <p className="select-title">
-                    <p>*</p>Learning Outcome
-                  </p>
-                  <select
-                    onChange={handleLearningOutcome}
-                    className={"select-field w-100"}
-                    name="learning_outcome"
-                    id=""
-                  >
-                    <option value="" selected disabled>
-                      Learning Outcome
-                    </option>
-                    {uniqueLearningOutcome
-                      ?.filter((res) => res["Learning Outcome"] !== undefined)
-                      .map((res, i) => (
-                        <option key={i}>{res["Learning Outcome"]}</option>
-                      ))}
-                  </select>
-                </div>
-              </div>
-              <div className="one-selects-l">
-                <div>
-                  <p className="select-title">
-                    Teaching Strategy <p>*</p>
-                  </p>
-                  <textarea
-                    className={"select-field-full-2"}
-                    name="teaching_str"
-                    id=""
-                  />
-                </div>
-              </div>
-              <div className="d-flex justify-content-center mt-4">
-                {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
-                <button type="submit" className="form-btn">
-                  Submit Strategy
-                </button>
-              </div>
-              {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
-              {error && (
-                <p className="form-error">
-                  Please fill all of the above fields !
-                </p>
-              )}
-            </form>
+              </form>
+            ) : (
+              <div className="loading-spinner"></div>
+            )}
+            {formSubmitted && (
+              <p className="responseText" ref={successMessageRef}>
+                Thank you for publishing your strategy!
+              </p>
+            )}
           </div>
         </>
       ) : (

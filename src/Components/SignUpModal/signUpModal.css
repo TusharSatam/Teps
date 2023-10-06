@@ -1,109 +1,175 @@
-.sign_up{
-    font-family: 'Inter';
+.sign_up {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
-    font-size: 48px;
     line-height: 48px;
     letter-spacing: -0.01em;
-    color: #1AA05B;
-}
-.modal_full{
-    width: 90% !important;
-    /* margin: 0 100px; */
-    margin-left: -100px;
+    font-size: 28px;
+    margin-bottom: 3rem;
+  }
+
+  
+  .modal_full {
     margin-top: 0;
     margin-bottom: 0;
-    /* overflow-y: hidden !important; */
-}
-.modal_full::-webkit-scrollbar {
+    max-width:unset !important;
+    min-width:unset !important;
+    width: 100% !important;
+  }
+
+  .modal_full > div{
+      max-width: fit-content !important;
+    }
+  .modal_full::-webkit-scrollbar {
     display: none;
   }
-.modal_body{
-    background: #FFFFFF;
+  .modal_body {
+    background: #ffffff;
     border-radius: 12px;
-    width: 920px;
     padding: 2rem 1rem;
-}
-.modal-backdrop.show{
-    opacity: 1 !important;
-    background: rgba(8, 9, 10, 0.5)!important;
-}
-.signup_Input{
-    background: #F8F9FA;
-    border: 1px solid #CED4DA;
+  }
+  .modal-backdrop.show {
+    height: -webkit-fill-available;
+    width: -webkit-fill-available;
+    background-color: rgba(213, 179, 154, 0.40) !important;
+  }
+  .signup_Input {
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
     border-radius: 8px;
-    padding: 5px 10px;
     width: 350px;
-}
-.signup_Input:focus{
+    border-radius: 12px;
+    height: 40px;
+    padding: 0.5rem 0.8rem;
+    box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.20) inset, 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
+  }
+  .signup_Input:focus {
     outline: none;
-}
-.res_modal{
-    background: #FFFFFF;
+  }
+  .signup_Input::placeholder,label,.login_input::placeholder{
+    color:  #000000;
+    font-weight: 500;
+  }
+  .email::placeholder,.phoneNumber::placeholder{
+    font-weight: 400;
+  } 
+  .res_modal {
+    background: #ffffff;
     border-radius: 12px;
     max-height: 500px;
     overflow-y: scroll;
-}
-.select_input{
+  }
+  .select_input {
     width: 350px;
-    background: #F8F9FA;
-    border: 1px solid #CED4DA;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
     border-radius: 8px;
-    padding: 5px 10px;
-}
-.submit_btn{
-    background: #1AA05B;
+    padding: 0.2rem 0.4rem;
+  }
+  .submit_btn {
+    background: #1aa05b;
     border-radius: 20px;
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     gap: 10px;
-    border: 1px solid #1AA05B;
+    border: 1px solid #1aa05b;
     letter-spacing: -0.01em;
-    color: #FFFFFF;
-    font-family: 'Inter';
+    color: #ffffff;
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
     transition: 0.3s;
-}
-.submit_btn:hover{
-    border: none;
-    background: #9FDFBE;
-    border: 1px solid #9FDFBE;
-}
-.res-label {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: #474747;
   }
-  .forgot_passs{
-    font-family: 'Inter';
+  .subBtn{
+    width: 195px;
+  }
+  .submit_btn:hover {
+    border: none;
+    background: #9fdfbe;
+    border: 1px solid #9fdfbe;
+  }
+  .selectOne{
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .remindLater_btn{
+    border-radius: 24px;
+    color: #1aa05b;
+    padding: .5rem 1rem;
+    border: 1px solid #1AA05B;
+    background: #FFF;
+    margin-top: 1rem;
+    box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+  }
+  .res-label {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #474747;
+  }
+  .forgot_passs {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
     line-height: 17px;
     text-decoration-line: underline;
-    color: #1AA05B;
-}
-@media only screen and (max-width: 990px) {
+    color: #1aa05b;
+  }
+  .closeModalIcon{
+    cursor: pointer;
+    position: absolute;
+    right: 3%;
+  }
 
-    .submit_btn {
-        padding: 8px, 16px, 8px, 16px;
-        font-size: 16px;
-    }
-    .res_modal{
-        max-height: 631px;
-    }
-    .signup_Input{
-        width: 268px;
-    }
-    .select_input{
-        width: 268px;
-    }
-    .sign_up{
-      margin: 0px;
-    }
+  .input-type-selector{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .modal-backdrop{
+    opacity: 1 !important;
+    backdrop-filter: blur(60px);
+  }
+.text-danger{
+  font-size: 12px !important;
 }
+input:disabled{
+background-color: #DDD;
+}
+.hide{
+  visibility: hidden;
+}
+  @media only screen and (max-width: 990px) {
+    .modal.show .modal-dialog {
+        margin: auto !important;
+    }
+    .modal_body{
+      width: 700px;
+    }
+    .submit_btn {
+      padding: 0.5rem 1rem;
+      font-size: 16px;
+    }
+    .res_modal {
+      max-height: 631px;
+    }
+    .signup_Input {
+      width: 268px;
+    }
+    .select_input {
+      width: 268px;
+    }
+    .sign_up {
+      margin: 0;
+    }
+    .subBtn{
+      padding-left: 1rem 0.5rem;
+      width: 130px;
+    }
+  }
+  
