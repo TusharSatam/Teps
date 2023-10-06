@@ -22,6 +22,7 @@ import { getUserStbyID, getUserCreated,PostUserCreated } from '../services/userC
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
+import '../styles/profileData.css';
 import FilterStrHi from '../Components/Home/FilterStrHI';
 
 const CreatedStratigy = () => {
@@ -138,39 +139,7 @@ const CreatedStratigy = () => {
           })
       })
   }
-  // const handleApiUnSaves = (id) => {
-  //   delUserSaves(id)
-  //     .then(res => {
-  //       getEdits()
-  //         .then(res => {
-  //           const saves = res?.data?.filter(ress => ress.user_id === user._id)
-  //           const savesId = saves?.map(ress => ress.strategie_id)
-  //           setSave(saves?.map(ress => ress.strategie_id))
-  //           if (languageSelect === "en") {
-  //             getMultitStr(savesId)
-  //               .then(res => {
-  //                 setSaveStratigy(res.data);
-  //               })
-  //               .catch(err => setSaveStratigy([]))
-  //             getMultiUsertStr(savesId)
-  //               .then(res => {
-  //                 setSaveUserStratigy(res.data);
-  //               })
-  //               .catch(err => setSaveUserStratigy([]))
-  //           }
-  //           else {
-  //             getMultitHiStr(savesId)
-  //               .then(res => {
-  //                 setSaveStratigyi(res.data)
-  //               })
-  //             getMultiUserHindiStr(savesId)
-  //               .then(res => {
-  //                 setSaveStratigyiUser(res.data)
-  //               })
-  //           }
-  //         })
-  //     })
-  // }
+  
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -182,12 +151,12 @@ const CreatedStratigy = () => {
         languageSelect === "en" ?
           <>
             <div className='saveStrParent' >
-              <div className='row py-2 align-items-center' style={{ alignItems: "center", position: 'relative' }}>
+              <div className='row py-2 align-items-center' id="div1">
                 <div className='d-flex justify-content-center'>
                   <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Created Strategies")}</span>
                 </div>
 
-                <div className='filter_btn_container d-flex justify-content-end' style={{ position: "absolute", top: "100" }}>
+                <div className='filter_btn_container d-flex justify-content-end' id="at">
                   <div onClick={handleFilter} className='filter_bTn'>
                     <span className='me-1 me-md-0'>{t("Filter")}</span>
                     <img src={Filter} alt="" className='filtericon2' />
@@ -203,7 +172,7 @@ const CreatedStratigy = () => {
               </div>
             </div>
             {isLoading ?
-              <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+              <div id="div2">
                 <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
@@ -214,7 +183,7 @@ const CreatedStratigy = () => {
                       <div style={{ background: "#FFFFFF" }} className='card_pad'>
                         <div className='my-4'>
                           <div className='d-flex justify-content-between my-4 '>
-                            <Link to={`/singleUserStratigy/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                            <Link to={`/singleUserStratigy/${res._id}`} id="nb">
                               <div className='me-1'>
                                 <div>
                                   <div className='d-flex mb-3 str_text_left'>
@@ -225,7 +194,7 @@ const CreatedStratigy = () => {
                                 </div>
                                 <div className='d-block d-md-none mt-1'>
                                 
-                                  <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                  <div className=' mt-1' id="ml">
                                    
                                   </div>
                                 </div>
@@ -235,8 +204,8 @@ const CreatedStratigy = () => {
 
 
                             <div className='col-9 ms-md-4 col-md-8 '>
-                              <Link  style={{ textDecoration: "none", color: 'black' }}>
-                                <p style={{color:"brown",fontSize:"13px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
+                              <Link  id="nb">
+                                <p id="bswm">Project-based Learning</p>
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
                                   {res["Teaching Strategy"].slice(0,150) + '...'}  
@@ -249,7 +218,7 @@ const CreatedStratigy = () => {
                               </div> */}
                             </div>
 
-                            <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                            <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                               <div className='d-flex flex-column align-items-center justify-content-center'>
                                 
                               </div>
@@ -266,14 +235,14 @@ const CreatedStratigy = () => {
                         <div style={{ background: "#FFFFFF" }} className='card_pad'>
                           <div className='my-4'>
                             <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                              <Link to={`/singleUserStratigy/${data._id}`} id="nb">
                                 <div className='me-1'>
                                   <div>
                                     <div className='d-flex mb-md-3 str_text_left'>
                                       <p className='Strategy_count'>{t("strategy")}</p>
                                       <p className='counter_str'>{saveStratigy.length + index + 1}</p>
                                     </div>
-                                    <div className='d-none d-md-block' style={{ marginTop: "-10px" }}>
+                                    <div className='d-none d-md-block' id="mt1">
                                       <p className='user_str'>Uploaded By - {
                                         user.image ?
                                           <OverlayTrigger
@@ -297,7 +266,7 @@ const CreatedStratigy = () => {
                                   </div>
                                   <div className='d-block d-md-none mt-1'>
                                   
-                                    <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                    <div className=' mt-1' id="ml">
                                       <div className='res_btn_icon'>
                                                                             </div>
                                     
@@ -306,8 +275,8 @@ const CreatedStratigy = () => {
                                 </div>
                               </Link>
                               <div className='col-9 ms-md-4 col-md-8 '>
-                                <Link style={{ textDecoration: "none", color: 'black' }}>
-                                <p style={{color:"brown",fontSize:"13px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
+                                <Link id="nb">
+                                <p id="bswm">Project-based Learning</p>
                                   <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
                                   {data["Teaching Strategy"].slice(0,150)+ '...'}
@@ -341,7 +310,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                              <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                                 <div className='d-flex flex-column align-items-center justify-content-center'>
                                   
                                 </div>
@@ -361,7 +330,7 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${data._id}`} id="nb">
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3 str_text_left'>
@@ -372,7 +341,7 @@ const CreatedStratigy = () => {
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
                                     
-                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                      <div className=' mt-1' id="ml">
                                         <div className='res_btn_icon'>
                                          
                                         </div>
@@ -382,7 +351,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link id="nb">
                                   <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Inquiry-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
@@ -394,7 +363,7 @@ const CreatedStratigy = () => {
                                     {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
                                   </div> */}
                                 </div>
-                                <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                    
                                   </div>
@@ -411,14 +380,14 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleUserStratigy/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleUserStratigy/${data._id}`} id="nb">
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-md-3 str_text_left'>
                                         <p className='Strategy_count'>{t("strategy")}</p>
                                         <p className='counter_str'>{saveStratigy.length + index + 1}</p>
                                       </div>
-                                      <div className='d-none d-md-block' style={{ marginTop: "-10px" }}>
+                                      <div className='d-none d-md-block' id="mt1">
                                         <p className='user_str'>Uploaded By - {
                                           user.image ?
                                             <OverlayTrigger
@@ -442,7 +411,7 @@ const CreatedStratigy = () => {
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
                                       
-                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                      <div className=' mt-1' id="ml">
                                         <div className='res_btn_icon'>
                                          
                                         </div>
@@ -452,7 +421,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link  style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link  id="nb">
                                   <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
@@ -486,7 +455,7 @@ const CreatedStratigy = () => {
                                     </div>
                                   </div>
                                 </div>
-                                <div className='col-3 col-md-2 d-none d-md-block ms-5' style={{ marginTop: "40px" }}>
+                                <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
                                     
                                   </div>
@@ -519,7 +488,7 @@ const CreatedStratigy = () => {
               </div>
             </div>
             {
-              isLoading ? <div style={{ marginLeft: "650px", marginTop: "150px", marginBottom: "150px" }}>
+              isLoading ? <div id="div2">
                 <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
@@ -532,7 +501,7 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleHi/${res._id}`} id="nb">
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3'>
@@ -543,28 +512,28 @@ const CreatedStratigy = () => {
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
                                       <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                      <div className=' mt-1' id="ml">
                                         <div className='res_btn_icon'>
                                           <div className='d-flex flex-column res_inner_div p-1 '>
                                             {
                                               !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                             }
                                             {
                                               !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             res['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img style={{ width: "20px", height: "20px" }} title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img style={{ width: "20px", height: "20px" }} title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                           }
                                         </div>
                                       </div>
@@ -572,7 +541,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleHi/${res._id}`} id="nb">
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
                                       {res["शिक्षण रणनीति"]}
@@ -623,7 +592,7 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleHi/${res._id}`} id="nb">
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3'>
@@ -634,28 +603,28 @@ const CreatedStratigy = () => {
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
                                       <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                      <div className=' mt-1' id="ml">
                                         <div className='res_btn_icon'>
                                           <div className='d-flex flex-column res_inner_div p-1 '>
                                             {
                                               !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                             }
                                             {
                                               !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             res['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img style={{ width: "20px", height: "20px" }} title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img style={{ width: "20px", height: "20px" }} title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                           }
                                         </div>
                                       </div>
@@ -663,7 +632,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/singleHi/${res._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleHi/${res._id}`} id="nb">
                                     <p className='savestr_head'>{t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
                                       {res["शिक्षण रणनीति"]}
@@ -716,7 +685,7 @@ const CreatedStratigy = () => {
                           <div style={{ background: "#FFFFFF" }} className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
-                                <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                <Link to={`/singleHi/${data._id}`} id="nb">
                                   <div className='me-1'>
                                     <div>
                                       <div className='d-flex mb-3'>
@@ -727,28 +696,28 @@ const CreatedStratigy = () => {
                                     </div>
                                     <div className='d-block d-md-none mt-1'>
                                       <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                      <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                      <div className=' mt-1' id="ml">
                                         <div className='res_btn_icon'>
                                           <div className='d-flex flex-column res_inner_div p-1 '>
                                             {
                                               !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                             }
                                             {
                                               !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img style={{ width: "20px", height: "20px" }} title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img style={{ width: "20px", height: "20px" }} title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             data['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img style={{ width: "20px", height: "20px" }} title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img style={{ width: "20px", height: "20px" }} title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                           }
                                         </div>
                                       </div>
@@ -756,7 +725,7 @@ const CreatedStratigy = () => {
                                   </div>
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
-                                  <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleHi/${data._id}`} id="nb">
                                     <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                     <p className='savestr_body'>
                                       {data["शिक्षण रणनीति"]}
@@ -806,7 +775,7 @@ const CreatedStratigy = () => {
                             <div style={{ background: "#FFFFFF" }} className='card_pad'>
                               <div className='my-4'>
                                 <div className='d-flex justify-content-between my-4 '>
-                                  <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                  <Link to={`/singleHi/${data._id}`} id="nb">
                                     <div className='me-1'>
                                       <div>
                                         <div className='d-flex mb-3'>
@@ -817,28 +786,28 @@ const CreatedStratigy = () => {
                                       </div>
                                       <div className='d-block d-md-none mt-1'>
                                         <div className='icon_heading_text me-1 p-1'>शिक्षण के परिणाम</div>
-                                        <div className=' mt-1' style={{ marginLeft: "20px" }}>
+                                        <div className=' mt-1' id="ml">
                                           <div className='res_btn_icon'>
                                             <div className='d-flex flex-column res_inner_div p-1 '>
                                               {
                                                 !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                   data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                    <img style={{ width: "20px", height: "20px" }} title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                    <img style={{ width: "20px", height: "20px" }} title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                    <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
+                                                    <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
                                               }
                                               {
                                                 !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                   data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                    <img style={{ width: "20px", height: "20px" }} title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                    <img style={{ width: "20px", height: "20px" }} title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                    <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
+                                                    <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
                                               }
                                             </div>
                                           </div>
                                           <div className='ms-1'>
                                             {
                                               data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                <img style={{ width: "20px", height: "20px" }} title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                <img style={{ width: "20px", height: "20px" }} title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                                <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
+                                                <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
                                             }
                                           </div>
                                         </div>
@@ -846,7 +815,7 @@ const CreatedStratigy = () => {
                                     </div>
                                   </Link>
                                   <div className='col-9 ms-md-4 col-md-8 '>
-                                    <Link to={`/singleHi/${data._id}`} style={{ textDecoration: "none", color: 'black' }}>
+                                    <Link to={`/singleHi/${data._id}`} id="nb">
                                       <p className='savestr_head'>शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}</p>
                                       <p className='savestr_body'>
                                         {data["शिक्षण रणनीति"]}
