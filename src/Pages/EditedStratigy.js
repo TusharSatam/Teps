@@ -22,6 +22,7 @@ import { getEdits, postEdits } from '../services/userEdited';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
+import '../styles/profileData.css';
 import FilterStrHi from '../Components/Home/FilterStrHI';
 
 const SaveStratigy = () => {
