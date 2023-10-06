@@ -15,7 +15,6 @@
   padding: 1px;
   border-radius: 18px;
 }
-/* position: "relative", borderRadius: "27px", width: "98px", cursor: "pointer"  */
 .filter_bTn {
   color: #1aa05b;
   background: white;
@@ -25,8 +24,7 @@
   border-radius: 27px;
   width: 98px;
   cursor: pointer;
-  padding: 3px 10px;
-  /* margin-left: -5px; */
+  padding: 0.188rem 0.625rem;
 }
 .filter_bTn:hover {
   color: #ffffff;
@@ -79,17 +77,40 @@
   font-weight: 600px;
 }
 .str_text_left {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
-.savestr_head {
+.savestr_head,.padalogicalTitle {
   font-size: 20px !important;
   font-weight: 600 !important;
-  margin-bottom: 21px;
-  margin-top: 35px;
+  margin-bottom: 1rem;
 }
-.str_title {
-  margin-bottom: 21px;
-  margin-top: 35px;
+.padalogicalTitle{
+  color: #1AA05B;
+  margin-top: 2.188rem;
+}
+.learningOutcome{
+  font-weight: 400;
+}
+.loadingWrap{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.filterBtn{
+   border-radius:27px;
+   width: 90px;
+   cursor: "pointer"
+}
+.filterBtn > span {
+  color:#1AA05B
+}
+.pedalogicalText{
+  font-size: 24px;
+  color: #FF3131;
+  font-style: italic !important;
+  margin-bottom: 0;
 }
 .savestr_body {
   font-family: "Inter";
@@ -98,6 +119,7 @@
   font-size: 20px;
   line-height: 26px;
   text-align: justify;
+  margin: 0;
 }
 .single_str_head {
   font-family: "Inter";
@@ -163,19 +185,17 @@
   line-height: 26px;
   letter-spacing: -0.05em;
   color: #a4a8ac;
-  /* color: #1aa05b; */
-  margin-left: 8px;
+  margin-left: .5rem;
   cursor: pointer;
 }
-/* .count_num:hover{
-  color:#1AA05B;
-} */
+
 .comment_div {
-  margin: 10px 0px 10px 0px !important;
-  border: 2px solid #939ca3;
+  margin: 0.625rem 0px 0.625rem 0px !important;
+  border: 2px solid #1AA05B;
   border-radius: 8px;
-  padding: 25px 40px;
-  margin-left: 150px;
+  padding: 1.5rem 2.5rem;
+  margin-left: auto !important;
+
 }
 .comment_div_p {
   font-family: "Inter";
@@ -186,18 +206,15 @@
   color: #08090a;
 }
 .comment_input {
-  border: 2px solid #d5b39a;
-  padding: 10px 90px 10px 20px;
+  border: 2px solid #1AA05B;
+  padding: 0.625rem 5.6rem 0.625rem 1.25rem;
 }
-/* .comment_input:focus {
-  border: 2px solid #1aa05b;
-} */
 .comment_submit {
-  margin-top: -40px;
-  margin-right: 10px;
+  margin-top: -2.5rem;
+  margin-right: 0.625rem;
 }
 .comment_submit input {
-  background: #d5b39a;
+  background: #1AA05B;
   border-radius: 20px;
   border: none;
   font-weight: 700;
@@ -278,9 +295,9 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  color: #d5b39a;
-  margin-bottom: 2px;
-  margin-right: -5px;
+  color: #1AA05B;
+  margin-bottom: 0.125rem;
+  margin-right: -0.313rem;
 }
 .user_image {
   width: 26px;
@@ -296,8 +313,8 @@
   margin-bottom: 21px;
   margin-top: 35px;
 }
-.largeCommentContainer {
-  padding-left: 150px;
+.largeCommentContainer,.comment_div {
+  background: #F4F8F7;
 }
 .filter_btn_container {
   right: 35px;
@@ -326,7 +343,52 @@
 .GoBack a:hover{
   color: #FFF;
 }
-
+.editStrategy,.markUsed,.UsedStartegy{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0.6rem 0.8rem;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  background: none;
+  border: none;
+  border-radius: 24px;
+  height: 44px;
+}
+.editStrategy{
+  border: 2px solid #1AA05B;
+}
+.markUsed,.UsedStartegy{
+  color: #FFF;
+  background: #1AA05B;
+  box-shadow: 0px 4px 8px 0px rgba(26, 160, 91, 0.20);
+}
+.strategytext{
+  border: none;
+  resize: none;
+  margin-bottom: 1rem;
+  outline: none;
+  background-color:burlywood;
+}
+.strategytext::placeholder{
+  color: black;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+}
+.strategytext::selection{
+  border: none;
+}
+.textContainer{
+  border-radius: 16px 16px 0px 0px;
+  background: #F4F8F7;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
+}
+select:disabled{
+  background: #DDD;
+}
 @media only screen and (max-width: 888px) {
   .Dev_dom {
     font-family: "Inter";
@@ -383,9 +445,7 @@
     line-height: 15px !important;
     margin-top: 15.5px;
   }
-  .str_title {
-    margin-top: 15.5px;
-  }
+
   .savestr_body {
     font-weight: 400;
     font-size: 10px;
@@ -396,19 +456,19 @@
     font-size: 12px;
     margin-bottom: 0 !important;
   }
-  .str_name {
+  .str_name{
     font-weight: 700;
     font-size: 12px;
     line-height: 15px;
   }
-
+  .pedalogicalText{
+    font-size: 12px;
+  }
   .comment_div {
-    margin: -10px 10px !important;
     padding: 10px 10px;
+    border: 1px solid #1AA05B;
   }
-  .comment_input {
-    border: 1px solid #d5b39a;
-  }
+
   .comment_head {
     font-size: 12px;
     margin: 0;
@@ -424,7 +484,7 @@
     margin-left: 5px;
   }
   .uni_id {
-    font-size: 10px;
+    font-size: 14px;
   }
   .str_text_left {
     margin-top: 15px;

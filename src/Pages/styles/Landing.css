@@ -1,0 +1,80 @@
+.filterCard {
+  border-radius: 24px;
+  box-shadow: 4px 8px 4px 0px rgba(0, 0, 0, 0.10), 5px 4px 12px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  .container {
+    margin: 0 !important;
+  }
+}
+.blueShadow{
+  border-radius: 24px;
+  margin:1rem;
+  box-shadow: rgb(143 227 213 / 56%) 0px 5px 50px 4px;
+}
+
+.filterCard select{
+  width: 224px;
+}
+.homeFilterCard{
+  background: #FFF;
+}
+.uploadStartegyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  margin: 2rem 0rem;
+}
+.contributeText {
+  color: #1aa05b;
+}
+.filterCard .container > div {
+  padding: 0 !important;
+}
+.uploadStrategies {
+  color: #1aa05b;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 100% */
+  padding: 0.5rem 1rem;
+  letter-spacing: -0.24px;
+  border-radius: 24px;
+  border: 1px solid #1aa05b;
+  background: #fff;
+  box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+}
+.uploadStartegyContainer h2 {
+  font-size: 1.25rem;
+}
+.welcomeText{
+  color: #1aa05b;
+  font-size: 28px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1200px) {
+  .filterCard select{
+    width:150px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .filterCard{
+    padding: .5rem;
+  }
+  .filterCard select{
+    min-width:auto;
+  }
+  .uploadStrategies {
+    font-size: 1rem;
+  }
+  .uploadStartegyContainer h2 {
+    font-size: 0.625rem;
+  }
+}

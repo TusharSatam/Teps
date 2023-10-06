@@ -13,7 +13,7 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const [selectSubject, setSelectSubject] = React.useState(data ? data.Subject : '')
   const [selectGrade, setSelectGrade] = React.useState(data ? data.Grade : '')
   const [selectTopic, setSelectTopic] = React.useState(data ? data.Topic : "")
-  const [selectSkill, setSelectSkill] = React.useState(data ? data.Skill : '')
+  const [selectSuperTopic, setSelectSuperTopic] = React.useState(data ? data['Super Topic'] : '')
   const [selectSubTopic, setSelectSubTopic] = React.useState(data ? data['Sub Topic'] : '')
   const { user } = useAuth()
 
@@ -50,8 +50,8 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const handleGrade = (e) => {
     setSelectGrade(e.target.value)
   }
-  const handleSkill = (e) => {
-    setSelectSkill(e.target.value)
+  const handleSuperTopic = (e) => {
+    setSelectSuperTopic(e.target.value)
   }
   const handleTopic = (e) => {
     setSelectTopic(e.target.value)
@@ -62,20 +62,20 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
-    .map(skill => {
-      return aquaticCreatures?.find(a => a.Skill === skill)
+  const uniqueSupeTopic = Array.from(new Set(aquaticCreatures?.map(a => a['Super Topic'])))
+    .map(SuperTopic => {
+      return aquaticCreatures?.find(a =>a['Super Topic'] === SuperTopic)
     });
-  const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill;
+  const aquaticCreaturesSuperTopic = allStratigys.filter(function (creature) {
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic;
   })
-  const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.Topic)))
+  const uniqueTopic = Array.from(new Set(aquaticCreaturesSuperTopic?.map(a => a.Topic)))
     .map(topic => {
-      return aquaticCreaturesSkill?.find(a => a.Topic === topic)
+      return aquaticCreaturesSuperTopic?.find(a => a.Topic === topic)
     });
 
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic && creature.Topic === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['Sub Topic'])))
@@ -83,7 +83,7 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
       return aquaticCreaturesTopic?.find(a => a['Sub Topic'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+    return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSuperTopic && creature['Sub Topic'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
     .map(sub_sub_topic => {
@@ -94,13 +94,10 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
     const dataa = {
       'Subject': e.target.subject.value,
       'Grade': e.target.grade.value,
-      'Skill': e.target.skill.value,
+      'Super Topic': e.target.SuperTopic.value,
       'Topic': e.target.topic.value,
       'Sub Topic': e.target.sub_topic.value,
       'Sub-sub topic': e.target.sub_sub_topic.value,
-      'Dev Dom 1': e.target.dev_dom_1.value,
-      'Dev Dom 2': e.target.dev_dom_2.value,
-      'Mode of Teaching': e.target.mode_of_teaching.value,
       'Learning Outcome': e.target.learning_outcome.value,
       'Teaching Strategy': e.target.teaching_str.value
     }
@@ -134,6 +131,17 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
           <div className='center-div'>
             <form className='form-main-div' onSubmit={handleSubmit}>
               <div className='mt-2 '>
+              <div>
+                  <p className='select-title'>Grade <p>*</p></p>
+                  <select defaultValue={data.Grade} onChange={handleGrade} className={'select-field'} name="grade" id="">
+                    <option value="" selected disabled>Grade</option>
+                    {
+                      uniqueGrade?.map(res => (
+                        <option>{res.Grade}</option>
+                      ))
+                    }
+                  </select>
+                </div>
                 <div>
                   <p className='select-title'>Subject <p>*</p></p>
                   <select defaultValue={data.Subject} onChange={handleSub} className={'select-field'} name="subject" id="">
@@ -145,33 +153,22 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
                     }
                   </select>
                 </div>
-                <div>
-                  <p className='select-title'>Grade <p>*</p></p>
-                  <select defaultValue={data.Grade} onChange={handleGrade} className={'select-field'} name="grade" id="">
-                    <option value="" selected disabled>Grade</option>
-                    {
-                      uniqueGrade?.map(res => (
-                        <option>{res.Grade}</option>
-                      ))
-                    }
-                  </select>
-                </div>
+     
               </div>
               <div className='mt-2 '>
                 <div>
-                  <p className='select-title'>Skill <p>*</p></p>
-                  <select defaultValue={data.Skill} onChange={handleSkill} className={'select-field'} name="skill" id="">
-                    <option value={data.Skill}>{data.Skill}</option>
+                  <p className='select-title'>Super Topic<p>*</p></p>
+                  <select defaultValue={data['Super Topic']} onChange={handleSuperTopic} className={'select-field'} name="SuperTopic" id="">
+                    <option value={data['Super Topic']}>{data['Super Topic']}</option>
                     {
-                      uniqueSkill?.map(res => (
-                        <option>{res.Skill}</option>
+                      uniqueSupeTopic?.map(res => (
+                        <option>{res['Super Topic']}</option>
                       ))
                     }
                   </select>
                 </div>
                 <div>
                   <p className='select-title'>Topic <p>*</p></p>
-                  {data.Topic}
                   <select defaultValue={data.Topic} onChange={handleTopic} className={'select-field'} name="topic" id="">
                     <option value={data.Topic} >{data.Topic}</option>
                     {
@@ -206,39 +203,6 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
                   </select>
                 </div>
               </div>
-              <div className='mt-2 '>
-                <div>
-                  <p className='select-title'>Dev Dom 1 <p>*</p></p>
-                  <select defaultValue={data['Dev Dom 1']} className={'select-field'} name="dev_dom_1" id="">
-                    <option value="" selected disabled>Dev Dom 1</option>
-                    {
-                      uniqueDevDom1?.map(res => (
-                        <option>{res['Dev Dom 1']}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-                <div>
-                  <p className='select-title'>Dev Dom 2 <p>*</p></p>
-                  <select defaultValue={data['Dev Dom 2']} className={'select-field'} name="dev_dom_2" id="">
-                    <option value="" selected disabled>Dev Dom 2</option>
-                    {
-                      uniqueDevDom2?.map(res => (
-                        <option>{res['Dev Dom 2']}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-              </div>
-              <div className='mt-2 '>
-                <div>
-                  <p className='select-title'>Mode Of Teaching <p>*</p></p>
-                  <select defaultValue={data['Mode of Teaching']} className={'select-field'} name="mode_of_teaching" id="">
-                    <option>Online</option>
-                    <option>Offline</option>
-                  </select>
-                </div>
-              </div>
               <div className='mt-2'>
                 <div>
                   <p className='select-title'><p>*</p>Learning Outcome</p>
@@ -259,11 +223,8 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
                 </div>
               </div>
               <div className='d-flex justify-content-center mt-4'>
-                {/* <p className='form-note'>Note - The strategy will be added post approval by admin</p> */}
                 <button type='submit' className='form-btn'>Update Strategy</button>
               </div>
-              {/* {error ? <p className='form-success'>Thank you for submitting the strategy</p> */}
-              {/* {error && <p className='form-error'>Please fill all of the above fields !</p>} */}
             </form>
           </div>
         </Modal.Body>

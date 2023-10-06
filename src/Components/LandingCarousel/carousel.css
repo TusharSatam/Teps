@@ -1,21 +1,123 @@
 .slick-slider {
-    overflow: hidden ;
-    border: none;
+  overflow: hidden;
+  border: none;
 }
-.slider_img{
-    width: 90%;
+.slick-slide > div {
+  margin: 3rem auto;
+  width: 75% !important;
+  margin-bottom: 3rem;
+}
+.slick-dots {
+  height: 55px;
+}
+.slick-dots li button:before {
+  font-size: 10px;
+}
+.carousalContainer {
+  background: #f4f8f7;
+  backdrop-filter: blur(16.5px);
+}
+.slider_img {
+  width: 90%;
+}
+.carousalCard {
+  background: #1aa05b;
+  height: 210px;
+  color: #fff;
+  padding: 1rem 3rem;
+  justify-content: flex-start;
+  gap: 24px;
+  border-radius: 60px;
+  background: var(--brand-color-green, #1AA05B);
+  box-shadow: 10.28548px 10.73267px 0px 0px #CED1D0, 0px 10.73267px 0px 0px #CED1D0, 8.94389px 0px 0px 0px #CED1D0;
+  margin: auto;
 }
 
+.carousalTextArea {
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: start;
+}
+.innerWidth {
+  width: 85%;
+}
+.carousalTextArea h1 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+.cardDetails {
+  display: flex;
+  flex-direction: column;
+}
+.cardDetails > p {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px; /* 137.5% */
+  letter-spacing: -0.16px;
+  
+}
+.carousalImage{
+    height:-webkit-fill-available;
+  }
 
+@media only screen and (max-width: 1040px) {
+  .slick-slide > div {
+    width: 90% !important;
+    margin-bottom: 3rem;
+  }
+  .carousalCard {
+    height: 350px;
+  }
+  .carousalTextArea h1 {
+    font-size: 32px;
+  }
+  .cardDetails > p {
+    font-size: 20px;
+    line-height: 26px;
+  }
 
-
-
-
-
+}
 
 @media only screen and (max-width: 990px) {
-
-    .slider_img{
-        width: 100%;
-    }
+  .slider_img {
+    width: 100%;
+  }
+  .carousalTextArea h1 {
+    font-size: 26px;
+  }
+  .cardDetails > p {
+    font-size: 16px;
+  }
+  .carousalCard {
+    box-shadow: 13.46402px 26.92804px 26.92804px 0px rgba(255, 255, 255, 0.2),
+      5.67164px 5.67164px 0.70896px 0px rgba(0, 0, 0, 0.2),
+      -2px 6px 2px 0px #ccc, 6px -1px 2px 0px #ccc;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .carousalCard {
+    height:150px;
+    padding: .5rem;
+    border-radius: 36px;
+    gap: 8px;
+  }
+  .carousalTextArea h1 {
+    font-size: 12px;
+  }
+  .cardDetails > p {
+    font-size: 9px;
+    line-height: 10.5px;
+    margin-bottom: .5rem;
+  }
+  .carousalTextArea {
+    gap: 4px;
+  }
+  .slick-slide > div {
+    margin: 2rem auto;
+  }
+  .carousalImage{
+    height: 100px;
+  }
 }

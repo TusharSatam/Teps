@@ -5,8 +5,7 @@ import { getAllStratigys } from '../../services/stratigyes';
 import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
-
-const FilterStr = ({ stratigy,handleShow }) => {
+const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
@@ -27,11 +26,8 @@ const FilterStr = ({ stratigy,handleShow }) => {
   const location = useLocation();
   const { setStratigyFilData,isAuthenticated } = useAuth();
   const language = localStorage.getItem("i18nextLng")
-
   React.useEffect(() => {
     setAllStratigys(stratigy)
-  
-    
   }, [stratigy,language])
   useEffect(() => {
     setSelectSubject('')
@@ -59,47 +55,54 @@ const FilterStr = ({ stratigy,handleShow }) => {
   }, [selectedOption, location.pathname])
 
 
-  let uniqueSubject, uniqueGrade, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
-
-  if (language === "en") {
-    let uniqueSubject = Array.from(new Set(allStratigys.map(a => a.Subject)))
-    .map(subject => {
-      return allStratigys.find(a => a.Subject === subject)
-    });
-  uniqueSubject.push({ Subject: 'Social Studies' });
-  
-    const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-    .filter(grade => grade !== 'LKG' && grade !== 'UKG')
+  let uniqueSubject, uniqueGrade,aquaticCreaturesSubject, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
+  let allowedSubjects=[];
+  if (language === "en" || language === "en-US") {
+    
+    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
     .map(grade => {
       return allStratigys.find(a => a.Grade === grade)
     });
-      if (!uniqueGrade.find(item => item.Grade === 'K1')) {
-    uniqueGrade.push({ Grade: 'K1' });
-  }
-  if (!uniqueGrade.find(item => item.Grade === 'K2')) {
-    uniqueGrade.push({ Grade: 'K2' });
-  }
+    aquaticCreaturesSubject = allStratigys.filter(function (creature) {
+      return creature.Grade === selectGrade;
+    });
+    uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.Subject)))
+      .map(subject => {
+        return aquaticCreaturesSubject.find(a => a.Subject === subject)
+      }).filter((e)=>{
+        if (selectGrade === "Pre-K" || selectGrade === "K1" || selectGrade === "K2") {
+          // For Pre-K, K1, K2 selectGrades
+          allowedSubjects = ["English", "Numeracy", "Science","EVS"];
+          return allowedSubjects.includes(e.Subject)
+        } else if (selectGrade === "1" || selectGrade === "2" || selectGrade === "3" || selectGrade === "4" || selectGrade === "5") {
+          // For selectGrades 1 to 5
+          allowedSubjects = ["English", "Mathematics", "EVS"];
+          return allowedSubjects.includes(e.Subject)
+        } else {
+          // For other selectGrades
+          allowedSubjects = ["English", "Mathematics", "Science", "Social Studies"];
+          return allowedSubjects.includes(e.Subject)
+        }
+      });
   
     aquaticCreatures = allStratigys.filter(function (creature) {
       return creature.Subject === selectSubject && creature.Grade === selectGrade;
     });
-  
-    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.Skill)))
+    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['Super Topic'])))
       .map(skill => {
-        return aquaticCreatures?.find(a => a.Skill === skill)
+        return aquaticCreatures?.find(a => a['Super Topic'] === skill)
       });
-  
     aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill;
     });
-  
+    
     uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.Topic)))
-      .map(topic => {
-        return aquaticCreaturesSkill?.find(a => a.Topic === topic)
-      });
-  
+    .map(topic => {
+      return aquaticCreaturesSkill?.find(a => a.Topic === topic)
+    });
+    
     aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature.Topic === selectTopic;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill && creature.Topic === selectTopic;
     });
   
     uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['Sub Topic'])))
@@ -108,7 +111,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
       });
   
     aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic;
+      return creature.Subject === selectSubject && creature.Grade === selectGrade && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic;
     });
   
     uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['Sub-sub topic'])))
@@ -118,27 +121,30 @@ const FilterStr = ({ stratigy,handleShow }) => {
   
   } 
   else {
-    uniqueSubject = Array.from(new Set(allStratigys.map(a => a.विषय)))
+    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
+    .map(grade => {
+      return allStratigys.find(a => a.श्रेणी === grade)
+    });
+    aquaticCreaturesSubject = allStratigys?.filter(function (creature) {
+      return  creature.श्रेणी === selectGrade;
+    });
+    uniqueSubject = Array.from(new Set(aquaticCreaturesSubject.map(a => a.विषय)))
       .map(subject => {
-        return allStratigys.find(a => a.विषय === subject)
+        return aquaticCreaturesSubject.find(a => a.विषय === subject)
       });
   
-    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-      .map(grade => {
-        return allStratigys.find(a => a.श्रेणी === grade)
-      });
   
     aquaticCreatures = allStratigys?.filter(function (creature) {
       return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
     });
   
-    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
+    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
       .map(skill => {
-        return aquaticCreatures?.find(a => a.कौशल === skill)
+        return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
       });
   
     aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
     });
   
     uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
@@ -147,7 +153,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
       });
   
     aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill && creature.शीर्षक === selectTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
     });
   
     uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -156,7 +162,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
       });
   
     aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय']=== selectSkill && creature['उप शीर्षक'] === selectSubTopic;
     });
   
     uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
@@ -168,12 +174,11 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
-    setSelectGrade('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -182,11 +187,12 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
   const handlegradeFilter = (e) => {
     setSelectGrade(e.target.value)
+    setSelectSubject('')
     setSelectTopic('')
     setSelectSkill('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -197,7 +203,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
     setSelectTopic(e.target.value)
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -209,7 +215,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
     setSelectTopic('')
     setSelectSubTopic('')
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US"){
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -219,7 +225,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value)
     setSelectSubSubTopic('')
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
@@ -228,54 +234,34 @@ const FilterStr = ({ stratigy,handleShow }) => {
   }
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value)
-    if (language=="en") {
+    if (language === "en" || language === "en-US") {
       localStorage.removeItem('selectedDropdown');
     } else {
       localStorage.removeItem('selectedHiDropdown');    
     }   
 
   }
-     
-  const getGradeOptions = () => {
-    switch (selectSubject) {
-      case 'Science':
-    return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '6', '7', '8', '9', '10'].includes(item.Grade));
-      case 'English':
-        return uniqueGrade;
-        case 'Numeracy':
-          return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2'].includes(item.Grade));
-        case 'EVS':
-          return uniqueGrade.filter(item => ['Pre-K', 'K1', 'K2', '1', '2', '3', '4', '5'].includes(item.Grade));      
-      case 'Mathematics':
-        return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 1 && parseInt(item.Grade) <= 10);
-      case 'Social Studies':
-        return uniqueGrade.filter(item => !isNaN(item.Grade) && parseInt(item.Grade) >= 6 && parseInt(item.Grade) <= 10);
-      default:
-        return [];
-    }
-  }
-  
  
   const handleFindStratigys = () => {
     if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
       const aquaticCreatures = allStratigys.filter(function (creature) {
-        if(language=="en"){
-          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature.Skill === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
+        if(language === "en" || language === "en-US"){
+          return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         }
         else{
-        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
         }
       });
       setStratigyFilData(aquaticCreatures)
       if (aquaticCreatures) {
-        if (language=="en") {
+        if (language === "en" || language === "en-US") {
             window.localStorage.setItem('filterSaveData', JSON.stringify(aquaticCreatures));
         } else {
             window.localStorage.setItem('filterDataH', JSON.stringify(aquaticCreatures));
         }          
       }
       if (aquaticCreatures.length !== 0) {
-        if(language=="en"){
+        if(language === "en" || language === "en-US"){
             window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
         }
         else{
@@ -283,7 +269,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
         }
       }
       else {
-        if (language=="en") {        
+        if (language === "en" || language === "en-US") {        
           setError("No strategies are available for this combination. Please try a different combination.")
         } else {
         setError("इस संयोजन के लिए कोई रणनीति उपलब्ध नहीं है। कृपया कोई दूसरा संयोजन आज़माएं।")
@@ -305,16 +291,43 @@ const FilterStr = ({ stratigy,handleShow }) => {
       handleShow()
       }  
       }
-
   return (
-    allStratigys.length ==0?<div className="loading-spinner"></div> :<>
+    allStratigys.length ==0 && uniqueGrade.length?<div className="loading-spinner"></div> :<>
       <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+        <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'} name="" id="">
+          <option value="" selected disabled>{t('Grade')}</option>
+          {(language === "en" || language === "en-US")?
+          uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.Grade}</option>
+          )):   uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.श्रेणी}</option>
+          ))
+          }
+          </select>
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
+          {
+          selectedOption && location.pathname !== '/home' ?
+          <>
+            <option value="" selected disabled>{t('Grade')}</option>
+            {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
+          </> :
+          <option value="" selected disabled>{t('Grade')}</option>
+
+          }
+          {(language === "en" || language === "en-US")?
+          uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.Grade}</option>
+          )):   uniqueGrade?.map((item, index) => (
+          <option key={index} >{item.श्रेणी}</option>
+          ))
+          }
+          </select>
           <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? ' d-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3'} name="" id="">
     
                 <option value="" selected disabled>{t('Subject')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSubject?.map((item, index) => (
                 <option key={index} >{item.Subject}</option>
               )): uniqueSubject?.map((item, index) => (
@@ -322,11 +335,11 @@ const FilterStr = ({ stratigy,handleShow }) => {
               ))
             }
           </select>
-          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border me-3 w-50'} name="" id="">
+          <select value={selectSubject} onChange={handlesubFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectSubject} className={error5 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border me-3 w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border ms-2 w-50'} name="" id="">
 
                 <option value="" selected disabled>{t('Subject')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSubject?.map((item, index) => (
                 <option key={index} >{item.Subject}</option>
               )): uniqueSubject?.map((item, index) => (
@@ -334,47 +347,16 @@ const FilterStr = ({ stratigy,handleShow }) => {
               ))
             }
           </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
-
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            {language=="en"?
-              getGradeOptions().map((item, index) => (
-                <option key={index}>{item.Grade}</option>
-              
-              )):   uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 error-border ' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-2 mx-md-3 select-border '} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Grade')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectGrade && <option value="" selected disabled>{selectedOption?.selectGrade}</option>}
-                </> :
-                <option value="" selected disabled>{t('Grade')}</option>
-
-            }
-            {language=="en"?
-               getGradeOptions().map((item, index) => (
-                <option key={index}>{item.Grade}</option>
-            
-              )):   uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
-              ))
-            }
-          </select>
+      
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-none d-md-block px-1  px-md-3 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-inline px-1  px-md-3 py-md-2 bg-light mx-md-3 select-border'} name="" id="">
 
-                <option value="" selected disabled>{t('Skill')}</option>
+                <option value="" selected disabled>{t('Super topic')}</option>
 
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.Skill}</option>
+                <option key={index} >{item['Super Topic']}</option>
               )):uniqueSkill?.map((item, index) => (
-                <option key={index} >{item.कौशल}</option>
+                <option key={index} >{item['अच्छा विषय']}</option>
               ))
             }
           </select>
@@ -388,7 +370,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                 <option value="" selected disabled>{t('Topic')}</option>
 
             }
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueTopic?.map((item, index) => (
                 <option key={index} >{item.Topic}</option>
               )):uniqueTopic?.map((item, index) => (
@@ -397,16 +379,16 @@ const FilterStr = ({ stratigy,handleShow }) => {
             }
           </select>
         </div>
-        <div className='mb-3'>
+        <div className='mb-0 mb-md-3'>
           <select value={selectSkill} onChange={handleSkillFilter} defaultValue={selectedOption?.selectSkill} className={error1 ? 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light error-border me-2  w-100' : 'd-block d-md-none px-1  px-md-3 py-md-2 bg-light select-border me-2 w-100'} name="" id="">
    
-                  <option value="" selected disabled>{t('Skill')}</option>
+                  <option value="" selected disabled>{t('Super topic')}</option>
   
-               {language=="en"?
+               {(language === "en" || language === "en-US")?
                   uniqueSkill?.map((item, index) => (
-                    <option key={index} >{item.Skill}</option>
+                    <option key={index} >{item['Super Topic']}</option>
                   )):uniqueSkill?.map((item, index) => (
-                    <option key={index} >{item.कौशल}</option>
+                    <option key={index} >{item['अच्छा विषय']}</option>
                   ))
                 }
           </select>
@@ -420,7 +402,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                 <option value="" selected disabled>{t('Topic')}</option>
 
             }
-            {language=="en"?
+            {(language === "en" || language === "en-US")?
               uniqueTopic?.map((item, index) => (
                 <option key={index} >{item.Topic}</option>
               )):uniqueTopic?.map((item, index) => (
@@ -432,27 +414,6 @@ const FilterStr = ({ stratigy,handleShow }) => {
 
 
         <div className='d-block justify-content-center align-items-center d-md-none'>
-          {/* -----Pedagogical Approach---- */}
-          <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
-              {
-                selectedOption && location.pathname !== '/home' ?
-                  <>
-                    <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                    {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
-                  </> :
-                  <>
-                    <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                  </>
-              }
-              {language=="en"?
-                uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['Sub Topic']}</option>
-                )):uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['उप शीर्षक']}</option>
-                ))
-              }
-            </select>
-          {/* --------- */}
 
           <div className='mt-3'>           
             <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light error-border w-100' : 'px-1 px-md-3 py-md-2 bg-light select-border w-100'} name="" id="">
@@ -466,7 +427,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                     <option value="" selected disabled>{t('Sub - topic')}</option>
                   </>
               }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -487,7 +448,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                     <option value="" selected disabled>{t('Sub sub - topic')}</option>
                   </>
               }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub-sub topic']}</option>
                 )):uniqueSubSubTopic?.map((item, index) => (
@@ -498,27 +459,6 @@ const FilterStr = ({ stratigy,handleShow }) => {
           </div>
         </div>
         <div className='d-none d-md-block'>
-          {/* ---Pedagogical Approach desktop-- */}
-<select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
-            {
-              selectedOption && location.pathname !== '/home' ?
-                <>
-                  <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                  {localStorage.getItem('selectedDropdown') && !selectSubTopic && <option value="" selected disabled>{selectedOption?.selectSubTopic}</option>}
-                </> :
-                <>
-                  <option value="" selected disabled>{t('Pedagogical Approach')}</option>
-                </>
-            }
-              {language=="en"?
-                uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['Sub Topic']}</option>
-                )):uniqueSubTopic?.map((item, index) => (
-                  <option key={index} >{item['उप शीर्षक']}</option>
-                ))
-              }
-          </select>
-{/* ---------- */}
           <select value={selectSubTopic} onChange={handleSubTopicFilter} defaultValue={selectedOption?.selectSubTopic} className={error3 ? 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 error-border' : 'px-1 px-md-3 py-md-2 bg-light mx-2 mx-md-3 select-border'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
@@ -530,7 +470,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                   <option value="" selected disabled>{t('Sub - topic')}</option>
                 </>
             }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub Topic']}</option>
                 )):uniqueSubTopic?.map((item, index) => (
@@ -549,7 +489,7 @@ const FilterStr = ({ stratigy,handleShow }) => {
                   <option value="" selected disabled>{t('Sub sub - topic')}</option>
                 </>
             }
-              {language=="en"?
+              {(language === "en" || language === "en-US")?
                 uniqueSubSubTopic?.map((item, index) => (
                   <option key={index} >{item['Sub-sub topic']}</option>
                 )):uniqueSubSubTopic?.map((item, index) => (
@@ -564,24 +504,35 @@ const FilterStr = ({ stratigy,handleShow }) => {
           error && location.pathname === '/saveStratigy' && <p className='error_text'>{error}</p>
         }
       </div>
-      {
-        location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-4 my-md-5 '>
-            <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
-          </div>
-          :
-          location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ?
-            <div className='d-flex justify-content-center my-4 my-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-            </div> :
-              location.pathname === '/'?
-              <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-              <button onClick={handleLandingFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
-            </div>:
-            <div className='d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5'>
-              <button onClick={handleFindStratigys} className='Sec_submit_btn'>{t('Find Strategies')}</button>
-            </div>
-      }
+      {location.pathname === "/home" ? (
+        <div className="d-flex justify-content-center my-4 my-md-0">
+          <button onClick={handleFindStratigys} className="submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : location.pathname === "/saveStratigy" ||
+        location.pathname === "/favouriteStratigy" ? (
+        <div className="d-flex justify-content-center my-4 my-md-5">
+          <button onClick={handleFindStratigys} className="Sec_submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : location.pathname === "/" ? (
+        <div className="d-flex justify-content-center my-4 my-md-3 mt-md-2 pb-0 pb-md-0 mt-md-3">
+          <button
+            onClick={()=>handleOptionModalShow(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic)}
+            className="primaryButton subBtn"
+          >
+            {t("Find Strategies")}
+          </button>
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center my-4 my-md-5 pb-4 pb-md-5">
+          <button onClick={handleFindStratigys} className="Sec_submit_btn">
+            {t("Find Strategies")}
+          </button>
+        </div>
+      )}
     </>
   );
 };

@@ -35,18 +35,19 @@ import Home from './Pages/Home';
 import Landing from './Pages/Landing';
 import Profiles from './Pages/Profiles';
 import SaveStratigy from './Pages/SaveStratigy';
-import EditedStratigy from './Pages/EditedStratigy';
-import CreatedStratigy from './Pages/CreatedStratigy';
 import SingleHindiStr from './Pages/SingleHindiStr';
 import SingleStr from './Pages/SingleStr';
 import SingleUserStr from './Pages/SingleUserStr';
 import Stratigy from './Pages/Stratigy';
 import Verify from './Pages/Verify';
+import EditStrategy from './Components/EditStrategy/EditStrategyForm';
+
+
 
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
+  axios.defaults.baseURL = `http://3.110.218.3/api/`;
 
   const handleOnclick = () => {
     setDisplayProfile('d-none')
@@ -54,6 +55,7 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
+
 
   useEffect(() => {
     window.scrollTo({
@@ -103,16 +105,16 @@ function App() {
           <Route path='/admin-login' element={<AdminAuth />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
-             <Route path="/profile" element={<Profiles />} />
+            <Route path="/profile" element={<Profiles />} />
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
-            <Route path="/editedStratigy" element={<EditedStratigy />} />
-            <Route path="/createdStratigy" element={<CreatedStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
+            <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
+
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
@@ -163,7 +165,6 @@ function App() {
             <Footer />
           )
       }
-     
     </div>
   );
 }

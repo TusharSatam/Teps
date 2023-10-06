@@ -1,36 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import toast, { Toaster } from 'react-hot-toast';
 import { getStratigys, updateStratigys } from '../../services/stratigyes';
 import './dashboardModal.css'
+import { useAuth } from '../../Context/AuthContext';
 
 const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('Subject', e.target.subject.value);
-    formData.append('Grade', e.target.grade.value);
-    formData.append('Skill', e.target.skill.value);
-    formData.append('Topic', e.target.topic.value);
-    formData.append('Sub Topic', e.target.sub_topic.value);
-    formData.append('Sub-sub topic', e.target.sub_sub_topic.value);
-    formData.append('Dev Dom 1', e.target.dev_dom_1.value);
-    formData.append('Dev Dom 2', e.target.dev_dom_2.value);
-    formData.append('Mode of Teaching', e.target.mode_ofteaching.value);
-    formData.append('Learning Outcome', e.target.learning_outcome.value);
-    formData.append('Teaching Strategy', e.target.teaching_sstrategy.value);
+     // Log all form field names and values
+  for (let i = 0; i < e.target.elements.length; i++) {
+    const element = e.target.elements[i];
+    console.log(`Field Name: ${element.name}, Field Value: ${element.value}`);
+  }
+    // Create an object to hold the form data
+    const formData = {
+      Subject: e.target.elements.subject.value,
+      Grade: e.target.elements.grade.value,
+      'Super Topic': e.target.elements.Super_Topic.value,
+      Topic: e.target.elements.topic.value,
+      'Sub Topic': e.target.elements.sub_topic.value,
+      'Sub-sub topic': e.target.elements.sub_sub_topic.value,
+      'Learning Outcome': e.target.elements.learning_outcome.value,
+      'Teaching Strategy': e.target.elements.teaching_sstrategy.value,
+    };
+    
     updateStratigys(data._id, formData)
       .then(res => {
-        setShow(false)
+        setShow(false);
         getStratigys()
           .then(res => {
             setStratigys(res?.data?.posts);
-          })
-        toast.success('Update successfull!', {
+          });
+        toast.success('Update successful!', {
           duration: 4000
-        })
-      })
+        });
+      });
   }
+  
   return (
     <div>
       <Toaster
@@ -58,8 +65,8 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
                 <input className='signup_Input_modal' disabled defaultValue={data?.Grade} name='grade' placeholder='Grade' type="text" />
               </div>
               <div className='input_div_modal'>
-                <label htmlFor="">Skill</label> <br />
-                <input className={"signup_Input_modal"} disabled defaultValue={data?.Skill} name='skill' placeholder='Skill' type="text" />
+                <label htmlFor="">Super Topic</label> <br />
+                <input className={"signup_Input_modal"} disabled defaultValue={data?.['Super Topic']} name='Super_Topic' placeholder='Super Topic' type="text" />
               </div>
               <div className='input_div_modal'>
                 <label htmlFor="">Topic </label> <br />
@@ -72,18 +79,6 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
               <div className='input_div_modal'>
                 <label htmlFor="">Sub-sub topic </label> <br />
                 <input className='signup_Input_modal' disabled defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">Dev Dom 1 </label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['Dev Dom 1'] : ''} name='dev_dom_1' placeholder='Dev Dom 1' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">Dev Dom 2 </label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['Dev Dom 2'] : ''} name='dev_dom_2' placeholder='Dev Dom 2' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">Mode of Teaching </label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['Mode of Teaching'] : ''} name='mode_ofteaching' placeholder='Mode of Teaching' type="text" />
               </div>
               <div className='input_div_modal'>
                 <label htmlFor="">Learning Outcome </label> <br />

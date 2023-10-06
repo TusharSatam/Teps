@@ -4,10 +4,10 @@
 .sub-title {
   color: #1aa05b;
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 39px;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px;
 }
 #usercon{
   display: flex;
@@ -24,11 +24,11 @@
 }
 .sub-subtitle {
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 39px;
-  color: #000000;
+  color: #000;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px;
 }
 .search-head {
   font-family: "Inter";
@@ -46,6 +46,7 @@
   padding-bottom: 0 !important;
   position: relative;
   bottom: 10px;
+  background: "#FFFFFF",
 }
 .Strategy_count {
   font-family: "Inter";
@@ -53,9 +54,8 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  color: #1aa05b;
-  margin-bottom: 2px;
-  margin-right: -5px;
+  margin-bottom: 0.1rem;
+  margin-right: -0.3rem;
 }
 .Strategy_count_article p {
   font-family: "Inter";
@@ -84,34 +84,66 @@
   left: 8px;
 }
 .container_title_sec {
-  margin: 0px 60px;
+  margin: 0px 3.75rem;
 }
 .dropDownContainer {
-  margin: 0px 60px;
+  margin: 0px 3.75rem;
 }
-.sub_sub_title {
+.sub_sub_title,.clickLearningText {
   font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
+  color: #000;
   font-size: 24px;
-  line-height: 29px;
-  color: #08090a;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 24px
+}
+.clickLearningText{
+  color: #004AAD;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 20px;
+}
+.outcomeList{
+  padding: 1rem;
+  border-radius: 24px;
+background: #F4F8F7;
+box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
+}
+.strategyReadmore{
+  width:100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.strategyReadmore a{
+  color:  #1AA05B;
+font-size: 16px;
+font-style: italic;
+font-weight: 700;
+line-height: 26px; /* 162.5% */
+letter-spacing: -0.16px;
+text-decoration: none;
 }
 .card_border {
   border-left: none !important;
   border-top: none !important;
 }
 .checkbox_size {
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
 }
 .checkBox_title {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 24px;
   line-height: 24px;
   color: #000000;
+}
+.showStrategy{
+  font-size: 24px;
+  font-weight: 500;
 }
 .dsfdasfas {
   width: 200px;
@@ -203,35 +235,35 @@
   line-height: 44px;
   text-align: center;
   color: #000000;
-  margin: 100px 100px 500px 100px;
+  margin: 100px 100px 100px 100px;
+}
+.borderNone,.card-header{
+  border:none;
+  background:none;
+}
+.linkStyle{
+  text-decoration: none;
+  color: #000000;
+}
+.linkStyle:hover{
+  color: #000000;
 }
 @media only screen and (max-width: 1440px) {
   .icons_heading {
-    margin-left: -68px;
+    margin-left: -4.25rem;
   }
   .icons_hindi_heading {
-    margin-left: -68px;
-  }
-}
-@media only screen and (max-width: 500px) {
-  .res_btn_icon {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  .res_btn_icon-sm {
-    width: 100%;
-    display: flex;
-    align-items: center;
+    margin-left: -4.25rem;
   }
 }
 
+
 @media only screen and (max-width: 990px) {
   .container_title_sec {
-    margin: 0px 20px;
+    margin: 0 1.25rem;
   }
   .dropDownContainer {
-    margin: 0px 20px;
+    margin: 0 1.25rem;
   }
   .sub-title {
     font-weight: 700;
@@ -244,17 +276,19 @@
     line-height: 12px;
   }
   .sub_sub_title {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 15px;
+    color: #000;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 24px
   }
   .checkbox_size {
     width: 14px;
     height: 14px;
   }
   .checkBox_title {
-    font-weight: 400;
-    font-size: 10px;
+    font-weight: 500;
+    font-size: 14px;
     line-height: 12px;
   }
   .card-header {
@@ -333,10 +367,13 @@
   .save_like {
     width: 15.33px;
     height: 16.04px;
+    cursor: pointer;
   }
   .save_likes {
     width: 15.67px;
     height: 16.78px;
+    cursor: pointer;
+    transform: scale(1.1)
   }
   .empty_stratigys {
     font-family: "Inter";
@@ -346,7 +383,7 @@
     line-height: 18px;
     text-align: center;
     color: #000000;
-    margin: 100px 80px 200px 80px;
+    margin: 100px 80px 100px 80px;
   }
 }
 .unique_id {
@@ -388,5 +425,33 @@
   }
   .user_str {
     font-size: 8px;
+  }
+  .showStrategy{
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .res_btn_icon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .res_btn_icon-sm {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .clickLearningText{
+    color: #004AAD;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin-bottom: 0;
+  }
+  .sub_sub_title{
+    font-size: 10px;
+  }
+  .strategyReadmore a{
+    font-size: 10px;
   }
 }

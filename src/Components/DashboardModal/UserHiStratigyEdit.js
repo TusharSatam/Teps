@@ -13,7 +13,7 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
   const [selectSubject, setSelectSubject] = React.useState(data ? data.विषय : '')
   const [selectGrade, setSelectGrade] = React.useState(data ? data.श्रेणी : '')
   const [selectTopic, setSelectTopic] = React.useState(data ? data.शीर्षक : "")
-  const [selectSkill, setSelectSkill] = React.useState(data ? data.कौशल : '')
+  const [selectSkill, setSelectSkill] = React.useState(data ? data['अच्छा विषय'] : '')
   const [selectSubTopic, setSelectSubTopic] = React.useState(data ? data['उप शीर्षक'] : '')
   const { user } = useAuth()
 
@@ -59,19 +59,19 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a.कौशल)))
+  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
     .map(skill => {
-      return aquaticCreatures?.find(a => a.कौशल === skill)
+      return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
     });
   const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
   })
   const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
     .map(topic => {
       return aquaticCreaturesSkill?.find(a => a.शीर्षक === topic)
     });
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.कौशल === selectSkill && creature.शीर्षक === selectTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -79,7 +79,7 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
       return aquaticCreaturesTopic?.find(a => a['उप शीर्षक'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature.कौशल === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
     .map(sub_sub_topic => {
@@ -91,7 +91,7 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
     const dataa = {
       'विषय': e.target.subject.value,
       'श्रेणी': e.target.grade.value,
-      'कौशल': e.target.skill.value,
+      'अच्छा विषय': e.target.skill.value,
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
@@ -156,12 +156,12 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
               </div>
               <div className='mt-2 '>
                 <div>
-                  <p className='select-title'>कौशल <p>*</p></p>
-                  <select defaultValue={data.कौशल} onChange={handleSkill} className={'select-field'} name="skill" id="">
-                    <option value={data.कौशल}>{data.कौशल}</option>
+                  <p className='select-title'>अच्छा विषय <p>*</p></p>
+                  <select defaultValue={data['अच्छा विषय']} onChange={handleSkill} className={'select-field'} name="skill" id="">
+                    <option value={data['अच्छा विषय']}>{data['अच्छा विषय']}</option>
                     {
                       uniqueSkill?.map(res => (
-                        <option>{res.कौशल}</option>
+                        <option>{res['अच्छा विषय']}</option>
                       ))
                     }
                   </select>

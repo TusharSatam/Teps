@@ -6,16 +6,7 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from 'react-scroll-to-top';
 import UserImage from '../../asstes/Group 51.svg';
 import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg';
-import ChatIcon from '../../asstes/icons/chat.svg';
-import KnowledgeIcon from '../../asstes/icons/knowledge.svg';
-import LikeIcon from '../../asstes/icons/Like.svg';
-import LikedIcon from '../../asstes/icons/Liked.svg';
-import Physical from '../../asstes/icons/Motor-Physical.png';
-import OfflineIcon from '../../asstes/icons/offline.svg';
-import OnlineIcon from '../../asstes/icons/online.svg';
-import SaveIcon from '../../asstes/icons/Save.svg';
-import SavedIcon from '../../asstes/icons/Saved.svg';
-import Social from '../../asstes/icons/Socio-Emotional-Ethical.png';
+import backArrow from "../../asstes/icons/backArrow.svg";
 import EmptyCheckbox from '../../asstes/Rectangle 161.svg';
 import { useAuth } from '../../Context/AuthContext';
 import { delUserLikes, getLikes, postLikes } from '../../services/userLikes';
@@ -24,7 +15,6 @@ import ContextAwareToggle from '../BootStrapCollapseBtn/ContextAwareToggle';
 import HomeHindiLayout from '../Home/HomeHindiLayout';
 import HomeLayout from '../Home/HomeLayout';
 import './searchscrean.css';
-import { singleUserEnStratigys } from '../../services/userStratigy';
 import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
@@ -214,10 +204,13 @@ const SearchScrean = () => {
   };
   return (
     <>
-      <ScrollToTop smooth style={{ background: "#d5b39a" }} color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
+      <ScrollToTop smooth  color="#00000" />
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
       </div>
       {
         (localStorage.getItem('filterData') || localStorage.getItem('filterDataH')) && stratigyFilData?.length !== 0 ?
@@ -225,7 +218,7 @@ const SearchScrean = () => {
             {
               selectLang === 'english' && !uniqueSubSubTopic[0]['शिक्षण के परिणाम'] ?
                 <>
-                  <div className='mb-md-3 container_title_sec'>
+                  <div className='container_title_sec'>
                     <div className='d-flex  flex-column justify-content-between mt-md-5'>
                       <p> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                       <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
@@ -243,7 +236,7 @@ const SearchScrean = () => {
                                   <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
                                   <img className='checkbox_size' onClick={() => handleCheckbox(index)} src={EmptyCheckbox} alt="checkbox" />}
                               </ContextAwareToggle>
-                              <p className='mt-3 checkBox_title'>{data['Learning Outcome']}</p>
+                              <p className='checkBox_title mb-0'>{data['Learning Outcome']}</p>
                             </Card.Header>
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
                               <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
@@ -265,8 +258,8 @@ const SearchScrean = () => {
                                         <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
                                           <Link to={`/single/${strRes._id}`} className="linkStyle">
-                                            <p>
-                                              {strRes["Teaching Strategy"].slice(0,200)}...
+                                            <p className='mb-0'>
+                                              {strRes["Teaching Strategy"].slice(0,250)}...
                                             </p>
                                           </Link>
                              
@@ -326,8 +319,8 @@ const SearchScrean = () => {
                                           <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
 
                                             <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
-                                              <p>
-                                                {strUser["Teaching Strategy"].slice(0,200)}...
+                                              <p className='mb-0'>
+                                                {strUser["Teaching Strategy"].slice(0,250)}...
                                               </p>
                                             </Link>
                                   
@@ -370,21 +363,21 @@ const SearchScrean = () => {
                   </div>
                   <div className='d-block d-md-none mb-2 container_title_sec'>
                       {
-                        !check ? <img className='checkbox_size' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" />
+                        !check ? <img className='checkbox_size mb-md-2' onClick={handleUserDataCheck} src={EmptyCheckbox} alt="checkbox" /> : <img className='checkbox_size mb-md-2' onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" />
                       }
-                      <span className='ms-2'>Show user contributed strategies</span>
+                      <span className='ms-2 showStrategy'>Show user contributed strategies</span>
                     </div>
                      <div className='d-none d-md-block mt-6 mb-3 container_title_sec'>
                        <div className='lightgreenline my-5'></div>
                         {
-                          !check ? <img onClick={handleUserDataCheck} className='checkbox_size' src={EmptyCheckbox} alt="checkbox" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" className='checkbox_size'/>
+                          !check ? <img onClick={handleUserDataCheck} className='checkbox_size mb-md-2' src={EmptyCheckbox} alt="checkbox" /> : <img onClick={handleUserDataCheck} src={checkCheckbox} alt="checkbox" className='checkbox_size mb-md-2'/>
                         }
-                        <span className='ms-2'>Show user contributed strategies</span>
+                        <span className='ms-2 showStrategy'>Show user contributed strategies</span>
                       </div>
                 </> :
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
-                    <div className='mb-md-3 container_title_sec'>
+                    <div className='container_title_sec'>
                       <p className='mt-md-5'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                 <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>
@@ -394,9 +387,9 @@ const SearchScrean = () => {
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
-                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'} style={{ background: "#FFFFFF" }}>
-                                <ContextAwareToggle eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
-                                <p className='mt-3 checkBox_title'>{data['शिक्षण के परिणाम']}</p>
+                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'}>
+                                <ContextAwareToggle className="me-2" eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
+                                <p className='checkBox_title mb-0'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
                               <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
                                 <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
@@ -417,7 +410,7 @@ const SearchScrean = () => {
                                           </Link>
                                           <div className='Strategy_count_article'>
                                             <Link to={`/singleHi/${data._id}`} className="linkStyle">
-                                              <p>
+                                              <p className='mb-0'>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
                                             </Link>
@@ -452,7 +445,7 @@ const SearchScrean = () => {
 
       }
             <>
-        <div className='filterCard p-1 p-md-3 blackshadow mb-md-3 container_title_sec'>
+        <div className='filterCard gap-3 blackshadow mb-md-3 container_title_sec'>
           {
             selectLang === 'hindi' ?
               <HomeHindiLayout
@@ -469,3 +462,5 @@ const SearchScrean = () => {
 };
 
 export default SearchScrean;
+
+

@@ -6,7 +6,7 @@ import { Buffer } from 'buffer';
 import { useAuth } from '../../Context/AuthContext';
 import LoginModal from '../LoginModal/LoginModal';
 import SignUpModal from '../SignUpModal/SignUpModal';
-import defaulProfile from '../../asstes/Group 51.svg'
+import defaulProfile from '../../asstes/icons/defaultProfileIcon.svg'
 import userLogo from '../../asstes/user.svg'
 import saveLogo from '../../asstes/save.svg'
 import favLogo from '../../asstes/favourite.svg'
@@ -58,7 +58,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         setShow={setLoginModal}
       />
       <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center "}>
-        <div className='ms-2 ms-md-4'>
+        <div>
           <Link to={location.pathname !== '/' && '/home'}>
             <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
@@ -70,14 +70,14 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-          <div className={location.pathname === '/profile' || location.pathname === '/home' || location.pathname === '/search' || location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' || location.pathname === '/addForm' ? 'd-block' : 'd-none'}>
-            <LanguageSelect />
-          </div>
+        <div className={/(^\/(profile|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
+          <LanguageSelect />
+        </div>
           {
             !isAuthenticated ?
               <div className='d-flex me-1 me-md-4'>
                 <div>
-                  <button onClick={handleShowloginModal} className="authBtnn me-3" >{t('Login')}</button>
+                  <button onClick={handleShowloginModal} className="authBtnn me-1" >{t('Login')}</button>
                 </div>
                 <div>
                   <button onClick={handleShow} className='authBtn'>{t('Register')}</button>
@@ -86,12 +86,11 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
               <div id='profile' className={location.pathname !== '/' ? 'profile_a' : 'profile_a mx-3 mx-md-5'} onClick={handleClick} >
                 {
                   user?.image ? <>
-                    <img className='d-none d-md-block' style={{ width: "60px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                    <img className='d-block d-md-none' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
-                    {/* <img className='d-block d-md-none' src={defaulProfile} alt="" /> */}
+                    <img className='d-none d-md-block profileImg' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="profileImg" />
+                    <img className='d-block d-md-none profileImg'  src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="profileImg" />
                   </> : <>
-                    <img className='d-none d-md-block' width="60px" src={defaulProfile} alt="" />
-                    <img className='d-block d-md-none' src={defaulProfile} alt="" />
+                    <img className='d-none d-md-block profileImg'  src={defaulProfile} alt="profileImg" />
+                    <img className='d-block d-md-none profileImg'  src={defaulProfile} alt="profileImg" />
                   </>
                 }
               </div>
@@ -112,7 +111,6 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
             <img className="drop_down_icon" src={saveLogo} alt="" />
             <div className='ms-3 mt-2'>
               <p ><Link to="/saveStratigy" className='navLink' onClick={handleStr}>{t('Saved Strategies')}</Link></p>
-              {/* <Link to="/saveStratigy" className='navLink' onClick={() => setDisplayProfile("d-none")}>{t('Saved Strategies')}</Link> */}
             </div>
           </div>
           <div className='d-flex align-items-center mt-2 navLink'>

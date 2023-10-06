@@ -8,14 +8,13 @@
     font-size: 16px;
     font-weight: 700;
     border-radius: 20px;    
-    padding: 8px 16px;
+    padding: 0.5rem 1rem;
     gap: 10px;
     transition: 0.5s;
+    border-radius: 24px;
+    box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
 }
-.authBtn:hover{
-    background: #1AA05B;
-    color: #ffff;
-}
+
 .authBtnn{
     background: #1AA05B;
     color:#ffff;
@@ -23,18 +22,12 @@
     font-size: 16px;
     font-weight: 700;
     border-radius: 20px;    
-    padding: 8px 16px;
+    padding: .5rem 1rem;
     gap: 10px;
     transition: 0.5s;
+    box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
 }
-.authBtnn:hover{
-    background: transparent;
-    color: #1AA05B;
-    border: 1px solid #1AA05B;
-}
-/* .logo_aligh{
-    margin-left: 239px;
-} */
+
 .logo2_img{
     width: 184px;
     height: 43px;
@@ -54,8 +47,8 @@
     background-color: #F8F9FA;
     right: 0;
     top: 0;
-    margin-top: 20px;
-    margin-right: 80px;
+    margin-top: 1.25rem;
+    margin-right: 5rem;
     border-radius: 5px;
     z-index: 1;
 }
@@ -92,7 +85,10 @@ transition: 0.5s;
   background: rgba(26, 160, 91, 0.5);
   color: #FFFFFF;
 }
-
+.profileImg{
+    height: 40px;
+    width: 40px;
+}
 
 @media only screen and (max-width: 990px) {
     .logo_img{
@@ -103,23 +99,23 @@ transition: 0.5s;
         height: 13.32px;
     }
     .authBtn{
-        padding: 4px 16px;
+        padding: 0.2rem 1rem;
         gap: 10px;
         font-size: 10px;
     }
     .authBtnn{
-        padding: 4px 16px;
+        padding: 0.2rem 1rem;
         font-size: 10px;
     }
     .profile_section{
         width: 207px;
         right: 0;
         top: 0;
-        margin-top: 45px;
+        margin-top: 2.813rem;
         font-weight: 400;
         font-size: 15.0091px;
         line-height: 18px;
-        margin-right: 55px;
+        margin-right: 3.4rem;
     }
     .drop_down_icon{
         width: 24.91px;
@@ -128,10 +124,14 @@ transition: 0.5s;
     .Go_back{
       font-size: 5.51515px;
       line-height: 7px;
-      padding: 3.15152px 9.45455px;
+      padding: 0.2rem 0.625rem;
     }
     .Go_back img {
       width: 2.68px;
       height: 4.55px;
+    }
+    .profileImg{
+        height: 20px;
+        width: 20px;
     }
   }

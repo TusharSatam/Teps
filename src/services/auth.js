@@ -21,6 +21,25 @@ export const userLogin = async (data) => {
   return loginResponse
 }
 
+export const sendOTP = async (data) => {
+  console.log(data);
+  let loginResponse
+  await axios.post(`otp/sendOTP`, data)
+    .then(res => {
+      loginResponse = res.data;
+    })
+  return loginResponse
+}
+
+export const verifyOTP = async (data) => {
+  let loginResponse
+  await axios.post(`signin/otp`, data)
+    .then(res => {
+      loginResponse = res.data;
+    })
+  return loginResponse
+}
+
 // update user info
 export const updateInfo = async (id, data) => {
   let updateResponse;

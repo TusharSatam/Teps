@@ -193,7 +193,7 @@ const FilterStrHI = ({ stratigy,language}) => {
               ))
             }
           </select>
-          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 select-border w-50'} name="" id="">
+          <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'} name="" id="">
             {
               selectedOption && location.pathname !== '/home' ?
                 <>
@@ -377,7 +377,7 @@ const FilterStrHI = ({ stratigy,language}) => {
       </div>
       {
         location.pathname === '/home' ?
-          <div className='d-flex justify-content-center my-4 my-md-5 '>
+          <div className='d-flex justify-content-center my-4 my-md-0'>
             <button onClick={handleFindStratigys} className='submit_btn'>{t('Find Strategies')}</button>
           </div>
           :
