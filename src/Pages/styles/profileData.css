@@ -46,6 +46,13 @@ position: relative;
     position: absolute;
     top: 100;
 }
+#mt1{
+ margin-top: "-10px" ;
+}
+#wh{
+     width: "20px";
+ height: "20px" ;
+}
 #c{
     align-items: center;
 }
@@ -55,4 +62,15 @@ position: relative;
 }
 #bs{
     border-radius: 15px;
+}
+#cfwm{
+color:"brown";
+    font-size:"13px";
+font-weight:"500";
+margin:"30px 0px -30px";
+}
+#cp{
+    cursor:pointer;}
+#bw{
+     background: "#FFFFFF";
 }
