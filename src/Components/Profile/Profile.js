@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Buffer } from 'buffer';
 import { updateInfo } from '../../services/auth';
+import { getEdits } from '../../services/userEdited';
 import { getSingleUser, updateUser } from '../../services/dashboardUsers';
 import defaultProfile from '../../asstes/defaultProfile.png'
 import { useAuth } from '../../Context/AuthContext';
@@ -14,22 +15,63 @@ import axios from 'axios';
 import emailjs from '@emailjs/browser';
 import VerifyModal from '../ForgotPassModal/VerifyModal';
 import { Link } from 'react-router-dom';
-
+import {getLikes } from "../../services/userLikes";
+import { getSaves } from '../../services/userSaves';
+import { getUserCreated } from '../../services/userCreated';
+import ProfileDataC from "../../Pages/ProfileDataC";
+import ProfileDataE from "../../Pages/ProfileDataE";
+import ProfileDataS from "../../Pages/ProfileDataS";
+import ProfileDataF from "../../Pages/ProfileDataF";
 const Profile = () => {
+ 
   const { t } = useTranslation();
   const { user, setUser } = useAuth();
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
+  const [isMyStrategies, setIsMyStrategies] = useState(false);
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState('');
+  const [dropdownVisible, setDropdownVisible] = useState(true);
   const [emailErr, setEmailErr] = React.useState('');
   const [show, setShow] = React.useState(false)
   const [preview, setPreview] = React.useState(null)
+  const [f, setF] = React.useState(0);
+  const [l, setL] = React.useState(0);
+  const [e, setE] = React.useState(0);
+    const [c, setC] = React.useState(0);
+    
+const [pincode, setPincode] = useState(user?.pincode);
+  React.useEffect(() => {
+    getSaves()
+    .then(res => {
+      const saves = res?.data?.filter(ress => ress.user_id === user._id)
+     setF(saves.length); 
+    })
+  }, []);
+   React.useEffect(() => {
+    getUserCreated(user._id)
+    .then(res => {
+      
+     setC(res.data.length); 
+    })
+  }, []);
+  React.useEffect(() => {
+    getEdits(user._id)
+    
+    .then(res => {
+      
+      
+     setE(res.data.length); 
+    })
+  }, []);
 
-
-
+  React.useEffect(() => {
+    getLikes().then((res) => {
+      const like = res?.data?.filter((ress) => ress.user_id === user._id);
+     setL(like.length);
+    })})
   const handleForgotShow = () => {
     setForgot(true);
   }
@@ -46,6 +88,11 @@ const Profile = () => {
           })
       })
   }
+  // const prof=()=>{setIsMyStrategies(true);}
+  const toggleButton = () => {
+    setDropdownVisible(!dropdownVisible);
+    setIsMyStrategies(false);
+  };
   React.useEffect(() => {
     const url = "./countrys.json"
     const fetchData = async () => {
@@ -87,6 +134,7 @@ const Profile = () => {
   // edit all handler
   const [editAll, setEditAll] = useState(false)
   const handleAllEdit = () => {
+    setIsMyStrategies(true)
     if (editAll === false) {
       setEditAll(true);
     }
@@ -96,21 +144,28 @@ const Profile = () => {
   // pincode handler
   const [cityFound, setCityFound] = React.useState(true)
   const [liveDetails, setLiveDetails] = React.useState()
-  const handlePincode = (e) => {
-    if (e.target.value === '') {
-      setCityFound(false)
+  
+const handlePincode = (e) => {
+  const inputValue = e.target.value;
+  const onlyDigits = /^\d+$/;
+
+  if (onlyDigits.test(inputValue) && (inputValue.length)<=6|| inputValue === '') {
+    setPincode(inputValue);
+
+    if (inputValue !== '') {
+      axios.get(`https://api.postalpincode.in/pincode/${inputValue}`)
+        .then(res => {
+          if (res?.data[0].Message !== "No records found") {
+            setLiveDetails(res?.data[0]?.PostOffice[0]);
+            setCityFound(true)
+          }
+          else {
+            setCityFound(false)
+          }
+        })
     }
-    axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
-      .then(res => {
-        if (res?.data[0].Message !== "No records found") {
-          setLiveDetails(res?.data[0]?.PostOffice[0]);
-          setCityFound(true)
-        }
-        else {
-          setCityFound(false)
-        }
-      })
   }
+}
 
   React.useEffect(() => {
     const url = "./citys.json"
@@ -123,23 +178,28 @@ const Profile = () => {
         console.log("error", error);
       }
     };
-
-    fetchData();
+        fetchData();
   }, [])
-  // gamil handler
+ 
+ 
   const [getEmail, setGetEmail] = useState()
   const handleEmail = (e) => {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (e.target.value.match(pattern)) {
       setEmailErr('');
+      
       setGetEmail(e.target.value)
     }
     else {
+      setEmailErr("Enter correct email");
       setIsLoading(false);
     }
   }
   const token = JSON.stringify(localStorage.getItem('jwt'));
   const doneEmail = () => {
+    const getEmail = document.getElementById("email").value;
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(pattern.test(getEmail)){
     const data = {
       "to": getEmail,
       'subject': "Email verification - TEPS",
@@ -157,15 +217,20 @@ const Profile = () => {
           setShow(true);
           setEditEmail(false);
         }
-      })
-      .catch(err => console.log(err))
+      }).catch(err => console.log(err))
+      
   }
+  else{
+   
+    toast.error("Incorrect email format");
+  }}
+
   const [selectedCountry, setSelectedCountry] = React.useState({
     city: user?.city,
     state: user?.state
   });
   const handleCountry = (e) => {
-    if (e.target.value !== "India") {
+    if (e.target.value !== " ") {
       setSelectedCountry(
         {
           city: "International",
@@ -174,26 +239,31 @@ const Profile = () => {
       )
     }
     else {
+      
       setSelectedCountry(user?.city)
     }
   }
+
   // update all data
   const handleUpdate = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('organization', e.target.organization.value);
-    formData.append('designation', e.target.designation.value);
-    formData.append('city', liveDetails ? liveDetails?.Block : user.city);
-    formData.append('state', liveDetails ? liveDetails?.State : user.state);
-    formData.append('pincode', e.target.pincode.value);
-    formData.append('country', e.target.country.value);
+    const formData= {
+      organization: e.target.organization.value,
+      designation: e.target.designation.value,
+      city: liveDetails ? liveDetails.Block : user.city,
+      state: liveDetails ? liveDetails.State : user.state,
+      pincode: e.target.pincode.value,
+      country: e.target.country.value,
+    };
+    
     updateUser(user._id, formData)
       .then(res => {
-        getSingleUser(user._id)
+           getSingleUser(user._id)
           .then(res => {
+            let f=user.email;
             const data = {
-              "to": getEmail,
+              "to": f,
               'subject': "Profile details - TEPS",
               "html": `
                   <p>Hello,</p>
@@ -202,22 +272,27 @@ const Profile = () => {
                   <p>Things Education</p>
                   `
             }
+            
             axios.post('email', data)
-              .then(ress => {
-                if (ress) {
-                  window.localStorage.setItem('data', JSON.stringify(res.data[0]));
-                  setUser(res.data[0]);
-                  toast.success(`${t('update_profile_messege')}`)
+              .then(res => {
+               
+                if (res) {
+                  getSingleUser(user._id).then(res => {
+                   
+                    window.localStorage.setItem('data', JSON.stringify(res.data[0]));
+                    setUser(res.data[0])
+                 toast.success(`${t('update_profile_messege')}`)
                   setIsLoading(false);
-                  setEditAll(false);
+                  setEditAll(false);})
                 }
               })
+              
               .catch(err => console.log(err))
 
           })
       })
       .catch(err => {
-        toast.error('Something is wrong please try again!')
+        toast.error('Something is wrong please try again!',err  )
         setIsLoading(false);
       })
 
@@ -240,40 +315,50 @@ const Profile = () => {
       />
       <HeroSection />
       <section className='profile_container pb-5'>
-        <div style={{ height: "10px" }}></div>
+        <div id="h10"></div>
         <div className='d-block d-md-none text-start mx-3 mt-3 bg-light'>
-          <div className='d-flex align-items-start prfile_pic' style={{ height: '120px' }}>
-            <div className="button-wrapperr">
+          <div className='d-flex align-items-start prfile_pic'>
+            <div className="button-wrapper">
               {
-                preview ? <img src={preview} alt="" /> :
-                  profileImage?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    user?.image ? <img className='label' style={{ width: "40px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                      <img width={'40px'} className='label' src={defaultProfile} alt="" />
+                preview ? <img src={preview} alt="image" /> :
+                  profileImage?.image ? <img className='label' id="wb" src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
+                    user?.image ? <img className='label' id="wb" src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                      <img width={'40px'} className='label' src={defaultProfile} alt="image" />
               }
               <input id="upload" onChange={handleProfile} className='upload-box' type="file" accept='image/png, image/gif, image/jpeg' name="" />
             </div>
-            <div>
-              <div className='profile_school mt-4'>
+            <div >
+              <div className='profile_school mt-6'>
                 <p className='res_userName' >{user?.firstName} {user?.lastName}</p>
-                <p className='res_userName' style={{ marginTop: "-12px" }}>{user?.organization}</p>
+                <p className='res_userName' id='mtop'>{user?.organization}</p>
               </div>
-              <div style={{ marginTop: "-20px" }}>
-                <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-              </div>
-            </div>
+              <div id="dgm">
+             
+                <button
+        id="pm"
+        className={`change_btn`}
+        onClick={toggleButton}
+      >
+          {t('View My Strategies')}
+          <span className={`arrow ${dropdownVisible ? 'up' : 'down'}`}></span>
+      </button>
+          </div>
+                
+             </div>  
           </div>
         </div>
+        
         <div className='d-block d-md-none mx-3 mt-md-4'>
-          <hr style={{ border: "1px solid #CED4DA", marginTop: "5px", marginBottom: '0px', marginLeft: "15px", marginRight: "15px" }} />
+          <hr id="bmm" />
         </div>
         <div className='container p-md-5 d-md-flex ' >
-          <div className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
+          <div id="bwb" className='px-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center '>
             <div className='pb-4'>
               <div className="button-wrapper">
                 {
-                  profileImage?.image ? <img className='label' style={{ width: "120px", borderRadius: '1000px' }} src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="" /> :
-                    user?.image ? <img className='label' style={{ width: "120px", borderRadius: '1000px' }} src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" /> :
-                      <img className='label' width={'120px'} src={defaultProfile} alt="" />
+                  profileImage?.image ? <img className='label' id="wb1" src={`data:${profileImage?.image?.contentType};base64,${Buffer.from(profileImage?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                    user?.image ? <img className='label' id="wb1" src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" /> :
+                      <img className='label' width={'120px'} src={defaultProfile} alt="image" />
                 }
 
                 <input accept='image/png, image/gif, image/jpeg' onChange={handleProfile} id="upload" className='upload-box' type="file" name="" />
@@ -281,33 +366,78 @@ const Profile = () => {
               <div className='profile_school mt-5'>
                 <p>{user.firstName} {user.lastName} </p> <p> {user.organization}</p>
               </div>
-              <div className='py-4' style={{ position: "relative", padding: "4px" }}>
-                <div className='d-flex justify-content-center py-5'>
-                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
-                </div>
-                <div className='d-flex'>
-                  <div>
-                    <Link to="/favouriteStratigy"><button className="authBtn_p me-3" >{t('favourites')}</button></Link>
+              <div className='py-4' id="rp" >
+                <div id="fc" 
+                className='justify-content-center py-5'>
+                  
+                 <button
+          id="p2"
+          className={`btn btn-primary change_btn`}
+          onClick={toggleButton}
+        >
+          View My Strategies
+           <span className={`arrow ${dropdownVisible ? 'up' : 'down'}`}></span>
+        </button>
                   </div>
-                  <div>
-                    <Link to="/saveStratigy"><button className='authBtn_p'>{t('saved')}</button></Link>
-                  </div>
+                
+                {dropdownVisible && (
+          <div className='d-block'>
+            <div>
+            { l === 0 ? (
+  <button className="authBtn_p me-3" disabled>Favourites ({l})</button>
+) : (
+  <Link to="/favouriteStratigy">
+    <button className="authBtn_p me-3">Favourites ({l})</button>
+  </Link>
+)}
+
+            </div>
+            <div>
+              {f===0?(
+                             <button className='authBtn_p mt-2 me-3' disabled>Saved ({f})</button> ):
+                             ( <Link to="/saveStratigy">
+                             <button className='authBtn_p mt-2 me-3'>Saved ({f})</button>
+                           </Link>)}
+             
+            </div>
+          
+
+      
+            <div>
+              {e===0?(
+                <button className="authBtn_p mt-2 me-3" disabled>Edited ({e})</button>):(<Link to="/editedStratigy">
+                <button className="authBtn_p mt-2 me-3" >Edited ({e})</button>
+              </Link>)}
+              
+            </div>
+            <div>
+              {c===0?(   <button className="authBtn_p mt-2 me-3" disabled>Created ({c})</button>):( <Link to="/createdStratigy">
+                <button className="authBtn_p mt-2 me-3" >Created ({c})</button>
+              </Link>)}
+             
+            </div>
+       </div>
+        )}
+                <div className='d-flex justify-content-center py-4'>
+                  <Link to="/addForm"><button className='upload_Str_btn my-3'>Upload Strategy</button></Link>
+               
                 </div>
-                <div className='d-flex justify-content-center py-5'>
-                  <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
-                </div>
+                <button onClick={handleAllEdit} className='change_btn mb-3'>{t('Edit Information')}</button>
+                    <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button> 
               </div>
             </div>
           </div>
-          <div className='ms-md-5 form_container mt-0 mb-5'>
+       
+       {isMyStrategies?
+          <div id="bwb" className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
             <form className='p-1 p-md-5 mx-3 mx-md-0' onSubmit={handleUpdate}>
               <div className='w-100'>
-                <div className='d-flex justify-content-between align-items-center mt-0 my-md-3'>
+                <div className='d-flex justify-content-bdetween align-items-center mt-0 my-md-3'>
                   <div>
                     <h4 className='input_label'>{t('Email')}:</h4>
                   </div>
                   <div className='mt-3'>
-                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="" />
+                    <input onChange={handleEmail} disabled={!editEmail} className={emailErr ? 'border-danger text-danger profile_input mt-md-2' : editEmail ? 'profile_input  mt-md-2' : 'border-0 profile_input mt-md-2'} type="text" defaultValue={user.email} name="email" id="email" />
                     <div className=' d-flex'>
                       <div onClick={handleEmailEdit} className={editEmail ? "d-none Email_Edit ms-md-2" : "d-block Email_Edit ms-md-2"}>{t('Edit')}</div>
                       <div onClick={doneEmail} className={!editEmail ? "d-none Email_Edit" : "d-block Email_Edit"}>{t('Save Email')}</div>
@@ -328,13 +458,20 @@ const Profile = () => {
                     </div>
                   </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
-                    <h4 className='input_label'>{t('Pincode')}:</h4>
-                    {
-                      <div>
-                        <input disabled={!editAll} className={!editAll ? "border-0 profile_input" : !cityFound && selectedCountry.city !== "International" ? "border-danger profile_input" : "profile_input"} title={cityFound ? '' : "No city/town found"} onChange={handlePincode} defaultValue={user?.pincode} type="text" name="pincode" id="" />
-                      </div>
-                    }
-                  </div>
+      <h4 className='input_label'>{t('Pincode')}:</h4>
+      <div>
+        <input
+          disabled={!editAll}
+          className={!editAll ? "border-0 profile_input" : !cityFound && selectedCountry.city !== "International" ? "border-danger profile_input" : "profile_input"}
+          title={cityFound ? '' : "No city/town found"}
+          onChange={handlePincode}
+          value={pincode}
+          type="text"
+          name="pincode"
+          id=""
+        />
+      </div>
+    </div>
                   <div className='d-flex justify-content-between align-items-center input_div'>
                     <h4 className='input_label'>{t('City/Town')}:</h4>
                     {
@@ -382,35 +519,65 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
-                <div className='d-flex justify-content-center button_div'>
-                  <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div>
+                <div className='d-flex justify-content-d button_div'>
+                  {/* <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div> */}
                   <button disabled={isLoading || !editAll} type='submit' className='save_change_btn'>
                     {
-                      isLoading ? <Spinner className="text-success " animation="border" /> : t('save_changes')
+                      isLoading ? <Spinner className="text-success " animation="border" /> : t('Save Changes')
                     }
                   </button>
                 </div>
                 <div className='d-block d-md-none'>
                   <div className='d-flex justify-content-center mt-3'>
                     <div>
-                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('favourites')}</button></Link>
+                      <Link to="/favouriteStratigy"><button className="profileBtn me-3" >{t('Favourites')}</button></Link>
                     </div>
                     <div>
                       <Link to="/saveStratigy">
                         <button className='profileBtn'>
-                          {t('saved')}
+                          {t('Saved')}
                         </button>
                       </Link>
                     </div>
                   </div>
-                  <div className='d-flex justify-content-center' style={{ paddingTop: "35px" }}>
-                    <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
+                  <div className='d-flex justify-content-center'>
+                <div>
+                    <Link to="/editedStratigy"><button className="authBtn_p mt-2 me-3" >{t('Edited')}{" "}({e})</button></Link>
                   </div>
+                  <div>
+                    <Link to="/createdStratigy"><button className="authBtn_p mt-2" >{t('Created')}{" "}({c})</button></Link>
+                  </div>
+                  </div>
+                  <div className='d-flex justify-content-center' id="pt">
+                    <Link to="/addForm"><button className='upload_Str_btn'>Upload Strategy</button></Link>
+                    
+                  </div>
+                  <button onClick={handleForgotShow} className='change_btn'>{t('Change Password')}</button>
                 </div>
               </div>
             </form>
           </div>
-          <div style={{ height: "10px" }}></div>
+:
+  <div id="bbb" className='ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0'>
+<div>
+<ProfileDataS/>
+</div>
+<div>
+<ProfileDataF/>
+</div>
+<div>
+<ProfileDataE/>
+</div>
+<div>
+<ProfileDataC/>
+</div>
+
+  </div>
+
+
+}         
+
+          <div id="h10"></div>
         </div>
       </section>
     </>

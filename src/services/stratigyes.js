@@ -1,7 +1,4 @@
 import axios from "axios"
-
-
-
 // get Stratigy
 export const getStratigys = async (quiry) => {
   let stratigyResponse

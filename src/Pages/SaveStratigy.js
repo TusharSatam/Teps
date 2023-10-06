@@ -1,39 +1,42 @@
-import { Buffer } from "buffer";
-import React, { useState } from "react";
-import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import Filter from "../asstes/Filter.svg";
-import UserImage from "../asstes/Group 51.svg";
+import React, { useEffect, useRef } from "react";
+import OfflineIcon from "../asstes/icons/offline.svg";
 import ChatIcon from "../asstes/icons/chat.svg";
-import FilterHover from "../asstes/icons/filter_icon.svg";
 import KnowledgeIcon from "../asstes/icons/knowledge.svg";
 import Physical from "../asstes/icons/Motor-Physical.png";
-import OfflineIcon from "../asstes/icons/offline.svg";
-import OnlineIcon from "../asstes/icons/online.svg";
-import SaveIcon from "../asstes/icons/Save.svg";
-import SavedIcon from "../asstes/icons/Saved.svg";
 import Social from "../asstes/icons/Socio-Emotional-Ethical.png";
-import FilterStr from "../Components/Home/FilterStr";
+import LikeIcon from "../asstes/icons/Like.svg";
+import LikedIcon from "../asstes/icons/Liked.svg";
+import OnlineIcon from "../asstes/icons/online.svg";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../Context/AuthContext";
-import { getMultitHiStr } from "../services/hindiStratigys";
+import Filter from "../asstes/Filter.svg";
+import FilterHover from "../asstes/icons/filter_icon.svg";
+import HomeLayout from "../Components/Home/HomeLayout";
+import { useState } from "react";
+import "./styles/saveStratigy.css";
 import { getMultitStr } from "../services/stratigyes";
-import { delUserSaves, getSaves, postSaves } from "../services/userSaves";
+import { getSingleUser, updateUser } from "../services/dashboardUsers";
+import FilterStr from "../Components/Home/FilterStr";
+import { Link } from "react-router-dom";
+import { getMultitHiStr } from "../services/hindiStratigys";
+import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
-import "./styles/saveStratigy.css";
-import FilterStrHi from "../Components/Home/FilterStrHI";
+import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import UserImage from "../asstes/Group 51.svg";
+import { Buffer } from "buffer";
+import FilterStrHI from "../Components/Home/FilterStrHI";
 
-const SaveStratigy = () => {
+const FavouriteStr = () => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
-  const [saveStratigy, setSaveStratigy] = useState([]);
-  const [saveUserStratigy, setSaveUserStratigy] = useState([]);
-  const [saveStratigyHi, setSaveStratigyi] = useState([]);
-  const [saveStratigyHiUser, setSaveStratigyiUser] = useState([]);
+  const [favStratigy, setFavStratigy] = useState([]);
+  const [like, setLike] = React.useState([]);
+  const [favStratigyHi, setfavStratigyi] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
   const { t } = useTranslation();
+  const [likeUserStratigy, setlikeUserStratigy] = useState([]);
+  const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
   React.useEffect(() => {
@@ -51,106 +54,129 @@ const SaveStratigy = () => {
       setFilter(true);
     }
   };
-  const [save, setSave] = useState([]);
 
+  const [likes, setLikes] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
-    getSaves().then((res) => {
-      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-      const savesId = saves?.map((ress) => ress.strategie_id);
-      setSave(saves?.map((ress) => ress.strategie_id));
+    getLikes().then((res) => {
+      const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      const likeId = like?.map((ress) => ress.strategie_id);
+      setLikes(like?.map((ress) => ress.strategie_id));
       if (languageSelect === "en") {
-        getMultitStr(savesId)
+        getMultitStr(likeId)
           .then((res) => {
-            setSaveStratigy(res.data);
+            setFavStratigy(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
             setIsLoading(false);
-            setSaveStratigy([]);
+            setFavStratigy([]);
           });
-        getMultiUsertStr(savesId)
+        getMultiUsertStr(likeId)
           .then((res) => {
-            setSaveUserStratigy(res.data);
+            setlikeUserStratigy(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
-            setSaveUserStratigy([]);
             setIsLoading(false);
+            setlikeUserStratigy([]);
           });
       } else {
-        getMultitHiStr(savesId).then((res) => {
-          setSaveStratigyi(res.data);
+        getMultitHiStr(likeId).then((res) => {
+          setfavStratigyi(res.data);
           setIsLoading(false);
         });
-        getMultiUserHindiStr(savesId).then((res) => {
-          setSaveStratigyiUser(res.data);
-          setIsLoading(false);
-        });
+        getMultiUserHindiStr(likeId)
+          .then((res) => {
+            setlikeStratigyiUser(res.data);
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            setlikeStratigyiUser([]);
+          });
       }
     });
   }, [languageSelect]);
 
-  const handleApiSaves = (id) => {
+  const handleApiLikes = (id) => {
     const data = {
       strategie_id: id,
       user_id: user._id,
     };
-    postSaves(data).then((res) => {
-      getSaves().then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-        const savesId = saves?.map((ress) => ress.strategie_id);
-        setSave(saves?.map((ress) => ress.strategie_id));
+    postLikes(data).then((res) => {
+      getLikes().then((res) => {
+        const like = res?.data?.filter((ress) => ress.user_id === user._id);
+        const likeId = like?.map((ress) => ress.strategie_id);
+        setLikes(like?.map((ress) => ress.strategie_id));
         if (languageSelect === "en") {
-          getMultitStr(savesId)
+          getMultitStr(likeId)
             .then((res) => {
-              setSaveStratigy(res.data);
+              setFavStratigy(res.data);
             })
-            .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
+            .catch((err) => setFavStratigy([]));
+          getMultiUsertStr(likeId)
             .then((res) => {
-              setSaveUserStratigy(res.data);
+              setlikeUserStratigy(res.data);
             })
-            .catch((err) => setSaveUserStratigy([]));
+            .catch((err) => setlikeUserStratigy([]));
         } else {
-          getMultitHiStr(savesId).then((res) => {
-            setSaveStratigyi(res.data);
+          getMultitHiStr(likeId).then((res) => {
+            setfavStratigyi(res.data);
           });
-          getMultiUserHindiStr(savesId).then((res) => {
-            setSaveStratigyiUser(res.data);
-          });
+          getMultiUserHindiStr(likeId)
+            .then((res) => {
+              setlikeStratigyiUser(res.data);
+            })
+            .catch((err) => setlikeStratigyiUser([]));
         }
       });
     });
   };
-  const handleApiUnSaves = (id) => {
-    delUserSaves(id).then((res) => {
-      getSaves().then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-        const savesId = saves?.map((ress) => ress.strategie_id);
-        setSave(saves?.map((ress) => ress.strategie_id));
+  const handleApiUnLikes = (id) => {
+    delUserLikes(id).then((res) => {
+      getLikes().then((res) => {
+        const like = res?.data?.filter((ress) => ress.user_id === user._id);
+        const likeId = like?.map((ress) => ress.strategie_id);
+        setLikes(like?.map((ress) => ress.strategie_id));
         if (languageSelect === "en") {
-          getMultitStr(savesId)
+          getMultitStr(likeId)
             .then((res) => {
-              setSaveStratigy(res.data);
+              setFavStratigy(res.data);
             })
-            .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
+            .catch((err) => setFavStratigy([]));
+          getMultiUsertStr(likeId)
             .then((res) => {
-              setSaveUserStratigy(res.data);
+              setlikeUserStratigy(res.data);
             })
-            .catch((err) => setSaveUserStratigy([]));
+            .catch((err) => setlikeUserStratigy([]));
         } else {
-          getMultitHiStr(savesId).then((res) => {
-            setSaveStratigyi(res.data);
+          getMultitHiStr(likeId).then((res) => {
+            setfavStratigyi(res.data);
           });
-          getMultiUserHindiStr(savesId).then((res) => {
-            setSaveStratigyiUser(res.data);
-          });
+          getMultiUserHindiStr(likeId)
+            .then((res) => {
+              setlikeStratigyiUser(res.data);
+            })
+            .catch((err) => setlikeStratigyiUser([]));
         }
       });
     });
   };
+  const handleLike = async (e) => {
+    if (like?.includes(e)) {
+      for (var i = 0; i < like.length; i++) {
+        if (like[i] === e) {
+          like.splice(i, 1);
+          i--;
+        }
+      }
+    } else {
+      like.push(e);
+    }
+    setLike([...like], [like]);
+  };
+
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -160,16 +186,15 @@ const SaveStratigy = () => {
     <div>
       {languageSelect === "en" ? (
         <>
-          <div className="saveStrParent">
-            <div className="row py-2 align-items-center position-relative">
+          <div className="saveStrParent mx-0">
+            <div className="row py-2 align-items-center">
               <div className="d-flex justify-content-center">
                 <span className=" text-white text-center headText w-50">
                   {user.firstName} {user.lastName}
-                  {t("’s")} {t("Saved Strategies")}
+                  {t("’s")} {t("Favourite Strategies")}
                 </span>
               </div>
-
-              <div className="filter_btn_container d-flex justify-content-end position-absolute">
+              <div className="d-flex justify-content-end position-absolute ">
                 <div onClick={handleFilter} className="filter_bTn">
                   <span className="me-1 me-md-0">{t("Filter")}</span>
                   <img src={Filter} alt="" className="filtericon2" />
@@ -178,7 +203,7 @@ const SaveStratigy = () => {
               </div>
             </div>
             <div className={filetr ? "d-block" : "d-none"}>
-              <FilterStr stratigy={saveStratigy} language={languageSelect} />
+              <FilterStr stratigy={favStratigy} />
             </div>
           </div>
           {isLoading ? (
@@ -187,9 +212,9 @@ const SaveStratigy = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : saveStratigy?.length === 0 && saveUserStratigy?.length === 0 ? (
+          ) : favStratigy?.length === 0 && likeUserStratigy.length === 0 ? (
             <h1 className="my-5 text-center py-5 text-danger">
-              {t("No Saved Strategies available.")}
+              {t("No Favourite Strategies available.")}
             </h1>
           ) : stratigyFilData?.length !== 0 ? (
             <>
@@ -197,20 +222,19 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/single/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
-                              <div className="d-flex  str_text_left m-0">
-                                <p className="Strategy_count mb-0">
+                              <div className="d-flex mb-3 str_text_left">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                                <p className="counter_str">{index + 1}</p>
                               </div>
                             </div>
                           </div>
                         </Link>
-
                         <div>
                           <Link to={`/single/${res._id}`} className="linkStyle">
                             <p className="pedalogicalText">
@@ -230,24 +254,25 @@ const SaveStratigy = () => {
                     </div>
                   </div>
                 </div>
+                // </Link>
               ))}
-              {saveUserStratigy?.map((data, index) => (
+              {likeUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
                         >
                           <div className="me-1">
                             <div>
-                              <div className="d-flex str_text_left m-0">
-                                <p className="Strategy_count m-0">
+                              <div className="d-flex mb-md-3 str_text_left">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">
-                                  {saveStratigy.length + index + 1}
+                                <p className="counter_str">
+                                  {favStratigy.length + index + 1}
                                 </p>
                               </div>
                             </div>
@@ -270,6 +295,7 @@ const SaveStratigy = () => {
                               </Link>
                             </div>
                           </Link>
+                          <div className="d-flex justify-content-between my-3"></div>
                         </div>
                       </div>
                     </div>
@@ -279,19 +305,19 @@ const SaveStratigy = () => {
             </>
           ) : (
             <>
-              {saveStratigy?.map((data, index) => (
+              {favStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/single/${data._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
-                              <div className="d-flex  str_text_left m-0">
-                                <p className="Strategy_count mb-0">
+                              <div className="d-flex mb-3 str_text_left">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                                <p className="counter_str">{index + 1}</p>
                               </div>
                             </div>
                           </div>
@@ -319,23 +345,23 @@ const SaveStratigy = () => {
                   </div>
                 </div>
               ))}
-              {saveUserStratigy?.map((data, index) => (
+              {likeUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
                         >
                           <div className="me-1">
                             <div>
-                              <div className="d-flex str_text_left m-0">
-                                <p className="Strategy_count m-0">
+                              <div className="d-flex mb-md-3 str_text_left">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">
-                                  {saveStratigy.length + index + 1}
+                                <p className="counter_str">
+                                  {favStratigy.length + index + 1}
                                 </p>
                               </div>
                             </div>
@@ -358,6 +384,7 @@ const SaveStratigy = () => {
                               </Link>
                             </div>
                           </Link>
+                          <div className="d-flex justify-content-between my-3"></div>
                         </div>
                       </div>
                     </div>
@@ -375,26 +402,27 @@ const SaveStratigy = () => {
               <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">
                 {user.firstName}
                 {user.lastName}
-                {t("’s")} {t("Saved Strategies")}
+                {t("’s")} {t("Favourite Strategies")}
               </div>
               <div
                 onClick={handleFilter}
-                className="col-md-1 d-flex justify-content-center  align-items-center filter_bTn"
+                className="col-md-1 bg-white py-1 px-3 filterBtn"
               >
                 <span>{t("Filter")}</span>
+                <img src={Filter} className="filtericon3" alt="FilterIcon" />
               </div>
             </div>
             <div className={filetr ? "d-block" : "d-none"}>
-              <FilterStr stratigy={saveStratigyHi} language={languageSelect} />
+              <FilterStr stratigy={favStratigyHi} />
             </div>
           </div>
           {isLoading ? (
-            <div className="loadingWrap">
+            <div>
               <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : saveStratigyHi?.length === 0 ? (
+          ) : favStratigyHi?.length === 0 ? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No Saved Strategies available.")}
             </h1>
@@ -404,15 +432,15 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
                               <div className="d-flex mb-3">
-                                <p className="Strategy_count m-0">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                                <p className="counter_str">{index + 1}</p>
                               </div>
                             </div>
                           </div>
@@ -426,7 +454,7 @@ const SaveStratigy = () => {
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
-                              {res["शिक्षण रणनीति"].slice(0, 250)}...
+                              {res["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
                               <Link to={`/singleHi/${res._id}`}>
@@ -441,19 +469,21 @@ const SaveStratigy = () => {
                 </div>
                 // </Link>
               ))}
-              {saveStratigyHiUser?.map((res, index) => (
+              {likeStratigyHiUser?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
                               <div className="d-flex mb-3">
-                                <p className="Strategy_count m-0">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                                <p className="counter_str">
+                                  {stratigyFilData.length + index + 1}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -467,7 +497,7 @@ const SaveStratigy = () => {
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
-                              {res["शिक्षण रणनीति"].slice(0, 250)}...
+                              {res["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
                               <Link to={`/singleHi/${res._id}`}>
@@ -485,11 +515,11 @@ const SaveStratigy = () => {
             </>
           ) : (
             <>
-              {saveStratigyHi?.map((data, index) => (
+              {favStratigyHi?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -497,10 +527,10 @@ const SaveStratigy = () => {
                           <div className="me-1">
                             <div>
                               <div className="d-flex mb-3">
-                                <p className="Strategy_count m-0">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                                <p className="counter_str">{index + 1}</p>
                               </div>
                             </div>
                           </div>
@@ -514,7 +544,7 @@ const SaveStratigy = () => {
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
-                              {data["शिक्षण रणनीति"].slice(0, 250)}...
+                              {data["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
                               <Link to={`/singleHi/${data._id}`}>
@@ -528,11 +558,11 @@ const SaveStratigy = () => {
                   </div>
                 </div>
               ))}
-              {saveStratigyHiUser?.map((data, index) => (
+              {likeStratigyHiUser?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -540,11 +570,11 @@ const SaveStratigy = () => {
                           <div className="me-1">
                             <div>
                               <div className="d-flex mb-3">
-                                <p className="Strategy_count m-0">
+                                <p className="Strategy_count">
                                   {t("strategy")}
                                 </p>
-                                <p className="counter_str mb-0">
-                                  {saveStratigyHi.length + index + 1}
+                                <p className="counter_str">
+                                  {favStratigyHi.length + index + 1}
                                 </p>
                               </div>
                             </div>
@@ -559,7 +589,7 @@ const SaveStratigy = () => {
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
-                              {data["शिक्षण रणनीति"].slice(0, 250)}...
+                              {data["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
                               <Link to={`/singleHi/${data._id}`}>
@@ -581,4 +611,4 @@ const SaveStratigy = () => {
   );
 };
 
-export default SaveStratigy;
+export default FavouriteStr;
