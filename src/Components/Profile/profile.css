@@ -1,13 +1,14 @@
-/* .profile_container{
-  background: 
-} */
+.profile_container{
+  font-family: 'Poppins', sans-serif;
+}
 .button-wrapper {
     position: relative;
     width: 150px;
     text-align: center;
-    /* margin: 20% auto; */
-    /* margin-top: -100px; */
-    margin-left: 55px;
+    margin:auto ;
+  }
+  .hover-white:hover {
+    filter: brightness(0) invert(1);
   }
   .arrow {
     margin-left: 6px;
@@ -62,13 +63,49 @@
     font-size: 24px;
     line-height: 29px;
     color: #474747;
+    margin-top: 2rem;
+}
+.profile_Name{
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  margin-bottom: .2rem;
+}
+.profile_Organization{
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+}
+.viewMyStrategies{
+  display: flex;
+width: 100%;
+height: 56px;
+padding: 1rem 1.5rem;
+align-items: center;
+gap: 60px;
+background: transparent;
+border:none;
+color: #1AA05B;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+white-space: nowrap;
+}
+.welcomeUser{
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
 }
 .side_profile{
-  width: 480px;
-  height: 878px;
-  background: #F8F9FA;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.02);
-  border-radius: 12px;
+  width: 390px;
+  height: fit-content;
+  border-radius: 24px;
+  background: #FFF;
+  box-shadow: -8px 0px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+/* Add this CSS to your stylesheet */
+button:hover .hover-white {
+  filter: brightness(0) invert(1);
 }
 .form_container{
   width: 725px;
@@ -332,17 +369,64 @@ margin-top: -20px;
   background: #9FDFBE;
   border: 1px solid #9FDFBE;
 }
+/* .profileOptions a{
+display: flex;
+justify-content: space-between;
+} */
 .authBtn_p{
-  background: white;
-  color:#1AA05B;
-  border: 1px solid #1AA05B;
-  font-size: 16px;
-  font-weight: 700;
-  width: 140px;
-  border-radius: 20px;    
-  padding: 6px 14px;
-  gap: 15px;
-  transition: 0.5s;
+  display: flex;
+  padding: 16px 24px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: var(--brand-color-green, #1AA05B);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.2px;
+  background: none;
+  border: none;
+  width: 100%;
+  white-space: nowrap;
+}
+.authBtn_p:hover{
+  background: none !important;
+  color: #1AA05B !important;
+}
+
+a{
+  text-decoration: none;
+
+}
+.lowerOptions{
+  margin-top: 24px;
+  gap:24px
+}
+.profileOption{
+  display: flex;
+width: 100%;
+padding: 16px 24px;
+align-items: center;
+gap: 10px;
+color: var(--brand-color-green, #1AA05B);
+text-align: center;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
+letter-spacing: -0.2px;
+border: none;
+background: transparent;
+
+}
+.profileOption:hover,.viewMyStrategies:hover{
+  border-radius: 24px;
+background: #1AA05B;
+color: #FFF;
+/* primary button */
+box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
 }
 .authBtn_p:hover{
   background: #1AA05B;
