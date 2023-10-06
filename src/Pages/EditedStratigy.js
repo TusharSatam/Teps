@@ -158,8 +158,8 @@ const SaveStratigy = () => {
                 <div className='filter_btn_container d-flex justify-content-end' id="at">
                   <div onClick={handleFilter} className='filter_bTn'>
                     <span className='me-1 me-md-0'>{t("Filter")}</span>
-                    <img src={Filter} alt="" className='filtericon2' />
-                    <img src={FilterHover} alt="" className='filtericon3' />
+                    <img src={Filter} alt="image" className='filtericon2' />
+                    <img src={FilterHover} alt="image" className='filtericon3' />
                   </div>
                 </div>
               </div>
@@ -248,7 +248,7 @@ const SaveStratigy = () => {
                                             delay={{ show: 250, hide: 400 }}
                                             overlay={renderTooltip}
                                           >
-                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" />
                                           </OverlayTrigger>
                                           :
                                           <OverlayTrigger
@@ -292,7 +292,7 @@ const SaveStratigy = () => {
                                           delay={{ show: 250, hide: 400 }}
                                           overlay={renderTooltip}
                                         >
-                                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                          <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" />
                                         </OverlayTrigger>
                                         :
                                         <OverlayTrigger
@@ -389,7 +389,7 @@ const SaveStratigy = () => {
                                               delay={{ show: 250, hide: 400 }}
                                               overlay={renderTooltip}
                                             >
-                                              <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                              <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" />
                                             </OverlayTrigger>
                                             :
                                             <OverlayTrigger
@@ -433,7 +433,7 @@ const SaveStratigy = () => {
                                             delay={{ show: 250, hide: 400 }}
                                             overlay={renderTooltip}
                                           >
-                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="" />
+                                            <img className='label user_image' src={`data:${user?.image?.contentType};base64,${Buffer.from(user?.image?.data?.data).toString('base64')}`} alt="image" />
                                           </OverlayTrigger>
                                           :
                                           <OverlayTrigger
@@ -510,22 +510,22 @@ const SaveStratigy = () => {
                                             {
                                               !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="image" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="image" />
                                             }
                                             {
                                               !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="image" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="image" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             res['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                           }
                                         </div>
                                       </div>
@@ -551,20 +551,20 @@ const SaveStratigy = () => {
                                         {
                                           !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="image" /> :
+                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="image" />
                                         }
                                         {
                                           !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="image" /> :
+                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="image" />
                                         }
                                       </div>
                                       {
                                         res['Mode of Teaching'] === "ऑनलाइन" ?
-                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                       }
                                     </div>
                                   </div>
@@ -599,22 +599,22 @@ const SaveStratigy = () => {
                                             {
                                               !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="image" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="image" />
                                             }
                                             {
                                               !res['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 res['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="image" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="image" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             res['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                           }
                                         </div>
                                       </div>
@@ -640,20 +640,20 @@ const SaveStratigy = () => {
                                         {
                                           !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="image" /> :
+                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="image" />
                                         }
                                         {
                                           !res['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             res['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="image" /> :
+                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="image" />
                                         }
                                       </div>
                                       {
                                         res['Mode of Teaching'] === "ऑनलाइन" ?
-                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                       }
                                     </div>
                                   </div>
@@ -690,22 +690,22 @@ const SaveStratigy = () => {
                                             {
                                               !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                 data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                  <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="image" /> :
+                                                  <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="image" />
                                             }
                                             {
                                               !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                 data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                  <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="image" /> :
+                                                  <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="image" />
                                             }
                                           </div>
                                         </div>
                                         <div className='ms-1'>
                                           {
                                             data['Mode of Teaching'] === "ऑनलाइन" ?
-                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                              <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                              <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                           }
                                         </div>
                                       </div>
@@ -731,20 +731,20 @@ const SaveStratigy = () => {
                                         {
                                           !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun-save'></div> :
                                             data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                              <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="image" /> :
+                                              <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="image" />
                                         }
                                         {
                                           !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
                                             data['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                              <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="image" /> :
+                                              <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="image" />
                                         }
                                       </div>
                                       {
                                         data['Mode of Teaching'] === "ऑनलाइन" ?
-                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                          <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                          <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                       }
                                     </div>
                                   </div>
@@ -778,22 +778,22 @@ const SaveStratigy = () => {
                                               {
                                                 !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons'></div> :
                                                   data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                    <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="" /> :
-                                                    <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="" />
+                                                    <img id="wh" title="संज्ञानात्मक संवेदी" className='threeIcons mb-1' src={KnowledgeIcon} alt="image" /> :
+                                                    <img id="wh" title="मोटर-भौतिक" className='threeIcons mb-1' src={Physical} alt="image" />
                                               }
                                               {
                                                 !data['विकासात्मक क्षेत्र 2'] ? <div className='threeIcons'></div> :
                                                   data['विकासात्मक क्षेत्र 2'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                    <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="" /> :
-                                                    <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="" />
+                                                    <img id="wh" title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons mb-1' src={Social} alt="image" /> :
+                                                    <img id="wh" title='भाषा और संचार' className='threeIcons mb-1' src={ChatIcon} alt="image" />
                                               }
                                             </div>
                                           </div>
                                           <div className='ms-1'>
                                             {
                                               data['Mode of Teaching'] === "ऑनलाइन" ?
-                                                <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                                <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                                <img id="wh" title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                                <img id="wh" title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                             }
                                           </div>
                                         </div>
@@ -819,20 +819,20 @@ const SaveStratigy = () => {
                                           {
                                             !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
                                               data['विकासात्मक क्षेत्र 1'] === "संज्ञानात्मक संवेदी" ?
-                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="" /> :
-                                                <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="" />
+                                                <img title="संज्ञानात्मक संवेदी" className='threeIcons mx-2' src={KnowledgeIcon} alt="image" /> :
+                                                <img title="मोटर-भौतिक" className='threeIcons mx-2' src={Physical} alt="image" />
                                           }
                                           {
                                             !data['विकासात्मक क्षेत्र 1'] ? <div className='threeIcons-nun'></div> :
                                               data['विकासात्मक क्षेत्र 1'] === "सामाजिक-भावनात्मक-नैतिक" ?
-                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="" /> :
-                                                <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="" />
+                                                <img title='सामाजिक-भावनात्मक-नैतिक' className='threeIcons ms-3' src={Social} alt="image" /> :
+                                                <img title='भाषा और संचार' className='threeIcons ms-3' src={ChatIcon} alt="image" />
                                           }
                                         </div>
                                         {
                                           data['Mode of Teaching'] === "ऑनलाइन" ?
-                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="" /> :
-                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="" />
+                                            <img title='ऑनलाइन' className='threeIcons' src={OnlineIcon} alt="image" /> :
+                                            <img title='विद्यालय में' className='threeIcons' src={OfflineIcon} alt="image" />
                                         }
                                       </div>
                                     </div>
