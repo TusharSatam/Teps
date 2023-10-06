@@ -1,19 +1,10 @@
 .container {
-  border-radius: 15px;
   max-width: 1250px;
-  background-color:white ;
-  /* padding: 8px; */
-}
-.card_pad{
-  border-radius: 18px;
-  padding: 9px;
-  
 }
 .saveStrParent {
   background: #1aa05b;
   overflow: hidden;
   padding: 1px;
-  border-radius: 18px;
 }
 .filter_bTn {
   color: #1aa05b;
