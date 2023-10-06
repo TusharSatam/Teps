@@ -170,9 +170,12 @@
     color: white;
   }
   .headText{
-    width:65%;
     margin-bottom: 0;
     font-size: 1.2rem;
+    white-space: nowrap;
+    padding: 0rem .4rem;
+    font-size: 24px;
+    font-weight: 600;
   }
   .line,.lightgreenline{
     height: 5px;
@@ -185,10 +188,11 @@
   }
   .backbutton{
     position: absolute;
-    left: 5%;
+    left: 0%;
     background: white;
     z-index: 1;
     border: none;
+    font-size: 24px;
     font-weight: 600;
   }
   @keyframes spin {
@@ -227,5 +231,12 @@
   }
   .formWrapper{
     padding: 1rem;
+  }
+  .backbutton{
+    font-size: 14px;
+  }
+  .backbutton img{
+    height: 14px;
+    margin-bottom: 0.1rem;
   }
   }

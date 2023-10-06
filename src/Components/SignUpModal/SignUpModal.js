@@ -164,7 +164,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       html: `
                       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                      <p>http://localhost:3000/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
+                      <p>https://teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?.data?._id}&pfgvsckvnlksfwe=${res.data.jwt}</p><br/>
                       <p>Regards,</p>
                       <p>Things Education</p>
                       `,
@@ -402,8 +402,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         emailError
                           ? "signup_Input border-danger text-danger"
                           : registrationOption === "phone"
-                          ? "signup_Input "
-                          : "signup_Input"
+                          ? "signup_Input email"
+                          : "signup_Input email"
                       }
                       name="email"
                       placeholder="Lilyblom201@gmail.com"
@@ -453,8 +453,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         phoneError
                           ? "signup_Input border-danger text-danger"
                           : registrationOption === "email"
-                          ? "signup_Input "
-                          : "signup_Input"
+                          ? "signup_Input phoneNumber "
+                          : "signup_Input phoneNumber"
                       }
                       name="phone_number"
                       placeholder={t("Phone Number")}

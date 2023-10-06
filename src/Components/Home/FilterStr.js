@@ -521,7 +521,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
         <div className="d-flex justify-content-center my-4 my-md-3 mt-md-2 pb-0 pb-md-0 mt-md-3">
           <button
             onClick={()=>handleOptionModalShow(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic)}
-            className="submit_btn w-100"
+            className="primaryButton subBtn"
           >
             {t("Find Strategies")}
           </button>

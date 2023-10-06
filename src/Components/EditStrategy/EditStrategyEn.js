@@ -19,6 +19,7 @@ import "./EditStrategy.css";
 import { getSingleUser } from "../../services/dashboardUsers";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 import UserImage from "../../asstes/Group 51.svg";
+import backArrow from "../../asstes/icons/backArrow.svg";
 const EditStrategyEn = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
@@ -147,7 +148,14 @@ const EditStrategyEn = () => {
       setisPublishModalOpen(true);
     }
   };
-
+  React.useEffect(() => {
+    if (formSubmitted) {
+      successTextRef.current.scrollIntoView({
+        behavior: "smooth", // You can use "auto" for instant scrolling
+        block: "start", // Scroll to the top of the message
+      });
+    }
+  }, [formSubmitted]);
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {uploaderName}
@@ -155,15 +163,15 @@ const EditStrategyEn = () => {
   );
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t(
-          "Back"
-        )}`}</button>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
         <hr className="line" />
-        <p className="headText text-center">Edit User Strategy</p>
+        <p className="headText text-center">Edit Strategy</p>
         <hr className="line" />
       </div>
-
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
@@ -184,7 +192,7 @@ const EditStrategyEn = () => {
                         };base64,${Buffer.from(
                           uploaderDatas?.image?.data?.data
                         ).toString("base64")}`}
-                        alt=""
+                        alt="user_image"
                       />
                     </OverlayTrigger>
                   ) : (
@@ -228,7 +236,7 @@ const EditStrategyEn = () => {
                         };base64,${Buffer.from(
                           uploaderDatas?.image?.data?.data
                         ).toString("base64")}`}
-                        alt=""
+                        alt="user_image"
                       />
                     </OverlayTrigger>
                   ) : (
@@ -261,7 +269,7 @@ const EditStrategyEn = () => {
               Datas={editedDatas}
             />
 
-            <form onSubmit={handleSubmit} className="">
+            <form onSubmit={handleSubmit}>
               <div className="two-selects gap-3 d-flex flex-row">
                 <div className="halfwidth">
                   <p className="select-title ">
@@ -271,7 +279,6 @@ const EditStrategyEn = () => {
                     onChange={handleGrade}
                     className={"select-field"}
                     name="grade"
-                    id=""
                     disabled
                   >
                     <option value="" selected disabled>
@@ -287,7 +294,6 @@ const EditStrategyEn = () => {
                     onChange={handleSub}
                     className={"select-field "}
                     name="subject"
-                    id=""
                     aria-label="Default select example"
                     value={formData.Subject}
                     disabled
@@ -307,7 +313,6 @@ const EditStrategyEn = () => {
                     onChange={handleSuperTopic}
                     className={"select-field"}
                     name="Super_Topic"
-                    id=""
                     value={
                       formData?.["Super Topic"]
                         ? formData?.["Super Topic"]
@@ -330,7 +335,6 @@ const EditStrategyEn = () => {
                     onChange={handleTopic}
                     className={"select-field"}
                     name="topic"
-                    id=""
                     value={formData?.Topic}
                     disabled
                   >
@@ -349,7 +353,6 @@ const EditStrategyEn = () => {
                     onChange={handleSubTopic}
                     className={"select-field"}
                     name="sub_topic"
-                    id=""
                     value={formData?.["Sub Topic"]}
                     disabled
                   >
@@ -366,7 +369,6 @@ const EditStrategyEn = () => {
                     onChange={handleSubSubTopic}
                     className={"select-field"}
                     name="sub_sub_topic"
-                    id=""
                     value={formData["Sub-sub topic"]}
                     disabled
                   >
@@ -384,7 +386,6 @@ const EditStrategyEn = () => {
                   <select
                     className={"select-field"}
                     name="Pedagogical_Approach"
-                    id=""
                     value={
                       formData["Pedagogical Approach"]
                         ? formData["Pedagogical Approach"]
@@ -405,7 +406,6 @@ const EditStrategyEn = () => {
                     onChange={handleLearningOutcome}
                     className={"select-field"}
                     name="learning_outcome"
-                    id=""
                     value={formData["Learning Outcome"]}
                     disabled
                   >
@@ -424,7 +424,6 @@ const EditStrategyEn = () => {
                   <textarea
                     className={"select-field-full-2 StrategyTextarea"}
                     name="Teaching Strategy"
-                    id=""
                     value={
                       formData?.["Teaching Strategy"]
                         ? formData?.["Teaching Strategy"]
@@ -465,7 +464,7 @@ const EditStrategyEn = () => {
         </div>
       )}
       {formSubmitted && (
-        <p className="responseText">Thank you for publishing your strategy!</p>
+        <p className="responseText" ref={successTextRef}>Thank you for publishing your strategy!</p>
       )}
     </>
   );

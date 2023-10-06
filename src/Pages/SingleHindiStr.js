@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./styles/saveStratigy.css";
-import OfflineIcon from "../asstes/icons/offline.svg";
-import ChatIcon from "../asstes/icons/chat.svg";
-import KnowledgeIcon from "../asstes/icons/knowledge.svg";
-import Physical from "../asstes/icons/Motor-Physical.png";
-import Social from "../asstes/icons/Socio-Emotional-Ethical.png";
-import OnlineIcon from "../asstes/icons/online.svg";
+import backArrow from "../asstes/icons/backArrow.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
 import SaveIcon from "../asstes/icons/Save.svg";
@@ -282,20 +277,22 @@ const SingleHindiStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-
-    <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
-        <p className="headText text-center"> {t("Strategy screen")}</p>
-        <hr className="line"/>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
+        <p className="headText text-center">{t("Strategy screen")}</p>
+        <hr className="line" />
       </div>
-      <div className="mx-3 mx-md-5">
+      <div className="mx-2 mx-md-5">
         <p className="single_str_head">
           {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.['अच्छा विषय']} &gt; {str?.शीर्षक}{" "}
           &gt; {str[`उप शीर्षक`]} &gt; {str["उप-उप शीर्षक"]}
         </p>
       </div>
-      <div className="mx-3 mx-md-5">
+      <div className="mx-2 mx-md-5">
         <div  className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 ">
@@ -315,28 +312,28 @@ const SingleHindiStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex">
-                    <div>
-                      <div className="mx-2">
+                  <div className="d-flex gap-2 gap-md-4">
+                    <div className="d-flex align-items-center flex-column">
+                      <div>
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            className="me-2 me-md-3 save_like cursor-pointer"
+                            className="save_like cursor-pointer"
                             src={SavedIcon}
                             alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            className="me-2 me-md-3 save_like cursor-pointer"
+                            className="save_like cursor-pointer"
                             src={SaveIcon}
                             alt="SavedIcon"
                           />
                         )}
                       </div>
-                      <p className="count_num">{totalUserSaves}</p>
+                      <p className="count_num mx-0">{totalUserSaves}</p>
                     </div>
-                    <div className="mx-3">
+                    <div className="d-flex align-items-center flex-column">
                       <div>
                         {userLikes.includes(str?._id) ? (
                           <img
@@ -354,7 +351,7 @@ const SingleHindiStr = () => {
                           />
                         )}
                       </div>
-                      <p className="count_num" onClick={() => setShow(!show)}>
+                      <p className="count_num mx-0" onClick={() => setShow(!show)}>
                         {totalUserLikes}
                       </p>
                     </div>
@@ -376,7 +373,7 @@ const SingleHindiStr = () => {
                       className="secondaryButton"
                       onClick={handleEditStrategy}
                     >
-                      {t("Edit Strategy")} <img src={editIcon} alt="edit" />
+                      {t("Edit Strategy")} <img src={editIcon} alt="edit" className="mx-md-2"/>
                     </button>
                   </div>
                 </div>

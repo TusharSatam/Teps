@@ -2,21 +2,14 @@ import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import ChatIcon from "../asstes/icons/chat.svg";
 import DownArrow from "../asstes/icons/DownArrow.svg";
-import KnowledgeIcon from "../asstes/icons/knowledge.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
-import Physical from "../asstes/icons/Motor-Physical.png";
-import OfflineIcon from "../asstes/icons/offline.svg";
-import OnlineIcon from "../asstes/icons/online.svg";
+import backArrow from "../asstes/icons/backArrow.svg";
 import SaveIcon from "../asstes/icons/Save.svg";
 import SavedIcon from "../asstes/icons/Saved.svg";
-import Social from "../asstes/icons/Socio-Emotional-Ethical.png";
 import UpArrow from "../asstes/icons/upArrow.svg";
 import LikeByModal from "../Components/Modal/LikeByModal";
-import DevelopmentalDomainIconSM from "../Components/SingleStr/DevelopmentalDomainIconSM";
-import DevelopmentalDomainIconXL from "../Components/SingleStr/DevelopmentalDomainIconXL";
 import { useAuth } from "../Context/AuthContext";
 import { getMultitUser } from "../services/dashboardUsers";
 import {
@@ -248,21 +241,24 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
-        <p className="headText text-center"> {t("Strategy screen")}</p>
-        <hr className="line"/>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
+        <p className="headText text-center">{t("Strategy screen")}</p>
+        <hr className="line" />
       </div>
 
-      <div className="mx-3 mx-md-4">
+      <div className="mx-2 mx-md-4">
         <p className="single_str_head">
           {str?.Subject} &gt; {str?.Grade} &gt; {str?.['Super Topic']} &gt; {str?.Topic}{" "}
           &gt; {str[`Sub Topic`]} &gt; {str["Sub-sub topic"]}
         </p>
       </div>
 
-      <div className="mx-3 mx-md-4">
+      <div className="mx-2 mx-md-4">
         <div className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
@@ -295,20 +291,20 @@ const SingleStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex">
-                    <div className="mx-lg-3 mx-md-2 mx-2 d-flex align-items-center flex-column">
+                  <div className="d-flex gap-2 gap-md-4">
+                    <div className="d-flex align-items-center flex-column">
                       <div>
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            className="me-2 me-md-3 save_like"
+                            className="save_like"
                             src={SavedIcon}
                             alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            className="me-2 me-md-3 save_like"
+                            className="save_like"
                             src={SaveIcon}
                             alt="SavedIcon"
                           />
@@ -317,7 +313,7 @@ const SingleStr = () => {
                       </div>
                     </div>
 
-                    <div className="mx-lg-3 mx-md-2 mx-2 d-flex align-items-center flex-column">
+                    <div className="d-flex align-items-center flex-column">
                       <div>
                         {userLikes.includes(str?._id) ? (
                           <img
@@ -361,7 +357,7 @@ const SingleStr = () => {
                       className="secondaryButton"
                       onClick={handleEditStrategy}
                     >
-                      {t("Edit Strategy")} <img src={editIcon} alt="edit" />
+                      {t("Edit Strategy")} <img src={editIcon} alt="edit" className="mx-md-2"/>
                     </button>
                   </div>
                 </div>

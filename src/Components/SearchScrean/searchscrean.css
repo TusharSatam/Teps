@@ -128,6 +128,10 @@ text-decoration: none;
   line-height: 24px;
   color: #000000;
 }
+.showStrategy{
+  font-size: 24px;
+  font-weight: 500;
+}
 .dsfdasfas {
   width: 200px;
 }
@@ -271,7 +275,7 @@ text-decoration: none;
   }
   .checkBox_title {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 12px;
   }
   .card-header {
@@ -409,6 +413,9 @@ text-decoration: none;
   .user_str {
     font-size: 8px;
   }
+  .showStrategy{
+    font-size: 14px;
+  }
 }
 @media only screen and (max-width: 500px) {
   .res_btn_icon {
@@ -426,6 +433,7 @@ text-decoration: none;
     font-size: 10px;
     font-weight: 400;
     letter-spacing: -0.2px;
+    margin-bottom: 0;
   }
   .sub_sub_title{
     font-size: 10px;

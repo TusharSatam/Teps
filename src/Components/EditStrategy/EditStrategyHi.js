@@ -1,19 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { t } from "i18next";
 import { useState } from "react";
-import {
-  getAllStratigys,
-  getStratigys,
-  singleStratigys,
-} from "../../services/stratigyes";
+
 import { useAuth } from "../../Context/AuthContext";
-import { postUserStratigys } from "../../services/userStratigy";
-import AproveReqModal from "../Modal/AproveReqModal";
 import { useParams } from "react-router-dom";
 import "./EditStrategy.css";
 import { useTranslation } from "react-i18next";
 import { singleHindiStratigys } from "../../services/hindiStratigys";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
+import backArrow from "../../asstes/icons/backArrow.svg";
 const EditStrategyHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState("");
@@ -38,8 +33,8 @@ const EditStrategyHi = () => {
   const { id } = useParams();
   const successTextRef = useRef(null);
   const [isPublishModalOpen, setisPublishModalOpen] = useState(false);
-  const [isStrategyPublic, setisStrategyPublic] = useState(false)
-  const [editedDatas, seteditedDatas] = useState("")
+  const [isStrategyPublic, setisStrategyPublic] = useState(false);
+  const [editedDatas, seteditedDatas] = useState("");
   const { user, editStrategyFormData } = useAuth();
   const handleTeachingStrategyChange = (event) => {
     const { name, value } = event.target;
@@ -111,51 +106,57 @@ const EditStrategyHi = () => {
         "शिक्षण के परिणाम": formData["शिक्षण के परिणाम"],
         "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
         Approve: false,
-        EditedBy:user._id,
-        isPublic:false,
+        EditedBy: user._id,
+        isPublic: false,
       };
-      seteditedDatas(data)
+      seteditedDatas(data);
       setFormSubmitted(true);
-      setisPublishModalOpen(true)
-
+      setisPublishModalOpen(true);
     }
   };
 
-useEffect(() => {
-  if (successTextRef.current && formSubmitted) {
-    successTextRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
-}, [formSubmitted])
-
+  React.useEffect(() => {
+    if (formSubmitted) {
+      successTextRef.current.scrollIntoView({
+        behavior: "smooth", // You can use "auto" for instant scrolling
+        block: "start", // Scroll to the top of the message
+      });
+    }
+  }, [formSubmitted]);
 
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center mb-3">
-      <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
-        <p className="headText text-center">उपयोगकर्ता रणनीति संपादित करें</p>
-        <hr className="line"/>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
+        <p className="headText text-center">रणनीति संपादित करें</p>
+        <hr className="line" />
       </div>
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
-             <div className="d-none d-md-block mb-4 mb-md-3 str_title">
-                <p className="str_name">{t("strategy")}</p>
-                <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
-              </div>
+            <div className="d-none d-md-block mb-4 mb-md-3 str_title">
+              <p className="str_name">{t("strategy")}</p>
+              <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
+            </div>
           </div>
           <div className="d-flex flex-column formWrapper">
-          <div className=" d-md-none mb-4 mb-md-3 str_title">
-                <p className="str_name">{t("strategy")}</p>
-                <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
-              </div>
-          <PublishModal show={isPublishModalOpen} handleClose={()=>setisPublishModalOpen(false)} setisStrategyPublic={setisStrategyPublic}   setDatas={seteditedDatas}
-              Datas={editedDatas}/>
+            <div className=" d-md-none mb-4 mb-md-3 str_title">
+              <p className="str_name">{t("strategy")}</p>
+              <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
+            </div>
+            <PublishModal
+              show={isPublishModalOpen}
+              handleClose={() => setisPublishModalOpen(false)}
+              setisStrategyPublic={setisStrategyPublic}
+              setDatas={seteditedDatas}
+              Datas={editedDatas}
+            />
 
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit}>
               <div className="two-selects d-flex gap-2">
                 <div className="halfwidth">
                   <p className="select-title">
@@ -167,7 +168,7 @@ useEffect(() => {
                     name="grade"
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData?.श्रेणी}
                     </option>
                   </select>
@@ -184,7 +185,7 @@ useEffect(() => {
                     value={formData.Subject}
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData.विषय}
                     </option>
                   </select>
@@ -206,7 +207,7 @@ useEffect(() => {
                     }
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData?.["मुख्य शीर्षक"]
                         ? formData?.["मुख्य शीर्षक"]
                         : formData?.["अच्छा विषय"]}
@@ -224,7 +225,7 @@ useEffect(() => {
                     value={formData?.शीर्षक}
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData?.शीर्षक}
                     </option>
                   </select>
@@ -242,7 +243,7 @@ useEffect(() => {
                     value={formData?.["उप शीर्षक"]}
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData?.["उप शीर्षक"]}
                     </option>
                   </select>
@@ -258,13 +259,13 @@ useEffect(() => {
                     value={formData["उप-उप शीर्षक"]}
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData["उप-उप शीर्षक"]}
                     </option>
                   </select>
                 </div>
               </div>
-  
+
               <div className="two-selects ">
                 <div>
                   <p className="select-title">
@@ -280,7 +281,7 @@ useEffect(() => {
                         : ""
                     }
                   >
-                    <option value="" selected disabled>
+                    <option selected disabled>
                       {formData?.["शिक्षण का तरीका"]
                         ? formData?.["शिक्षण का तरीका"]
                         : ""}
@@ -299,13 +300,12 @@ useEffect(() => {
                     value={formData["शिक्षण के परिणाम"]}
                     disabled
                   >
-                    <option  selected disabled>
+                    <option selected disabled>
                       {formData?.["शिक्षण के परिणाम"]}
                     </option>
                   </select>
                 </div>
               </div>
- 
 
               <div className="one-selects-l">
                 <div>
@@ -321,7 +321,7 @@ useEffect(() => {
                         : ""
                     }
                     onChange={handleTeachingStrategyChange}
-                  disabled={formSubmitted}
+                    disabled={formSubmitted}
                   />
                 </div>
               </div>
@@ -333,11 +333,8 @@ useEffect(() => {
                 >
                   रणनीति प्रकाशित करें
                 </button>
-                <button
-                  className="secondaryButton"
-                  disabled={formSubmitted}
-                >
-                  रद्द 
+                <button className="secondaryButton" disabled={formSubmitted}>
+                  रद्द
                 </button>
               </div>
               {error && (
@@ -353,7 +350,11 @@ useEffect(() => {
           <div className="loading-spinner"></div>
         </div>
       )}
-      {formSubmitted && <p className="responseText">अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!</p>}
+      {formSubmitted && (
+        <p className="responseText" ref={successTextRef}>
+          अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!
+        </p>
+      )}
     </>
   );
 };

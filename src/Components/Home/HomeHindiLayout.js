@@ -430,12 +430,12 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         </div>
         {
           location.pathname === '/home' ?
-            <div className='d-flex justify-content-center my-3 mb-0'>
+            <div className='d-flex justify-content-center'>
               <button onClick={handleFindStratigys} className='primaryButton subBtn'>{t('Find Strategies')}</button>
             </div>
             :
-            <div className='d-flex justify-content-center mt-4 mb-2'>
-              <button onClick={handleFindStratigys} className='primaryButton'>{t('Find Strategies')}</button>
+            <div className='d-flex justify-content-center'>
+              <button onClick={handleFindStratigys} className='primaryButton subBtn'>{t('Find Strategies')}</button>
             </div>
         }
       </>

@@ -4,7 +4,6 @@
     font-weight: 700;
     line-height: 48px;
     letter-spacing: -0.01em;
-    color: #1aa05b;
     font-size: 28px;
     margin-bottom: 3rem;
   }
@@ -50,6 +49,9 @@
   .signup_Input::placeholder,label,.login_input::placeholder{
     color:  #000000;
     font-weight: 500;
+  }
+  .email::placeholder,.phoneNumber::placeholder{
+    font-weight: 400;
   } 
   .res_modal {
     background: #ffffff;
@@ -167,6 +169,7 @@ background-color: #DDD;
     }
     .subBtn{
       padding-left: 1rem 0.5rem;
+      width: 130px;
     }
   }
   

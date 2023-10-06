@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import "./styles/saveStratigy.css";
-import OfflineIcon from "../asstes/icons/offline.svg";
-import ChatIcon from "../asstes/icons/chat.svg";
-import KnowledgeIcon from "../asstes/icons/knowledge.svg";
-import Physical from "../asstes/icons/Motor-Physical.png";
-import Social from "../asstes/icons/Socio-Emotional-Ethical.png";
-import OnlineIcon from "../asstes/icons/online.svg";
+import backArrow from "../asstes/icons/backArrow.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
 import SaveIcon from "../asstes/icons/Save.svg";
@@ -23,17 +18,13 @@ import {
 import { useAuth } from "../Context/AuthContext";
 import LikeByModal from "../Components/Modal/LikeByModal";
 import { singleUserEnStratigys } from "../services/userStratigy";
-import UserImage from "../asstes/Group 51.svg";
 import { Buffer } from "buffer";
 import { getRatings, postRating, postcomment } from "../services/stratigyes";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
 import { delSaves, getSaves, postSaves } from "../services/userSaves";
-import LeftArrow from "../asstes/left-arrow.svg";
 import editIcon from "../asstes/icons/editIcon.svg";
-import ratingStar from "../asstes/icons/ratingStar.svg";
-import ratingStarFill from "../asstes/icons/ratingStarFill.svg";
 import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 
@@ -273,20 +264,23 @@ const SingleUserStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-         <div className=" d-flex justify-content-center align-items-center mb-3">
-        <button className="backbutton" onClick={handleBackClick}>{`< ${t('Back')}`}</button>
-        <hr className="line"/>
-        <p className="headText text-center"> {t("Strategy screen")}</p>
-        <hr className="line"/>
+      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+        <button className="backbutton" onClick={handleBackClick}>
+          <img src={backArrow} alt="backArrow" className="mb-md-1" />
+          {`${t("Back")}`}
+        </button>
+        <hr className="line" />
+        <p className="headText text-center">{t("Strategy screen")}</p>
+        <hr className="line" />
       </div>
-      <div className="mx-3 mx-md-5">
+      <div className="mx-2 mx-md-5">
         <p className="single_str_head">
           {str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt;{" "}
           {str?.['Super Topic']}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
           {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str["Sub-sub topic"]}
         </p>
       </div>
-      <div className="mx-4 mx-md-5">
+      <div className="mx-2 mx-md-5">
         <div  className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
@@ -315,28 +309,28 @@ const SingleUserStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex ">
-                    <div>
-                      <div className="mx-2">
+                  <div className="d-flex gap-2 gap-md-4">
+                    <div className="d-flex flex-column justify-content-center align-items-center">
+                      <div>
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            className="me-2 me-md-3 save_like cursor-pointer"
+                            className="save_like cursor-pointer"
                             src={SavedIcon}
                             alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            className="me-2 me-md-3 save_like cursor-pointer"
+                            className="save_like cursor-pointer"
                             src={SaveIcon}
                             alt="SavedIcon"
                           />
                         )}
                       </div>
-                      <p className="count_num">{totalUserSaves}</p>
+                      <p className="count_num mx-0">{totalUserSaves}</p>
                     </div>
-                    <div className="mx-3">
+                    <div className="d-flex flex-column justify-content-center align-items-center">
                       <div>
                         {userLikes.includes(str?._id) ? (
                           <img
@@ -356,7 +350,7 @@ const SingleUserStr = () => {
                       </div>
                       <p
                         onClick={showReact}
-                        className="count_num cursor-pointer"
+                        className="count_num mx-0 cursor-pointer"
                       >
                         {totalLikeUser.length}
                       </p>
@@ -379,7 +373,7 @@ const SingleUserStr = () => {
                       className="secondaryButton"
                       onClick={handleEditStrategy}
                     >
-                      Edit Strategy <img src={editIcon} alt="edit" />
+                      Edit Strategy <img src={editIcon} alt="edit" className="mx-md-2" />
                     </button>
                   </div>
                 </div>

@@ -21,7 +21,7 @@ const Home = () => {
       <LandingCarousel />
 
       <div className="blueShadow">
-        <div className="filterCard p-3 homeFilterCard">
+        <div className="filterCard homeFilterCard gap-4">
         <h1 className="mx-auto welcomeText">
           {t("Welcome")},{" "}
           {user.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : 'Guest'}!

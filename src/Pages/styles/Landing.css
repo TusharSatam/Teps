@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem 1rem;
   .container {
     margin: 0 !important;
   }
@@ -16,7 +17,7 @@
 }
 
 .filterCard select{
-  min-width:174px;
+  width: 224px;
 }
 .homeFilterCard{
   background: #FFF;
@@ -58,13 +59,15 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
   .filterCard select{
-    min-width:134px;
+    width:150px;
   }
 }
 @media only screen and (max-width: 768px) {
-
+  .filterCard{
+    padding: .5rem;
+  }
   .filterCard select{
     min-width:auto;
   }
