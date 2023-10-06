@@ -180,7 +180,7 @@ const CreatedStratigy = () => {
                              stratigyFilData?.length !== 0 ? <>{
                   stratigyFilData?.map((res, index) => (
                     <div key={index} className='container'>
-                      <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                      <div id="bw" className='card_pad'>
                         <div className='my-4'>
                           <div className='d-flex justify-content-between my-4 '>
                             <Link to={`/singleUserStratigy/${res._id}`} id="nb">
@@ -205,17 +205,15 @@ const CreatedStratigy = () => {
 
                             <div className='col-9 ms-md-4 col-md-8 '>
                               <Link  id="nb">
-                                <p id="bswm">Project-based Learning</p>
+                                <p id="cfwm">Project-based Learning</p>
                                 <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                 <p className='savestr_body'>
                                   {res["Teaching Strategy"].slice(0,150) + '...'}  
-                                  <Link to={`/singleUserStratigy/${res._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                  <Link to={`/singleUserStratigy/${res._id}`} id="pgnw">Read More</Link>
                                  
                                 </p>
                               </Link>
-                              {/* <div className='d-flex align-items-center my-3'>
-                                {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                              </div> */}
+                             
                             </div>
 
                             <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
@@ -232,7 +230,7 @@ const CreatedStratigy = () => {
                   {
                     saveUserStratigy?.map((data, index) => (
                       <div key={index} className='container'>
-                        <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                        <div id="bw" className='card_pad'>
                           <div className='my-4'>
                             <div className='d-flex justify-content-between my-4 '>
                               <Link to={`/singleUserStratigy/${data._id}`} id="nb">
@@ -276,18 +274,16 @@ const CreatedStratigy = () => {
                               </Link>
                               <div className='col-9 ms-md-4 col-md-8 '>
                                 <Link id="nb">
-                                <p id="bswm">Project-based Learning</p>
+                                <p id="cfwm">Project-based Learning</p>
                                   <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
                                   {data["Teaching Strategy"].slice(0,150)+ '...'}
-                            <Link  to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                            <Link  to={`/singleUserStratigy/${data._id}`} id="pgnw">Read More</Link>
                                  
                                   </p>
                                 </Link>
                                 <div className='d-flex justify-content-between my-3'>
-                                  {/* <div>
-                                    {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div> */}
+                                 
                                   <div className='d-block d-md-none'>
                                     <p className='user_str'>Uploaded By - {
                                       user.image ?
@@ -327,7 +323,7 @@ const CreatedStratigy = () => {
                     {
                       saveStratigy?.map((data, index) => (
                         <div key={index} className='container'>
-                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                          <div id="bw" className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
                                 <Link to={`/singleUserStratigy/${data._id}`} id="nb">
@@ -352,16 +348,14 @@ const CreatedStratigy = () => {
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link id="nb">
-                                  <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Inquiry-based Learning</p>
+                                  <p id="cfwm">Inquiry-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
                                       {data["Teaching Strategy"] + '...'}
-                                      <Link to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                      <Link to={`/singleUserStratigy/${data._id}`} id="pgnw">Read More</Link>
                                     </p>
                                   </Link>
-                                  {/* <div className='d-flex align-items-center my-3'>
-                                    {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div> */}
+                                  
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -377,7 +371,7 @@ const CreatedStratigy = () => {
                     {
                       saveUserStratigy?.map((data, index) => (
                         <div key={index} className='container'>
-                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                          <div id="bw" className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
                                 <Link to={`/singleUserStratigy/${data._id}`} id="nb">
@@ -422,17 +416,15 @@ const CreatedStratigy = () => {
                                 </Link>
                                 <div className='col-9 ms-md-4 col-md-8 '>
                                   <Link  id="nb">
-                                  <p style={{color:"brown",fontSize:"19px",fontWeight:"500",margin:"30px 0px -30px"}}>Project-based Learning</p>
+                                  <p id="cfwm">Project-based Learning</p>
                                     <p className='savestr_head'>Learning Outcome: {data["Learning Outcome"]}</p>
                                     <p className='savestr_body'>
                                     {data["Teaching Strategy"].slice(0,150) + '...'}
-                                      <Link to={`/singleUserStratigy/${data._id}`} style={{cursor:"pointer", color:"green",textDecoration: "none", fontWeight:"600"}}>Read More</Link>
+                                      <Link to={`/singleUserStratigy/${data._id}`} id="pgnw">Read More</Link>
                                   </p>
                                   </Link>
                                   <div className='d-flex justify-content-between my-3'>
-                                    {/* <div>
-                                      {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                    </div> */}
+                                   
                                     <div className='d-block d-md-none'>
                                       <p className='user_str'>Uploaded By - {
                                         user.image ?
@@ -498,7 +490,7 @@ const CreatedStratigy = () => {
                     {
                       stratigyFilData?.map((res, index) => (
                         <div key={index} className='container'>
-                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                          <div id="bw" className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
                                 <Link to={`/singleHi/${res._id}`} id="nb">
@@ -547,9 +539,7 @@ const CreatedStratigy = () => {
                                       {res["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  {/* <div className='d-flex align-items-center my-3'>
-                                    {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div> */}
+                              
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -589,7 +579,7 @@ const CreatedStratigy = () => {
                     {
                       saveStratigyHiUser?.map((res, index) => (
                         <div key={index} className='container'>
-                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                          <div id="bw" className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
                                 <Link to={`/singleHi/${res._id}`} id="nb">
@@ -638,9 +628,7 @@ const CreatedStratigy = () => {
                                       {res["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  {/* <div className='d-flex align-items-center my-3'>
-                                    {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(res._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div> */}
+                                 
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -682,7 +670,7 @@ const CreatedStratigy = () => {
                     <>{
                       saveStratigyHi?.map((data, index) => (
                         <div key={index} className='container'>
-                          <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                          <div id="bw" className='card_pad'>
                             <div className='my-4'>
                               <div className='d-flex justify-content-between my-4 '>
                                 <Link to={`/singleHi/${data._id}`} id="nb">
@@ -731,9 +719,7 @@ const CreatedStratigy = () => {
                                       {data["शिक्षण रणनीति"]}
                                     </p>
                                   </Link>
-                                  {/* <div className='d-flex align-items-center my-3'>
-                                    {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                  </div> */}
+                                
                                 </div>
                                 <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                   <div className='d-flex flex-column align-items-center justify-content-center'>
@@ -772,7 +758,7 @@ const CreatedStratigy = () => {
                       {
                         saveStratigyHiUser?.map((data, index) => (
                           <div key={index} className='container'>
-                            <div style={{ background: "#FFFFFF" }} className='card_pad'>
+                            <div id="bw" className='card_pad'>
                               <div className='my-4'>
                                 <div className='d-flex justify-content-between my-4 '>
                                   <Link to={`/singleHi/${data._id}`} id="nb">
@@ -821,9 +807,7 @@ const CreatedStratigy = () => {
                                         {data["शिक्षण रणनीति"]}
                                       </p>
                                     </Link>
-                                    {/* <div className='d-flex align-items-center my-3'>
-                                      {save?.includes(data._id) ? <img onClick={() => handleApiUnSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SavedIcon} alt="" /> : <img onClick={() => handleApiSaves(data._id)} style={{ cursor: "pointer" }} className='me-2 me-md-3 save_like' src={SaveIcon} alt="" />}
-                                    </div> */}
+                                   
                                   </div>
                                   <div className='col-3 col-md-2 d-none d-md-block ms-5'>
                                     <div className='d-flex flex-column align-items-center justify-content-center'>
