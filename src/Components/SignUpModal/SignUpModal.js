@@ -214,7 +214,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     }
      else if (registrationOption === "phone") {
       // Phone number registration option is selected
-      console.log("number", phoneValue);
       if (
         e.target.firstName.value &&
         e.target.lastName.value &&
@@ -249,7 +248,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   })
                   .catch((err) => {
                     if (err.response.status === 409) {
-                      setEmailError(`${t("already_email")}`);
+                      setPhoneError(`${t("already_phone")}`);
                       setDisplay("d-block");
                     } else console.log(err);
                   });

@@ -293,7 +293,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       }
   return (
     allStratigys.length ==0 && uniqueGrade.length?<div className="loading-spinner"></div> :<>
-      <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
+      <div className={location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'container d-flex flex-column justify-content-center align-items-md-center savedFilters' : 'container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'}>
         <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : location.pathname === '/saveStratigy' || location.pathname === '/favouriteStratigy' ? 'my-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
         <select value={selectGrade} onChange={handlegradeFilter} defaultValue={location.pathname !== '/home' && selectedOption?.selectGrade} className={error6 ? 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light ms-2 ms-md-3 error-border w-50' : 'd-block d-md-none px-md-3 px-1 py-md-2 bg-light  ms-md-3 select-border w-50'} name="" id="">
           <option value="" selected disabled>{t('Grade')}</option>
@@ -513,7 +513,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       ) : location.pathname === "/saveStratigy" ||
         location.pathname === "/favouriteStratigy" ? (
         <div className="d-flex justify-content-center my-4 my-md-5">
-          <button onClick={handleFindStratigys} className="Sec_submit_btn">
+          <button onClick={handleFindStratigys} className="secondaryButton subBtn">
             {t("Find Strategies")}
           </button>
         </div>

@@ -62,6 +62,11 @@ const FavouriteStr = () => {
       const like = res?.data?.filter((ress) => ress.user_id === user._id);
       const likeId = like?.map((ress) => ress.strategie_id);
       setLikes(like?.map((ress) => ress.strategie_id));
+      if (likeId.length === 0) {
+        // No need to make API requests when savedId is empty
+        setIsLoading(false);
+        return; // Exit the useEffect
+      }
       if (languageSelect === "en") {
         getMultitStr(likeId)
           .then((res) => {

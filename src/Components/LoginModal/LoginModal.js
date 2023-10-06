@@ -16,6 +16,7 @@ const LoginModal = ({ show, setShow }) => {
   const { setIsAuthenticated, setUser } = useAuth();
   const [forgot, setForgot] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isResendOTP, setIsResendOTP] = React.useState(false);
   const [error, setError] = React.useState("");
   const [checkError, setCheckError] = React.useState("");
   const [verifyModal, setVerifyModal] = React.useState(false);
@@ -44,13 +45,13 @@ const LoginModal = ({ show, setShow }) => {
     }
   };
   const resendOTP = () => {
-    setIsLoading(true);
+    setIsResendOTP(true);
     setCheckError("");
     let data = {
       phoneNumber: phoneValue,
     };
     sendOTP(data).then((res) => {
-      setIsLoading(false);
+      setIsResendOTP(false);
     });
     setshowOTPInputs(true);
   };
@@ -380,7 +381,7 @@ const LoginModal = ({ show, setShow }) => {
                             className="resendOTP"
                             onClick={resendOTP}
                           >
-                            {isLoading ? (
+                            {isResendOTP ? (
                               <Spinner
                                 className="text-light"
                                 animation="border"

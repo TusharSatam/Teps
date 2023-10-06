@@ -13,13 +13,14 @@ const Verify = () => {
   React.useEffect(() => {
     setLoading(true)
     getSingleUser(id)
-      .then(res => {
+    .then(res => {
         const email = res?.data[0]?.email;
-        const formData = new FormData();
         if (res?.data[0]?.varified === false) {
           setAlradyVeridyd(false)
           if (res) {
-            formData.append('varified', true);
+            const formData ={
+              varified:true
+            }
             updateUser(id, formData)
               .then(res => {
                 setLoading(false)
@@ -45,6 +46,8 @@ const Verify = () => {
           }
         }
         else {
+          setVeridyd(true)
+          setLoading(false)
           setAlradyVeridyd(true)
         }
       })

@@ -55,42 +55,47 @@ const SaveStratigy = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    getSaves().then((res) => {
-      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-      const savesId = saves?.map((ress) => ress.strategie_id);
-      setSave(saves?.map((ress) => ress.strategie_id));
-      if (languageSelect === "en") {
-        getMultitStr(savesId)
-          .then((res) => {
-            setSaveStratigy(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setIsLoading(false);
-            setSaveStratigy([]);
-          });
-        getMultiUsertStr(savesId)
-          .then((res) => {
-            setSaveUserStratigy(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setSaveUserStratigy([]);
-            setIsLoading(false);
-          });
-      } else {
-        getMultitHiStr(savesId).then((res) => {
-          setSaveStratigyi(res.data);
-          setIsLoading(false);
-        });
-        getMultiUserHindiStr(savesId).then((res) => {
-          setSaveStratigyiUser(res.data);
-          setIsLoading(false);
-        });
-      }
-    });
-  }, [languageSelect]);
+    getSaves()
+      .then((res) => {
+        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
+        const savesId = saves?.map((ress) => ress.strategie_id);
+        setSave(saves?.map((ress) => ress.strategie_id));
 
+        if (savesId.length === 0) {
+          // No need to make API requests when savedId is empty
+          setIsLoading(false);
+          return; // Exit the useEffect
+        }
+
+        if (languageSelect === "en") {
+          const multiStrPromise = getMultitStr(savesId);
+          const multiUserStrPromise = getMultiUsertStr(savesId);
+  
+          return Promise.all([multiStrPromise, multiUserStrPromise]);
+        } else {
+          const multiHiStrPromise = getMultitHiStr(savesId);
+          const multiUserHiStrPromise = getMultiUserHindiStr(savesId);
+  
+          return Promise.all([multiHiStrPromise, multiUserHiStrPromise]);
+        }
+      })
+      .then(([strategies, userStrategies]) => {
+        if (languageSelect === "en") {
+          setSaveStratigy(strategies.data);
+          setSaveUserStratigy(userStrategies.data);
+        } else {
+          setSaveStratigyi(strategies.data);
+          setSaveStratigyiUser(userStrategies.data);
+        }
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setSaveStratigy([]);
+        setSaveUserStratigy([]);
+      });
+  }, [languageSelect]);
+  
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,

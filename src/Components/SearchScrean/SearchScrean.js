@@ -230,7 +230,7 @@ const SearchScrean = () => {
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone my-2' : 'd-flex align-items-center p-0 my-2'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
                                   <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
@@ -239,7 +239,7 @@ const SearchScrean = () => {
                               <p className='checkBox_title mb-0'>{data['Learning Outcome']}</p>
                             </Card.Header>
                             <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                              <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
+                              <Card.Body className='border-bottom card_pad px-0'>
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
@@ -298,7 +298,7 @@ const SearchScrean = () => {
                                                     delay={{ show: 250, hide: 400 }}
                                                     overlay={renderTooltip}
                                                   >
-                                                    <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="" />
+                                                    <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="user_image" />
                                                   </OverlayTrigger>
                                                   :
                                                   <OverlayTrigger
@@ -339,7 +339,7 @@ const SearchScrean = () => {
                                                       delay={{ show: 250, hide: 400 }}
                                                       overlay={renderTooltip}
                                                     >
-                                                      <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="" />
+                                                      <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="user_image" />
                                                     </OverlayTrigger>
                                                     :
                                                     <img src={UserImage} className="user_image" alt="person pic" />
@@ -387,12 +387,12 @@ const SearchScrean = () => {
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
-                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone' : 'd-flex align-items-center p-0'}>
-                                <ContextAwareToggle className="me-2" eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="" />}</ContextAwareToggle>
+                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone my-2' : 'd-flex align-items-center p-0 my-2'}>
+                                <ContextAwareToggle className="me-2" eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="emptyCheckbox" />}</ContextAwareToggle>
                                 <p className='checkBox_title mb-0'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
                               <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
-                                <Card.Body style={{ background: "#FFFFFF" }} className='border-bottom card_pad px-0'>
+                                <Card.Body  className='border-bottom card_pad px-0'>
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
