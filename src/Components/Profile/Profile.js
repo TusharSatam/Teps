@@ -449,7 +449,11 @@ const Profile = () => {
             >
               Saved strategies
             </button>
-            {isShowSaved && <SaveStratigy />}
+            {/* {isShowSaved && <SaveStratigy />} */}
+            <ProfileDataS/>
+            <ProfileDataF/>
+            <ProfileDataE/>
+            <ProfileDataC/>
             {/* Edited Strategies */}
             <button className="typeButton">Edited strategies</button>
             {/* Favorite Strategies */}
