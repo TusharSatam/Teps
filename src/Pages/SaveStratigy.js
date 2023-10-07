@@ -2,7 +2,7 @@ import { Buffer } from "buffer";
 import React, { useState } from "react";
 import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Filter from "../asstes/Filter.svg";
 import UserImage from "../asstes/Group 51.svg";
 import ChatIcon from "../asstes/icons/chat.svg";
@@ -36,6 +36,7 @@ const SaveStratigy = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
+  const location = useLocation()
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -70,12 +71,12 @@ const SaveStratigy = () => {
         if (languageSelect === "en") {
           const multiStrPromise = getMultitStr(savesId);
           const multiUserStrPromise = getMultiUsertStr(savesId);
-  
+
           return Promise.all([multiStrPromise, multiUserStrPromise]);
         } else {
           const multiHiStrPromise = getMultitHiStr(savesId);
           const multiUserHiStrPromise = getMultiUserHindiStr(savesId);
-  
+
           return Promise.all([multiHiStrPromise, multiUserHiStrPromise]);
         }
       })
@@ -95,7 +96,7 @@ const SaveStratigy = () => {
         setSaveUserStratigy([]);
       });
   }, [languageSelect]);
-  
+
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,
@@ -165,8 +166,8 @@ const SaveStratigy = () => {
     <div>
       {languageSelect === "en" ? (
         <>
-          <div className="saveStrParent">
-            <div className="row py-2 align-items-center position-relative">
+     {location.pathname!="/profile" &&   <div className="saveStrParent">
+           {location.pathname!="/profile" && <div className="row py-2 align-items-center position-relative">
               <div className="d-flex justify-content-center">
                 <span className=" text-white text-center headText w-50">
                   {user.firstName} {user.lastName}
@@ -174,18 +175,18 @@ const SaveStratigy = () => {
                 </span>
               </div>
 
-              <div className="filter_btn_container d-flex justify-content-end position-absolute">
+        {location.pathname!="/profile"  &&    <div className="filter_btn_container d-flex justify-content-end position-absolute">
                 <div onClick={handleFilter} className="filter_bTn">
                   <span className="me-1 me-md-0">{t("Filter")}</span>
                   <img src={Filter} alt="" className="filtericon2" />
                   <img src={FilterHover} alt="" className="filtericon3" />
                 </div>
-              </div>
-            </div>
+              </div>}
+            </div>}
             <div className={filetr ? "d-block" : "d-none"}>
               <FilterStr stratigy={saveStratigy} language={languageSelect} />
             </div>
-          </div>
+          </div>}
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -201,9 +202,9 @@ const SaveStratigy = () => {
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
-                        <Link to={`/single/${res._id}`} className="linkStyle">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between  my-0 my-md-4 flex-column outcomeList">
+                   {location.pathname!="/profile" &&    <Link to={`/single/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
                               <div className="d-flex  str_text_left m-0">
@@ -214,7 +215,7 @@ const SaveStratigy = () => {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link>}
 
                         <div>
                           <Link to={`/single/${res._id}`} className="linkStyle">
@@ -239,9 +240,9 @@ const SaveStratigy = () => {
               {saveUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
-                        <Link
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+          { location.pathname!="/profile" &&             <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
                         >
@@ -257,7 +258,7 @@ const SaveStratigy = () => {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link>}
                         <div>
                           <Link
                             to={`/singleUserStratigy/${data._id}`}
@@ -287,9 +288,9 @@ const SaveStratigy = () => {
               {saveStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
-                        <Link to={`/single/${data._id}`} className="linkStyle">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                     {location.pathname!="/profile" &&     <Link to={`/single/${data._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
                               <div className="d-flex  str_text_left m-0">
@@ -300,7 +301,7 @@ const SaveStratigy = () => {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link>}
                         <div>
                           <Link
                             to={`/single/${data._id}`}
@@ -327,8 +328,8 @@ const SaveStratigy = () => {
               {saveUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
@@ -374,7 +375,7 @@ const SaveStratigy = () => {
         </>
       ) : (
         <>
-          <div className="saveStrParent">
+{ location.pathname!="/profile"  &&  <div className="saveStrParent">
             <div className="row py-2">
               <div className="col-md-1"></div>
               <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">
@@ -392,7 +393,7 @@ const SaveStratigy = () => {
             <div className={filetr ? "d-block" : "d-none"}>
               <FilterStr stratigy={saveStratigyHi} language={languageSelect} />
             </div>
-          </div>
+          </div>}
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -408,8 +409,8 @@ const SaveStratigy = () => {
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -449,8 +450,8 @@ const SaveStratigy = () => {
               {saveStratigyHiUser?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -493,8 +494,8 @@ const SaveStratigy = () => {
               {saveStratigyHi?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -536,8 +537,8 @@ const SaveStratigy = () => {
               {saveStratigyHiUser?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 flex-column outcomeList">
+                    <div className=" mt-2  mb-0 my-md-4">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"

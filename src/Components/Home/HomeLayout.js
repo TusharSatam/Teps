@@ -774,7 +774,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
         )}
       </div>
       {location.pathname === "/home" ? (
-        <div className="d-flex justify-content-center my-4 my-md-0 ">
+        <div className="d-flex justify-content-center  my-md-0 ">
           <button
             onClick={handleFindStratigys}
             className="primaryButton subBtn"

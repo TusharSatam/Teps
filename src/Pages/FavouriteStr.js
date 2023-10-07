@@ -17,7 +17,7 @@ import "./styles/saveStratigy.css";
 import { getMultitStr } from "../services/stratigyes";
 import { getSingleUser, updateUser } from "../services/dashboardUsers";
 import FilterStr from "../Components/Home/FilterStr";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getMultitHiStr } from "../services/hindiStratigys";
 import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
@@ -181,7 +181,7 @@ const FavouriteStr = () => {
     }
     setLike([...like], [like]);
   };
-
+  const location = useLocation()
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
@@ -191,7 +191,7 @@ const FavouriteStr = () => {
     <div>
       {languageSelect === "en" ? (
         <>
-          <div className="saveStrParent mx-0">
+        {location.pathname!="/profile" &&  <div className="saveStrParent mx-0">
             <div className="row py-2 align-items-center">
               <div className="d-flex justify-content-center">
                 <span className=" text-white text-center headText w-50">
@@ -210,7 +210,7 @@ const FavouriteStr = () => {
             <div className={filetr ? "d-block" : "d-none"}>
               <FilterStr stratigy={favStratigy} />
             </div>
-          </div>
+          </div>}
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -226,7 +226,7 @@ const FavouriteStr = () => {
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/single/${res._id}`} className="linkStyle">
                           <div className="me-1">
@@ -264,7 +264,7 @@ const FavouriteStr = () => {
               {likeUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
@@ -300,7 +300,6 @@ const FavouriteStr = () => {
                               </Link>
                             </div>
                           </Link>
-                          <div className="d-flex justify-content-between my-3"></div>
                         </div>
                       </div>
                     </div>
@@ -313,7 +312,7 @@ const FavouriteStr = () => {
               {favStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/single/${data._id}`} className="linkStyle">
                           <div className="me-1">
@@ -353,7 +352,7 @@ const FavouriteStr = () => {
               {likeUserStratigy?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
@@ -389,7 +388,6 @@ const FavouriteStr = () => {
                               </Link>
                             </div>
                           </Link>
-                          <div className="d-flex justify-content-between my-3"></div>
                         </div>
                       </div>
                     </div>
@@ -436,7 +434,7 @@ const FavouriteStr = () => {
               {stratigyFilData?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
@@ -477,7 +475,7 @@ const FavouriteStr = () => {
               {likeStratigyHiUser?.map((res, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
@@ -523,7 +521,7 @@ const FavouriteStr = () => {
               {favStratigyHi?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleHi/${data._id}`}
@@ -566,7 +564,7 @@ const FavouriteStr = () => {
               {likeStratigyHiUser?.map((data, index) => (
                 <div key={index} className="container">
                   <div className="card_pad">
-                    <div className="my-4">
+                    <div className="mt-2 my-md-4">
                       <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
                         <Link
                           to={`/singleHi/${data._id}`}

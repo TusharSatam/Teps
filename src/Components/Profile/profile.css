@@ -116,17 +116,20 @@ button:hover .hover-white {
   border-radius: 12px;
 }
 .profile_input{
-  background: transparent;
-  border: 1px solid #939CA3;
-  border-radius: 8px;
+  display: flex;
+  margin-left: 2.5rem;
+  width: 370px;
+  height: 40px;
   padding: 8px 12px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-width: 340px;
+  align-items: center;
+  gap: 40px;
+  border-radius: 12px;
+  border:none;
+  background: #FFF;
+  box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.20) inset, 0px 2px 2px 0px rgba(0, 0, 0, 0.10);
 }
 .input_div{
-  margin-bottom: 40px;
+  margin-bottom: 2rem;
 }
 .static_data{
   font-weight: 400;
@@ -136,17 +139,16 @@ padding-left: 12px;
 
 }
 .input_label{
-  font-family: 'Inter';
+  color: #000;
+  font-family: "Poppins";
+  font-size: 20px;
   font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 29px;
-  color: #000000;
-  margin-right: 30px;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .button_div{
-  margin-top: 70px;
+  margin-top:5rem;
 }
 .save_change_btn{
   font-family: 'Inter';
@@ -168,20 +170,24 @@ padding-left: 12px;
   color: #FFFFFF;
 } */
 .change_btn{
-  background: #1AA05B;
-  border: 1px solid #1AA05B;
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  color: #FFFFFF;
+  display: flex;
+  width: 166px;
+  padding: 8px 12px;
+  align-items: center;
+  gap: 5px;
+  border-radius: 12px;
+border: 1px solid #1AA05B;
+background: #FFF;
+color: #1AA05B;
+text-align: center;
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 600;
+line-height: 12px; /* 120% */
+letter-spacing: -0.1px;
 }
 .prfile_pic{
-  height: 120px;
-  background: #F8F9FA;
-  box-shadow: 1.14444px 1.14444px 2.28889px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 .button-wrapperr{
@@ -264,6 +270,7 @@ input[type="text"][disabled] {
   padding: 8px 16px;
   gap: 10px;
   transition: 0.5s;
+  
 }
 .profileBtn:hover{
   background: #1AA05B;
@@ -271,23 +278,6 @@ input[type="text"][disabled] {
 }
 
 
-.change_btn{
-  background: #1AA05B;
-  border-radius: 20px;
-  padding: 5px 26px;
-  gap: 10px;
-  border: 1px solid #1AA05B;
-  letter-spacing: -0.01em;
-  color: #FFFFFF;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  transition: 0.3s;
-  position: relative;
-    bottom: -20px;
-}
 #rp{
 position: "relative";
 padding: "4px";}
@@ -342,9 +332,11 @@ margin-top: -20px;
    border-radius:"10px";
 }
 .change_btn:hover{
-  border: none;
-  background: #9FDFBE;
-  border: 1px solid #9FDFBE;
+  color: white;
+  border-radius: 12px;
+  background: #1AA05B;
+  /* primary phone */
+  box-shadow: -16px -8px 11px 0px rgba(0, 0, 0, 0.30) inset, 0px 2px 4px 0px rgba(26, 160, 91, 0.20), 2px 2px 8px 0px #3AE48D inset;
 }
 
 .upload_Str_btn{
@@ -437,12 +429,59 @@ box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba
   background: gray;
   color: #ffff;
 }
+@media only screen and (max-width: 1300px) {
+.container{
+  width:100%;
+  padding: .5rem !important;
+}
+#bbb{
+  margin-left: 1rem !important;
+  padding: 1rem 0rem;
+}
+#bwb{
+  margin-left: 1rem !important;
+padding: 1rem  0rem !important;
+}
+.profileFormWrapper{
+  /* padding: 3rem 0rem !important; */
+}
+.profile_input{
+  margin-left: 1rem;
+}
+.side_profile{
+  width: 340px;
+  font-size: 16px !important;
+}
+.profile_input{
+  width: 340px;
+}
+}
 @media only screen and (max-width: 990px) {
-
+  .welcomeUser{
+    font-size: 32px;
+  }
+  .viewMyStrategies,.profileOption{
+    font-size: 16px;
+    padding: 1rem;
+  }
+.profileFormWrapper{
+  padding: 3rem 0rem !important;
+  width: 95%;
+}
+#bwb{
+  width: 100% ;
+}
+.side_profile{
+  width: 300px !important;
+}
+.profileOption{
+  width: 95%;
+  padding: 1rem;
+}
 .form_container{
   width: 100%;
   max-height: 300px;
-  font-size: 12px;
+  font-size: 14px;
   background: #fff;
   box-shadow: none;
 }
@@ -452,18 +491,18 @@ box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba
 .input_label{
   font-family: 'Inter';
   font-style: normal;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   margin-right: 0px;
 }
 .profile_input{
   /* margin-bottom: 12px; */
   background: #fff;
-  width: 180px;
+  width: 260px;
   font-weight: 400;
-  font-size: 8px;
+  font-size: 16px;
   line-height: 10px;
-  padding: 5px 10px;
+  padding: 0.8rem 1rem;
   border-radius: 4px;
 }
 .state_input{
@@ -509,10 +548,10 @@ padding: 5px 10px;
   line-height: 10px;
 }
 .input_div{
-  margin-bottom: -5px;
+  margin-bottom: 1rem;
 }
 .button_div{
-  margin-top: 40px;
+  margin-top: 12px;
 }
 .profileBtn{
   padding: 6px 16px;
@@ -539,4 +578,89 @@ padding: 5px 10px;
   background: #9FDFBE;
   border: 1px solid #9FDFBE;
 }
+}
+@media only screen and (max-width: 767px) {
+  .profileFormWrapper{
+    width: 65% !important;
+    margin: 0;
+  }
+ 
+  .input_div{
+    justify-content: flex-start !important;
+  }
+  .input_label{
+    font-weight: 400;
+    font-size: 10px;
+    width: 30%;
+  }
+  .profile_input{
+    font-size: 10px;
+    width: 200px;
+    height: 30px;
+    padding: 0rem .5rem !important;
+  }
+  .button-wrapper{
+    margin:0;
+  }
+  .profile_school{
+    margin: 0;
+  }
+  .profile_school{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .res_userName{
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .button-wrapper{
+    width: 70px;
+  }
+  .typeWrapper{
+    width: 95% !important;
+    gap: 4px;
+  }
+  .typeButton{
+    color: #1AA05B;
+    background: none;
+    border: none;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    width: 166px;
+    border-radius: 12px;
+    text-align: left;
+  }
+  .typeButton:hover{
+    color: #FFF;
+background:  #1AA05B;
+box-shadow: -12px -9.5px 7px 0px rgba(0, 0, 0, 0.30) inset, 0px 2px 4px 0px rgba(26, 160, 91, 0.20), 2px 3px 7px 0px #3AE48D inset;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .welcomeUser{
+    font-size: 1rem;
+  }
+  .input_label{
+    width: 100px;
+  }
+  .profileFormWrapper{
+    width: 95% !important;
+    margin: 0!important;
+  }
+  .profile_input{
+    width: 180px;
+    height: 30px;
+    padding: 0rem .5rem !important;
+  }
+  .profileFormWrapper{
+    padding:0rem !important;
+  }
+
+
 }
