@@ -34,7 +34,7 @@ export const delLikes = async (id) => {
 
 export const delUserLikes = async (id) => {
   let stratigyResponse;
-  await axios.delete(`likes/user/${id}`)
+  await axios.delete(`likes/${id}`)
     .then(res => {
       stratigyResponse = res;
     })

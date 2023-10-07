@@ -300,9 +300,9 @@ margin-top: -20px;
   margin-top: -12px;
 }
 #bbb{
-  border:"1px solid black";
-  background-color:"white";
-   border-radius:"10px";
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .change_btn:hover{
   border: none;

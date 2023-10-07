@@ -23,6 +23,7 @@ const ProfileDataC = () => {
    
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false)
+  const [collapse,setCollapse] = useState(false);
     const language = localStorage.getItem("i18nextLng")
    
       const [save, setSave] = useState([]);
@@ -75,12 +76,23 @@ const ProfileDataC = () => {
         <div>
           {languageSelect === "en" ? (
             <>
-              <div className='saveStrParent'>
+              <div onClick={()=>{setCollapse(prev=>!prev)}} className='saveStrParent'>
                 <div className='row py-2 align-items-center' id="div1">
-                  <div className='d-flex justify-content-center'>
-                    <span className=' text-white text-center headText w-50'>{t("Created Strategies")}</span>
+                  <div className='d-flex'>
+                    <span className=' text-white headText w-50'>{t("Created Strategies")}</span>
                   </div>
-      
+                  <div className='filter_btn_container d-flex justify-content-end' id="at">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <g clip-path="url(#clip0_4614_16349)" transform={collapse?"":"rotate(180, 12, 12)"}>
+    <path d="M11.5 12.5456L15.0002 10L16 10.7272L11.5 14L7 10.7272L7.99984 10L11.5 12.5456Z" fill="white"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_4614_16349">
+      <rect width="24" height="24" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
+          </div>
                 </div>
                 
               </div>
@@ -92,35 +104,20 @@ const ProfileDataC = () => {
                   </Spinner>
                 </div>
               ) : (
-                stratigyFilData?.length !== 0 ? (
+                stratigyFilData?.length !== 0 && collapse !== true ? (
                   <>
                     {stratigyFilData?.map((res, index) => (
-                      <div key={index} className='container'>
+                      <div key={index} className='cardContainer'>
                         <div id="ws" className='card_pad'>
-                          <div className='my-4'>
-                            <div className='d-flex justify-content-between my-4 '>
-                              <Link to={`/single/${res._id}`} id="nb">
-                                <div className='me-1'>
-                                  <div>
-                                    <div className='d-flex mb-3 str_text_left'>
-                                      <p className='Strategy_count'>{t("strategy")}</p>
-                                      <p className='counter_str'>{index + 1}</p>
-                                    </div>
-                                  </div>
-                                  <div className='d-block d-md-none mt-1'>
-                                    <div className=' mt-1' id="ml" >
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-      
-                              <div className='col-9 ms-md-4 col-md-8 '>
+                          <div className='mt-4'>
+                            <div className='d-flex justify-content-between'>
+<div className='col-9 ms-md-4 col-md-8 '>
                                 <Link id="nb">
                                   <p id="bswm">Project-based Learning</p>
                                   <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
                                     {res["Teaching Strategy"].slice(0,150) + '...'}  
-                                    <Link to={`/createdStratigy`} id="pgnw">Load All</Link>
+                                    <Link to={`/single/${res._id}`} id="pgnw">Read More...</Link>
                                   </p>
                                 </Link>
                               </div>
