@@ -55,7 +55,7 @@ const Profile = () => {
   const [l, setL] = React.useState(0);
   const [e, setE] = React.useState(0);
   const [c, setC] = React.useState(0);
-
+  const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
   React.useEffect(() => {
     getSaves().then((res) => {
@@ -423,20 +423,20 @@ const Profile = () => {
                     </div>
                   </div> */}
 
-        {/* -----------My startegies Mobile------------------- */}
+        {/* -----------My strategies Mobile------------------- */}
         <div className="mx-2">
           <div className=" mx-2 d-md-none">
             <button
               className="change_btn"
               onClick={(e) => setistypeoptionVisible(!istypeOptionVisible)}
             >
-              {t("My startegies")}
+              {t("My strategies")}
               <></>
             </button>
           </div>
         </div>
 
-        {/* My startegies type Mobile */}
+        {/* My strategies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
             {/* <button className="typeButton">Created strategies</button> */}
@@ -475,7 +475,7 @@ const Profile = () => {
               className="change_btn"
               onClick={(e) => setIsMyStrategies(!isMyStrategies)}
             >
-              {t("Upload Strategy")}
+              {t("Upload strategy")}
               <></>
             </button>
           </div>
@@ -486,7 +486,7 @@ const Profile = () => {
               className="change_btn"
               onClick={(e) => setIsMyStrategies(!isMyStrategies)}
             >
-              {t("Edit Strategy")}
+              {t("Edit Information")}
               <></>
             </button>
           </div>
@@ -617,7 +617,7 @@ const Profile = () => {
                 )}
                 <div className="d-flex flex-column w-100 lowerOptions">
                   <Link to="/addForm">
-                    <button className="profileOption">Upload Strategy</button>
+                    <button className="profileOption">{t("Upload strategy")}</button>
                   </Link>
                   <button onClick={handleAllEdit} className="profileOption">
                     {t("Edit Information")}
@@ -625,7 +625,7 @@ const Profile = () => {
                   <button onClick={handleForgotShow} className="profileOption">
                     {t("Change Password")}
                   </button>
-                  <button onClick={handleForgotShow} className="profileOption">
+                  <button onClick={logout} className="profileOption">
                     {t("Log Out")}
                   </button>
                 </div>
@@ -932,10 +932,10 @@ const Profile = () => {
             {t("Change Password")}
           </button>
           <button
-            onClick={handleForgotShow}
+            onClick={logout}
             className="change_btn mt-2 mx-2  d-md-none"
           >
-            {t("Logout")}
+            {t("Log Out")}
           </button>
           {/* ------------------- */}
           <div id="h10"></div>
