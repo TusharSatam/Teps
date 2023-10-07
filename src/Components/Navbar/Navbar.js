@@ -70,7 +70,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-        <div className={/(^\/(profile|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
+        <div className={/(^\/(profile|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
           <LanguageSelect />
         </div>
           {
@@ -101,28 +101,16 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         <div className='ps-3 py-3'>
           <Link to="/profile" className='navLink' onClick={() => setDisplayProfile("d-none")}>
             <div className='d-flex align-items-center'>
-              <img className="drop_down_icon" src={userLogo} alt="" />
-              <div className='ms-3 mt-2'>
+              <img className="drop_down_icon" src={userLogo} alt="userLogo" />
+              <div className='ms-3 mt-3'>
                 <p >{t('Profile')}</p>
               </div>
             </div>
           </Link>
-          <div className='d-flex align-items-center mt-2 navLink'>
-            <img className="drop_down_icon" src={saveLogo} alt="" />
-            <div className='ms-3 mt-2'>
-              <p ><Link to="/saveStratigy" className='navLink' onClick={handleStr}>{t('Saved Strategies')}</Link></p>
-            </div>
-          </div>
-          <div className='d-flex align-items-center mt-2 navLink'>
-            <img className="drop_down_icon" src={favLogo} alt="" />
-            <div className='ms-3 mt-2'>
-              <p><Link to="/favouriteStratigy" className='navLink' onClick={handleStr}>{t('Favourite Strategies')}</Link></p>
-            </div>
-          </div>
           <div onClick={logout} className="mt-2 navLink">
             <div className='d-flex align-items-center' onClick={() => setDisplayProfile('d-none')} role="button">
-              <img className="drop_down_icon" src={signoutLogo} alt="" />
-              <div className='ms-3 mt-2'>
+              <img className="drop_down_icon" src={signoutLogo} alt="signoutLogo" />
+              <div className='ms-3 mt-3'>
                 <p>{t('Log out')}</p>
               </div>
             </div>

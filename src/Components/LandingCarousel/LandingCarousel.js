@@ -46,6 +46,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>Choose from 5000+ teaching strategies! </h1>
               <div className="cardDetails">
@@ -58,6 +59,8 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 Get multiple teaching resources linked to specific teaching
@@ -74,6 +77,8 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 Create your own teaching strategies and contribute to the TEPS

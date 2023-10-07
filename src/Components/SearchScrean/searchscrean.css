@@ -103,6 +103,7 @@
   font-style: normal;
   font-weight: 300;
   line-height: 20px;
+  margin-bottom: 0.4rem;
 }
 .outcomeList{
   padding: 1rem;
@@ -289,7 +290,7 @@ text-decoration: none;
   .checkBox_title {
     font-weight: 500;
     font-size: 14px;
-    line-height: 12px;
+    line-height: 14px;
   }
   .card-header {
     padding: 0px !important;
