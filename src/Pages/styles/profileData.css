@@ -97,7 +97,7 @@ margin:"30px 0px -30px";
      background: "#FFFFFF";
 }
 
-@media screen and (max-width:480px) {
+@media screen and (max-width:768px) {
     #bswm{
         overflow: hidden;
 color: #FF5757;
@@ -108,5 +108,13 @@ font-style: italic;
 font-weight: 500;
 line-height: 12px; /* 120% */
 text-transform: uppercase;
+    }
+    #pgnw{
+        color: var(--brand-color-green, #1AA05B);
+font-family: Poppins;
+font-size: 8px;
+font-style: italic;
+font-weight: 700;
+line-height: 16px; /* 200% */
     }
 }

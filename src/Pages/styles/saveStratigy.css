@@ -1,7 +1,33 @@
 .container {
   max-width: 1250px;
 }
-.saveStrParent {
+
+.saveStrParent{
+  min-width: 50vw;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 24px;
+border: 1px solid #1AA05B;
+background: #FFF;
+box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+}
+
+.saveStrParent span {
+  color: var(--brand-color-green, #1AA05B);
+text-align: left;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
+letter-spacing: -0.2px;
+}
+
+.saveStrParent svg path{
+  fill: #1AA05B;
+}
+
+.saveStrParentActive {
   min-width: 50vw;
   cursor: pointer;
   overflow: hidden;
@@ -10,6 +36,22 @@
 background: #1AA05B;
 box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
 }
+
+.saveStrParentActive span{
+  color: var(--grey-white, #FFF);
+text-align: left;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
+letter-spacing: -0.2px;
+}
+
+.saveStrParentActive svg path{
+  fill: #fff;
+}
+
 .filter_bTn {
   color: #1aa05b;
   background: white;
