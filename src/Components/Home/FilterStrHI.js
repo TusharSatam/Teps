@@ -205,7 +205,7 @@ const FilterStrHI = ({ stratigy,language}) => {
             }
             {
               uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
+                <option key={index} >{item}</option>
               ))
             }
           </select>
@@ -221,7 +221,7 @@ const FilterStrHI = ({ stratigy,language}) => {
             }
             {
               uniqueGrade?.map((item, index) => (
-                <option key={index} >{item.श्रेणी}</option>
+                <option key={index} >{item}</option>
               ))
             }
           </select>

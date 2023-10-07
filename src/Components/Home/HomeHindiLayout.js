@@ -51,10 +51,14 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     }
   }, [selectedOption, location.pathname])
 
-  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-  .map(grade => {
-    return allStratigys.find(a => a.श्रेणी === grade)
+
+  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
+  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी))).sort((a, b) => {
+    const indexA = customSortOrder.indexOf(a);
+    const indexB = customSortOrder.indexOf(b);
+    return indexA - indexB;
   });
+ 
   const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
     return   creature.श्रेणी === selectGrade;
   })
@@ -105,19 +109,19 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   })
-  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
+  const uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['प्रमुख शीर्षक'])))
     .map(skill => {
-      return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
+      return aquaticCreatures?.find(a => a['प्रमुख शीर्षक'] === skill)
     });
   const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['प्रमुख शीर्षक'] === selectSkill;
   })
   const uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
     .map(topic => {
       return aquaticCreaturesSkill?.find(a => a.शीर्षक === topic)
     });
   const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['प्रमुख शीर्षक'] === selectSkill && creature.शीर्षक === selectTopic;
   })
 
   const uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -125,7 +129,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
       return aquaticCreaturesTopic?.find(a => a['उप शीर्षक'] === sub_topic)
     });
   const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+    return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['प्रमुख शीर्षक'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic;
   })
   const uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
     .map(sub_sub_topic => {
@@ -138,7 +142,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     if (location.pathname === '/home') {
       if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
         const aquaticCreatures = allStratigys.filter(function (creature) {
-          return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+          return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['प्रमुख शीर्षक'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
         });
         setStratigyFilData(aquaticCreatures);
         if (aquaticCreatures) {
@@ -179,7 +183,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     else {
       window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
       const aquaticCreatures = allStratigys.filter(function (creature) {
-        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['प्रमुख शीर्षक'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
       });
 
       setStratigyFilData(aquaticCreatures)
@@ -220,7 +224,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
               }
               {
                 uniqueGrade?.map((item, index) => (
-                  <option key={index} >{item.श्रेणी}</option>
+                  <option key={index} >{item}</option>
                 ))
               }
             </select>
@@ -238,7 +242,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
               }
               {
                 uniqueGrade?.map((item, index) => (
-                  <option key={index} >{item.श्रेणी}</option>
+                  <option key={index} >{item}</option>
                 ))
               }
             </select>
@@ -290,7 +294,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
               }
               {
                 uniqueSkill?.map((item, index) => (
-                  <option key={index} >{item['अच्छा विषय']}</option>
+                  <option key={index} >{item['प्रमुख शीर्षक']}</option>
                 ))
               }
             </select>
@@ -325,7 +329,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
               }
               {
                 uniqueSkill?.map((item, index) => (
-                  <option key={index} >{item['अच्छा विषय']}</option>
+                  <option key={index} >{item['प्रमुख शीर्षक']}</option>
                 ))
               }
             </select>

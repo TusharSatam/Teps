@@ -26,7 +26,7 @@ const RatingModal = ({show,handleClose,handleStarClick,setRating,rating}) => {
      
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center gap-4 ratingWrap">
-              <h4>{t("Rate this strategy")}</h4>
+              <h4 className="m-0">{t("Rate this strategy")}</h4>
                <div className='rateStrategy'>
                   {[1, 2, 3, 4, 5].map((starIndex) => (
                     <img

@@ -144,7 +144,7 @@ letter-spacing: -0.2px;
   color:#1AA05B
 }
 .pedalogicalText{
-  font-size: 24px;
+  font-size: 22px !important;
   color: #FF3131;
   font-style: italic !important;
   margin-bottom: 0;
@@ -508,7 +508,7 @@ letter-spacing: -0.4px;
     line-height: 15px;
   }
   .pedalogicalText{
-    font-size: 12px;
+    font-size: 12px !important;
   }
   .comment_div {
     padding: 10px 10px;
@@ -533,7 +533,8 @@ letter-spacing: -0.4px;
     font-size: 14px;
   }
   .str_text_left {
-    margin-top: 15px;
+    margin-top: 0 !important;
+    margin-bottom:0 !important;
   }
   .filter_bTn {
     position: relative;

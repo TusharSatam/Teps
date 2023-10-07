@@ -6,6 +6,8 @@ import { getSingleUser, updateUser } from "../../services/dashboardUsers";
 import defaultProfile from "../../asstes/defaultProfile.png";
 import { useAuth } from "../../Context/AuthContext";
 import ChangePass from "../ForgotPassModal/ChangePass";
+import LikeIcon from "../../asstes/icons/Like.svg";
+import LikdIcon from "../../asstes/icons/Liked.svg";
 import HeroSection from "../Home/HeroSection";
 import toast, { Toaster } from "react-hot-toast";
 import "./profile.css";
@@ -22,21 +24,33 @@ import ProfileDataC from "../../Pages/ProfileDataC";
 import ProfileDataE from "../../Pages/ProfileDataE";
 import ProfileDataS from "../../Pages/ProfileDataS";
 import ProfileDataF from "../../Pages/ProfileDataF";
-import downArrow from "../../asstes/icons/viewDown.svg"
+import downArrow from "../../asstes/icons/viewDown.svg";
+import SaveCards from "./cards/SaveCards";
+import SavedStrategies from "./cards/SavedStrategies";
+import SaveStratigy from "../../Pages/SaveStratigy";
+import FavouriteStr from "../../Pages/FavouriteStr";
 const Profile = () => {
   const { t } = useTranslation();
   const { user, setUser } = useAuth();
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
-  const [isMyStrategies, setIsMyStrategies] = useState(false);
+  const [isMyStrategies, setIsMyStrategies] = useState(true);
+  const [isShowCreated, setisShowCreated] = useState(false);
+  const [isShowSaved, setisShowSaved] = useState(false);
+  const [isShowFav, setisShowFav] = useState(false);
+  const [isShowEdited, setisShowEdited] = useState(false);
+
+  const [phoneInput, setphoneInput] = useState("");
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState("");
-  const [dropdownVisible, setDropdownVisible] = useState(true);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [emailErr, setEmailErr] = React.useState("");
+  const [phoneError, setphoneError] = useState(false);
   const [show, setShow] = React.useState(false);
   const [preview, setPreview] = React.useState(null);
+  const [istypeOptionVisible, setistypeoptionVisible] = useState(false);
   const [f, setF] = React.useState(0);
   const [l, setL] = React.useState(0);
   const [e, setE] = React.useState(0);
@@ -123,12 +137,9 @@ const Profile = () => {
   };
 
   // edit all handler
-  const [editAll, setEditAll] = useState(false);
+  const [editAll, setEditAll] = useState(true);
   const handleAllEdit = () => {
     setIsMyStrategies(true);
-    if (editAll === false) {
-      setEditAll(true);
-    } else setEditAll(false);
   };
 
   // pincode handler
@@ -236,14 +247,16 @@ const Profile = () => {
     setIsLoading(true);
     e.preventDefault();
     const formData = {
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      email: e.target.email.value,
+      phoneNumber: e.target.phoneNumber.value,
       organization: e.target.organization.value,
-      designation: e.target.designation.value,
       city: liveDetails ? liveDetails.Block : user.city,
       state: liveDetails ? liveDetails.State : user.state,
       pincode: e.target.pincode.value,
       country: e.target.country.value,
     };
-
     updateUser(user._id, formData)
       .then((res) => {
         getSingleUser(user._id).then((res) => {
@@ -271,7 +284,6 @@ const Profile = () => {
                   setUser(res.data[0]);
                   toast.success(`${t("update_profile_messege")}`);
                   setIsLoading(false);
-                  setEditAll(false);
                 });
               }
             })
@@ -296,8 +308,12 @@ const Profile = () => {
       <ChangePass show={forgot} setShow={setForgot} />
 
       <section className="profile_container pb-5">
-        <div  className="w-100 text-center welcomeUser">Welcome, {user?.firstName}</div>
-        <div className="d-block d-md-none text-start mx-3 mt-3 bg-light">
+        <div className="w-100 text-center welcomeUser">
+          Welcome, {user?.firstName}
+        </div>
+
+        {/* ---------mombile profile info-------------- */}
+        <div className="d-block d-md-none text-start mx-3 mt-3">
           <div className="d-flex align-items-start prfile_pic">
             <div className="button-wrapper">
               {preview ? (
@@ -321,10 +337,13 @@ const Profile = () => {
                     user?.image?.data?.data
                   ).toString("base64")}`}
                   alt="image"
+                  width={"40px"}
+                  height={"40px"}
                 />
               ) : (
                 <img
                   width={"40px"}
+                  height={"40px"}
                   className="label"
                   src={defaultProfile}
                   alt="image"
@@ -348,22 +367,127 @@ const Profile = () => {
                   {user?.organization}
                 </p>
               </div>
-              <div id="dgm">
+            </div>
+          </div>
+        </div>
+        {/* ------------------------------------------------- */}
+
+        {/* <div id="dgm">
                 <button id="pm" className={`change_btn`} onClick={toggleButton}>
                   {t("View My Strategies")}
                   <span
                     className={`arrow ${dropdownVisible ? "up" : "down"}`}
                   ></span>
                 </button>
-              </div>
-            </div>
+              </div> */}
+        {/* <div className="d-block d-md-none mx-3 mt-md-4">
+          <hr id="bmm" />
+        </div> */}
+        {/* <div className="d-block d-md-none">
+                    <div className="d-flex justify-content-center mt-3">
+                      <div>
+                        <Link to="/favouriteStratigy">
+                          <button className="profileBtn me-3">
+                            {t("Favourites")}
+                          </button>
+                        </Link>
+                      </div>
+                      <div>
+                        <Link to="/saveStratigy">
+                          <button className="profileBtn">{t("Saved")}</button>
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <div>
+                        <Link to="/editedStratigy">
+                          <button className="authBtn_p mt-2 me-3">
+                            {t("Edited")} ({e})
+                          </button>
+                        </Link>
+                      </div>
+                      <div>
+                        <Link to="/createdStratigy">
+                          <button className="authBtn_p mt-2">
+                            {t("Created")} ({c})
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-center" id="pt">
+                      <Link to="/addForm">
+                        <button className="upload_Str_btn">
+                          Upload Strategy
+                        </button>
+                      </Link>
+                    </div>
+                  </div> */}
+
+        {/* -----------My startegies Mobile------------------- */}
+        <div className="mx-2">
+          <div className=" mx-2 d-md-none">
+            <button
+              className="change_btn"
+              onClick={(e) => setistypeoptionVisible(!istypeOptionVisible)}
+            >
+              {t("My startegies")}
+              <></>
+            </button>
           </div>
         </div>
 
-        <div className="d-block d-md-none mx-3 mt-md-4">
-          <hr id="bmm" />
+        {/* My startegies type Mobile */}
+        {istypeOptionVisible && (
+          <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
+            <button className="typeButton">Created strategies</button>
+            {/* Created strategies */}
+
+            {/* Saved strategies */}
+            <button
+              className="typeButton"
+              onClick={() => setisShowSaved(!isShowSaved)}
+            >
+              Saved strategies
+            </button>
+            {isShowSaved && <SaveStratigy />}
+            {/* Edited Strategies */}
+            <button className="typeButton">Edited strategies</button>
+            {/* Favorite Strategies */}
+            <button
+              className="typeButton"
+              onClick={() => setisShowFav(!isShowFav)}
+            >
+              Favorite strategies
+            </button>
+            {isShowFav && <FavouriteStr />}
+          </div>
+        )}
+        {/* ------------------------------ */}
+
+        {/* mobile sidebar button */}
+        <div className="mx-2 mt-2">
+          <div className=" mx-2 d-md-none">
+            <button
+              className="change_btn"
+              onClick={(e) => setIsMyStrategies(!isMyStrategies)}
+            >
+              {t("Upload Strategy")}
+              <></>
+            </button>
+          </div>
         </div>
-        <div className="container p-md-5 d-md-flex ">
+        <div className="mx-2 mt-2">
+          <div className=" mx-2 d-md-none">
+            <button
+              className="change_btn"
+              onClick={(e) => setIsMyStrategies(!isMyStrategies)}
+            >
+              {t("Edit Strategy")}
+              <></>
+            </button>
+          </div>
+        </div>
+        <div className="container p-md-5  d-md-flex ">
           <div
             id="bwb"
             className="p-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center "
@@ -422,8 +546,12 @@ const Profile = () => {
                     onClick={toggleButton}
                   >
                     View My Strategies
-
-                    <img src={downArrow} height="20" width="20" className="hover-white"/>
+                    <img
+                      src={downArrow}
+                      height="20"
+                      width="20"
+                      className="hover-white"
+                    />
                   </button>
                 </div>
 
@@ -484,10 +612,9 @@ const Profile = () => {
                   </div>
                 )}
                 <div className="d-flex flex-column w-100 lowerOptions">
-
-                    <Link to="/addForm">
-                      <button className="profileOption">Upload Strategy</button>
-                    </Link>
+                  <Link to="/addForm">
+                    <button className="profileOption">Upload Strategy</button>
+                  </Link>
                   <button onClick={handleAllEdit} className="profileOption">
                     {t("Edit Information")}
                   </button>
@@ -495,62 +622,53 @@ const Profile = () => {
                     {t("Change Password")}
                   </button>
                   <button onClick={handleForgotShow} className="profileOption">
-                    {t("Log out")}
+                    {t("Log Out")}
                   </button>
                 </div>
               </div>
             </div>
           </div>
-
+          {/* Edit Profile data form */}
           {isMyStrategies ? (
             <div id="bwb" className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0">
-              <form className="p-1 p-md-5 mx-3 mx-md-0" onSubmit={handleUpdate}>
+              <form
+                className="p-1 p-md-5 mx-3 mx-md-0 profileFormWrapper"
+                onSubmit={handleUpdate}
+              >
                 <div className="w-100">
-                  <div className="d-flex justify-content-bdetween align-items-center mt-0 my-md-3">
-                    <div>
-                      <h4 className="input_label">{t("Email")}:</h4>
-                    </div>
-                    <div className="mt-3">
-                      <input
-                        onChange={handleEmail}
-                        disabled={!editEmail}
-                        className={
-                          emailErr
-                            ? "border-danger text-danger profile_input mt-md-2"
-                            : editEmail
-                            ? "profile_input  mt-md-2"
-                            : "border-0 profile_input mt-md-2"
-                        }
-                        type="text"
-                        defaultValue={user.email}
-                        name="email"
-                        id="email"
-                      />
-                      <div className=" d-flex">
-                        <div
-                          onClick={handleEmailEdit}
+                  <div>
+                    <div className="d-flex justify-content-between align-items-center input_div">
+                      <h4 className="input_label">{t("First Name")}:</h4>
+                      <div>
+                        <input
+                          disabled={!editAll}
                           className={
-                            editEmail
-                              ? "d-none Email_Edit ms-md-2"
-                              : "d-block Email_Edit ms-md-2"
+                            !editAll
+                              ? "border-0 profile_input  "
+                              : "profile_input "
                           }
-                        >
-                          {t("Edit")}
-                        </div>
-                        <div
-                          onClick={doneEmail}
-                          className={
-                            !editEmail
-                              ? "d-none Email_Edit"
-                              : "d-block Email_Edit"
-                          }
-                        >
-                          {t("Save Email")}
-                        </div>
+                          type="text"
+                          defaultValue={user?.firstName}
+                          name="firstName"
+                        />
                       </div>
                     </div>
-                  </div>
-                  <div>
+                    <div className="d-flex justify-content-between align-items-center input_div">
+                      <h4 className="input_label">{t("Last Name")}:</h4>
+                      <div>
+                        <input
+                          disabled={!editAll}
+                          className={
+                            !editAll
+                              ? "border-0 profile_input  "
+                              : "profile_input "
+                          }
+                          type="text"
+                          defaultValue={user?.lastName}
+                          name="lastName"
+                        />
+                      </div>
+                    </div>
                     <div className="d-flex justify-content-between align-items-center input_div">
                       <h4 className="input_label">
                         {t("School/Organization")}:
@@ -571,41 +689,68 @@ const Profile = () => {
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center input_div">
-                      <h4 className="input_label">{t("Designation")}:</h4>
-                      <div>
+                      <h4 className="input_label">{t("Email")}:</h4>
+                      <div className="">
                         <input
+                          onChange={handleEmail}
                           disabled={!editAll}
                           className={
-                            !editAll
-                              ? "border-0 profile_input  "
-                              : "profile_input "
+                            emailErr
+                              ? "border-danger text-danger profile_input mt-md-2"
+                              : editEmail
+                              ? "profile_input  mt-md-2"
+                              : "border-0 profile_input mt-md-2"
                           }
                           type="text"
-                          defaultValue={user.designation}
-                          name="designation"
-                          id=""
+                          defaultValue={user.email}
+                          name="email"
+                          id="email"
                         />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center input_div">
-                      <h4 className="input_label">{t("Pincode")}:</h4>
+                      <h4 className="input_label">{t("Phone Number")}:</h4>
                       <div>
                         <input
                           disabled={!editAll}
-                          className={
-                            !editAll
-                              ? "border-0 profile_input"
-                              : !cityFound &&
-                                selectedCountry.city !== "International"
-                              ? "border-danger profile_input"
-                              : "profile_input"
-                          }
-                          title={cityFound ? "" : "No city/town found"}
-                          onChange={handlePincode}
-                          value={pincode}
+                          className={`profile_input ${
+                            phoneError ? "text-danger" : ""
+                          }`}
                           type="text"
-                          name="pincode"
-                          id=""
+                          defaultValue={
+                            user?.phoneNumber ? user?.phoneNumber : ""
+                          }
+                          name="phoneNumber"
+                          pattern="[0-9]*"
+                          maxLength="10"
+                          onChange={(e) => setphoneInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (
+                              !(
+                                (e.key >= "0" && e.key <= "9") ||
+                                e.key === "Backspace" ||
+                                e.key === "Delete" ||
+                                e.key === "ArrowLeft" ||
+                                e.key === "ArrowRight" ||
+                                e.key === "Tab"
+                              )
+                            ) {
+                              e.preventDefault();
+                            }
+                          }}
+                          onInput={(e) => {
+                            e.target.value = e.target.value
+                              .replace(/\D/g, "")
+                              .substring(0, 10);
+                          }}
+                          onBlur={() => {
+                            if (phoneInput.length !== 10) {
+                              // Show an error message or take any other desired action
+                              setphoneError(true);
+                            } else {
+                              setphoneError(false);
+                            }
+                          }}
                         />
                       </div>
                     </div>
@@ -643,6 +788,7 @@ const Profile = () => {
                         </div>
                       )}
                     </div>
+
                     <div className="d-flex justify-content-between align-items-center input_div">
                       <h4 className="input_label">{t("state")}:</h4>
                       <div>
@@ -677,6 +823,29 @@ const Profile = () => {
                         )}
                       </div>
                     </div>
+                    <div className="d-flex justify-content-between align-items-center input_div">
+                      <h4 className="input_label">{t("Pincode")}:</h4>
+                      <div>
+                        <input
+                          disabled={!editAll}
+                          className={
+                            !editAll
+                              ? "border-0 profile_input"
+                              : !cityFound &&
+                                selectedCountry.city !== "International"
+                              ? "border-danger profile_input"
+                              : "profile_input"
+                          }
+                          title={cityFound ? "" : "No city/town found"}
+                          onChange={handlePincode}
+                          value={pincode}
+                          type="text"
+                          name="pincode"
+                          id=""
+                        />
+                      </div>
+                    </div>
+
                     <div className="d-flex justify-content-between align-items-center input_div">
                       <h4 className=" input_label">{t("country")}:</h4>
                       <div className="select_div">
@@ -718,9 +887,9 @@ const Profile = () => {
                   <div className="d-flex justify-content-d button_div">
                     {/* <div className='edit_al me-4' onClick={handleAllEdit}>{t('Edit')} </div> */}
                     <button
-                      disabled={isLoading || !editAll}
+                      disabled={isLoading || phoneError}
                       type="submit"
-                      className="save_change_btn"
+                      className="primaryButton subBtn  mx-auto"
                     >
                       {isLoading ? (
                         <Spinner className="text-success " animation="border" />
@@ -729,53 +898,14 @@ const Profile = () => {
                       )}
                     </button>
                   </div>
-                  <div className="d-block d-md-none">
-                    <div className="d-flex justify-content-center mt-3">
-                      <div>
-                        <Link to="/favouriteStratigy">
-                          <button className="profileBtn me-3">
-                            {t("Favourites")}
-                          </button>
-                        </Link>
-                      </div>
-                      <div>
-                        <Link to="/saveStratigy">
-                          <button className="profileBtn">{t("Saved")}</button>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <div>
-                        <Link to="/editedStratigy">
-                          <button className="authBtn_p mt-2 me-3">
-                            {t("Edited")} ({e})
-                          </button>
-                        </Link>
-                      </div>
-                      <div>
-                        <Link to="/createdStratigy">
-                          <button className="authBtn_p mt-2">
-                            {t("Created")} ({c})
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-center" id="pt">
-                      <Link to="/addForm">
-                        <button className="upload_Str_btn">
-                          Upload Strategy
-                        </button>
-                      </Link>
-                    </div>
-                    <button onClick={handleForgotShow} className="change_btn">
-                      {t("Change Password")}
-                    </button>
-                  </div>
                 </div>
               </form>
             </div>
           ) : (
-            <div id="bbb" className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0">
+            <div
+              id="bbb"
+              className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
+            >
               <div>
                 <ProfileDataS />
               </div>
@@ -790,7 +920,20 @@ const Profile = () => {
               </div>
             </div>
           )}
-
+          {/* mobile bottom buttons */}
+          <button
+            onClick={handleForgotShow}
+            className="change_btn mx-2   d-md-none"
+          >
+            {t("Change Password")}
+          </button>
+          <button
+            onClick={handleForgotShow}
+            className="change_btn mt-2 mx-2  d-md-none"
+          >
+            {t("Logout")}
+          </button>
+          {/* ------------------- */}
           <div id="h10"></div>
         </div>
       </section>

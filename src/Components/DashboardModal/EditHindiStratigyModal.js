@@ -9,7 +9,7 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
     const formData = {
       'विषय': e.target.subject.value,
       'श्रेणी': e.target.grade.value,
-      'अच्छा विषय': e.target.skill.value,
+      'प्रमुख शीर्षक': e.target.skill.value,
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
@@ -58,8 +58,8 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
                 <input className='signup_Input_modal' disabled defaultValue={data?.श्रेणी} name='grade' placeholder='श्रेणी' type="text" />
               </div>
               <div className='input_div_modal'>
-                <label htmlFor="">अच्छा विषय</label> <br />
-                <input className={"signup_Input_modal"} disabled defaultValue={data?.['अच्छा विषय']} name='skill' placeholder='अच्छा विषय' type="text" />
+                <label htmlFor="">प्रमुख शीर्षक</label> <br />
+                <input className={"signup_Input_modal"} disabled defaultValue={data?.['प्रमुख शीर्षक']} name='skill' placeholder='प्रमुख शीर्षक' type="text" />
               </div>
               <div className='input_div_modal'>
                 <label htmlFor="">शीर्षक </label> <br />

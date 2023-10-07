@@ -328,7 +328,6 @@ const SingleUserStr = () => {
                           />
                         )}
                       </div>
-                      <p className="count_num mx-0">{totalUserSaves}</p>
                     </div>
                     <div className="d-flex flex-column justify-content-center align-items-center">
                       <div>
@@ -348,12 +347,7 @@ const SingleUserStr = () => {
                           />
                         )}
                       </div>
-                      <p
-                        onClick={showReact}
-                        className="count_num mx-0 cursor-pointer"
-                      >
-                        {totalLikeUser.length}
-                      </p>
+
                     </div>
                     {!isAlreadyRated ? (
                       <button

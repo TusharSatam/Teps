@@ -96,7 +96,7 @@ const EditStrategyHi = () => {
         User_id: user._id,
         विषय: formData.विषय,
         श्रेणी: formData.श्रेणी,
-        "अच्छा विषय": formData["अच्छा विषय"],
+        "प्रमुख शीर्षक": formData["प्रमुख शीर्षक"],
         शीर्षक: formData.शीर्षक,
         "उप शीर्षक": formData["उप शीर्षक"],
         "उप-उप शीर्षक": formData["उप-उप शीर्षक"],
@@ -203,14 +203,14 @@ const EditStrategyHi = () => {
                     value={
                       formData?.["Super Topic"]
                         ? formData?.["Super Topic"]
-                        : formData?.["अच्छा विषय"]
+                        : formData?.["प्रमुख शीर्षक"]
                     }
                     disabled
                   >
                     <option selected disabled>
                       {formData?.["मुख्य शीर्षक"]
                         ? formData?.["मुख्य शीर्षक"]
-                        : formData?.["अच्छा विषय"]}
+                        : formData?.["प्रमुख शीर्षक"]}
                     </option>
                   </select>
                 </div>

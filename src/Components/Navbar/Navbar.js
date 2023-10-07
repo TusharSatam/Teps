@@ -67,7 +67,6 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
               <img className='logo-res' src={ResLogo} alt="logo2" />
             </div>
           </Link>
-          {location.pathname === "/profile" && <Link to={"/home"} className='Go_back mt-md-4 mb-md-2'> <img src={LeftArrow} alt="Left Arrow ICon" /> &nbsp;&nbsp;&nbsp;{t('Search Strategies')}</Link>}
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
         <div className={/(^\/(profile|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
