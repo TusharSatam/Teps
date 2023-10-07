@@ -42,9 +42,11 @@ const ProfileDataF= () => {
   React.useEffect(() => {
     setIsLoading(true);
     getLikes().then((res) => {
-      const like = res?.data?.filter((ress) => ress.user_id === user._id);
-      console.log({like});
+      const like = res?.data?.filter((ress) => ress.user_id === user._id && ress.strategie_id !== undefined);
+      // console.log({like});
       const likeId = like?.map((ress) => ress.strategie_id);
+      if(likeId?.length===0){setIsLoading(false);}
+      // console.log({likeId})
       setLikes(like?.map((ress) => ress.strategie_id));
       setLikesArr(like);
       if (languageSelect === "en") {
@@ -125,6 +127,7 @@ const ProfileDataF= () => {
   };
   const handleApiUnLikes = (id) => {
     const requiredObj = likesArr.find((obj)=>obj?.strategie_id===id);
+    console.log({requiredObj})
     delUserLikes(requiredObj?._id).then((res) => {
       setLikes(likes.filter(stringData=>stringData!==id))
       // getLikes().then((res) => {
@@ -181,7 +184,7 @@ const ProfileDataF= () => {
           </div>
          
         </div>
-        {isLoading ? (
+        {isLoading && !collapse ? (
           <div id="div2">
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -206,7 +209,7 @@ const ProfileDataF= () => {
                               Learning Outcome: {res["Learning Outcome"]}
                             </p>
                             <p className="savestr_body">
-                              {res["Teaching Strategy"].slice(0, 150) + "..."}
+                              {res["Teaching Strategy"]?.slice(0, 150) + "..."}
   
                               <Link
                                 to={`/single/${res._id}`}

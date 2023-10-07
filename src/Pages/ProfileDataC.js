@@ -31,9 +31,10 @@ const ProfileDataC = () => {
         setIsLoading(true)
         getUserCreated(user._id)
           .then(res => {
+            console.log({res})
             const saves = res?.data?.filter(ress => ress.user_id === user._id)
             const savesId = saves?.map(ress => ress.strategie_id)
-           
+           console.log({savesId})
             setSave(saves?.map(ress => ress.strategie_id))
             if (languageSelect === "en") {
               
@@ -97,7 +98,7 @@ const ProfileDataC = () => {
                 
               </div>
       
-              {isLoading ? (
+              {isLoading && !collapse ? (
                 <div id="div2" >
                   <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span>
@@ -116,7 +117,7 @@ const ProfileDataC = () => {
                                   <p id="bswm">Project-based Learning</p>
                                   <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                                   <p className='savestr_body'>
-                                    {res["Teaching Strategy"].slice(0,150) + '...'}  
+                                    {res["Teaching Strategy"]?.slice(0,150) + '...'}  
                                     <Link to={`/single/${res._id}`} id="pgnw">Read More...</Link>
                                   </p>
                                 </Link>

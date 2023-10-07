@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import {  Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SaveIcon from '../asstes/icons/Save.svg';
 import SavedIcon from '../asstes/icons/Saved.svg';
 import { useAuth } from '../Context/AuthContext';
 import { getMultitHiStr } from '../services/hindiStratigys';
 import { getMultitStr } from '../services/stratigyes';
-import { delUserSaves, getSaves, postSaves } from '../services/userSaves';
+import { delSaves, delUserSaves, getSaves, postSaves } from '../services/userSaves';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
@@ -51,8 +51,13 @@ const ProfileDataS = () => {
     setIsLoading(true)
     getSaves()
       .then(res => {
-        const saves = res?.data?.filter(ress => ress.user_id === user._id)
+        const saves = res?.data?.filter(ress => ress.user_id === user._id && ress.strategie_id !== undefined)
         const savesId = saves?.map(ress => ress.strategie_id)
+        // console.log({data:res.data})
+        // console.log({saves})
+        // console.log({savesId})
+      if(savesId?.length===0){setIsLoading(false);return}
+
         setSavesArr(res?.data);
         setSave(saves?.map(ress => ress.strategie_id))
         if (languageSelect === "en") {
@@ -87,7 +92,7 @@ const ProfileDataS = () => {
             });
           getMultiUserHindiStr(savesId)
             .then(res => {
-              setSaveStratigyiUser(res.data)
+              setSaveStratigy(res.data)
               setIsLoading(false)
             })
         }
@@ -135,36 +140,37 @@ const ProfileDataS = () => {
   const handleApiUnSaves = (id) => {
     const requiredObj = savesArr.find(obj=>obj?.strategie_id===id);
     console.log({requiredObj})
-    delUserSaves(id)
+    delSaves(requiredObj?._id)
       .then(res => {
-        getSaves()
-          .then(res => {
-            const saves = res?.data?.filter(ress => ress.user_id === user._id)
-            const savesId = saves?.map(ress => ress.strategie_id)
-            setSave(saves?.map(ress => ress.strategie_id))
-            if (languageSelect === "en") {
-              getMultitStr(savesId)
-                .then(res => {
-                  setSaveStratigy(res.data);
-                })
-                .catch(err => setSaveStratigy([]))
-              getMultiUsertStr(savesId)
-                .then(res => {
-                  setSaveUserStratigy(res.data);
-                })
-                .catch(err => setSaveUserStratigy([]))
-            }
-            else {
-              getMultitHiStr(savesId)
-                .then(res => {
-                  setSaveStratigyi(res.data)
-                })
-              getMultiUserHindiStr(savesId)
-                .then(res => {
-                  setSaveStratigyiUser(res.data)
-                })
-            }
-          })
+      setSave(save.filter(stringData=>stringData!==id))
+        // getSaves()
+        //   .then(res => {
+        //     const saves = res?.data?.filter(ress => ress.user_id === user._id)
+        //     const savesId = saves?.map(ress => ress.strategie_id)
+        //     setSave(saves?.map(ress => ress.strategie_id))
+        //     if (languageSelect === "en") {
+        //       getMultitStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigy(res.data);
+        //         })
+        //         .catch(err => setSaveStratigy([]))
+        //       getMultiUsertStr(savesId)
+        //         .then(res => {
+        //           setSaveUserStratigy(res.data);
+        //         })
+        //         .catch(err => setSaveUserStratigy([]))
+        //     }
+        //     else {
+        //       getMultitHiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyi(res.data)
+        //         })
+        //       getMultiUserHindiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyiUser(res.data)
+        //         })
+        //     }
+        //   })
       })
   }
   
@@ -193,7 +199,7 @@ const ProfileDataS = () => {
         </div>
     
       </div>
-      {isLoading ?
+      {isLoading && !collapse ?
         <div id="div2">
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -220,9 +226,9 @@ const ProfileDataS = () => {
                             </Link>
                            
                           </div>
-                          <div className='col-3 col-md-2 d-none d-md-block ms-5' id="mt">
+                          <div className='col-3 col-md-2 d-block ms-5' id="mt">
                           <div className=' align-items-center '>
-                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} id="pt" className='me-2 me-md-3 save_like' src={SavedIcon} alt="unlike" /> : <img onClick={() => handleApiSaves(res._id)} id="pt" className='me-2 me-md-3 save_like' src={SaveIcon} alt="like" />}
+                              {save?.includes(res._id) ? <img onClick={() => handleApiUnSaves(res._id)} id="pt" className='me-2 me-md-3 ' src={SavedIcon} alt="unlike" /> : <img onClick={() => handleApiSaves(res._id)} id="pt" className='me-2 me-md-3 ' src={SaveIcon} alt="like" />}
                             </div>
                             <div className='d-flex flex-column align-items-center justify-content-center'>
                             </div>
@@ -236,7 +242,7 @@ const ProfileDataS = () => {
             </> : null
           )
       }
-    </> : null
+    </>:null 
   }
 </div>
   )

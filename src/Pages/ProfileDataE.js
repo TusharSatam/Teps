@@ -29,46 +29,60 @@ const ProfileDataE = () => {
       const [save, setSave] = useState([]);
     React.useEffect(() => {
         setIsLoading(true)
-        getEdits(user._id)
-          .then(res => {
-            const saves = res?.data?.filter(ress => ress.user_id === user._id)
-            const savesId = saves?.map(ress => ress.strategie_id)
-           
-            setSave(saves?.map(ress => ress.strategie_id))
-            if (languageSelect === "en") {
-              
-                getEdits(user._id)
-                .then(res => {
-                  setSaveStratigy(res.data);
-                  setIsLoading(false)
-                })
-                .catch(err => {
-                  setIsLoading(false)
-                  setSaveStratigy([])
-                })
-              getMultiUsertStr(savesId)
-                .then(res => {
-                  setSaveUserStratigy(res.data);
-                  setIsLoading(false)
-                })
-                .catch(err => {
-                  setSaveUserStratigy([])
-                  setIsLoading(false)
-                })
-            }
-            else {
-              getMultitHiStr(savesId)
-                .then(res => {
-                  setSaveStratigyi(res.data)
-                  setIsLoading(false)
-                })
-              getMultiUserHindiStr(savesId)
-                .then(res => {
-                  setSaveStratigyiUser(res.data)
-                  setIsLoading(false)
-                })
-            }
+        if(languageSelect === 'en'){
+          getEdits(user._id).then(res=>{
+            const saves = res?.data?.filter(ress => ress.Approve === true)
+            setSaveStratigy(saves)
+            setIsLoading(false);
+          }).catch((err)=>{
+            console.log({err});
+            setIsLoading(false);
           })
+        }else{
+          // hindi api call
+        }
+        // getEdits(user._id)
+        //   .then(res => {
+        //     const saves = res?.data?.filter(ress => ress.Approve === true)
+        //     const savesId = saves?.map(ress => ress._id);
+        //     // console.log({saves})
+        //     // console.log({savesId})
+
+        //     setSave(saves?.map(ress => ress.strategie_id))
+        //     if (languageSelect === "en") {
+        //       // setIsLoading(false)
+        //       //   getEdits(user._id)
+        //       //   .then(res => {
+        //       //     setSaveStratigy(res.data);
+        //       //     setIsLoading(false)
+        //       //   })
+        //       //   .catch(err => {
+        //       //     setIsLoading(false)
+        //       //     setSaveStratigy([])
+        //       //   })
+        //       // getMultiUsertStr(savesId)
+        //       //   .then(res => {
+        //       //     setSaveUserStratigy(res.data);
+        //       //     setIsLoading(false)
+        //       //   })
+        //       //   .catch(err => {
+        //       //     setSaveUserStratigy([])
+        //       //     setIsLoading(false)
+        //       //   })
+        //     }
+        //     else {
+        //       getMultitHiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyi(res.data)
+        //           setIsLoading(false)
+        //         })
+        //       getMultiUserHindiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyiUser(res.data)
+        //           setIsLoading(false)
+        //         })
+        //     }
+        //   })
     
       }, [languageSelect])
       return (
@@ -98,7 +112,7 @@ const ProfileDataE = () => {
            </div>
         
       </div>
-      {isLoading ? (
+      {isLoading && !collapse ? (
         <div id="div2">
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
@@ -108,10 +122,10 @@ const ProfileDataE = () => {
         (saveStratigy?.length === 0 && saveUserStratigy?.length === 0 && collapse !== true)? (
           <h1 className='my-5 text-center py-5 text-danger'>{t("No Saved Strategies available.")}</h1>
         ) : (
-          stratigyFilData?.length !== 0 && collapse !== true ? (
+          saveStratigy?.length !== 0 && collapse !== true ? (
             <>
               {
-                stratigyFilData?.map((res, index) => (
+                saveStratigy?.map((res, index) => (
                   <div key={index} className='cardContainer'>
                     <div id="ws" className='card_pad'>
                       <div className='mt-4'>
@@ -121,7 +135,7 @@ const ProfileDataE = () => {
                               <p id="bswm">Project-based Learning</p>
                               <p className='savestr_head'>Learning Outcome: {res["Learning Outcome"]}</p>
                               <p className='savestr_body'>
-                                {res["Teaching Strategy"].slice(0, 150) + '...'}
+                                {res["Teaching Strategy"]?.slice(0, 150) + '...'}
                                 <Link to={`/single/${res._id}`} id="pgnw">Read More...</Link>
                               </p>
                             </Link>
