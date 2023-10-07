@@ -51,10 +51,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     }
   }, [selectedOption, location.pathname])
 
-  const uniqueGrade1 = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-  .map(grade => {
-    return allStratigys.find(a => a.श्रेणी === grade)
-  });
+
   const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
   const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी))).sort((a, b) => {
     const indexA = customSortOrder.indexOf(a);

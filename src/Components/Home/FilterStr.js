@@ -302,9 +302,9 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
           <option value="" selected disabled>{t('Grade')}</option>
           {(language === "en" || language === "en-US")?
           uniqueGrade?.map((item, index) => (
-          <option key={index} >{item.Grade}</option>
+          <option key={index} >{item}</option>
           )):   uniqueGrade?.map((item, index) => (
-          <option key={index} >{item.श्रेणी}</option>
+          <option key={index} >{item}</option>
           ))
           }
           </select>
@@ -320,9 +320,9 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
           }
           {(language === "en" || language === "en-US")?
           uniqueGrade?.map((item, index) => (
-          <option key={index} >{item.Grade}</option>
+          <option key={index} >{item}</option>
           )):   uniqueGrade?.map((item, index) => (
-          <option key={index} >{item.श्रेणी}</option>
+          <option key={index} >{item}</option>
           ))
           }
           </select>

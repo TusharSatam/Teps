@@ -147,7 +147,7 @@ const DashboardUsers = () => {
       </div>
       <div className='bulkinput' style={{display:"flex", alignItems:"center"}}>
       <input type="file" id="csvInput" accept=".csv" />
-      <button className='btn btn-primary' onClick={uploadCSVFile}>Upload</button>
+      <button className='btn btn-primary my-4' onClick={uploadCSVFile}>Upload</button>
 </div>
      
     </>
