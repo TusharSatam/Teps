@@ -11,11 +11,11 @@ import { getMultitHiStr } from "../services/hindiStratigys";
 import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
-import {  Spinner } from "react-bootstrap";
-import './styles/profileData.css'
+import { Spinner } from "react-bootstrap";
+import "./styles/profileData.css";
 import FilterStrHI from "../Components/Home/FilterStrHI";
 
-const ProfileDataF= () => {
+const ProfileDataF = () => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
@@ -23,11 +23,11 @@ const ProfileDataF= () => {
   const [favStratigyHi, setfavStratigyi] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const { t } = useTranslation();
-  const [likeUserStratigy, setlikeUserStratigy] = useState([]);
   const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [collapse, setCollapse] = useState(false);
   const language = localStorage.getItem("i18nextLng");
-   React.useEffect(() => {
+  React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
     } else {
@@ -35,16 +35,22 @@ const ProfileDataF= () => {
     }
   }, [language]);
 
- 
-
   const [likes, setLikes] = useState([]);
+  const [likesArr, setLikesArr] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
     getLikes().then((res) => {
-      const like = res?.data?.filter((ress) => ress.user_id === user._id);
-      
+      const like = res?.data?.filter(
+        (ress) => ress.user_id === user._id && ress.strategie_id !== undefined
+      );
+      // console.log({like});
       const likeId = like?.map((ress) => ress.strategie_id);
+      if (likeId?.length === 0) {
+        setIsLoading(false);
+      }
+      // console.log({likeId})
       setLikes(like?.map((ress) => ress.strategie_id));
+      setLikesArr(like);
       if (languageSelect === "en") {
         getMultitStr(likeId)
           .then((res) => {
@@ -55,29 +61,34 @@ const ProfileDataF= () => {
             setIsLoading(false);
             setFavStratigy([]);
           });
-        getMultiUsertStr(likeId)
-          .then((res) => {
-            setlikeUserStratigy(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setIsLoading(false);
-            setlikeUserStratigy([]);
-          });
+        // getMultiUsertStr(likeId)
+        //   .then((res) => {
+        //     setlikeUserStratigy(res.data);
+        //     setIsLoading(false);
+        //   })
+        //   .catch((err) => {
+        //     setIsLoading(false);
+        //     setlikeUserStratigy([]);
+        //   });
       } else {
-        getMultitHiStr(likeId).then((res) => {
-          setfavStratigyi(res.data);
-          setIsLoading(false);
-        });
-        getMultiUserHindiStr(likeId)
+        getMultitHiStr(likeId)
           .then((res) => {
-            setlikeStratigyiUser(res.data);
+            setfavStratigyi(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
             setIsLoading(false);
-            setlikeStratigyiUser([]);
+            setfavStratigyi([]);
           });
+        // getMultiUserHindiStr(likeId)
+        //   .then((res) => {
+        //     setlikeStratigyiUser(res.data);
+        //     setIsLoading(false);
+        //   })
+        //   .catch((err) => {
+        //     setIsLoading(false);
+        //     setlikeStratigyiUser([]);
+        //   });
       }
     });
   }, [languageSelect]);
@@ -88,155 +99,166 @@ const ProfileDataF= () => {
       user_id: user._id,
     };
     postLikes(data).then((res) => {
-      getLikes().then((res) => {
-        const like = res?.data?.filter((ress) => ress.user_id === user._id);
-        const likeId = like?.map((ress) => ress.strategie_id);
-        setLikes(like?.map((ress) => ress.strategie_id));
-        if (languageSelect === "en") {
-          getMultitStr(likeId)
-            .then((res) => {
-              setFavStratigy(res.data);
-            })
-            .catch((err) => setFavStratigy([]));
-          getMultiUsertStr(likeId)
-            .then((res) => {
-              setlikeUserStratigy(res.data);
-            })
-            .catch((err) => setlikeUserStratigy([]));
-        } else {
-          getMultitHiStr(likeId).then((res) => {
-            setfavStratigyi(res.data);
-          });
-          getMultiUserHindiStr(likeId)
-            .then((res) => {
-              setlikeStratigyiUser(res.data);
-            })
-            .catch((err) => setlikeStratigyiUser([]));
-        }
-      });
+      setLikes((prev) => [...prev, id]);
+      // getLikes().then((res) => {
+      //   const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      //   const likeId = like?.map((ress) => ress.strategie_id);
+      //   setLikes(like?.map((ress) => ress.strategie_id));
+      //   if (languageSelect === "en") {
+      //     getMultitStr(likeId)
+      //       .then((res) => {
+      //         setFavStratigy(res.data);
+      //       })
+      //       .catch((err) => setFavStratigy([]));
+      //     getMultiUsertStr(likeId)
+      //       .then((res) => {
+      //         setlikeUserStratigy(res.data);
+      //       })
+      //       .catch((err) => setlikeUserStratigy([]));
+      //   } else {
+      //     getMultitHiStr(likeId).then((res) => {
+      //       setfavStratigyi(res.data);
+      //     });
+      //     getMultiUserHindiStr(likeId)
+      //       .then((res) => {
+      //         setlikeStratigyiUser(res.data);
+      //       })
+      //       .catch((err) => setlikeStratigyiUser([]));
+      //   }
+      // });
     });
   };
   const handleApiUnLikes = (id) => {
-    delUserLikes(id).then((res) => {
-      getLikes().then((res) => {
-        const like = res?.data?.filter((ress) => ress.user_id === user._id);
-        const likeId = like?.map((ress) => ress.strategie_id);
-        setLikes(like?.map((ress) => ress.strategie_id));
-        if (languageSelect === "en") {
-          getMultitStr(likeId)
-            .then((res) => {
-              setFavStratigy(res.data);
-            })
-            .catch((err) => setFavStratigy([]));
-          getMultiUsertStr(likeId)
-            .then((res) => {
-              setlikeUserStratigy(res.data);
-            })
-            .catch((err) => setlikeUserStratigy([]));
-        } else {
-          getMultitHiStr(likeId).then((res) => {
-            setfavStratigyi(res.data);
-          });
-          getMultiUserHindiStr(likeId)
-            .then((res) => {
-              setlikeStratigyiUser(res.data);
-            })
-            .catch((err) => setlikeStratigyiUser([]));
-        }
-      });
+    const requiredObj = likesArr.find((obj) => obj?.strategie_id === id);
+    console.log({ requiredObj });
+    delUserLikes(requiredObj?._id).then((res) => {
+      setLikes(likes.filter((stringData) => stringData !== id));
+      // getLikes().then((res) => {
+      //   const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      //   const likeId = like?.map((ress) => ress.strategie_id);
+      //   setLikes(like?.map((ress) => ress.strategie_id));
+      //   if (languageSelect === "en") {
+      //     getMultitStr(likeId)
+      //       .then((res) => {
+      //         setFavStratigy(res.data);
+      //       })
+      //       .catch((err) => setFavStratigy([]));
+      //     getMultiUsertStr(likeId)
+      //       .then((res) => {
+      //         setlikeUserStratigy(res.data);
+      //       })
+      //       .catch((err) => setlikeUserStratigy([]));
+      //   } else {
+      //     getMultitHiStr(likeId).then((res) => {
+      //       setfavStratigyi(res.data);
+      //     });
+      //     getMultiUserHindiStr(likeId)
+      //       .then((res) => {
+      //         setlikeStratigyiUser(res.data);
+      //       })
+      //       .catch((err) => setlikeStratigyiUser([]));
+      //   }
+      // });
     });
   };
-   return (
+  return (
     <div>
-    {languageSelect === "en" ? (
-      <>
-        <div className="saveStrParent">
-          <div className="row py-2 align-items-center" id="c">
-            <div className="d-flex justify-content-center">
-              <span className="text-white text-center headText w-50">
-               {t("Favourite Strategies")}
-              </span>
-            </div>
-            <div className="d-flex justify-content-end" id="at" >
-           
+      {languageSelect === "en" ? (
+        <>
+          <div
+            onClick={() => {
+              setCollapse((prev) => !prev);
+            }}
+            className={collapse?"saveStrParent":"saveStrParentActive"}
+          >
+            <div className="row py-2 align-items-center" id="div1">
+              <div className="d-flex justify-content-start">
+                <span className={favStratigy?.length===0?"headText w-50 impGray":"headText w-50"}>
+                  {t("Favourite Strategies")}
+                </span>
+              </div>
+              <div
+                className="filter_btn_container d-flex justify-content-end"
+                id="at"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="d-none d-md-block"
+                >
+                  <g
+                    clip-path="url(#clip0_4614_16349)"
+                    transform={collapse ? "" : "rotate(180, 12, 12)"}
+                  >
+                    <path
+                      d="M11.5 12.5456L15.0002 10L16 10.7272L11.5 14L7 10.7272L7.99984 10L11.5 12.5456Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_4614_16349">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <span className={favStratigy?.length===0?"impGray d-md-none":"d-md-none"}>({favStratigy?.length})</span>
+              </div>
             </div>
           </div>
-         
-        </div>
-        {isLoading ? (
-          <div id="div2">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>
-        ) : favStratigy?.length === 0 && likeUserStratigy.length === 0 ? (
-          <h1 className="my-5 text-center py-5 text-danger">
-            {t("No Favourite Strategies available.")}
-          </h1>
-        ) : (
-          stratigyFilData?.length !== 0 ? (
+          {isLoading && !collapse ? (
+            <div id="div2">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : favStratigy?.length === 0 && collapse !== true ? (
+            <h1 className="my-5 text-center py-5 text-danger">
+              {t("No Favourite Strategies available.")}
+            </h1>
+          ) : favStratigy?.length !== 0 && collapse !== true ? (
             <>
-              {stratigyFilData?.map((res, index) => (
-                <div key={index} className="container">
+              {favStratigy?.map((res, index) => (
+                <div key={index} className="cardContainer">
                   <div id="ws" className="card_pad">
-                    <div className="my-4">
-                      <div className="d-flex justify-content-between my-4 ">
-                        <Link to={`/single/${res._id}`} id="nb">
-                          <div className="me-1">
-                            <div>
-                              <div className="d-flex mb-3 str_text_left">
-                                <p className="Strategy_count">{t("strategy")}</p>
-                                <p className="counter_str">{index + 1}</p>
-                              </div>
-                            </div>
-                            <div className="d-block d-md-none mt-1">
-                              <div className="mt-1" id="ml">
-                                <div className="res_btn_icon"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                        <div className="col-9 ms-md-4 col-md-8 ">
+                    <div className="mt-4">
+                      <div className="d-flex justify-content-between">
+                        <div className="col-9 ms-md-4 col-md-8 ps-2">
                           <Link id="nb">
                             <p id="bswm">Project-based Learning</p>
-                            <p className="savestr_head">
+                            {/* <p className="savestr_head">
                               Learning Outcome: {res["Learning Outcome"]}
-                            </p>
+                            </p> */}
                             <p className="savestr_body">
-                              {res["Teaching Strategy"].slice(0, 150) + "..."}
-  
-                              <Link
-                                to={`/favouriteStratigy`}
-                                id="pgnw"
-                              >
-                                Load All
+                              {res["Teaching Strategy"]?.slice(0, 150) + "..."}
+
+                              <Link to={`/single/${res._id}`} id="pgnw">
+                                Read More...
                               </Link>
                             </p>
                           </Link>
-                        
                         </div>
-                        <div className="col-md-2 d-none d-md-block ms-5">
-                          <div className="d-flex flex-column align-items-center justify-content-center">
-                          <div className="d-flex align-items-center my-3">
-                            {likes?.includes(res._id) ? (
-                              <img id="img1"
-                                onClick={() => handleApiUnLikes(res._id)}
-                               
-                                className="me-2 me-md-3 save_like"
-                                src={LikedIcon}
-                                alt="unlike"
-                              />
-                            ) : (
-                              <img
-                                onClick={() => handleApiLikes(res._id)}
-                                id="img2"
-                                
-                                className="me-2 me-md-3 save_like"
-                                src={LikeIcon}
-                                alt="like"
-                              />
-                            )}
-                          </div>
+                        <div className="col-md-2 d-block">
+                          <div className="d-flex flex-column align-items-start justify-content-end">
+                            <div style={{cursor:"pointer"}} className="d-flex w-100 align-items-start justify-content-end">
+                              {likes?.includes(res._id) ? (
+                                <img
+                                  onClick={() => handleApiUnLikes(res._id)}
+                                  className="me-3 me-md-3 save_like"
+                                  src={LikedIcon}
+                                  alt="unlike"
+                                />
+                              ) : (
+                                <img
+                                  onClick={() => handleApiLikes(res._id)}
+                                  className="me-3 me-md-3 save_like"
+                                  src={LikeIcon}
+                                  alt="like"
+                                />
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -245,11 +267,11 @@ const ProfileDataF= () => {
                 </div>
               ))}
             </>
-          ) : null
-        )}
-      </>
-    ) : null}
-  </div>
-   )};  
+          ) : null}
+        </>
+      ) : null}
+    </div>
+  );
+};
 
-export default ProfileDataF
+export default ProfileDataF;

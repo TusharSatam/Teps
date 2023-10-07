@@ -22,7 +22,7 @@ const LanguageSelect = () => {
             <select onChange={handleLanguageSelect} className='language_btn mx-1 mx-md-3' name="" id="">
                 <option disabled selected>Language</option>
                 <option>English</option>
-                <option>हिंदीं</option>
+                <option>हिन्दी</option>
             </select>
         </ >
     );

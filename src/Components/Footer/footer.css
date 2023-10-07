@@ -9,7 +9,7 @@
     background: #1AA05B ;
     margin: 0px;
     padding: 0px;
-    height: 390px !important;
+    height: 212px !important;
 }
 .footer_text{
     margin: 1.5rem 0;
@@ -53,10 +53,10 @@
     margin-top: 20px;
   }
     .footer_content{
-        height: 165px;
+        height: auto;
     }
     .footer_res_content{
-        height: 165px;
+        height: auto;
     }
     .footer_text{
         margin-top: 24px;
@@ -83,9 +83,9 @@
     .footer_content{
 
             background-color: #1AA05B !important;
-            margin: 0px;
-            padding: 0px;
-            height: 260px !important;
+            margin: 0;
+            padding: 0;
+            height: auto !important;
         
     }
 }
@@ -94,9 +94,9 @@
         .footer_content{
 
             background-color: #1AA05B !important;
-            margin: 0px;
-            padding: 0px;
-            height: 390px !important;
+            margin: 0;
+            padding: 0;
+            height: auto !important;
         
     }
         }

@@ -62,11 +62,13 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       }
     }
   }, [selectedOption, location.pathname]);
-  const uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).map(
-    (grade) => {
-      return allStratigys.find((a) => a.Grade === grade);
-    }
-  );
+  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
+  const uniqueGrade = Array.from(new Set(allStrategies.map(a => a.Grade))).sort((a, b) => {
+    const indexA = customSortOrder.indexOf(a);
+    const indexB = customSortOrder.indexOf(b);
+    return indexA - indexB;
+  });
+ 
   const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
     return creature.Grade === selectGrade;
   });
@@ -422,7 +424,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             </option>
 
             {uniqueGrade?.map((item, index) => (
-              <option key={index}>{item.Grade}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
 
@@ -445,7 +447,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             </option>
 
             {uniqueGrade?.map((item, index) => (
-              <option key={index}>{item.Grade}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
 
@@ -772,7 +774,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
         )}
       </div>
       {location.pathname === "/home" ? (
-        <div className="d-flex justify-content-center my-4 my-md-0 ">
+        <div className="d-flex justify-content-center  my-md-0 ">
           <button
             onClick={handleFindStratigys}
             className="primaryButton subBtn"

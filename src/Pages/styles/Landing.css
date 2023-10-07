@@ -16,7 +16,7 @@
   box-shadow: rgb(143 227 213 / 56%) 0px 5px 50px 4px;
 }
 
-.filterCard select{
+.filterCard select,.savedFilters select{
   width: 224px;
 }
 .homeFilterCard{
@@ -60,7 +60,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
-  .filterCard select{
+  .filterCard select,.savedFilters select{
     width:150px;
   }
 }
@@ -68,7 +68,7 @@
   .filterCard{
     padding: .5rem;
   }
-  .filterCard select{
+  .filterCard select,.savedFilters select{
     min-width:auto;
   }
   .uploadStrategies {

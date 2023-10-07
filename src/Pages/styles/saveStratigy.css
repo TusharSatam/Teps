@@ -1,11 +1,61 @@
 .container {
   max-width: 1250px;
 }
-.saveStrParent {
-  background: #1aa05b;
+
+.saveStrParent{
+  width: 42.869vw;
+  max-width: 619px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 24px;
+border: 1px solid #1AA05B;
+background: #FFF;
+box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+margin-top: 15px;
+}
+
+.saveStrParent span {
+  color: var(--brand-color-green, #1AA05B);
+text-align: left;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
+letter-spacing: -0.2px;
+}
+
+.saveStrParent svg path{
+  fill: #1AA05B;
+}
+
+.saveStrParentActive {
+  margin-top: 15px;
+  width: 42.869vw;
+  max-width: 619px;
+  cursor: pointer;
   overflow: hidden;
   padding: 1px;
+  border-radius: 24px;
+background: #1AA05B;
+box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
 }
+
+.saveStrParentActive span{
+  color: var(--grey-white, #FFF);
+text-align: left;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
+letter-spacing: -0.2px;
+}
+
+.saveStrParentActive svg path{
+  fill: #fff;
+}
+
 .filter_bTn {
   color: #1aa05b;
   background: white;
@@ -98,19 +148,21 @@
   color:#1AA05B
 }
 .pedalogicalText{
-  font-size: 24px;
+  font-size: 22px !important;
   color: #FF3131;
   font-style: italic !important;
   margin-bottom: 0;
 }
 .savestr_body {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 26px;
-  text-align: justify;
-  margin: 0;
+  overflow: hidden;
+color: #000;
+text-overflow: ellipsis;
+font-family: Poppins;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 26px; /* 130% */
+letter-spacing: -0.2px;
 }
 .single_str_head {
   font-family: "Inter";
@@ -406,6 +458,45 @@ select:disabled{
     text-align: center !important;
     margin-bottom: 5px;
   }
+
+  .saveStrParent{
+    width: 45.55vw;
+    color: var(--brand-color-green, #1AA05B);
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 12px; /* 120% */
+letter-spacing: -0.1px;
+background-color: transparent;
+border: none;
+box-shadow: none;
+  }
+
+  .saveStrParentActive{
+    width: 45.55vw;
+  }
+
+  .saveStrParentActive span{
+    color: var(--grey-white, #FFF);
+text-align: center;
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 600;
+line-height: 12px; /* 150% */
+letter-spacing: -0.08px;
+  }
+  .saveStrParent span{
+    color: var(--brand-color-green, #1AA05B);
+text-align: center;
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 600;
+line-height: 12px; /* 120% */
+letter-spacing: -0.1px;
+  }
 }
 @media only screen and (max-width: 990px) {
   .filter_btn_container {
@@ -429,6 +520,7 @@ select:disabled{
     font-weight: 600;
     font-size: 12px;
     line-height: 20px;
+    display: block !important;
   }
   .savestr_head {
     font-weight: 500;
@@ -438,10 +530,16 @@ select:disabled{
   }
 
   .savestr_body {
-    font-weight: 400;
-    font-size: 10px;
-    line-height: 14px;
-    margin-right: 10px;
+    overflow: hidden;
+color: var(--gray-text, #474747);
+text-overflow: ellipsis;
+whitespace: nowrap;
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 14px; /* 140% */
+letter-spacing: -0.4px;
   }
   .single_str_head {
     font-size: 12px;
@@ -453,7 +551,7 @@ select:disabled{
     line-height: 15px;
   }
   .pedalogicalText{
-    font-size: 12px;
+    font-size: 12px !important;
   }
   .comment_div {
     padding: 10px 10px;
@@ -478,7 +576,8 @@ select:disabled{
     font-size: 14px;
   }
   .str_text_left {
-    margin-top: 15px;
+    margin-top: 0 !important;
+    margin-bottom:0 !important;
   }
   .filter_bTn {
     position: relative;

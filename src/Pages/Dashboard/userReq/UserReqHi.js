@@ -86,7 +86,7 @@ const UserReqHi = () => {
                         <th>Id</th>
                         <th scope="col">विषय</th>
                         <th scope="col">श्रेणी</th>
-                        <th scope="col">अच्छा विषय</th>
+                        <th scope="col">प्रमुख शीर्षक</th>
                         <th scope="col">शीर्षक</th>
                         <th scope="col">उप शीर्षक</th>
                         <th scope="col">उप-उप शीर्षक </th>
@@ -104,7 +104,7 @@ const UserReqHi = () => {
                         <td>{(item._id).slice(19, 26)}</td>
                         <td>{item.विषय}</td>
                         <td>{item.श्रेणी}</td>
-                        <td>{item?.['अच्छा विषय']}</td>
+                        <td>{item?.['प्रमुख शीर्षक']}</td>
                         <td>{item.शीर्षक}</td>
                         <td>{item['उप शीर्षक']}</td>
                         <td>{item['उप-उप शीर्षक']}</td>

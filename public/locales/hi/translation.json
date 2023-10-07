@@ -45,7 +45,7 @@
   "Topic": "शीर्षक",
   "Pedagogical Approach":"शैक्षणिक दृष्टिकोण",
   "Sub - topic": "उप - शीर्षक",
-  "Sub sub - topic": "उप - उप शीर्षक",
+  "Sub sub - topic": "उप-उप शीर्षक",
   "Find Strategies": "रणनीतियां खोजें",
   "Profile": "प्रोफ़ाइल",
   "Saved Strategies": "बचाये हुए रणनीतियाँ",
@@ -62,7 +62,7 @@
   "strategy": "रणनीति",
   "language": "भाषा",
   "english": "अंग्रेज़ी",
-  "hindi": "हिंदीं",
+  "hindi": "हिंदी",
   "Learning Outcomes": "शिक्षण के परिणाम",
   "checkbox_error": "यदि आप आगे बढ़ना चाहते हैं तो कृपया बॉक्स को चेक करें।",
   "email_not_found": "(ईमेल नहीं मिला।)",
@@ -93,7 +93,7 @@
   "Hide comments": "टिप्पणियां छुपाएं",
   "Developmental Domains": "Developmental Domains",
   "Back":"पीछे",
-  "Super topic":"अच्छा विषय",
+  "Super topic":"प्रमुख शीर्षक",
   "Get OTP":"ओटीपी प्राप्त करें",
   "Sign In with Gmail":"जीमेल साइन इन",
   "Login now":"अभी लॉगिन करें!",
@@ -111,5 +111,10 @@
 "Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page.":"आपकी संपादित रणनीति प्रकाशित होने से पहले TEPS टीम द्वारा समीक्षा की जाएगी। प्रोफ़ाइल पृष्ठ पर आपकी संपादित रणनीतियाँ सूची में आपकी रणनीति होगी।",
 "Resend OTP":"ओटीपी पुनः भेजें",
 "Invalid OTP":"अमान्य ओटीपी",
-"Phone number must be 10 digits":"फ़ोन नंबर 10 अंकों का होना चाहिए"
+"Phone number must be 10 digits":"फ़ोन नंबर 10 अंकों का होना चाहिए",
+"Log Out": "लॉग आउट",
+"Save Changes":"परिवर्तन सहेजें",
+"Upload strategy":"अपलोड रणनीति",
+"My strategies":"मेरी रणनीतियाँ",
+"Edit Information":"जानकारी संपादित करें"
 }

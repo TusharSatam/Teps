@@ -29,11 +29,39 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const [phoneError, setPhoneError] = useState("");
   const [registrationOption, setRegistrationOption] = useState("email");
   const navigate = useNavigate();
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPass, setConfirmPass] = useState("");
+
   const { setIsAuthenticated, setUser } = useAuth();
   const [phoneValue, setPhoneValue] = React.useState("");
-
+  const [isFormValid, setIsFormValid] = useState(false);
   const [isPhoneInputType, setisPhoneInputType] = useState(false);
   const emailInputRef = useRef(null);
+  const checkFormValidity = () => {
+    const firstName = document.querySelector('input[name="firstName"]').value;
+    const lastName = document.querySelector('input[name="lastName"]').value;
+    const email = document.querySelector('input[name="email"]').value;
+    const phone = document.querySelector('input[name="phone_number"]').value;
+    const password = document.querySelector('input[name="password"]').value;
+    const confirmPassword = document.querySelector(
+      'input[name="confirm_password"]'
+    ).value;
+    console.log(FirstName, LastName, Email, PhoneNumber, Password, ConfirmPass);
+    // Check if any of the required fields are empty
+    const isInvalid =
+      !FirstName ||
+      !LastName ||
+      !(Email || PhoneNumber) ||
+      !Password ||
+      !ConfirmPass;
+
+    setIsFormValid(!isInvalid);
+  };
+
   const handleRegistrationOptionChange = (option) => {
     setRegistrationOption(option);
     if (option === "email") {
@@ -98,23 +126,19 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const handleNameChange = (e) => {
     const input = e.target;
     const text = input.value;
-    input.value = text.replace(/[^A-Za-z]/g, '');
+    input.value = text.replace(/[^A-Za-z]/g, "");
   };
   const wrongEmail =
     "Your email could not be found, please register with the correct email.";
   const [wrongEMailfound, setWrongEMailfound] = React.useState();
-  
+
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(
-      e.target.firstName.value,
-      e.target.lastName.value,
-      phoneValue
-    );
-  
+    console.log(e.target.firstName.value, e.target.lastName.value, phoneValue);
+
     let equalPass;
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  
+
     if (registrationOption === "email") {
       if (
         e.target.firstName.value &&
@@ -143,7 +167,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   email: e.target.email.value,
                   password: equalPass,
                 };
-  
+
                 if (formData) {
                   console.log(
                     "formData",
@@ -211,10 +235,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         setError(``);
         setEmailError(t("Email_Error"));
       }
-    }
-     else if (registrationOption === "phone") {
+    } else if (registrationOption === "phone") {
       // Phone number registration option is selected
-      console.log("number", phoneValue);
       if (
         e.target.firstName.value &&
         e.target.lastName.value &&
@@ -234,7 +256,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 setError("");
                 setEmailError("");
                 equalPass = e.target.password.value;
-  
+
                 const formData = {
                   firstName: e.target.firstName.value,
                   lastName: e.target.lastName.value,
@@ -249,7 +271,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   })
                   .catch((err) => {
                     if (err.response.status === 409) {
-                      setEmailError(`${t("already_email")}`);
+                      setPhoneError(`${t("already_phone")}`);
                       setDisplay("d-block");
                     } else console.log(err);
                   });
@@ -280,7 +302,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       }
     }
   };
-  
+
   const handleForgotShow = () => {
     setForgot(true);
     setShow(false);
@@ -316,7 +338,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         className="modal_full d-none d-md-block"
       >
         <Modal.Body className="modal_body">
-          <div >
+          <div>
             <span
               className="d-none d-md-block d-xxl-none closeModalIcon"
               onClick={handleClose}
@@ -347,6 +369,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     type="text"
                     pattern="[A-Za-z]+"
                     onInput={handleNameChange}
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div>
@@ -361,13 +385,16 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     placeholder="Blom"
                     type="text"
                     onInput={handleNameChange}
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
 
               <div className="d-flex my-3 flex-column">
                 <h1 className="selectOne">
-                  Select One<span className="text-danger position-absolute">*</span>
+                  Select One
+                  <span className="text-danger position-absolute">*</span>
                 </h1>
                 {/* Email input */}
                 <div className="d-flex">
@@ -378,6 +405,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         value="email"
                         checked={registrationOption === "email"}
                         onChange={() => handleRegistrationOptionChange("email")}
+                        className="me-2"
                       />
                       {t("Email")}
                     </label>
@@ -388,8 +416,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       htmlFor=""
                     >
                       <span
-                        style={{ fontSize: "14px" }}
-                        className="text-danger mt-5"
+                        
+                        className="text-danger mt-5 smallTextSize"
                       >
                         &nbsp; {emailError ? emailError : ""}
                       </span>
@@ -397,7 +425,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     <br />
                     <input
                       ref={emailInputRef}
-                      onChange={handleEmailError}
                       className={
                         emailError
                           ? "signup_Input border-danger text-danger"
@@ -409,11 +436,16 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       placeholder="Lilyblom201@gmail.com"
                       type="email"
                       disabled={registrationOption == "phone"}
+                      onBlur={checkFormValidity}
+                      onChange={(e) => {
+                        handleEmailError(e);
+                        setEmail(e.target.value);
+                      }}
                     />
                     <a
                       href="#"
-                      className={emailError ? "d-block" : "d-none"}
-                      style={{ fontSize: "10px" }}
+                      className={emailError ? "d-block smallTextSize" : "d-none"}
+                      
                       onClick={handleForgotShow}
                     >
                       <p className="text-start forgot_passs mt-1">
@@ -429,6 +461,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         name="phone"
                         checked={registrationOption === "phone"}
                         onChange={() => handleRegistrationOptionChange("phone")}
+                        className="me-2"
                       />
                       {t("Phone Number")}
                     </label>
@@ -439,16 +472,22 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       htmlFor=""
                     >
                       <span
-                        style={{ fontSize: "14px" }}
-                        className="text-danger mt-5"
+                        
+                        className="text-danger mt-5 smallTextSize"
                       >
                         &nbsp; {phoneError ? phoneError : ""}
                       </span>
                     </label>{" "}
                     <br />
                     <input
-                      onChange={handlePhoneInput}
-                      onBlur={handlePhoneBlur}
+                      onChange={(e) => {
+                        handlePhoneInput(e);
+                        setPhoneNumber(e.target.value);
+                      }}
+                      onBlur={(e) => {
+                        handlePhoneBlur();
+                        checkFormValidity(); // Assuming this function checks the form's overall validity
+                      }}
                       className={
                         phoneError
                           ? "signup_Input border-danger text-danger"
@@ -466,12 +505,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     />
                   </div>
                 </div>
-
-
               </div>
               <div className="d-flex my-3">
                 <div className="me-5">
-                  <label htmlFor="">{t("Password")}</label> 
+                  <label htmlFor="">{t("Password")}</label>
                   <span className="text-danger position-absolute">*</span>
                   <br />
                   <input
@@ -481,29 +518,32 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     placeholder={t("Password")}
                     type="password"
                     step="1"
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div>
-                    
                   <label htmlFor="">{t("Confirm Password")}</label>
                   <span className="text-danger position-absolute">*</span>
-                   <br />
+                  <br />
                   <input
                     className="signup_Input"
                     name="confirm_password"
                     placeholder={t("Confirm Password")}
                     type="password"
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setConfirmPass(e.target.value)}
                   />
                 </div>
               </div>
               <div className="d-flex">
-                <div className="mt-1 d-none d-md-block">
+                <div className=" d-none d-md-block">
                   <label className="containerr">
                     <input name="checkmark" type="checkbox" />
                     <span className="checkmark"></span>
                   </label>
                 </div>
-                <p style={{ marginTop: "2px", marginLeft: "-6px" }}>
+                <p className="roboText">
                   {t("I am not a robot.")}
                   <span className="text-danger position-absolute">*</span>
                 </p>
@@ -521,8 +561,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 ""
               )}
               <div
-                className="text-danger me-5 pe-4 text-center"
-                style={{ fontSize: "15px" }}
+                className="text-danger me-5 pe-4 text-center smallTextSize"
+                
               >
                 {emailErr ? emailErr : ""}
               </div>
@@ -531,10 +571,18 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 {passError ? passError : ""}
               </p>
               <div className="d-flex justify-content-center me-5 pe-4">
-                <button className="primaryButton subBtn">{t("Submit")}</button>
+                <button
+                  className="primaryButton subBtn"
+                  disabled={!isFormValid}
+                >
+                  {t("Submit")}
+                </button>
               </div>
               <div className="d-flex justify-content-center me-5 pe-4 mt-3">
-                <button className="secondaryButton subBtn" onClick={handleClose}>
+                <button
+                  className="secondaryButton subBtn"
+                  onClick={handleClose}
+                >
                   {t("Remind me Later")}
                 </button>
               </div>
@@ -549,23 +597,22 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         keyboard={false}
         className="d-block d-md-none mt-5 pt-2 px-2"
       >
-        <Modal.Body className="res_modal " style={{ height: "651px" }}>
+        <Modal.Body className="res_modal " >
           <div>
             <div>
               <span
                 onClick={handleClose}
-                style={{ cursor: "pointer" }}
-                className="d-flex justify-content-end "
+                className="d-flex justify-content-end cursor-pointer"
               >
                 <img width="15px" src={CrossIcon} alt="" />
               </span>
-              <p className="text-center sign_up" style={{ fontSize: "20px" }}>
+              <p className="text-center sign_up">
                 {t("Register")}
               </p>
             </div>
             <div className="mx-4 d-flex justify-content-center">
               <form onSubmit={handleSignUp}>
-                <div className="">
+                <div>
                   <label className="res-label " htmlFor="">
                     {t("First Name")}
                     <span className="text-danger position-absolute">*</span>
@@ -577,6 +624,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     placeholder="Lily"
                     type="text"
                     onInput={handleNameChange}
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 <div className="mt-3">
@@ -591,6 +640,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     placeholder="Blom"
                     type="text"
                     onInput={handleNameChange}
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
 
@@ -604,6 +655,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       checked={!isPhoneInputType}
                       onClick={() => handleRegistrationOptionChange("email")}
                       onChange={() => setisPhoneInputType(false)}
+                      className="me-2"
                     />
                     {t("Email")}
                   </label>
@@ -615,6 +667,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       checked={isPhoneInputType}
                       onClick={() => handleRegistrationOptionChange("phone")}
                       onChange={() => setisPhoneInputType(true)}
+                      className="me-2"
                     />
                     {t("Phone Number")}
                   </label>
@@ -634,8 +687,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     >
                       {t("Email")}
                       <span
-                        style={{ fontSize: "14px" }}
-                        className="text-danger mt-5"
+                        
+                        className="text-danger mt-5 smallTextSize"
                       >
                         * {emailError ? emailError : ""}
                       </span>
@@ -643,7 +696,10 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     <br />
                     <input
                       ref={emailInputRef}
-                      onChange={handleEmailError}
+                      onChange={(e) => {
+                        handleEmailError(e);
+                        setEmail(e.target.value);
+                      }}
                       className={
                         emailError
                           ? "signup_Input border-danger text-danger"
@@ -654,11 +710,12 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       name="email"
                       placeholder="Lilyblom201@gmail.com"
                       type="text"
+                      onBlur={checkFormValidity}
                     />
                     <a
                       href="#"
-                      className={emailError ? "d-block" : "d-none"}
-                      style={{ fontSize: "10px" }}
+                      className={emailError ? "d-block smallTextSize" : "d-none"}
+                      
                       onClick={handleForgotShow}
                     >
                       <p className="text-start forgot_passs mt-1">
@@ -672,24 +729,28 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   <div className="mt-3">
                     <label
                       className={
-                        phoneError
-                          ? "text-danger res-label"
-                          : "res-label"
+                        phoneError ? "text-danger res-label" : "res-label"
                       }
                       htmlFor=""
                     >
                       {t("Phone Number")}
                       <span
-                        style={{ fontSize: "14px" }}
-                        className="text-danger mt-5"
+                        
+                        className="text-danger mt-5 smallTextSize"
                       >
                         * {phoneError ? phoneError : ""}
                       </span>
                     </label>{" "}
                     <br />
                     <input
-                      onChange={handlePhoneInput}
-                      onBlur={handlePhoneBlur}
+                      onChange={(e) => {
+                        handlePhoneInput(e);
+                        setPhoneNumber(e.target.value);
+                      }}
+                      onBlur={(e) => {
+                        handlePhoneBlur();
+                        checkFormValidity(); // Assuming this function checks the form's overall validity
+                      }}
                       className={
                         phoneError
                           ? "signup_Input border-danger text-danger"
@@ -719,6 +780,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="password"
                     placeholder={t("Password")}
                     type="password"
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="mt-3">
@@ -732,6 +795,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     name="confirm_password"
                     placeholder={t("Confirm Password")}
                     type="password"
+                    onBlur={checkFormValidity}
+                    onChange={(e) => setConfirmPass(e.target.value)}
                   />
                 </div>
                 <div className="d-flex my-3">
@@ -741,9 +806,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       <span className="checkmark"></span>
                     </label>
                   </div>
-                  <p style={{ marginTop: "2px", marginLeft: "-6px" }}>
+                  <p className="roboText">
                     {t("I am not a robot.")}
-                  <span className="text-danger position-absolute">*</span>
+                    <span className="text-danger position-absolute">*</span>
                   </p>
                 </div>
                 {required ? (
@@ -764,20 +829,27 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                 </div>
                 <p className="text-danger ">{checkError ? checkError : ""}</p>
                 <p
-                  className="text-danger text-center"
-                  style={{ fontSize: "10px" }}
+                  className="text-danger text-center smallTextSize"
+                  
                 >
                   {passError ? passError : ""}
                 </p>
                 <div className="d-flex justify-content-center">
-                  <button className="primaryButton subBtn">{t("Submit")}</button>
+                  <button
+                    className="primaryButton subBtn"
+                    disabled={!isFormValid}
+                  >
+                    {t("Submit")}
+                  </button>
                 </div>
                 <div className="d-flex justify-content-center mt-2">
-                <button className="secondaryButton subBtn" onClick={handleClose}>
-                  {t("Remind me Later")}
-                </button>
+                  <button
+                    className="secondaryButton subBtn"
+                    onClick={handleClose}
+                  >
+                    {t("Remind me Later")}
+                  </button>
                 </div>
-           
               </form>
             </div>
           </div>
