@@ -27,11 +27,14 @@ const AddFormHi = () => {
       setAllStratigys(res.data);
     });
   }, []);
-  const uniqueGrade = Array.from(
-    new Set(allStratigys.map((a) => a.श्रेणी))
-  ).map((grade) => {
-    return allStratigys.find((a) => a.श्रेणी === grade);
+
+  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
+  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a?.श्रेणी))).sort((a, b) => {
+    const indexA = customSortOrder.indexOf(a);
+    const indexB = customSortOrder.indexOf(b);
+    return indexA - indexB;
   });
+
   const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
     return creature.श्रेणी === selectGrade;
   });
@@ -226,7 +229,7 @@ const AddFormHi = () => {
                   श्रेणी
                 </option>
                 {uniqueGrade?.map((res) => (
-                  <option>{res.श्रेणी}</option>
+                  <option>{res}</option>
                 ))}
               </select>
             </div>

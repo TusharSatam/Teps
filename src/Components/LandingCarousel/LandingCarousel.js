@@ -115,6 +115,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>5000+ शिक्षण रणनीतियों में से चुनें!</h1>
               <div className="cardDetails">
@@ -127,6 +128,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 विशिष्ट शिक्षण से जुड़े अनेक शिक्षण संसाधन प्राप्त करें
@@ -143,6 +145,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
+          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 अपनी खुद की शिक्षण रणनीतियाँ बनाएं और टीईपीएस में योगदान करें
