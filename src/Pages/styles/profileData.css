@@ -6,6 +6,7 @@ overflow: hidden;
 margin: 16px 0;
 position: relative;
 padding-bottom: 0;
+max-width: 619px;
 }
 
 #div1{
@@ -116,5 +117,8 @@ font-size: 8px;
 font-style: italic;
 font-weight: 700;
 line-height: 16px; /* 200% */
+    }
+    .cardContainer{
+        max-width: 90vw;
     }
 }

@@ -439,30 +439,30 @@ const Profile = () => {
         {/* My startegies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
-            <button className="typeButton">Created strategies</button>
+            {/* <button className="typeButton">Created strategies</button> */}
             {/* Created strategies */}
 
             {/* Saved strategies */}
-            <button
+            {/* <button
               className="typeButton"
               onClick={() => setisShowSaved(!isShowSaved)}
             >
               Saved strategies
-            </button>
+            </button> */}
             {/* {isShowSaved && <SaveStratigy />} */}
             <ProfileDataS/>
             <ProfileDataF/>
             <ProfileDataE/>
             <ProfileDataC/>
             {/* Edited Strategies */}
-            <button className="typeButton">Edited strategies</button>
+            {/* <button className="typeButton">Edited strategies</button> */}
             {/* Favorite Strategies */}
-            <button
+            {/* <button
               className="typeButton"
               onClick={() => setisShowFav(!isShowFav)}
             >
               Favorite strategies
-            </button>
+            </button> */}
             {isShowFav && <FavouriteStr />}
           </div>
         )}

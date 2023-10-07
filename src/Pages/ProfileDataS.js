@@ -190,7 +190,7 @@ const ProfileDataS = () => {
           >
             <div className="row py-2 align-items-center" id="div1">
               <div className="d-flex justify-content-start">
-                <span className="headText w-50">
+                <span className={saveStratigy?.length===0?"headText w-50 impGray":"headText w-50"}>
                   {t("Saved Strategies")}
                 </span>
               </div>
@@ -204,6 +204,7 @@ const ProfileDataS = () => {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
+                  className="d-none d-md-block"
                 >
                   <g
                     clip-path="url(#clip0_4614_16349)"
@@ -220,6 +221,7 @@ const ProfileDataS = () => {
                     </clipPath>
                   </defs>
                 </svg>
+                <span className={saveStratigy?.length===0?"impGray d-md-none":"d-md-none"}>({saveStratigy?.length})</span>
               </div>
             </div>
           </div>
@@ -245,9 +247,9 @@ const ProfileDataS = () => {
                         <div className="col-9 ms-md-4 col-md-8 ps-2">
                           <Link id="nb">
                             <p id="bswm">Project-based Learning</p>
-                            <p className="savestr_head">
+                            {/* <p className="savestr_head">
                               Learning Outcome: {res["Learning Outcome"]}
-                            </p>
+                            </p> */}
                             <p className="savestr_body">
                               {res["Teaching Strategy"].slice(0, 150) + "..."}
                               <Link to={`/single/${res._id}`} id="pgnw">

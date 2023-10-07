@@ -95,7 +95,7 @@ const ProfileDataE = () => {
             >
               <div className="row py-2 align-items-center" id="div1">
                 <div className="d-flex">
-                  <span className="headText w-50">
+                  <span className={saveStratigy?.length===0?"headText w-50 impGray":"headText w-50"}>
                     {t("Edited Strategies")}
                   </span>
                 </div>
@@ -109,6 +109,7 @@ const ProfileDataE = () => {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="none"
+                    className="d-none d-md-block"
                   >
                     <g
                       clip-path="url(#clip0_4614_16349)"
@@ -125,6 +126,7 @@ const ProfileDataE = () => {
                       </clipPath>
                     </defs>
                   </svg>
+                <span className={saveStratigy?.length===0?"impGray d-md-none":"d-md-none"}>({saveStratigy?.length})</span>
                 </div>
               </div>
             </div>
@@ -150,9 +152,9 @@ const ProfileDataE = () => {
                           <div className="col-9 ms-md-4 col-md-8 ps-2">
                             <Link id="nb">
                               <p id="bswm">Project-based Learning</p>
-                              <p className="savestr_head">
+                              {/* <p className="savestr_head">
                                 Learning Outcome: {res["Learning Outcome"]}
-                              </p>
+                              </p> */}
                               <p className="savestr_body">
                                 {res["Teaching Strategy"]?.slice(0, 150) +
                                   "..."}

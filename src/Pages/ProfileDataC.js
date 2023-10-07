@@ -28,8 +28,8 @@ const ProfileDataC = () => {
   React.useEffect(() => {
     setIsLoading(true);
     getUserCreated(user._id).then((res) => {
-      console.log({ res });
-      const saves = res?.data?.filter((ress) => ress.User_id === user._id);
+      console.log({ userid:user._id });
+      const saves = res?.data?.filter((ress) => ress.User_id === user._id && ress?.Approve === true);
       console.log({ saves, userId: user });
       const savesId = saves?.map((ress) => ress.strategie_id);
       console.log({ savesId });
@@ -37,7 +37,7 @@ const ProfileDataC = () => {
       if (languageSelect === "en") {
         getUserCreated(user._id)
           .then((res) => {
-            setSaveStratigy(res.data);
+            setSaveStratigy(saves);
             setIsLoading(false);
           })
           .catch((err) => {
@@ -78,7 +78,7 @@ const ProfileDataC = () => {
             >
               <div className="row py-2 align-items-center" id="div1">
                 <div className="d-flex">
-                  <span className="headText w-50">
+                  <span className={saveStratigy?.length===0?"headText w-50 impGray":"headText w-50"}>
                     {t("Created Strategies")}
                   </span>
                 </div>
@@ -92,6 +92,7 @@ const ProfileDataC = () => {
                     height="24"
                     viewBox="0 0 24 24"
                     fill="none"
+                    className="d-none d-md-block"
                   >
                     <g
                       clip-path="url(#clip0_4614_16349)"
@@ -108,6 +109,8 @@ const ProfileDataC = () => {
                       </clipPath>
                     </defs>
                   </svg>
+                <span className={saveStratigy?.length===0?"impGray d-md-none":"d-md-none"}>({saveStratigy?.length})</span>
+
                 </div>
               </div>
             </div>
@@ -128,9 +131,9 @@ const ProfileDataC = () => {
                           <div className="col-9 ms-md-4 col-md-8 ps-2">
                             <Link id="nb">
                               <p id="bswm">Project-based Learning</p>
-                              <p className="savestr_head">
+                              {/* <p className="savestr_head">
                                 Learning Outcome: {res["Learning Outcome"]}
-                              </p>
+                              </p> */}
                               <p className="savestr_body">
                                 {res["Teaching Strategy"]?.slice(0, 150) +
                                   "..."}
