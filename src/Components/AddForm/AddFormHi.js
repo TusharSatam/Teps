@@ -92,15 +92,15 @@ const AddFormHi = () => {
     return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
   });
   const uniqueSkill = Array.from(
-    new Set(aquaticCreatures?.map((a) => a["अच्छा विषय"]))
+    new Set(aquaticCreatures?.map((a) => a["प्रमुख शीर्षक"]))
   ).map((skill) => {
-    return aquaticCreatures?.find((a) => a["अच्छा विषय"] === skill);
+    return aquaticCreatures?.find((a) => a["प्रमुख शीर्षक"] === skill);
   });
   const aquaticCreaturesSkill = allStratigys.filter(function (creature) {
     return (
       creature.विषय === selectSubject &&
       creature.श्रेणी === selectGrade &&
-      creature["अच्छा विषय"] === selectSkill
+      creature["प्रमुख शीर्षक"] === selectSkill
     );
   });
   const uniqueTopic = Array.from(
@@ -112,7 +112,7 @@ const AddFormHi = () => {
     return (
       creature.विषय === selectSubject &&
       creature.श्रेणी === selectGrade &&
-      creature["अच्छा विषय"] === selectSkill &&
+      creature["प्रमुख शीर्षक"] === selectSkill &&
       creature.शीर्षक === selectTopic
     );
   });
@@ -127,7 +127,7 @@ const AddFormHi = () => {
       creature.विषय === selectSubject &&
       creature.श्रेणी === selectGrade &&
       creature.शीर्षक === selectTopic &&
-      creature["अच्छा विषय"] === selectSkill &&
+      creature["प्रमुख शीर्षक"] === selectSkill &&
       creature["उप शीर्षक"] === selectSubTopic
     );
   });
@@ -157,7 +157,7 @@ const AddFormHi = () => {
         User_id: user._id,
         विषय: e.target.subject.value,
         श्रेणी: e.target.grade.value,
-        "अच्छा विषय": e.target.skill.value,
+        "प्रमुख शीर्षक": e.target.skill.value,
         शीर्षक: e.target.topic.value,
         "उप शीर्षक": e.target.sub_topic.value,
         "उप-उप शीर्षक": e.target.sub_sub_topic.value,
@@ -252,7 +252,7 @@ const AddFormHi = () => {
           <div className="two-selects ">
             <div>
               <p className="select-title">
-                अच्छा विषय <p>*</p>
+                प्रमुख शीर्षक <p>*</p>
               </p>
               <select
                 onChange={handleSkill}
@@ -261,10 +261,10 @@ const AddFormHi = () => {
                 value={selectSkill}
               >
                 <option value="" selected disabled>
-                  अच्छा विषय
+                  प्रमुख शीर्षक
                 </option>
                 {uniqueSkill?.map((res) => (
-                  <option>{res["अच्छा विषय"]}</option>
+                  <option>{res["प्रमुख शीर्षक"]}</option>
                 ))}
               </select>
             </div>

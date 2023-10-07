@@ -57,11 +57,13 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
 
   let uniqueSubject, uniqueGrade,aquaticCreaturesSubject, aquaticCreatures, uniqueSkill, aquaticCreaturesSkill, uniqueTopic, aquaticCreaturesTopic, uniqueSubTopic, aquaticCreaturesSubTopic, uniqueSubSubTopic;
   let allowedSubjects=[];
+  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
   if (language === "en" || language === "en-US") {
     
-    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade)))
-    .map(grade => {
-      return allStratigys.find(a => a.Grade === grade)
+     uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade))).sort((a, b) => {
+      const indexA = customSortOrder.indexOf(a);
+      const indexB = customSortOrder.indexOf(b);
+      return indexA - indexB;
     });
     aquaticCreaturesSubject = allStratigys.filter(function (creature) {
       return creature.Grade === selectGrade;
@@ -121,9 +123,10 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
   
   } 
   else {
-    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी)))
-    .map(grade => {
-      return allStratigys.find(a => a.श्रेणी === grade)
+    uniqueGrade = Array.from(new Set(allStratigys.map(a => a.श्रेणी))).sort((a, b) => {
+      const indexA = customSortOrder.indexOf(a);
+      const indexB = customSortOrder.indexOf(b);
+      return indexA - indexB;
     });
     aquaticCreaturesSubject = allStratigys?.filter(function (creature) {
       return  creature.श्रेणी === selectGrade;
@@ -138,13 +141,13 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       return creature.विषय === selectSubject && creature.श्रेणी === selectGrade;
     });
   
-    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['अच्छा विषय'])))
+    uniqueSkill = Array.from(new Set(aquaticCreatures?.map(a => a['प्रमुख शीर्षक'])))
       .map(skill => {
-        return aquaticCreatures?.find(a => a['अच्छा विषय'] === skill)
+        return aquaticCreatures?.find(a => a['प्रमुख शीर्षक'] === skill)
       });
   
     aquaticCreaturesSkill = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['प्रमुख शीर्षक'] === selectSkill;
     });
   
     uniqueTopic = Array.from(new Set(aquaticCreaturesSkill?.map(a => a.शीर्षक)))
@@ -153,7 +156,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
   
     aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['अच्छा विषय'] === selectSkill && creature.शीर्षक === selectTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature['प्रमुख शीर्षक'] === selectSkill && creature.शीर्षक === selectTopic;
     });
   
     uniqueSubTopic = Array.from(new Set(aquaticCreaturesTopic?.map(a => a['उप शीर्षक'])))
@@ -162,7 +165,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
       });
   
     aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय']=== selectSkill && creature['उप शीर्षक'] === selectSubTopic;
+      return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['प्रमुख शीर्षक']=== selectSkill && creature['उप शीर्षक'] === selectSubTopic;
     });
   
     uniqueSubSubTopic = Array.from(new Set(aquaticCreaturesSubTopic?.map(a => a['उप-उप शीर्षक'])))
@@ -249,7 +252,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
           return creature.Subject === selectSubject && creature.Grade === selectGrade && creature.Topic === selectTopic && creature['Super Topic'] === selectSkill && creature['Sub Topic'] === selectSubTopic && creature['Sub-sub topic'] === selectSubSubTopic;
         }
         else{
-        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['अच्छा विषय'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
+        return creature.विषय === selectSubject && creature.श्रेणी === selectGrade && creature.शीर्षक === selectTopic && creature['प्रमुख शीर्षक'] === selectSkill && creature['उप शीर्षक'] === selectSubTopic && creature['उप-उप शीर्षक'] === selectSubSubTopic;
         }
       });
       setStratigyFilData(aquaticCreatures)
@@ -356,7 +359,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
               uniqueSkill?.map((item, index) => (
                 <option key={index} >{item['Super Topic']}</option>
               )):uniqueSkill?.map((item, index) => (
-                <option key={index} >{item['अच्छा विषय']}</option>
+                <option key={index} >{item['प्रमुख शीर्षक']}</option>
               ))
             }
           </select>
@@ -388,7 +391,7 @@ const FilterStr = ({ stratigy,handleShow,handleOptionModalShow }) => {
                   uniqueSkill?.map((item, index) => (
                     <option key={index} >{item['Super Topic']}</option>
                   )):uniqueSkill?.map((item, index) => (
-                    <option key={index} >{item['अच्छा विषय']}</option>
+                    <option key={index} >{item['प्रमुख शीर्षक']}</option>
                   ))
                 }
           </select>

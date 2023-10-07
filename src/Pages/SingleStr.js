@@ -309,7 +309,6 @@ const SingleStr = () => {
                             alt="SavedIcon"
                           />
                         )}
-                        <p className="count_num mx-1">{totalUserSaves}</p>
                       </div>
                     </div>
 
@@ -331,12 +330,7 @@ const SingleStr = () => {
                           />
                         )}
                       </div>
-                      <p
-                        className="count_num mx-1"
-                        onClick={() => setShow(true)}
-                      >
-                        {totalLikeUser?.length}
-                      </p>
+
                     </div>
 
                     {!isAlreadyRated ? (
