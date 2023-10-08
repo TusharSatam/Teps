@@ -445,7 +445,7 @@ const SearchScrean = () => {
 
       }
             <>
-        <div className='filterCard gap-3 blackshadow mb-md-3 container_title_sec'>
+        <div className='filterCard gap-3 blackshadow  mb-md-3 container_title_sec'>
           {
             selectLang === 'hindi' ?
               <HomeHindiLayout

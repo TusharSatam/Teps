@@ -6,7 +6,7 @@ import { gapi } from "gapi-script";
 
 import './styles/dashHome.css'
 import { getAllHindiStratigys, getMultitHiStr } from '../../services/hindiStratigys';
-import { getLastmonthAvgr, getLastmonthLogin, getLastmonthReg } from '../../services/dashboardNumbers';
+import { getLastmonthAvgr, getLastmonthLogin, getLastmonthReg, getTotalCreated, getTotalEdited } from '../../services/dashboardNumbers';
 import { getLikes } from '../../services/userLikes';
 import { getSaves } from '../../services/userSaves';
 import axios from 'axios';
@@ -463,6 +463,12 @@ const DashHome = () => {
         setUserHiStr(res.data?.filter(res => res.Approve === true))
         setIsLoading3(false)
       })
+      getTotalCreated().then((res)=>{
+        settotalCreated(res?.data.count)
+      })
+      getTotalEdited().then((res)=>{
+        setTotalEdited(res?.data.count)
+      })
   }, [])
 
   return (
@@ -512,13 +518,13 @@ const DashHome = () => {
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves?.length}</span>
+            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalEdited}</span>
             <span className="count-name">Total strategies Edited</span>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card-counter info">
-            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalSaves?.length}</span>
+            <span className="count-numbers">{isLoading7 ? <Spinner className="text-light " animation="border" /> : totalCreated}</span>
             <span className="count-name">Total strategies Created</span>
           </div>
         </div>

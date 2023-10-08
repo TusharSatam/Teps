@@ -402,7 +402,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
               : location.pathname === "/saveStratigy" ||
                 location.pathname === "/favouriteStratigy"
               ? "my-3 d-flex"
-              : "my-3 pt-3 pt-md-5 d-flex"
+              : "mt-1 mb-3 pt-3 pt-md-5 d-flex"
           }
         >
           <select

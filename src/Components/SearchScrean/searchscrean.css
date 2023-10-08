@@ -263,7 +263,8 @@ text-decoration: none;
 
 @media only screen and (max-width: 990px) {
   .container_title_sec {
-    margin: 0 1.25rem;
+    margin: 0.5rem;
+    margin-bottom: 0;
   }
   .dropDownContainer {
     margin: 0 1.25rem;
@@ -435,6 +436,9 @@ text-decoration: none;
   .clickLearningText,.sub-title,.sub-subtitle{
     font-size: 14px;
   }
+  .blackshadow{
+    padding: 0.5rem;
+  }
 }
 @media only screen and (max-width: 500px) {
   .res_btn_icon {
@@ -465,5 +469,8 @@ text-decoration: none;
   }
   .checkBox_title {
     font-size: 12px;
+  }
+  .container{
+    padding:0rem !important;
   }
 }
