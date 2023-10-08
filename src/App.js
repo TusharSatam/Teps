@@ -41,6 +41,8 @@ import SingleUserStr from './Pages/SingleUserStr';
 import Stratigy from './Pages/Stratigy';
 import Verify from './Pages/Verify';
 import EditStrategy from './Components/EditStrategy/EditStrategyForm';
+import EditedStratigy from './Pages/EditedStratigy'
+import CreatedStratigy from './Pages/CreatedStratigy'
 
 
 
@@ -111,6 +113,8 @@ function App() {
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
+            <Route path="/user-created-strategy" element={<CreatedStratigy />} />
+            <Route path="/user-edited-strategy" element={<EditedStratigy />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
             <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />

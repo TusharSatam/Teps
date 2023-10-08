@@ -83,6 +83,30 @@ export const multidelHiStratigys = async (ids) => {
   return stratigyResponse;
 }
 
+// get singleeditedstrat Stratigy
+export const getHindiStratigysEditedbyUser = async (id) => {
+  let stratigyResponse
+  await axios.get(`/userHindiStratiges/editedByUser/${id}`)
+    .then(res => {
+      stratigyResponse = res.data;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
+// get single cereatedbyuser
+export const getHindiStratigysCreatedByUser = async (id) => {
+  let stratigyResponse
+  await axios.get(`/userHindiStratiges/freshlyCreatedByUser/${id}`)
+    .then(res => {
+      stratigyResponse = res.data;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
 // get multi stratigy
 export const getMultitHiStr = async (ids) => {
   let stratigyResponse

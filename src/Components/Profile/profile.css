@@ -621,6 +621,7 @@ padding: 5px 10px;
   .typeWrapper{
     width: 95% !important;
     gap: 4px;
+    min-width: 619px;
   }
   .typeButton{
     color: #1AA05B;

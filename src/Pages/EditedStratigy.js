@@ -22,10 +22,10 @@ import { getEdits, postEdits } from '../services/userEdited';
 import { getMultiUsertStr } from '../services/userStratigy';
 import { getMultiUserHindiStr } from '../services/userStratigyHi';
 import './styles/saveStratigy.css';
-import '../styles/profileData.css';
+import './styles/profileData.css';
 import FilterStrHi from '../Components/Home/FilterStrHI';
 
-const SaveStratigy = () => {
+const EditedStratigy = () => {
   const { user, setUser, stratigyFilData } = useAuth()
   const [filetr, setFilter] = useState(false)
   const [saveStratigy, setSaveStratigy] = useState([])
@@ -149,7 +149,7 @@ const SaveStratigy = () => {
       {
         languageSelect === "en" ?
           <>
-            <div className='saveStrParent' >
+            <div className='newSaveStrParent' >
               <div className='row py-2 align-items-center' id="div1">
                 <div className='d-flex justify-content-center'>
                   <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Edited Strategies")}</span>
@@ -463,7 +463,7 @@ const SaveStratigy = () => {
           </> :
           <>
            
-            <div className='saveStrParent' >
+            <div className='newSaveStrParent' >
               <div className='row py-2'>
                 <div className='col-md-1'></div>
                 <div className='col-8 col-md-10 text-white text-center headText mt-2 mt-md-0'>{user.firstName}{user.lastName}{t("’s")} {t("Saved Strategies")}</div>
@@ -852,4 +852,4 @@ const SaveStratigy = () => {
   );
   };
 
-export default SaveStratigy;
+export default EditedStratigy;
