@@ -17,8 +17,8 @@
 }
 
 .saveStrParent{
-  width: 42.869vw;
-  max-width: 619px;
+  /* width: 42.869vw; */
+  width: 619px;
   cursor: pointer;
   overflow: hidden;
   border-radius: 24px;
@@ -45,8 +45,8 @@ letter-spacing: -0.2px;
 
 .saveStrParentActive {
   margin-top: 15px;
-  width: 42.869vw;
-  max-width: 619px;
+  /* width: 42.869vw; */
+  width: 619px;
   cursor: pointer;
   overflow: hidden;
   padding: 1px;

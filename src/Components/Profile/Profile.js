@@ -312,7 +312,7 @@ const Profile = () => {
       <Toaster position="top-right" reverseOrder={false} />
       <ChangePass show={forgot} setShow={setForgot} />
 
-      <section className="profile_container pb-5">
+      <section className="profile_container pb-5 overflow-hidden">
         <div className="w-100 text-center welcomeUser">
           {t('Welcome')}, {user?.firstName}
         </div>

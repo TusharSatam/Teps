@@ -25,7 +25,7 @@ const ProfileDataE = ({ setNumber }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
 
   const [save, setSave] = useState([]);
   React.useEffect(() => {

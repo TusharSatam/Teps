@@ -31,7 +31,7 @@ const ProfileDataF = ({ setNumber }) => {
   const { t } = useTranslation();
   const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
   const language = localStorage.getItem("i18nextLng");
   React.useEffect(() => {
     if (language === "hi") {
@@ -43,6 +43,8 @@ const ProfileDataF = ({ setNumber }) => {
 
   const [likes, setLikes] = useState([]);
   const [likesArr, setLikesArr] = useState([]);
+  const [specialLinkArr,setSpecialLinkArr]  = useState([]);
+
   React.useEffect(() => {
     setIsLoading(true);
     getLikes().then((res) => {
@@ -63,6 +65,8 @@ const ProfileDataF = ({ setNumber }) => {
             setLikes(strategies);
             getMultiUsertStr(likeId)
               .then((res2) => {
+                const idList = res2?.data?.map((obj)=>obj?._id);
+                setSpecialLinkArr(prev=>[...prev,...idList]);
                 setFavStratigy((prev) => [...prev, ...res2.data]);
                 setIsLoading(false);
                 const strategies = res2?.data?.map((obj) => obj._id);
@@ -293,7 +297,7 @@ const ProfileDataF = ({ setNumber }) => {
                             <p className="savestr_body">
                               {res["Teaching Strategy"]?.slice(0, 150) + "..."}
 
-                              <Link to={`/single/${res._id}`} id="pgnw">
+                              <Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
                                 Read More...
                               </Link>
                             </p>
