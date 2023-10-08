@@ -24,7 +24,7 @@ const ProfileDataC = ({ setNumber }) => {
 
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
   const language = localStorage.getItem("i18nextLng");
 
   const [save, setSave] = useState([]);

@@ -29,7 +29,7 @@ const ProfileDataS = ({ setNumber }) => {
   const [saveStratigyi, setSaveStratigyi] = useState([]);
   const [saveStratigyHiUser, setSaveStratigyiUser] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
-  const [collapse, setCollapse] = useState(false);
+  const [collapse, setCollapse] = useState(true);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
@@ -51,6 +51,7 @@ const ProfileDataS = ({ setNumber }) => {
   };
   const [save, setSave] = useState([]);
   const [savesArr, setSavesArr] = useState([]);
+  const [specialLinkArr,setSpecialLinkArr]  = useState([]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -73,6 +74,8 @@ const ProfileDataS = ({ setNumber }) => {
             setSave(strategies);
             getMultiUsertStr(savesId)
               .then((res2) => {
+                const idList = res2?.data?.map((obj)=>obj?._id);
+                setSpecialLinkArr(prev=>[...prev,...idList]);
                 setSaveStratigy((prev) => [...prev, ...res2.data]);
                 setIsLoading(false);
                 const strategies = res2?.data?.map((obj) => obj._id);
@@ -298,7 +301,7 @@ const ProfileDataS = ({ setNumber }) => {
                             </p> */}
                             <p className="savestr_body">
                               {res["Teaching Strategy"].slice(0, 150) + "..."}
-                              <Link to={`/single/${res._id}`} id="pgnw">
+                              <Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
                                 Read More...
                               </Link>
                             </p>
