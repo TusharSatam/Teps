@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const location = useLocation()
-  return (
+  return (<>
+    <div className='footerSizeTaker'></div>
     <div className={location.pathname !== '/profile' ? 'footer_top_margin' : 'footer_top_margin_res'}>
       <div className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
         <div className=' d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
@@ -24,7 +25,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-  );
+  </>);
 };
 
 export default Footer;

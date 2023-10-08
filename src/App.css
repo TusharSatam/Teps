@@ -3,6 +3,8 @@
   /* text-align: center; */
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar-track {
