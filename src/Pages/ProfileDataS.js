@@ -12,6 +12,7 @@ import {
   delUserSaves,
   getSaves,
   postSaves,
+  unSaveByStratAndUserId,
 } from "../services/userSaves";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
@@ -19,7 +20,7 @@ import "./styles/saveStratigy.css";
 import "./styles/profileData.css";
 import FilterStrHi from "../Components/Home/FilterStrHI";
 
-const ProfileDataS = ({setNumber}) => {
+const ProfileDataS = ({ setNumber }) => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
@@ -54,57 +55,65 @@ const ProfileDataS = ({setNumber}) => {
   React.useEffect(() => {
     setIsLoading(true);
     getSaves().then((res) => {
-      const saves = res?.data?.filter(
-        (ress) => ress.user_id === user._id && ress.strategie_id !== undefined
-      );
+      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
       const savesId = saves?.map((ress) => ress.strategie_id);
-      // console.log({data:res.data})
-      // console.log({saves})
-      // console.log({savesId})
-      if (savesId?.length === 0) {
-        setIsLoading(false);
-        return;
-      }
 
-      setSavesArr(res?.data);
+      if (savesId.length === 0) {
+        // No need to make API requests when savedId is empty
+        setIsLoading(false);
+        return; // Exit the useEffect
+      }
       setSave(saves?.map((ress) => ress.strategie_id));
       if (languageSelect === "en") {
         getMultitStr(savesId)
           .then((res) => {
             setSaveStratigy(res.data);
             setIsLoading(false);
+            const strategies = res?.data?.map((obj) => obj._id);
+            setSave(strategies);
+            getMultiUsertStr(savesId)
+              .then((res2) => {
+                setSaveStratigy((prev) => [...prev, ...res2.data]);
+                setIsLoading(false);
+                const strategies = res2?.data?.map((obj) => obj._id);
+                setSave((prev) => [...prev, ...strategies]);
+              })
+              .catch((err) => {
+                setSaveStratigy((prev) => [...prev]);
+                setIsLoading(false);
+              });
           })
           .catch((err) => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        // getMultiUsertStr(savesId)
-        //   .then(res => {
-        //     setSaveUserStratigy(res.data);
-        //     setIsLoading(false)
-        //   })
-        //   .catch(err => {
-        //     setSaveUserStratigy([])
-        //     setIsLoading(false)
-        //   })
-      } if (languageSelect === "hi") {
+      }
+      if (languageSelect === "hi") {
         getMultitHiStr(savesId)
           .then((res) => {
             setSaveStratigyHi(res.data);
             setIsLoading(false);
+            const strategies = res?.data?.map((obj) => obj._id);
+            setSave(strategies);
+            getMultiUserHindiStr(savesId)
+              .then((res2) => {
+                setSaveStratigyHi((prev) => [...prev, ...res2.data]);
+                setIsLoading(false);
+                const strategies = res2?.data?.map((obj) => obj._id);
+                setSave((prev) => [...prev, ...strategies]);
+              })
+              .catch((err) => {
+                setSaveStratigyHi((prev) => [...prev]);
+                setIsLoading(false);
+              });
           })
           .catch((err) => {
             setSaveStratigyHi([]);
             setIsLoading(false);
           });
-        // getMultiUserHindiStr(savesId).then((res) => {
-        //   setSaveStratigy(res.data);
-        //   setIsLoading(false);
-        // });
       }
     });
   }, [languageSelect]);
-  // console.log(user._id)
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,
@@ -146,49 +155,63 @@ const ProfileDataS = ({setNumber}) => {
     });
   };
   const handleApiUnSaves = (id) => {
-    const requiredObj = savesArr.find((obj) => obj?.strategie_id === id);
-    console.log({ requiredObj });
-    delSaves(requiredObj?._id).then((res) => {
-      setSave(save.filter((stringData) => stringData !== id));
-      // getSaves()
-      //   .then(res => {
-      //     const saves = res?.data?.filter(ress => ress.user_id === user._id)
-      //     const savesId = saves?.map(ress => ress.strategie_id)
-      //     setSave(saves?.map(ress => ress.strategie_id))
-      //     if (languageSelect === "en") {
-      //       getMultitStr(savesId)
-      //         .then(res => {
-      //           setSaveStratigy(res.data);
-      //         })
-      //         .catch(err => setSaveStratigy([]))
-      //       getMultiUsertStr(savesId)
-      //         .then(res => {
-      //           setSaveUserStratigy(res.data);
-      //         })
-      //         .catch(err => setSaveUserStratigy([]))
-      //     }
-      //     else {
-      //       getMultitHiStr(savesId)
-      //         .then(res => {
-      //           setSaveStratigyi(res.data)
-      //         })
-      //       getMultiUserHindiStr(savesId)
-      //         .then(res => {
-      //           setSaveStratigyiUser(res.data)
-      //         })
-      //     }
-      //   })
-    });
+    const requiredStr = save.find((str) => str === id);
+    console.log({ requiredStr });
+    const bodyData = {
+      strategie_id: requiredStr,
+      user_id: user._id,
+    };
+    unSaveByStratAndUserId(bodyData)
+      .then((res) => {
+        setSave(save.filter((stringData) => stringData !== id));
+        // getSaves()
+        //   .then(res => {
+        //     const saves = res?.data?.filter(ress => ress.user_id === user._id)
+        //     const savesId = saves?.map(ress => ress.strategie_id)
+        //     setSave(saves?.map(ress => ress.strategie_id))
+        //     if (languageSelect === "en") {
+        //       getMultitStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigy(res.data);
+        //         })
+        //         .catch(err => setSaveStratigy([]))
+        //       getMultiUsertStr(savesId)
+        //         .then(res => {
+        //           setSaveUserStratigy(res.data);
+        //         })
+        //         .catch(err => setSaveUserStratigy([]))
+        //     }
+        //     else {
+        //       getMultitHiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyi(res.data)
+        //         })
+        //       getMultiUserHindiStr(savesId)
+        //         .then(res => {
+        //           setSaveStratigyiUser(res.data)
+        //         })
+        //     }
+        //   })
+      })
+      .then((err) => {
+        console.log({ err });
+      });
   };
 
   const [showAll, setShowAll] = useState(false);
-  const displayCount = showAll ? languageSelect==="en"? saveStratigy?.length:saveStratigyHi?.length : 2;
+  const displayCount = showAll
+    ? languageSelect === "en"
+      ? saveStratigy?.length
+      : saveStratigyHi?.length
+    : 2;
   React.useEffect(() => {
-    if(languageSelect==="en"){
-    setNumber(saveStratigy?.length);}
-    if(languageSelect==="hi"){
-    setNumber(saveStratigyHi?.length);}
-  }, [saveStratigy,saveStratigyHi,languageSelect]);
+    if (languageSelect === "en") {
+      setNumber(saveStratigy?.length);
+    }
+    if (languageSelect === "hi") {
+      setNumber(saveStratigyHi?.length);
+    }
+  }, [saveStratigy, saveStratigyHi, languageSelect]);
   return (
     <div>
       {languageSelect === "en" ? (
@@ -256,8 +279,7 @@ const ProfileDataS = ({setNumber}) => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : saveStratigy?.length === 0 &&
-            collapse !== true ? (
+          ) : saveStratigy?.length === 0 && collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No Saved Strategies available.")}
             </h1>
@@ -309,16 +331,25 @@ const ProfileDataS = ({setNumber}) => {
                   </div>
                 </div>
               ))}
-              {!showAll && saveStratigy.length>2?<div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <button onClick={()=>{setShowAll(true)}} className="loadMore">Load More...</button>
-              </div>:null}
+              {!showAll && saveStratigy.length > 2 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <button
+                    onClick={() => {
+                      setShowAll(true);
+                    }}
+                    className="loadMore"
+                  >
+                    Load More...
+                  </button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </>
@@ -344,7 +375,7 @@ const ProfileDataS = ({setNumber}) => {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
-                className="d-none d-md-block"
+                  className="d-none d-md-block"
                 >
                   <g
                     clip-path="url(#clip0_4614_16349)"
@@ -361,7 +392,15 @@ const ProfileDataS = ({setNumber}) => {
                     </clipPath>
                   </defs>
                 </svg>
-            <span className={saveStratigyHi?.length===0?"impGray d-md-none":"d-md-none"}>({saveStratigyHi?.length})</span>
+                <span
+                  className={
+                    saveStratigyHi?.length === 0
+                      ? "impGray d-md-none"
+                      : "d-md-none"
+                  }
+                >
+                  ({saveStratigyHi?.length})
+                </span>
               </div>
             </div>
           </div>
@@ -371,8 +410,7 @@ const ProfileDataS = ({setNumber}) => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : saveStratigyHi?.length === 0 &&
-            collapse !== true ? (
+          ) : saveStratigyHi?.length === 0 && collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No Saved Strategies available.")}
             </h1>
@@ -390,15 +428,11 @@ const ProfileDataS = ({setNumber}) => {
                               {/* Learning Outcome: {res["Learning Outcome"]} */}
                             </p>
                             <p className="savestr_body">
-                            {res["शिक्षण रणनीति"]?.slice(0, 150) +
-                              "..."}
-                            <Link
-                              to={`/single/${res._id}`}
-                              id="pgnw"
-                            >
-                              Read More...
-                            </Link>
-                          </p>
+                              {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
+                              <Link to={`/singleHi/${res._id}`} id="pgnw">
+                                Read More...
+                              </Link>
+                            </p>
                           </Link>
                         </div>
                         <div className="col-3 col-md-2 d-block ms-5">
@@ -429,24 +463,24 @@ const ProfileDataS = ({setNumber}) => {
                 </div>
               ))}
               {!showAll && saveStratigyHi.length > 2 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <button
-                  onClick={() => {
-                    setShowAll(true);
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    width: "100%",
                   }}
-                  className="loadMore"
                 >
-                  Load More...
-                </button>
-              </div>
-            ) : null}
+                  <button
+                    onClick={() => {
+                      setShowAll(true);
+                    }}
+                    className="loadMore"
+                  >
+                    Load More...
+                  </button>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </>

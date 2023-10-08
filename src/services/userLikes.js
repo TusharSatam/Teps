@@ -52,3 +52,14 @@ export const delUserLikes = async (id) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+
+export const unLikeByStratAndUserId = async (data) => {
+  let stratigyResponse;
+  await axios.put(`likes/unlike`,data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}

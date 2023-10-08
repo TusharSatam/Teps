@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
@@ -30,6 +30,8 @@ import SaveCards from "./cards/SaveCards";
 import SavedStrategies from "./cards/SavedStrategies";
 import SaveStratigy from "../../Pages/SaveStratigy";
 import FavouriteStr from "../../Pages/FavouriteStr";
+const language = localStorage.getItem("i18nextLng");
+
 const Profile = () => {
   const { t } = useTranslation();
   const { user, setUser } = useAuth();
