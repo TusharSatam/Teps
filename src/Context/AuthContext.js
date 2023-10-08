@@ -127,10 +127,6 @@ useEffect(() => {
     }
   }, []);
 
-  useEffect(()=>{
-    console.log({stratigyFilData});
-    console.log({stratigyFilUserData});
-  },[stratigyFilData,stratigyFilUserData]);
 
   React.useEffect(() => {
     const language = localStorage.getItem('i18nextLng');

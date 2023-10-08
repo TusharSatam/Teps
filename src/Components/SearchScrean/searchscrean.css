@@ -127,6 +127,7 @@ font-weight: 700;
 line-height: 26px; /* 162.5% */
 letter-spacing: -0.16px;
 text-decoration: none;
+height: 16px;
 }
 .card_border {
   border-left: none !important;
@@ -251,6 +252,11 @@ text-decoration: none;
 .linkStyle:hover{
   color: #000000;
 }
+/* .save_like,.save_likes {
+  width: 40px;
+  height: 40px;
+} */
+
 @media only screen and (max-width: 1440px) {
   .icons_heading {
     margin-left: -4.25rem;
@@ -267,7 +273,8 @@ text-decoration: none;
     margin-bottom: 0;
   }
   .dropDownContainer {
-    margin: 0 1.25rem;
+    margin: 0.5rem;
+    margin-top:0rem;
   }
   .sub-title {
     font-weight: 700;
@@ -472,5 +479,12 @@ text-decoration: none;
   }
   .container{
     padding:0rem !important;
+  }
+  .showStrategy{
+    font-size: 12px;
+  } 
+  .outcomeList{
+    border-radius: 12px;
+    padding: .5rem;
   }
 }

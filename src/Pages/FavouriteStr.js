@@ -453,7 +453,7 @@ const FavouriteStr = () => {
                             to={`/singleHi/${res._id}`}
                             className="linkStyle"
                           >
-                            <p className="savestr_head">
+                            <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
@@ -496,7 +496,7 @@ const FavouriteStr = () => {
                             to={`/singleHi/${res._id}`}
                             className="linkStyle"
                           >
-                            <p className="savestr_head">
+                            <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
@@ -543,7 +543,7 @@ const FavouriteStr = () => {
                             to={`/singleHi/${data._id}`}
                             className="linkStyle"
                           >
-                            <p className="savestr_head">
+                            <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">
@@ -588,7 +588,7 @@ const FavouriteStr = () => {
                             to={`/singleHi/${data._id}`}
                             className="linkStyle"
                           >
-                            <p className="savestr_head">
+                            <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
                             <p className="savestr_body">

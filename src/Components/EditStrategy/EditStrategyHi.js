@@ -25,6 +25,7 @@ const EditStrategyHi = () => {
   const [formData, setformData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedContent, setSubmittedContent] = useState("");
+  const [formError, setformError] = useState("")
   const { t } = useTranslation();
   //-----------------------------------------------------------------
   const [modalShow, setModalShow] = React.useState(false);
@@ -51,13 +52,13 @@ const EditStrategyHi = () => {
   };
   useEffect(() => {
     singleHindiStratigys(id).then((res) => {
-      console.log(res[0]);
       if (res[0] && res[0]._id) {
         setformData(res[0]);
         setSubmittedContent(res[0]["शिक्षण रणनीति"]);
+        console.log(res[0]);
       } else {
         singleUserHiStratigys(id).then((res) => {
-          console.log(res);
+          console.log(res.data[0]);
           setformData(res.data[0]);
           setSubmittedContent(res.data[0]["शिक्षण रणनीति"]);
         });
@@ -133,7 +134,7 @@ const EditStrategyHi = () => {
 
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -145,13 +146,13 @@ const EditStrategyHi = () => {
       {formData.length != 0 ? (
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
-            <div className="d-none d-md-block mb-4 mb-md-3 str_title">
+            <div className="d-none d-md-block mb-1 mb-md-1 str_title">
               <p className="str_name">{t("strategy")}</p>
               <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
             </div>
           </div>
           <div className="d-flex flex-column formWrapper">
-            <div className=" d-md-none mb-4 mb-md-3 str_title">
+            <div className=" d-md-none mb-1 mb-md-1 str_title">
               <p className="str_name">{t("strategy")}</p>
               <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
             </div>

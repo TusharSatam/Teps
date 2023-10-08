@@ -44,7 +44,7 @@ box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba
 .saveStrParentActive span{
   color: var(--grey-white, #FFF);
 text-align: left;
-font-family: Poppins;
+font-family: "Poppins";
 font-size: 20px;
 font-style: normal;
 font-weight: 600;
@@ -171,7 +171,6 @@ letter-spacing: -0.2px;
   font-size: 16px;
   line-height: 26px;
   color: #1aa05b;
-  margin-top: 10px;
 }
 .uni_id {
   font-family: "Inter";
@@ -255,9 +254,11 @@ letter-spacing: -0.2px;
 .comment_submit {
   margin-top: -2.5rem;
   margin-right: 0.625rem;
+  background: #1AA05B;
 }
 .comment_submit input {
   background: #1AA05B;
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
   border-radius: 20px;
   border: none;
   font-weight: 700;
@@ -489,22 +490,26 @@ letter-spacing: -0.08px;
   }
   .saveStrParent span{
     color: var(--brand-color-green, #1AA05B);
-text-align: center;
-font-family: Poppins;
-font-size: 10px;
-font-style: normal;
-font-weight: 600;
-line-height: 12px; /* 120% */
-letter-spacing: -0.1px;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 12px; /* 120% */
+    letter-spacing: -0.1px;
+  }
+  .comment_div_p{
+    font-size: 12px;
+  }
+  .comment_submit input{
+    font-size: 12px;
   }
 }
 @media only screen and (max-width: 990px) {
   .filter_btn_container {
     right: 20px;
   }
-  .largeCommentContainer {
-    padding-left: 90px;
-  }
+
   .dev_dpm_text {
     font-family: "Inter";
     font-style: normal;
@@ -531,15 +536,14 @@ letter-spacing: -0.1px;
 
   .savestr_body {
     overflow: hidden;
-color: var(--gray-text, #474747);
-text-overflow: ellipsis;
-whitespace: nowrap;
-font-family: Poppins;
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: 14px; /* 140% */
-letter-spacing: -0.4px;
+    color: var(--gray-text, #474747);
+    text-overflow: ellipsis;
+    font-family: "Poppins";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px; /* 140% */
+    letter-spacing: -0.4px;
   }
   .single_str_head {
     font-size: 12px;
