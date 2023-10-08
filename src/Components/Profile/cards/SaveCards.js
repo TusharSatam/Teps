@@ -233,7 +233,7 @@ const SaveCards = () => {
                         <div className="col-9 ms-md-4 col-md-8 ">
                           <Link id="nb">
                             <p id="bswm">Project-based Learning</p>
-                            <p className="savestr_head">
+                            <p className="savestr_head mt-0">
                               Learning Outcome: {res["Learning Outcome"]}
                             </p>
                             <p className="savestr_body">

@@ -205,7 +205,7 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -230,7 +230,7 @@ const SearchScrean = () => {
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone my-2' : 'd-flex align-items-center p-0 my-2'}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone mb-2' : 'd-flex align-items-center p-0 mb-2'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
                                   <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
@@ -387,7 +387,7 @@ const SearchScrean = () => {
                         {
                           uniqueHindiSubSubTopic?.map((data, index) => (
                             <Card className='border-0 '>
-                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone my-2' : 'd-flex align-items-center p-0 my-2'}>
+                              <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone mb-2' : 'd-flex align-items-center p-0 mb-2'}>
                                 <ContextAwareToggle className="me-2" eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="emptyCheckbox" />}</ContextAwareToggle>
                                 <p className='checkBox_title mb-0'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>

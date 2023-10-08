@@ -231,11 +231,14 @@ select {
         margin-top: 12px;
         font-size: 12px;
     }
+    .form-main-div{
+      padding: .6rem;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .center-div {
-        margin: 1rem;
+        margin: .5rem;
     }
     .form-title {
         padding: 0.625rem 0 0.625rem 0;

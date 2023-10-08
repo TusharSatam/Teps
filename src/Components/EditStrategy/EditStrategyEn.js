@@ -163,7 +163,7 @@ const EditStrategyEn = () => {
   );
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -176,7 +176,7 @@ const EditStrategyEn = () => {
         <div className="center-div d-flex mx-1 mx-md-4 mb-4">
           <div className="me-1 col-md-2 ml-0">
             {isUserStrategyForm ? (
-              <div className="d-none d-md-block mb-4 mb-md-3 str_title d-flex gap-2 align-items-center">
+              <div className="d-none d-md-block mb-1 mb-md-1 str_title d-flex gap-2 align-items-center">
                 <p className="mb-1">{t("Uploaded By:")}</p>
                 <p className="d-flex gap-2">
                   {uploaderDatas?.image ? (
@@ -212,7 +212,7 @@ const EditStrategyEn = () => {
                 </p>
               </div>
             ) : (
-              <div className="d-none d-md-block mb-4 mb-md-3 str_title">
+              <div className="d-none d-md-block mb-1 mb-md-1 str_title">
                 <p className="str_name">{t("strategy")}</p>
                 <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
               </div>
@@ -220,7 +220,7 @@ const EditStrategyEn = () => {
           </div>
           <div className="d-flex flex-column  formWrapper">
             {isUserStrategyForm ? (
-              <div className=" d-md-none mb-4 mb-md-3 str_title d-flex gap-2 align-items-center">
+              <div className=" d-md-none mb-1 mb-md-1 str_title d-flex gap-2 align-items-center">
                 <p className="m-0">{t("Uploaded By:")}</p>
                 <p className="d-flex gap-1 mb-0 align-items-center">
                   {uploaderDatas?.image ? (
@@ -256,7 +256,7 @@ const EditStrategyEn = () => {
                 </p>
               </div>
             ) : (
-              <div className=" d-md-none mb-4 mb-md-3 str_title">
+              <div className=" d-md-none mb-1 mb-md-1 str_title">
                 <p className="str_name">{t("strategy")}</p>
                 <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
               </div>

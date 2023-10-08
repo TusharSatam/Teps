@@ -287,7 +287,7 @@ const SingleHindiStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -309,7 +309,7 @@ const SingleHindiStr = () => {
               <div className="col-9  w-100 textContainer p-2 p-md-4">
                 <div className="me-1">
                   <div>
-                    <div className=" mb-4 mb-md-3 str_title">
+                    <div className=" mb-1 mb-md-1 str_title">
                       <p className="str_name ">{t("strategy")}</p>
                     </div>
                   </div>
@@ -322,7 +322,7 @@ const SingleHindiStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex gap-2 gap-md-4">
+                  <div className="d-flex gap-2 gap-md-2 align-items-center">
                     <div className="d-flex align-items-center flex-column">
                       <div>
                         {userSaves?.includes(str?._id) ? (
