@@ -139,6 +139,9 @@ line-height: 16px; /* 200% */
     .cardContainer{
         max-width: 90vw;
     }
+    .container{
+        padding:12px 0px;
+    }
     .impGray{
         color: #939CA3 !important;
     }

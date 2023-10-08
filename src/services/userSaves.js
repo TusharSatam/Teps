@@ -41,3 +41,13 @@ export const delUserSaves = async (id) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+
+export const unSaveByStratAndUserId = async (data) => {
+  let stratigyResponse;
+  await axios.put(`saves/unsave`,data)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}

@@ -328,7 +328,7 @@ const AddForm = () => {
             setDatas={setSubmitData}
             Datas={submitData}
           />
-          <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+          <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
             <button className="backbutton" onClick={handleBackClick}>
               <img src={backArrow} alt="backArrow"  className="mb-md-1"/>
               {`${t("Back")}`}

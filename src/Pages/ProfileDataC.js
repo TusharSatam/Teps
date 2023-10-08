@@ -308,7 +308,7 @@ const ProfileDataC = ({ setNumber }) => {
                             {res["शिक्षण रणनीति"]?.slice(0, 150) +
                               "..."}
                             <Link
-                              to={`/singleUserStratigy/${res._id}`}
+                              to={`/singleHi/${res._id}`}
                               id="pgnw"
                             >
                               Read More...

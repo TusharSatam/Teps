@@ -264,7 +264,7 @@ const SingleUserStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-3 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -284,7 +284,7 @@ const SingleUserStr = () => {
         <div  className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
-              <p className="savestr_head">
+              <p className="savestr_head mt-0">
                 {t("Learning Outcomes")}: {str["Learning Outcome"]}
               </p>
               <div className="col-9  w-100 textContainer p-2 p-md-4">
@@ -295,7 +295,7 @@ const SingleUserStr = () => {
                     </div>
                     {
                       str["Pedagogical Approach"]&&
-                    <div className="mb-md-3 ">
+                    <div className="mb-md-1">
                       <i className="pedalogicalText">{str["Pedagogical Approach"]}</i>
                     </div>
                     }
@@ -309,7 +309,7 @@ const SingleUserStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex gap-2 gap-md-4">
+                  <div className="d-flex gap-2 gap-md-2 align-items-center">
                     <div className="d-flex flex-column justify-content-center align-items-center">
                       <div>
                         {userSaves?.includes(str?._id) ? (
