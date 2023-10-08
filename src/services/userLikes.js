@@ -21,6 +21,17 @@ export const getLikes = async () => {
 
 }
 
+export const getLikesByUserId = async (id) => {
+  let stratigyResponse
+  await axios.get(`likes/byUser/${id}`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
 
 export const delLikes = async (id) => {
   let stratigyResponse;

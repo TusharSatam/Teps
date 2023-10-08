@@ -8,7 +8,7 @@ import "./styles/saveStratigy.css";
 import { getMultitStr } from "../services/stratigyes";
 import { Link } from "react-router-dom";
 import { getMultitHiStr } from "../services/hindiStratigys";
-import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
+import { delUserLikes, getLikes, getLikesByUserId, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import { Spinner } from "react-bootstrap";
@@ -19,8 +19,8 @@ const ProfileDataF = ({setNumber}) => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
+  const [favStratigyHi, setFavStratigyHi] = useState([]);
   const [like, setLike] = React.useState([]);
-  const [favStratigyHi, setfavStratigyi] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const { t } = useTranslation();
   const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
@@ -39,12 +39,13 @@ const ProfileDataF = ({setNumber}) => {
   const [likesArr, setLikesArr] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
-    getLikes().then((res) => {
+    getLikesByUserId(user._id).then((res) => {
       const like = res?.data?.filter(
         (ress) => ress.user_id === user._id && ress.strategie_id !== undefined
       );
       // console.log({like});
       const likeId = like?.map((ress) => ress.strategie_id);
+      console.log({likeId})
       if (likeId?.length === 0) {
         setIsLoading(false);
       }
@@ -70,16 +71,16 @@ const ProfileDataF = ({setNumber}) => {
         //     setIsLoading(false);
         //     setlikeUserStratigy([]);
         //   });
-      } if (languageSelect === "hi") {
+      } else {
         getMultitHiStr(likeId)
           .then((res) => {
-            // console.log({data:res.data})
-            setFavStratigy(res.data);
+            console.log({data:res.data})
+            setFavStratigyHi(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
             setIsLoading(false);
-            setFavStratigy([]);
+            setFavStratigyHi([]);
           });
         // getMultiUserHindiStr(likeId)
         //   .then((res) => {
@@ -164,8 +165,13 @@ const ProfileDataF = ({setNumber}) => {
   };
   
   const [showAll, setShowAll] = useState(false);
-  const displayCount = showAll ? favStratigy?.length : 2;
-  React.useEffect(()=>{setNumber(favStratigy?.length)},[favStratigy]);
+  const displayCount = showAll ? languageSelect==="en"? favStratigy?.length:favStratigyHi?.length : 2;
+  React.useEffect(() => {
+    if(languageSelect==="en"){
+    setNumber(favStratigy?.length);}
+    if(languageSelect==="hi"){
+    setNumber(favStratigyHi?.length);}
+  }, [favStratigy,favStratigyHi,languageSelect]);
   return (
     <div>
       {languageSelect === "en" ? (
@@ -293,7 +299,7 @@ const ProfileDataF = ({setNumber}) => {
       >
         <div className="row py-2 align-items-center" id="div1">
           <div className="d-flex justify-content-start">
-            <span className={favStratigy?.length===0?"headText w-50 impGray":"headText w-50"}>
+            <span className={favStratigyHi?.length===0?"headText w-50 impGray":"headText w-50"}>
               {t("Favourite Strategies")}
             </span>
           </div>
@@ -324,7 +330,7 @@ const ProfileDataF = ({setNumber}) => {
                 </clipPath>
               </defs>
             </svg>
-            <span className={favStratigy?.length===0?"impGray d-md-none":"d-md-none"}>({favStratigy?.length})</span>
+            <span className={favStratigyHi?.length===0?"impGray d-md-none":"d-md-none"}>({favStratigyHi?.length})</span>
           </div>
         </div>
       </div>
@@ -334,20 +340,20 @@ const ProfileDataF = ({setNumber}) => {
             <span className="visually-hidden">Loading...</span>
           </Spinner>
         </div>
-      ) : favStratigy?.length === 0 && collapse !== true ? (
+      ) : favStratigyHi?.length === 0 && collapse !== true ? (
         <h1 className="my-5 text-center py-5 text-danger">
           {t("No Favourite Strategies available.")}
         </h1>
-      ) : favStratigy?.length !== 0 && collapse !== true ? (
+      ) : favStratigyHi?.length !== 0 && collapse !== true ? (
         <div>
-          {favStratigy?.slice(0, displayCount).map((res, index) => (
+          {favStratigyHi?.slice(0, displayCount).map((res, index) => (
             <div key={index} className="cardContainer">
               <div id="ws" className="card_pad">
                 <div className="mt-4">
                   <div className="d-flex justify-content-between">
                     <div className="col-9 ms-md-4 col-md-8 ps-2">
                       <Link id="nb">
-                        <p id="bswm">{res["शिक्षण का तरीका"]}</p>
+                        <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
                         {/* <p className="savestr_head">
                           Learning Outcome: {res["Learning Outcome"]}
                         </p> */}
@@ -386,7 +392,7 @@ const ProfileDataF = ({setNumber}) => {
               </div>
             </div>
           ))}
-          {!showAll && favStratigy.length>2?<div
+          {!showAll && favStratigyHi.length>2?<div
             style={{
               display: "flex",
               justifyContent: "flex-end",

@@ -55,6 +55,9 @@ const FavouriteStr = () => {
     }
   };
 
+  useEffect(()=>{
+    console.log({favStratigyHi,likeStratigyHiUser,stratigyFilData})
+  },[favStratigyHi,likeStratigyHiUser,stratigyFilData])
   const [likes, setLikes] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
@@ -88,11 +91,13 @@ const FavouriteStr = () => {
           });
       } else {
         getMultitHiStr(likeId).then((res) => {
+          console.log({data1:res.data})
           setfavStratigyi(res.data);
           setIsLoading(false);
         });
         getMultiUserHindiStr(likeId)
           .then((res) => {
+            console.log({data2:res.data})
             setlikeStratigyiUser(res.data);
             setIsLoading(false);
           })

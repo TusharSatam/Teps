@@ -17,8 +17,8 @@ const ProfileDataE = ({ setNumber }) => {
   const { user, stratigyFilData } = useAuth();
 
   const [saveStratigy, setSaveStratigy] = useState([]);
+  const [saveStratigyHi, setSaveStratigyHi] = useState([]);
   const [saveUserStratigy, setSaveUserStratigy] = useState([]);
-  const [saveStratigyHi, setSaveStratigyi] = useState([]);
   const [saveStratigyHiUser, setSaveStratigyiUser] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
 
@@ -56,11 +56,11 @@ const ProfileDataE = ({ setNumber }) => {
       getHindiStratigysEditedbyUser(user._id)
         .then((res) => {
           // console.log({ res });
-          setSaveStratigy(res);
+          setSaveStratigyHi(res);
           setIsLoading(false);
         })
         .catch((err) => {
-          setSaveStratigy([]);
+          setSaveStratigyHi([]);
           console.log({ err });
           setIsLoading(false);
         });
@@ -111,10 +111,13 @@ const ProfileDataE = ({ setNumber }) => {
   }, [languageSelect]);
 
   const [showAll, setShowAll] = useState(false);
-  const displayCount = showAll ? saveStratigy?.length : 2;
+  const displayCount = showAll ? languageSelect==="en"? saveStratigy?.length:saveStratigyHi?.length : 2;
   React.useEffect(() => {
-    setNumber(saveStratigy?.length);
-  }, [saveStratigy]);
+    if(languageSelect==="en"){
+    setNumber(saveStratigy?.length);}
+    if(languageSelect==="hi"){
+    setNumber(saveStratigyHi?.length);}
+  }, [saveStratigy,saveStratigyHi,languageSelect]);
 
   return (
     <>
@@ -183,7 +186,6 @@ const ProfileDataE = ({ setNumber }) => {
                 </Spinner>
               </div>
             ) : saveStratigy?.length === 0 &&
-              saveUserStratigy?.length === 0 &&
               collapse !== true ? (
               <h1 className="my-5 text-center py-5 text-danger">
                 {t("No Saved Strategies available.")}
@@ -272,7 +274,7 @@ const ProfileDataE = ({ setNumber }) => {
             <div className="d-flex">
               <span
                 className={
-                  saveStratigy?.length === 0
+                  saveStratigyHi?.length === 0
                     ? "headText w-50 impGray"
                     : "headText w-50"
                 }
@@ -309,12 +311,12 @@ const ProfileDataE = ({ setNumber }) => {
               </svg>
               <span
                 className={
-                  saveStratigy?.length === 0
+                  saveStratigyHi?.length === 0
                     ? "impGray d-md-none"
                     : "d-md-none"
                 }
               >
-                ({saveStratigy?.length})
+                ({saveStratigyHi?.length})
               </span>
             </div>
           </div>
@@ -325,15 +327,14 @@ const ProfileDataE = ({ setNumber }) => {
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div>
-        ) : saveStratigy?.length === 0 &&
-          saveUserStratigy?.length === 0 &&
+        ) : saveStratigyHi?.length === 0 &&
           collapse !== true ? (
           <h1 className="my-5 text-center py-5 text-danger">
             {t("No Saved Strategies available.")}
           </h1>
-        ) : saveStratigy?.length !== 0 && collapse !== true ? (
+        ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
           <div>
-            {saveStratigy?.slice(0, displayCount).map((res, index) => (
+            {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
               <div key={index} className="cardContainer">
                 <Link
                   to={`/editStrategyform/${res._id}/user`}
@@ -357,7 +358,7 @@ const ProfileDataE = ({ setNumber }) => {
                     <div className="d-flex justify-content-between">
                       <div className="col-9 ms-md-4 col-md-8 ps-2">
                         <Link id="nb">
-                          <p id="bswm">{res["शिक्षण का तरीका"]}</p>
+                          <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
                           {/* <p className="savestr_head">
                             Learning Outcome: {res["Learning Outcome"]}
                           </p> */}
@@ -384,7 +385,7 @@ const ProfileDataE = ({ setNumber }) => {
                 </div>
               </div>
             ))}
-            {!showAll && saveStratigy.length > 2 ? (
+            {!showAll && saveStratigyHi.length > 2 ? (
               <div
                 style={{
                   display: "flex",
