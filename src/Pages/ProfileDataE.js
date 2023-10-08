@@ -30,8 +30,8 @@ const ProfileDataE = () => {
     if (languageSelect === "en") {
       getEdits(user._id)
         .then((res) => {
-          const saves = res?.data?.filter((ress) => ress.Approve === true);
-          setSaveStratigy(saves);
+          // const saves = res?.data?.filter((ress) => ress.Approve === true);
+          setSaveStratigy(res?.data);
           setIsLoading(false);
         })
         .catch((err) => {

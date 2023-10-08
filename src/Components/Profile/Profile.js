@@ -311,7 +311,7 @@ const Profile = () => {
 
       <section className="profile_container pb-5">
         <div className="w-100 text-center welcomeUser">
-          Welcome, {user?.firstName}
+          {t('Welcome')}, {user?.firstName}
         </div>
 
         {/* ---------mombile profile info-------------- */}
@@ -520,7 +520,7 @@ const Profile = () => {
                           {t('Created strategies')} <span>({c})</span>
                         </button>
                       ) : (
-                        <Link to="/createdStratigy">
+                        <Link to="/user-created-strategy">
                           <button className="authBtn_p mt-2 me-3">
                           {t('Created strategies')} <span>({c})</span>
                           </button>
@@ -546,7 +546,7 @@ const Profile = () => {
                           {t('Edited strategies')} <span>({e})</span>
                         </button>
                       ) : (
-                        <Link to="/editedStratigy">
+                        <Link to="/user-edited-strategy">
                           <button className="authBtn_p mt-2 me-3">
                           {t('Edited strategies')} <span>({e})</span>
                           </button>
