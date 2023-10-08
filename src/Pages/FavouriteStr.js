@@ -191,7 +191,7 @@ const FavouriteStr = () => {
     <div>
       {languageSelect === "en" ? (
         <>
-        {location.pathname!="/profile" &&  <div className="saveStrParent mx-0">
+        {location.pathname!="/profile" &&  <div className="newSaveStrParent mx-0">
             <div className="row py-2 align-items-center">
               <div className="d-flex justify-content-center">
                 <span className=" text-white text-center headText w-50">
@@ -399,7 +399,7 @@ const FavouriteStr = () => {
         </>
       ) : (
         <>
-          <div className="saveStrParent">
+          <div className="newSaveStrParent">
             <div className="row py-2">
               <div className="col-md-1"></div>
               <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">

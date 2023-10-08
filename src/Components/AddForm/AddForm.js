@@ -114,11 +114,12 @@ const AddForm = () => {
     setSelectLearningOutcome(e.target.value);
   };
 
-  const uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).map(
-    (grade) => {
-      return allStratigys.find((a) => a.Grade === grade);
-    }
-  );
+  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
+  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade))).sort((a, b) => {
+    const indexA = customSortOrder.indexOf(a);
+    const indexB = customSortOrder.indexOf(b);
+    return indexA - indexB;
+  });
 
   const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
     return creature.Grade === selectGrade;
@@ -355,9 +356,9 @@ const AddForm = () => {
                         Grade
                       </option>
                       {uniqueGrade
-                        ?.filter((res) => res.Grade !== undefined)
+                        ?.filter((res) => res !== undefined)
                         .map((res, i) => (
-                          <option key={i}>{res.Grade}</option>
+                          <option key={i}>{res}</option>
                         ))}
                     </select>
                   </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
 import { getEdits } from "../../services/userEdited";
@@ -57,29 +58,31 @@ const Profile = () => {
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
-  React.useEffect(() => {
-    getSaves().then((res) => {
-      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-      setF(saves.length);
-    });
-  }, []);
-  React.useEffect(() => {
-    getUserCreated(user._id).then((res) => {
-      setC(res.data.length);
-    });
-  }, []);
-  React.useEffect(() => {
-    getEdits(user._id).then((res) => {
-      setE(res.data.length);
-    });
-  }, []);
+  const navigate = useNavigate();
+  // React.useEffect(() => {
+  //   getSaves().then((res) => {
+  //     const saves = res?.data?.filter((ress) => ress.user_id === user._id);
+  //     setF(saves.length);
+  //   });
+  // }, []);
+  // React.useEffect(() => {
+  //   getUserCreated(user._id).then((res) => {
+  //     setC(res.data.length);
+  //   });
+  // }, []);
+  // React.useEffect(() => {
+  //   getEdits(user._id).then((res) => {
+  //     setE(res.data.length);
+  //   });
+  // }, []);
 
-  React.useEffect(() => {
-    getLikes().then((res) => {
-      const like = res?.data?.filter((ress) => ress.user_id === user._id);
-      setL(like.length);
-    });
-  });
+  // React.useEffect(() => {
+  //   getLikes().then((res) => {
+  //     const like = res?.data?.filter((ress) => ress.user_id === user._id);
+  //     setL(like.length);
+  //   });
+  // });
+
   const handleForgotShow = () => {
     setForgot(true);
   };
@@ -309,7 +312,7 @@ const Profile = () => {
 
       <section className="profile_container pb-5">
         <div className="w-100 text-center welcomeUser">
-          Welcome, {user?.firstName}
+          {t('Welcome')}, {user?.firstName}
         </div>
 
         {/* ---------mombile profile info-------------- */}
@@ -372,57 +375,6 @@ const Profile = () => {
         </div>
         {/* ------------------------------------------------- */}
 
-        {/* <div id="dgm">
-                <button id="pm" className={`change_btn`} onClick={toggleButton}>
-                  {t("View My Strategies")}
-                  <span
-                    className={`arrow ${dropdownVisible ? "up" : "down"}`}
-                  ></span>
-                </button>
-              </div> */}
-        {/* <div className="d-block d-md-none mx-3 mt-md-4">
-          <hr id="bmm" />
-        </div> */}
-        {/* <div className="d-block d-md-none">
-                    <div className="d-flex justify-content-center mt-3">
-                      <div>
-                        <Link to="/favouriteStratigy">
-                          <button className="profileBtn me-3">
-                            {t("Favourites")}
-                          </button>
-                        </Link>
-                      </div>
-                      <div>
-                        <Link to="/saveStratigy">
-                          <button className="profileBtn">{t("Saved")}</button>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <div>
-                        <Link to="/editedStratigy">
-                          <button className="authBtn_p mt-2 me-3">
-                            {t("Edited")} ({e})
-                          </button>
-                        </Link>
-                      </div>
-                      <div>
-                        <Link to="/createdStratigy">
-                          <button className="authBtn_p mt-2">
-                            {t("Created")} ({c})
-                          </button>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-center" id="pt">
-                      <Link to="/addForm">
-                        <button className="upload_Str_btn">
-                          Upload Strategy
-                        </button>
-                      </Link>
-                    </div>
-                  </div> */}
-
         {/* -----------My strategies Mobile------------------- */}
         <div className="mx-2">
           <div className=" mx-2 d-md-none">
@@ -450,10 +402,10 @@ const Profile = () => {
               Saved strategies
             </button> */}
             {/* {isShowSaved && <SaveStratigy />} */}
-            <ProfileDataS/>
-            <ProfileDataF/>
-            <ProfileDataE/>
-            <ProfileDataC/>
+            <ProfileDataS setNumber={setF}/>
+            <ProfileDataF setNumber={setL}/>
+            <ProfileDataE setNumber={setE}/>
+            <ProfileDataC setNumber={setC}/>
             {/* Edited Strategies */}
             {/* <button className="typeButton">Edited strategies</button> */}
             {/* Favorite Strategies */}
@@ -473,7 +425,9 @@ const Profile = () => {
           <div className=" mx-2 d-md-none">
             <button
               className="change_btn"
-              onClick={(e) => setIsMyStrategies(!isMyStrategies)}
+              onClick={() => {
+                navigate("/addform");
+              }}
             >
               {t("Upload strategy")}
               <></>
@@ -491,7 +445,7 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        <div className="container p-md-5  d-md-flex ">
+        <div className="container justify-content-md-around  d-md-flex ">
           <div
             id="bwb"
             className="p-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center "
@@ -549,7 +503,7 @@ const Profile = () => {
                     className={`viewMyStrategies`}
                     onClick={toggleButton}
                   >
-                    View My Strategies
+                   {t('View My Strategies')}
                     <img
                       src={downArrow}
                       height="20"
@@ -564,12 +518,12 @@ const Profile = () => {
                     <div>
                       {c === 0 ? (
                         <button className="authBtn_p mt-2 me-3" disabled>
-                          Created strategies <span>({c})</span>
+                          {t('Created strategies')} <span>({c})</span>
                         </button>
                       ) : (
-                        <Link to="/createdStratigy">
+                        <Link to="/user-created-strategy">
                           <button className="authBtn_p mt-2 me-3">
-                            Created strategies <span>({c})</span>
+                          {t('Created strategies')} <span>({c})</span>
                           </button>
                         </Link>
                       )}
@@ -577,12 +531,12 @@ const Profile = () => {
                     <div>
                       {f === 0 ? (
                         <button className="authBtn_p mt-2 me-3" disabled>
-                          Saved strategies ({f})
+                          {t('Saved strategies')} ({f})
                         </button>
                       ) : (
                         <Link to="/saveStratigy">
                           <button className="authBtn_p mt-2 me-3">
-                            Saved strategies<span>({f})</span>
+                            {t('Saved strategies')}<span>({f})</span>
                           </button>
                         </Link>
                       )}
@@ -590,12 +544,12 @@ const Profile = () => {
                     <div>
                       {e === 0 ? (
                         <button className="authBtn_p mt-2 me-3" disabled>
-                          Edited strategies <span>({e})</span>
+                          {t('Edited strategies')} <span>({e})</span>
                         </button>
                       ) : (
-                        <Link to="/editedStratigy">
+                        <Link to="/user-edited-strategy">
                           <button className="authBtn_p mt-2 me-3">
-                            Edited strategies <span>({e})</span>
+                          {t('Edited strategies')} <span>({e})</span>
                           </button>
                         </Link>
                       )}
@@ -603,12 +557,12 @@ const Profile = () => {
                     <div>
                       {l === 0 ? (
                         <button className="authBtn_p mt-2 me-3" disabled>
-                          Favorite strategies ({l})
+                          {t(`Favorite strategies`)}({l})
                         </button>
                       ) : (
                         <Link to="/favouriteStratigy">
                           <button className="authBtn_p mt-2 me-3">
-                            Favorite strategies<span>({l})</span>
+                          {t(`Favorite strategies`)}<span>({l})</span>
                           </button>
                         </Link>
                       )}
@@ -911,16 +865,16 @@ const Profile = () => {
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
             >
               <div>
-                <ProfileDataS />
+                <ProfileDataS setNumber={setF} />
               </div>
               <div>
-                <ProfileDataF />
+                <ProfileDataF setNumber={setL} />
               </div>
               <div>
-                <ProfileDataE />
+                <ProfileDataE setNumber={setE} />
               </div>
               <div>
-                <ProfileDataC />
+                <ProfileDataC setNumber={setC} />
               </div>
             </div>
           )}

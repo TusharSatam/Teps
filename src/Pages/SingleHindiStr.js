@@ -28,6 +28,7 @@ import ratingStar from "../asstes/icons/ratingStar.svg";
 import ratingStarFill from "../asstes/icons/ratingStarFill.svg";
 import editIcon from "../asstes/icons/editIcon.svg";
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
+import { singleUserHiStratigys } from "../services/userStratigyHi";
 
 const SingleHindiStr = () => {
   const { user, setUser, seteditStrategyFormData } = useAuth();
@@ -88,9 +89,18 @@ const SingleHindiStr = () => {
   }, [isAlreadyRated]);
 
   React.useEffect(() => {
-    singleHindiStratigys(id).then((res) => {
-      setStr(res[0]);
-    });
+      singleHindiStratigys(id).then((res) => {
+        console.log(res);
+        if(res[0] && res[0]._id){
+          setStr(res[0]);
+        }
+        else{
+          singleUserHiStratigys(id).then((res) => {
+            console.log(res);
+            setStr(res.data[0]);
+          });
+        }
+      });
   }, []);
   const handleReact = async (e) => {
     if (react?.includes(e)) {

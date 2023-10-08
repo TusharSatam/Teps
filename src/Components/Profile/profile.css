@@ -661,6 +661,10 @@ box-shadow: -12px -9.5px 7px 0px rgba(0, 0, 0, 0.30) inset, 0px 2px 4px 0px rgba
   .profileFormWrapper{
     padding:0rem !important;
   }
+}
 
-
+@media screen and (min-width:1024px) {
+  .typeWrapper{
+    min-width: 619px;
+  }
 }
