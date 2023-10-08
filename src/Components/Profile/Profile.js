@@ -445,7 +445,7 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        <div className="container justify-content-md-around  d-md-flex ">
+        <div className="container justify-content-md-around  d-md-flex  mt-2 mx-2">
           <div
             id="bwb"
             className="p-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center "
