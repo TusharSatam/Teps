@@ -13,9 +13,6 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
-      'विकासात्मक क्षेत्र 1': e.target.dev_dom_1.value,
-      'विकासात्मक क्षेत्र 2': e.target.dev_dom_2.value,
-      'शिक्षण का तरीका': e.target.mode_ofteaching.value,
       'शिक्षण के परिणाम': e.target.learning_outcome.value,
       'शिक्षण रणनीति': e.target.teaching_sstrategy.value
     }
@@ -72,18 +69,6 @@ const EditHindiStratigyModal = ({ show, onHide, data, setShow, setStratigys }) =
               <div className='input_div_modal'>
                 <label htmlFor="">उप-उप शीर्षक</label> <br />
                 <input className='signup_Input_modal' disabled defaultValue={data ? data['उप-उप शीर्षक'] : ''} name='sub_sub_topic' placeholder='उप-उप शीर्षक' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">विकासात्मक क्षेत्र 1 </label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['विकासात्मक क्षेत्र 1'] : ''} name='dev_dom_1' placeholder='विकासात्मक क्षेत्र 1' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">विकासात्मक क्षेत्र 2 </label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['विकासात्मक क्षेत्र 2'] : ''} name='dev_dom_2' placeholder='विकासात्मक क्षेत्र 2' type="text" />
-              </div>
-              <div className='input_div_modal'>
-                <label htmlFor="">शिक्षण का तरीका</label> <br />
-                <input className='signup_Input_modal' disabled defaultValue={data ? data['शिक्षण का तरीका'] : ''} name='mode_ofteaching' placeholder='शिक्षण का तरीका' type="text" />
               </div>
               <div className='input_div_modal'>
                 <label htmlFor="">शिक्षण के परिणाम</label> <br />

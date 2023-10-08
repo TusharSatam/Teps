@@ -220,7 +220,7 @@ const SearchScrean = () => {
                 <>
                   <div className='container_title_sec'>
                     <div className='d-flex  flex-column justify-content-between mt-md-1'>
-                      <p className='mb-4'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                      <p className='mb-2 mb-md-4'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                       <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
                     </div>
                   
@@ -378,7 +378,7 @@ const SearchScrean = () => {
                 selectLang !== 'english' && !uniqueHindiSubSubTopic[0]['Learning Outcome'] ?
                   <>
                     <div className='container_title_sec'>
-                      <p className='mb-md-4'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                      <p className='mb-2 mb-md-4'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                 <p className='clickLearningText'>किसी शिक्षण परिणाम की शिक्षण रणनीति जानने के लिए उस पर क्लिक करें।</p>                      
                     </div>
                     <div className='dropDownContainer mb-md-5' key={accorKey}>
@@ -445,7 +445,7 @@ const SearchScrean = () => {
 
       }
             <>
-        <div className='filterCard gap-3 blackshadow mb-md-3 container_title_sec'>
+        <div className='filterCard gap-3 blackshadow  mb-md-3 container_title_sec'>
           {
             selectLang === 'hindi' ?
               <HomeHindiLayout

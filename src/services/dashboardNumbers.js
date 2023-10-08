@@ -72,3 +72,21 @@ export const getTotalSaves = async () => {
     .catch(err => console.log(err));
   return userResponse;
 }
+export const getTotalEdited = async () => {
+  let userResponse
+  await axios.get(`editStrategy/count`)
+    .then(res => {
+      userResponse = res
+    })
+    .catch(err => console.log(err));
+  return userResponse;
+}
+export const getTotalCreated = async () => {
+  let userResponse
+  await axios.get(`createdStrategy/count`)
+    .then(res => {
+      userResponse = res
+    })
+    .catch(err => console.log(err));
+  return userResponse;
+}

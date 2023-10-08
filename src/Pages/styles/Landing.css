@@ -12,7 +12,7 @@
 }
 .blueShadow{
   border-radius: 24px;
-  margin:1rem;
+  margin:1rem 0.5rem;
   box-shadow: rgb(143 227 213 / 56%) 0px 5px 50px 4px;
 }
 
@@ -66,7 +66,7 @@
 }
 @media only screen and (max-width: 768px) {
   .filterCard{
-    padding: .5rem;
+    padding: 1rem .5rem;
   }
   .filterCard select,.savedFilters select{
     min-width:auto;

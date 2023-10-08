@@ -22,7 +22,6 @@ export const userLogin = async (data) => {
 }
 
 export const sendOTP = async (data) => {
-  console.log(data);
   let loginResponse
   await axios.post(`otp/sendOTP`, data)
     .then(res => {
