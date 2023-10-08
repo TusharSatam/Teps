@@ -33,7 +33,11 @@ useEffect(() => {
         const userStrategiesResponse = await getUserStratigys();
 
         setAllStrategies(allStrategiesResponse.data);
-        setAllUserStrategies(userStrategiesResponse.data?.filter(res => res.Approve === true));
+        setAllUserStrategies(
+          userStrategiesResponse.data?.filter(
+            (res) => res.Approve === true && res.isPublic === true
+          )
+        );
       }
       setLoadingdropdown(false)
     } catch (error) {

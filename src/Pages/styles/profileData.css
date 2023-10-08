@@ -155,3 +155,8 @@ line-height: 20px; /* 250% */
 margin-right: 5vw;
     }
 }
+@media screen and (max-width:400px) {
+    .profileDataWrapper{
+        width:90%;
+    }
+}
