@@ -134,9 +134,6 @@ const ApproveHi = () => {
                     <th scope="col">शीर्षक</th>
                     <th scope="col">उप शीर्षक</th>
                     <th scope="col">उप-उप शीर्षक </th>
-                    <th scope="col">विकासात्मक क्षेत्र 1</th>
-                    <th scope="col">विकासात्मक क्षेत्र 2</th>
-                    <th scope="col">शिक्षण का तरीका</th>
                     <th scope="col">शिक्षण के परिणाम</th>
                     <th scope="col">शिक्षण रणनीति</th>
                     <th></th>
@@ -157,18 +154,6 @@ const ApproveHi = () => {
                         <td>{item.शीर्षक}</td>
                         <td>{item['उप शीर्षक']}</td>
                         <td>{item['उप-उप शीर्षक']}</td>
-                        <td>{item['विकासात्मक क्षेत्र 1']}</td>
-                        <td>{item['विकासात्मक क्षेत्र 2']}</td>
-                        <td>{item['शिक्षण का तरीका']}</td>
-
-                        {/* <td>
-                                  {item?._id === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
-                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
-                                </td>
-                                <td>
-                                  {item?._id === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
-                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
-                                </td> */}
                         <td>{item['शिक्षण के परिणाम']?.slice(0, 20)}</td>
                         <td>{item['शिक्षण रणनीति']?.slice(0, 20)}</td>
                         <td>
@@ -194,9 +179,6 @@ const ApproveHi = () => {
                     <th scope="col">शीर्षक</th>
                     <th scope="col">उप शीर्षक</th>
                     <th scope="col">उप-उप शीर्षक </th>
-                    <th scope="col">विकासात्मक क्षेत्र 1</th>
-                    <th scope="col">विकासात्मक क्षेत्र 2</th>
-                    <th scope="col">शिक्षण का तरीका</th>
                     <th scope="col">शिक्षण के परिणाम</th>
                     <th scope="col">शिक्षण रणनीति</th>
                     <th></th>
@@ -215,18 +197,6 @@ const ApproveHi = () => {
                         <td>{item.शीर्षक}</td>
                         <td>{item['उप शीर्षक']}</td>
                         <td>{item['उप-उप शीर्षक']}</td>
-                        <td>{item['विकासात्मक क्षेत्र 1']}</td>
-                        <td>{item['विकासात्मक क्षेत्र 2']}</td>
-                        <td>{item['शिक्षण का तरीका']}</td>
-
-                        {/* <td>
-                                  {item?._id === indi ? lOutcome['शिक्षण के परिणाम'] : item['शिक्षण के परिणाम']?.slice(0, 20)}
-                                  {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
-                                </td>
-                                <td>
-                                  {item?._id === indi1 ? teaching['शिक्षण रणनीति'] : item['शिक्षण रणनीति']?.slice(0, 20)}
-                                  {item?._id !== indi1 ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore2(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi1(null)}>less</span>}
-                                </td> */}
                         <td>{item['शिक्षण के परिणाम']?.slice(0, 20)}</td>
                         <td>{item['शिक्षण रणनीति']?.slice(0, 20)}</td>
                         <td>

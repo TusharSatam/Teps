@@ -23,6 +23,7 @@ const ProfileDataS = ({setNumber}) => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
+  const [saveStratigyHi, setSaveStratigyHi] = useState([]);
   const [saveUserStratigy, setSaveUserStratigy] = useState([]);
   const [saveStratigyi, setSaveStratigyi] = useState([]);
   const [saveStratigyHiUser, setSaveStratigyiUser] = useState([]);
@@ -89,11 +90,11 @@ const ProfileDataS = ({setNumber}) => {
       } if (languageSelect === "hi") {
         getMultitHiStr(savesId)
           .then((res) => {
-            setSaveStratigy(res.data);
+            setSaveStratigyHi(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
-            setSaveStratigy([]);
+            setSaveStratigyHi([]);
             setIsLoading(false);
           });
         // getMultiUserHindiStr(savesId).then((res) => {
@@ -181,8 +182,13 @@ const ProfileDataS = ({setNumber}) => {
   };
 
   const [showAll, setShowAll] = useState(false);
-  const displayCount = showAll ? saveStratigy?.length : 2;
-  useEffect(()=>{setNumber(saveStratigy?.length)},[saveStratigy]);
+  const displayCount = showAll ? languageSelect==="en"? saveStratigy?.length:saveStratigyHi?.length : 2;
+  React.useEffect(() => {
+    if(languageSelect==="en"){
+    setNumber(saveStratigy?.length);}
+    if(languageSelect==="hi"){
+    setNumber(saveStratigyHi?.length);}
+  }, [saveStratigy,saveStratigyHi,languageSelect]);
   return (
     <div>
       {languageSelect === "en" ? (
@@ -251,7 +257,6 @@ const ProfileDataS = ({setNumber}) => {
               </Spinner>
             </div>
           ) : saveStratigy?.length === 0 &&
-            saveUserStratigy?.length === 0 &&
             collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No Saved Strategies available.")}
@@ -339,6 +344,7 @@ const ProfileDataS = ({setNumber}) => {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
+                className="d-none d-md-block"
                 >
                   <g
                     clip-path="url(#clip0_4614_16349)"
@@ -355,6 +361,7 @@ const ProfileDataS = ({setNumber}) => {
                     </clipPath>
                   </defs>
                 </svg>
+            <span className={saveStratigyHi?.length===0?"impGray d-md-none":"d-md-none"}>({saveStratigyHi?.length})</span>
               </div>
             </div>
           </div>
@@ -364,22 +371,21 @@ const ProfileDataS = ({setNumber}) => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : saveStratigy?.length === 0 &&
-            saveUserStratigy?.length === 0 &&
+          ) : saveStratigyHi?.length === 0 &&
             collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No Saved Strategies available.")}
             </h1>
-          ) : saveStratigy?.length !== 0 && collapse !== true ? (
-            <>
-              {saveStratigy?.map((res, index) => (
+          ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
+            <div>
+              {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
                   <div id="ws" className="card_pad">
                     <div className="mt-4">
                       <div className="d-flex justify-content-between">
                         <div className="col-9 ms-md-4 col-md-8 ps-2">
                           <Link id="nb">
-                            <p id="bswm">{res["शिक्षण का तरीका"]}</p>
+                            <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
                             <p className="savestr_head">
                               {/* Learning Outcome: {res["Learning Outcome"]} */}
                             </p>
@@ -422,7 +428,26 @@ const ProfileDataS = ({setNumber}) => {
                   </div>
                 </div>
               ))}
-            </>
+              {!showAll && saveStratigyHi.length > 2 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <button
+                  onClick={() => {
+                    setShowAll(true);
+                  }}
+                  className="loadMore"
+                >
+                  Load More...
+                </button>
+              </div>
+            ) : null}
+            </div>
           ) : null}
         </>
       )}

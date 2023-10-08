@@ -95,9 +95,6 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
       'शीर्षक': e.target.topic.value,
       'उप शीर्षक': e.target.sub_topic.value,
       'उप-उप शीर्षक': e.target.sub_sub_topic.value,
-      'विकासात्मक क्षेत्र 1': e.target.dev_dom_1.value,
-      'विकासात्मक क्षेत्र 2': e.target.dev_dom_2.value,
-      'शिक्षण का तरीका': e.target.mode_of_teaching.value,
       'शिक्षण के परिणाम': e.target.learning_outcome.value,
       'शिक्षण रणनीति': e.target.teaching_str.value
     }
@@ -199,39 +196,6 @@ const UserHiStratigyEdit = ({ show, onHide, data, setShow, setStratigys }) => {
                         <option>{res['उप-उप शीर्षक']}</option>
                       ))
                     }
-                  </select>
-                </div>
-              </div>
-              <div className='mt-2 '>
-                <div>
-                  <p className='select-title'>विकासात्मक क्षेत्र 1 <p>*</p></p>
-                  <select defaultValue={data['विकासात्मक क्षेत्र 1']} className={'select-field'} name="dev_dom_1" id="">
-                    <option value="" selected disabled>विकासात्मक क्षेत्र 1</option>
-                    {
-                      uniqueDevDom1?.map(res => (
-                        <option>{res['विकासात्मक क्षेत्र 1']}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-                <div>
-                  <p className='select-title'>विकासात्मक क्षेत्र 2 <p>*</p></p>
-                  <select defaultValue={data['विकासात्मक क्षेत्र 2']} className={'select-field'} name="dev_dom_2" id="">
-                    <option value="" selected disabled>विकासात्मक क्षेत्र 2</option>
-                    {
-                      uniqueDevDom2?.map(res => (
-                        <option>{res['विकासात्मक क्षेत्र 2']}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-              </div>
-              <div className='mt-2 '>
-                <div>
-                  <p className='select-title'>शिक्षण का तरीका <p>*</p></p>
-                  <select defaultValue={data['शिक्षण का तरीका']} className={'select-field'} name="mode_of_teaching" id="">
-                    <option>ऑनलाइन</option>
-                    <option>विद्यालय में</option>
                   </select>
                 </div>
               </div>
