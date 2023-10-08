@@ -70,7 +70,7 @@ const ProfileDataF = ({setNumber}) => {
         //     setIsLoading(false);
         //     setlikeUserStratigy([]);
         //   });
-      } else {
+      } if (languageSelect === "hi") {
         getMultitHiStr(likeId)
           .then((res) => {
             // console.log({data:res.data})
@@ -354,7 +354,7 @@ const ProfileDataF = ({setNumber}) => {
                         <p className="savestr_body">
                           {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
 
-                          <Link to={`/single/${res._id}`} id="pgnw">
+                          <Link to={`/singleHi/${res._id}`} id="pgnw">
                             Read More...
                           </Link>
                         </p>

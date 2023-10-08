@@ -65,7 +65,7 @@ const ProfileDataC = ({ setNumber }) => {
         //     setSaveUserStratigy([]);
         //     setIsLoading(false);
         //   });
-      } else {
+      } if (languageSelect === "hi") {
         getHindiStratigysCreatedByUser(user._id)
           .then((res) => {
             console.log({ res });

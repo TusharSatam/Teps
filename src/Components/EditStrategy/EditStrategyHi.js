@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { singleHindiStratigys } from "../../services/hindiStratigys";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 import backArrow from "../../asstes/icons/backArrow.svg";
+import { singleUserHiStratigys } from "../../services/userStratigyHi";
 const EditStrategyHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState("");
@@ -50,8 +51,17 @@ const EditStrategyHi = () => {
   };
   useEffect(() => {
     singleHindiStratigys(id).then((res) => {
-      setformData(res[0]);
-      setSubmittedContent(res[0]["शिक्षण रणनीति"]);
+      console.log(res[0]);
+      if (res[0] && res[0]._id) {
+        setformData(res[0]);
+        setSubmittedContent(res[0]["शिक्षण रणनीति"]);
+      } else {
+        singleUserHiStratigys(id).then((res) => {
+          console.log(res);
+          setformData(res.data[0]);
+          setSubmittedContent(res.data[0]["शिक्षण रणनीति"]);
+        });
+      }
     });
   }, [id]);
 

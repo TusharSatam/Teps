@@ -86,7 +86,7 @@ const ProfileDataS = ({setNumber}) => {
         //     setSaveUserStratigy([])
         //     setIsLoading(false)
         //   })
-      } else {
+      } if (languageSelect === "hi") {
         getMultitHiStr(savesId)
           .then((res) => {
             setSaveStratigy(res.data);

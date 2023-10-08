@@ -111,6 +111,8 @@ function App() {
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
+            <Route path="/user-created-strategy" element={<CreatedStratigy />} />
+            <Route path="/user-edited-strategy" element={<EditedStratigy />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
             <Route path="/user-created-strategy" element={<CreatedStratigy />} />

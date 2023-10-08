@@ -38,6 +38,7 @@ const ProfileDataE = ({ setNumber }) => {
   React.useEffect(() => {
     setIsLoading(true);
     if (languageSelect === "en") {
+      console.log("edited english")
       getEdits(user._id)
         .then((res) => {
           // const saves = res?.data?.filter((ress) => ress.Approve === true);
@@ -49,7 +50,9 @@ const ProfileDataE = ({ setNumber }) => {
           console.log({ err });
           setIsLoading(false);
         });
-    } else {
+    } if (languageSelect === "hi") {
+      console.log("edited hindi")
+
       getHindiStratigysEditedbyUser(user._id)
         .then((res) => {
           // console.log({ res });
@@ -362,7 +365,7 @@ const ProfileDataE = ({ setNumber }) => {
                             {res["शिक्षण रणनीति"]?.slice(0, 150) +
                               "..."}
                             <Link
-                              to={`/singleUserStratigy/${res._id}`}
+                              to={`/singleHi/${res._id}`}
                               id="pgnw"
                             >
                               Read More...
