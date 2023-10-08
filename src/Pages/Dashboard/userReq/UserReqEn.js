@@ -146,7 +146,6 @@ const UserReqEn = () => {
                           <td>{item.Topic}</td>
                           <td>{item['Sub Topic']}</td>
                           <td>{item['Sub-sub topic']}</td>
-=
                           <td>{item['Learning Outcome']?.slice(0, 20)}</td>
                           <td>{item['Teaching Strategy']?.slice(0, 20)}</td>
                           <td> <button onClick={() => handleEdit(item._id)} className='btn p-0'><FaRegEdit /></button></td>

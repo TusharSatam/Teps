@@ -110,9 +110,6 @@ const EditStrategyHi = () => {
         शीर्षक: formData.शीर्षक,
         "उप शीर्षक": formData["उप शीर्षक"],
         "उप-उप शीर्षक": formData["उप-उप शीर्षक"],
-        "विकासात्मक क्षेत्र 1": formData["विकासात्मक क्षेत्र 1"],
-        "विकासात्मक क्षेत्र 2": formData["विकासात्मक क्षेत्र 2"],
-        "शिक्षण का तरीका": formData["शिक्षण का तरीका"],
         "शिक्षण के परिणाम": formData["शिक्षण के परिणाम"],
         "शिक्षण रणनीति": formData["शिक्षण रणनीति"],
         Approve: false,
@@ -276,28 +273,7 @@ const EditStrategyHi = () => {
                 </div>
               </div>
 
-              <div className="two-selects ">
-                <div>
-                  <p className="select-title">
-                    {t("शिक्षण का तरीका")} <p>*</p>
-                  </p>
-                  <select
-                    className={"select-field"}
-                    name="Mode of Teaching"
-                    disabled
-                    value={
-                      formData?.["शिक्षण का तरीका"]
-                        ? formData?.["शिक्षण का तरीका"]
-                        : ""
-                    }
-                  >
-                    <option selected disabled>
-                      {formData?.["शिक्षण का तरीका"]
-                        ? formData?.["शिक्षण का तरीका"]
-                        : ""}
-                    </option>
-                  </select>
-                </div>
+              <div className="one-selects">
                 <div>
                   <p className="select-title">
                     {t("शिक्षण के परिणाम")}
@@ -305,7 +281,7 @@ const EditStrategyHi = () => {
                   </p>
                   <select
                     onChange={handleLearningOutcome}
-                    className={"select-field"}
+                    className={"select-field w-100"}
                     name="learning_outcome"
                     value={formData["शिक्षण के परिणाम"]}
                     disabled

@@ -432,6 +432,9 @@ text-decoration: none;
   .showStrategy{
     font-size: 14px;
   }
+  .clickLearningText,.sub-title,.sub-subtitle{
+    font-size: 14px;
+  }
 }
 @media only screen and (max-width: 500px) {
   .res_btn_icon {
@@ -456,5 +459,11 @@ text-decoration: none;
   }
   .strategyReadmore a{
     font-size: 10px;
+  }
+  .sub-title,.sub-subtitle{
+    font-size: 12px;
+  }
+  .checkBox_title {
+    font-size: 12px;
   }
 }

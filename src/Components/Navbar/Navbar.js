@@ -69,7 +69,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           </Link>
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
-        <div className={/(^\/(profile|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
+        <div className={/(^\/(profile|user-created-strategy|user-edited-strategy|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
           <LanguageSelect />
         </div>
           {
