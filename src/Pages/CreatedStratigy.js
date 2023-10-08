@@ -87,7 +87,7 @@ const CreatedStratigy = () => {
             })
         }
         else {
-          getHindiStratigysCreatedByUser("6521953d46e580f49478ad11")
+          getHindiStratigysCreatedByUser(user._id)
             .then(res => {
               console.log(res);
               setSaveStratigyi(res)
@@ -144,16 +144,14 @@ const CreatedStratigy = () => {
   );
   return (
     <div>
-      {languageSelect === "en" ? (
-        <>
-     {location.pathname!="/profile" &&   <div className="saveStrParent">
-           {location.pathname!="/profile" && <div className="row py-2 align-items-center position-relative">
-              <div className="d-flex justify-content-center">
-                <span className=" text-white text-center headText w-50">
-                  {user.firstName} {user.lastName}
-                  {t("’s")} {t("Saved Strategies")}
-                </span>
-              </div>
+      {
+        languageSelect === "en" ?
+          <>
+            <div className='newSaveStrParent' >
+              <div className='row py-2 align-items-center' id="div1">
+                <div className='d-flex justify-content-center'>
+                  <span className=' text-white text-center headText w-50'>{user.firstName} {user.lastName}{t("’s")} {t("Created Strategies")}</span>
+                </div>
 
         {location.pathname!="/profile"  &&    <div className="filter_btn_container d-flex justify-content-end position-absolute">
                 <div onClick={handleFilter} className="filter_bTn">
@@ -162,11 +160,11 @@ const CreatedStratigy = () => {
                   <img src={FilterHover} alt="" className="filtericon3" />
                 </div>
               </div>}
-            </div>}
+            </div>
             <div className={filetr ? "d-block" : "d-none"}>
               <FilterStr stratigy={saveStratigy} language={languageSelect} />
             </div>
-          </div>}
+          </div>
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -353,9 +351,9 @@ const CreatedStratigy = () => {
             </>
           )}
         </>
-      ) : (
+       : (
         <>
-{ location.pathname!="/profile"  &&  <div className="saveStrParent">
+{ location.pathname!="/profile"  &&  <div className="newSaveStrParent">
             <div className="row py-2">
               <div className="col-md-1"></div>
               <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">

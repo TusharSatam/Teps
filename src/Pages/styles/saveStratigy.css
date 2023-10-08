@@ -2,6 +2,20 @@
   max-width: 1250px;
 }
 
+.pencilButton{
+  position: absolute;
+  z-index: 2;
+  right: 18px;
+  top: 12px;
+  border: none;
+}
+
+.newSaveStrParent{
+  background: #1aa05b;
+  overflow: hidden;
+  padding: 1px;
+}
+
 .saveStrParent{
   width: 42.869vw;
   max-width: 619px;

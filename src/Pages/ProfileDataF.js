@@ -8,19 +8,19 @@ import "./styles/saveStratigy.css";
 import { getMultitStr } from "../services/stratigyes";
 import { Link } from "react-router-dom";
 import { getMultitHiStr } from "../services/hindiStratigys";
-import { delUserLikes, getLikes, postLikes } from "../services/userLikes";
+import { delUserLikes, getLikes, getLikesByUserId, postLikes } from "../services/userLikes";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import { Spinner } from "react-bootstrap";
 import "./styles/profileData.css";
 import FilterStrHI from "../Components/Home/FilterStrHI";
 
-const ProfileDataF = () => {
+const ProfileDataF = ({setNumber}) => {
   const { user, setUser, stratigyFilData } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
+  const [favStratigyHi, setFavStratigyHi] = useState([]);
   const [like, setLike] = React.useState([]);
-  const [favStratigyHi, setfavStratigyi] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const { t } = useTranslation();
   const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
@@ -39,12 +39,13 @@ const ProfileDataF = () => {
   const [likesArr, setLikesArr] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
-    getLikes().then((res) => {
+    getLikesByUserId(user._id).then((res) => {
       const like = res?.data?.filter(
         (ress) => ress.user_id === user._id && ress.strategie_id !== undefined
       );
       // console.log({like});
       const likeId = like?.map((ress) => ress.strategie_id);
+      console.log({likeId})
       if (likeId?.length === 0) {
         setIsLoading(false);
       }
@@ -73,12 +74,13 @@ const ProfileDataF = () => {
       } else {
         getMultitHiStr(likeId)
           .then((res) => {
-            setfavStratigyi(res.data);
+            console.log({data:res.data})
+            setFavStratigyHi(res.data);
             setIsLoading(false);
           })
           .catch((err) => {
             setIsLoading(false);
-            setfavStratigyi([]);
+            setFavStratigyHi([]);
           });
         // getMultiUserHindiStr(likeId)
         //   .then((res) => {
@@ -161,6 +163,15 @@ const ProfileDataF = () => {
       // });
     });
   };
+  
+  const [showAll, setShowAll] = useState(false);
+  const displayCount = showAll ? languageSelect==="en"? favStratigy?.length:favStratigyHi?.length : 2;
+  React.useEffect(() => {
+    if(languageSelect==="en"){
+    setNumber(favStratigy?.length);}
+    if(languageSelect==="hi"){
+    setNumber(favStratigyHi?.length);}
+  }, [favStratigy,favStratigyHi,languageSelect]);
   return (
     <div>
       {languageSelect === "en" ? (
@@ -219,15 +230,15 @@ const ProfileDataF = () => {
               {t("No Favourite Strategies available.")}
             </h1>
           ) : favStratigy?.length !== 0 && collapse !== true ? (
-            <>
-              {favStratigy?.map((res, index) => (
+            <div>
+              {favStratigy?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
                   <div id="ws" className="card_pad">
                     <div className="mt-4">
                       <div className="d-flex justify-content-between">
                         <div className="col-9 ms-md-4 col-md-8 ps-2">
                           <Link id="nb">
-                            <p id="bswm">Project-based Learning</p>
+                            <p id="bswm">{res["Pedagogical Approach"]}</p>
                             {/* <p className="savestr_head">
                               Learning Outcome: {res["Learning Outcome"]}
                             </p> */}
@@ -266,10 +277,134 @@ const ProfileDataF = () => {
                   </div>
                 </div>
               ))}
-            </>
+              {!showAll && favStratigy.length>2?<div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <button onClick={()=>{setShowAll(true)}} className="loadMore">Load More...</button>
+              </div>:null}
+            </div>
           ) : null}
         </>
+      ) : (<>
+      <div
+        onClick={() => {
+          setCollapse((prev) => !prev);
+        }}
+        className={collapse?"saveStrParent":"saveStrParentActive"}
+      >
+        <div className="row py-2 align-items-center" id="div1">
+          <div className="d-flex justify-content-start">
+            <span className={favStratigyHi?.length===0?"headText w-50 impGray":"headText w-50"}>
+              {t("Favourite Strategies")}
+            </span>
+          </div>
+          <div
+            className="filter_btn_container d-flex justify-content-end"
+            id="at"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="d-none d-md-block"
+            >
+              <g
+                clip-path="url(#clip0_4614_16349)"
+                transform={collapse ? "" : "rotate(180, 12, 12)"}
+              >
+                <path
+                  d="M11.5 12.5456L15.0002 10L16 10.7272L11.5 14L7 10.7272L7.99984 10L11.5 12.5456Z"
+                  fill="white"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_4614_16349">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            <span className={favStratigyHi?.length===0?"impGray d-md-none":"d-md-none"}>({favStratigyHi?.length})</span>
+          </div>
+        </div>
+      </div>
+      {isLoading && !collapse ? (
+        <div id="div2">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : favStratigyHi?.length === 0 && collapse !== true ? (
+        <h1 className="my-5 text-center py-5 text-danger">
+          {t("No Favourite Strategies available.")}
+        </h1>
+      ) : favStratigyHi?.length !== 0 && collapse !== true ? (
+        <div>
+          {favStratigyHi?.slice(0, displayCount).map((res, index) => (
+            <div key={index} className="cardContainer">
+              <div id="ws" className="card_pad">
+                <div className="mt-4">
+                  <div className="d-flex justify-content-between">
+                    <div className="col-9 ms-md-4 col-md-8 ps-2">
+                      <Link id="nb">
+                        <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                        {/* <p className="savestr_head">
+                          Learning Outcome: {res["Learning Outcome"]}
+                        </p> */}
+                        <p className="savestr_body">
+                          {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
+
+                          <Link to={`/singleHi/${res._id}`} id="pgnw">
+                            Read More...
+                          </Link>
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="col-md-2 d-block">
+                      <div className="d-flex flex-column align-items-start justify-content-end">
+                        <div style={{cursor:"pointer"}} className="d-flex w-100 align-items-start justify-content-end">
+                          {likes?.includes(res._id) ? (
+                            <img
+                              onClick={() => handleApiUnLikes(res._id)}
+                              className="me-3 me-md-3 save_like"
+                              src={LikedIcon}
+                              alt="unlike"
+                            />
+                          ) : (
+                            <img
+                              onClick={() => handleApiLikes(res._id)}
+                              className="me-3 me-md-3 save_like"
+                              src={LikeIcon}
+                              alt="like"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          {!showAll && favStratigyHi.length>2?<div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <button onClick={()=>{setShowAll(true)}} className="loadMore">Load More...</button>
+          </div>:null}
+        </div>
       ) : null}
+    </>)}
     </div>
   );
 };

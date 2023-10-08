@@ -59,29 +59,30 @@ const Profile = () => {
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
   const navigate = useNavigate();
-  React.useEffect(() => {
-    getSaves().then((res) => {
-      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-      setF(saves.length);
-    });
-  }, []);
-  React.useEffect(() => {
-    getUserCreated(user._id).then((res) => {
-      setC(res.data.length);
-    });
-  }, []);
-  React.useEffect(() => {
-    getEdits(user._id).then((res) => {
-      setE(res.data.length);
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   getSaves().then((res) => {
+  //     const saves = res?.data?.filter((ress) => ress.user_id === user._id);
+  //     setF(saves.length);
+  //   });
+  // }, []);
+  // React.useEffect(() => {
+  //   getUserCreated(user._id).then((res) => {
+  //     setC(res.data.length);
+  //   });
+  // }, []);
+  // React.useEffect(() => {
+  //   getEdits(user._id).then((res) => {
+  //     setE(res.data.length);
+  //   });
+  // }, []);
 
-  React.useEffect(() => {
-    getLikes().then((res) => {
-      const like = res?.data?.filter((ress) => ress.user_id === user._id);
-      setL(like.length);
-    });
-  });
+  // React.useEffect(() => {
+  //   getLikes().then((res) => {
+  //     const like = res?.data?.filter((ress) => ress.user_id === user._id);
+  //     setL(like.length);
+  //   });
+  // });
+
   const handleForgotShow = () => {
     setForgot(true);
   };
@@ -401,10 +402,10 @@ const Profile = () => {
               Saved strategies
             </button> */}
             {/* {isShowSaved && <SaveStratigy />} */}
-            <ProfileDataS/>
-            <ProfileDataF/>
-            <ProfileDataE/>
-            <ProfileDataC/>
+            <ProfileDataS setNumber={setF}/>
+            <ProfileDataF setNumber={setL}/>
+            <ProfileDataE setNumber={setE}/>
+            <ProfileDataC setNumber={setC}/>
             {/* Edited Strategies */}
             {/* <button className="typeButton">Edited strategies</button> */}
             {/* Favorite Strategies */}
@@ -444,7 +445,7 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        <div className="container p-md-5  d-md-flex ">
+        <div className="container justify-content-md-around  d-md-flex ">
           <div
             id="bwb"
             className="p-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center "
@@ -864,16 +865,16 @@ const Profile = () => {
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
             >
               <div>
-                <ProfileDataS />
+                <ProfileDataS setNumber={setF} />
               </div>
               <div>
-                <ProfileDataF />
+                <ProfileDataF setNumber={setL} />
               </div>
               <div>
-                <ProfileDataE />
+                <ProfileDataE setNumber={setE} />
               </div>
               <div>
-                <ProfileDataC />
+                <ProfileDataC setNumber={setC} />
               </div>
             </div>
           )}
