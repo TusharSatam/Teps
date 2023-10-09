@@ -171,38 +171,15 @@ const ProfileDataC = ({ setNumber }) => {
               <div>
                 {saveStratigy?.slice(0, displayCount).map((res, index) => (
                   <div key={index} className="cardContainer">
-                    <div id="ws" className="card_pad">
-                      <div className="mt-4">
-                        <div className="d-flex justify-content-between">
-                          <div className="col-9 ms-md-4 col-md-8 ps-2">
-                            <Link id="nb">
-                              <p id="bswm">{res["Pedagogical Approach"]}</p>
-                              {/* <p className="savestr_head">
-                                Learning Outcome: {res["Learning Outcome"]}
-                              </p> */}
-                              <p className="savestr_body">
-                                {res["Teaching Strategy"]?.slice(0, 150) +
-                                  "..."}
-                                <Link
-                                  to={`/singleUserStratigy/${res._id}`}
-                                  id="pgnw"
-                                >
-                                  Read More...
-                                </Link>
-                              </p>
-                            </Link>
-                          </div>
-
-                          <div
-                            className="col-3 col-md-2 d-none d-md-block ms-5"
-                            id="mt"
-                          >
-                            <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <p id="bswm">{res["Pedagogical Approach"]}</p>
+                  <p className="savestr_body">
+                    {res["Teaching Strategy"].slice(0, 150) + "..."}
+                  </p>
+                  <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw">
+                    Read More...
+                  </Link>
+                  <div className="d-flex flex-column align-items-center justify-content-center"></div>
+                </div>
                 ))}
                 {!showAll && saveStratigy.length > 2 ? (
                   <div
@@ -295,38 +272,15 @@ const ProfileDataC = ({ setNumber }) => {
           <div>
             {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
               <div key={index} className="cardContainer">
-                <div id="ws" className="card_pad">
-                  <div className="mt-4">
-                    <div className="d-flex justify-content-between">
-                      <div className="col-9 ms-md-4 col-md-8 ps-2">
-                        <Link id="nb">
-                          <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-                          {/* <p className="savestr_head">
-                            Learning Outcome: {res["Learning Outcome"]}
-                          </p> */}
-                          <p className="savestr_body">
-                            {res["शिक्षण रणनीति"]?.slice(0, 150) +
-                              "..."}
-                            <Link
-                              to={`/singleHi/${res._id}`}
-                              id="pgnw"
-                            >
-                              Read More...
-                            </Link>
-                          </p>
-                        </Link>
-                      </div>
-
-                      <div
-                        className="col-3 col-md-2 d-none d-md-block ms-5"
-                        id="mt"
-                      >
-                        <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+              <p className="savestr_body">
+                {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
+              </p>
+              <Link to={`/singleHi/${res?._id}`} id="pgnw">
+                Read More...
+              </Link>
+              <div className="d-flex flex-column align-items-center justify-content-center"></div>
+            </div>
             ))}
             {!showAll && saveStratigyHi.length > 2 ? (
               <div
