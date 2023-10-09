@@ -51,7 +51,7 @@ const ProfileDataS = ({ setNumber }) => {
   };
   const [save, setSave] = useState([]);
   const [savesArr, setSavesArr] = useState([]);
-  const [specialLinkArr,setSpecialLinkArr]  = useState([]);
+  const [specialLinkArr, setSpecialLinkArr] = useState([]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -74,8 +74,8 @@ const ProfileDataS = ({ setNumber }) => {
             setSave(strategies);
             getMultiUsertStr(savesId)
               .then((res2) => {
-                const idList = res2?.data?.map((obj)=>obj?._id);
-                setSpecialLinkArr(prev=>[...prev,...idList]);
+                const idList = res2?.data?.map((obj) => obj?._id);
+                setSpecialLinkArr((prev) => [...prev, ...idList]);
                 setSaveStratigy((prev) => [...prev, ...res2.data]);
                 setIsLoading(false);
                 const strategies = res2?.data?.map((obj) => obj._id);
@@ -262,48 +262,36 @@ const ProfileDataS = ({ setNumber }) => {
             <div style={{ position: "relative" }}>
               {saveStratigy?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
-                  <div id="ws" className="card_pad">
-                    <div className="mt-4">
-                      <div className="d-flex justify-content-between">
-                        <div className="col-9 ms-md-4 col-md-8 ps-2">
-                          <Link id="nb">
-                            <p id="bswm">{res["Pedagogical Approach"]}</p>
-                            {/* <p className="savestr_head">
-                              Learning Outcome: {res["Learning Outcome"]}
-                            </p> */}
-                            <p className="savestr_body">
-                              {res["Teaching Strategy"].slice(0, 150) + "..."}
-                              <Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
-                                Read More...
-                              </Link>
-                            </p>
-                          </Link>
-                        </div>
-                        <div className="col-3 col-md-2 d-block ms-5">
-                          <div className="d-flex justify-content-md-end justify-content-start align-items-center ">
-                            {save?.includes(res._id) ? (
-                              <img
-                                onClick={() => handleApiUnSaves(res._id)}
-                                id="pt"
-                                className="me-2 me-md-3 "
-                                src={SavedIcon}
-                                alt="unlike"
-                              />
-                            ) : (
-                              <img
-                                onClick={() => handleApiSaves(res._id)}
-                                id="pt"
-                                className="me-2 me-md-3 "
-                                src={SaveIcon}
-                                alt="like"
-                              />
-                            )}
-                          </div>
-                          <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                        </div>
-                      </div>
+                  <p id="bswm">{res["Pedagogical Approach"]}</p>
+                  <p className="savestr_body">
+                    {res["Teaching Strategy"].slice(0, 150) + "..."}
+                  </p>
+                  <Link
+                    to={
+                      specialLinkArr.includes(res?._id)
+                        ? `/singleUserStratigy/${res?._id}`
+                        : `/single/${res._id}`
+                    }
+                    id="pgnw"
+                  >
+                    Read More...
+                  </Link>
+                    <div className="saveLikebtn">
+                      {save?.includes(res._id) ? (
+                        <img
+                          onClick={() => handleApiUnSaves(res._id)}
+                          src={SavedIcon}
+                          alt="unlike"
+                        />
+                      ) : (
+                        <img
+                          onClick={() => handleApiSaves(res._id)}
+                          src={SaveIcon}
+                          alt="like"
+                        />
+                      )}
                     </div>
-                  </div>
+                    <div className="d-flex flex-column align-items-center justify-content-center"></div>
                 </div>
               ))}
               {!showAll && saveStratigy.length > 2 ? (
@@ -393,49 +381,33 @@ const ProfileDataS = ({ setNumber }) => {
             <div>
               {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
-                  <div id="ws" className="card_pad">
-                    <div className="mt-4">
-                      <div className="d-flex justify-content-between">
-                        <div className="col-9 ms-md-4 col-md-8 ps-2">
-                          <Link id="nb">
-                            <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-                            <p className="savestr_head">
-                              {/* Learning Outcome: {res["Learning Outcome"]} */}
-                            </p>
-                            <p className="savestr_body">
-                              {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
-                              <Link to={`/singleHi/${res._id}`} id="pgnw">
-                                Read More...
-                              </Link>
-                            </p>
-                          </Link>
-                        </div>
-                        <div className="col-3 col-md-2 d-block ms-5">
-                          <div className="d-flex justify-content-md-end justify-content-start align-items-center ">
-                            {save?.includes(res._id) ? (
-                              <img
-                                onClick={() => handleApiUnSaves(res._id)}
-                                id="pt"
-                                className="me-2 me-md-3 "
-                                src={SavedIcon}
-                                alt="unlike"
-                              />
-                            ) : (
-                              <img
-                                onClick={() => handleApiSaves(res._id)}
-                                id="pt"
-                                className="me-2 me-md-3 "
-                                src={SaveIcon}
-                                alt="like"
-                              />
-                            )}
-                          </div>
-                          <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                        </div>
-                      </div>
-                    </div>
+                <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                <p className="savestr_body">
+                  {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
+                </p>
+                <Link
+                  to={`/singleHi/${res._id}`}
+                  id="pgnw"
+                >
+                  Read More...
+                </Link>
+                  <div className="saveLikebtn">
+                    {save?.includes(res._id) ? (
+                      <img
+                        onClick={() => handleApiUnSaves(res._id)}
+                        src={SavedIcon}
+                        alt="unlike"
+                      />
+                    ) : (
+                      <img
+                        onClick={() => handleApiSaves(res._id)}
+                        src={SaveIcon}
+                        alt="like"
+                      />
+                    )}
                   </div>
-                </div>
+                  <div className="d-flex flex-column align-items-center justify-content-center"></div>
+              </div>
               ))}
               {!showAll && saveStratigyHi.length > 2 ? (
                 <div

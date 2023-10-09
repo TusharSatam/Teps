@@ -285,51 +285,34 @@ const ProfileDataF = ({ setNumber }) => {
             <div>
               {favStratigy?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
-                  <div id="ws" className="card_pad">
-                    <div className="mt-4">
-                      <div className="d-flex justify-content-between">
-                        <div className="col-9 ms-md-4 col-md-8 ps-2">
-                          <Link id="nb">
                             <p id="bswm">{res["Pedagogical Approach"]}</p>
-                            {/* <p className="savestr_head">
-                              Learning Outcome: {res["Learning Outcome"]}
-                            </p> */}
                             <p className="savestr_body">
                               {res["Teaching Strategy"]?.slice(0, 150) + "..."}
 
-                              <Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
+                              
+                            </p><Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
                                 Read More...
                               </Link>
-                            </p>
-                          </Link>
-                        </div>
-                        <div className="col-md-2 d-block">
-                          <div className="d-flex flex-column align-items-start justify-content-end">
                             <div
                               style={{ cursor: "pointer" }}
-                              className="d-flex w-100 align-items-start justify-content-end"
+                              className="saveLikebtn"
                             >
                               {likes?.includes(res._id) ? (
                                 <img
                                   onClick={() => handleApiUnLikes(res._id)}
-                                  className="me-3 me-md-3 save_like"
                                   src={LikedIcon}
                                   alt="unlike"
                                 />
                               ) : (
                                 <img
                                   onClick={() => handleApiLikes(res._id)}
-                                  className="me-3 me-md-3 save_like"
                                   src={LikeIcon}
                                   alt="like"
                                 />
                               )}
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      
+                  
                 </div>
               ))}
               {!showAll && favStratigy.length > 2 ? (
@@ -427,52 +410,35 @@ const ProfileDataF = ({ setNumber }) => {
             <div>
               {favStratigyHi?.slice(0, displayCount).map((res, index) => (
                 <div key={index} className="cardContainer">
-                  <div id="ws" className="card_pad">
-                    <div className="mt-4">
-                      <div className="d-flex justify-content-between">
-                        <div className="col-9 ms-md-4 col-md-8 ps-2">
-                          <Link id="nb">
-                            <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-                            {/* <p className="savestr_head">
-                          Learning Outcome: {res["Learning Outcome"]}
-                        </p> */}
-                            <p className="savestr_body">
-                              {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
+                <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                <p className="savestr_body">
+                  {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
 
-                              <Link to={`/singleHi/${res._id}`} id="pgnw">
+                  
+                </p><Link to={`/singleHi/${res._id}`} id="pgnw">
                                 Read More...
                               </Link>
-                            </p>
-                          </Link>
-                        </div>
-                        <div className="col-md-2 d-block">
-                          <div className="d-flex flex-column align-items-start justify-content-end">
-                            <div
-                              style={{ cursor: "pointer" }}
-                              className="d-flex w-100 align-items-start justify-content-end"
-                            >
-                              {likes?.includes(res._id) ? (
-                                <img
-                                  onClick={() => handleApiUnLikes(res._id)}
-                                  className="me-3 me-md-3 save_like"
-                                  src={LikedIcon}
-                                  alt="unlike"
-                                />
-                              ) : (
-                                <img
-                                  onClick={() => handleApiLikes(res._id)}
-                                  className="me-3 me-md-3 save_like"
-                                  src={LikeIcon}
-                                  alt="like"
-                                />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div
+                  style={{ cursor: "pointer" }}
+                  className="saveLikebtn"
+                >
+                  {likes?.includes(res._id) ? (
+                    <img
+                      onClick={() => handleApiUnLikes(res._id)}
+                      src={LikedIcon}
+                      alt="unlike"
+                    />
+                  ) : (
+                    <img
+                      onClick={() => handleApiLikes(res._id)}
+                      src={LikeIcon}
+                      alt="like"
+                    />
+                  )}
                 </div>
+          
+      
+    </div>
               ))}
               {!showAll && favStratigyHi.length > 2 ? (
                 <div
