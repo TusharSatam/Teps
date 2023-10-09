@@ -168,7 +168,11 @@ letter-spacing: -0.2px;
   margin-bottom: 0;
 }
 .savestr_body {
-  overflow: hidden;
+  display: -webkit-box;
+width: 470px;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+overflow: hidden;
 color: #000;
 text-overflow: ellipsis;
 font-family: Poppins;
@@ -549,15 +553,21 @@ letter-spacing: -0.08px;
   }
 
   .savestr_body {
+    display: -webkit-box;
+    width: calc(90vw - 16px);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     overflow: hidden;
-    color: var(--gray-text, #474747);
-    text-overflow: ellipsis;
-    font-family: "Poppins";
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 14px; /* 140% */
-    letter-spacing: -0.4px;
+    overflow: hidden;
+color: var(--gray-text, #474747);
+text-overflow: ellipsis;
+whitespace: nowrap;
+font-family: Poppins;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 14px; /* 140% */
+letter-spacing: -0.4px;
   }
   .single_str_head {
     font-size: 12px;
