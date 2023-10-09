@@ -48,6 +48,7 @@ const SingleStr = () => {
   const [likeUser, setLikeUser] = useState([]);
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isFecthingStrategy, setisFecthingStrategy] = useState(false)
+  const [teachinStratText,setTeachingStratText] = useState("")
   const navigate = useNavigate();
   const pRef = useRef(null);
 
@@ -205,12 +206,12 @@ const SingleStr = () => {
       const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
       if (pRef.current) {
         pRef.current.innerHTML = newText;
+        setTeachingStratText(newText);
       }
       setformatted(""); // Assign the new HTML to the innerHTML property
       setIsLoadingContent(false); // Mark loading as complete
     }, 100); 
   }, [str["Teaching Strategy"]]);
-
   const sendRating = async (starIndex) => {
     const dataToSend = {
       rating: starIndex,
@@ -286,7 +287,7 @@ const SingleStr = () => {
                 {isLoadingContent?"Loading...": (
                   <p
                     ref={pRef}
-                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                    className="newLine me-2 me-md-2 disableCopy"
                   ></p>
                 )}
 
