@@ -547,7 +547,9 @@ const AddForm = () => {
                 </div>
               </form>
             ) : (
+              <div className="loadContainer">
               <div className="loading-spinner"></div>
+              </div>
             )}
             {formSubmitted && (
               <p className="responseText" ref={successMessageRef}>

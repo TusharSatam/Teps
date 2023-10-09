@@ -314,7 +314,9 @@ const Profile = () => {
 
       <section className="profile_container pb-5 overflow-hidden">
         <div className="w-100 text-center welcomeUser">
-          {t('Welcome')}, {user?.firstName}
+          {user.firstName
+            ? `${t("Welcome")}, ${user.firstName}`
+            : `${t("Welcome")}`}
         </div>
 
         {/* ---------mombile profile info-------------- */}
@@ -366,10 +368,10 @@ const Profile = () => {
             <div>
               <div className="profile_school mt-6">
                 <p className="res_userName">
-                  {user?.firstName} {user?.lastName}
+                  {user?.firstName ? user?.firstName : "Name N/A"}
                 </p>
                 <p className="res_userName" id="mtop">
-                  {user?.organization}
+                  {user?.organization ? user?.organization : "Organization N/A"}
                 </p>
               </div>
             </div>
@@ -393,30 +395,10 @@ const Profile = () => {
         {/* My strategies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
-            {/* <button className="typeButton">Created strategies</button> */}
-            {/* Created strategies */}
-
-            {/* Saved strategies */}
-            {/* <button
-              className="typeButton"
-              onClick={() => setisShowSaved(!isShowSaved)}
-            >
-              Saved strategies
-            </button> */}
-            {/* {isShowSaved && <SaveStratigy />} */}
-            <ProfileDataS setNumber={setF}/>
-            <ProfileDataF setNumber={setL}/>
-            <ProfileDataE setNumber={setE}/>
-            <ProfileDataC setNumber={setC}/>
-            {/* Edited Strategies */}
-            {/* <button className="typeButton">Edited strategies</button> */}
-            {/* Favorite Strategies */}
-            {/* <button
-              className="typeButton"
-              onClick={() => setisShowFav(!isShowFav)}
-            >
-              Favorite strategies
-            </button> */}
+            <ProfileDataC setNumber={setC} />
+            <ProfileDataS setNumber={setF} />
+            <ProfileDataE setNumber={setE} />
+            <ProfileDataF setNumber={setL} />
             {isShowFav && <FavouriteStr />}
           </div>
         )}
@@ -494,18 +476,17 @@ const Profile = () => {
               </div>
               <div className="profile_school">
                 <p className="profile_Name">
-                  {user.firstName} {user.lastName}{" "}
+                  {user?.firstName ? user?.firstName : "Name N/A"}
                 </p>{" "}
-                <p className="profile_Organization"> {user.organization}</p>
+                <p className="profile_Organization">
+                  {" "}
+                  {user?.organization ? user?.organization : "Organization N/A"}
+                </p>
               </div>
-              <div className="" id="rp">
-                <div id="" className="">
-                  <button
-                    id=""
-                    className={`viewMyStrategies`}
-                    onClick={toggleButton}
-                  >
-                   {t('View My Strategies')}
+              <div id="rp">
+                <div>
+                  <button className={`viewMyStrategies`} onClick={toggleButton}>
+                    {t("View My Strategies")}
                     <img
                       src={downArrow}
                       height="20"
@@ -519,52 +500,67 @@ const Profile = () => {
                   <div className="d-block">
                     <div>
                       {c === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t('Created strategies')} <span>({c})</span>
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          disabled
+                        >
+                          {t("Created strategies")} <span>({c})</span>
                         </button>
                       ) : (
                         <Link to="/user-created-strategy">
-                          <button className="authBtn_p mt-2 me-3">
-                          {t('Created strategies')} <span>({c})</span>
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                            {t("Created strategies")} <span>({c})</span>
                           </button>
                         </Link>
                       )}
                     </div>
                     <div>
                       {f === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t('Saved strategies')} ({f})
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          disabled
+                        >
+                          {t("Saved strategies")} <span>({f})</span>
                         </button>
                       ) : (
                         <Link to="/saveStratigy">
-                          <button className="authBtn_p mt-2 me-3">
-                            {t('Saved strategies')}<span>({f})</span>
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                            {t("Saved strategies")}
+                            <span>({f})</span>
                           </button>
                         </Link>
                       )}
                     </div>
                     <div>
                       {e === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t('Edited strategies')} <span>({e})</span>
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          disabled
+                        >
+                          {t("Edited strategies")} <span>({e})</span>
                         </button>
                       ) : (
                         <Link to="/user-edited-strategy">
-                          <button className="authBtn_p mt-2 me-3">
-                          {t('Edited strategies')} <span>({e})</span>
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                            {t("Edited strategies")} <span>({e})</span>
                           </button>
                         </Link>
                       )}
                     </div>
                     <div>
                       {l === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t(`Favorite strategies`)}({l})
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          disabled
+                        >
+                          {t(`Favorite strategies`)}
+                          <span>({l})</span>
                         </button>
                       ) : (
                         <Link to="/favouriteStratigy">
-                          <button className="authBtn_p mt-2 me-3">
-                          {t(`Favorite strategies`)}<span>({l})</span>
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                            {t(`Favorite strategies`)}
+                            <span>({l})</span>
                           </button>
                         </Link>
                       )}
@@ -573,7 +569,9 @@ const Profile = () => {
                 )}
                 <div className="d-flex flex-column w-100 lowerOptions">
                   <Link to="/addForm">
-                    <button className="profileOption">{t("Upload strategy")}</button>
+                    <button className="profileOption">
+                      {t("Upload strategy")}
+                    </button>
                   </Link>
                   <button onClick={handleAllEdit} className="profileOption">
                     {t("Edit Information")}
@@ -610,6 +608,8 @@ const Profile = () => {
                           type="text"
                           defaultValue={user?.firstName}
                           name="firstName"
+                          placeholder="Lily"
+                          required
                         />
                       </div>
                     </div>
@@ -626,6 +626,8 @@ const Profile = () => {
                           type="text"
                           defaultValue={user?.lastName}
                           name="lastName"
+                          placeholder="Blom"
+                          required
                         />
                       </div>
                     </div>
@@ -644,13 +646,14 @@ const Profile = () => {
                           type="text"
                           defaultValue={user?.organization}
                           name="organization"
-                          id=""
+                          placeholder="ABC School"
+                          required
                         />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center input_div">
                       <h4 className="input_label">{t("Email")}:</h4>
-                      <div className="">
+                      <div>
                         <input
                           onChange={handleEmail}
                           disabled={!editAll}
@@ -665,6 +668,8 @@ const Profile = () => {
                           defaultValue={user.email}
                           name="email"
                           id="email"
+                          placeholder="Lilyblom201@gmail.com"
+                          required
                         />
                       </div>
                     </div>
@@ -683,6 +688,7 @@ const Profile = () => {
                           name="phoneNumber"
                           pattern="[0-9]*"
                           maxLength="10"
+                          placeholder="Phone Number"
                           onChange={(e) => setphoneInput(e.target.value)}
                           onKeyDown={(e) => {
                             if (
@@ -711,6 +717,7 @@ const Profile = () => {
                               setphoneError(false);
                             }
                           }}
+                          required
                         />
                       </div>
                     </div>
@@ -728,7 +735,8 @@ const Profile = () => {
                             type="text"
                             defaultValue={selectedCountry}
                             name="city"
-                            id=""
+                            id="city"
+                            placeholder="City"
                           />
                         </div>
                       ) : (
@@ -743,7 +751,8 @@ const Profile = () => {
                             type="text"
                             value={liveDetails ? liveDetails?.Block : user.city}
                             name="city"
-                            id=""
+                            id="city"
+                            placeholder="City"
                           />
                         </div>
                       )}
@@ -763,7 +772,8 @@ const Profile = () => {
                             type="text"
                             defaultValue={selectedCountry?.state}
                             name="state"
-                            id=""
+                            id="state"
+                            placeholder="Tamilnadu"
                           />
                         ) : (
                           <input
@@ -778,7 +788,8 @@ const Profile = () => {
                               liveDetails ? liveDetails?.State : user?.state
                             }
                             name="state"
-                            id=""
+                            id="state"
+                            placeholder="Tamilnadu"
                           />
                         )}
                       </div>
@@ -801,7 +812,8 @@ const Profile = () => {
                           value={pincode}
                           type="text"
                           name="pincode"
-                          id=""
+                          id="pincode"
+                          placeholder="Pin Code"
                         />
                       </div>
                     </div>
@@ -816,13 +828,12 @@ const Profile = () => {
                             disabled={!editAll}
                             className="profile_input "
                             name="country"
-                            id=""
                           >
-                            <option className="">
+                            <option>
                               {user.country ? user.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option className="">{item?.name}</option>
+                              <option>{item?.name}</option>
                             ))}
                           </select>
                         ) : (
@@ -831,13 +842,12 @@ const Profile = () => {
                             disabled={!editAll}
                             className="profile_input "
                             name="country"
-                            id=""
                           >
-                            <option className="">
+                            <option>
                               {user.country ? user.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option className="">{item?.name}</option>
+                              <option>{item?.name}</option>
                             ))}
                           </select>
                         )}
@@ -887,10 +897,7 @@ const Profile = () => {
           >
             {t("Change Password")}
           </button>
-          <button
-            onClick={logout}
-            className="change_btn mt-2 mx-2  d-md-none"
-          >
+          <button onClick={logout} className="change_btn mt-2 mx-2  d-md-none">
             {t("Log Out")}
           </button>
           {/* ------------------- */}

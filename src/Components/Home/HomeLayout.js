@@ -62,13 +62,29 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       }
     }
   }, [selectedOption, location.pathname]);
-  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
-  const uniqueGrade = Array.from(new Set(allStrategies.map(a => a.Grade))).sort((a, b) => {
+  const customSortOrder = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "Pre-K",
+    "K1",
+    "K2",
+  ];
+  const uniqueGrade = Array.from(
+    new Set(allStrategies.map((a) => a.Grade))
+  ).sort((a, b) => {
     const indexA = customSortOrder.indexOf(a);
     const indexB = customSortOrder.indexOf(b);
     return indexA - indexB;
   });
- 
+
   const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
     return creature.Grade === selectGrade;
   });
@@ -801,7 +817,9 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       )}
     </>
   ) : (
-    <div className="loading-spinner"></div>
+    <div className="loadContainer">
+      <div className="loading-spinner"></div>
+    </div>
   );
 };
 

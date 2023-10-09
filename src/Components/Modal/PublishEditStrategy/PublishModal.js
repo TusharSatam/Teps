@@ -14,9 +14,9 @@ const ModalContent = ({ text, buttonText, onClick,onClickNo }) => {
         <button className="primaryButton my-2" onClick={onClick}>
           {buttonText}
         </button>
-        {buttonText === "Yes" && (
+        {buttonText === t("Yes") && (
           <button className="secondaryButton my-2" onClick={onClickNo}>
-            No
+            {t("No")}
           </button>
         )}
       </div>
@@ -96,7 +96,7 @@ const {selectLang}=useAuth()
         return (
           <ModalContent
             text={t("Do you want to make this strategy public?")}
-            buttonText="Yes"
+            buttonText={t("Yes")}
             onClick={handleYes}
             onClickNo={handleNo}
           />
@@ -107,7 +107,7 @@ const {selectLang}=useAuth()
             text={t(
               "Your edited strategy is in your Edited Strategies list on the Profile Page."
             )}
-            buttonText="Okay"
+            buttonText={t("Okay")}
             onClick={handleModal2}
           />
         );
@@ -117,7 +117,7 @@ const {selectLang}=useAuth()
             text={t(
               "Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page."
             )}
-            buttonText="Okay"
+            buttonText={t("Okay")}
             onClick={handleModal3}
           />
         );

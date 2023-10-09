@@ -407,7 +407,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         onChange={() => handleRegistrationOptionChange("email")}
                         className="me-2"
                       />
-                      {t("Email")}
+                      {t("Email")} ID
                     </label>
                     <label
                       className={
@@ -415,10 +415,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       }
                       htmlFor=""
                     >
-                      <span
-                        
-                        className="text-danger mt-5 smallTextSize"
-                      >
+                      <span className="text-danger mt-5 smallTextSize">
                         &nbsp; {emailError ? emailError : ""}
                       </span>
                     </label>{" "}
@@ -444,8 +441,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     />
                     <a
                       href="#"
-                      className={emailError ? "d-block smallTextSize" : "d-none"}
-                      
+                      className={
+                        emailError ? "d-block smallTextSize" : "d-none"
+                      }
                       onClick={handleForgotShow}
                     >
                       <p className="text-start forgot_passs mt-1">
@@ -471,10 +469,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       }
                       htmlFor=""
                     >
-                      <span
-                        
-                        className="text-danger mt-5 smallTextSize"
-                      >
+                      <span className="text-danger mt-5 smallTextSize">
                         &nbsp; {phoneError ? phoneError : ""}
                       </span>
                     </label>{" "}
@@ -560,10 +555,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               ) : (
                 ""
               )}
-              <div
-                className="text-danger me-5 pe-4 text-center smallTextSize"
-                
-              >
+              <div className="text-danger me-5 pe-4 text-center smallTextSize">
                 {emailErr ? emailErr : ""}
               </div>
               <p className="text-danger ">{checkError ? checkError : ""}</p>
@@ -597,7 +589,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
         keyboard={false}
         className="d-block d-md-none mt-5 pt-2 px-2"
       >
-        <Modal.Body className="res_modal " >
+        <Modal.Body className="res_modal ">
           <div>
             <div>
               <span
@@ -606,9 +598,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
               >
                 <img width="15px" src={CrossIcon} alt="" />
               </span>
-              <p className="text-center sign_up">
-                {t("Register")}
-              </p>
+              <p className="text-center sign_up">{t("Register")}</p>
             </div>
             <div className="mx-4 d-flex justify-content-center">
               <form onSubmit={handleSignUp}>
@@ -686,10 +676,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       htmlFor=""
                     >
                       {t("Email")}
-                      <span
-                        
-                        className="text-danger mt-5 smallTextSize"
-                      >
+                      <span className="text-danger mt-5 smallTextSize">
                         * {emailError ? emailError : ""}
                       </span>
                     </label>{" "}
@@ -714,8 +701,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                     />
                     <a
                       href="#"
-                      className={emailError ? "d-block smallTextSize" : "d-none"}
-                      
+                      className={
+                        emailError ? "d-block smallTextSize" : "d-none"
+                      }
                       onClick={handleForgotShow}
                     >
                       <p className="text-start forgot_passs mt-1">
@@ -734,10 +722,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                       htmlFor=""
                     >
                       {t("Phone Number")}
-                      <span
-                        
-                        className="text-danger mt-5 smallTextSize"
-                      >
+                      <span className="text-danger mt-5 smallTextSize">
                         * {phoneError ? phoneError : ""}
                       </span>
                     </label>{" "}
@@ -828,10 +813,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   {emailErr ? emailErr : ""}
                 </div>
                 <p className="text-danger ">{checkError ? checkError : ""}</p>
-                <p
-                  className="text-danger text-center smallTextSize"
-                  
-                >
+                <p className="text-danger text-center smallTextSize">
                   {passError ? passError : ""}
                 </p>
                 <div className="d-flex justify-content-center">

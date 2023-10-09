@@ -194,10 +194,11 @@ const SearchScrean = () => {
     fetchUserDataForAll();
   }, []);
 
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {user.firstName}
-    </Tooltip>
+
+  const CustomTooltip = ({ userName, ...props }) => (
+    <Tooltip id="button-tooltip" {...props} content="Hello world!">
+      {userName}
+    </Tooltip>   
   );
   const handleBackClick = () => {
     window.history.go(-1);
@@ -291,24 +292,30 @@ const SearchScrean = () => {
                                                   <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index +1)}</p>
                                                 </div>
                                               </Link>
-                                              <p className='user_str d-none d-md-block'>Uploaded By - {
-                                                userDetails[index]?.data[0]?.image ?
-                                                  <OverlayTrigger
-                                                    placement="right"
-                                                    delay={{ show: 250, hide: 400 }}
-                                                    overlay={renderTooltip}
-                                                  >
-                                                    <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="user_image" />
-                                                  </OverlayTrigger>
-                                                  :
-                                                  <OverlayTrigger
-                                                    placement="right"
-                                                    delay={{ show: 250, hide: 400 }}
-                                                    overlay={renderTooltip}
-                                                  >
-                                                    <img src={UserImage} className="user_image" alt="person pic" />
-                                                  </OverlayTrigger>
 
+                                              <p className='user_str d-none d-md-block mt-1 mb-0'>Uploaded By - {
+                                                userDetails[index]?.data[0]?.image ?
+                                                <>                                                
+                                                  <OverlayTrigger
+                                                    placement="right"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={<CustomTooltip userName={userDetails[index]?.data[0]?.firstName}/>}
+                                                  >                                                    
+                                                    <img className='label user_image me-1' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="user_image" />
+                                                  </OverlayTrigger>
+                                                  {userDetails[index]?.data[0]?.firstName}
+                                                </>
+                                                  :
+                                                  <>
+                                                  <OverlayTrigger
+                                                    placement="right"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={<CustomTooltip userName={userDetails[index]?.data[0]?.firstName}/>}
+                                                  >
+                                                    <img src={UserImage} className="user_image me-1" alt="person pic" />
+                                                  </OverlayTrigger>
+                                                   {userDetails[index]?.data[0]?.firstName}
+                                                  </>
                                               } </p>
                                             </div>
                                             <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
@@ -337,7 +344,7 @@ const SearchScrean = () => {
                                                     <OverlayTrigger
                                                       placement="right"
                                                       delay={{ show: 250, hide: 400 }}
-                                                      overlay={renderTooltip}
+                                                      overlay={CustomTooltip}
                                                     >
                                                       <img className='label user_image' src={`data:${userDetails[index]?.data[0]?.image?.contentType};base64,${Buffer.from(userDetails[index]?.data[0]?.image?.data?.data).toString('base64')}`} alt="user_image" />
                                                     </OverlayTrigger>

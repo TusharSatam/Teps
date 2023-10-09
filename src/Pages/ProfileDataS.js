@@ -134,7 +134,7 @@ const ProfileDataS = ({ setNumber }) => {
             })
             .catch((err) => setSaveStratigy([]));
           getMultiUsertStr(savesId)
-            .then((res) => {
+          .then((res) => {
               setSaveUserStratigy(res.data);
             })
             .catch((err) => setSaveUserStratigy([]));
@@ -167,34 +167,6 @@ const ProfileDataS = ({ setNumber }) => {
     unSaveByStratAndUserId(bodyData)
       .then((res) => {
         setSave(save.filter((stringData) => stringData !== id));
-        // getSaves()
-        //   .then(res => {
-        //     const saves = res?.data?.filter(ress => ress.user_id === user._id)
-        //     const savesId = saves?.map(ress => ress.strategie_id)
-        //     setSave(saves?.map(ress => ress.strategie_id))
-        //     if (languageSelect === "en") {
-        //       getMultitStr(savesId)
-        //         .then(res => {
-        //           setSaveStratigy(res.data);
-        //         })
-        //         .catch(err => setSaveStratigy([]))
-        //       getMultiUsertStr(savesId)
-        //         .then(res => {
-        //           setSaveUserStratigy(res.data);
-        //         })
-        //         .catch(err => setSaveUserStratigy([]))
-        //     }
-        //     else {
-        //       getMultitHiStr(savesId)
-        //         .then(res => {
-        //           setSaveStratigyi(res.data)
-        //         })
-        //       getMultiUserHindiStr(savesId)
-        //         .then(res => {
-        //           setSaveStratigyiUser(res.data)
-        //         })
-        //     }
-        //   })
       })
       .then((err) => {
         console.log({ err });
