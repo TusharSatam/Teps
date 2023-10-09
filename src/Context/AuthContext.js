@@ -41,7 +41,7 @@ useEffect(() => {
     }
   };
   fetchDataEN();
-}, [allStrategies, allUserStrategies]);
+}, []);
 // Fetch and cache data (hindi)
 useEffect(() => {
   const fetchDataHindi = async () => {
