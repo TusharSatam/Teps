@@ -304,7 +304,7 @@ const SingleUserStr = () => {
                 {isLoadingContent?"Loading...": (
                   <p
                     ref={pRef}
-                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                    className="newLine  me-2 me-md-2 disableCopy"
                   ></p>
                 )}
 

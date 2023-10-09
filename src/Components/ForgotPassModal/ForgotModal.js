@@ -31,7 +31,7 @@ const ForgotModal = ({ show, setShow }) => {
             "html": `
             <p>Hello,</p>
             <p>You have asked for your password to be reset. Please click here to reset your password.</p>
-            <p>https://teps.school/forgot?email=${e.target.email.value}</p>
+            <p>https://teps.netlify.app/forgot?email=${e.target.email.value}</p>
             <p>If you have not requested this, please ignore this email.</p>
             <br/>
             <p>Regards,</p>

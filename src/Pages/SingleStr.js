@@ -212,7 +212,6 @@ const SingleStr = () => {
       setIsLoadingContent(false); // Mark loading as complete
     }, 100); 
   }, [str["Teaching Strategy"]]);
-
   const sendRating = async (starIndex) => {
     const dataToSend = {
       rating: starIndex,
@@ -289,8 +288,7 @@ const SingleStr = () => {
                   <p
                     ref={pRef}
                     className="newLine me-2 me-md-2 disableCopy"
-                  >
-                  </p>
+                  ></p>
                 )}
 
                 <div className="d-flex justify-content-between my-2">
