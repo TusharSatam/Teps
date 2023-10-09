@@ -118,7 +118,7 @@ const ProfileDataC = ({ setNumber }) => {
                         : "headText w-50"
                     }
                   >
-                    {t("Created Strategies")}
+                    {t("Created strategies")}
                   </span>
                 </div>
                 <div
@@ -242,7 +242,7 @@ const ProfileDataC = ({ setNumber }) => {
                     : "headText w-50"
                 }
               >
-                {t("Created Strategies")}
+                {t("Created strategies")}
               </span>
             </div>
             <div

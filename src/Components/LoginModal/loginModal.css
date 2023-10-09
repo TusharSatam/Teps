@@ -137,7 +137,7 @@ margin-top: 0 !important;
   border: 3px solid #8C9F95;
   border-radius: 4px;
 }
-.sign_up input[type=radio] {
+input[type=radio] {
   accent-color: #1aa05B;
 }
 
