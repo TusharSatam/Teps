@@ -99,6 +99,7 @@ const DashboardUsers = () => {
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Phone number</th>
                 <th scope="col">Designation</th>
                 <th scope="col">School/Organization</th>
                 <th scope="col">City</th>
@@ -118,6 +119,7 @@ const DashboardUsers = () => {
                     >
                       <td>{item.firstName} {item.lastName}</td>
                       <td>{item.email}</td>
+                      <td>{item?.phoneNumber}</td>
                       <td>{item.designation}</td>
                       <td>{item.organization}</td>
                       <td>{item.city}</td>

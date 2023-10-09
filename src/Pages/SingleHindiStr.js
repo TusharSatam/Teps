@@ -298,7 +298,7 @@ const SingleHindiStr = () => {
       </div>
       <div className="mx-2 mx-md-5">
         <p className="single_str_head">
-          {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.['प्रमुख शीर्षक']} &gt; {str?.शीर्षक}{" "}
+        {str?.श्रेणी} &gt;  {str?.विषय} &gt;  {str?.['प्रमुख शीर्षक']} &gt; {str?.शीर्षक}{" "}
           &gt; {str[`उप शीर्षक`]} &gt; {str["उप-उप शीर्षक"]}
         </p>
       </div>

@@ -275,7 +275,7 @@ const SingleUserStr = () => {
       </div>
       <div className="mx-2 mx-md-5">
         <p className="single_str_head">
-          {str?.Subject}&nbsp;&nbsp; &gt; {str?.Grade}&nbsp;&nbsp; &gt;{" "}
+        {str?.Grade}&nbsp;&nbsp; &gt; {str?.Subject}&nbsp;&nbsp; &gt;{" "}
           {str?.['Super Topic']}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
           {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str["Sub-sub topic"]}
         </p>

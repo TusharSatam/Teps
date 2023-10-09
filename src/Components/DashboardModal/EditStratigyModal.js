@@ -49,6 +49,7 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
         onHide={onHide}
         backdrop="static"
         keyboard={false}
+        className='modalheight'
       >
         <Modal.Header closeButton>
           <Modal.Title>Update English Strategy</Modal.Title>

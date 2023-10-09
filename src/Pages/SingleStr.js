@@ -254,7 +254,7 @@ const SingleStr = () => {
 
       <div className="mx-2 mx-md-4">
         <p className="single_str_head">
-          {str?.Subject} &gt; {str?.Grade} &gt; {str?.['Super Topic']} &gt; {str?.Topic}{" "}
+        {str?.Grade} &gt; {str?.Subject} &gt;  {str?.['Super Topic']} &gt; {str?.Topic}{" "}
           &gt; {str[`Sub Topic`]} &gt; {str["Sub-sub topic"]}
         </p>
       </div>

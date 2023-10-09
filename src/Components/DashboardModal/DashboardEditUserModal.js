@@ -6,13 +6,15 @@ import { getUsers, updateUser } from '../../services/dashboardUsers';
 const DashboardEditUserModal = ({ show, onHide, user, setShow, setUsers }) => {
   const handleUpdate = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('firstName', e.target.firstName.value);
-    formData.append('lastName', e.target.lastName.value);
-    formData.append('email', e.target.email.value);
-    formData.append('designation', e.target.designation.value);
-    formData.append('organization', e.target.organization.value);
-    formData.append('pincode', e.target.pincode.value);
+    const formData = {
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      email: e.target.email.value,
+      phoneNumber:e.target.phone.value,
+      designation: e.target.designation.value,
+      organization: e.target.organization.value,
+      pincode: e.target.pincode.value,
+    };
     updateUser(user._id, formData)
       .then(res => {
         setShow(false)
@@ -38,7 +40,7 @@ const DashboardEditUserModal = ({ show, onHide, user, setShow, setUsers }) => {
         <Modal.Header closeButton>
           <Modal.Title>Update User</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body >
           <div className='d-flex justify-content-center'>
             <form className='ms-md-3 ms-xxl-5' onSubmit={handleUpdate}>
               <label htmlFor="">First Name </label> <br />
@@ -50,6 +52,10 @@ const DashboardEditUserModal = ({ show, onHide, user, setShow, setUsers }) => {
               <div >
                 <label htmlFor="">Email</label> <br />
                 <input className={"signup_Input"} defaultValue={user.email} name='email' placeholder='Lilyblom201@gmail.com' type="email" />
+              </div>
+              <div >
+                <label htmlFor="">Phone</label> <br />
+                <input className={"signup_Input"} defaultValue={user.phoneNumber} name='phone' placeholder='Phone Number' type="number" />
               </div>
               <div >
                 <label htmlFor="">Designation </label> <br />
