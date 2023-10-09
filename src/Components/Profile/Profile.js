@@ -393,30 +393,10 @@ const Profile = () => {
         {/* My strategies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
-            {/* <button className="typeButton">Created strategies</button> */}
-            {/* Created strategies */}
-
-            {/* Saved strategies */}
-            {/* <button
-              className="typeButton"
-              onClick={() => setisShowSaved(!isShowSaved)}
-            >
-              Saved strategies
-            </button> */}
-            {/* {isShowSaved && <SaveStratigy />} */}
-            <ProfileDataS setNumber={setF}/>
-            <ProfileDataF setNumber={setL}/>
-            <ProfileDataE setNumber={setE}/>
             <ProfileDataC setNumber={setC}/>
-            {/* Edited Strategies */}
-            {/* <button className="typeButton">Edited strategies</button> */}
-            {/* Favorite Strategies */}
-            {/* <button
-              className="typeButton"
-              onClick={() => setisShowFav(!isShowFav)}
-            >
-              Favorite strategies
-            </button> */}
+            <ProfileDataS setNumber={setF}/>
+            <ProfileDataE setNumber={setE}/>
+            <ProfileDataF setNumber={setL}/>
             {isShowFav && <FavouriteStr />}
           </div>
         )}
@@ -519,12 +499,12 @@ const Profile = () => {
                   <div className="d-block">
                     <div>
                       {c === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
+                        <button className="authBtn_p mt-2 me-3 viewBtns" disabled>
                           {t('Created strategies')} <span>({c})</span>
                         </button>
                       ) : (
                         <Link to="/user-created-strategy">
-                          <button className="authBtn_p mt-2 me-3">
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
                           {t('Created strategies')} <span>({c})</span>
                           </button>
                         </Link>
@@ -532,12 +512,12 @@ const Profile = () => {
                     </div>
                     <div>
                       {f === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t('Saved strategies')} ({f})
+                        <button className="authBtn_p mt-2 me-3 viewBtns" disabled>
+                          {t('Saved strategies')} <span>({f})</span>
                         </button>
                       ) : (
                         <Link to="/saveStratigy">
-                          <button className="authBtn_p mt-2 me-3">
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
                             {t('Saved strategies')}<span>({f})</span>
                           </button>
                         </Link>
@@ -545,12 +525,12 @@ const Profile = () => {
                     </div>
                     <div>
                       {e === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
+                        <button className="authBtn_p mt-2 me-3 viewBtns" disabled>
                           {t('Edited strategies')} <span>({e})</span>
                         </button>
                       ) : (
                         <Link to="/user-edited-strategy">
-                          <button className="authBtn_p mt-2 me-3">
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
                           {t('Edited strategies')} <span>({e})</span>
                           </button>
                         </Link>
@@ -558,12 +538,12 @@ const Profile = () => {
                     </div>
                     <div>
                       {l === 0 ? (
-                        <button className="authBtn_p mt-2 me-3" disabled>
-                          {t(`Favorite strategies`)}({l})
+                        <button className="authBtn_p mt-2 me-3 viewBtns" disabled>
+                          {t(`Favorite strategies`)}<span>({l})</span>
                         </button>
                       ) : (
                         <Link to="/favouriteStratigy">
-                          <button className="authBtn_p mt-2 me-3">
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
                           {t(`Favorite strategies`)}<span>({l})</span>
                           </button>
                         </Link>
@@ -610,6 +590,7 @@ const Profile = () => {
                           type="text"
                           defaultValue={user?.firstName}
                           name="firstName"
+                          placeholder="Lily"
                         />
                       </div>
                     </div>
@@ -626,6 +607,7 @@ const Profile = () => {
                           type="text"
                           defaultValue={user?.lastName}
                           name="lastName"
+                          placeholder="Blom"
                         />
                       </div>
                     </div>
@@ -645,6 +627,7 @@ const Profile = () => {
                           defaultValue={user?.organization}
                           name="organization"
                           id=""
+                          placeholder="ABC School"
                         />
                       </div>
                     </div>
@@ -665,6 +648,7 @@ const Profile = () => {
                           defaultValue={user.email}
                           name="email"
                           id="email"
+                          placeholder="Lilyblom201@gmail.com"
                         />
                       </div>
                     </div>
@@ -683,6 +667,7 @@ const Profile = () => {
                           name="phoneNumber"
                           pattern="[0-9]*"
                           maxLength="10"
+                          placeholder="Phone Number"
                           onChange={(e) => setphoneInput(e.target.value)}
                           onKeyDown={(e) => {
                             if (
@@ -728,7 +713,8 @@ const Profile = () => {
                             type="text"
                             defaultValue={selectedCountry}
                             name="city"
-                            id=""
+                            id="city"
+                            placeholder="City"
                           />
                         </div>
                       ) : (
@@ -743,7 +729,8 @@ const Profile = () => {
                             type="text"
                             value={liveDetails ? liveDetails?.Block : user.city}
                             name="city"
-                            id=""
+                            id="city"
+                            placeholder="City"
                           />
                         </div>
                       )}
@@ -763,7 +750,8 @@ const Profile = () => {
                             type="text"
                             defaultValue={selectedCountry?.state}
                             name="state"
-                            id=""
+                            id="state"
+                            placeholder="Tamilnadu"
                           />
                         ) : (
                           <input
@@ -778,7 +766,8 @@ const Profile = () => {
                               liveDetails ? liveDetails?.State : user?.state
                             }
                             name="state"
-                            id=""
+                            id="state"
+                            placeholder="Tamilnadu"
                           />
                         )}
                       </div>
@@ -801,7 +790,8 @@ const Profile = () => {
                           value={pincode}
                           type="text"
                           name="pincode"
-                          id=""
+                          id="pincode"
+                          placeholder="Pin Code"
                         />
                       </div>
                     </div>

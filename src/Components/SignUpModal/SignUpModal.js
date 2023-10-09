@@ -407,7 +407,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                         onChange={() => handleRegistrationOptionChange("email")}
                         className="me-2"
                       />
-                      {t("Email")}
+                      {t("Email")} ID
                     </label>
                     <label
                       className={

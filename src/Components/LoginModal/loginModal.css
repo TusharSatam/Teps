@@ -106,8 +106,9 @@ margin-top: 0 !important;
 .containerr {
   display: block;
   position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
+  padding-left: 2.188rem;
+  margin-bottom: .7rem;
+  margin-top: .1rem;
   cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
@@ -136,7 +137,9 @@ margin-top: 0 !important;
   border: 3px solid #8C9F95;
   border-radius: 4px;
 }
-
+.sign_up input[type=radio] {
+  accent-color: #1aa05B;
+}
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
@@ -153,14 +156,17 @@ margin-top: 0 !important;
 /* Style the checkmark/indicator */
 .containerr .checkmark:after {
   left: 5px;
-  top: 3px;
+  top: 1.5px;
   width: 5px;
   height: 10px;
   border: solid #1AA05B;
-  border-width: 0 3px 3px 0;
+  border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+input[name="checkmark"]:checked + .checkmark {
+  border: 3px solid #1AA05B; /* Change to green when checked */
 }
 
 
