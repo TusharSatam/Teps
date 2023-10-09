@@ -23,12 +23,18 @@ const ChangePass = ({ show, setShow }) => {
     if (e.target.password.value.length > 4 && e.target.confirm_password.value.length > 4) {
       if (e.target.password.value === e.target.confirm_password.value) {
         setError('')
-        const data = {
-          'email': user.email,
-          'password': e.target.password.value,
+        const bodyData = {
+          id:user._id,
+          password: e.target.password.value,
         }
-        axios.post("/forget/update", data)
+        axios.put("/forget/updateById", bodyData)
           .then(res => {
+            if(user.email===null||user.email===undefined){
+              setShow(false)
+                toast.success(`${t('success_Change')}`)
+                e.target.reset();
+                return;
+            }
             const data = {
               "to": user.email,
               'subject': "Password changed - TEPS",
