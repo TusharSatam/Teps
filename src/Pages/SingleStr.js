@@ -210,7 +210,6 @@ const SingleStr = () => {
       setIsLoadingContent(false); // Mark loading as complete
     }, 100); 
   }, [str["Teaching Strategy"]]);
-
   const sendRating = async (starIndex) => {
     const dataToSend = {
       rating: starIndex,
@@ -286,7 +285,7 @@ const SingleStr = () => {
                 {isLoadingContent?"Loading...": (
                   <p
                     ref={pRef}
-                    className="newLine savestr_body me-2 me-md-2 disableCopy"
+                    className="newLine me-2 me-md-2 disableCopy"
                   ></p>
                 )}
 
