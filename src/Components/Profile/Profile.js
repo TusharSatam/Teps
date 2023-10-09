@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
 import { getEdits } from "../../services/userEdited";
-import { getSingleUser, updateUser } from "../../services/dashboardUsers";
+import { getSingleUser, updateUser, updateUserWithHandling } from "../../services/dashboardUsers";
 import defaultProfile from "../../asstes/defaultProfile.png";
 import { useAuth } from "../../Context/AuthContext";
 import ChangePass from "../ForgotPassModal/ChangePass";
@@ -43,7 +43,6 @@ const Profile = () => {
   const [isShowSaved, setisShowSaved] = useState(false);
   const [isShowFav, setisShowFav] = useState(false);
   const [isShowEdited, setisShowEdited] = useState(false);
-
   const [phoneInput, setphoneInput] = useState("");
   const [country, setCountry] = useState([]);
   const [state, setState] = useState([]);
@@ -60,6 +59,7 @@ const Profile = () => {
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
+  const [email,setEmail] = useState(user?.email??"");
   const navigate = useNavigate();
   // React.useEffect(() => {
   //   getSaves().then((res) => {
@@ -190,13 +190,12 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const [getEmail, setGetEmail] = useState();
   const handleEmail = (e) => {
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (e.target.value.match(pattern)) {
       setEmailErr("");
 
-      setGetEmail(e.target.value);
+      setEmail(e.target.value);
     } else {
       setEmailErr("Enter correct email");
       setIsLoading(false);
@@ -254,7 +253,7 @@ const Profile = () => {
     const formData = {
       firstName: e.target.firstName.value,
       lastName: e.target.lastName.value,
-      email: e.target.email.value,
+      email: email,
       phoneNumber: e.target.phoneNumber.value,
       organization: e.target.organization.value,
       city: liveDetails ? liveDetails.Block : user.city,
@@ -262,10 +261,16 @@ const Profile = () => {
       pincode: e.target.pincode.value,
       country: e.target.country.value,
     };
-    updateUser(user._id, formData)
+    updateUserWithHandling(user._id, formData)
       .then((res) => {
+        console.log({res})
+        if(res?.data?.message==="Update user Error"){
+          toast.error(`${t("Something Went Wrong, check Phone or Email is duplicate")}`);
+                  setIsLoading(false);
+                  return;
+        }
         getSingleUser(user._id).then((res) => {
-          let f = user.email;
+          let f = email;
           const data = {
             to: f,
             subject: "Profile details - TEPS",
@@ -665,11 +670,12 @@ const Profile = () => {
                               : "border-0 profile_input mt-md-2"
                           }
                           type="text"
-                          defaultValue={user.email}
+                          defaultValue={email}
                           name="email"
                           id="email"
                           placeholder="Lilyblom201@gmail.com"
                           required
+                          
                         />
                       </div>
                     </div>
