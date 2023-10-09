@@ -33,6 +33,17 @@ console.log(data);
     .catch(err => console.log(err));
   return updateResponse;
 }
+// update user info
+export const updateUserWithHandling = async (id, data) => {
+console.log(data);
+  let updateResponse;
+  await axios.put(`users/${id}`, data)
+    .then(res => {
+      updateResponse = res;
+    })
+    .catch(err => console.log(err));
+  return updateResponse;
+}
 // Delet user 
 export const deletUser = async (id) => {
   let deletResponse;
