@@ -817,9 +817,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       )}
     </>
   ) : (
-    <div className="loadContainer">
       <div className="loading-spinner"></div>
-    </div>
   );
 };
 
