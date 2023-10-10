@@ -26,7 +26,7 @@ const VerifyModal = ({ show, setShow, wrong, noti1, noti2 }) => {
 
                 </div>
                 {!noti1 && <hr style={{ border: "1px solid #CED4DA", marginTop: '0px', marginBottom: "0px", marginLeft: "40px", marginRight: "40px" }} />}
-                <p className={noti2 ? "verify_footerT px-2 py-2 " : "verify_footerT py-md-3 pt-2"}>{noti2 ? noti2 : <>Note: Please sign-in with your registered Email after verifying the Email.</>}</p>
+                <p className={noti2 ? "verify_footerT px-2 py-2 " : "verify_footerT py-md-3 pt-2"}>{noti2 ? noti2 : <>Note: Please log in with your registered email address after verifying it.</>}</p>
                 {/* <p className={noti2 ? "verify_footerT px-2 py-2" : "verify_footerT"}>{noti2 ? noti2 : <><span className="verify_footer">Note: </span>"Please sign-in with your registered Email after verifying the Email."</>}</p> */}
               </div> :
               <div className='text-center'>

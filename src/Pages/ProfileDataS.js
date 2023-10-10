@@ -206,7 +206,7 @@ const ProfileDataS = ({ setNumber }) => {
                       : "headText w-50"
                   }
                 >
-                  {t("Saved Strategies")}
+                  {t("Saved strategies")}
                 </span>
               </div>
               <div
