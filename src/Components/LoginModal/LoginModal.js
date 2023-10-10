@@ -141,7 +141,7 @@ const LoginModal = ({ show, setShow }) => {
                 html: `
                   <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
                   <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-                  <p>https://teps.netlify.app/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}</p><br/>
+                  <p>https://teps.school/verify?sdfbkjfewihuf=${res?.data?._id}&pfgvsckvnlksfwe=${res?.jwt}</p><br/>
                   <p>Regards,</p>
                   <p>Things Education</p>
                   `,

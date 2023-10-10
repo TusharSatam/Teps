@@ -63,8 +63,8 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
             <div className='d-none d-md-block logo_aligh '>
               <img className='logo2_img' src={Logo} alt="logo2" />
             </div>
-            <div className='d-block d-md-none logo_aligh mb-2 mb-md-0'>
-              <img className='logo-res' src={ResLogo} alt="logo2" />
+            <div className='d-block d-md-none logo_aligh mb-md-0'>
+              <img className='logo-res' src={Logo} alt="logo2" />
             </div>
           </Link>
         </div>
