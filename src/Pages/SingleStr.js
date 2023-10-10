@@ -275,7 +275,7 @@ const SingleStr = () => {
                 <div className="me-1">
                   <div>
                     <div className=" mb-md-1 str_title">
-                      <p className="str_name d-flex">{t("strategy")} <span className="counter_str">{`${strategyNum}`}</span></p>
+                      <p className="str_name d-flex">{t("strategy")} {strategyNum!=""?<span className="counter_str">{`${strategyNum}`}</span>:""}</p>
                     </div>
                     {
                       str["Pedagogical Approach"]&&
