@@ -22,7 +22,7 @@ import "./styles/profileData.css";
 import FilterStrHI from "../Components/Home/FilterStrHI";
 
 const ProfileDataF = ({ setNumber }) => {
-  const { user, setUser, stratigyFilData } = useAuth();
+  const { user, setUser, stratigyFilData,setstrategyNum  } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
   const [favStratigyHi, setFavStratigyHi] = useState([]);
@@ -290,7 +290,7 @@ const ProfileDataF = ({ setNumber }) => {
                               {res["Teaching Strategy"]?.slice(0, 150) + "..."}
 
                               
-                            </p><Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw">
+                            </p><Link to={specialLinkArr.includes(res?._id)?`/singleUserStratigy/${res?._id}`:`/single/${res._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                                 Read More...
                               </Link>
                             <div
@@ -415,7 +415,7 @@ const ProfileDataF = ({ setNumber }) => {
                   {res["शिक्षण रणनीति"]?.slice(0, 150) + "..."}
 
                   
-                </p><Link to={`/singleHi/${res._id}`} id="pgnw">
+                </p><Link to={`/singleHi/${res._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                                 Read More...
                               </Link>
                 <div

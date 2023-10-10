@@ -21,7 +21,7 @@ import "./styles/profileData.css";
 import FilterStrHi from "../Components/Home/FilterStrHI";
 
 const ProfileDataS = ({ setNumber }) => {
-  const { user, setUser, stratigyFilData } = useAuth();
+  const { user, setUser, stratigyFilData,setstrategyNum } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -261,7 +261,7 @@ const ProfileDataS = ({ setNumber }) => {
           ) : saveStratigy?.length !== 0 && collapse !== true ? (
             <div style={{ position: "relative" }}>
               {saveStratigy?.slice(0, displayCount).map((res, index) => (
-                <div key={index} className="cardContainer">
+                <div key={index} className="cardContainer" onClick={()=>setstrategyNum(index+1)}>
                   <p id="bswm">{res["Pedagogical Approach"]}</p>
                   <p className="savestr_body">
                     {res["Teaching Strategy"].slice(0, 150) + "..."}
@@ -273,6 +273,7 @@ const ProfileDataS = ({ setNumber }) => {
                         : `/single/${res._id}`
                     }
                     id="pgnw"
+                    onClick={()=>setstrategyNum(index+1)}
                   >
                     Read More...
                   </Link>
@@ -380,7 +381,7 @@ const ProfileDataS = ({ setNumber }) => {
           ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
             <div>
               {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
-                <div key={index} className="cardContainer">
+                <div key={index} className="cardContainer" >
                 <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
                 <p className="savestr_body">
                   {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
@@ -388,6 +389,7 @@ const ProfileDataS = ({ setNumber }) => {
                 <Link
                   to={`/singleHi/${res._id}`}
                   id="pgnw"
+                  onClick={()=>setstrategyNum(index+1)}
                 >
                   Read More...
                 </Link>

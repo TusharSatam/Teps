@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
-import Logo from '../../asstes/things_logo.svg'
+import Logo from '../../asstes/TEPSlogo.png'
 import ResLogo from '../../asstes/res-logo.svg'
 import { Buffer } from 'buffer';
 import { useAuth } from '../../Context/AuthContext';
@@ -57,7 +57,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         show={loginModal}
         setShow={setLoginModal}
       />
-      <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-5 d-flex justify-content-between align-items-center "}>
+      <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-4 d-flex justify-content-between align-items-center "}>
         <div>
           <Link to={location.pathname !== '/' && '/home'}>
             <div className='d-none d-md-block logo_aligh '>

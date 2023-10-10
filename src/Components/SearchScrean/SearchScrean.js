@@ -18,7 +18,7 @@ import './searchscrean.css';
 import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
+  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData,strategyNum, setstrategyNum } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
@@ -244,7 +244,7 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
-                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
                                         <Link to={`/single/${strRes._id}`} className="linkStyle">
                                           <div className='me-1'>
                                             <div>
@@ -264,7 +264,7 @@ const SearchScrean = () => {
                                             </p>
                                           </Link>
                              
-                                          <div className='strategyReadmore'>
+                                          <div className='strategyReadmore' >
                                             <Link to={`/single/${strRes._id}`} >
                                               Read more...
                                             </Link>
@@ -283,7 +283,7 @@ const SearchScrean = () => {
                                       <div className='user_str_border'></div>
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'}>
+                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'} onClick={()=>setstrategyNum(index+1)}>
                                           <div className=''>
                                             <div>
                                               <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
@@ -403,7 +403,7 @@ const SearchScrean = () => {
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
-                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
                                           <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                             <div className='me-1'>
                                               <div>

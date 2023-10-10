@@ -27,7 +27,8 @@ import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 const SingleStr = () => {
-  const { user, seteditStrategyFormData } = useAuth();
+
+  const { user, seteditStrategyFormData,strategyNum, setstrategyNum } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -274,7 +275,7 @@ const SingleStr = () => {
                 <div className="me-1">
                   <div>
                     <div className=" mb-md-1 str_title">
-                      <p className="str_name">{t("strategy")}</p>
+                      <p className="str_name d-flex">{t("strategy")} <span className="counter_str">{`${strategyNum}`}</span></p>
                     </div>
                     {
                       str["Pedagogical Approach"]&&

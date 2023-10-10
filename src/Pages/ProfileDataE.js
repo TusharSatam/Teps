@@ -14,7 +14,7 @@ import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import { getEdits } from "../services/userEdited";
 const ProfileDataE = ({ setNumber }) => {
-  const { user, stratigyFilData } = useAuth();
+  const { user, stratigyFilData,setstrategyNum  } = useAuth();
 
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -204,7 +204,7 @@ const ProfileDataE = ({ setNumber }) => {
                     <p className="savestr_body">
                       {res["Teaching Strategy"].slice(0, 150) + "..."}
                     </p>
-                    <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw">
+                    <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                       Read More...
                     </Link>
                     <div className="saveLikebtn">
@@ -326,7 +326,7 @@ const ProfileDataE = ({ setNumber }) => {
                   <p className="savestr_body">
                     {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
                   </p>
-                  <Link to={`/singleHi/${res._id}`} id="pgnw">
+                  <Link to={`/singleHi/${res._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                     Read More...
                   </Link>
                   <div className="saveLikebtn">

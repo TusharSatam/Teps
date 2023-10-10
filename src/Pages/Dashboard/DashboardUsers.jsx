@@ -52,10 +52,10 @@ const DashboardUsers = () => {
   function uploadCSVFile() {
     const fileInput = document.getElementById("csvInput");
     const file = fileInput.files[0];
-  
     if (file) {
       const formData = new FormData();
       formData.append('avatar', file);
+      console.log(file)
   
       axios.post(`/bulk-upload`, formData, {
         headers: {
@@ -63,6 +63,9 @@ const DashboardUsers = () => {
         }
       })
         .then(response => {
+          response && toast.success('Uploaded successfully', {
+            duration: 4000
+          })
           console.log(response.data.message);
         })
         .catch(error => {

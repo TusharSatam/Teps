@@ -114,8 +114,24 @@ const AddForm = () => {
     setSelectLearningOutcome(e.target.value);
   };
 
-  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
-  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a.Grade))).sort((a, b) => {
+  const customSortOrder = [
+    "Pre-K",
+    "LKG",
+    "UKG",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+  ];
+  const uniqueGrade = Array.from(
+    new Set(allStratigys.map((a) => a.Grade))
+  ).sort((a, b) => {
     const indexA = customSortOrder.indexOf(a);
     const indexB = customSortOrder.indexOf(b);
     return indexA - indexB;
@@ -134,8 +150,8 @@ const AddForm = () => {
     .filter((e) => {
       if (
         selectGrade === "Pre-K" ||
-        selectGrade === "K1" ||
-        selectGrade === "K2"
+        selectGrade === "LKG" ||
+        selectGrade === "UKG"
       ) {
         // For Pre-K, K1, K2 selectGrades
         allowedSubjects = ["English", "Numeracy", "Science", "EVS"];
@@ -330,7 +346,7 @@ const AddForm = () => {
           />
           <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
             <button className="backbutton" onClick={handleBackClick}>
-              <img src={backArrow} alt="backArrow"  className="mb-md-1"/>
+              <img src={backArrow} alt="backArrow" className="mb-md-1" />
               {`${t("Back")}`}
             </button>
             <hr className="line" />
@@ -527,7 +543,7 @@ const AddForm = () => {
                       className={"select-field-full-2"}
                       name="teaching_str"
                       value={teachingStrategy}
-                      onClick={()=>setFormSubmitted(false)}
+                      onClick={() => setFormSubmitted(false)}
                       onChange={(e) => setteachingStrategy(e.target.value)}
                     />
                   </div>
@@ -548,7 +564,7 @@ const AddForm = () => {
               </form>
             ) : (
               <div className="loadContainer">
-              <div className="loading-spinner"></div>
+                <div className="loading-spinner"></div>
               </div>
             )}
             {formSubmitted && (

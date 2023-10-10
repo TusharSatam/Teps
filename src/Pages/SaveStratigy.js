@@ -23,9 +23,10 @@ import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import FilterStrHi from "../Components/Home/FilterStrHI";
+import backArrow from "../asstes/icons/backArrow.svg";
 
 const SaveStratigy = () => {
-  const { user, setUser, stratigyFilData } = useAuth();
+  const { user, setUser, stratigyFilData,strategyNum, setstrategyNum} = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveUserStratigy, setSaveUserStratigy] = useState([]);
@@ -36,7 +37,7 @@ const SaveStratigy = () => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
-  const location = useLocation()
+  const location = useLocation();
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -162,31 +163,36 @@ const SaveStratigy = () => {
       {user.firstName}
     </Tooltip>
   );
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <div>
       {languageSelect === "en" ? (
         <>
-     {location.pathname!="/profile" &&   <div className="newSaveStrParent">
-           {location.pathname!="/profile" && <div className="row py-2 align-items-center position-relative">
-              <div className="d-flex justify-content-center">
-                <span className=" text-white text-center headText w-50">
-                  {user.firstName} {user.lastName}
-                  {t("’s")} {t("Saved Strategies")}
-                </span>
+          <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+            <button className="backbutton" onClick={handleBackClick}>
+              <img src={backArrow} alt="backArrow" className="mb-md-1" />
+              {`${t("Back")}`}
+            </button>
+            <hr className="line" />
+            <span className="text-center headText w-50 d-none d-md-block">
+              {user.firstName} {user.lastName}
+              {t("’s")} {t("Saved Strategies")}
+            </span>
+            <div className="filter_btn_container d-flex justify-content-end position-absolute">
+              <div onClick={handleFilter} className="filter_bTn">
+                <span className="me-1 me-md-0">{t("Filter")}</span>
+                <img src={Filter} alt="" className="filtericon2" />
+                <img src={FilterHover} alt="" className="filtericon3" />
               </div>
-
-        {location.pathname!="/profile"  &&    <div className="filter_btn_container d-flex justify-content-end position-absolute">
-                <div onClick={handleFilter} className="filter_bTn">
-                  <span className="me-1 me-md-0">{t("Filter")}</span>
-                  <img src={Filter} alt="" className="filtericon2" />
-                  <img src={FilterHover} alt="" className="filtericon3" />
-                </div>
-              </div>}
-            </div>}
-            <div className={filetr ? "d-block" : "d-none"}>
-              <FilterStr stratigy={saveStratigy} language={languageSelect} />
             </div>
-          </div>}
+            <hr className="line" />
+          </div>
+          <div className={filetr ? "d-block" : "d-none"}>
+            <FilterStr stratigy={saveStratigy} language={languageSelect} />
+          </div>
+
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -203,19 +209,23 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between  my-0 my-md-4 flex-column outcomeList">
-                   {location.pathname!="/profile" &&    <Link to={`/single/${res._id}`} className="linkStyle">
-                          <div className="me-1">
-                            <div>
-                              <div className="d-flex  str_text_left m-0">
-                                <p className="Strategy_count mb-0">
-                                  {t("strategy")}
-                                </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                      <div className="d-flex justify-content-between  my-0 my-md-4 flex-column outcomeList " onClick={()=>setstrategyNum(index+1)} >
+                        {location.pathname != "/profile" && (
+                          <Link to={`/single/${res._id}`} className="linkStyle">
+                            <div className="me-1">
+                              <div>
+                                <div className="d-flex  str_text_left m-0">
+                                  <p className="Strategy_count mb-0">
+                                    {t("strategy")}
+                                  </p>
+                                  <p className="counter_str mb-0">
+                                    {index + 1}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Link>}
+                          </Link>
+                        )}
 
                         <div>
                           <Link to={`/single/${res._id}`} className="linkStyle">
@@ -241,24 +251,26 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
-          { location.pathname!="/profile" &&             <Link
-                          to={`/singleUserStratigy/${data._id}`}
-                          className="linkStyle"
-                        >
-                          <div className="me-1">
-                            <div>
-                              <div className="d-flex str_text_left m-0">
-                                <p className="Strategy_count m-0">
-                                  {t("strategy")}
-                                </p>
-                                <p className="counter_str mb-0">
-                                  {saveStratigy.length + index + 1}
-                                </p>
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
+                        {location.pathname != "/profile" && (
+                          <Link
+                            to={`/singleUserStratigy/${data._id}`}
+                            className="linkStyle"
+                          >
+                            <div className="me-1">
+                              <div>
+                                <div className="d-flex str_text_left m-0">
+                                  <p className="Strategy_count m-0">
+                                    {t("strategy")}
+                                  </p>
+                                  <p className="counter_str mb-0">
+                                    {saveStratigy.length + index + 1}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Link>}
+                          </Link>
+                        )}
                         <div>
                           <Link
                             to={`/singleUserStratigy/${data._id}`}
@@ -289,19 +301,26 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
-                     {location.pathname!="/profile" &&     <Link to={`/single/${data._id}`} className="linkStyle">
-                          <div className="me-1">
-                            <div>
-                              <div className="d-flex  str_text_left m-0">
-                                <p className="Strategy_count mb-0">
-                                  {t("strategy")}
-                                </p>
-                                <p className="counter_str mb-0">{index + 1}</p>
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
+                        {location.pathname != "/profile" && (
+                          <Link
+                            to={`/single/${data._id}`}
+                            className="linkStyle"
+                          >
+                            <div className="me-1">
+                              <div>
+                                <div className="d-flex  str_text_left m-0">
+                                  <p className="Strategy_count mb-0">
+                                    {t("strategy")}
+                                  </p>
+                                  <p className="counter_str mb-0">
+                                    {index + 1}
+                                  </p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Link>}
+                          </Link>
+                        )}
                         <div>
                           <Link
                             to={`/single/${data._id}`}
@@ -329,7 +348,7 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
@@ -375,25 +394,30 @@ const SaveStratigy = () => {
         </>
       ) : (
         <>
-{ location.pathname!="/profile"  &&  <div className="newSaveStrParent">
-            <div className="row py-2">
-              <div className="col-md-1"></div>
-              <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">
-                {user.firstName}
-                {user.lastName}
-                {t("’s")} {t("Saved Strategies")}
+          {location.pathname != "/profile" && (
+            <div className="newSaveStrParent">
+              <div className="row py-2">
+                <div className="col-md-1"></div>
+                <div className="col-8 col-md-10 text-white text-center headText mt-2 mt-md-0">
+                  {user.firstName}
+                  {user.lastName}
+                  {t("’s")} {t("Saved Strategies")}
+                </div>
+                <div
+                  onClick={handleFilter}
+                  className="col-md-1 d-flex justify-content-center  align-items-center filter_bTn"
+                >
+                  <span>{t("Filter")}</span>
+                </div>
               </div>
-              <div
-                onClick={handleFilter}
-                className="col-md-1 d-flex justify-content-center  align-items-center filter_bTn"
-              >
-                <span>{t("Filter")}</span>
+              <div className={filetr ? "d-block" : "d-none"}>
+                <FilterStr
+                  stratigy={saveStratigyHi}
+                  language={languageSelect}
+                />
               </div>
             </div>
-            <div className={filetr ? "d-block" : "d-none"}>
-              <FilterStr stratigy={saveStratigyHi} language={languageSelect} />
-            </div>
-          </div>}
+          )}
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -410,7 +434,7 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -451,7 +475,7 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -495,7 +519,7 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -538,7 +562,7 @@ const SaveStratigy = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
-                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList">
+                      <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"

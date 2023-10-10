@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
   const [stratigyFilUserData, setStratigyFilUserData] = React.useState([]);
   const [selectLang, setselectLang] = React.useState('')
   const [humBurgs, setHumBurgs] = React.useState(true)
-
+  const [strategyNum, setstrategyNum] = React.useState("")
   const [allStrategies, setAllStrategies] = useState([]);
   const [allUserStrategies, setAllUserStrategies] = useState([]);
   const [allHindiStrategies, setAllHindiStrategies] = useState([]);
@@ -152,7 +152,7 @@ useEffect(() => {
         setStratigyFilData, selectLang, setselectLang, isAuthenticatedAdmin, setIsAuthenticatedAdmin,
         admin, Adminlogout, setAdmin, humBurgs, setHumBurgs, stratigyFilUserData, setStratigyFilUserData, setComments, comments, allStrategies,
         allUserStrategies,allHindiStrategies,seteditStrategyFormData,editStrategyFormData,
-        loadingdropdown,
+        loadingdropdown,strategyNum, setstrategyNum
       }}>
       {children}
     </AuthContext.Provider>

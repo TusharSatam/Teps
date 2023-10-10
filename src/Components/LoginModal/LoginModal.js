@@ -458,7 +458,7 @@ const LoginModal = ({ show, setShow }) => {
                     className="secondaryButton subBtn"
                     onClick={handleLoginForm}
                   >
-                    {t("Sign In with Gmail")}
+                    {t("Sign In with Email")}
                   </button>
                 </div>
               </>

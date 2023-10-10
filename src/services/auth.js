@@ -1,53 +1,50 @@
-import axios from "axios"
-
+import axios from "axios";
 
 // Register response
 export const userRegister = async (data) => {
-  let regResponse
-  await axios.post(`reg`, data)
-    .then(res => {
-      regResponse = res;
-    })
-  return regResponse
-}
+  let regResponse;
+  await axios.post(`reg`, data).then((res) => {
+    regResponse = res;
+  });
+  return regResponse;
+};
 
 // login response
 export const userLogin = async (data) => {
-  let loginResponse
-  await axios.post(`signin`, data)
-    .then(res => {
-      loginResponse = res.data;
-    })
-  return loginResponse
-}
+  let loginResponse;
+  await axios.post(`signin`, data).then((res) => {
+    loginResponse = res.data;
+  });
+  return loginResponse;
+};
 
 export const sendOTP = async (data) => {
-  let loginResponse
-  await axios.post(`otp/sendOTP`, data)
-    .then(res => {
-      loginResponse = res.data;
-    })
-  return loginResponse
-}
+  let loginResponse;
+  await axios.post(`otp/sendOTP`, data).then((res) => {
+    loginResponse = res.data;
+  });
+  return loginResponse;
+};
 
 export const verifyOTP = async (data) => {
-  let loginResponse
-  await axios.post(`signin/otp`, data)
-    .then(res => {
-      loginResponse = res.data;
-    })
-  return loginResponse
-}
+  let loginResponse;
+  await axios.post(`signin/otp`, data).then((res) => {
+    loginResponse = res.data;
+  });
+  return loginResponse;
+};
 
 // update user info
 export const updateInfo = async (id, data) => {
+  console.log(data);
   let updateResponse;
-  console.log(id,data);
-  await axios.post(`users/${id}`, data)
-    .then(res => {
+  console.log(id, data);
+  await axios
+    .put(`users/${id}`, data)
+    .then((res) => {
       updateResponse = res.data;
+      console.log(res.data);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
   return updateResponse;
-}
-
+};

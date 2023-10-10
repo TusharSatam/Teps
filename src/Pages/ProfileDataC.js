@@ -14,7 +14,7 @@ import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import "./styles/profileData.css";
 const ProfileDataC = ({ setNumber }) => {
-  const { user, stratigyFilData } = useAuth();
+  const { user, stratigyFilData,setstrategyNum  } = useAuth();
 
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -175,7 +175,7 @@ const ProfileDataC = ({ setNumber }) => {
                   <p className="savestr_body">
                     {res["Teaching Strategy"].slice(0, 150) + "..."}
                   </p>
-                  <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw">
+                  <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                     Read More...
                   </Link>
                   <div className="d-flex flex-column align-items-center justify-content-center"></div>
@@ -276,7 +276,7 @@ const ProfileDataC = ({ setNumber }) => {
               <p className="savestr_body">
                 {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
               </p>
-              <Link to={`/singleHi/${res?._id}`} id="pgnw">
+              <Link to={`/singleHi/${res?._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
                 Read More...
               </Link>
               <div className="d-flex flex-column align-items-center justify-content-center"></div>
