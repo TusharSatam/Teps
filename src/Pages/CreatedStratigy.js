@@ -153,7 +153,7 @@ const CreatedStratigy = () => {
             <hr className="line" />
             <span className="text-center headText w-50 d-none d-md-block">
               {user.firstName} {user.lastName}
-              {t("’s")} {t("Saved Strategies")}
+              {t("’s")} {t("Created Strategies")}
             </span>
             <div className="filter_btn_container d-flex justify-content-end position-absolute">
               <div onClick={handleFilter} className="filter_bTn">
