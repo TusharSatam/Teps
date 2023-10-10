@@ -28,8 +28,24 @@ const AddFormHi = () => {
     });
   }, []);
 
-  const customSortOrder = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Pre-K", "K1", "K2"];
-  const uniqueGrade = Array.from(new Set(allStratigys.map(a => a?.श्रेणी))).sort((a, b) => {
+  const customSortOrder = [
+    "Pre-K",
+    "LKG",
+    "UKG",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10"
+  ];
+  const uniqueGrade = Array.from(
+    new Set(allStratigys.map((a) => a?.श्रेणी))
+  ).sort((a, b) => {
     const indexA = customSortOrder.indexOf(a);
     const indexB = customSortOrder.indexOf(b);
     return indexA - indexB;
@@ -154,7 +170,7 @@ const AddFormHi = () => {
     ) {
       setError(true);
     } else {
-      setError(false)
+      setError(false);
       setModalShow(true);
       const data = {
         User_id: user._id,
@@ -366,7 +382,7 @@ const AddFormHi = () => {
               अद्यतन रणनीति
             </button>
             <button type="button" className="secondaryButton">
-            रद्द
+              रद्द
             </button>
           </div>
           {error && (
@@ -374,11 +390,11 @@ const AddFormHi = () => {
           )}
         </form>
       </div>
-        {formSubmitted && (
-          <p className="responseText" ref={successMessageRef}>
-            अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!
-          </p>
-        )}
+      {formSubmitted && (
+        <p className="responseText" ref={successMessageRef}>
+          अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!
+        </p>
+      )}
     </div>
   );
 };

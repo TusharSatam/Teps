@@ -67,6 +67,9 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
     uniqueSubSubTopic;
   let allowedSubjects = [];
   const customSortOrder = [
+    "Pre-K",
+    "LKG",
+    "UKG",
     "1",
     "2",
     "3",
@@ -76,10 +79,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
     "7",
     "8",
     "9",
-    "10",
-    "Pre-K",
-    "K1",
-    "K2",
+    "10"
   ];
   if (language === "en" || language === "en-US") {
     uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).sort(
@@ -101,8 +101,8 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
       .filter((e) => {
         if (
           selectGrade === "Pre-K" ||
-          selectGrade === "K1" ||
-          selectGrade === "K2"
+          selectGrade === "LKG" ||
+          selectGrade === "UKG"
         ) {
           // For Pre-K, K1, K2 selectGrades
           allowedSubjects = ["English", "Numeracy", "Science", "EVS"];

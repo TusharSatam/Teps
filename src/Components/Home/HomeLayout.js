@@ -63,6 +63,9 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
     }
   }, [selectedOption, location.pathname]);
   const customSortOrder = [
+    "Pre-K",
+    "LKG",
+    "UKG",
     "1",
     "2",
     "3",
@@ -73,9 +76,6 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
     "8",
     "9",
     "10",
-    "Pre-K",
-    "K1",
-    "K2",
   ];
   const uniqueGrade = Array.from(
     new Set(allStrategies.map((a) => a.Grade))
@@ -98,8 +98,8 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
     .filter((e) => {
       if (
         selectGrade === "Pre-K" ||
-        selectGrade === "K1" ||
-        selectGrade === "K2"
+        selectGrade === "LKG" ||
+        selectGrade === "UKG"
       ) {
         // For Pre-K, K1, K2 selectGrades
         allowedSubjects = ["English", "Numeracy", "Science", "EVS"];
@@ -817,9 +817,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       )}
     </>
   ) : (
-    <div className="loadContainer">
       <div className="loading-spinner"></div>
-    </div>
   );
 };
 

@@ -61,38 +61,25 @@ const Profile = () => {
   const [pincode, setPincode] = useState(user?.pincode);
   const [email,setEmail] = useState(user?.email??"");
   const navigate = useNavigate();
-  // React.useEffect(() => {
-  //   getSaves().then((res) => {
-  //     const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-  //     setF(saves.length);
-  //   });
-  // }, []);
-  // React.useEffect(() => {
-  //   getUserCreated(user._id).then((res) => {
-  //     setC(res.data.length);
-  //   });
-  // }, []);
-  // React.useEffect(() => {
-  //   getEdits(user._id).then((res) => {
-  //     setE(res.data.length);
-  //   });
-  // }, []);
-
-  // React.useEffect(() => {
-  //   getLikes().then((res) => {
-  //     const like = res?.data?.filter((ress) => ress.user_id === user._id);
-  //     setL(like.length);
-  //   });
-  // });
 
   const handleForgotShow = () => {
     setForgot(true);
   };
+  
+  useEffect(() => {
+    console.log("he",preview)
+  }, [preview])
+  
   const handleProfile = (e) => {
     setPreview(URL.createObjectURL(e.target.files[0]));
-    let formData = new FormData();
-    formData.append("img", e.target.files[0]);
-    updateInfo(user._id, formData).then((res) => {
+  
+    const file = e.target.files[0];
+  
+    const updatedUser = {
+      img: file,
+    };
+  
+    updateInfo(user._id, updatedUser).then((res) => {
       getSingleUser(user._id).then((res) => {
         window.localStorage.setItem("data", JSON.stringify(res.data[0]));
         setUser(res.data[0]);
@@ -212,7 +199,7 @@ const Profile = () => {
         html: `
       <p>Hello and welcome to Things Education’s Pedagogical Strategies</p>
       <p>Please click this link to verify your email address before you get started. Once verified, you will be able to log in to the site.</p>
-      <p>https://teps.netlify.app/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
+      <p>https://teps.school/emailverify?ajhsdfjahb=${getEmail}&sdfbkjfewihuf=${user?._id}&pfgvsckvnlksfwe=${token}</p><br/>
       <p>Regards,</p>
       <p>Things Education</p>
       `,
@@ -564,7 +551,7 @@ const Profile = () => {
                       ) : (
                         <Link to="/favouriteStratigy">
                           <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t(`Favorite strategies`)}
+                            {t(`Favourite strategies`)}
                             <span>({l})</span>
                           </button>
                         </Link>

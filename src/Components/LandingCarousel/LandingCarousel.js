@@ -2,10 +2,10 @@ import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick/lib/slider";
-import Carousel1 from "../../asstes/CarousalCard1.png";
-import Carousel2 from "../../asstes/carousel2.jpg";
-import Carousel3 from "../../asstes/carousel3.jpg";
-import Carousel4 from "../../asstes/carousel4.jpg";
+import Carousel1 from "../../asstes/landingImg1.png";
+import Carousel2 from "../../asstes/landingImg2.png";
+import Carousel3 from "../../asstes/landingImg3.png";
+import Carousel4 from "../../asstes/landingImg4.png";
 import resCar1 from "../../asstes/resCar1.png";
 import resCar2 from "../../asstes/rescar2.jpg";
 import resCar3 from "../../asstes/rescarousel3.jpg";
@@ -19,7 +19,7 @@ const LandingCarousel = () => {
     dots: true,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 8000,
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -46,7 +46,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel2} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>Choose from 5000+ teaching strategies! </h1>
               <div className="cardDetails">
@@ -59,7 +59,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel3} alt="Carousel1" className="carousalImage" />
 
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
@@ -77,7 +77,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel4} alt="Carousel1" className="carousalImage" />
 
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
@@ -115,7 +115,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel2} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>5000+ शिक्षण रणनीतियों में से चुनें!</h1>
               <div className="cardDetails">
@@ -128,7 +128,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel3} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 विशिष्ट शिक्षण से जुड़े अनेक शिक्षण संसाधन प्राप्त करें
@@ -145,7 +145,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel4} alt="Carousel1" className="carousalImage" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>
                 अपनी खुद की शिक्षण रणनीतियाँ बनाएं और टीईपीएस में योगदान करें

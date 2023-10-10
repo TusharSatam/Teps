@@ -52,10 +52,10 @@ const DashboardUsers = () => {
   function uploadCSVFile() {
     const fileInput = document.getElementById("csvInput");
     const file = fileInput.files[0];
-  
     if (file) {
       const formData = new FormData();
       formData.append('avatar', file);
+      console.log(file)
   
       axios.post(`/bulk-upload`, formData, {
         headers: {
@@ -63,6 +63,9 @@ const DashboardUsers = () => {
         }
       })
         .then(response => {
+          response && toast.success('Uploaded successfully', {
+            duration: 4000
+          })
           console.log(response.data.message);
         })
         .catch(error => {
@@ -99,10 +102,12 @@ const DashboardUsers = () => {
               <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Phone number</th>
                 <th scope="col">Designation</th>
                 <th scope="col">School/Organization</th>
                 <th scope="col">City</th>
                 <th scope="col">Pincode</th>
+                <th scope="col">Bulk uploaded</th>
               </tr>
             </thead>
             <tbody>
@@ -118,10 +123,12 @@ const DashboardUsers = () => {
                     >
                       <td>{item.firstName} {item.lastName}</td>
                       <td>{item.email}</td>
+                      <td>{item?.phoneNumber}</td>
                       <td>{item.designation}</td>
                       <td>{item.organization}</td>
                       <td>{item.city}</td>
                       <td>{item.pincode}</td>
+                      <td>{item?.bulkUploaded===true?"Yes":"No"}</td>
                       <td>
                         <Link to={`/user-details/${item._id}`}>
                           <button className='btn p-0 me-2'>

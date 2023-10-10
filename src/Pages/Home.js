@@ -41,7 +41,7 @@ const Home = () => {
         </h2>
         <button
           className="secondaryButton subBtn"
-          onClick={() => navigate("/profile")}
+          onClick={() => navigate("/addForm")}
         >
           {t("Upload Strategies")}
         </button>

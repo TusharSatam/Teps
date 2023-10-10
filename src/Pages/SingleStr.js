@@ -27,7 +27,8 @@ import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 const SingleStr = () => {
-  const { user, seteditStrategyFormData } = useAuth();
+
+  const { user, seteditStrategyFormData,strategyNum, setstrategyNum } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -254,7 +255,7 @@ const SingleStr = () => {
 
       <div className="mx-2 mx-md-4">
         <p className="single_str_head">
-          {str?.Subject} &gt; {str?.Grade} &gt; {str?.['Super Topic']} &gt; {str?.Topic}{" "}
+        {str?.Grade} &gt; {str?.Subject} &gt;  {str?.['Super Topic']} &gt; {str?.Topic}{" "}
           &gt; {str[`Sub Topic`]} &gt; {str["Sub-sub topic"]}
         </p>
       </div>
@@ -264,7 +265,7 @@ const SingleStr = () => {
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcomes")}:
+                {t("Learning Outcomes")}:{" "}
                 <span className="learningOutcome">
                   {str["Learning Outcome"]}
                 </span>
@@ -274,7 +275,7 @@ const SingleStr = () => {
                 <div className="me-1">
                   <div>
                     <div className=" mb-md-1 str_title">
-                      <p className="str_name">{t("strategy")}</p>
+                      <p className="str_name d-flex">{t("strategy")} <span className="counter_str">{`${strategyNum}`}</span></p>
                     </div>
                     {
                       str["Pedagogical Approach"]&&

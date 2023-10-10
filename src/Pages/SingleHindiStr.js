@@ -31,7 +31,7 @@ import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 import { singleUserHiStratigys } from "../services/userStratigyHi";
 
 const SingleHindiStr = () => {
-  const { user, setUser, seteditStrategyFormData } = useAuth();
+  const { user, setUser, seteditStrategyFormData,strategyNum, setstrategyNum  } = useAuth();
   const [str, setStr] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
   const [allUser, setAllUser] = React.useState([]);
@@ -298,7 +298,7 @@ const SingleHindiStr = () => {
       </div>
       <div className="mx-2 mx-md-5">
         <p className="single_str_head">
-          {str?.विषय} &gt; {str?.श्रेणी} &gt; {str?.['प्रमुख शीर्षक']} &gt; {str?.शीर्षक}{" "}
+        {str?.श्रेणी} &gt;  {str?.विषय} &gt;  {str?.['प्रमुख शीर्षक']} &gt; {str?.शीर्षक}{" "}
           &gt; {str[`उप शीर्षक`]} &gt; {str["उप-उप शीर्षक"]}
         </p>
       </div>
@@ -310,7 +310,7 @@ const SingleHindiStr = () => {
                 <div className="me-1">
                   <div>
                     <div className=" mb-1 mb-md-1 str_title">
-                      <p className="str_name ">{t("strategy")}</p>
+                      <p className="str_name d-flex">{t("strategy")} <span className="counter_str">{`${strategyNum}`}</span></p>
                     </div>
                   </div>
                 </div>

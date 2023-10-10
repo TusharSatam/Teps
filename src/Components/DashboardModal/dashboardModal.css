@@ -11,6 +11,9 @@
 .signup_Input_modal:focus{
   outline: none;
 }
+.modalheight .modal-dialog{
+  height: auto !important;
+}
 @media only screen and (max-width: 990px) {
 
   .signup_Input_modal{

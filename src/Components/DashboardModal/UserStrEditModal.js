@@ -98,6 +98,7 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
       'Topic': e.target.topic.value,
       'Sub Topic': e.target.sub_topic.value,
       'Sub-sub topic': e.target.sub_sub_topic.value,
+      'Pedagogical Approach':e.target.Pedagogical_Approach.value,
       'Learning Outcome': e.target.learning_outcome.value,
       'Teaching Strategy': e.target.teaching_str.value
     }
@@ -203,6 +204,21 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
                   </select>
                 </div>
               </div>
+
+              <div className='mt-2'>
+                <div>
+                  <p className='select-title'>Pedagogical Approach<p>*</p></p>
+                  <select defaultValue={data['Pedagogical Approach']} className={'select-field w-100'} name="Pedagogical_Approach" id="">
+                    <option value={data['Pedagogical Approach']} >{data['Pedagogical Approach']}</option>
+                    {
+                      uniqueSubSubTopic?.map(res => (
+                        <option>{res['Pedagogical Approach']}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+              </div>
+
               <div className='mt-2'>
                 <div>
                   <p className='select-title'><p>*</p>Learning Outcome</p>

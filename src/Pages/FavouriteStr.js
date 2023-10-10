@@ -26,9 +26,10 @@ import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import UserImage from "../asstes/Group 51.svg";
 import { Buffer } from "buffer";
 import FilterStrHI from "../Components/Home/FilterStrHI";
+import backArrow from "../asstes/icons/backArrow.svg";
 
 const FavouriteStr = () => {
-  const { user, setUser, stratigyFilData } = useAuth();
+  const { user, setUser, stratigyFilData,setstrategyNum } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
   const [like, setLike] = React.useState([]);
@@ -55,9 +56,9 @@ const FavouriteStr = () => {
     }
   };
 
-  useEffect(()=>{
-    console.log({favStratigyHi,likeStratigyHiUser,stratigyFilData})
-  },[favStratigyHi,likeStratigyHiUser,stratigyFilData])
+  useEffect(() => {
+    console.log({ favStratigyHi, likeStratigyHiUser, stratigyFilData });
+  }, [favStratigyHi, likeStratigyHiUser, stratigyFilData]);
   const [likes, setLikes] = useState([]);
   React.useEffect(() => {
     setIsLoading(true);
@@ -91,13 +92,13 @@ const FavouriteStr = () => {
           });
       } else {
         getMultitHiStr(likeId).then((res) => {
-          console.log({data1:res.data})
+          console.log({ data1: res.data });
           setfavStratigyi(res.data);
           setIsLoading(false);
         });
         getMultiUserHindiStr(likeId)
           .then((res) => {
-            console.log({data2:res.data})
+            console.log({ data2: res.data });
             setlikeStratigyiUser(res.data);
             setIsLoading(false);
           })
@@ -186,36 +187,42 @@ const FavouriteStr = () => {
     }
     setLike([...like], [like]);
   };
-  const location = useLocation()
+  const location = useLocation();
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.firstName}
     </Tooltip>
   );
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   return (
     <div>
       {languageSelect === "en" ? (
         <>
-        {location.pathname!="/profile" &&  <div className="newSaveStrParent mx-0">
-            <div className="row py-2 align-items-center">
-              <div className="d-flex justify-content-center">
-                <span className=" text-white text-center headText w-50">
-                  {user.firstName} {user.lastName}
-                  {t("’s")} {t("Favourite Strategies")}
-                </span>
-              </div>
-              <div className="d-flex justify-content-end position-absolute ">
-                <div onClick={handleFilter} className="filter_bTn">
-                  <span className="me-1 me-md-0">{t("Filter")}</span>
-                  <img src={Filter} alt="" className="filtericon2" />
-                  <img src={FilterHover} alt="" className="filtericon3" />
-                </div>
+          <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+            <button className="backbutton" onClick={handleBackClick}>
+              <img src={backArrow} alt="backArrow" className="mb-md-1" />
+              {`${t("Back")}`}
+            </button>
+            <hr className="line" />
+            <span className="text-center headText w-50 d-none d-md-block">
+              {user.firstName} {user.lastName}
+              {t("’s")} {t("Saved Strategies")}
+            </span>
+            <div className="filter_btn_container d-flex justify-content-end position-absolute">
+              <div onClick={handleFilter} className="filter_bTn">
+                <span className="me-1 me-md-0">{t("Filter")}</span>
+                <img src={Filter} alt="" className="filtericon2" />
+                <img src={FilterHover} alt="" className="filtericon3" />
               </div>
             </div>
-            <div className={filetr ? "d-block" : "d-none"}>
-              <FilterStr stratigy={favStratigy} />
-            </div>
-          </div>}
+            <hr className="line" />
+          </div>
+          <div className={filetr ? "d-block" : "d-none"}>
+            <FilterStr stratigy={favStratigy} language={languageSelect} />
+          </div>
+
           {isLoading ? (
             <div className="loadingWrap">
               <Spinner animation="border" role="status">
@@ -232,7 +239,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/single/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -250,7 +257,7 @@ const FavouriteStr = () => {
                             <p className="pedalogicalText">
                               {res?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -270,7 +277,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
@@ -296,7 +303,7 @@ const FavouriteStr = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -318,7 +325,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/single/${data._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -339,7 +346,7 @@ const FavouriteStr = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -358,7 +365,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleUserStratigy/${data._id}`}
                           className="linkStyle"
@@ -384,7 +391,7 @@ const FavouriteStr = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -440,7 +447,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -461,7 +468,7 @@ const FavouriteStr = () => {
                             <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -481,7 +488,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link to={`/singleHi/${res._id}`} className="linkStyle">
                           <div className="me-1">
                             <div>
@@ -504,7 +511,7 @@ const FavouriteStr = () => {
                             <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -527,7 +534,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -551,7 +558,7 @@ const FavouriteStr = () => {
                             <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -570,7 +577,7 @@ const FavouriteStr = () => {
                 <div key={index} className="container">
                   <div className="card_pad">
                     <div className="mt-2 my-md-4">
-                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList ">
+                      <div className="filter_btn_container d-flex justify-content-end flex-column outcomeList " onClick={()=>setstrategyNum(index+1)}>
                         <Link
                           to={`/singleHi/${data._id}`}
                           className="linkStyle"
@@ -596,7 +603,7 @@ const FavouriteStr = () => {
                             <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["शिक्षण के परिणाम"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">

@@ -14,7 +14,7 @@ import { getMultitHiStr } from "../../../services/hindiStratigys";
 import { getMultiUserHindiStr } from "../../../services/userStratigyHi";
 
 const SaveCards = () => {
-  const { user, setUser, stratigyFilData } = useAuth();
+  const { user, setUser, stratigyFilData,setstrategyNum } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveUserStratigy, setSaveUserStratigy] = useState([]);
@@ -226,7 +226,7 @@ const SaveCards = () => {
           ) : saveStratigy?.length !== 0 && collapse !== true ? (
             <>
               {saveStratigy?.map((res, index) => (
-                <div key={index} className="cardContainer">
+                <div key={index} className="cardContainer" onClick={()=>setstrategyNum(index+1)}>
                   <div id="ws" className="card_pad">
                     <div className="mt-4">
                       <div className="d-flex justify-content-between">

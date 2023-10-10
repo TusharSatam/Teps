@@ -18,7 +18,7 @@ import './searchscrean.css';
 import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData } = useAuth()
+  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData,strategyNum, setstrategyNum } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
@@ -231,7 +231,7 @@ const SearchScrean = () => {
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-center p-0 borderNone mb-2' : 'd-flex align-items-center p-0 mb-2'}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-start p-0 borderNone mb-2' : 'd-flex align-items-start p-0 mb-2'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
                                   <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :
@@ -244,7 +244,7 @@ const SearchScrean = () => {
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
-                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                      <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
                                         <Link to={`/single/${strRes._id}`} className="linkStyle">
                                           <div className='me-1'>
                                             <div>
@@ -258,13 +258,13 @@ const SearchScrean = () => {
                                         </Link>
                                         <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
-                                          <Link to={`/single/${strRes._id}`} className="linkStyle">
+                                          {/* <Link to={`/single/${strRes._id}`} className="linkStyle"> */}
                                             <p className='mb-0'>
                                               {strRes["Teaching Strategy"].slice(0,250)}...
                                             </p>
-                                          </Link>
+                                          {/* </Link> */}
                              
-                                          <div className='strategyReadmore'>
+                                          <div className='strategyReadmore' >
                                             <Link to={`/single/${strRes._id}`} >
                                               Read more...
                                             </Link>
@@ -283,7 +283,7 @@ const SearchScrean = () => {
                                       <div className='user_str_border'></div>
                                     {
                                       stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strUser, index) => (
-                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'}>
+                                        <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'} onClick={()=>setstrategyNum(index+1)}>
                                           <div className=''>
                                             <div>
                                               <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
@@ -325,11 +325,11 @@ const SearchScrean = () => {
                                           <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
 
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
+                                            {/* <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle"> */}
                                               <p className='mb-0'>
                                                 {strUser["Teaching Strategy"].slice(0,250)}...
                                               </p>
-                                            </Link>
+                                            {/* </Link> */}
                                   
                                             <div className='d-flex justify-content-between align-items-center'>
                                        
@@ -403,7 +403,7 @@ const SearchScrean = () => {
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
-                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList'>
+                                        <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
                                           <Link to={`/singleHi/${data._id}`} className="linkStyle">
                                             <div className='me-1'>
                                               <div>
@@ -416,11 +416,11 @@ const SearchScrean = () => {
                                             </div>
                                           </Link>
                                           <div className='Strategy_count_article'>
-                                            <Link to={`/singleHi/${data._id}`} className="linkStyle">
+                                            {/* <Link to={`/singleHi/${data._id}`} className="linkStyle"> */}
                                               <p className='mb-0'>
                                                 {data["शिक्षण रणनीति"]}
                                               </p>
-                                            </Link>
+                                            {/* </Link> */}
                                        
                
                                             <div className='strategyReadmore'>
