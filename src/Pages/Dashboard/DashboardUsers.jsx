@@ -107,6 +107,7 @@ const DashboardUsers = () => {
                 <th scope="col">School/Organization</th>
                 <th scope="col">City</th>
                 <th scope="col">Pincode</th>
+                <th scope="col">Bulk uploaded</th>
               </tr>
             </thead>
             <tbody>
@@ -127,6 +128,7 @@ const DashboardUsers = () => {
                       <td>{item.organization}</td>
                       <td>{item.city}</td>
                       <td>{item.pincode}</td>
+                      <td>{item?.bulkUploaded===true?"Yes":"No"}</td>
                       <td>
                         <Link to={`/user-details/${item._id}`}>
                           <button className='btn p-0 me-2'>

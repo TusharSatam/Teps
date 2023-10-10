@@ -135,6 +135,7 @@ const ApproveEn = () => {
                     <th scope="col">Topic</th>
                     <th scope="col">Sub Topic</th>
                     <th scope="col">Sub-sub topic </th>
+                    <th scope="col">Pedagogical Approach</th>
                     <th scope="col">Learning Outcome </th>
                     <th scope="col">Teaching Strategy </th>
                     <th scope="col"></th>
@@ -155,6 +156,7 @@ const ApproveEn = () => {
                         <td>{item.Topic}</td>
                         <td>{item['Sub Topic']}</td>
                         <td>{item['Sub-sub topic']}</td>
+                        <td>{item['Pedagogical Approach']}</td>
                         <td>{item['Learning Outcome'].slice(0, 20)}</td>
                         <td>{item['Teaching Strategy'].slice(0, 20)}</td>
                         <td>
@@ -181,6 +183,7 @@ const ApproveEn = () => {
                     <th scope="col">Topic</th>
                     <th scope="col">Sub Topic</th>
                     <th scope="col">Sub-sub topic </th>
+                    <th scope="col">Pedagogical Approach</th>
                     <th scope="col">Learning Outcome </th>
                     <th scope="col">Teaching Strategy </th>
                     <th scope="col"></th>
@@ -199,7 +202,7 @@ const ApproveEn = () => {
                         <td>{item.Topic}</td>
                         <td>{item['Sub Topic']}</td>
                         <td>{item['Sub-sub topic']}</td>
-
+                        <td>{item['Pedagogical Approach']}</td>
                         <td>{item['Learning Outcome'].slice(0, 20)}</td>
                         <td>{item['Teaching Strategy'].slice(0, 20)}</td>
                         <td>

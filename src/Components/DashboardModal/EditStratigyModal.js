@@ -21,6 +21,7 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
       Topic: e.target.elements.topic.value,
       'Sub Topic': e.target.elements.sub_topic.value,
       'Sub-sub topic': e.target.elements.sub_sub_topic.value,
+      'Pedagogical Approach': e.target.elements.Pedagogical.value,
       'Learning Outcome': e.target.elements.learning_outcome.value,
       'Teaching Strategy': e.target.elements.teaching_sstrategy.value,
     };
@@ -81,6 +82,11 @@ const EditStratigyModal = ({ show, onHide, data, setShow, setStratigys }) => {
                 <label htmlFor="">Sub-sub topic </label> <br />
                 <input className='signup_Input_modal' disabled defaultValue={data ? data['Sub-sub topic'] : ''} name='sub_sub_topic' placeholder='Sub-sub topic' type="text" />
               </div>
+              <div className='input_div_modal'>
+                <label htmlFor="">Pedagogical Approach</label> <br />
+                <input className='signup_Input_modal' disabled defaultValue={data ? data['Pedagogical Approach'] : ''} name='Pedagogical' placeholder='Pedagogical Approach' type="text" />
+              </div>
+              
               <div className='input_div_modal'>
                 <label htmlFor="">Learning Outcome </label> <br />
                 <textarea className='signup_Input_modal' disabled defaultValue={data ? data['Learning Outcome'] : ''} name='learning_outcome' placeholder='Learning Outcome' type="text" />
