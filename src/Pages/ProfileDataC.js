@@ -51,7 +51,7 @@ const ProfileDataC = ({ setNumber }) => {
             setIsLoading(false);
           })
           .catch((err) => {
-            console.log({err});
+            console.log({ err });
             setIsLoading(false);
             setSaveStratigy([]);
           });
@@ -65,7 +65,8 @@ const ProfileDataC = ({ setNumber }) => {
         //     setSaveUserStratigy([]);
         //     setIsLoading(false);
         //   });
-      } if (languageSelect === "hi") {
+      }
+      if (languageSelect === "hi") {
         getHindiStratigysCreatedByUser(user._id)
           .then((res) => {
             console.log({ res });
@@ -90,13 +91,19 @@ const ProfileDataC = ({ setNumber }) => {
   }, [languageSelect]);
 
   const [showAll, setShowAll] = useState(false);
-  const displayCount = showAll ? languageSelect==="en"? saveStratigy?.length:saveStratigyHi?.length : 2;
+  const displayCount = showAll
+    ? languageSelect === "en"
+      ? saveStratigy?.length
+      : saveStratigyHi?.length
+    : 2;
   React.useEffect(() => {
-    if(languageSelect==="en"){
-    setNumber(saveStratigy?.length);}
-    if(languageSelect==="hi"){
-    setNumber(saveStratigyHi?.length);}
-  }, [saveStratigy,saveStratigyHi,languageSelect]);
+    if (languageSelect === "en") {
+      setNumber(saveStratigy?.length);
+    }
+    if (languageSelect === "hi") {
+      setNumber(saveStratigyHi?.length);
+    }
+  }, [saveStratigy, saveStratigyHi, languageSelect]);
 
   return (
     <>
@@ -167,19 +174,23 @@ const ProfileDataC = ({ setNumber }) => {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner>
               </div>
+            ) : saveStratigy?.length === 0 && collapse !== true ? (
+              <h1 className="my-5 text-center py-5 text-danger">
+                {t("No Saved Strategies available.")}
+              </h1>
             ) : saveStratigy?.length !== 0 && collapse !== true ? (
               <div>
                 {saveStratigy?.slice(0, displayCount).map((res, index) => (
                   <div key={index} className="cardContainer">
-                  <p id="bswm">{res["Pedagogical Approach"]}</p>
-                  <p className="savestr_body">
-                    {res["Teaching Strategy"].slice(0, 150) + "..."}
-                  </p>
-                  <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw">
-                    Read More...
-                  </Link>
-                  <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                </div>
+                    <p id="bswm">{res["Pedagogical Approach"]}</p>
+                    <p className="savestr_body">
+                      {res["Teaching Strategy"].slice(0, 150) + "..."}
+                    </p>
+                    <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw">
+                      Read More...
+                    </Link>
+                    <div className="d-flex flex-column align-items-center justify-content-center"></div>
+                  </div>
                 ))}
                 {!showAll && saveStratigy.length > 2 ? (
                   <div
@@ -203,107 +214,109 @@ const ProfileDataC = ({ setNumber }) => {
               </div>
             ) : null}
           </>
-        ) : <>
-        <div
-          onClick={() => {
-            setCollapse((prev) => !prev);
-          }}
-          className={collapse ? "saveStrParent" : "saveStrParentActive"}
-        >
-          <div className="row py-2 align-items-center" id="div1">
-            <div className="d-flex">
-              <span
-                className={
-                  saveStratigyHi?.length === 0
-                    ? "headText w-50 impGray"
-                    : "headText w-50"
-                }
-              >
-                {t("Created strategies")}
-              </span>
-            </div>
+        ) : (
+          <>
             <div
-              className="filter_btn_container d-flex justify-content-end"
-              id="at"
+              onClick={() => {
+                setCollapse((prev) => !prev);
+              }}
+              className={collapse ? "saveStrParent" : "saveStrParentActive"}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                className="d-none d-md-block"
-              >
-                <g
-                  clip-path="url(#clip0_4614_16349)"
-                  transform={collapse ? "" : "rotate(180, 12, 12)"}
+              <div className="row py-2 align-items-center" id="div1">
+                <div className="d-flex">
+                  <span
+                    className={
+                      saveStratigyHi?.length === 0
+                        ? "headText w-50 impGray"
+                        : "headText w-50"
+                    }
+                  >
+                    {t("Created strategies")}
+                  </span>
+                </div>
+                <div
+                  className="filter_btn_container d-flex justify-content-end"
+                  id="at"
                 >
-                  <path
-                    d="M11.5 12.5456L15.0002 10L16 10.7272L11.5 14L7 10.7272L7.99984 10L11.5 12.5456Z"
-                    fill="white"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_4614_16349">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <span
-                className={
-                  saveStratigyHi?.length === 0
-                    ? "impGray d-md-none"
-                    : "d-md-none"
-                }
-              >
-                ({saveStratigyHi?.length})
-              </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="d-none d-md-block"
+                  >
+                    <g
+                      clip-path="url(#clip0_4614_16349)"
+                      transform={collapse ? "" : "rotate(180, 12, 12)"}
+                    >
+                      <path
+                        d="M11.5 12.5456L15.0002 10L16 10.7272L11.5 14L7 10.7272L7.99984 10L11.5 12.5456Z"
+                        fill="white"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_4614_16349">
+                        <rect width="24" height="24" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span
+                    className={
+                      saveStratigyHi?.length === 0
+                        ? "impGray d-md-none"
+                        : "d-md-none"
+                    }
+                  >
+                    ({saveStratigyHi?.length})
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {isLoading && !collapse ? (
-          <div id="div2">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          </div>
-        ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
-          <div>
-            {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
-              <div key={index} className="cardContainer">
-              <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-              <p className="savestr_body">
-                {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
-              </p>
-              <Link to={`/singleHi/${res?._id}`} id="pgnw">
-                Read More...
-              </Link>
-              <div className="d-flex flex-column align-items-center justify-content-center"></div>
-            </div>
-            ))}
-            {!showAll && saveStratigyHi.length > 2 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <button
-                  onClick={() => {
-                    setShowAll(true);
-                  }}
-                  className="loadMore"
-                >
-                  Load More...
-                </button>
+            {isLoading && !collapse ? (
+              <div id="div2">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
+              <div>
+                {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
+                  <div key={index} className="cardContainer">
+                    <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                    <p className="savestr_body">
+                      {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
+                    </p>
+                    <Link to={`/singleHi/${res?._id}`} id="pgnw">
+                      Read More...
+                    </Link>
+                    <div className="d-flex flex-column align-items-center justify-content-center"></div>
+                  </div>
+                ))}
+                {!showAll && saveStratigyHi.length > 2 ? (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setShowAll(true);
+                      }}
+                      className="loadMore"
+                    >
+                      Load More...
+                    </button>
+                  </div>
+                ) : null}
               </div>
             ) : null}
-          </div>
-        ) : null}
-      </>}
+          </>
+        )}
       </div>
     </>
   );

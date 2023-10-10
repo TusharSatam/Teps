@@ -40,9 +40,9 @@ const ResetPass = () => {
             axios.post('email', data)
               .then(res => {
                 console.log('success');
+            toast.success(`${t('success_reset')}`)
               })
               .catch(err => console.log(err))
-            toast.success(`${t('success_reset')}`)
             e.target.reset()
             navigate('/')
           })

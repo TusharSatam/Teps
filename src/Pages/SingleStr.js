@@ -264,7 +264,7 @@ const SingleStr = () => {
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcomes")}:
+                {t("Learning Outcomes")}:{" "}
                 <span className="learningOutcome">
                   {str["Learning Outcome"]}
                 </span>

@@ -222,7 +222,7 @@ const SaveStratigy = () => {
                             <p className="pedalogicalText">
                               {res?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -267,7 +267,7 @@ const SaveStratigy = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -310,7 +310,7 @@ const SaveStratigy = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -355,7 +355,7 @@ const SaveStratigy = () => {
                             <p className="pedalogicalText">
                               {data?.["Pedagogical Approach"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["Teaching Strategy"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -431,7 +431,7 @@ const SaveStratigy = () => {
                             <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["शिक्षण रणनीति"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -472,7 +472,7 @@ const SaveStratigy = () => {
                             <p className="savestr_head mt-0">
                               {t("शिक्षण के परिणाम")}: {res["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {res["शिक्षण रणनीति"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -519,7 +519,7 @@ const SaveStratigy = () => {
                             <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["शिक्षण रणनीति"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
@@ -564,7 +564,7 @@ const SaveStratigy = () => {
                             <p className="savestr_head mt-0">
                               शिक्षण के परिणाम: {data["शिक्षण के परिणाम"]}
                             </p>
-                            <p className="savestr_body">
+                            <p style={{width:"100%"}} className="savestr_body">
                               {data["शिक्षण रणनीति"].slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">

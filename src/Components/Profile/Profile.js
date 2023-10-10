@@ -564,7 +564,7 @@ const Profile = () => {
                       ) : (
                         <Link to="/favouriteStratigy">
                           <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t(`Favorite strategies`)}
+                            {t(`Favourite strategies`)}
                             <span>({l})</span>
                           </button>
                         </Link>
