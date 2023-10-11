@@ -390,10 +390,10 @@ const Profile = () => {
         {/* My strategies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
-            <ProfileDataC setNumber={setC} />
             <ProfileDataS setNumber={setF} />
-            <ProfileDataE setNumber={setE} />
             <ProfileDataF setNumber={setL} />
+            <ProfileDataE setNumber={setE} />
+            <ProfileDataC setNumber={setC} />
             {isShowFav && <FavouriteStr />}
           </div>
         )}
@@ -424,7 +424,7 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        <div className="container justify-content-md-around  d-md-flex  mt-2 mx-2">
+        <div className="container justify-content-md-around  d-md-flex  mt-2 mx-2 mobilePaddings">
           <div
             id="bwb"
             className="p-4 side_profile d-none d-md-flex justify-content-center align-items-center text-center "

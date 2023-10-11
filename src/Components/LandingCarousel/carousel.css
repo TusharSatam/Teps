@@ -100,6 +100,7 @@ height: 176px;
 @media only screen and (max-width: 700px) {
   .carousalCard{
     box-shadow: none;
+    box-shadow: 6px 6px 0px 0px #CED1D0, 0px 6px 0px 0px #CED1D0, 6px 0px 0px 0px #CED1D0;
   }
   .carousalCard {
     height:150px;

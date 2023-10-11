@@ -231,7 +231,7 @@ const SearchScrean = () => {
                       {
                         uniqueSubSubTopic?.map((data, index) => (
                           <Card className='border-0 '>
-                            <Card.Header className={index === 0 ? 'd-flex align-items-start p-0 borderNone mb-2' : 'd-flex align-items-start p-0 mb-2'}>
+                            <Card.Header className={index === 0 ? 'd-flex align-items-start p-0 borderNone mb-2 checkBoxUp' : 'd-flex align-items-start p-0 mb-2 checkBoxUp'}>
                               <ContextAwareToggle eventKey={index + 1}>
                                 {show?.includes(index) ?
                                   <img className="checkbox_size" onClick={() => handleCheckbox(index)} src={checkCheckbox} alt="checkbox" /> :

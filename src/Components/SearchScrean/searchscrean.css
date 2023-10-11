@@ -488,3 +488,9 @@ height: 16px;
     padding: .5rem;
   }
 }
+
+.checkBoxUp button{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+}
