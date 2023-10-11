@@ -449,7 +449,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
         <div
           className={
             location.pathname === "/home"
-              ? "my-3 my-md-3 d-flex"
+              ? "my-2 my-md-3 d-flex"
               : location.pathname === "/saveStratigy" ||
                 location.pathname === "/favouriteStratigy"
               ? "my-3 d-flex"
@@ -585,7 +585,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
             id=""
           >
             <option value="" selected disabled>
-              {t("Super topic")}
+              {t("Super Topic")}
             </option>
 
             {language === "en" || language === "en-US"
@@ -647,7 +647,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
             id=""
           >
             <option value="" selected disabled>
-              {t("Super topic")}
+              {t("Super Topic")}
             </option>
 
             {language === "en" || language === "en-US"

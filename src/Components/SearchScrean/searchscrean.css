@@ -476,6 +476,7 @@ height: 16px;
   }
   .checkBox_title {
     font-size: 12px;
+    line-height:unset;
   }
   .container{
     padding:0rem !important;

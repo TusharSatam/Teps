@@ -10,7 +10,7 @@ import { t } from "i18next";
 import backArrow from "../../asstes/icons/backArrow.svg";
 
 const AddForm = () => {
-  const { user, selectLang } = useAuth();
+  const { user, selectLang,allStrategies } = useAuth();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState("");
   const [selectGrade, setSelectGrade] = React.useState("");
@@ -41,9 +41,7 @@ const AddForm = () => {
   }, [language, selectLang]);
 
   React.useEffect(() => {
-    getAllStratigys().then((res) => {
-      setAllStratigys(res.data);
-    });
+      setAllStratigys(allStrategies);
   }, []);
   const resetDropdowns = () => {
     setSelectSubject("");
@@ -347,13 +345,13 @@ const AddForm = () => {
             Datas={submitData}
             setisStrategyPublic={setisStrategyPublic}
           />
-          <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+          <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
             <button className="backbutton" onClick={handleBackClick}>
               <img src={backArrow} alt="backArrow" className="mb-md-1" />
               {`${t("Back")}`}
             </button>
             <hr className="line" />
-            <p className="headText text-center">Add Your Strategy</p>
+            <p className="headText d-none d-md-block text-center">Add Your Strategy</p>
             <hr className="line" />
           </div>
           <div className="center-div">
@@ -408,7 +406,7 @@ const AddForm = () => {
                 <div className="two-selects ">
                   <div>
                     <p className="select-title">
-                      Super Topic <p>*</p>
+                      Super topic <p>*</p>
                     </p>
                     <select
                       onChange={handleSuperTopic}
@@ -417,7 +415,7 @@ const AddForm = () => {
                       value={selectSuperTopic}
                     >
                       <option value="" selected disabled>
-                        Super Topic
+                        Super topic
                       </option>
                       {uniqueSuperTopic
                         ?.filter((res) => res["Super Topic"] !== undefined)
@@ -450,7 +448,7 @@ const AddForm = () => {
                 <div className="two-selects ">
                   <div>
                     <p className="select-title">
-                      Sub-Topic <p>*</p>
+                      Sub-topic <p>*</p>
                     </p>
                     <select
                       onChange={handleSubTopic}
@@ -459,7 +457,7 @@ const AddForm = () => {
                       value={selectSubTopic}
                     >
                       <option value="" selected disabled>
-                        Sub-Topic
+                        Sub-topic
                       </option>
                       {uniqueSubTopic
                         ?.filter((res) => res["Sub Topic"] !== undefined)
@@ -470,7 +468,7 @@ const AddForm = () => {
                   </div>
                   <div>
                     <p className="select-title">
-                      Sub-Sub-Topic <p>*</p>
+                      Sub sub-topic <p>*</p>
                     </p>
                     <select
                       onChange={handleSubSubTopic}
@@ -479,7 +477,7 @@ const AddForm = () => {
                       value={selectSubSubTopic}
                     >
                       <option value="" selected disabled>
-                        Sub-Sub-Topic
+                        Sub sub-topic
                       </option>
 
                       {uniqueSubSubTopic

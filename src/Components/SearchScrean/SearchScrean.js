@@ -206,7 +206,7 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -452,7 +452,7 @@ const SearchScrean = () => {
 
       }
             <>
-        <div className='filterCard gap-3 blackshadow  mb-md-3 container_title_sec'>
+        <div className='filterCard gap-3 blackshadow  mb-5 mb-md-3 container_title_sec'>
           {
             selectLang === 'hindi' ?
               <HomeHindiLayout

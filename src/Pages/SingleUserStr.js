@@ -278,13 +278,13 @@ const SingleUserStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy")}</p>
+        <p className="headText d-none d-md-block text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
       <div className="mx-2 mx-md-5">

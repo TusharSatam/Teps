@@ -229,9 +229,9 @@
     }
   }
   @media only screen  and (max-width: 600px) {
-  .headText{
+   .HeadLine .headText{
     display: none !important;
-  }
+    }
   .responseText{
     font-size: .8rem;
   }

@@ -524,6 +524,9 @@ letter-spacing: -0.08px;
   .comment_submit input{
     font-size: 12px;
   }
+  .newLine{
+    font-size: 12px;
+  }
 }
 @media only screen and (max-width: 990px) {
   .filter_btn_container {
