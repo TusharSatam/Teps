@@ -526,10 +526,10 @@ padding: 1rem  0rem !important;
   padding: 4px 6px;
 }
 #upload {
-  width: 10%;
-  height: 4%;
-  top: 330px;
-  left: 35px;
+  width: 120px;
+  height: 120px;
+  top: 0;
+  left: 15px;
 }
 .city-profile{
   width: 222px;
@@ -621,6 +621,12 @@ padding: 5px 10px;
   }
   .button-wrapper{
     width: 70px;
+  }
+  #upload {
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 15px;
   }
   .typeWrapper{
     width: 95% !important;

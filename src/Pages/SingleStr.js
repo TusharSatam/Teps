@@ -249,7 +249,7 @@ const SingleStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy screen")}</p>
+        <p className="headText text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
 
@@ -265,7 +265,7 @@ const SingleStr = () => {
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcomes")}:{" "}
+                {t("Learning Outcome")}:{" "}
                 <span className="learningOutcome">
                   {str["Learning Outcome"]}
                 </span>

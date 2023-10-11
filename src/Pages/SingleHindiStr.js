@@ -293,7 +293,7 @@ const SingleHindiStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy screen")}</p>
+        <p className="headText text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
       <div className="mx-2 mx-md-5">

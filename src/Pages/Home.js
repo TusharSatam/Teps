@@ -25,7 +25,7 @@ const Home = () => {
         <div className="filterCard homeFilterCard gap-2 gap-md-4">
         <h1 className="mx-auto welcomeText my-0">
           {t("Welcome")},{" "}
-          {user.firstName ? user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1) : 'Guest'}!
+          {user?.firstName ? user?.firstName?.charAt(0)?.toUpperCase() + user?.firstName?.slice(1) : 'Guest'}!
         </h1>
           <Suspense fallback={<div>Loading...</div>}>
             {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout/>}
