@@ -21,6 +21,7 @@ const AddFormHi = () => {
   const [error, setError] = React.useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const successMessageRef = useRef(null);
+  const [isStrategyPublic, setisStrategyPublic] = useState(false);
 
   React.useEffect(() => {
     getAllHindiStratigys().then((res) => {
@@ -198,8 +199,8 @@ const AddFormHi = () => {
     }
   };
   React.useEffect(() => {
-    if (formSubmitted) {
-      successMessageRef.current.scrollIntoView({
+    if (formSubmitted && isStrategyPublic) {
+      successMessageRef?.current.scrollIntoView({
         behavior: "smooth", // You can use "auto" for instant scrolling
         block: "start", // Scroll to the top of the message
       });
@@ -390,7 +391,8 @@ const AddFormHi = () => {
           )}
         </form>
       </div>
-      {formSubmitted && (
+      {formSubmitted &&
+            isStrategyPublic &&(
         <p className="responseText" ref={successMessageRef}>
           अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!
         </p>

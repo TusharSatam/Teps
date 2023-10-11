@@ -19,7 +19,7 @@ import { useAuth } from "../Context/AuthContext";
 import LikeByModal from "../Components/Modal/LikeByModal";
 import { singleUserEnStratigys } from "../services/userStratigy";
 import { Buffer } from "buffer";
-import { getRatings, postRating, postcomment } from "../services/stratigyes";
+import { deleteRating, getRatings, postRating, postcomment } from "../services/stratigyes";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
@@ -242,6 +242,20 @@ const SingleUserStr = () => {
     await seteditStrategyFormData(str);
     navigate(`/editStrategyform/${str._id}/user`);
   };
+  const handleDeleteUsedStrategy=async()=>{
+    const dataToSend = {
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await deleteRating(dataToSend);
+      if(response){
+        setisAlreadyRated(false)
+      }
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  }
   const handleBackClick = () => {
     window.history.go(-1);
   };
@@ -357,7 +371,7 @@ const SingleUserStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton">
+                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
                         {t("I used this!")}
                       </button>
                     )}
