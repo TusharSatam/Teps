@@ -103,6 +103,7 @@ const UploadEnglishStr = () => {
                               <th scope="col">Topic</th>
                               <th scope="col">Sub Topic</th>
                               <th scope="col">Sub-sub topic </th>
+                              <th scope="col">Pedagogical Approach</th>
                               <th scope="col">Learning Outcome </th>
                               <th scope="col">Teaching Strategy </th>
                             </tr>
@@ -120,6 +121,7 @@ const UploadEnglishStr = () => {
                                     <td>{item.Topic}</td>
                                     <td>{item['Sub Topic']}</td>
                                     <td>{item['Sub-sub topic']}</td>
+                                     <td>{item['Pedagogical Approach']}</td>
                                     <td>
                                       {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
                                       {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}
@@ -146,6 +148,7 @@ const UploadEnglishStr = () => {
                               <th scope="col">Topic</th>
                               <th scope="col">Sub Topic</th>
                               <th scope="col">Sub-sub topic </th>
+                              <th scope="col">Pedagogical Approach</th>
                               <th scope="col">Learning Outcome </th>
                               <th scope="col">Teaching Strategy </th>
                             </tr>
@@ -163,6 +166,7 @@ const UploadEnglishStr = () => {
                                     <td>{item.Topic}</td>
                                     <td>{item['Sub Topic']}</td>
                                     <td>{item['Sub-sub topic']}</td>
+                                    <td>{item['Pedagogical Approach']}</td>
                                     <td>
                                       {item?._id === indi ? lOutcome['Learning Outcome'] : item['Learning Outcome']?.slice(0, 20)}
                                       {item?._id !== indi ? <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => showMore(data?._id, index)}>more..</span> : <span className='text-primary' style={{ cursor: "pointer" }} onClick={() => setIndi(null)}>less</span>}

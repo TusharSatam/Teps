@@ -127,6 +127,6 @@ height: 176px;
   .carousalImage{
     height:-webkit-fill-available;
     width: 90px;
-/* height: 176px; */
+    object-fit:cover;
   }
 }

@@ -290,4 +290,22 @@ export const postRating = async (data) => {
   }
 };
 
+export const putRating = async (data) => {
+  try {
+    const response = await axios.put(`/rating/update`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Error posting data:', error);
+    throw error; // You can choose to handle or rethrow the error as needed
+  }
+};
 
+export const deleteRating = async (data) => {
+  try {
+    const response = await axios.delete(`/rating/delete/${data.user_id}/${data.strategy_id}`, data);
+    return response.data;
+  } catch (error) {
+    console.error('Error posting data:', error);
+    throw error; // You can choose to handle or rethrow the error as needed
+  }
+};

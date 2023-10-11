@@ -127,8 +127,8 @@ const EditStrategyHi = () => {
   };
 
   React.useEffect(() => {
-    if (formSubmitted) {
-      successTextRef.current.scrollIntoView({
+    if (formSubmitted && isStrategyPublic) {
+      successTextRef?.current.scrollIntoView({
         behavior: "smooth", // You can use "auto" for instant scrolling
         block: "start", // Scroll to the top of the message
       });
@@ -351,7 +351,8 @@ const EditStrategyHi = () => {
               </div>
             </div>
           ) : null}
-          {formSubmitted && (
+          {formSubmitted &&
+            isStrategyPublic &&(
             <p className="responseText" ref={successTextRef}>
               अपनी रणनीति प्रकाशित करने के लिए धन्यवाद!
             </p>

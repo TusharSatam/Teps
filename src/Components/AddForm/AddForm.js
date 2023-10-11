@@ -30,6 +30,8 @@ const AddForm = () => {
   const [submitData, setSubmitData] = useState({});
   const language = localStorage.getItem("i18nextLng");
   const successMessageRef = useRef(null);
+  const [isStrategyPublic, setisStrategyPublic] = useState(false);
+
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -320,8 +322,8 @@ const AddForm = () => {
     }
   };
   React.useEffect(() => {
-    if (formSubmitted) {
-      successMessageRef.current.scrollIntoView({
+    if (formSubmitted && isStrategyPublic) {
+      successMessageRef?.current.scrollIntoView({
         behavior: "smooth", // You can use "auto" for instant scrolling
         block: "start", // Scroll to the top of the message
       });
@@ -343,6 +345,7 @@ const AddForm = () => {
             handleClose={handleClosePublishModal}
             setDatas={setSubmitData}
             Datas={submitData}
+            setisStrategyPublic={setisStrategyPublic}
           />
           <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
             <button className="backbutton" onClick={handleBackClick}>
@@ -567,7 +570,8 @@ const AddForm = () => {
                 <div className="loading-spinner"></div>
               </div>
             )}
-            {formSubmitted && (
+            {formSubmitted &&
+            isStrategyPublic &&(
               <p className="responseText" ref={successMessageRef}>
                 Thank you for publishing your strategy!
               </p>

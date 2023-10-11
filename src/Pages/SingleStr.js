@@ -13,9 +13,11 @@ import LikeByModal from "../Components/Modal/LikeByModal";
 import { useAuth } from "../Context/AuthContext";
 import { getMultitUser } from "../services/dashboardUsers";
 import {
+  deleteRating,
   getRatings,
   postRating,
   postcomment,
+  putRating,
   singleStratigys,
 } from "../services/stratigyes";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
@@ -201,7 +203,20 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-
+const handleDeleteUsedStrategy=async()=>{
+  const dataToSend = {
+    user_id: user._id,
+    strategy_id: id,
+  };
+  try {
+    const response = await deleteRating(dataToSend);
+    if(response){
+      setisAlreadyRated(false)
+    }
+  } catch (error) {
+    console.error("Error sending POST request:", error);
+  }
+}
   useEffect(() => {
     setTimeout(() => {
       const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
@@ -220,7 +235,14 @@ const SingleStr = () => {
       strategy_id: id,
     };
     try {
-      const response = await postRating(dataToSend);
+      if(isAlreadyRated){
+      const response = await putRating(dataToSend);
+      console.log("put")
+      }
+      else{
+        const response = await postRating(dataToSend);
+      }
+      console.log("post")
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -275,7 +297,7 @@ const SingleStr = () => {
                 <div className="me-1">
                   <div>
                     <div className=" mb-md-1 str_title">
-                      <p className="str_name d-flex">{t("strategy")} <span className="counter_str">{`${strategyNum}`}</span></p>
+                      <p className="str_name d-flex">{t("strategy")} {strategyNum!=""?<span className="counter_str">{`${strategyNum}`}</span>:""}</p>
                     </div>
                     {
                       str["Pedagogical Approach"]&&
@@ -343,7 +365,7 @@ const SingleStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton">
+                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
                         {t("I used this!")}
                       </button>
                     )}
