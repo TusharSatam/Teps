@@ -32,9 +32,12 @@ const PublishModal = ({
   Datas,
 }) => {
   const [currentModal, setCurrentModal] = useState(1);
+  const [isStrPublic, setisStrPublic] = useState(false)
 const {selectLang}=useAuth()
   const handleYes = () => {
     // Update isPublic to true
+    setisStrategyPublic(true)
+    setisStrPublic(true)
     const updatedData = { ...Datas, isPublic: true };
     console.log("Updated Data:", updatedData); // Log the updated data
     setDatas(updatedData);
@@ -59,6 +62,8 @@ const {selectLang}=useAuth()
 
   const handleNo = () => {
     // Update isPublic to false
+    setisStrPublic(false)
+    setisStrategyPublic(false)
     const updatedData = { ...Datas, isPublic: false };
     console.log("Updated Data No: ", updatedData); // Log the updated data
     setDatas(updatedData);
@@ -83,7 +88,12 @@ const {selectLang}=useAuth()
   };
 
   const handleModal2 = () => {
-    setCurrentModal(3);
+    if(isStrPublic){
+      setCurrentModal(3);
+    }
+    else{
+      handleClose()
+    }
   };
 
   const handleModal3 = () => {

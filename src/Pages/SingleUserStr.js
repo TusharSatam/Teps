@@ -19,7 +19,7 @@ import { useAuth } from "../Context/AuthContext";
 import LikeByModal from "../Components/Modal/LikeByModal";
 import { singleUserEnStratigys } from "../services/userStratigy";
 import { Buffer } from "buffer";
-import { getRatings, postRating, postcomment } from "../services/stratigyes";
+import { deleteRating, getRatings, postRating, postcomment } from "../services/stratigyes";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
@@ -242,6 +242,20 @@ const SingleUserStr = () => {
     await seteditStrategyFormData(str);
     navigate(`/editStrategyform/${str._id}/user`);
   };
+  const handleDeleteUsedStrategy=async()=>{
+    const dataToSend = {
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await deleteRating(dataToSend);
+      if(response){
+        setisAlreadyRated(false)
+      }
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  }
   const handleBackClick = () => {
     window.history.go(-1);
   };
@@ -270,7 +284,7 @@ const SingleUserStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy screen")}</p>
+        <p className="headText text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
       <div className="mx-2 mx-md-5">
@@ -285,7 +299,7 @@ const SingleUserStr = () => {
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcomes")}:{" "} {str["Learning Outcome"]}
+                {t("Learning Outcome")}:{" "} {str["Learning Outcome"]}
               </p>
               <div className="col-9  w-100 textContainer p-2 p-md-4">
                 <div className="me-1">
@@ -357,7 +371,7 @@ const SingleUserStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton">
+                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
                         {t("I used this!")}
                       </button>
                     )}

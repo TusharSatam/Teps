@@ -71,19 +71,22 @@ const Profile = () => {
   }, [preview])
   
   const handleProfile = (e) => {
+    console.log({e})
     setPreview(URL.createObjectURL(e.target.files[0]));
   
-    const file = e.target.files[0];
-  
-    const updatedUser = {
-      img: file,
-    };
-  
-    updateInfo(user._id, updatedUser).then((res) => {
-      getSingleUser(user._id).then((res) => {
-        window.localStorage.setItem("data", JSON.stringify(res.data[0]));
-        setUser(res.data[0]);
+    let formData = new FormData();
+    formData.append('img', e.target.files[0]);
+    updateInfo(user._id, formData).then((res) => {
+        console.log({res})
+        if(res===undefined||res===null){
+      toast.error("Image too large")
+        }
+      getSingleUser(user._id).then((res1) => {
+        window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
+        setUser(res1.data[0]);
       });
+    }).catch((err)=>{
+      toast.error("Image too large")
     });
   };
   // const prof=()=>{setIsMyStrategies(true);}

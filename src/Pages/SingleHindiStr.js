@@ -17,7 +17,7 @@ import {
 } from "../services/dashboardUsers";
 import { useAuth } from "../Context/AuthContext";
 import { singleHindiStratigys } from "../services/hindiStratigys";
-import { getRatings, postRating, postcomment } from "../services/stratigyes";
+import { deleteRating, getRatings, postRating, postcomment } from "../services/stratigyes";
 import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
 import { delSaves, getSaves, postSaves } from "../services/userSaves";
@@ -262,7 +262,20 @@ const SingleHindiStr = () => {
     }
   };
   const [show, setShow] = useState(false);
-
+  const handleDeleteUsedStrategy=async()=>{
+    const dataToSend = {
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await deleteRating(dataToSend);
+      if(response){
+        setisAlreadyRated(false)
+      }
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  }
   const handleEditStrategy = async () => {
     await seteditStrategyFormData(str);
     navigate(`/editStrategyform/${str._id}`);
@@ -293,7 +306,7 @@ const SingleHindiStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy screen")}</p>
+        <p className="headText text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
       <div className="mx-2 mx-md-5">
@@ -370,7 +383,7 @@ const SingleHindiStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton">
+                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
                         {t("I used this!")}
                       </button>
                     )}

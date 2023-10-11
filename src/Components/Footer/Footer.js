@@ -9,13 +9,13 @@ const Footer = () => {
     <div className='footerSizeTaker'></div>
     <div className={location.pathname !== '/profile' ? 'footer_top_margin' : 'footer_top_margin_res'}>
       <div className={location.pathname !== '/profile' ? 'footer_content' : 'footer_res_content'}>
-        <div className=' d-flex justify-content-between mx-4 mx-md-5 px-md-1'>
+        <div className=' d-flex justify-content-between align-items-center mx-4 mx-md-5 px-md-1'>
           <div className='footer_text'>
-            <p className='mb-1'> <a href='https://www.things-education.com/teachers' target="_blank" rel="noreferrer">Teacher Professional Development</a></p>
-            <p className='mb-1'> <a href='https://www.things-education.com/unboxed' target="_blank" rel="noreferrer">unboxED</a></p>
-            <p className='mb-1'><a href='https://www.things-education.com/newsletter' target="_blank" rel="noreferrer">Newsletter</a></p>
-            <p className='mb-1'><a href='https://www.things-education.com/blog' target="_blank" rel="noreferrer">Blogs</a></p>
-            <p className='mb-1'><a href='https://www.things-education.com/contact' target="_blank" className=' last_content' rel="noreferrer">Contact Us</a></p>
+            <p className='mb-md-1'> <a href='https://www.things-education.com/teachers' target="_blank" rel="noreferrer">Teacher Professional Development</a></p>
+            <p className='mb-md-1'> <a href='https://www.things-education.com/unboxed' target="_blank" rel="noreferrer">unboxED</a></p>
+            <p className='mb-md-1'><a href='https://www.things-education.com/newsletter' target="_blank" rel="noreferrer">Newsletter</a></p>
+            <p className='mb-md-1'><a href='https://www.things-education.com/blog' target="_blank" rel="noreferrer">Blogs</a></p>
+            <p className='mb-md-1'><a href='https://www.things-education.com/contact' target="_blank" className=' last_content' rel="noreferrer">Contact Us</a></p>
           </div>
           <div>
             <a href="https://www.things-education.com/" target="_blank" rel="noreferrer">

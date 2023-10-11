@@ -13,9 +13,11 @@ import LikeByModal from "../Components/Modal/LikeByModal";
 import { useAuth } from "../Context/AuthContext";
 import { getMultitUser } from "../services/dashboardUsers";
 import {
+  deleteRating,
   getRatings,
   postRating,
   postcomment,
+  putRating,
   singleStratigys,
 } from "../services/stratigyes";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
@@ -201,7 +203,20 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-
+const handleDeleteUsedStrategy=async()=>{
+  const dataToSend = {
+    user_id: user._id,
+    strategy_id: id,
+  };
+  try {
+    const response = await deleteRating(dataToSend);
+    if(response){
+      setisAlreadyRated(false)
+    }
+  } catch (error) {
+    console.error("Error sending POST request:", error);
+  }
+}
   useEffect(() => {
     setTimeout(() => {
       const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
@@ -220,7 +235,14 @@ const SingleStr = () => {
       strategy_id: id,
     };
     try {
-      const response = await postRating(dataToSend);
+      if(isAlreadyRated){
+      const response = await putRating(dataToSend);
+      console.log("put")
+      }
+      else{
+        const response = await postRating(dataToSend);
+      }
+      console.log("post")
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -249,7 +271,7 @@ const SingleStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">{t("Strategy screen")}</p>
+        <p className="headText text-center">{t("Strategy")}</p>
         <hr className="line" />
       </div>
 
@@ -265,7 +287,7 @@ const SingleStr = () => {
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcomes")}:{" "}
+                {t("Learning Outcome")}:{" "}
                 <span className="learningOutcome">
                   {str["Learning Outcome"]}
                 </span>
@@ -343,7 +365,7 @@ const SingleStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton">
+                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
                         {t("I used this!")}
                       </button>
                     )}

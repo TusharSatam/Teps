@@ -256,7 +256,7 @@ const ProfileDataS = ({ setNumber }) => {
             </div>
           ) : saveStratigy?.length === 0 && collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
-              {t("No Saved Strategies available.")}
+              {t("No saved strategies available.")}
             </h1>
           ) : saveStratigy?.length !== 0 && collapse !== true ? (
             <div style={{ position: "relative" }}>

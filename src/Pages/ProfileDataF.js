@@ -279,7 +279,7 @@ const ProfileDataF = ({ setNumber }) => {
             </div>
           ) : favStratigy?.length === 0 && collapse !== true ? (
             <h1 className="my-5 text-center py-5 text-danger">
-              {t("No Favourite Strategies available.")}
+              {t("No favourite strategies available.")}
             </h1>
           ) : favStratigy?.length !== 0 && collapse !== true ? (
             <div>
