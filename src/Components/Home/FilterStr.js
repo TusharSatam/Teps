@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getAllStratigys } from "../../services/stratigyes";
 import { useAuth } from "../../Context/AuthContext";
-import Article from "../LandingArticle/Article";
 import "./homelayout.css";
-const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
+const FilterStr = ({
+  stratigy,
+  handleShow,
+  handleOptionModalShow,
+  setoptionModal,
+}) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState();
@@ -79,7 +82,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
     "7",
     "8",
     "9",
-    "10"
+    "10",
   ];
   if (language === "en" || language === "en-US") {
     uniqueGrade = Array.from(new Set(allStratigys.map((a) => a.Grade))).sort(
@@ -376,7 +379,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
               selectSubject,
               selectGrade,
               selectTopic,
-              selectSkill,
+              selectSuperTopic:selectSkill,
               selectSubTopic,
               selectSubSubTopic,
             })
@@ -388,16 +391,19 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
               selectSubject,
               selectGrade,
               selectTopic,
-              selectSkill,
+              selectSuperTopic:selectSkill,
               selectSubTopic,
               selectSubSubTopic,
             })
           );
         }
+        if (location.pathname == "/") {
+          setoptionModal(true);
+        }
       } else {
         if (language === "en" || language === "en-US") {
           setError(
-            "No strategies are available for this combination. Please try a different combination."
+            "No strategies are available for this combination. Please try a different combination.Fiiilttw"
           );
         } else {
           setError(
@@ -886,16 +892,7 @@ const FilterStr = ({ stratigy, handleShow, handleOptionModalShow }) => {
       ) : location.pathname === "/" ? (
         <div className="d-flex justify-content-center my-4 my-md-3 mt-md-2 pb-0 pb-md-0 mt-md-3">
           <button
-            onClick={() =>
-              handleOptionModalShow(
-                selectSubject,
-                selectGrade,
-                selectTopic,
-                selectSkill,
-                selectSubTopic,
-                selectSubSubTopic
-              )
-            }
+            onClick={handleFindStratigys}
             className="primaryButton subBtn"
           >
             {t("Find Strategies")}

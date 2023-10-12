@@ -7,7 +7,7 @@ import Article from "../LandingArticle/Article";
 import "./homelayout.css";
 import { getUserStratigys } from "../../services/userStratigy";
 import { postPulledStr } from "../../services/pulledStratigy";
-const HomeLayout = ({ setAccorKey = () => {} }) => {
+const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [allUserStratigys, setAllUserStratigys] = React.useState([]);
@@ -50,7 +50,6 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
     setAllUserStratigys(allUserStrategies);
   }, [allStrategies, allUserStrategies, loadingdropdown]);
   React.useEffect(() => {
-    if (location.pathname !== "/home") {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject);
         setSelectGrade(selectedOption?.selectGrade);
@@ -60,7 +59,6 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
         setSelectSubTopic(selectedOption?.selectSubTopic);
         setSelectSubSubTopic(selectedOption?.selectSubSubTopic);
       }
-    }
   }, [selectedOption, location.pathname]);
   const customSortOrder = [
     "Pre-K",
@@ -233,6 +231,12 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
     setAccorKey();
+    let temp=localStorage.getItem("data")
+    console.log(temp);
+    if(temp===null){
+      console.log("not login button")
+      setoptionModal(true);
+    }
 
     if (location.pathname === "/home") {
       if (
@@ -295,7 +299,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
           aquaticCreatures.length !== 0 ||
           aquaticCreaturesUser.length !== 0
         ) {
-          if (location.pathname === "/home") {
+          if (location.pathname === "/home" || location.pathname === "/search") {
             navigate("/search");
           }
           window.localStorage.setItem(
@@ -377,7 +381,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
         const pulledStr = aquaticCreatures.map((res) => res._id);
         const data = {
           strategie_id: pulledStr[0],
-          user_id: user._id,
+          user_id: user?._id,
         };
         postPulledStr(data);
       }
@@ -413,7 +417,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
       >
         <div
           className={
-            location.pathname === "/home"
+            location.pathname === "/home" ||location.pathname === "/"
               ? "my-2 my-md-3 d-flex"
               : location.pathname === "/saveStratigy" ||
                 location.pathname === "/favouriteStratigy"
@@ -789,7 +793,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
           <p className="error_text mt-2">{error}</p>
         )}
       </div>
-      {location.pathname === "/home" ? (
+      {location.pathname === "/home"? (
         <div className="d-flex justify-content-center  my-md-0 ">
           <button
             onClick={handleFindStratigys}
