@@ -183,7 +183,6 @@ const SearchScrean = () => {
       try {
         const userPromises = userIDs?.map(User_id => getSingleUser(User_id));
         const userData = await Promise.all(userPromises);
-        console.log("userData",userData);
         setUserDetails(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);

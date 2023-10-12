@@ -77,4 +77,7 @@
   .uploadStartegyContainer h2 {
     font-size: 0.625rem;
   }
+  .welcomeText{
+    font-size: 18px;
+  }
 }

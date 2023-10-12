@@ -11,12 +11,14 @@ import LoginOptionModal from "../Components/Modal/LoginOptionModal/LoginOptionMo
 import LoginModal from "../Components/LoginModal/LoginModal";
 import { t } from "i18next";
 import ScrollToTop from "react-scroll-to-top";
+import HomeLayout from "../Components/Home/HomeLayout";
 const Landing = () => {
   const { isAuthenticated, allStrategies, selectLang, allHindiStrategies } =
     useAuth();
   const [show, setShow] = useState(false);
   const [optionModal, setoptionModal] = useState(false);
   const [isLoginModal, setisLoginModal] = useState(false);
+  const [isnavigateUploadPage, setisnavigateUploadPage] = useState(false)
   const handleClose = () => setShow(false);
   const closeLoginModal = () => setisLoginModal(false);
   const handleOptionModalClose = () => setoptionModal(false);
@@ -36,6 +38,10 @@ const Landing = () => {
         window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
       }
     }
+    // setoptionModal(true);
+  };
+  const handleUploadButton = () => {
+    setisnavigateUploadPage(true)
     setoptionModal(true);
   };
 
@@ -53,15 +59,10 @@ const Landing = () => {
       <ScrollToTop smooth  color="#00000" />
       <LandingCarousel />
       <div className="blueShadow">
-      <div className="filterCard p-2 p-md-3">
+      <div className="filterCard p-2 p-md-3  gap-2 gap-md-4">
         <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
-        <FilterStr
-          stratigy={
-            selectLang == "english" ? allStrategies : allHindiStrategies
-          }
-          handleShow={handleShow}
-          handleOptionModalShow={handleOptionModalShow}
-        />
+
+        <HomeLayout setoptionModal={setoptionModal}/>
       </div>
       </div>
       <div className="uploadStartegyContainer mx-4">
@@ -71,7 +72,7 @@ const Landing = () => {
            {t("contribute to the TEPS community?")}
           </span>
         </h2>
-        <button className="secondaryButton subBtn" onClick={()=>handleOptionModalShow()}>
+        <button className="secondaryButton subBtn" onClick={handleUploadButton}>
           {t("Upload Strategies")}
         </button>
       </div>
@@ -80,6 +81,7 @@ const Landing = () => {
         handleClose={handleClose}
         show={show}
         setShow={setShow}
+        isnavigateUploadPage={isnavigateUploadPage}
       />
       <LoginOptionModal
         key={"2"}
@@ -89,12 +91,13 @@ const Landing = () => {
         handleShow={handleShow}
         handleRegisterForm={handleRegisterForm}
         openLoginModal={openLoginModal}
-      />
+        />
       <LoginModal
         key={"3"}
         handleClose={closeLoginModal}
         show={isLoginModal}
         setShow={setisLoginModal}
+        isnavigateUploadPage={isnavigateUploadPage}
       />
     </>
   );
