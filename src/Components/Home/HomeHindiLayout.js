@@ -6,7 +6,7 @@ import { useAuth } from '../../Context/AuthContext';
 import Article from '../LandingArticle/Article';
 import './homelayout.css'
 import { postPulledStr } from '../../services/pulledStratigy';
-const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
+const HomeHindiLayout = ({ setAccorKey = () => { },setoptionModal }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([])
   const [selectSubject, setSelectSubject] = React.useState()
@@ -39,7 +39,6 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   }, [allHindiStrategies])
   
   React.useEffect(() => {
-    if (location.pathname !== '/home') {
       if (selectedOption) {
         setSelectSubject(selectedOption?.selectSubject)
         setSelectGrade(selectedOption?.selectGrade)
@@ -48,7 +47,6 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
         setSelectSubTopic(selectedOption?.selectSubTopic)
         setSelectSubSubTopic(selectedOption?.selectSubSubTopic)
       }
-    }
   }, [selectedOption, location.pathname])
 
 
@@ -139,6 +137,10 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
     setAccorKey()
+    let isUserExist=localStorage.getItem("data")
+    if(isUserExist===null){
+      setoptionModal(true);
+    }
     if (location.pathname === '/home') {
       if (selectSubject && selectGrade && selectSkill && selectTopic && selectSubject && selectSubSubTopic) {
         const aquaticCreatures = allStratigys.filter(function (creature) {
@@ -155,14 +157,14 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
           postPulledStr(data)
         }
         if (aquaticCreatures.length !== 0) {
-          if (location.pathname === '/home') {
+          if (location.pathname === '/home' || location.pathname === "/search") {
             navigate('/search')
           }
           window.localStorage.setItem('selectedHiDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
           const pulledStr = aquaticCreatures.map(res => res._id)
           const data = {
             "strategie_id": pulledStr[0],
-            "user_id": user._id
+            "user_id": user?._id
           }
           postPulledStr(data)
         }

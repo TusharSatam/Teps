@@ -50,7 +50,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const confirmPassword = document.querySelector(
       'input[name="confirm_password"]'
     ).value;
-    console.log(FirstName, LastName, Email, PhoneNumber, Password, ConfirmPass);
     // Check if any of the required fields are empty
     const isInvalid =
       !FirstName ||
@@ -134,7 +133,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(e.target.firstName.value, e.target.lastName.value, phoneValue);
 
     let equalPass;
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -168,18 +166,9 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   password: equalPass,
                 };
 
-                if (formData) {
-                  console.log(
-                    "formData",
-                    e.target.firstName.value,
-                    e.target.lastName.value,
-                    e.target.email.value,
-                    equalPass
-                  );
-                }
+
                 userRegister(formData)
                   .then((res) => {
-                    console.log("response", res);
                     e.target.reset();
                     setShow(false);
                     const data = {

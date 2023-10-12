@@ -231,10 +231,8 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
     setAccorKey();
-    let temp=localStorage.getItem("data")
-    console.log(temp);
-    if(temp===null){
-      console.log("not login button")
+    let isUserExist=localStorage.getItem("data")
+    if(isUserExist===null){
       setoptionModal(true);
     }
 
