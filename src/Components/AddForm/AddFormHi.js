@@ -5,6 +5,9 @@ import ApproveReqModalHi from "../Modal/ApproveReqModalHi";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 import { t } from "i18next";
 import backArrow from "../../asstes/icons/backArrow.svg";
+import { Dropdown } from "react-bootstrap";
+import "react-dropdown/style.css";
+
 const AddFormHi = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
@@ -236,7 +239,7 @@ const AddFormHi = () => {
               <p className="select-title">
                 श्रेणी <p>*</p>
               </p>
-              <select
+              {/* <select
                 onChange={handleGrade}
                 className={"select-field"}
                 name="grade"
@@ -248,13 +251,21 @@ const AddFormHi = () => {
                 {uniqueGrade?.map((res) => (
                   <option>{res}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueGrade
+                        ?.filter((res) => res !== undefined)
+                        .map((res, i) => res)}
+                      onChange={(e)=>{handleGrade(e.value)}}
+                      value={selectGrade}
+                      placeholder="श्रेणी"
+                    />
             </div>
             <div>
               <p className="select-title">
                 विषय <p>*</p>
               </p>
-              <select
+              {/* <select
                 onChange={handleSub}
                 className={"select-field"}
                 name="subject"
@@ -266,7 +277,15 @@ const AddFormHi = () => {
                 {uniqueSubject?.map((res) => (
                   <option>{res.विषय}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueSubject
+                        ?.filter((res) => res.विषय !== undefined)
+                        .map((res, i) => res.विषय)}
+                      onChange={(e)=>{handleSub(e.value)}}
+                      value={selectSubject}
+                      placeholder="विषय"
+                    />
             </div>
           </div>
           <div className="two-selects ">
@@ -274,7 +293,7 @@ const AddFormHi = () => {
               <p className="select-title">
                 प्रमुख शीर्षक <p>*</p>
               </p>
-              <select
+              {/* <select
                 onChange={handleSkill}
                 className={"select-field"}
                 name="skill"
@@ -286,13 +305,21 @@ const AddFormHi = () => {
                 {uniqueSkill?.map((res) => (
                   <option>{res["प्रमुख शीर्षक"]}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueSkill
+                        ?.filter((res) => res["प्रमुख शीर्षक"] !== undefined)
+                        .map((res, i) => res["प्रमुख शीर्षक"])}
+                      onChange={(e)=>{handleSkill(e.value)}}
+                      value={selectSkill}
+                      placeholder="प्रमुख शीर्षक"
+                    />
             </div>
             <div>
               <p className="select-title">
                 शीर्षक <p>*</p>
               </p>
-              <select
+              {/* <select
                 onChange={handleTopic}
                 className={"select-field"}
                 name="topic"
@@ -304,7 +331,15 @@ const AddFormHi = () => {
                 {uniqueTopic?.map((res) => (
                   <option>{res.शीर्षक}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueTopic
+                        ?.filter((res) => res.शीर्षक !== undefined)
+                        .map((res, i) => res.शीर्षक)}
+                      onChange={(e)=>{handleTopic(e.value)}}
+                      value={selectTopic}
+                      placeholder="शीर्षक"
+                    />
             </div>
           </div>
           <div className="two-selects ">
@@ -312,7 +347,7 @@ const AddFormHi = () => {
               <p className="select-title">
                 उप शीर्षक <p>*</p>
               </p>
-              <select
+              {/* <select
                 onChange={handleSubTopic}
                 className={"select-field"}
                 name="sub_topic"
@@ -324,13 +359,21 @@ const AddFormHi = () => {
                 {uniqueSubTopic?.map((res) => (
                   <option>{res["उप शीर्षक"]}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueSubTopic
+                        ?.filter((res) => res["उप शीर्षक"] !== undefined)
+                        .map((res, i) => res["उप शीर्षक"])}
+                      onChange={(e)=>{handleSubTopic(e.value)}}
+                      value={selectSubTopic}
+                      placeholder="उप शीर्षक"
+                    />
             </div>
             <div>
               <p className="select-title">
                 उप-उप शीर्षक <p>*</p>
               </p>
-              <select
+              {/* <select
                 className={"select-field"}
                 name="sub_sub_topic"
                 onChange={handleSubSubTopic}
@@ -342,7 +385,15 @@ const AddFormHi = () => {
                 {uniqueSubSubTopic?.map((res) => (
                   <option>{res["उप-उप शीर्षक"]}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueSubSubTopic
+                        ?.filter((res) => res["उप-उप शीर्षक"] !== undefined)
+                        .map((res, i) => res["उप-उप शीर्षक"])}
+                      onChange={(e)=>{handleSubSubTopic(e.value)}}
+                      value={selectSubSubTopic}
+                      placeholder="उप-उप शीर्षक"
+                    />
             </div>
           </div>
 
@@ -351,7 +402,7 @@ const AddFormHi = () => {
               <p className="select-title">
                 शिक्षण के परिणाम<p>*</p>
               </p>
-              <select
+              {/* <select
                 className={"select-field w-100"}
                 name="learning_outcome"
                 value={learning_outcome}
@@ -363,7 +414,15 @@ const AddFormHi = () => {
                 {uniqueSubSubTopic?.map((res) => (
                   <option>{res["शिक्षण के परिणाम"]}</option>
                 ))}
-              </select>
+              </select> */}
+              <Dropdown
+                      options={uniqueSubSubTopic
+                        ?.filter((res) => res["शिक्षण के परिणाम"] !== undefined)
+                        .map((res, i) => res["शिक्षण के परिणाम"])}
+                      onChange={(e)=>{handleLearning(e.value)}}
+                      value={learning_outcome}
+                      placeholder="शिक्षण के परिणाम"
+                    />
             </div>
           </div>
           <div className="one-selects-l">
