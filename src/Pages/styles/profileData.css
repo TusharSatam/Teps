@@ -126,7 +126,7 @@ margin:"30px 0px -30px";
     }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:767px) {
     #bswm{
         display: -webkit-box;
         width: 290px;

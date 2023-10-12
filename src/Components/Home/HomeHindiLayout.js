@@ -208,7 +208,7 @@ const HomeHindiLayout = ({ setAccorKey = () => { } }) => {
     !loadingdropdown?  (
       <>
         <div value={selectSubject} className='container d-flex flex-column justify-content-center align-items-md-center my-3 my-md-5'>
-          <div className={location.pathname === '/home' ? 'my-3 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
+          <div className={location.pathname === '/home' ? 'my-2 my-md-3 d-flex' : 'my-3 pt-3 pt-md-5 d-flex'}>
           <select value={selectGrade} onChange={handlegradeFilter} 
           defaultValue={(location.pathname === '/home' || !selectedOption?.selectGrade) ? '' : selectedOption?.selectGrade}
           className={error6 ? 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 error-border' : 'd-none d-md-block px-md-3 px-1 py-md-2 bg-light mx-md-3 select-border'}

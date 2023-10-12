@@ -32,12 +32,13 @@ margin-top: 0 !important;
 .OTPinput {
   border: none;
   border-bottom: 2px solid #1aa05b;
-  color: #1aa05b;
+  color: transparent;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
   width: 30px;
   margin-right: 0.625rem;
+
 }
 .signIn_body label{
   margin-bottom: -1.25rem;

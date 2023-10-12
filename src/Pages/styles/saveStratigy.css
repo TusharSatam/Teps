@@ -37,7 +37,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 24px; /* 120% */
 letter-spacing: -0.2px;
-display: block !important;
+/* display: block !important; */
 }
 
 .saveStrParent svg path{
@@ -65,7 +65,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 24px; /* 120% */
 letter-spacing: -0.2px;
-display: block !important;
+/* display: block !important; */
 }
 
 .saveStrParentActive svg path{
@@ -509,6 +509,7 @@ font-style: normal;
 font-weight: 600;
 line-height: 12px; /* 150% */
 letter-spacing: -0.08px;
+display: block !important;
   }
   .saveStrParent span{
     color: var(--brand-color-green, #1AA05B);
@@ -519,11 +520,15 @@ letter-spacing: -0.08px;
     font-weight: 600;
     line-height: 12px; /* 120% */
     letter-spacing: -0.1px;
+    display: block !important;
   }
   .comment_div_p{
     font-size: 12px;
   }
   .comment_submit input{
+    font-size: 12px;
+  }
+  .newLine{
     font-size: 12px;
   }
 }

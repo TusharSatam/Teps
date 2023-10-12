@@ -414,11 +414,11 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
         <div
           className={
             location.pathname === "/home"
-              ? "my-3 my-md-3 d-flex"
+              ? "my-2 my-md-3 d-flex"
               : location.pathname === "/saveStratigy" ||
                 location.pathname === "/favouriteStratigy"
               ? "my-3 d-flex"
-              : "mt-1 mb-3 pt-3 pt-md-5 d-flex"
+              : "mt-1 mb-2 mb-md-3 pt-3 pt-md-5 d-flex"
           }
         >
           <select
@@ -577,7 +577,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             ))}
           </select>
         </div>
-        <div className="mb-3">
+        <div className="mb-2 mb-md-3">
           <select
             value={selectSuperTopic}
             onChange={handleSuperTopicFilter}
@@ -591,7 +591,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             {selectedOption && location.pathname !== "/home" ? (
               <>
                 <option value="" selected disabled>
-                  {t("SuperTopic")}
+                  {t("Super Topic")}
                 </option>
                 {localStorage.getItem("selectedDropdown") &&
                   !selectSuperTopic && (
@@ -603,7 +603,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             ) : (
               <>
                 <option value="" selected disabled>
-                  {t("SuperTopic")}
+                  {t("Super Topic")}
                 </option>
               </>
             )}
@@ -618,7 +618,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
             className={
               error2
                 ? "d-block d-md-none px-md-3 py-md-2 bg-light error-border me-4 w-100 mt-3"
-                : "d-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 mt-3 w-100"
+                : "d-block d-md-none px-md-3  py-md-2 bg-light select-border me-4 mt-2 mt-md-3 w-100"
             }
             style={{ paddingLeft: "2px", paddingRight: "5px" }}
           >
@@ -679,7 +679,7 @@ const HomeLayout = ({ setAccorKey = () => {} }) => {
               ))}
             </select>
           </div>
-          <div className="mt-3">
+          <div className="mt-2 mt-md-3">
             <select
               value={selectSubSubTopic}
               onChange={handleSubSUbTopicFilter}

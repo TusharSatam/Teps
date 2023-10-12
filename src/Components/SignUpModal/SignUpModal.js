@@ -785,7 +785,7 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   />
                 </div>
                 <div className="d-flex my-3">
-                  <div className="mt-1 d-block d-md-none">
+                  <div className="mt-md-1 d-block d-md-none">
                     <label className="containerr">
                       <input name="checkmark" type="checkbox" />
                       <span className="checkmark"></span>

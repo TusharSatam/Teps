@@ -2,7 +2,7 @@ import { Buffer } from 'buffer';
 import React, { useEffect, useState } from 'react';
 import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ScrollToTop from 'react-scroll-to-top';
 import UserImage from '../../asstes/Group 51.svg';
 import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg';
@@ -18,15 +18,13 @@ import './searchscrean.css';
 import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData,strategyNum, setstrategyNum } = useAuth()
+  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData,strategyNum, setstrategyNum, setShowStrategyCheckboxes, showStrategyCheckboxes, checkBoxes, setCheckBoxes, checkBoxesH, setCheckBoxesH, ownCheckBox, setOwnCheckBox } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
-  const [uploadeduserIDs, setuploadeduserIDs] = useState([])
   const [userDetails, setUserDetails] = useState([]);
   const { t } = useTranslation();
-
-
+  const navigate = useNavigate();
 
   const uniqueSubSubTopic = Array.from(new Set(stratigyFilData?.map(a => a['Learning Outcome'])))
     .map(learning_outcome => {
@@ -203,10 +201,26 @@ const SearchScrean = () => {
   const handleBackClick = () => {
     window.history.go(-1);
   };
+  const handleStayOnCheckbox = (url) => {
+    setShowStrategyCheckboxes(true);
+    setCheckBoxes(show);
+    setCheckBoxesH(showH);
+    setOwnCheckBox(check);
+    navigate(url);
+  }
+
+  useEffect(()=>{
+    if(showStrategyCheckboxes===true){
+      setShow(checkBoxes);
+      setShowH(checkBoxesH);
+      setCheck(ownCheckBox);
+    }
+  },[showStrategyCheckboxes,checkBoxes, checkBoxesH])
+  useEffect(()=>{console.log({show})},[show])
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -239,13 +253,13 @@ const SearchScrean = () => {
                               </ContextAwareToggle>
                               <p className='checkBox_title mb-0'>{data['Learning Outcome']}</p>
                             </Card.Header>
-                            <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
+                            <Accordion.Collapse in={show.includes(index)} eventKey={index + 1} className="acordonia_coll">
                               <Card.Body className='border-bottom card_pad px-0'>
                                 <div className='my-4'>
                                   {
                                     stratigyFilData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).map((strRes, index) => (
                                       <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
-                                        <Link to={`/single/${strRes._id}`} className="linkStyle">
+                                        <button onClick={()=>{handleStayOnCheckbox(`/single/${strRes._id}`);}} className="linkStyle">
                                           <div className='me-1'>
                                             <div>
                                               <div className='d-flex'>
@@ -255,7 +269,7 @@ const SearchScrean = () => {
                                             </div>
                                       
                                           </div>
-                                        </Link>
+                                        </button>
                                         <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
                                           {/* <Link to={`/single/${strRes._id}`} className="linkStyle"> */}
@@ -265,9 +279,9 @@ const SearchScrean = () => {
                                           {/* </Link> */}
                              
                                           <div className='strategyReadmore' >
-                                            <Link to={`/single/${strRes._id}`} >
+                                            <button onClick={()=>{handleStayOnCheckbox(`/single/${strRes._id}`);}} >
                                               Read more...
-                                            </Link>
+                                            </button>
                                           </div>
                                         </div>
                               
@@ -286,12 +300,12 @@ const SearchScrean = () => {
                                         <div className={index === 0 ? 'd-flex flex-column justify-content-between my-4  outcomeList' : 'd-flex flex-column justify-content-between my-4 pt-5 outcomeList'} onClick={()=>setstrategyNum(index+1)}>
                                           <div className=''>
                                             <div>
-                                              <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
+                                              <button onClick={()=>{handleStayOnCheckbox(`/singleUserStratigy/${strUser._id}`)}} className="linkStyle">
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
                                                   <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index +1)}</p>
                                                 </div>
-                                              </Link>
+                                              </button>
 
                                               <p className='user_str d-none d-md-block mt-1 mb-0'>Uploaded By - {
                                                 userDetails[index]?.data[0]?.image ?
@@ -318,9 +332,9 @@ const SearchScrean = () => {
                                                   </>
                                               } </p>
                                             </div>
-                                            <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle">
+                                            <button onClick={()=>{handleStayOnCheckbox(`/singleUserStratigy/${strUser._id}`)}} className="linkStyle">
                                     
-                                            </Link>
+                                            </button>
                                           </div>
                                           <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
@@ -335,9 +349,9 @@ const SearchScrean = () => {
                                        
                                                 </div>
                                               <div className='strategyReadmore'>
-                                                <Link to={`/singleUserStratigy/${strUser._id}`} >
+                                                <button  onClick={()=>{handleStayOnCheckbox(`/singleUserStratigy/${strUser._id}`)}}>
                                                   Read more...
-                                                </Link>
+                                                </button>
                                               <div className='d-block d-md-none'>
                                                 <p className='user_str'>Uploaded By - {
                                                   userDetails[index]?.data[0]?.image ?
@@ -398,13 +412,13 @@ const SearchScrean = () => {
                                 <ContextAwareToggle className="me-2" eventKey={index + 1}>{showH?.includes(index) ? <img className="checkbox_size" onClick={() => handleCheckboxH(index)} src={checkCheckbox} alt="checkbox" /> : <img className='checkbox_size' onClick={() => handleCheckboxH(index)} src={EmptyCheckbox} alt="emptyCheckbox" />}</ContextAwareToggle>
                                 <p className='checkBox_title mb-0'>{data['शिक्षण के परिणाम']}</p>
                               </Card.Header>
-                              <Accordion.Collapse eventKey={index + 1} className="acordonia_coll">
+                              <Accordion.Collapse in={showH?.includes(index)} eventKey={index + 1} className="acordonia_coll">
                                 <Card.Body  className='border-bottom card_pad px-0'>
                                   <div className='my-4'>
                                     {
                                       stratigyFilData?.filter(res => res['शिक्षण के परिणाम'] === data['शिक्षण के परिणाम']).map((data, index) => (
                                         <div className='d-flex flex-column justify-content-between my-4 outcomeList' onClick={()=>setstrategyNum(index+1)}>
-                                          <Link to={`/singleHi/${data._id}`} className="linkStyle">
+                                          <button onClick={()=>{handleStayOnCheckbox(`/singleHi/${data._id}`)}} className="linkStyle">
                                             <div className='me-1'>
                                               <div>
                                                 <div className='d-flex'>
@@ -414,7 +428,7 @@ const SearchScrean = () => {
                                               </div>
                                     
                                             </div>
-                                          </Link>
+                                          </button>
                                           <div className='Strategy_count_article'>
                                             {/* <Link to={`/singleHi/${data._id}`} className="linkStyle"> */}
                                               <p className='mb-0'>
@@ -424,9 +438,9 @@ const SearchScrean = () => {
                                        
                
                                             <div className='strategyReadmore'>
-                                          <Link to={`/singleHi/${data._id}`} >
+                                          <button onClick={()=>{handleStayOnCheckbox(`/singleHi/${data._id}`)}} >
                                           और पढ़ें...
-                                          </Link>
+                                          </button>
                                             </div>
                                           </div>
                                         </div>
@@ -452,7 +466,7 @@ const SearchScrean = () => {
 
       }
             <>
-        <div className='filterCard gap-3 blackshadow  mb-md-3 container_title_sec'>
+        <div className='filterCard gap-3 blackshadow  mb-5 mb-md-3 container_title_sec'>
           {
             selectLang === 'hindi' ?
               <HomeHindiLayout

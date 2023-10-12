@@ -137,13 +137,13 @@ const EditStrategyHi = () => {
 
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText text-center">रणनीति संपादित करें</p>
+        <p className="headText d-none d-md-block text-center">रणनीति संपादित करें</p>
         <hr className="line" />
       </div>
       {formData?.comments?.length === 0 && (

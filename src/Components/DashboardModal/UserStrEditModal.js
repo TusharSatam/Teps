@@ -182,7 +182,7 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
               </div>
               <div className='mt-2 '>
                 <div>
-                  <p className='select-title'>Sub-Topic <p>*</p></p>
+                  <p className='select-title'>Sub-topic <p>*</p></p>
                   <select defaultValue={data['Sub Topic']} onChange={handleSubTopic} className={'select-field'} name="sub_topic" id="">
                     <option value={data['Sub Topic']} >{data['Sub Topic']}</option>
                     {
@@ -193,7 +193,7 @@ const UserStrEditModal = ({ show, onHide, data, setShow, setStratigys }) => {
                   </select>
                 </div>
                 <div>
-                  <p className='select-title'>Sub-Sub-Topic <p>*</p></p>
+                  <p className='select-title'>Sub-Sub Topic <p>*</p></p>
                   <select defaultValue={data['Sub-sub topic']} className={'select-field'} name="sub_sub_topic" id="">
                     <option value={data['Sub-sub topic']} >{data['Sub-sub topic']}</option>
                     {

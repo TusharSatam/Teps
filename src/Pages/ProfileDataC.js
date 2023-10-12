@@ -158,7 +158,7 @@ const ProfileDataC = ({ setNumber }) => {
                   <span
                     className={
                       saveStratigy?.length === 0
-                        ? "impGray d-md-none"
+                        ? "impGray d-md-none desktopNone"
                         : "d-md-none"
                     }
                   >
@@ -264,7 +264,7 @@ const ProfileDataC = ({ setNumber }) => {
                   <span
                     className={
                       saveStratigyHi?.length === 0
-                        ? "impGray d-md-none"
+                        ? "impGray d-md-none desktopNone"
                         : "d-md-none"
                     }
                   >

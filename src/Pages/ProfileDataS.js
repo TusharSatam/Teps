@@ -239,8 +239,8 @@ const ProfileDataS = ({ setNumber }) => {
                 <span
                   className={
                     saveStratigy?.length === 0
-                      ? "impGray d-md-none"
-                      : "d-md-none"
+                      ? "impGray d-md-none desktopNone"
+                      : "d-md-none desktopNone"
                   }
                 >
                   ({saveStratigy?.length})
@@ -359,7 +359,7 @@ const ProfileDataS = ({ setNumber }) => {
                 <span
                   className={
                     saveStratigyHi?.length === 0
-                      ? "impGray d-md-none"
+                      ? "impGray d-md-none desktopNone"
                       : "d-md-none"
                   }
                 >

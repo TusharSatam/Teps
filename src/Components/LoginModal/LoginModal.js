@@ -350,13 +350,15 @@ const LoginModal = ({ show, setShow }) => {
                         />
                       </div>
                       {showOTPInputs && (
-                        <div id="pin-input" className="pinInput">
-                          {inputotp.map((digit, index) => (
+                        <div style={{position:"relative"}} id="pin-input" className="pinInput">
+                          {inputotp.map((digit, index) => (<span key={index}>
                             <input
-                              key={index}
-                              type="text"
+                            // style={{background:"red"}}
+                              // key={index}
+                              type="tel"
                               maxLength={1}
                               value={digit}
+                              style={{color:"transparent"}}
                               onInput={(e) => {
                                 // Use a regular expression to remove non-numeric characters
                                 e.target.value = e.target.value.replace(
@@ -372,10 +374,10 @@ const LoginModal = ({ show, setShow }) => {
                                 (inputRefs.current[index] = inputRef)
                               }
                               className="OTPinput"
-                              inputMode="numeric" // Specify numeric input mode
-                              pattern="[0-9]*" // Allow only numeric input
+                              pattern="\d*"
                             />
-                          ))}
+                            <p style={{position:"absolute",color:"#1aa05b", left:`calc(${index+1} * 20)px`, top:'28px'}}>{digit}</p>
+                          </span>))}
                           <button
                             type="button"
                             className="resendOTP"
