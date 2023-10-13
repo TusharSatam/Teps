@@ -50,6 +50,21 @@ margin-top: 0 !important;
 .OTPinput:focus {
   outline: none;
 }
+.otp1{
+  left: 22px;
+}
+.otp2{
+  left: 60px;
+}
+.otp3{
+  left: 100px;
+}
+.otp4{
+  left: 137px;
+}
+.otp5{
+  left: 176px;
+}
 .submit_btn,
 .submitOTP_btn {
   width: 237px;

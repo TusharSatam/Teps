@@ -7,13 +7,16 @@ import axios from 'axios';
 const Verify = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('sdfbkjfewihuf');
+  const jwt = new URLSearchParams(search).get('pfgvsckvnlksfwe');
   const [loading, setLoading] = React.useState(false);
   const [veridyd, setVeridyd] = React.useState(false);
   const [alredyVeridyd, setAlradyVeridyd] = React.useState(false);
+  const storedData = JSON.parse(localStorage.getItem('data'));
   React.useEffect(() => {
     setLoading(true)
     getSingleUser(id)
     .then(res => {
+    localStorage.setItem("jwt",jwt);
         const email = res?.data[0]?.email;
         if (res?.data[0]?.varified === false) {
           setAlradyVeridyd(false)
@@ -38,6 +41,12 @@ const Verify = () => {
                 axios.post('email', data)
                   .then(res => {
                     if (res) {
+                      if (storedData) {
+                        storedData.verified = true;
+                        localStorage.setItem('data', JSON.stringify(storedData));
+                      } else {
+                        console.error('No data found in localStorage');
+                      }
                       setVeridyd(true)
                     }
                   })
@@ -61,7 +70,7 @@ const Verify = () => {
             < div className='text-center'>
               <h3 className="verify_head">{alredyVeridyd ? "Already Verified!" : " Verification success!"}</h3>
             </div>
-            <Link to="/"><button>Proceed to the homepage and log in to continue.</button></Link>
+            <Link to="/home"><button>Proceed to the homepage and log in to continue.</button></Link>
           </div>
       }
     </>

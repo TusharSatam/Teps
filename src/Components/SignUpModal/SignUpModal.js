@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { userRegister } from "../../services/auth";
+import { sendOTP, userRegister } from "../../services/auth";
 import CrossIcon from "../../asstes/cross-icon.png";
 import { useAuth } from "../../Context/AuthContext";
 import ForgotModal from "../ForgotPassModal/ForgotModal";
@@ -10,8 +10,18 @@ import "./signUpModal.css";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
 import VerifyModal from "../ForgotPassModal/VerifyModal";
+import toast from "react-hot-toast";
 
-const SignUpModal = ({ handleClose, show, setShow }) => {
+const SignUpModal = ({
+  handleClose,
+  show,
+  setShow,
+  showOTPInputs,
+  setshowOTPInputs,
+  setPhoneForOTP,
+  setisOTPLoginOpen,
+  setLoginModal,
+}) => {
   const { t } = useTranslation();
   const [error, setError] = React.useState("");
   const [required, setRequired] = React.useState("");
@@ -42,29 +52,17 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
   const [isPhoneInputType, setisPhoneInputType] = useState(false);
   const emailInputRef = useRef(null);
   const checkFormValidity = () => {
-    const firstName = document.querySelector('input[name="firstName"]').value;
-    const lastName = document.querySelector('input[name="lastName"]').value;
-    const email = document.querySelector('input[name="email"]').value;
-    const phone = document.querySelector('input[name="phone_number"]').value;
-    const password = document.querySelector('input[name="password"]').value;
-    const confirmPassword = document.querySelector(
-      'input[name="confirm_password"]'
-    ).value;
     // Check if any of the required fields are empty
     let isInvalid;
-    if(registrationOption==="email"){
-      isInvalid=
+    if (registrationOption === "email") {
+      isInvalid =
         !FirstName ||
         !LastName ||
         !(Email || PhoneNumber) ||
         !Password ||
         !ConfirmPass;
-    }
-    else{
-      isInvalid=
-        !FirstName ||
-        !LastName ||
-        ! PhoneNumber
+    } else {
+      isInvalid = !FirstName || !LastName || !PhoneNumber;
     }
 
     setIsFormValid(!isInvalid);
@@ -234,51 +232,62 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
       }
     } else if (registrationOption === "phone") {
       // Phone number registration option is selected
-      if (
-        e.target.firstName.value &&
-        e.target.lastName.value &&
-        phoneValue &&
-        equalPass !== ""
-      ) {
+      if (e.target.firstName.value && e.target.lastName.value && phoneValue) {
         setRequired("");
         if (e.target.phone.value) {
           if (e.target.checkmark.checked === true) {
             setCheckError("");
-            if (
-              e.target.password.value.length > 4 &&
-              e.target.confirm_password.value.length > 4
-            ) {
-              setPassError(``);
-              if (e.target.password.value === e.target.confirm_password.value) {
-                setError("");
-                setEmailError("");
-                equalPass = e.target.password.value;
+            // if (
+            //   e.target.password.value.length > 4 &&
+            //   e.target.confirm_password.value.length > 4
+            // ) {
+            setPassError(``);
+            // if (e.target.password.value === e.target.confirm_password.value) {
+            setError("");
+            setEmailError("");
+            // equalPass = e.target.password.value;
 
-                const formData = {
-                  firstName: e.target.firstName.value,
-                  lastName: e.target.lastName.value,
+            const formData = {
+              firstName: e.target.firstName.value,
+              lastName: e.target.lastName.value,
+              phoneNumber: phoneValue,
+              password: phoneValue,
+            };
+            userRegister(formData)
+              .then((res) => {
+                e.target.reset();
+                setShow(false);
+                // TODO:OTP API CALL
+                let data = {
                   phoneNumber: phoneValue,
-                  password: equalPass,
                 };
-                userRegister(formData)
+                // Phone number is valid, proceed to OTP input
+                sendOTP(data)
                   .then((res) => {
-                    e.target.reset();
-                    setShow(false);
-                    setPhoneValue("");
+                setLoginModal(true);
+                setPhoneValue("");
                   })
                   .catch((err) => {
-                    if (err.response.status === 409) {
-                      setPhoneError(`${t("already_phone")}`);
-                      setDisplay("d-block");
-                    } else console.log(err);
+                    console.log({ err });
+                    toast.error("Some Error Occured");
                   });
-              } else {
-                setError(`${t("password_match")}`);
-              }
-            } else {
-              setPassError(`${t("password_five")}`);
-              setError(``);
-            }
+                setPhoneForOTP(phoneValue);
+                setshowOTPInputs(true);
+                setisOTPLoginOpen(true);
+              })
+              .catch((err) => {
+                if (err.response.status === 409) {
+                  setPhoneError(`${t("already_phone")}`);
+                  setDisplay("d-block");
+                } else console.log(err);
+              });
+            // } else {
+            //   setError(`${t("password_match")}`);
+            // }
+            // } else {
+            //   setPassError(`${t("password_five")}`);
+            //   setError(``);
+            // }
           } else {
             setCheckError(`${t("checkbox_error")}`);
             setPassError("");
@@ -498,40 +507,38 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </div>
                 </div>
               </div>
-              {
-                (registrationOption==="email" && (
-                  <div className="d-flex my-3">
-                    <div className="me-5">
-                      <label htmlFor="">{t("Password")}</label>
-                      <span className="text-danger position-absolute">*</span>
-                      <br />
-                      <input
-                        className="signup_Input"
-                        min="0"
-                        name="password"
-                        placeholder={t("Password")}
-                        type="password"
-                        step="1"
-                        onBlur={checkFormValidity}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="">{t("Confirm Password")}</label>
-                      <span className="text-danger position-absolute">*</span>
-                      <br />
-                      <input
-                        className="signup_Input"
-                        name="confirm_password"
-                        placeholder={t("Confirm Password")}
-                        type="password"
-                        onBlur={checkFormValidity}
-                        onChange={(e) => setConfirmPass(e.target.value)}
-                      />
-                    </div>
+              {registrationOption === "email" && (
+                <div className="d-flex my-3">
+                  <div className="me-5">
+                    <label htmlFor="">{t("Password")}</label>
+                    <span className="text-danger position-absolute">*</span>
+                    <br />
+                    <input
+                      className="signup_Input"
+                      min="0"
+                      name="password"
+                      placeholder={t("Password")}
+                      type="password"
+                      step="1"
+                      onBlur={checkFormValidity}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </div>
-                ))
-              }
+                  <div>
+                    <label htmlFor="">{t("Confirm Password")}</label>
+                    <span className="text-danger position-absolute">*</span>
+                    <br />
+                    <input
+                      className="signup_Input"
+                      name="confirm_password"
+                      placeholder={t("Confirm Password")}
+                      type="password"
+                      onBlur={checkFormValidity}
+                      onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
               <div className="d-flex">
                 <div className=" d-none d-md-block">
                   <label className="containerr">
@@ -755,36 +762,40 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </div>
                 )}
 
-                <div className="mt-3">
-                  <label className="res-label " htmlFor="">
-                    {t("Password")}
-                  </label>{" "}
-                  <span className="text-danger position-absolute">*</span>
-                  <br />
-                  <input
-                    className="signup_Input"
-                    name="password"
-                    placeholder={t("Password")}
-                    type="password"
-                    onBlur={checkFormValidity}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="mt-3">
-                  <label className="res-label " htmlFor="">
-                    {t("Confirm Password")}
-                  </label>{" "}
-                  <span className="text-danger position-absolute">*</span>
-                  <br />
-                  <input
-                    className="signup_Input"
-                    name="confirm_password"
-                    placeholder={t("Confirm Password")}
-                    type="password"
-                    onBlur={checkFormValidity}
-                    onChange={(e) => setConfirmPass(e.target.value)}
-                  />
-                </div>
+                {registrationOption === "email" && (
+                  <div className="mt-3">
+                    <label className="res-label " htmlFor="">
+                      {t("Password")}
+                    </label>{" "}
+                    <span className="text-danger position-absolute">*</span>
+                    <br />
+                    <input
+                      className="signup_Input"
+                      name="password"
+                      placeholder={t("Password")}
+                      type="password"
+                      onBlur={checkFormValidity}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                )}
+                {registrationOption === "email" && (
+                  <div className="mt-3">
+                    <label className="res-label " htmlFor="">
+                      {t("Confirm Password")}
+                    </label>{" "}
+                    <span className="text-danger position-absolute">*</span>
+                    <br />
+                    <input
+                      className="signup_Input"
+                      name="confirm_password"
+                      placeholder={t("Confirm Password")}
+                      type="password"
+                      onBlur={checkFormValidity}
+                      onChange={(e) => setConfirmPass(e.target.value)}
+                    />
+                  </div>
+                )}
                 <div className="d-flex my-3">
                   <div className="mt-md-1 d-block d-md-none">
                     <label className="containerr">

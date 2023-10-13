@@ -21,11 +21,14 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
   const { t } = useTranslation()
   const [show, setShow] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
+  const [showOTPInputs, setshowOTPInputs] = useState(false);
+  const [isOTPLoginOpen, setisOTPLoginOpen] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseloginModal = () => setLoginModal(false);
   const handleShowloginModal = () => setLoginModal(true);
+  const [phoneValue, setPhoneValue] = React.useState("");
   const { user, isAuthenticated, logout, setStratigyFilData } = useAuth();
   const profileId = document.getElementById('profile')
   const handleClick = (e) => {
@@ -50,12 +53,23 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
         handleClose={handleClose}
         show={show}
         setShow={setShow}
+        showOTPInputs={showOTPInputs}
+        setshowOTPInputs={setshowOTPInputs}
+        setPhoneForOTP={setPhoneValue}
+        setisOTPLoginOpen={setisOTPLoginOpen}
+        setLoginModal={setLoginModal}
       />
       <LoginModal
         key={'2'}
         handleClose={handleCloseloginModal}
         show={loginModal}
         setShow={setLoginModal}
+        showOTPInputs={showOTPInputs}
+        setshowOTPInputs={setshowOTPInputs}
+        phoneValue={phoneValue}
+        setPhoneValue={setPhoneValue}
+        isOTPLoginOpen={isOTPLoginOpen}
+        setisOTPLoginOpen={setisOTPLoginOpen}
       />
       <section onClick={navClick} className={location.pathname === '/profile' ? "mx-3 mx-md-5 my-3 mt-md-5 d-flex justify-content-between align-items-center " : "mx-3 mx-md-5 my-3 my-md-4 d-flex justify-content-between align-items-center "}>
         <div>

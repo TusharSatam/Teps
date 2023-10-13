@@ -29,7 +29,7 @@ const LandingCarousel = () => {
       {selectLang === "english" ? (
         <Slider {...settings} className="">
           <div className="d-flex justify-content-center align-items-center carousalCard firstCard">
-            <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+            <img src={Carousel1} alt="Carousel1" className="carousalImage carouselImage1" />
             <div className="carousalTextArea d-flex flex-column">
               <h1>Empowering Educators</h1>
               <div className="cardDetails">
@@ -46,7 +46,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel2} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel2} alt="Carousel1" className="carousalImage carouselImage2" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>Choose from 5000+ teaching strategies! </h1>
               <div className="cardDetails">
@@ -98,7 +98,7 @@ const LandingCarousel = () => {
       ) : (
         <Slider {...settings} className="">
           <div className="d-flex justify-content-center  align-items-center carousalCard firstCard">
-            <img src={Carousel1} alt="Carousel1" className="carousalImage" />
+            <img src={Carousel1} alt="Carousel1" className="carousalImage carouselImage1" />
             <div className="carousalTextArea d-flex flex-column justify-content-center">
               <h1>शिक्षकों को सशक्त बनाना</h1>
               <div className="cardDetails">
@@ -115,7 +115,7 @@ const LandingCarousel = () => {
             </div>
           </div>
           <div className="d-flex justify-content-center align-items-center carousalCard">
-          <img src={Carousel2} alt="Carousel1" className="carousalImage" />
+          <img src={Carousel2} alt="Carousel1" className="carousalImage carouselImage2" />
             <div className="carousalTextArea d-flex flex-column innerWidth">
               <h1>5000+ शिक्षण रणनीतियों में से चुनें!</h1>
               <div className="cardDetails">

@@ -20,6 +20,9 @@ const Landing = () => {
   const [optionModal, setoptionModal] = useState(false);
   const [isLoginModal, setisLoginModal] = useState(false);
   const [isnavigateUploadPage, setisnavigateUploadPage] = useState(false)
+  const [showOTPInputs, setshowOTPInputs] = useState(false);
+  const [phoneValue, setPhoneValue] = React.useState("");
+  const [isOTPLoginOpen, setisOTPLoginOpen] = useState(false);
   const handleClose = () => setShow(false);
   const closeLoginModal = () => setisLoginModal(false);
   const handleOptionModalClose = () => setoptionModal(false);
@@ -85,6 +88,11 @@ const Landing = () => {
         show={show}
         setShow={setShow}
         isnavigateUploadPage={isnavigateUploadPage}
+        setshowOTPInputs={setshowOTPInputs}
+        showOTPInputs={showOTPInputs}
+        setPhoneForOTP={setPhoneValue}
+        setisOTPLoginOpen={setisOTPLoginOpen}
+        setLoginModal={setisLoginModal}
       />
       <LoginOptionModal
         key={"2"}
@@ -101,6 +109,12 @@ const Landing = () => {
         show={isLoginModal}
         setShow={setisLoginModal}
         isnavigateUploadPage={isnavigateUploadPage}
+        setshowOTPInputs={setshowOTPInputs}
+        showOTPInputs={showOTPInputs}
+        phoneValue={phoneValue}
+        setPhoneValue={setPhoneValue}
+        isOTPLoginOpen={isOTPLoginOpen}
+        setisOTPLoginOpen={setisOTPLoginOpen}
       />
     </>
   );

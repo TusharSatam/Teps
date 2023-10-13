@@ -59,9 +59,17 @@
   letter-spacing: -0.16px;
 }
 .carousalImage {
-  width: 236px;
+  width: 136px;
   height: 176px;
   border-radius: 16px;
+  object-fit: cover;
+}
+
+.carouselImage1{
+  object-position: -75px;
+}
+.carouselImage2{
+  object-position: -32.5px;
 }
 
 @media only screen and (max-width: 1040px) {
@@ -127,8 +135,14 @@
     height: 100px;
   }
   .carousalImage {
-    height: -webkit-fill-available;
-    width: 90px;
-    object-fit: unset;
+    height: 109px;
+    width: 80px;
+    object-fit: cover;
+  }
+  .carouselImage1{
+    object-position: -55px;
+  }
+  .carouselImage2{
+    object-position: -20px;
   }
 }

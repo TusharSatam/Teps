@@ -10,7 +10,7 @@ import VerifyModal from "../ForgotPassModal/VerifyModal";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
 
-const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
+const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setshowOTPInputs, phoneValue,setPhoneValue, isOTPLoginOpen, setisOTPLoginOpen }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuth();
@@ -20,12 +20,9 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
   const [error, setError] = React.useState("");
   const [checkError, setCheckError] = React.useState("");
   const [verifyModal, setVerifyModal] = React.useState(false);
-  const [isOTPLoginOpen, setisOTPLoginOpen] = useState(false);
   const [email, setemail] = useState("");
-  const [phoneValue, setPhoneValue] = React.useState("");
   const [inputotp, setInputotp] = useState(["", "", "", "", ""]);
   const [OTP, setOTP] = useState(0);
-  const [showOTPInputs, setshowOTPInputs] = useState(false);
   const inputRefs = useRef([]);
 
   const handleGetOTP = (e) => {
@@ -96,6 +93,8 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
   };
 
   const handleClose = () => {
+    setisOTPLoginOpen(false);
+    setPhoneValue("");
     setShow(false);
     setCheckError("");
     setError("");
@@ -198,6 +197,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
             setIsAuthenticated(true);
             window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
             window.localStorage.setItem("data", JSON.stringify(res.data));
+            let localstorageData;
             if (
               localStorage.getItem("i18nextLng") === "en-US" ||
               localStorage.getItem("i18nextLng") === "en"
@@ -380,14 +380,14 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
                       </div>
                       {showOTPInputs && (
                         <div style={{position:"relative"}} id="pin-input" className="pinInput">
-                          {inputotp.map((digit, index) => (<span key={index}>
+                          {inputotp.map((digit, index) => (<span style={{position:"relative"}} key={index}>
                             <input
                             // style={{background:"red"}}
                               // key={index}
                               type="tel"
                               maxLength={1}
                               value={digit}
-                              style={{color:"transparent"}}
+                              style={{color:"transparent",caretColor:"#1aa05b"}}
                               onInput={(e) => {
                                 // Use a regular expression to remove non-numeric characters
                                 e.target.value = e.target.value.replace(
@@ -405,7 +405,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
                               className="OTPinput"
                               pattern="\d*"
                             />
-                            <p style={{position:"absolute",color:"#1aa05b", left:`calc(${index+1} * 20)px`, top:'28px'}}>{digit}</p>
+                            <p style={{position:"absolute", color:"#1aa05b", top:"10px", left:"3px",userSelect:"none",fontSize:"36px",fontWeight:"500",pointerEvents:"none"}}>{digit}</p>
                           </span>))}
                           <button
                             type="button"
