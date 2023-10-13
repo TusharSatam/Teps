@@ -8,9 +8,11 @@ import { useEffect } from "react";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 import { t } from "i18next";
 import backArrow from "../../asstes/icons/backArrow.svg";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 const AddForm = () => {
-  const { user, selectLang,allStrategies } = useAuth();
+  const { user, selectLang, allStrategies } = useAuth();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState("");
   const [selectGrade, setSelectGrade] = React.useState("");
@@ -41,8 +43,8 @@ const AddForm = () => {
   }, [language, selectLang]);
 
   React.useEffect(() => {
-      setAllStratigys(allStrategies);
-  }, []);
+    setAllStratigys(allStrategies);
+  }, [allStrategies]);
   const resetDropdowns = () => {
     setSelectSubject("");
     setSelectGrade("");
@@ -57,7 +59,7 @@ const AddForm = () => {
   };
 
   const handleSub = (e) => {
-    setSelectSubject(e.target.value);
+    setSelectSubject(e);
     setSelectTopic("");
     setSelectSkill("");
     setSelectSuperTopic("");
@@ -67,7 +69,7 @@ const AddForm = () => {
     setSelectLearningOutcome("");
   };
   const handleGrade = (e) => {
-    setSelectGrade(e.target.value);
+    setSelectGrade(e);
     setSelectSubject("");
     setSelectTopic("");
     setSelectSkill("");
@@ -81,7 +83,7 @@ const AddForm = () => {
     setSelectSkill(e.target.value);
   };
   const handleSuperTopic = (e) => {
-    setSelectSuperTopic(e.target.value);
+    setSelectSuperTopic(e);
     setSelectTopic("");
     setSelectSubTopic("");
     setSelectSubSubTopic("");
@@ -89,29 +91,29 @@ const AddForm = () => {
     setSelectLearningOutcome("");
   };
   const handleTopic = (e) => {
-    setSelectTopic(e.target.value);
+    setSelectTopic(e);
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     setSelectPedagogical("");
     setSelectLearningOutcome("");
   };
   const handleSubTopic = (e) => {
-    setSelectSubTopic(e.target.value);
+    setSelectSubTopic(e);
     setSelectSubSubTopic("");
     setSelectPedagogical("");
     setSelectLearningOutcome("");
   };
   const handleSubSubTopic = (e) => {
-    setSelectSubSubTopic(e.target.value);
+    setSelectSubSubTopic(e);
     setSelectPedagogical("");
     setSelectLearningOutcome("");
   };
   const handlePedagogical = (e) => {
-    setSelectPedagogical(e.target.value);
+    setSelectPedagogical(e);
     setSelectLearningOutcome("");
   };
   const handleLearningOutcome = (e) => {
-    setSelectLearningOutcome(e.target.value);
+    setSelectLearningOutcome(e);
   };
 
   const customSortOrder = [
@@ -351,7 +353,9 @@ const AddForm = () => {
               {`${t("Back")}`}
             </button>
             <hr className="line" />
-            <p className="headText d-none d-md-block text-center">Add Your Strategy</p>
+            <p className="headText d-none d-md-block text-center">
+              Add Your Strategy
+            </p>
             <hr className="line" />
           </div>
           <div className="center-div">
@@ -362,7 +366,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Grade <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleGrade}
                       className={"select-field"}
                       name="grade"
@@ -377,13 +381,21 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueGrade
+                        ?.filter((res) => res !== undefined)
+                        .map((res, i) => res)}
+                      onChange={(e)=>{handleGrade(e.value)}}
+                      value={selectGrade}
+                      placeholder="Grade"
+                    />
                   </div>
                   <div>
                     <p className="select-title">
                       Subject <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleSub}
                       className={"select-field"}
                       name="subject"
@@ -400,7 +412,15 @@ const AddForm = () => {
                             {res.Subject !== "" && res.Subject}
                           </option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueSubject
+                        ?.filter((res) => res.Subject !== undefined)
+                        .map((res, i) => res.Subject)}
+                      onChange={(e)=>{handleSub(e.value)}}
+                      value={selectSubject}
+                      placeholder="Subject"
+                    />
                   </div>
                 </div>
                 <div className="two-selects ">
@@ -408,7 +428,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Super topic <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleSuperTopic}
                       className={"select-field"}
                       name="superTopic"
@@ -422,13 +442,21 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res["Super Topic"]}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueSuperTopic
+                        ?.filter((res) => res["Super Topic"] !== undefined)
+                        .map((res, i) => res["Super Topic"])}
+                      onChange={(e)=>{handleSuperTopic(e.value)}}
+                      value={selectSuperTopic}
+                      placeholder="Super Topic"
+                    />
                   </div>
                   <div>
                     <p className="select-title">
                       Topic <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleTopic}
                       className={"select-field"}
                       name="topic"
@@ -442,7 +470,15 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res.Topic}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueTopic
+                        ?.filter((res) => res.Topic !== undefined)
+                        .map((res, i) => res.Topic)}
+                      onChange={(e)=>{handleTopic(e.value)}}
+                      value={selectTopic}
+                      placeholder="Topic"
+                    />
                   </div>
                 </div>
                 <div className="two-selects ">
@@ -450,7 +486,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Sub-topic <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleSubTopic}
                       className={"select-field"}
                       name="sub_topic"
@@ -464,13 +500,21 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res["Sub Topic"]}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueSubTopic
+                        ?.filter((res) => res["Sub Topic"] !== undefined)
+                        .map((res, i) => res["Sub Topic"])}
+                      onChange={(e)=>{handleSubTopic(e.value)}}
+                      value={selectSubTopic}
+                      placeholder="Sub Topic"
+                    />
                   </div>
                   <div>
                     <p className="select-title">
                       Sub sub-topic <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleSubSubTopic}
                       className={"select-field"}
                       name="sub_sub_topic"
@@ -485,7 +529,15 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res["Sub-sub topic"]}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueSubSubTopic
+                        ?.filter((res) => res["Sub-sub topic"] !== undefined)
+                        .map((res, i) => res["Sub-sub topic"])}
+                      onChange={(e)=>{handleSubSubTopic(e.value)}}
+                      value={selectSubSubTopic}
+                      placeholder="Sub-sub topic"
+                    />
                   </div>
                 </div>
 
@@ -494,7 +546,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Pedagogical Approach <p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handlePedagogical}
                       className={"select-field"}
                       name="pedagogical"
@@ -511,13 +563,21 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res["Pedagogical Approach"]}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniquePedagogical
+                        ?.filter((res) => res["Pedagogical Approach"] !== undefined)
+                        .map((res, i) => res["Pedagogical Approach"])}
+                      onChange={(e)=>{handlePedagogical(e.value)}}
+                      value={selectPedagogical}
+                      placeholder="Pedagogical Approach"
+                    />
                   </div>
                   <div>
                     <p className="select-title">
                       Learning Outcome<p>*</p>
                     </p>
-                    <select
+                    {/* <select
                       onChange={handleLearningOutcome}
                       className={"select-field"}
                       name="learning_outcome"
@@ -531,7 +591,15 @@ const AddForm = () => {
                         .map((res, i) => (
                           <option key={i}>{res["Learning Outcome"]}</option>
                         ))}
-                    </select>
+                    </select> */}
+                    <Dropdown
+                      options={uniqueLearningOutcome
+                        ?.filter((res) => res["Learning Outcome"] !== undefined)
+                        .map((res, i) => res["Learning Outcome"])}
+                      onChange={(e)=>{handleLearningOutcome(e.value)}}
+                      value={selectLearningOutcome}
+                      placeholder="Learning Outcome"
+                    />
                   </div>
                 </div>
 
@@ -568,8 +636,7 @@ const AddForm = () => {
                 <div className="loading-spinner"></div>
               </div>
             )}
-            {formSubmitted &&
-            isStrategyPublic &&(
+            {formSubmitted && isStrategyPublic && (
               <p className="responseText" ref={successMessageRef}>
                 Thank you for publishing your strategy!
               </p>
