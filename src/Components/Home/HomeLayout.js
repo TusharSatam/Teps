@@ -7,7 +7,7 @@ import Article from "../LandingArticle/Article";
 import "./homelayout.css";
 import { getUserStratigys } from "../../services/userStratigy";
 import { postPulledStr } from "../../services/pulledStratigy";
-const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
+const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [allUserStratigys, setAllUserStratigys] = React.useState([]);
@@ -50,24 +50,24 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setAllUserStratigys(allUserStrategies);
   }, [allStrategies, allUserStrategies, loadingdropdown]);
   React.useEffect(() => {
-      if (selectedOption) {
-        setSelectSubject(selectedOption?.selectSubject);
-        setSelectGrade(selectedOption?.selectGrade);
-        setSelectTopic(selectedOption?.selectTopic);
-        setSelectSkill(selectedOption?.selectSkill);
-        setSelectSuperTopic(selectedOption?.selectSuperTopic);
-        setSelectSubTopic(selectedOption?.selectSubTopic);
-        setSelectSubSubTopic(selectedOption?.selectSubSubTopic);
-      }
+    if (selectedOption) {
+      setSelectSubject(selectedOption?.selectSubject);
+      setSelectGrade(selectedOption?.selectGrade);
+      setSelectTopic(selectedOption?.selectTopic);
+      setSelectSkill(selectedOption?.selectSkill);
+      setSelectSuperTopic(selectedOption?.selectSuperTopic);
+      setSelectSubTopic(selectedOption?.selectSubTopic);
+      setSelectSubSubTopic(selectedOption?.selectSubSubTopic);
+    }
   }, [selectedOption, location.pathname]);
-  const resetallErrors=()=>{
-    setError1(false)
-    setError2(false)
-    setError3(false)
-    setError4(false)
-    setError5(false)
-    setError6(false)
-  }
+  const resetallErrors = () => {
+    setError1(false);
+    setError2(false);
+    setError3(false);
+    setError4(false);
+    setError5(false);
+    setError6(false);
+  };
   const customSortOrder = [
     "Pre-K",
     "LKG",
@@ -120,17 +120,48 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
         // For selectGrades 1 to 5
         allowedSubjects = ["English", "Mathematics", "EVS"];
         return allowedSubjects.includes(e.Subject);
+      } else if (
+        selectGrade === "6" ||
+        selectGrade === "7" ||
+        selectGrade === "8"
+      ) {
+        allowedSubjects = [
+          "English",
+          "Mathematics",
+          "Science",
+          "History",
+          "Political Science",
+          "Geography",
+        ];
+        return allowedSubjects.includes(e.Subject);
+      } else if (selectGrade === "9" || selectGrade === "10") {
+        allowedSubjects = [
+          "English",
+          "Mathematics",
+          "Science",
+          "Economics",
+          "History",
+          "Political Science",
+          "Geography",
+        ];
+        return allowedSubjects.includes(e.Subject);
       } else {
         // For other selectGrades
         allowedSubjects = [
           "English",
           "Mathematics",
           "Science",
-          "Social Studies",
+          "Numeracy",
+          "EVS",
+          "Economics",
+          "History",
+          "Political Science",
+          "Geography",
         ];
         return allowedSubjects.includes(e.Subject);
       }
     });
+
 
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
@@ -140,7 +171,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
 
   const handlegradeFilter = (e) => {
@@ -152,15 +183,14 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value);
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
-
+    resetallErrors();
   };
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value);
@@ -169,7 +199,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
   const handleSuperTopicFilter = (e) => {
     setSelectSuperTopic(e.target.value);
@@ -177,18 +207,18 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value);
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value);
     localStorage.removeItem("selectedDropdown");
-    resetallErrors()
+    resetallErrors();
   };
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
@@ -247,8 +277,8 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
     setAccorKey();
-    let isUserExist=localStorage.getItem("data")
-    if(isUserExist===null){
+    let isUserExist = localStorage.getItem("data");
+    if (isUserExist === null) {
       setoptionModal(true);
     }
 
@@ -313,7 +343,10 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
           aquaticCreatures.length !== 0 ||
           aquaticCreaturesUser.length !== 0
         ) {
-          if (location.pathname === "/home" || location.pathname === "/search") {
+          if (
+            location.pathname === "/home" ||
+            location.pathname === "/search"
+          ) {
             navigate("/search");
           }
           window.localStorage.setItem(
@@ -431,7 +464,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
       >
         <div
           className={
-            location.pathname === "/home" ||location.pathname === "/"
+            location.pathname === "/home" || location.pathname === "/"
               ? "my-2 my-md-3 d-flex"
               : location.pathname === "/saveStratigy" ||
                 location.pathname === "/favouriteStratigy"
@@ -807,7 +840,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
           <p className="error_text mt-2">{error}</p>
         )}
       </div>
-      {location.pathname === "/home"? (
+      {location.pathname === "/home" ? (
         <div className="d-flex justify-content-center  my-md-0 ">
           <button
             onClick={handleFindStratigys}
@@ -835,7 +868,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
       )}
     </>
   ) : (
-      <div className="loading-spinner"></div>
+    <div className="loading-spinner"></div>
   );
 };
 

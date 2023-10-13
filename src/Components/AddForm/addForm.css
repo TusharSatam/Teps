@@ -240,7 +240,9 @@ select {
     .one-selects-l {
         margin-bottom: 0.625rem;
     }
-
+    .addForm .select-title{
+        margin-top:.5rem !important;
+    }
     .select-title p {
         bottom: 1px;
     }

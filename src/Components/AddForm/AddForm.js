@@ -168,13 +168,43 @@ const AddForm = () => {
         // For selectGrades 1 to 5
         allowedSubjects = ["English", "Mathematics", "EVS"];
         return allowedSubjects.includes(e.Subject);
+      } else if (
+        selectGrade === "6" ||
+        selectGrade === "7" ||
+        selectGrade === "8"
+      ) {
+        allowedSubjects = [
+          "English",
+          "Mathematics",
+          "Science",
+          "History",
+          "Political Science",
+          "Geography",
+        ];
+        return allowedSubjects.includes(e.Subject);
+      } else if (selectGrade === "9" || selectGrade === "10") {
+        allowedSubjects = [
+          "English",
+          "Mathematics",
+          "Science",
+          "Economics",
+          "History",
+          "Political Science",
+          "Geography",
+        ];
+        return allowedSubjects.includes(e.Subject);
       } else {
         // For other selectGrades
         allowedSubjects = [
           "English",
           "Mathematics",
           "Science",
-          "Social Studies",
+          "Numeracy",
+          "EVS",
+          "Economics",
+          "History",
+          "Political Science",
+          "Geography",
         ];
         return allowedSubjects.includes(e.Subject);
       }
@@ -360,7 +390,7 @@ const AddForm = () => {
           </div>
           <div className="center-div">
             {allStratigys.length ? (
-              <form onSubmit={handleSubmit} className="form-main-div">
+              <form onSubmit={handleSubmit} className="form-main-div addForm">
                 <div className="two-selects ">
                   <div>
                     <p className="select-title">
@@ -386,7 +416,9 @@ const AddForm = () => {
                       options={uniqueGrade
                         ?.filter((res) => res !== undefined)
                         .map((res, i) => res)}
-                      onChange={(e)=>{handleGrade(e.value)}}
+                      onChange={(e) => {
+                        handleGrade(e.value);
+                      }}
                       value={selectGrade}
                       placeholder="Grade"
                     />
@@ -417,7 +449,9 @@ const AddForm = () => {
                       options={uniqueSubject
                         ?.filter((res) => res.Subject !== undefined)
                         .map((res, i) => res.Subject)}
-                      onChange={(e)=>{handleSub(e.value)}}
+                      onChange={(e) => {
+                        handleSub(e.value);
+                      }}
                       value={selectSubject}
                       placeholder="Subject"
                     />
@@ -447,7 +481,9 @@ const AddForm = () => {
                       options={uniqueSuperTopic
                         ?.filter((res) => res["Super Topic"] !== undefined)
                         .map((res, i) => res["Super Topic"])}
-                      onChange={(e)=>{handleSuperTopic(e.value)}}
+                      onChange={(e) => {
+                        handleSuperTopic(e.value);
+                      }}
                       value={selectSuperTopic}
                       placeholder="Super Topic"
                     />
@@ -475,7 +511,9 @@ const AddForm = () => {
                       options={uniqueTopic
                         ?.filter((res) => res.Topic !== undefined)
                         .map((res, i) => res.Topic)}
-                      onChange={(e)=>{handleTopic(e.value)}}
+                      onChange={(e) => {
+                        handleTopic(e.value);
+                      }}
                       value={selectTopic}
                       placeholder="Topic"
                     />
@@ -505,7 +543,9 @@ const AddForm = () => {
                       options={uniqueSubTopic
                         ?.filter((res) => res["Sub Topic"] !== undefined)
                         .map((res, i) => res["Sub Topic"])}
-                      onChange={(e)=>{handleSubTopic(e.value)}}
+                      onChange={(e) => {
+                        handleSubTopic(e.value);
+                      }}
                       value={selectSubTopic}
                       placeholder="Sub Topic"
                     />
@@ -534,7 +574,9 @@ const AddForm = () => {
                       options={uniqueSubSubTopic
                         ?.filter((res) => res["Sub-sub topic"] !== undefined)
                         .map((res, i) => res["Sub-sub topic"])}
-                      onChange={(e)=>{handleSubSubTopic(e.value)}}
+                      onChange={(e) => {
+                        handleSubSubTopic(e.value);
+                      }}
                       value={selectSubSubTopic}
                       placeholder="Sub sub-topic"
                     />
@@ -566,9 +608,13 @@ const AddForm = () => {
                     </select> */}
                     <Dropdown
                       options={uniquePedagogical
-                        ?.filter((res) => res["Pedagogical Approach"] !== undefined)
+                        ?.filter(
+                          (res) => res["Pedagogical Approach"] !== undefined
+                        )
                         .map((res, i) => res["Pedagogical Approach"])}
-                      onChange={(e)=>{handlePedagogical(e.value)}}
+                      onChange={(e) => {
+                        handlePedagogical(e.value);
+                      }}
                       value={selectPedagogical}
                       placeholder="Pedagogical Approach"
                     />
@@ -596,7 +642,9 @@ const AddForm = () => {
                       options={uniqueLearningOutcome
                         ?.filter((res) => res["Learning Outcome"] !== undefined)
                         .map((res, i) => res["Learning Outcome"])}
-                      onChange={(e)=>{handleLearningOutcome(e.value)}}
+                      onChange={(e) => {
+                        handleLearningOutcome(e.value);
+                      }}
                       value={selectLearningOutcome}
                       placeholder="Learning Outcome"
                     />
