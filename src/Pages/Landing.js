@@ -30,7 +30,6 @@ const Landing = () => {
     setisLoginModal(true);
   };
   const handleOptionModalShow = (selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic) => {
-    console.log(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic);
     if(selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic){
       if(selectLang=="english"){
         window.localStorage.setItem('selectedDropdown', JSON.stringify({ selectSubject, selectGrade, selectTopic, selectSkill, selectSubTopic, selectSubSubTopic }));
@@ -55,7 +54,6 @@ const Landing = () => {
   useEffect(() => {
     isAuthenticated && navigate("/home");
   });
-  console.log(selectLang)
   return (
     <>
       <ScrollToTop smooth  color="#00000" />

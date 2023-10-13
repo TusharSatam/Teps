@@ -120,17 +120,48 @@ const FilterStr = ({
           // For selectGrades 1 to 5
           allowedSubjects = ["English", "Mathematics", "EVS"];
           return allowedSubjects.includes(e.Subject);
+        } else if (
+          selectGrade === "6" ||
+          selectGrade === "7" ||
+          selectGrade === "8"
+        ) {
+          allowedSubjects = [
+            "English",
+            "Mathematics",
+            "Science",
+            "History",
+            "Political Science",
+            "Geography",
+          ];
+          return allowedSubjects.includes(e.Subject);
+        } else if (selectGrade === "9" || selectGrade === "10") {
+          allowedSubjects = [
+            "English",
+            "Mathematics",
+            "Science",
+            "Economics",
+            "History",
+            "Political Science",
+            "Geography",
+          ];
+          return allowedSubjects.includes(e.Subject);
         } else {
           // For other selectGrades
           allowedSubjects = [
             "English",
             "Mathematics",
             "Science",
-            "Social Studies",
+            "Numeracy",
+            "EVS",
+            "Economics",
+            "History",
+            "Political Science",
+            "Geography",
           ];
           return allowedSubjects.includes(e.Subject);
         }
       });
+  
 
     aquaticCreatures = allStratigys.filter(function (creature) {
       return (
@@ -379,7 +410,7 @@ const FilterStr = ({
               selectSubject,
               selectGrade,
               selectTopic,
-              selectSuperTopic:selectSkill,
+              selectSuperTopic: selectSkill,
               selectSubTopic,
               selectSubSubTopic,
             })
@@ -391,7 +422,7 @@ const FilterStr = ({
               selectSubject,
               selectGrade,
               selectTopic,
-              selectSuperTopic:selectSkill,
+              selectSuperTopic: selectSkill,
               selectSubTopic,
               selectSubSubTopic,
             })
