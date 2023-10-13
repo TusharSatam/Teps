@@ -221,7 +221,9 @@ select {
         font-size: 16px !important;
     }
     .Dropdown-option{
-        border-bottom: 1px solid black;
+        font-size: 16px;
+        font-weight: 500;
+        color: black !important;
     }
     .Dropdown-option.is-selected{
         background-color: rgba(127, 240, 255, 0.443) !important;

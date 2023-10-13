@@ -210,7 +210,6 @@ const ProfileDataE = ({ setNumber }) => {
                     <div className="saveLikebtn">
                       <Link
                         to={`/editStrategyform/${res._id}/user`}
-                        className="pencilButton"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -332,7 +331,6 @@ const ProfileDataE = ({ setNumber }) => {
                   <div className="saveLikebtn">
                     <Link
                       to={`/editStrategyform/${res._id}/user`}
-                      className="pencilButton"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -494,22 +494,6 @@ const Profile = () => {
                 {dropdownVisible && (
                   <div className="d-block">
                     <div>
-                      {c === 0 ? (
-                        <button
-                          className="authBtn_p mt-2 me-3 viewBtns"
-                          disabled
-                        >
-                          {t("Created strategies")} <span>({c})</span>
-                        </button>
-                      ) : (
-                        <Link to="/user-created-strategy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t("Created strategies")} <span>({c})</span>
-                          </button>
-                        </Link>
-                      )}
-                    </div>
-                    <div>
                       {f === 0 ? (
                         <button
                           className="authBtn_p mt-2 me-3 viewBtns"
@@ -522,6 +506,24 @@ const Profile = () => {
                           <button className="authBtn_p mt-2 me-3 viewBtns">
                             {t("Saved strategies")}
                             <span>({f})</span>
+                          </button>
+                        </Link>
+                      )}
+                    </div>
+                    <div>
+                      {l === 0 ? (
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          disabled
+                        >
+                          {t(`Favorite strategies`)}
+                          <span>({l})</span>
+                        </button>
+                      ) : (
+                        <Link to="/favouriteStratigy">
+                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                            {t(`Favourite strategies`)}
+                            <span>({l})</span>
                           </button>
                         </Link>
                       )}
@@ -543,19 +545,17 @@ const Profile = () => {
                       )}
                     </div>
                     <div>
-                      {l === 0 ? (
+                      {c === 0 ? (
                         <button
                           className="authBtn_p mt-2 me-3 viewBtns"
                           disabled
                         >
-                          {t(`Favorite strategies`)}
-                          <span>({l})</span>
+                          {t("Created strategies")} <span>({c})</span>
                         </button>
                       ) : (
-                        <Link to="/favouriteStratigy">
+                        <Link to="/user-created-strategy">
                           <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t(`Favourite strategies`)}
-                            <span>({l})</span>
+                            {t("Created strategies")} <span>({c})</span>
                           </button>
                         </Link>
                       )}

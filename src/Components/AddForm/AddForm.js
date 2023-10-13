@@ -278,14 +278,14 @@ const AddForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      e.target.subject.value === "" ||
-      e.target.grade.value === "" ||
-      e.target.superTopic.value === "" ||
-      e.target.topic.value === "" ||
-      e.target.sub_topic.value === "" ||
-      e.target.sub_sub_topic.value === "" ||
-      e.target.pedagogical.value === "" ||
-      e.target.learning_outcome.value === "" ||
+      selectSubject === "" ||
+      selectGrade === "" ||
+      selectSuperTopic === "" ||
+      selectTopic === "" ||
+      selectSubTopic === "" ||
+      selectSubSubTopic === "" ||
+      selectPedagogical === "" ||
+      selectLearningOutcome === "" ||
       e.target.teaching_str.value === ""
     ) {
       setError(true);
@@ -294,14 +294,14 @@ const AddForm = () => {
       setError(false);
       const data = {
         User_id: user._id,
-        Subject: e.target.subject.value,
-        Grade: e.target.grade.value,
-        Topic: e.target.topic.value,
-        "Super Topic": e.target.superTopic.value,
-        "Sub Topic": e.target.sub_topic.value,
-        "Sub-sub topic": e.target.sub_sub_topic.value,
-        "Pedagogical Approach": e.target.pedagogical.value,
-        "Learning Outcome": e.target.learning_outcome.value,
+        Subject: selectSubject,
+        Grade: selectGrade,
+        Topic: selectTopic,
+        "Super Topic": selectSuperTopic,
+        "Sub Topic": selectSubTopic,
+        "Sub-sub topic": selectSubSubTopic,
+        "Pedagogical Approach": selectPedagogical,
+        "Learning Outcome": selectLearningOutcome,
         "Teaching Strategy": e.target.teaching_str.value,
         Approve: false,
       };
@@ -536,7 +536,7 @@ const AddForm = () => {
                         .map((res, i) => res["Sub-sub topic"])}
                       onChange={(e)=>{handleSubSubTopic(e.value)}}
                       value={selectSubSubTopic}
-                      placeholder="Sub-sub topic"
+                      placeholder="Sub sub-topic"
                     />
                   </div>
                 </div>
