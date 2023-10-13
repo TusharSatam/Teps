@@ -178,13 +178,13 @@ const AddFormHi = () => {
       setModalShow(true);
       const data = {
         User_id: user._id,
-        विषय: e.target.subject.value,
-        श्रेणी: e.target.grade.value,
-        "प्रमुख शीर्षक": e.target.skill.value,
-        शीर्षक: e.target.topic.value,
-        "उप शीर्षक": e.target.sub_topic.value,
-        "उप-उप शीर्षक": e.target.sub_sub_topic.value,
-        "शिक्षण के परिणाम": e.target.learning_outcome.value,
+        विषय: selectSubject,
+        श्रेणी: selectGrade,
+        "प्रमुख शीर्षक": selectSkill,
+        शीर्षक: selectTopic,
+        "उप शीर्षक": selectSubTopic,
+        "उप-उप शीर्षक": selectSubSubTopic,
+        "शिक्षण के परिणाम": learning_outcome,
         "शिक्षण रणनीति": e.target.teaching_str.value,
         Approve: false,
       };
