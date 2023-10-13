@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
 import { getEdits } from "../../services/userEdited";
-import { getSingleUser, updateUser, updateUserWithHandling } from "../../services/dashboardUsers";
+import {
+  getSingleUser,
+  updateUser,
+  updateUserWithHandling,
+} from "../../services/dashboardUsers";
 import defaultProfile from "../../asstes/defaultProfile.png";
 import { useAuth } from "../../Context/AuthContext";
 import ChangePass from "../ForgotPassModal/ChangePass";
@@ -59,35 +63,37 @@ const Profile = () => {
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
-  const [email,setEmail] = useState(user?.email??"");
+  const [email, setEmail] = useState(user?.email ?? "");
   const navigate = useNavigate();
 
   const handleForgotShow = () => {
     setForgot(true);
   };
-  
+
   useEffect(() => {
-    console.log("he",preview)
-  }, [preview])
-  
+    console.log("he", preview);
+  }, [preview]);
+
   const handleProfile = (e) => {
-    console.log({e})
+    console.log({ e });
     setPreview(URL.createObjectURL(e.target.files[0]));
-  
+
     let formData = new FormData();
-    formData.append('img', e.target.files[0]);
-    updateInfo(user._id, formData).then((res) => {
-        console.log({res})
-        if(res===undefined||res===null){
-      toast.error("Image too large")
+    formData.append("img", e.target.files[0]);
+    updateInfo(user._id, formData)
+      .then((res) => {
+        console.log({ res });
+        if (res === undefined || res === null) {
+          toast.error("Image too large");
         }
-      getSingleUser(user._id).then((res1) => {
-        window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
-        setUser(res1.data[0]);
+        getSingleUser(user._id).then((res1) => {
+          window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
+          setUser(res1.data[0]);
+        });
+      })
+      .catch((err) => {
+        toast.error("Image too large");
       });
-    }).catch((err)=>{
-      toast.error("Image too large")
-    });
   };
   // const prof=()=>{setIsMyStrategies(true);}
   const toggleButton = () => {
@@ -253,11 +259,13 @@ const Profile = () => {
     };
     updateUserWithHandling(user._id, formData)
       .then((res) => {
-        console.log({res})
-        if(res?.data?.message==="Update user Error"){
-          toast.error(`${t("Something Went Wrong, check Phone or Email is duplicate")}`);
-                  setIsLoading(false);
-                  return;
+        console.log({ res });
+        if (res?.data?.message === "Update user Error") {
+          toast.error(
+            `${t("Something Went Wrong, check Phone or Email is duplicate")}`
+          );
+          setIsLoading(false);
+          return;
         }
         getSingleUser(user._id).then((res) => {
           let f = email;
@@ -319,7 +327,14 @@ const Profile = () => {
           <div className="d-flex align-items-start prfile_pic">
             <div className="button-wrapper">
               {preview ? (
-                <img src={preview} alt="image" />
+                <img
+                  className="label"
+                  id="wb"
+                  src={preview}
+                  alt="image"
+                  width={"40px"}
+                  height={"40px"}
+                />
               ) : profileImage?.image ? (
                 <img
                   className="label"
@@ -330,6 +345,8 @@ const Profile = () => {
                     profileImage?.image?.data?.data
                   ).toString("base64")}`}
                   alt=""
+                  width={"40px"}
+                  height={"40px"}
                 />
               ) : user?.image ? (
                 <img
@@ -665,7 +682,6 @@ const Profile = () => {
                           id="email"
                           placeholder="Lilyblom201@gmail.com"
                           required
-                          
                         />
                       </div>
                     </div>

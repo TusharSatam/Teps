@@ -234,7 +234,7 @@ const SearchScrean = () => {
                 <>
                   <div className='container_title_sec'>
                     <div className='d-flex  flex-column justify-content-between mt-md-1'>
-                      <p className='mb-2 mb-md-4'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
+                      <p className='mb-2 mb-md-4 titleLineHeight'> <span className='sub-title'>{t("Sub sub - topic")}:&nbsp;&nbsp;</span> <span className='sub-subtitle'>{selectLang === 'english' ? (uniqueSubSubTopic[0] === undefined ? '' : uniqueSubSubTopic[0]['Sub-sub topic']) : (uniqueHindiSubSubTopic[0] === undefined ? '' : uniqueHindiSubSubTopic[0]['शिक्षण के परिणाम'])}</span> </p>
                       <p className='clickLearningText'>Click on a learning outcome to get its teaching strategy.</p>
                     </div>
                   

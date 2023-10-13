@@ -198,9 +198,19 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage }) => {
             setIsAuthenticated(true);
             window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
             window.localStorage.setItem("data", JSON.stringify(res.data));
+            if (
+              localStorage.getItem("i18nextLng") === "en-US" ||
+              localStorage.getItem("i18nextLng") === "en"
+            ) {
+              localstorageData = localStorage.getItem("selectedDropdown");
+            } else {
+              localstorageData = localStorage.getItem("selectedHiDropdown");
+            }
             if (isnavigateUploadPage == true) {
               navigate("/addform");
-            } else {
+            } else if (localstorageData === null) {
+              navigate("/home");
+            } else if (localstorageData != null) {
               navigate("/search");
             }
             resetModalState();
