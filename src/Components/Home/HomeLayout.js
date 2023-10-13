@@ -60,6 +60,14 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
         setSelectSubSubTopic(selectedOption?.selectSubSubTopic);
       }
   }, [selectedOption, location.pathname]);
+  const resetallErrors=()=>{
+    setError1(false)
+    setError2(false)
+    setError3(false)
+    setError4(false)
+    setError5(false)
+    setError6(false)
+  }
   const customSortOrder = [
     "Pre-K",
     "LKG",
@@ -132,6 +140,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
 
   const handlegradeFilter = (e) => {
@@ -143,12 +152,15 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
   const handleTopicFilter = (e) => {
     setSelectTopic(e.target.value);
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
+
   };
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value);
@@ -157,6 +169,7 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
   const handleSuperTopicFilter = (e) => {
     setSelectSuperTopic(e.target.value);
@@ -164,15 +177,18 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
     setSelectSubTopic("");
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value);
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value);
     localStorage.removeItem("selectedDropdown");
+    resetallErrors()
   };
   const aquaticCreatures = allStratigys.filter(function (creature) {
     return creature.Subject === selectSubject && creature.Grade === selectGrade;
@@ -231,10 +247,8 @@ const HomeLayout = ({ setAccorKey = () => {},setoptionModal }) => {
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
     setAccorKey();
-    let temp=localStorage.getItem("data")
-    console.log(temp);
-    if(temp===null){
-      console.log("not login button")
+    let isUserExist=localStorage.getItem("data")
+    if(isUserExist===null){
       setoptionModal(true);
     }
 

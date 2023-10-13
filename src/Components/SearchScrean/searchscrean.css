@@ -311,6 +311,7 @@ border: none;
   .checkbox_size {
     width: 14px;
     height: 14px;
+  margin-top: .1rem !important;
   }
   .checkBox_title {
     font-weight: 500;
@@ -433,6 +434,12 @@ border: none;
 .user_str_border {
   border-top: 1px solid #000000;
 }
+.titleLineHeight{
+  line-height:14px;
+}
+/* .borderNone > div,.checkBoxUp>div{
+  margin-top: 5px !important;
+}  */
 @media only screen and (max-width: 990px) {
   .threeIcons-nun {
     width: 37px;

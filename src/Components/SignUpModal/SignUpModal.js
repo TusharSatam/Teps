@@ -50,14 +50,22 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
     const confirmPassword = document.querySelector(
       'input[name="confirm_password"]'
     ).value;
-    console.log(FirstName, LastName, Email, PhoneNumber, Password, ConfirmPass);
     // Check if any of the required fields are empty
-    const isInvalid =
-      !FirstName ||
-      !LastName ||
-      !(Email || PhoneNumber) ||
-      !Password ||
-      !ConfirmPass;
+    let isInvalid;
+    if(registrationOption==="email"){
+      isInvalid=
+        !FirstName ||
+        !LastName ||
+        !(Email || PhoneNumber) ||
+        !Password ||
+        !ConfirmPass;
+    }
+    else{
+      isInvalid=
+        !FirstName ||
+        !LastName ||
+        ! PhoneNumber
+    }
 
     setIsFormValid(!isInvalid);
   };
@@ -134,7 +142,6 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    console.log(e.target.firstName.value, e.target.lastName.value, phoneValue);
 
     let equalPass;
     const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -168,18 +175,8 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   password: equalPass,
                 };
 
-                if (formData) {
-                  console.log(
-                    "formData",
-                    e.target.firstName.value,
-                    e.target.lastName.value,
-                    e.target.email.value,
-                    equalPass
-                  );
-                }
                 userRegister(formData)
                   .then((res) => {
-                    console.log("response", res);
                     e.target.reset();
                     setShow(false);
                     const data = {
@@ -501,36 +498,40 @@ const SignUpModal = ({ handleClose, show, setShow }) => {
                   </div>
                 </div>
               </div>
-              <div className="d-flex my-3">
-                <div className="me-5">
-                  <label htmlFor="">{t("Password")}</label>
-                  <span className="text-danger position-absolute">*</span>
-                  <br />
-                  <input
-                    className="signup_Input"
-                    min="0"
-                    name="password"
-                    placeholder={t("Password")}
-                    type="password"
-                    step="1"
-                    onBlur={checkFormValidity}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="">{t("Confirm Password")}</label>
-                  <span className="text-danger position-absolute">*</span>
-                  <br />
-                  <input
-                    className="signup_Input"
-                    name="confirm_password"
-                    placeholder={t("Confirm Password")}
-                    type="password"
-                    onBlur={checkFormValidity}
-                    onChange={(e) => setConfirmPass(e.target.value)}
-                  />
-                </div>
-              </div>
+              {
+                (registrationOption==="email" && (
+                  <div className="d-flex my-3">
+                    <div className="me-5">
+                      <label htmlFor="">{t("Password")}</label>
+                      <span className="text-danger position-absolute">*</span>
+                      <br />
+                      <input
+                        className="signup_Input"
+                        min="0"
+                        name="password"
+                        placeholder={t("Password")}
+                        type="password"
+                        step="1"
+                        onBlur={checkFormValidity}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="">{t("Confirm Password")}</label>
+                      <span className="text-danger position-absolute">*</span>
+                      <br />
+                      <input
+                        className="signup_Input"
+                        name="confirm_password"
+                        placeholder={t("Confirm Password")}
+                        type="password"
+                        onBlur={checkFormValidity}
+                        onChange={(e) => setConfirmPass(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                ))
+              }
               <div className="d-flex">
                 <div className=" d-none d-md-block">
                   <label className="containerr">

@@ -12,6 +12,7 @@ import LoginModal from "../Components/LoginModal/LoginModal";
 import { t } from "i18next";
 import ScrollToTop from "react-scroll-to-top";
 import HomeLayout from "../Components/Home/HomeLayout";
+import HomeHindiLayout from "../Components/Home/HomeHindiLayout";
 const Landing = () => {
   const { isAuthenticated, allStrategies, selectLang, allHindiStrategies } =
     useAuth();
@@ -54,6 +55,7 @@ const Landing = () => {
   useEffect(() => {
     isAuthenticated && navigate("/home");
   });
+  console.log(selectLang)
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
@@ -61,8 +63,9 @@ const Landing = () => {
       <div className="blueShadow">
       <div className="filterCard p-2 p-md-3  gap-2 gap-md-4">
         <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
-
-        <HomeLayout setoptionModal={setoptionModal}/>
+{selectLang==="english"?
+        <HomeLayout setoptionModal={setoptionModal}/>:<HomeHindiLayout setoptionModal={setoptionModal}/>
+}
       </div>
       </div>
       <div className="uploadStartegyContainer mx-4">

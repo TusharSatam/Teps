@@ -28,8 +28,9 @@
   justify-content: flex-start;
   gap: 24px;
   border-radius: 60px;
-  background: var(--brand-color-green, #1AA05B);
-  box-shadow: 10.28548px 10.73267px 0px 0px #CED1D0, 0px 10.73267px 0px 0px #CED1D0, 8.94389px 0px 0px 0px #CED1D0;
+  background: var(--brand-color-green, #1aa05b);
+  box-shadow: 10.28548px 10.73267px 0px 0px #ced1d0,
+    0px 10.73267px 0px 0px #ced1d0, 8.94389px 0px 0px 0px #ced1d0;
   margin: auto;
 }
 
@@ -56,12 +57,12 @@
   font-weight: 500;
   line-height: 22px; /* 137.5% */
   letter-spacing: -0.16px;
-  
 }
-.carousalImage{
-    width: 236px;
-height: 176px;
-  }
+.carousalImage {
+  width: 236px;
+  height: 176px;
+  border-radius: 16px;
+}
 
 @media only screen and (max-width: 1040px) {
   .slick-slide > div {
@@ -78,7 +79,6 @@ height: 176px;
     font-size: 20px;
     line-height: 26px;
   }
-
 }
 
 @media only screen and (max-width: 990px) {
@@ -98,13 +98,14 @@ height: 176px;
   }
 }
 @media only screen and (max-width: 700px) {
-  .carousalCard{
+  .carousalCard {
     box-shadow: none;
-    box-shadow: 6px 6px 0px 0px #CED1D0, 0px 6px 0px 0px #CED1D0, 6px 0px 0px 0px #CED1D0;
+    box-shadow: 6px 6px 0px 0px #ced1d0, 0px 6px 0px 0px #ced1d0,
+      6px 0px 0px 0px #ced1d0;
   }
   .carousalCard {
-    height:150px;
-    padding: .8rem;
+    height: 150px;
+    padding: 0.8rem;
     border-radius: 36px;
     gap: 8px;
   }
@@ -114,7 +115,7 @@ height: 176px;
   .cardDetails > p {
     font-size: 9px;
     line-height: 10.5px;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
   .carousalTextArea {
     gap: 4px;
@@ -122,12 +123,12 @@ height: 176px;
   .slick-slide > div {
     margin: 2rem auto;
   }
-  .carousalImage{
+  .carousalImage {
     height: 100px;
   }
-  .carousalImage{
-    height:-webkit-fill-available;
+  .carousalImage {
+    height: -webkit-fill-available;
     width: 90px;
-    object-fit:cover;
+    object-fit: unset;
   }
 }
