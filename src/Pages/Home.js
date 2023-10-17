@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import HeroSection from "../Components/Home/HeroSection";
 import { useAuth } from "../Context/AuthContext";
 import LandingCarousel from "../Components/LandingCarousel/LandingCarousel";
@@ -6,6 +6,7 @@ import { t } from "i18next";
 import editIcon from "../asstes/icons/editIcon.svg";
 import { useNavigate } from "react-router-dom";
 import FilterStr from "../Components/Home/FilterStr";
+import PofileReminderModal from "../Components/Home/ProfileReminderModal";
 
 const HomeHindiLayout = lazy(() =>
   import("../Components/Home/HomeHindiLayout")
@@ -15,20 +16,35 @@ const Article = lazy(() => import("../Components/LandingArticle/Article"));
 
 const Home = () => {
   const { selectLang, user } = useAuth();
+  const [showProfileModal, setshowProfileModal] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!user?.country || !user?.designation || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
+      setTimeout(() => {
+        setshowProfileModal(true);
+      }, 8000);
+    }
+  }, [user]);
 
   return (
     <>
       <LandingCarousel />
-
+      <PofileReminderModal
+        show={showProfileModal}
+        setShow={setshowProfileModal}
+      />
       <div className="blueShadow">
         <div className="filterCard homeFilterCard gap-2 gap-md-4">
-        <h1 className="mx-auto welcomeText my-0">
-          {t("Welcome")},{" "}
-          {user?.firstName ? user?.firstName?.charAt(0)?.toUpperCase() + user?.firstName?.slice(1) : 'Guest'}!
-        </h1>
+          <h1 className="mx-auto welcomeText my-0">
+            {t("Welcome")},{" "}
+            {user?.firstName
+              ? user?.firstName?.charAt(0)?.toUpperCase() +
+                user?.firstName?.slice(1)
+              : "Guest"}
+            !
+          </h1>
           <Suspense fallback={<div>Loading...</div>}>
-            {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout/>}
+            {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout />}
           </Suspense>
         </div>
       </div>

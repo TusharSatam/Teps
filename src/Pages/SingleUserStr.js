@@ -7,6 +7,7 @@ import LikedIcon from "../asstes/icons/Liked.svg";
 import SaveIcon from "../asstes/icons/Save.svg";
 import SavedIcon from "../asstes/icons/Saved.svg";
 import DownArrow from "../asstes/icons/DownArrow.svg";
+import defaultProfile from "../asstes/defaultProfile.png";
 import UpArrow from "../asstes/icons/upArrow.svg";
 import { useTranslation } from "react-i18next";
 import {
@@ -19,7 +20,12 @@ import { useAuth } from "../Context/AuthContext";
 import LikeByModal from "../Components/Modal/LikeByModal";
 import { singleUserEnStratigys } from "../services/userStratigy";
 import { Buffer } from "buffer";
-import { deleteRating, getRatings, postRating, postcomment } from "../services/stratigyes";
+import {
+  deleteRating,
+  getRatings,
+  postRating,
+  postcomment,
+} from "../services/stratigyes";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
@@ -29,7 +35,8 @@ import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 
 const SingleUserStr = () => {
-  const { user, seteditStrategyFormData ,strategyNum, setstrategyNum } = useAuth();
+  const { user, seteditStrategyFormData, strategyNum, setstrategyNum } =
+    useAuth();
   const [str, setStr] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
   const { id } = useParams();
@@ -242,20 +249,20 @@ const SingleUserStr = () => {
     await seteditStrategyFormData(str);
     navigate(`/editStrategyform/${str._id}/user`);
   };
-  const handleDeleteUsedStrategy=async()=>{
+  const handleDeleteUsedStrategy = async () => {
     const dataToSend = {
       user_id: user._id,
       strategy_id: id,
     };
     try {
       const response = await deleteRating(dataToSend);
-      if(response){
-        setisAlreadyRated(false)
+      if (response) {
+        setisAlreadyRated(false);
       }
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
-  }
+  };
   const handleBackClick = () => {
     window.history.go(-1);
   };
@@ -267,9 +274,8 @@ const SingleUserStr = () => {
       }
       setformatted(""); // Assign the new HTML to the innerHTML property
       setIsLoadingContent(false); // Mark loading as complete
-    }, 100); 
+    }, 100);
   }, [str["Teaching Strategy"]]);
-
 
   return (
     <div>
@@ -284,38 +290,76 @@ const SingleUserStr = () => {
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-        <p className="headText d-none d-md-block text-center">{t("Strategy")}</p>
+        <p className="headText d-none d-md-block text-center">
+          {t("Strategy")}
+        </p>
         <hr className="line" />
       </div>
       <div className="mx-2 mx-md-5">
         <p className="single_str_head">
-        {str?.Grade}&nbsp;&nbsp; &gt; {str?.Subject}&nbsp;&nbsp; &gt;{" "}
-          {str?.['Super Topic']}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
+          {str?.Grade}&nbsp;&nbsp; &gt; {str?.Subject}&nbsp;&nbsp; &gt;{" "}
+          {str?.["Super Topic"]}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
           {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str["Sub-sub topic"]}
         </p>
       </div>
       <div className="mx-2 mx-md-5">
-        <div  className="card_pad">
+        <div className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcome")}:{" "} {str["Learning Outcome"]}
+                {t("Learning Outcome")}: {str["Learning Outcome"]}
               </p>
               <div className="col-9  w-100 textContainer p-2 p-md-4">
                 <div className="me-1">
                   <div>
                     <div className=" str_titlee">
-                      <p className="Strategy_count str_name d-flex">{t("strategy")} {strategyNum!=""?<span className="counter_str">{`${strategyNum}`}</span>:""}</p>
+                      <p className="Strategy_count str_name d-flex">
+                        {t("strategy")}{" "}
+                        {strategyNum != "" ? (
+                          <span className="counter_str">{`${strategyNum}`}</span>
+                        ) : (
+                          ""
+                        )}
+                      </p>
                     </div>
-                    {
-                      str["Pedagogical Approach"]&&
-                    <div className="mb-md-1">
-                      <i className="pedalogicalText">{str["Pedagogical Approach"]}</i>
+                    {console.log(uploader)}
+                    <div className="userdetailsBox">
+                      Strategy created by {uploader.firstName}{" "}
+                      {uploader.image ? (
+                        <img
+                          src={
+                            uploader?.image?.data?.data
+                              ? `data:${
+                                  uploader?.image?.contentType
+                                };base64,${Buffer.from(
+                                  uploader?.image?.data?.data
+                                ).toString("base64")}`
+                              : ""
+                          }
+                          alt="uploader"
+                        />
+                      ) : (
+                        <img
+                          width={"40px"}
+                          height={"40px"}
+                          className="label"
+                          src={defaultProfile}
+                          alt="image"
+                        />
+                      )}
                     </div>
-                    }
+                    {str["Pedagogical Approach"] && (
+                      <div className="mb-md-1">
+                        <i className="pedalogicalText">
+                          {str["Pedagogical Approach"]}
+                        </i>
+                      </div>
+                    )}
                   </div>
                 </div>
-                {isLoadingContent?"Loading...": (
+                {isLoadingContent ? (
+                  "Loading..."
+                ) : (
                   <p
                     ref={pRef}
                     className="newLine  me-2 me-md-2 disableCopy"
@@ -361,7 +405,6 @@ const SingleUserStr = () => {
                           />
                         )}
                       </div>
-
                     </div>
                     {!isAlreadyRated ? (
                       <button
@@ -371,7 +414,10 @@ const SingleUserStr = () => {
                         {t("Mark as used")}
                       </button>
                     ) : (
-                      <button className="primaryButton" onClick={handleDeleteUsedStrategy}>
+                      <button
+                        className="primaryButton"
+                        onClick={handleDeleteUsedStrategy}
+                      >
                         {t("I used this!")}
                       </button>
                     )}
@@ -381,7 +427,8 @@ const SingleUserStr = () => {
                       className="secondaryButton"
                       onClick={handleEditStrategy}
                     >
-                      Edit Strategy <img src={editIcon} alt="edit" className="mx-md-2" />
+                      Edit Strategy{" "}
+                      <img src={editIcon} alt="edit" className="mx-md-2" />
                     </button>
                   </div>
                 </div>
