@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useAuth } from "../Context/AuthContext";
 import {
@@ -13,6 +13,7 @@ import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import { getEdits } from "../services/userEdited";
+import { getSingleUser } from "../services/dashboardUsers";
 const ProfileDataE = ({ setNumber }) => {
   const { user, stratigyFilData,setstrategyNum  } = useAuth();
 
@@ -28,6 +29,18 @@ const ProfileDataE = ({ setNumber }) => {
   const [collapse, setCollapse] = useState(true);
 
   const [save, setSave] = useState([]);
+  const [currentPageUserDetails, setCurrentPageUserDetails] = useState();
+  const { id } = useParams();
+  useEffect(() => {
+    if (id != undefined) {
+      getSingleUser(id).then((e) => {
+        console.log(e.data[0]);
+        setCurrentPageUserDetails(e.data[0]);
+      });
+    } else {
+      setCurrentPageUserDetails(user);
+    }
+  }, []);
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -39,7 +52,7 @@ const ProfileDataE = ({ setNumber }) => {
     setIsLoading(true);
     if (languageSelect === "en") {
       console.log("edited english");
-      getEdits(user._id)
+      getEdits(currentPageUserDetails?._id)
         .then((res) => {
           // const saves = res?.data?.filter((ress) => ress.Approve === true);
           setSaveStratigy(res?.data);
@@ -54,7 +67,7 @@ const ProfileDataE = ({ setNumber }) => {
     if (languageSelect === "hi") {
       console.log("edited hindi");
 
-      getHindiStratigysEditedbyUser(user._id)
+      getHindiStratigysEditedbyUser(currentPageUserDetails?._id)
         .then((res) => {
           // console.log({ res });
           setSaveStratigyHi(res);
@@ -67,49 +80,8 @@ const ProfileDataE = ({ setNumber }) => {
         });
       // hindi api call
     }
-    // getEdits(user._id)
-    //   .then(res => {
-    //     const saves = res?.data?.filter(ress => ress.Approve === true)
-    //     const savesId = saves?.map(ress => ress._id);
-    //     // console.log({saves})
-    //     // console.log({savesId})
 
-    //     setSave(saves?.map(ress => ress.strategie_id))
-    //     if (languageSelect === "en") {
-    //       // setIsLoading(false)
-    //       //   getEdits(user._id)
-    //       //   .then(res => {
-    //       //     setSaveStratigy(res.data);
-    //       //     setIsLoading(false)
-    //       //   })
-    //       //   .catch(err => {
-    //       //     setIsLoading(false)
-    //       //     setSaveStratigy([])
-    //       //   })
-    //       // getMultiUsertStr(savesId)
-    //       //   .then(res => {
-    //       //     setSaveUserStratigy(res.data);
-    //       //     setIsLoading(false)
-    //       //   })
-    //       //   .catch(err => {
-    //       //     setSaveUserStratigy([])
-    //       //     setIsLoading(false)
-    //       //   })
-    //     }
-    //     else {
-    //       getMultitHiStr(savesId)
-    //         .then(res => {
-    //           setSaveStratigyi(res.data)
-    //           setIsLoading(false)
-    //         })
-    //       getMultiUserHindiStr(savesId)
-    //         .then(res => {
-    //           setSaveStratigyiUser(res.data)
-    //           setIsLoading(false)
-    //         })
-    //     }
-    //   })
-  }, [languageSelect]);
+  }, [languageSelect,currentPageUserDetails]);
 
   const [showAll, setShowAll] = useState(false);
   const displayCount = showAll

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useAuth } from "../Context/AuthContext";
 import {
@@ -13,6 +13,7 @@ import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import "./styles/profileData.css";
+import { getSingleUser } from "../services/dashboardUsers";
 const ProfileDataC = ({ setNumber }) => {
   const { user, stratigyFilData,setstrategyNum  } = useAuth();
 
@@ -26,8 +27,21 @@ const ProfileDataC = ({ setNumber }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [collapse, setCollapse] = useState(true);
   const language = localStorage.getItem("i18nextLng");
-
   const [save, setSave] = useState([]);
+
+  const [currentPageUserDetails, setCurrentPageUserDetails] = useState();
+  const { id } = useParams();
+  useEffect(() => {
+    if (id != undefined) {
+      getSingleUser(id).then((e) => {
+        console.log(e.data[0]);
+        setCurrentPageUserDetails(e.data[0]);
+      });
+    } else {
+      setCurrentPageUserDetails(user);
+    }
+  }, []);
+
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -37,15 +51,12 @@ const ProfileDataC = ({ setNumber }) => {
   }, [language]);
   React.useEffect(() => {
     setIsLoading(true);
-    getUserCreated(user._id).then((res) => {
-      // console.log({ userid: user._id });
-      const saves = res?.data?.filter((ress) => ress.User_id === user._id);
-      // console.log({ saves, userId: user });
+    getUserCreated(currentPageUserDetails?._id).then((res) => {
+      const saves = res?.data?.filter((ress) => ress.User_id === currentPageUserDetails?._id);
       const savesId = saves?.map((ress) => ress?.strategie_id);
-      // console.log({ savesId });
       setSave(saves?.map((ress) => ress.strategie_id));
       if (languageSelect === "en") {
-        getUserCreated(user._id)
+        getUserCreated(currentPageUserDetails?._id)
           .then((res) => {
             setSaveStratigy(saves);
             setIsLoading(false);
@@ -55,19 +66,10 @@ const ProfileDataC = ({ setNumber }) => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        // getMultiUsertStr(savesId)
-        //   .then((res) => {
-        //     setSaveUserStratigy(res.data);
-        //     setIsLoading(false);
-        //   })
-        //   .catch((err) => {
-        //     console.log({err});
-        //     setSaveUserStratigy([]);
-        //     setIsLoading(false);
-        //   });
+
       }
       if (languageSelect === "hi") {
-        getHindiStratigysCreatedByUser(user._id)
+        getHindiStratigysCreatedByUser(currentPageUserDetails?._id)
           .then((res) => {
             console.log({ res });
             setSaveStratigyHi(res);
@@ -78,17 +80,10 @@ const ProfileDataC = ({ setNumber }) => {
             setSaveStratigyHi([]);
             setIsLoading(false);
           });
-        // getMultitHiStr(savesId).then((res) => {
-        //   setSaveStratigyi(res.data);
-        //   setIsLoading(false);
-        // });
-        // getMultiUserHindiStr(savesId).then((res) => {
-        //   setSaveStratigyiUser(res.data);
-        //   setIsLoading(false);
-        // });
+
       }
     });
-  }, [languageSelect]);
+  }, [languageSelect,currentPageUserDetails]);
 
   const [showAll, setShowAll] = useState(false);
   const displayCount = showAll

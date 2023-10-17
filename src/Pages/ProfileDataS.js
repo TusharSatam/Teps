@@ -19,9 +19,10 @@ import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import "./styles/profileData.css";
 import FilterStrHi from "../Components/Home/FilterStrHI";
+import { getSingleUser } from "../services/dashboardUsers";
 
 const ProfileDataS = ({ setNumber }) => {
-  const { user, setUser, stratigyFilData,setstrategyNum } = useAuth();
+  const { user, setUser, stratigyFilData, setstrategyNum } = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -33,6 +34,18 @@ const ProfileDataS = ({ setNumber }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
+  const [currentPageUserDetails, setCurrentPageUserDetails] = useState();
+  const { id } = useParams();
+  useEffect(() => {
+    if (id != undefined) {
+      getSingleUser(id).then((e) => {
+        console.log(e.data[0]);
+        setCurrentPageUserDetails(e.data[0]);
+      });
+    } else {
+      setCurrentPageUserDetails(user);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (language === "hi") {
@@ -56,24 +69,33 @@ const ProfileDataS = ({ setNumber }) => {
   React.useEffect(() => {
     setIsLoading(true);
     getSaves().then((res) => {
-      const saves = res?.data?.filter((ress) => ress.user_id === user._id);
+      console.log(res.data);
+      const saves = res?.data?.filter(
+        (ress) => ress.user_id === currentPageUserDetails?._id
+      );
+      console.log("saves:", saves);
+      //all startegyIDs
       const savesId = saves?.map((ress) => ress.strategie_id);
-
+      console.log("savesId", savesId);
       if (savesId.length === 0) {
         // No need to make API requests when savedId is empty
         setIsLoading(false);
         return; // Exit the useEffect
       }
       setSave(saves?.map((ress) => ress.strategie_id));
+      console.log(save);
       if (languageSelect === "en") {
         getMultitStr(savesId)
           .then((res) => {
+            console.log("multiStr",res);
             setSaveStratigy(res.data);
             setIsLoading(false);
             const strategies = res?.data?.map((obj) => obj._id);
             setSave(strategies);
             getMultiUsertStr(savesId)
-              .then((res2) => {
+            
+            .then((res2) => {
+                console.log("multiStrUSer",res);
                 const idList = res2?.data?.map((obj) => obj?._id);
                 setSpecialLinkArr((prev) => [...prev, ...idList]);
                 setSaveStratigy((prev) => [...prev, ...res2.data]);
@@ -116,15 +138,17 @@ const ProfileDataS = ({ setNumber }) => {
           });
       }
     });
-  }, [languageSelect]);
+  }, [languageSelect, currentPageUserDetails]);
   const handleApiSaves = (id) => {
     const data = {
       strategie_id: id,
-      user_id: user._id,
+      user_id: currentPageUserDetails?._id,
     };
     postSaves(data).then((res) => {
       getSaves().then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
+        const saves = res?.data?.filter(
+          (ress) => ress.user_id === currentPageUserDetails?._id
+        );
         const savesId = saves?.map((ress) => ress.strategie_id);
         setSave(saves?.map((ress) => ress.strategie_id));
         if (languageSelect === "en") {
@@ -134,7 +158,7 @@ const ProfileDataS = ({ setNumber }) => {
             })
             .catch((err) => setSaveStratigy([]));
           getMultiUsertStr(savesId)
-          .then((res) => {
+            .then((res) => {
               setSaveUserStratigy(res.data);
             })
             .catch((err) => setSaveUserStratigy([]));
@@ -162,7 +186,7 @@ const ProfileDataS = ({ setNumber }) => {
     console.log({ requiredStr });
     const bodyData = {
       strategie_id: requiredStr,
-      user_id: user._id,
+      user_id: currentPageUserDetails?._id,
     };
     unSaveByStratAndUserId(bodyData)
       .then((res) => {
@@ -261,7 +285,11 @@ const ProfileDataS = ({ setNumber }) => {
           ) : saveStratigy?.length !== 0 && collapse !== true ? (
             <div style={{ position: "relative" }}>
               {saveStratigy?.slice(0, displayCount).map((res, index) => (
-                <div key={index} className="cardContainer" onClick={()=>setstrategyNum(index+1)}>
+                <div
+                  key={index}
+                  className="cardContainer"
+                  onClick={() => setstrategyNum(index + 1)}
+                >
                   <p id="bswm">{res["Pedagogical Approach"]}</p>
                   <p className="savestr_body">
                     {res["Teaching Strategy"].slice(0, 150) + "..."}
@@ -273,26 +301,26 @@ const ProfileDataS = ({ setNumber }) => {
                         : `/single/${res._id}`
                     }
                     id="pgnw"
-                    onClick={()=>setstrategyNum(index+1)}
+                    onClick={() => setstrategyNum(index + 1)}
                   >
                     Read More...
                   </Link>
-                    <div className="saveLikebtn">
-                      {save?.includes(res._id) ? (
-                        <img
-                          onClick={() => handleApiUnSaves(res._id)}
-                          src={SavedIcon}
-                          alt="unlike"
-                        />
-                      ) : (
-                        <img
-                          onClick={() => handleApiSaves(res._id)}
-                          src={SaveIcon}
-                          alt="like"
-                        />
-                      )}
-                    </div>
-                    <div className="d-flex flex-column align-items-center justify-content-center"></div>
+                  <div className="saveLikebtn">
+                    {save?.includes(res._id) ? (
+                      <img
+                        onClick={() => handleApiUnSaves(res._id)}
+                        src={SavedIcon}
+                        alt="unlike"
+                      />
+                    ) : (
+                      <img
+                        onClick={() => handleApiSaves(res._id)}
+                        src={SaveIcon}
+                        alt="like"
+                      />
+                    )}
+                  </div>
+                  <div className="d-flex flex-column align-items-center justify-content-center"></div>
                 </div>
               ))}
               {!showAll && saveStratigy.length > 2 ? (
@@ -381,18 +409,18 @@ const ProfileDataS = ({ setNumber }) => {
           ) : saveStratigyHi?.length !== 0 && collapse !== true ? (
             <div>
               {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
-                <div key={index} className="cardContainer" >
-                <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-                <p className="savestr_body">
-                  {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
-                </p>
-                <Link
-                  to={`/singleHi/${res._id}`}
-                  id="pgnw"
-                  onClick={()=>setstrategyNum(index+1)}
-                >
-                  Read More...
-                </Link>
+                <div key={index} className="cardContainer">
+                  <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                  <p className="savestr_body">
+                    {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
+                  </p>
+                  <Link
+                    to={`/singleHi/${res._id}`}
+                    id="pgnw"
+                    onClick={() => setstrategyNum(index + 1)}
+                  >
+                    Read More...
+                  </Link>
                   <div className="saveLikebtn">
                     {save?.includes(res._id) ? (
                       <img
@@ -409,7 +437,7 @@ const ProfileDataS = ({ setNumber }) => {
                     )}
                   </div>
                   <div className="d-flex flex-column align-items-center justify-content-center"></div>
-              </div>
+                </div>
               ))}
               {!showAll && saveStratigyHi.length > 2 ? (
                 <div
