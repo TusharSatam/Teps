@@ -6,7 +6,7 @@ import { useAuth } from "../Context/AuthContext";
 import { useState } from "react";
 import "./styles/saveStratigy.css";
 import { getMultitStr } from "../services/stratigyes";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getMultitHiStr } from "../services/hindiStratigys";
 import {
   delUserLikes,
@@ -20,6 +20,7 @@ import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import { Spinner } from "react-bootstrap";
 import "./styles/profileData.css";
 import FilterStrHI from "../Components/Home/FilterStrHI";
+import { getSingleUser } from "../services/dashboardUsers";
 
 const ProfileDataF = ({ setNumber }) => {
   const { user, setUser, stratigyFilData,setstrategyNum  } = useAuth();
@@ -33,6 +34,17 @@ const ProfileDataF = ({ setNumber }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [collapse, setCollapse] = useState(true);
   const language = localStorage.getItem("i18nextLng");
+  const [currentPageUserDetails, setCurrentPageUserDetails] = useState();
+  const { id } = useParams();
+  useEffect(() => {
+    if (id != undefined) {
+      getSingleUser(id).then((e) => {
+        setCurrentPageUserDetails(e.data[0]);
+      });
+    } else {
+      setCurrentPageUserDetails(user);
+    }
+  }, []);
   React.useEffect(() => {
     if (language === "hi") {
       setLanguageSelect("hi");
@@ -48,7 +60,7 @@ const ProfileDataF = ({ setNumber }) => {
   React.useEffect(() => {
     setIsLoading(true);
     getLikes().then((res) => {
-      const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      const like = res?.data?.filter((ress) => ress.user_id === currentPageUserDetails?._id);
       const likeId = like?.map((ress) => ress.strategie_id);
       // setLikes(like?.map((ress) => ress.strategie_id));
       if (likeId.length === 0) {
@@ -108,7 +120,7 @@ const ProfileDataF = ({ setNumber }) => {
           });
       }
     });
-  }, [languageSelect]);
+  }, [languageSelect,currentPageUserDetails]);
   useEffect(() => {
     console.log({ likes });
   }, [likes]);
@@ -119,12 +131,12 @@ const ProfileDataF = ({ setNumber }) => {
   const handleApiLikes = (id) => {
     const data = {
       strategie_id: id,
-      user_id: user._id,
+      user_id: currentPageUserDetails?._id,
     };
     postLikes(data).then((res) => {
       setLikes((prev) => [...prev, id]);
       // getLikes().then((res) => {
-      //   const like = res?.data?.filter((ress) => ress.user_id === user._id);
+      //   const like = res?.data?.filter((ress) => ress.user_id === currentPageUserDetails?._id);
       //   const likeId = like?.map((ress) => ress.strategie_id);
       //   setLikes(like?.map((ress) => ress.strategie_id));
       //   if (languageSelect === "en") {
@@ -156,13 +168,13 @@ const ProfileDataF = ({ setNumber }) => {
     console.log({ requiredStr });
     const bodyData = {
       strategie_id: requiredStr,
-      user_id: user._id,
+      user_id: currentPageUserDetails?._id,
     };
     unLikeByStratAndUserId(bodyData)
       .then((res) => {
         setLikes(likes.filter((stringData) => stringData !== id));
         // getLikes().then((res) => {
-        //   const like = res?.data?.filter((ress) => ress.user_id === user._id);
+        //   const like = res?.data?.filter((ress) => ress.user_id === currentPageUserDetails?._id);
         //   const likeId = like?.map((ress) => ress.strategie_id);
         //   setLikes(like?.map((ress) => ress.strategie_id));
         //   if (languageSelect === "en") {

@@ -70,9 +70,6 @@ const Profile = () => {
     setForgot(true);
   };
 
-  useEffect(() => {
-    console.log("he", preview);
-  }, [preview]);
 
   const handleProfile = (e) => {
     console.log({ e });

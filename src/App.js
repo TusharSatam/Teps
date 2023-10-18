@@ -43,6 +43,7 @@ import Verify from './Pages/Verify';
 import EditStrategy from './Components/EditStrategy/EditStrategyForm';
 import EditedStratigy from './Pages/EditedStratigy'
 import CreatedStratigy from './Pages/CreatedStratigy'
+import OthersProfile from './Components/Profile/OthersProfile';
 
 
 
@@ -108,6 +109,7 @@ function App() {
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
+            <Route path="/profile/:id" element={<OthersProfile />} />
             <Route path="/search" element={<Stratigy />} />
             <Route path="/saveStratigy" element={<SaveStratigy />} />
             <Route path="/favouriteStratigy" element={<FavouriteStr />} />
