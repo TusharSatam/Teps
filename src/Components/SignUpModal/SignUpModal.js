@@ -138,6 +138,19 @@ const SignUpModal = ({
     "Your email could not be found, please register with the correct email.";
   const [wrongEMailfound, setWrongEMailfound] = React.useState();
 
+  const resetForm =  () => {
+    setForgot(false);
+    setError("");
+    setCheckError("");
+    setVerifyModal(false);
+    setEmail(""); // Reset the email state if needed
+    setPhoneValue("");
+    setPassword("");
+    setConfirmPass("");
+    setFirstName("");
+    setLastName("");
+  }
+
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -257,15 +270,14 @@ const SignUpModal = ({
               .then((res) => {
                 e.target.reset();
                 setShow(false);
-                // TODO:OTP API CALL
                 let data = {
                   phoneNumber: phoneValue,
                 };
-                // Phone number is valid, proceed to OTP input
                 sendOTP(data)
                   .then((res) => {
                 setLoginModal(true);
                 setPhoneValue("");
+                resetForm();
                   })
                   .catch((err) => {
                     console.log({ err });

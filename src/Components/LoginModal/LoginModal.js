@@ -9,6 +9,7 @@ import "./loginModal.css";
 import VerifyModal from "../ForgotPassModal/VerifyModal";
 import emailjs from "@emailjs/browser";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setshowOTPInputs, phoneValue,setPhoneValue, isOTPLoginOpen, setisOTPLoginOpen }) => {
   const { t } = useTranslation();
@@ -42,6 +43,11 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
     }
   };
   const resendOTP = () => {
+    if(phoneValue?.length<10){
+      setError("");
+      setCheckError("Enter your phone number correctly");
+      return;
+    }
     setIsResendOTP(true);
     setCheckError("");
     let data = {
@@ -49,6 +55,10 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
     };
     sendOTP(data).then((res) => {
       setIsResendOTP(false);
+    setInputotp(["", "", "", "", ""]);
+    }).catch((err)=>{
+      console.log({err});
+      toast.error("Something went wrong");
     });
     setshowOTPInputs(true);
   };
