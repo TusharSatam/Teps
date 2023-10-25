@@ -32,6 +32,17 @@ export const getLikesByUserId = async (id) => {
 
 }
 
+export const getOtherUserFavouriteStrategiesById = async (id) => {
+  let stratigyResponse
+  await axios.get(`/userStratiges/${id}/liked-strategies`)
+    .then(res => {
+      stratigyResponse = res;
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+
+}
+
 
 export const delLikes = async (id) => {
   let stratigyResponse;

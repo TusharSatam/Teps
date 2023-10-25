@@ -72,6 +72,10 @@ position: absolute;
     position: absolute;
     top: 12px;
     right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
 }
 
 #mt{

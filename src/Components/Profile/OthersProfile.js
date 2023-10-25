@@ -28,12 +28,15 @@ import { getUserCreated } from "../../services/userCreated";
 import ProfileDataC from "../../Pages/ProfileDataC";
 import ProfileDataE from "../../Pages/ProfileDataE";
 import ProfileDataS from "../../Pages/ProfileDataS";
-import ProfileDataF from "../../Pages/ProfileDataF";
 import downArrow from "../../asstes/icons/viewDown.svg";
 import SaveCards from "./cards/SaveCards";
 import SavedStrategies from "./cards/SavedStrategies";
 import SaveStratigy from "../../Pages/SaveStratigy";
 import FavouriteStr from "../../Pages/FavouriteStr";
+import OtherProfileDataF from "../../Pages/OtherProfileDataF";
+import OtherProfileDataE from "../../Pages/OtherProfileDataE";
+import OtherProfileDataC from "../../Pages/OtherProfileDataC";
+import OtherProfileDataS from "../../Pages/OtherProfileDataS";
 const language = localStorage.getItem("i18nextLng");
 
 const OthersProfile = () => {
@@ -201,7 +204,7 @@ const OthersProfile = () => {
               className="change_btn"
               onClick={(e) => setistypeoptionVisible(!istypeOptionVisible)}
             >
-              {t("My strategies")}
+              {t("Their strategies")}
               <></>
             </button>
           </div>
@@ -210,10 +213,10 @@ const OthersProfile = () => {
         {/* My strategies type Mobile */}
         {istypeOptionVisible && (
           <div className="typeWrapper mt-2 d-flex flex-column mx-3 w-100 d-md-none">
-            <ProfileDataS setNumber={setF} />
-            <ProfileDataF setNumber={setL} />
-            <ProfileDataE setNumber={setE} />
-            <ProfileDataC setNumber={setC} />
+            <OtherProfileDataS setNumber={setF} />
+            <OtherProfileDataF setNumber={setL} />
+            <OtherProfileDataE setNumber={setE} />
+            <OtherProfileDataC setNumber={setC} />
             {isShowFav && <FavouriteStr />}
           </div>
         )}
@@ -372,16 +375,16 @@ const OthersProfile = () => {
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
             >
               <div>
-                <ProfileDataS setNumber={setF} />
+                <OtherProfileDataS setNumber={setF} />
               </div>
               <div>
-                <ProfileDataF setNumber={setL} />
+                <OtherProfileDataF setNumber={setL} />
               </div>
               <div>
-                <ProfileDataE setNumber={setE} />
+                <OtherProfileDataE setNumber={setE} />
               </div>
               <div>
-                <ProfileDataC setNumber={setC} />
+                <OtherProfileDataC setNumber={setC} />
               </div>
             </div>
           )}

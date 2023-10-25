@@ -24,13 +24,10 @@ import { getSingleUser } from "../services/dashboardUsers";
 
 const ProfileDataF = ({ setNumber }) => {
   const { user, setUser, stratigyFilData,setstrategyNum  } = useAuth();
-  const [filetr, setFilter] = useState(false);
   const [favStratigy, setFavStratigy] = useState([]);
   const [favStratigyHi, setFavStratigyHi] = useState([]);
-  const [like, setLike] = React.useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const { t } = useTranslation();
-  const [likeStratigyHiUser, setlikeStratigyiUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [collapse, setCollapse] = useState(true);
   const language = localStorage.getItem("i18nextLng");

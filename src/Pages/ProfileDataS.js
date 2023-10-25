@@ -63,7 +63,6 @@ const ProfileDataS = ({ setNumber }) => {
     }
   };
   const [save, setSave] = useState([]);
-  const [savesArr, setSavesArr] = useState([]);
   const [specialLinkArr, setSpecialLinkArr] = useState([]);
 
   React.useEffect(() => {
@@ -73,10 +72,8 @@ const ProfileDataS = ({ setNumber }) => {
       const saves = res?.data?.filter(
         (ress) => ress.user_id === currentPageUserDetails?._id
       );
-      console.log("saves:", saves);
       //all startegyIDs
       const savesId = saves?.map((ress) => ress.strategie_id);
-      console.log("savesId", savesId);
       if (savesId.length === 0) {
         // No need to make API requests when savedId is empty
         setIsLoading(false);
