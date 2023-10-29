@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// get Stratigy
+// post Strategy public
 export const postUserStratigys = async (data) => {
   let stratigyResponse
   await axios.post(`userStratiges`, data)
@@ -10,6 +10,18 @@ export const postUserStratigys = async (data) => {
     .catch(err => console.log(err))
   return stratigyResponse;
 }
+// post Strategy public
+export const privateCreatedStrUser = async (data) => {
+  console.log(data)
+  let stratigyResponse
+  await axios.post(`userStratiges/savePrivate`, data)
+    .then(res => {
+      stratigyResponse = res
+    })
+    .catch(err => console.log(err))
+  return stratigyResponse;
+}
+
 // get Stratigy
 export const getUserPaginationStratigys = async (quiry) => {
   let stratigyResponse

@@ -1,0 +1,138 @@
+/* styles/FoundationalLearning.module.css */
+
+.FoundationalPage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns in desktop view */
+  gap: 50px; /* Adjust the gap between cards as needed */
+  box-sizing: border-box;
+  margin: 1rem 2rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr); /* 1 column in mobile view */
+  }
+}
+
+.card {
+  background-color: #e0e0e0;
+  padding: 16px;
+  border: 1px solid #ccc;
+  position: relative;
+  border: 1px solid var(--grey-light, #ced4da);
+  background: #fff;
+
+  /* select strategy section */
+  box-shadow: 4px 8px 4px 0px rgba(0, 0, 0, 0.1),
+    5px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.cardImage {
+  width: 100%; /* Ensure the image fits within the card */
+  height: auto;
+  height: 376px;
+  transition: filter 0.3s;
+}
+
+.cardImageContainer {
+  position: relative;
+}
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:#ced4da73 ;
+  opacity: 0;
+  transition: opacity 0.3s, background-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.viewFullPictureText {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #000;
+  font-family: "Poppins";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+.cardImageContainer:hover .cardImage {
+  filter: grayscale(10%);
+}
+
+.cardImageContainer:hover .imageOverlay {
+  opacity: 1;
+}
+.cardTitle {
+  font-family: "Poppins";
+  font-weight: 500;
+  line-height: 26px; /* 108.333% */
+  font-size: 1.25rem;
+  margin: 1.5rem 0 0 0;
+  text-align: center;
+}
+
+.cardText {
+  color: #939ca3;
+  font-family: "Poppins";
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 26px; /* 130% */
+  margin: 12px 0;
+}
+.readMore {
+  height: 20px;
+}
+.readMoreButton {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: None;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #1aa05b;
+  font-family: "Poppins";
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 26px; /* 216.667% */
+  margin-top: 0.4rem;
+}
+.loading{
+  text-align: center;
+  width: 100%;
+}
+/* Additional styles for hover or active state of the button can be added */
+@media (max-width: 768px) {
+  .FoundationalPage{
+    margin: 1rem;
+  }
+  .card{
+    margin: 0;
+  }
+ 
+  .cardImage {
+    height: 316px;
+  }
+  .cardTitle {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0.8rem 0 0 0;
+  }
+  .cardText {
+    font-size: 0.675rem;
+    font-weight: 400;
+    line-height: 14px;
+    margin: 0.4rem 0;
+  }
+  .readMoreButton {
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 10px;
+  }
+}

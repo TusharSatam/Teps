@@ -5,11 +5,13 @@ import { getAllStratigys } from "../../services/stratigyes";
 import { useAuth } from "../../Context/AuthContext";
 import AddFormHi from "./AddFormHi";
 import { useEffect } from "react";
-import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
+import PublishStrModal from "../Modal/PublishEditStrategy/PublishStrModal";
 import { t } from "i18next";
 import backArrow from "../../asstes/icons/backArrow.svg";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import { postUserStratigys, privateCreatedStrUser } from "../../services/userStratigy";
+import { postUserStratigysHi } from "../../services/userStratigyHi";
 
 const AddForm = () => {
   const { user, selectLang, allStrategies } = useAuth();
@@ -24,6 +26,7 @@ const AddForm = () => {
   const [selectSuperTopic, setSelectSuperTopic] = React.useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [uniqueSubjects, setuniqueSubjects] = useState("");
+  const [submitType, setSubmitType] = useState({});
   const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
   const [teachingStrategy, setteachingStrategy] = React.useState("");
   const [modalShow, setModalShow] = React.useState(false);
@@ -322,19 +325,56 @@ const AddForm = () => {
     } else {
       setModalShow(true);
       setError(false);
-      const data = {
-        User_id: user._id,
-        Subject: selectSubject,
-        Grade: selectGrade,
-        Topic: selectTopic,
-        "Super Topic": selectSuperTopic,
-        "Sub Topic": selectSubTopic,
-        "Sub-sub topic": selectSubSubTopic,
-        "Pedagogical Approach": selectPedagogical,
-        "Learning Outcome": selectLearningOutcome,
-        "Teaching Strategy": e.target.teaching_str.value,
-        Approve: false,
-      };
+      let data;
+      if (submitType.buttonType === "Public") {
+        data = {
+          User_id: user._id,
+          Subject: selectSubject,
+          Grade: selectGrade,
+          Topic: selectTopic,
+          "Super Topic": selectSuperTopic,
+          "Sub Topic": selectSubTopic,
+          "Sub-sub topic": selectSubSubTopic,
+          "Pedagogical Approach": selectPedagogical,
+          "Learning Outcome": selectLearningOutcome,
+          "Teaching Strategy": e.target.teaching_str.value,
+          Approve: false,
+          isPublic: true,
+          isPrivate: false,
+        };
+        // Call postUserStratigys with updated data
+        if (selectLang == "english") {
+          postUserStratigys(data).then((res) => {
+            console.log("Response from postUserStratigys:", res);
+          });
+        } else if (selectLang == "hindi") {
+          postUserStratigysHi(data).then((res) => {
+            console.log("Response from postUserStratigysHi:", res);
+          });
+        }
+      } else {
+        data = {
+          User_id: user._id,
+          Subject: selectSubject,
+          Grade: selectGrade,
+          Topic: selectTopic,
+          "Super Topic": selectSuperTopic,
+          "Sub Topic": selectSubTopic,
+          "Sub-sub topic": selectSubSubTopic,
+          "Pedagogical Approach": selectPedagogical,
+          "Learning Outcome": selectLearningOutcome,
+          "Teaching Strategy": e.target.teaching_str.value,
+          Approve: false,
+          isPublic: false,
+          isPrivate: true,
+        };
+         // Call postUserStratigys with updated data
+         if (selectLang == "english") {
+          privateCreatedStrUser(data).then((res) => {
+            console.log("Response from privateCreatedStrUser EN:", res);
+          });
+        } 
+      }
       setFormSubmitted(true);
       setSubmitData(data);
       // Reset the form fields
@@ -370,12 +410,13 @@ const AddForm = () => {
     <div>
       {languageSelect === "en" ? (
         <>
-          <PublishModal
+          <PublishStrModal
             show={modalShow}
             handleClose={handleClosePublishModal}
             setDatas={setSubmitData}
             Datas={submitData}
             setisStrategyPublic={setisStrategyPublic}
+            submitType={submitType}
           />
           <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
             <button className="backbutton" onClick={handleBackClick}>
@@ -671,12 +712,43 @@ const AddForm = () => {
                   </p>
                 )}
                 <div className="d-flex gap-3 mt-4">
-                  <button type="submit" className="primaryButton">
+                  <button
+                    type="submit"
+                    className="primaryButton"
+                    onClick={() => {
+                      setSubmitType({
+                        buttonType: "Public",
+                        formType: "Created",
+                      });
+                    }}
+                  >
                     Publish strategy
                   </button>
-                  <button type="button" className="secondaryButton">
+                  <button
+                    type="submit"
+                    className="secondaryButton"
+                    onClick={() => {
+                      setSubmitType({
+                        buttonType: "Private",
+                        formType: "Created",
+                      });
+                    }}
+                  >
+                    Save privately
+                  </button>
+                  <button type="button" className="TertiaryButton">
                     Cancel
                   </button>
+                </div>
+                <div className="formNote">
+                  <p>
+                    Publish strategies will be reviewed by the TEPS team and
+                    added to your Profile's ‘Created strategies’ list
+                  </p>
+                  <p>
+                    Private strategies are for user reference in the 'Created
+                    strategies' list on the Profile Page.
+                  </p>
                 </div>
               </form>
             ) : (

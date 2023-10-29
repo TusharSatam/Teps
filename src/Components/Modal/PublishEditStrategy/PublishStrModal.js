@@ -24,7 +24,7 @@ const ModalContent = ({ text, buttonText, onClick,onClickNo }) => {
   );
 };
 
-const PublishModal = ({
+const PublishStrModal = ({
   show,
   handleClose,
   setisStrategyPublic,
@@ -101,41 +101,6 @@ const {selectLang}=useAuth()
     handleClose();
   };
 
-  const getModalContent = () => {
-    switch (currentModal) {
-      case 1:
-        return (
-          <ModalContent
-            text={t("Do you want to make this strategy public?")}
-            buttonText={t("Yes")}
-            onClick={handleYes}
-            onClickNo={handleNo}
-          />
-        );
-      case 2:
-        return (
-          <ModalContent
-            text={t(
-              "Your edited strategy is in your Edited Strategies list on the Profile Page."
-            )}
-            buttonText={t("Okay")}
-            onClick={handleModal2}
-          />
-        );
-      case 3:
-        return (
-          <ModalContent
-            text={t(
-              "Your edited strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your Edited Strategies list on the Profile Page."
-            )}
-            buttonText={t("Okay")}
-            onClick={handleModal3}
-          />
-        );
-      default:
-        return null;
-    }
-  };
   return (
     <div>
       <Modal
@@ -148,7 +113,13 @@ const {selectLang}=useAuth()
         <Modal.Body className="signIn_body optionModal d-flex flex-column justify-content-center align-items-center">
           <div>
             <div className="d-flex flex-column justify-content-center align-items-center gap-4 ratingWrap">
-              {getModalContent()}
+            <ModalContent
+            text={submitType.buttonType==="Public"?t(
+              `Your ${submitType.formType==="Edited"?"edited":"created"} strategy will be reviewed by the TEPS team before it is published. You will have your strategy in your ${submitType.formType==="Edited"?"Edited":"Created"} Strategies list on the Profile Page.`
+            ):t(`Your ${submitType.formType==="Edited"?"edited":"created"} strategy is in your ${submitType.formType==="Edited"?"Edited":"Created"} Strategies list on the Profile Page.`)}
+            buttonText={t("Okay")}
+            onClick={handleModal3}
+          />
             </div>
           </div>
         </Modal.Body>
@@ -157,4 +128,4 @@ const {selectLang}=useAuth()
   );
 };
 
-export default PublishModal;
+export default PublishStrModal;
