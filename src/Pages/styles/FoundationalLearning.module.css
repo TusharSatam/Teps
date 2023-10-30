@@ -43,7 +43,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background:#ced4da73 ;
+  background: #ced4da73;
   opacity: 0;
   transition: opacity 0.3s, background-color 0.3s;
   display: flex;
@@ -103,19 +103,40 @@
   line-height: 26px; /* 216.667% */
   margin-top: 0.4rem;
 }
-.loading{
+.loading {
   text-align: center;
   width: 100%;
 }
-/* Additional styles for hover or active state of the button can be added */
+
+/* Pedagogical Approach css */
+.selectedOptions {
+  margin: 1rem 2rem;
+  box-sizing: border-box;
+}
+.selectTag {
+  width: 100%;
+  border: none;
+  border-right: 0px solid transparent !important;
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  background: #f8f9fa;
+  box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  color: #1aa05b;
+  cursor: pointer;
+}
+
+.selectTag:focus {
+  outline: none;
+}
 @media (max-width: 768px) {
-  .FoundationalPage{
+  .FoundationalPage {
     margin: 1rem;
   }
-  .card{
+  .card {
     margin: 0;
   }
- 
+
   .cardImage {
     height: 316px;
   }

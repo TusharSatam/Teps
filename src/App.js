@@ -45,6 +45,7 @@ import EditedStratigy from './Pages/EditedStratigy'
 import CreatedStratigy from './Pages/CreatedStratigy'
 import OthersProfile from './Components/Profile/OthersProfile';
 import FoundationalLearning from './Pages/FoundationalLearning';
+import PedagogicalApproach from './Pages/PedagogicalApproach';
 
 
 
@@ -125,8 +126,8 @@ function App() {
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
             <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
-            <Route path='/FoundationalLearning' element={<FoundationalLearning />} />
-
+            <Route path='/foundational-learning' element={<FoundationalLearning />} />
+            <Route path='/pedagogical-approach' element={<PedagogicalApproach />} />
             
           </Route>
           <Route element={<PrivateAdminOutlet />} >
