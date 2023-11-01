@@ -20,6 +20,7 @@ import { getSingleUser } from "../../services/dashboardUsers";
 import PublishModal from "../Modal/PublishEditStrategy/PublishModal";
 import UserImage from "../../asstes/Group 51.svg";
 import backArrow from "../../asstes/icons/backArrow.svg";
+import PublishStrModal from "../Modal/PublishEditStrategy/PublishStrModal";
 const EditStrategyEn = () => {
   const [allStratigys, setAllStratigys] = React.useState([]);
   //---------------------------------------------------------
@@ -47,7 +48,7 @@ const EditStrategyEn = () => {
   const [isStrategyPublic, setisStrategyPublic] = useState(false);
   const [editedDatas, seteditedDatas] = useState("");
   const { user, editStrategyFormData, selectLang } = useAuth();
-  const [selectLangError, setSelectLangError] = useState(false);
+  const [submitType, setSubmitType] = useState({});
   const [uploaderDatas, setuploaderDatas] = useState([]);
   const [isStrategyLoading, setisStrategyLoading] = useState(false);
   const handleTeachingStrategyChange = (event) => {
@@ -185,7 +186,7 @@ const EditStrategyEn = () => {
         <>
           {formData?.length != 0 ? (
             <div className="center-div d-flex mx-1 mx-md-4 mb-4">
-              <div className="me-1 col-md-2 ml-0">
+              <div className=" col-md-2 ml-0">
                 {isUserStrategyForm ? (
                   <div className="d-none d-md-block mb-1 mb-md-1 str_title d-flex gap-2 align-items-center">
                     {uploaderDatas?.firstName !== "" && (
@@ -276,12 +277,13 @@ const EditStrategyEn = () => {
                     <p className="uni_id">ID-{formData?._id?.slice(19, 26)}</p>
                   </div>
                 )}
-                <PublishModal
+                <PublishStrModal
                   show={isPublishModalOpen}
                   handleClose={() => setisPublishModalOpen(false)}
                   setisStrategyPublic={setisStrategyPublic}
                   setDatas={seteditedDatas}
                   Datas={editedDatas}
+                  submitType={submitType}
                 />
 
                 <form onSubmit={handleSubmit}>
@@ -378,7 +380,7 @@ const EditStrategyEn = () => {
                     </div>
                     <div>
                       <p className="select-title">
-                      Sub sub-topic <p>*</p>
+                        Sub sub-topic <p>*</p>
                       </p>
                       <select
                         onChange={handleSubSubTopic}
@@ -454,12 +456,25 @@ const EditStrategyEn = () => {
                       type="submit"
                       className="primaryButton"
                       disabled={formSubmitted}
+                      onClick={()=>{
+                        setSubmitType({buttonType:"Public",formType:"Edited"});
+                      }}
                     >
                       Publish strategy
                     </button>
                     <button
-                      type="button"
+                      type="submit"
                       className="secondaryButton"
+                      disabled={formSubmitted}
+                      onClick={()=>{
+                        setSubmitType({buttonType:"Private",formType:"Edited"});
+                      }}
+                    >
+                      Save privately
+                    </button>
+                    <button
+                      type="button"
+                      className="TertiaryButton"
                       disabled={formSubmitted}
                     >
                       Cancel
@@ -470,16 +485,25 @@ const EditStrategyEn = () => {
                       Please fill all of the above fields !
                     </p>
                   )}
+                  <div className="formNote">
+                    <p>
+                      Publish strategies will be reviewed by the TEPS team and
+                      added to your Profile's ‘Edited strategies’ list
+                    </p>
+                    <p>
+                      Private strategies are for user reference in the 'Edited
+                      strategies' list on the Profile Page.
+                    </p>
+                  </div>
                 </form>
               </div>
             </div>
           ) : null}
-          {formSubmitted &&
-            isStrategyPublic &&(
-              <p className="responseText" ref={successTextRef}>
-                Thank you for publishing your strategy!
-              </p>
-            )}
+          {formSubmitted && isStrategyPublic && (
+            <p className="responseText" ref={successTextRef}>
+              Thank you for publishing your strategy!
+            </p>
+          )}
         </>
       )}
     </>

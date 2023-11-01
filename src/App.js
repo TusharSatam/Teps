@@ -44,13 +44,17 @@ import EditStrategy from './Components/EditStrategy/EditStrategyForm';
 import EditedStratigy from './Pages/EditedStratigy'
 import CreatedStratigy from './Pages/CreatedStratigy'
 import OthersProfile from './Components/Profile/OthersProfile';
+import FoundationalLearning from './Pages/FoundationalLearning';
+import PedagogicalApproach from './Pages/PedagogicalApproach';
 
 
 
 function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
-  axios.defaults.baseURL = "https://backend.teps.school/api/";
+  // axios.defaults.baseURL = "https://backend.teps.school/api/";
+  axios.defaults.baseURL = "http://3.110.218.3/api/";
+
 
   const handleOnclick = () => {
     setDisplayProfile('d-none')
@@ -122,7 +126,9 @@ function App() {
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
             <Route path='/addForm' element={<AddForm />} />
             <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
-
+            <Route path='/foundational-learning' element={<FoundationalLearning />} />
+            <Route path='/pedagogical-approach' element={<PedagogicalApproach />} />
+            
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

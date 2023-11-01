@@ -1,309 +1,326 @@
 .form-title {
-    background-color: #1AA05B;
-    padding: 7px 0 7px 0;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 38px;
+  background-color: #1aa05b;
+  padding: 7px 0 7px 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 38px;
 }
 
 .form-title p {
-    margin-bottom: 0 !important;
-    color: white;
-    font-weight: 600;
-    font-size: 21px;
-    font-family: 'Inter';
+  margin-bottom: 0 !important;
+  color: white;
+  font-weight: 600;
+  font-size: 21px;
+  font-family: "Inter";
 }
 
 .center-div {
-    margin: 0 45px 0 45px;
+  margin: 0 45px 0 45px;
 }
 
 .form-main-div {
-    max-width: 943px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 12px;
-    background: #F4F8F7;
-    padding:1.5rem;
-    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.20);
-    margin-bottom: 2rem;
+  max-width: 943px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px;
+  background: #f4f8f7;
+  padding: 1.5rem;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
 }
 
 .two-selects {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .one-selects {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
-
 .select-title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #474747;
-    margin-bottom: 0.5rem;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #474747;
+  margin-bottom: 0.5rem;
 }
 
 .select-title p {
-    color: #dd2348;
-    margin-left: 0.125rem;
-    position: relative;
-    bottom: 5px;
-    display: inline-block;
-    margin-bottom: 0;
+  color: #dd2348;
+  margin-left: 0.125rem;
+  position: relative;
+  bottom: 5px;
+  display: inline-block;
+  margin-bottom: 0;
 }
-.select-field::-ms-expand{
-    margin: 3.125rem !important;
+.select-field::-ms-expand {
+  margin: 3.125rem !important;
 }
 .select-field {
-    width: 350px;
-    height: 40px;
-    background-color: #F8F9FA;
-    border: 1px solid #CED4DA;
-    border-radius: 8px;
-    padding: 0.375rem 1.25rem 0.375rem 0.625rem;
+  width: 350px;
+  height: 40px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.375rem 1.25rem 0.375rem 0.625rem;
 }
 select {
   border-right: 16px solid transparent;
   font-weight: 500;
 }
 .select-field-full {
-    max-width: 943px;
-    width: 100%;
-    height: 75px;
-    background-color: #F8F9FA;
-    border: 1px solid #CED4DA;
-    border-radius: 8px;
+  max-width: 943px;
+  width: 100%;
+  height: 75px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
 }
 
 .select-field-full-2 {
-    max-width: 943px;
-    width: 100%;
-    height: 166px;
-    border: 1px solid #CED4DA;
-    border-radius: 8px;
-    position: relative;
-    padding: 10px 10px;
+  max-width: 943px;
+  width: 100%;
+  height: 166px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  position: relative;
+  padding: 10px 10px;
 }
 
 .form-footer {
-    display: flex;
+  display: flex;
 }
 
 .form-note {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    color: #474747;
-    margin-top: 22px;
-    margin-right: 62px;
-    position: relative;
-    margin: 15px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #474747;
+  margin-top: 22px;
+  margin-right: 62px;
+  position: relative;
+  margin: 15px;
 }
 
 .form-btn {
-    background: #1AA05B;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-weight: 600;
-    height: 40px;
-    font-size: 16px;
-    line-height: 24px;
-    color: white;
-    border: 0;
+  background: #1aa05b;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 600;
+  height: 40px;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  border: 0;
 }
 
 .form-success {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #1AA05B;
-    margin-bottom: 0;
-    text-align: center;
-    margin-top: 39px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #1aa05b;
+  margin-bottom: 0;
+  text-align: center;
+  margin-top: 39px;
 }
 
 .form-error {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #dd2348;
-    margin-bottom: 0;
-    text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #dd2348;
+  margin-bottom: 0;
+  text-align: center;
 }
 
-
 .like-title {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 30px;
-    color: #1AA05B;
-    text-align: center;
-    position: relative;
-    padding-left: 140px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 30px;
+  color: #1aa05b;
+  text-align: center;
+  position: relative;
+  padding-left: 140px;
 }
 
 .like-title .like-icon {
-    color: #FF6273;
-    font-size: 20px;
+  color: #ff6273;
+  font-size: 20px;
 }
-.loadContainer{
-    height: 30vh;
+.loadContainer {
+  height: 30vh;
 }
 .loading-spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid #1AA05B;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto;
-    margin-top: 1.25rem;
-  }
-.Dropdown-control{
-    width: 350px !important;
-    height: 40px !important;
-    border: 1px solid #CED4DA !important;
-    border-radius: 8px !important;
-    padding: 0.375rem 1.25rem 0.375rem 0.625rem !important;
-    color: black !important;
-    background: #F8F9FA !important;
-    padding-top: 9.7px !important;
-    box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.20) inset, 0px 2px 2px 0px rgba(0, 0, 0, 0.10) !important;
-    font-size: 16px !important;
-    font-weight: 500;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #1aa05b;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  margin-top: 1.25rem;
 }
-.Dropdown-option{
-    font-size: 16px;
-    font-weight: 500;
-    color: black !important;
+.Dropdown-control {
+  width: 350px !important;
+  height: 40px !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 8px !important;
+  padding: 0.375rem 1.25rem 0.375rem 0.625rem !important;
+  color: black !important;
+  background: #f8f9fa !important;
+  padding-top: 9.7px !important;
+  box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.2) inset,
+    0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+  font-size: 16px !important;
+  font-weight: 500;
+}
+.Dropdown-option {
+  font-size: 16px;
+  font-weight: 500;
+  color: black !important;
 }
 /* .Dropdown-option:hover{
     background: rgb(75, 75, 230) !important;
 } */
-.Dropdown-option.is-selected{
-    background-color: rgba(127, 240, 255, 0.443) !important;
+.Dropdown-option.is-selected {
+  background-color: rgba(127, 240, 255, 0.443) !important;
 }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.formNote {
+  color: #939ca3;
+  font-family: "Poppins";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 1rem;
+}
+.formNote p {
+  margin-bottom: 0rem;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @media only screen and (max-width: 830px) {
-    .two-selects {
-        display: block;
-        margin: 0;
-    }
+  .two-selects {
+    display: block;
+    margin: 0;
+  }
 
-    .select-field {
-        width: 100%;
-        margin-bottom: 42px;
-    }
+  .select-field {
+    width: 100%;
+    margin-bottom: 42px;
+  }
 }
 
 @media only screen and (max-width: 645px) {
-    .Dropdown-control{
-        width: 100% !important;
-        height: 40px !important;
-        border: 1px solid #CED4DA !important;
-        border-radius: 8px !important;
-        padding: 0.375rem 1.25rem 0.375rem 0.625rem !important;
-        color: black !important;
-        background: #F8F9FA !important;
-        padding-top: 9px !important;
-        box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.20) inset, 0px 2px 2px 0px rgba(0, 0, 0, 0.10) !important;
-        font-size: 16px !important;
-    }
-    .Dropdown-option{
-        font-size: 16px;
-        font-weight: 500;
-        color: black !important;
-    }
-    .Dropdown-option.is-selected{
-        background-color: rgba(127, 240, 255, 0.443) !important;
-    }
+  .Dropdown-control {
+    width: 100% !important;
+    height: 40px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 8px !important;
+    padding: 0.375rem 1.25rem 0.375rem 0.625rem !important;
+    color: black !important;
+    background: #f8f9fa !important;
+    padding-top: 9px !important;
+    box-shadow: 4px 5px 4px 0px rgba(0, 0, 0, 0.2) inset,
+      0px 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+    font-size: 16px !important;
+  }
+  .Dropdown-option {
+    font-size: 16px;
+    font-weight: 500;
+    color: black !important;
+  }
+  .Dropdown-option.is-selected {
+    background-color: rgba(127, 240, 255, 0.443) !important;
+  }
 
-    .select-field {
-        margin-bottom: 1.125rem;
-    }
+  .select-field {
+    margin-bottom: 1.125rem;
+  }
 
-    .one-selects {
-        margin-bottom: 0.875rem;
-    }
+  .one-selects {
+    margin-bottom: 0.875rem;
+  }
 
-    .one-selects-l {
-        margin-bottom: 0.625rem;
-    }
-    .addForm .select-title{
-        margin-top:.5rem !important;
-    }
-    .select-title p {
-        bottom: 1px;
-    }
+  .one-selects-l {
+    margin-bottom: 0.625rem;
+  }
+  .addForm .select-title {
+    margin-top: 0.5rem !important;
+  }
+  .select-title p {
+    bottom: 1px;
+  }
 
-    .select-field-full {
-        height: 65px;
-    }
+  .select-field-full {
+    height: 65px;
+  }
 
-    .select-field-full-2 {
-        height: 80px;
-    }
+  .select-field-full-2 {
+    height: 80px;
+  }
 
-    .form-note {
-        margin-right: 0;
-        margin-top: 0;
-    }
+  .form-note {
+    margin-right: 0;
+    margin-top: 0;
+  }
 
-    .form-btn {
-        width: 159px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .form-btn {
+    width: 159px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    .form-footer {
-        flex-direction: column;
-    }
+  .form-footer {
+    flex-direction: column;
+  }
 
-    .form-success {
-        margin-top: 12px;
-        font-size: 12px;
-    }
+  .form-success {
+    margin-top: 12px;
+    font-size: 12px;
+  }
 
-    .form-error {
-        margin-top: 12px;
-        font-size: 12px;
-    }
-    .form-main-div{
-      padding: .6rem;
-    }
+  .form-error {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+  .form-main-div {
+    padding: 0.6rem;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .center-div {
-        margin: .5rem;
-    }
-    .form-title {
-        padding: 0.625rem 0 0.625rem 0;
-        margin-bottom: 1.5rem;
-    }
+  .center-div {
+    margin: 0.5rem;
+  }
+  .form-title {
+    padding: 0.625rem 0 0.625rem 0;
+    margin-bottom: 1.5rem;
+  }
 
-    .form-title p {
-        font-size: 12px;
-    }
-    .like-title {
-        font-size: 14px;
-    }
+  .form-title p {
+    font-size: 12px;
+  }
+  .like-title {
+    font-size: 14px;
+  }
 
-    .like-title .like-icon {
-        font-size: 14px;
-        margin-left: 3px;
-    }
-
-    
+  .like-title .like-icon {
+    font-size: 14px;
+    margin-left: 3px;
+  }
+  .formNote {
+    font-size: 8px;
+    font-weight: 400;
+  }
 }
