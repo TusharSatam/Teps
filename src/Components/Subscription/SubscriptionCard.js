@@ -1,7 +1,13 @@
 import React from "react";
 import styles from "../../Pages/styles/Subscription.module.css";
+import { useAuth } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const SubscriptionCard = (props) => {
   const { month, amount, amountPerMonths, index,isActive, onCardClick } = props;
+  const navigate = useNavigate();
+const handleSubcribe=()=>{
+  navigate('/payment-info')
+}
   return (
     <div  className={`${styles.SubscriptionCard} ${isActive ? styles.activeCard : ""}`} onClick={onCardClick}>
       {month==6 && <div className={styles.discount}>save 10%</div>}
@@ -15,7 +21,7 @@ const SubscriptionCard = (props) => {
           {index > 0 ? ` ₹${amountPerMonths} for ${month} months` : ""}
         </p>
       </div>
-      <button  className={`${styles.subscribeButton} ${isActive ? styles.activeBtn : ""}`}>Subscribe</button>
+      <button  className={`${styles.subscribeButton} ${isActive ? styles.activeBtn : ""}`} onClick={()=>handleSubcribe()}>Subscribe</button>
     </div>
   );
 };

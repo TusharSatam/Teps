@@ -47,6 +47,7 @@ import OthersProfile from './Components/Profile/OthersProfile';
 import FoundationalLearning from './Pages/FoundationalLearning';
 import PedagogicalApproach from './Pages/PedagogicalApproach';
 import Subscription from './Pages/Subscription';
+import PaymentInformation from './Pages/PaymentInformation';
 
 
 
@@ -130,6 +131,7 @@ function App() {
             <Route path='/foundational-learning' element={<FoundationalLearning />} />
             <Route path='/pedagogical-approach' element={<PedagogicalApproach />} />
             <Route path='/subscription' element={<Subscription />} />
+            <Route path='/payment-info' element={<PaymentInformation />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

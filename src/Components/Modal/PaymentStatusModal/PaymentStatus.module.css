@@ -1,0 +1,103 @@
+.pending,
+.success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.success {
+  height: 100%;
+  width: 100%;
+  gap: 8px;
+  position: relative;
+}
+.pending h1 {
+  font-size: 24px;
+  font-weight: 500;
+}
+.success h1 {
+  font-size: 20px;
+}
+.success h2 {
+  font-size: 40px;
+  font-weight: 600;
+}
+.success h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.success h4 {
+  font-size: 12px;
+  font-weight: 400;
+}
+.success button {
+  margin: 1rem auto;
+}
+.SuccessIcon {
+  position: absolute;
+  top: -13%;
+  width: 120px;
+  height: 120px;
+}
+.imagebg {
+  width: 100px;
+  height: 90px;
+  position: absolute;
+  top: -11%;
+  background: white;
+  border-radius: 50%;
+}
+.receipt {
+  position: absolute;
+  bottom: 0%;
+  background: none;
+  border: none;
+  color: #2f6ce5;
+  font-size: 12px;
+}
+.pending p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+}
+.PaymentSpinner {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media only screen and (max-width: 480px) {
+  .SuccessIcon {
+    width: 40px;
+    height: 40px;
+    top: -8%;
+  }
+  .imagebg {
+    height: 30px;
+    width: 30px;
+    top: -7%;
+  }
+  .success h1 {
+    font-size: 16px;
+  }
+  .receipt {
+    font-size: 12px;
+  }
+  .receipt img {
+    height: 16px;
+  }
+  .pending h1 {
+    font-size: 18px;
+  }
+  .pending p {
+    font-size: 16px;
+  }
+}

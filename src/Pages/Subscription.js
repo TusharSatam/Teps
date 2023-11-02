@@ -3,15 +3,21 @@ import PageHeading from "../Components/PageHeading/PageHeading";
 import styles from "./styles/Subscription.module.css";
 import SubscriptionCard from "../Components/Subscription/SubscriptionCard";
 import checkMark from "../asstes/icons/checkMark.svg";
+import { useAuth } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 const Subscription = () => {
   const [activeCardIndex, setActiveCardIndex] = useState(2);
+  const { setselectedPaymentCard } = useAuth();
   let cardDetails = [
     { month: 1, amount: 549, amountPerMonths: 549 },
     { month: 3, amount: 1099, amountPerMonths: 366 },
     { month: 6, amount: 1699, amountPerMonths: 283 },
     { month: 12, amount: 3099, amountPerMonths: 258 },
   ];
+
   const handleCardClick = (index) => {
+    const selectedCard = {...cardDetails[index],index};
+    setselectedPaymentCard(selectedCard);
     setActiveCardIndex(index);
   };
   return (
