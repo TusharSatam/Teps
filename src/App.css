@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@400;500;600&family=Righteous&family=Roboto&display=swap');
 .App {
-  /* text-align: center; */
-  max-width: 1440px;
-  margin: 0 auto;
+  
+  margin: 0 2rem;
   position: relative;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 ::-webkit-scrollbar-track {
@@ -40,7 +40,11 @@
 .App-link {
   color: #61dafb;
 }
-
+@media only screen and (max-width:768px) {
+.App{
+  margin: 0;
+}
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

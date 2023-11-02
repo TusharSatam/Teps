@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from '../../asstes/TEPSlogo.png'
 import ResLogo from '../../asstes/res-logo.svg'
 import { Buffer } from 'buffer';
@@ -31,6 +31,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
   const [phoneValue, setPhoneValue] = React.useState("");
   const { user, isAuthenticated, logout, setStratigyFilData } = useAuth();
   const profileId = document.getElementById('profile')
+  const navigate = useNavigate();
   const handleClick = (e) => {
     displayProfile === 'd-none' ?
       setDisplayProfile('d-block') : setDisplayProfile('d-none');
@@ -83,9 +84,12 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           </Link>
         </div>
         <div className={location.pathname === "/profile" ? "d-flex align-items-center mb-md-5" : 'd-flex align-items-center'}>
+        {/* // Todo:temporary commented this button (client request) */}
         {/* <div className={/(^\/(profile|user-created-strategy|user-edited-strategy|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
           <LanguageSelect />
         </div> */}
+        
+        <button className='secondaryButton me-2' onClick={()=>{navigate('/subscription')}}>Subscribe now</button>
           {
             !isAuthenticated ?
               <div className='d-flex me-1 me-md-4'>
