@@ -1,0 +1,204 @@
+.exploreTexts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatGPTbox {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 4px 8px 4px 0px rgba(0, 0, 0, 0.10), 5px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.magicIconBox button {
+    display: none;
+}
+
+.magicIconBoxDesktop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 0;
+    cursor: pointer;
+}
+
+.magicIconBoxDesktop div {
+    display: block;
+    border: none;
+    background: #ffffff;
+}
+
+.gptButtonsContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.gptButtonsContainer button {
+    display: flex;
+    width: 23.25%;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid var(--grey-light, #CED4DA);
+    background: #F4F4F4;
+    text-align: center;
+    color: var(--gray-text, #474747);
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    /* 130% */
+    letter-spacing: -0.2px;
+    transition: all;
+    transition-duration: 300ms;
+}
+
+.gptButtonsContainer button:hover {
+    border-radius: 8px;
+    border: 1px solid var(--grey-lighter, #EBEDF0);
+    background: var(--grey-white, #FFF);
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.gptAnswer {
+    color: var(--gray-text, #474747);
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    /* 130% */
+    letter-spacing: -0.2px;
+    margin-top: 64px;
+}
+
+.gptAnswer p {
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width:767px) {
+    .exploreTexts {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 4px;
+        margin: 20px 0;
+    }
+
+    .exploreTexts p {
+        color: var(--grey-darker, #6D747A);
+        font-family: Lato;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 12px;
+        /* 120% */
+        letter-spacing: -0.1px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .chatGPTbox {
+        display: flex;
+        flex-direction: column;
+        padding: 8px;
+        align-items: center;
+        gap: 12px;
+        border-radius: 8px;
+        background: #ffffff;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        background: var(--background-white, #FFF);
+
+        /* select strategy section */
+        box-shadow: 4px 8px 4px 0px rgba(0, 0, 0, 0.10), 5px 4px 12px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .magicIconBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.263px;
+        padding: 2.526px;
+    }
+
+    .magicIconBox button {
+        display: block;
+        border: none;
+        background: #ffffff;
+    }
+
+    .magicIconBoxDesktop {
+        display: none;
+    }
+
+    .gptButtonsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .gptButtonsContainer button {
+        display: flex;
+        width: 100%;
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        border: 1px solid var(--grey-light, #CED4DA);
+        background: #F4F4F4;
+        color: var(--gray-text, #474747);
+        font-family: Poppins;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        /* 160% */
+        letter-spacing: -0.1px;
+    }
+
+    .gptButtonsContainer button:hover {
+        border-radius: 8px;
+        border: 1px solid var(--grey-light, #CED4DA);
+        background: #F4F4F4;
+        box-shadow: none;
+    }
+
+    .gptButtonsContainer button:active {
+        border-radius: 8px;
+        border: 1px solid var(--grey-lighter, #EBEDF0);
+        background: var(--grey-white, #FFF);
+        box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16);
+    }
+
+    .gptAnswer {
+        margin-top: 0;
+        color: var(--gray-text, #474747);
+        font-family: Poppins;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 12px;
+        /* 120% */
+        letter-spacing: -0.1px;
+    }
+
+}
