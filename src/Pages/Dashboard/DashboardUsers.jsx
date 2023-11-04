@@ -33,7 +33,7 @@ const DashboardUsers = () => {
     setIsLoading(true)
     getUsers()
       .then(res => {
-        setUsers(res.data);
+        setUsers(res?.data);
         setIsLoading(false)
       })
   }, [])

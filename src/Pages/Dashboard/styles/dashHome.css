@@ -55,3 +55,11 @@
     font-size: 18px;
   }
   
+  .adminType{
+    color: #1AA05B;
+    border-bottom: #1AA05B;
+    font-size: 24px;
+  }
+  .adminLogout{
+    width:80px;
+  }

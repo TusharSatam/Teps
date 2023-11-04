@@ -1,0 +1,21 @@
+.AddResourcesForm,.AddResourcesForm > div{
+    display: flex;
+    gap: 16px;
+}
+.AddResourcesForm{
+    flex-direction: column;
+}
+input,textarea{
+    width:30vw
+}
+button{
+    width:150px
+}
+@media only screen and (max-width: 575.98px) {
+    input,textarea{
+        width:100%;
+    }
+    button{
+        width:150px
+    }   
+}

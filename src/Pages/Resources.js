@@ -7,7 +7,7 @@ import { css } from "react-spinners";
 import Card from "../Components/FoundationalLearning/Card";
 import backArrow from "../asstes/icons/backArrow.svg";
 import { t } from "i18next";
-const PedagogicalApproach = () => {
+const Resources = () => {
   const cardData = [
     {
       id: 1,
@@ -120,4 +120,4 @@ const PedagogicalApproach = () => {
   );
 };
 
-export default PedagogicalApproach;
+export default Resources;

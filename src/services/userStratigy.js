@@ -12,7 +12,6 @@ export const postUserStratigys = async (data) => {
 }
 // post Strategy public
 export const privateCreatedStrUser = async (data) => {
-  console.log(data)
   let stratigyResponse
   await axios.post(`userStratiges/savePrivate`, data)
     .then(res => {

@@ -89,6 +89,24 @@ const SideBar = ({ isOpen, toggle }) => {
             Comments <span className="text-danger">{comments?.length}</span>
           </Link>
         </Nav.Item>
+        <Nav.Item className="">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/add-resources">
+          Add Resources 
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/add-resources">
+          Add Resources <span className="text-danger"></span>
+          </Link>
+        </Nav.Item>
+        <Nav.Item className="">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/all-resources">
+          All Resources 
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/all-resources">
+          All Resources <span className="text-danger"></span>
+          </Link>
+        </Nav.Item>
+        
+
         {
           admin.type === 'super-admin' &&
           <>
