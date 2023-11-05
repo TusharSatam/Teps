@@ -141,8 +141,12 @@ const EditStrategyEn = () => {
         "Teaching Strategy": formData["Teaching Strategy"],
         Approve: false,
         EditedBy: user._id,
-        isPublic: false,
+        isPublic: submitType.buttonType === "Public"?true:false,
+        isPrivate: submitType.buttonType === "Public"?false:true,
       };
+      postUserStratigys(data).then((res) => {
+        console.log("Response from CreatedStrUser EN:", res);
+      });
       seteditedDatas(data);
       setFormSubmitted(true);
       setisPublishModalOpen(true);

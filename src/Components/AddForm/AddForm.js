@@ -370,7 +370,7 @@ const AddForm = () => {
         };
          // Call postUserStratigys with updated data
          if (selectLang == "english") {
-          privateCreatedStrUser(data).then((res) => {
+          postUserStratigys(data).then((res) => {
             console.log("Response from privateCreatedStrUser EN:", res);
           });
         } 
@@ -468,24 +468,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Subject <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleSub}
-                      className={"select-field"}
-                      name="subject"
-                      value={selectSubject}
-                      id="subject"
-                    >
-                      <option value="" selected disabled>
-                        Subject
-                      </option>
-                      {uniqueSubject
-                        ?.filter((res) => res.Subject !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>
-                            {res.Subject !== "" && res.Subject}
-                          </option>
-                        ))}
-                    </select> */}
+    
                     <Dropdown
                       options={uniqueSubject
                         ?.filter((res) => res.Subject !== undefined)
@@ -503,21 +486,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Super topic <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleSuperTopic}
-                      className={"select-field"}
-                      name="superTopic"
-                      value={selectSuperTopic}
-                    >
-                      <option value="" selected disabled>
-                        Super topic
-                      </option>
-                      {uniqueSuperTopic
-                        ?.filter((res) => res["Super Topic"] !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>{res["Super Topic"]}</option>
-                        ))}
-                    </select> */}
+
                     <Dropdown
                       options={uniqueSuperTopic
                         ?.filter((res) => res["Super Topic"] !== undefined)
@@ -533,21 +502,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Topic <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleTopic}
-                      className={"select-field"}
-                      name="topic"
-                      value={selectTopic}
-                    >
-                      <option value="" selected disabled>
-                        Topic
-                      </option>
-                      {uniqueTopic
-                        ?.filter((res) => res.Topic !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>{res.Topic}</option>
-                        ))}
-                    </select> */}
+
                     <Dropdown
                       options={uniqueTopic
                         ?.filter((res) => res.Topic !== undefined)
@@ -565,21 +520,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Sub-topic <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleSubTopic}
-                      className={"select-field"}
-                      name="sub_topic"
-                      value={selectSubTopic}
-                    >
-                      <option value="" selected disabled>
-                        Sub-topic
-                      </option>
-                      {uniqueSubTopic
-                        ?.filter((res) => res["Sub Topic"] !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>{res["Sub Topic"]}</option>
-                        ))}
-                    </select> */}
+   
                     <Dropdown
                       options={uniqueSubTopic
                         ?.filter((res) => res["Sub Topic"] !== undefined)
@@ -595,22 +536,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Sub sub-topic <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleSubSubTopic}
-                      className={"select-field"}
-                      name="sub_sub_topic"
-                      value={selectSubSubTopic}
-                    >
-                      <option value="" selected disabled>
-                        Sub sub-topic
-                      </option>
 
-                      {uniqueSubSubTopic
-                        ?.filter((res) => res["Sub-sub topic"] !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>{res["Sub-sub topic"]}</option>
-                        ))}
-                    </select> */}
                     <Dropdown
                       options={uniqueSubSubTopic
                         ?.filter((res) => res["Sub-sub topic"] !== undefined)
@@ -629,24 +555,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Pedagogical Approach <p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handlePedagogical}
-                      className={"select-field"}
-                      name="pedagogical"
-                      value={selectPedagogical}
-                    >
-                      <option value="" selected disabled>
-                        Pedagogical Approach
-                      </option>
 
-                      {uniquePedagogical
-                        ?.filter(
-                          (res) => res["Pedagogical Approach"] !== undefined
-                        )
-                        .map((res, i) => (
-                          <option key={i}>{res["Pedagogical Approach"]}</option>
-                        ))}
-                    </select> */}
                     <Dropdown
                       options={uniquePedagogical
                         ?.filter(
@@ -664,21 +573,7 @@ const AddForm = () => {
                     <p className="select-title">
                       Learning Outcome<p>*</p>
                     </p>
-                    {/* <select
-                      onChange={handleLearningOutcome}
-                      className={"select-field"}
-                      name="learning_outcome"
-                      value={selectLearningOutcome}
-                    >
-                      <option value="" selected disabled>
-                        Learning Outcome
-                      </option>
-                      {uniqueLearningOutcome
-                        ?.filter((res) => res["Learning Outcome"] !== undefined)
-                        .map((res, i) => (
-                          <option key={i}>{res["Learning Outcome"]}</option>
-                        ))}
-                    </select> */}
+
                     <Dropdown
                       options={uniqueLearningOutcome
                         ?.filter((res) => res["Learning Outcome"] !== undefined)

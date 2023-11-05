@@ -179,7 +179,7 @@ const ProfileDataC = ({ setNumber }) => {
                   <div key={index} className="cardContainer">
                     <p id="bswm">{res["Pedagogical Approach"]}</p>
                     <p className="savestr_body">
-                      {res["Teaching Strategy"].slice(0, 150) + "..."}
+                      {res["Teaching Strategy"]?.slice(0, 150) + "..."}
                     </p>
                     <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw" onClick={()=>setstrategyNum(index+1)}>
                       Read More...

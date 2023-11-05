@@ -87,7 +87,7 @@ const SingleUserStr = () => {
   }, [isAlreadyRated]);
   React.useEffect(() => {
     singleUserEnStratigys(id).then((res) => {
-      setStr(res.data[0]);
+      setStr(res?.data[0]);
       setComment(res.data[1]?.comments);
       getSingleUser(res.data[0].User_id).then((res) => {
         setuploader(res.data[0]);
@@ -144,13 +144,13 @@ const SingleUserStr = () => {
   React.useEffect(() => {
     getLikes().then((res) => {
       const totalLike = res?.data?.filter((ress) => ress.strategie_id === id);
-      setTotalUserLikes(totalLike.length);
+      setTotalUserLikes(totalLike?.length);
       const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
       setLikeUser(userlike);
       setUserLikes(userlike?.map((ress) => ress.strategie_id));
-      getMultitUser(totalLike?.map((user_id) => user_id.user_id)).then(
-        (resUser) => setTotalLikeUser(resUser.data)
-      );
+      // getMultitUser(totalLike?.map((user_id) => user_id?.user_id)).then(
+      //   (resUser) => setTotalLikeUser(resUser?.data)
+      // );
     });
   }, []);
   const handleApiLikes = (id) => {
@@ -165,9 +165,9 @@ const SingleUserStr = () => {
         const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
         setLikeUser(userlike);
         setUserLikes(userlike?.map((ress) => ress.strategie_id));
-        getMultitUser(totalLike?.map((user_id) => user_id.user_id))
-          .then((resUser) => setTotalLikeUser(resUser.data))
-          .catch((err) => setTotalLikeUser([]));
+        // getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+        //   .then((resUser) => setTotalLikeUser(resUser.data))
+        //   .catch((err) => setTotalLikeUser([]));
       });
     });
   };
@@ -184,9 +184,9 @@ const SingleUserStr = () => {
           );
           setLikeUser(userlike);
           setUserLikes(userlike?.map((ress) => ress.strategie_id));
-          getMultitUser(totalLike?.map((user_id) => user_id.user_id))
-            .then((resUser) => setTotalLikeUser(resUser.data))
-            .catch((err) => setTotalLikeUser([]));
+          // getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+          //   .then((resUser) => setTotalLikeUser(resUser.data))
+          //   .catch((err) => setTotalLikeUser([]));
         });
       });
     }
@@ -198,7 +198,7 @@ const SingleUserStr = () => {
   React.useEffect(() => {
     getSaves().then((res) => {
       const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
-      setTotalUserSaves(totalSave.length);
+      setTotalUserSaves(totalSave?.length);
       const userlike = totalSave?.filter((ress) => ress.user_id === user._id);
       setSaveUser(userlike);
       setUserSaves(userlike?.map((ress) => ress.strategie_id));

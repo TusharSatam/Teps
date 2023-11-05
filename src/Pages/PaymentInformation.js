@@ -14,6 +14,8 @@ const PaymentInformation = () => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCVV] = useState("");
+  const [showStatusModal, setshowStatusModal] = useState(false);
+  const [isPending, setisPending] = useState(false);
   const { selectedPaymentCard } = useAuth();
   useEffect(() => {
     console.log(selectedPaymentCard);
@@ -49,14 +51,19 @@ const PaymentInformation = () => {
   const handlePaymentMethodChange = (method) => {
     setSelectedPaymentMethod(method);
   };
-  const [showStatusModal, setshowStatusModal] = useState(true);
   const handleClose = () => {
     setshowStatusModal(false);
   };
   return (
     <div className={styles.paymentInfos}>
       <PageHeading title="Payment Information" />
-      <PaymentStatus show={showStatusModal} handleClose={handleClose} />
+      <PaymentStatus
+        show={showStatusModal}
+        handleClose={handleClose}
+        setShow={setshowStatusModal}
+        setisPending={setisPending}
+        isPending={isPending}
+      />
       {/* Subscribe to TEPS options */}
       <div className={styles.paymentOptions}>
         <h3>Subscribe to TEPS</h3>
@@ -144,7 +151,15 @@ const PaymentInformation = () => {
         </div>
       </div>
       <div className={styles.payButtons}>
-        <button className="primaryButton">Pay</button>
+        <button
+          className="primaryButton"
+          onClick={() => {
+            setisPending(true);
+            setshowStatusModal(true);
+          }}
+        >
+          Pay
+        </button>
         <button className="secondaryButton">Cancel</button>
       </div>
     </div>
