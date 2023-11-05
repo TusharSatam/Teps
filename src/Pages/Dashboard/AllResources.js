@@ -4,17 +4,18 @@ import toast, { Toaster } from 'react-hot-toast';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 // import { delResource, getResources } from '../../services/resourceService'; // Replace with your actual resource fetching and deletion service
 import { useAuth } from '../../Context/AuthContext';
+import { getAllResource } from '../../services/Resources';
 
 const AllResources = () => {
     const [resources, setResources] = useState([{id:"1",title:"test",description:"test",link:"http://test.com"}])
   const [selectedResources, setSelectedResources] = useState([]);
   
-//   useEffect(() => {
-//     getResources() // Fetch resources from your API
-//       .then((res) => {
-//         setResources(res?.data);
-//       });
-//   }, [setResources]);
+  useEffect(() => {
+    getAllResource() // Fetch resources from your API
+      .then((res) => {
+        setResources(res?.data);
+      });
+  }, [setResources]);
 
   const handleResourceDelete = (id) => {
 //     delResource(id) // Delete resource using your API service
@@ -54,7 +55,7 @@ const AllResources = () => {
             <tr key={i}>
               <td>{resource.id}</td>
               <td>
-                <img src="https://picsum.photos/200/300" alt={resource.title} width="50" />
+                <img src={resource.image} alt={resource.title} width="50" />
               </td>
               <td>{resource.title}</td>
               <td>{resource.description}</td>

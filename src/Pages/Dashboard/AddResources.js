@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import styles from "./styles/AddResources.module.css"
+import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import styles from "./styles/AddResources.module.css";
+import {
+  postResourceCard,
+} from "../../services/Resources";
+
 const AddResources = () => {
   const [resource, setResource] = useState({
-    title: '',
+    title: "",
     image: null,
-    paragraph: '',
-    link: '',
+    paragraph: "",
+    link: "",
+    category: "", // Add the 'category' field
   });
+
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-    if (type === 'file') {
+    if (type === "file") {
       setResource((prevResource) => ({
         ...prevResource,
         [name]: e.target.files[0],
@@ -25,21 +31,52 @@ const AddResources = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader?.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate a request to your backend (you should replace this with your actual API call)
+    // Convert the image file to base64
+    if (resource.image) {
+      try {
+        const imageBase64 = await convertToBase64(resource.image);
+        resource.image = imageBase64;
+      } catch (error) {
+        console.error("Error converting image to base64:", error);
+        // Handle the error here, if needed
+      }
+    }
+
+    let data = {
+      title: resource.title,
+      image: resource.image,
+      paragraph: resource.paragraph,
+      link_to_readmore: resource.link,
+      category: resource.category,
+    };
+    postResourceCard(data);
     setTimeout(() => {
-      // Clear the form and set formSubmitted to true
       setResource({
         title: '',
         image: null,
         paragraph: '',
         link: '',
+        category: '',
       });
       setFormSubmitted(true);
 
       // Display a success toast
-      toast.success('Resource added!', {
+      toast.success("Resource added!", {
         duration: 4000,
       });
     }, 1000);
@@ -51,7 +88,7 @@ const AddResources = () => {
 
       <h2>Add Resources</h2>
       <form onSubmit={handleSubmit} className={styles.AddResourcesForm}>
-        <div >
+        <div>
           <label htmlFor="title">Title:</label>
           <input
             type="text"
@@ -81,7 +118,7 @@ const AddResources = () => {
           />
         </div>
         <div>
-          <label htmlFor="link">Link URL:</label>
+          <label htmlFor="link">Link:</label>
           <input
             type="text"
             id="link"
@@ -90,7 +127,19 @@ const AddResources = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className='btn btn-primary my-3 '>Add Resource</button>
+        <div>
+          <label htmlFor="category">Category:</label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value={resource.category}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary my-3">
+          Add Resource
+        </button>
       </form>
     </div>
   );

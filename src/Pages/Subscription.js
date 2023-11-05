@@ -16,7 +16,7 @@ const Subscription = () => {
   ];
 
   const handleCardClick = (index) => {
-    const selectedCard = {...cardDetails[index],index};
+    const selectedCard = { ...cardDetails[index], index };
     setselectedPaymentCard(selectedCard);
     setActiveCardIndex(index);
   };
@@ -26,35 +26,6 @@ const Subscription = () => {
       <div className={styles.SubscriptionWrapper}>
         <h1 className={styles.subHeading}>Features:</h1>
         <div className={styles.features}>
-          <div>
-            <h2 className={styles.subTitle}>Free TEPS includes</h2>
-            <ul>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
-                Your Profile page
-              </li>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
-                Create Strategies
-              </li>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
-                Maintain a portfolio of your created strategies
-              </li>
-            </ul>
-          </div>
           <div>
             <h2 className={styles.subTitle}>Paid TEPS includes</h2>
             <ul>
@@ -141,6 +112,35 @@ const Subscription = () => {
                 />
                 Options to share your teaching strategies with the other
                 educators in the community
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className={styles.subTitle}>Free TEPS includes</h2>
+            <ul>
+              <li>
+                <img
+                  src={checkMark}
+                  alt="checkIcon"
+                  className={styles.checkMark}
+                />
+                Your Profile page
+              </li>
+              <li>
+                <img
+                  src={checkMark}
+                  alt="checkIcon"
+                  className={styles.checkMark}
+                />
+                Create Strategies
+              </li>
+              <li>
+                <img
+                  src={checkMark}
+                  alt="checkIcon"
+                  className={styles.checkMark}
+                />
+                Maintain a portfolio of your created strategies
               </li>
             </ul>
           </div>
