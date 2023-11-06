@@ -1,82 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles/FoundationalLearning.module.css";
-import FoundationalCardImg from "../asstes/FoundationalLearning.png";
 import ModalImg from "../Components/Modal/FoundationLearning/ModalImg";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { css } from "react-spinners";
 import Card from "../Components/FoundationalLearning/Card";
 import backArrow from "../asstes/icons/backArrow.svg";
 import { t } from "i18next";
-const PedagogicalApproach = () => {
-  const cardData = [
-    {
-      id: 1,
-      imageSrc: FoundationalCardImg,
-      title: "Title text",
-      text: "Lorem ipsum dolor sit amet consectetur. Placerat erat imperdiet arcu pellentesque dictumst. Vestibulum  1.",
-    },
-    {
-      id: 2,
-      imageSrc: FoundationalCardImg,
-      title: "Title text",
-      text: "Lorem ipsum dolor sit amet consectetur. Placerat erat imperdiet arcu pellentesque dictumst. Vestibulum  2.",
-    },
-  ];
+import { getAllResource } from "../services/Resources";
 
-  const initialItems = 21; // Initial number of items
-  const itemsPerLoad = 20; // Number of items to load with each request
-
+const Resources = () => {
+  const [cardData, setCardData] = useState([]); // Data fetched from the API
+  const [items, setItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ imageSrc: "", text: "" });
   const [selectedOption, setSelectedOption] = useState("Constructivism");
+  const [loading, setLoading] = useState(false);
 
-  const [items, setItems] = useState(
-    Array.from({ length: initialItems }).map((_, index) => ({
-      id: index,
-      cardData: cardData[index % cardData.length],
-    }))
-  );
+  const initialItems = 9; // Initial number of items
+  const itemsPerLoad = 9; // Number of items to load with each request
+  const hasMore = cardData.length > items.length; // Determine if there are more items to load
 
-  const openModal = (imageSrc, text) => {
-    setModalData({ imageSrc, text });
+  const openModal = (imageSrc, text,link) => {
+    setModalData({ imageSrc, text,link });
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-};
+  };
+
   const handleBackClick = () => {
     window.history.go(-1);
-  };
-  const fetchMoreData = () => {
-    // Simulate a fake async API call to load more items
-    setTimeout(() => {
-      const newItems = Array.from({ length: itemsPerLoad }).map((_, index) => ({
-        id: items.length + index,
-        cardData: cardData[index % cardData.length],
-      }));
-
-      setItems([...items, ...newItems]);
-    }, 1000);
   };
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
   };
+
+  const fetchMoreData = () => {
+    if (loading) {
+      // Return if loading is already in progress
+      return;
+    }
+
+    setLoading(true);
+
+    // Simulate a fake async API call to load more items
+    setTimeout(() => {
+      const newItems = cardData.slice(
+        items.length,
+        items.length + itemsPerLoad
+      ).map((card, index) => ({
+        id: items.length + index,
+        cardData: card,
+      }));
+
+      setItems([...items, ...newItems]);
+      setLoading(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    getAllResource().then((res) => {
+      let filterResponse=res?.data.filter((card) => card.category === selectedOption);
+      setCardData(filterResponse);
+
+
+      // After fetching data, you can populate the initial items
+      const initialData = filterResponse?.slice(0, initialItems).map((card, index) => ({
+        id: index,
+        cardData: card,
+      }));
+      setItems(initialData);
+    });
+  }, [selectedOption]);
+
   return (
     <div>
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
+      <div className="d-flex justify-content-center align-items-center mb-1 position-relative HeadLine">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
         </button>
         <hr className="line" />
-    
         <hr className="line" />
       </div>
-      
+
       <div className={styles.selectedOptions}>
-      <select className={styles.selectTag} onChange={handleSelectChange} value={selectedOption}>
+        <select
+          className={styles.selectTag}
+          onChange={handleSelectChange}
+          value={selectedOption}
+        >
           <option value="Constructivism">Constructivism</option>
           <option value="Inquiry-based Learning">Inquiry-based Learning</option>
           <option value="Project-based Learning">Project-based Learning</option>
@@ -85,12 +99,12 @@ const PedagogicalApproach = () => {
       <InfiniteScroll
         dataLength={items.length}
         next={fetchMoreData}
-        hasMore={true} // Set to true if you have more items to load
+        hasMore={hasMore}
         loader={
           <div
             className={styles.loading}
             style={{
-              gridColumn: "span 3", // Make the loader span 3 columns
+              gridColumn: "span 3",
               width: "100%",
             }}
           >
@@ -102,10 +116,11 @@ const PedagogicalApproach = () => {
         {items.map(({ id, cardData }) => (
           <Card
             key={id}
-            imageSrc={cardData.imageSrc}
+            imageSrc={cardData.image}
             title={cardData.title}
-            text={cardData.text}
-            openModal={() => openModal(cardData.imageSrc, cardData.text)}
+            text={cardData.paragraph}
+            readMore={cardData.link_to_readmore}
+            openModal={() => openModal(cardData.image, cardData.paragraph,cardData.link_to_readmore)}
           />
         ))}
       </InfiniteScroll>
@@ -115,9 +130,10 @@ const PedagogicalApproach = () => {
         onClose={closeModal}
         imageSrc={modalData.imageSrc}
         text={modalData.text}
+        readMore={modalData.link}
       />
     </div>
   );
 };
 
-export default PedagogicalApproach;
+export default Resources;

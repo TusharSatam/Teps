@@ -18,7 +18,7 @@ function NavBar(props) {
   return (
     <Navbar
       bg="light"
-      className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+      className="navbar shadow-sm p-3 mb-5 bg-white rounded d-flex justify-content-between"
       expand
     >
       <Button variant="outline-info" onClick={handleHumBurgs}>
@@ -26,13 +26,11 @@ function NavBar(props) {
       </Button>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       {
-        admin.type === 'super-admin' ? <h2 style={{ marginLeft: "350px", color: "#1AA05B", borderBottom: "#1AA05B" }} className="justify-content-center"><u>Super Admin</u> </h2> : <h2 style={{ marginLeft: "350px", color: "#1AA05B", borderBottom: "#1AA05B" }} className="text-center"><u>Admin</u></h2>
+        admin.type === 'super-admin' ? <h2  className="justify-content-center adminType"><u>Super Admin</u> </h2> : <h2 className="text-center adminType"><u>Admin</u></h2>
       }
-      <Navbar.Collapse className="justify-content-end" id="responsive-navbar-nav">
         <Nav className="ml-auto" navbar>
-          <Button onClick={Adminlogout} className="btn-sm btn-dark">Logout</Button>
+          <Button onClick={Adminlogout} className="btn-sm btn-dark adminLogout">Logout</Button>
         </Nav>
-      </Navbar.Collapse>
     </Navbar>
   );
 }

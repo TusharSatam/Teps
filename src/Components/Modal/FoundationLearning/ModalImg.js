@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./ModalImg.module.css";
 import closeModalImg from "../../../asstes/icons/closeModal.svg";
-const ModalImg = ({ isOpen, onClose, imageSrc, text }) => {
+const ModalImg = ({ isOpen, onClose, imageSrc, text,readMore }) => {
   if (!isOpen) return null;
-  console.log("Modal");
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -14,7 +13,7 @@ const ModalImg = ({ isOpen, onClose, imageSrc, text }) => {
         </div>
         <img src={imageSrc} alt="Card Image" className={styles.modalImage} />
         <div className={styles.readMore}>
-          <button className={styles.readMoreButton}>Read more</button>
+          <a href={readMore} target="_blank" rel="noopener noreferrer" className={styles.readMoreButton}>Read more</a>
         </div>
       </div>
     </div>

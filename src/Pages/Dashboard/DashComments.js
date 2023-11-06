@@ -14,7 +14,7 @@ const DashComments = () => {
         setComment(res?.data?.filter(res => res?.Approve === false))
       })
   }, [])
-  const allselectedId = comment.map(stra => {
+  const allselectedId = comment?.map(stra => {
     return stra._id
   })
   const handleCommentClear = () => {
@@ -48,6 +48,11 @@ const DashComments = () => {
           })
       })
   }
+
+  const formatPostTime = (isoDateString) => {
+    const date = new Date(isoDateString);
+    return date.toLocaleString(); // You can customize the format as needed
+  };
   return (
     <div>
       <Toaster
@@ -62,7 +67,9 @@ const DashComments = () => {
           <tr>
             <th>Id</th>
             <th scope="col">Comment</th>
-            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Date and Time</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -71,6 +78,9 @@ const DashComments = () => {
               <tr key={i}>
                 <td>{res?._id.slice(19, 26)}</td>
                 <td>{res?.comment}</td>
+                <td>{res?.user_name}</td>
+                <td>{formatPostTime(res?.postTime)}</td>
+
                 <td>
                   <button onClick={() => handleCommentDelet(res?._id)} className='btn p-0 me-2'>
                     <FaRegTrashAlt />

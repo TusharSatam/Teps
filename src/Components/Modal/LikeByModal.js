@@ -15,7 +15,7 @@ const LikeByModal = (props) => {
       </Modal.Header>
       <Modal.Body style={{ overflowY: "auto" }}>
         {
-          totalReact.map((res, i) => (
+          totalReact?.map((res, i) => (
             <div className='d-flex align-items-center'>
               <div>
                 {

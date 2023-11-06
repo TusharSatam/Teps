@@ -15,14 +15,18 @@ const UserReqEn = () => {
 
   const { user } = useAuth()
   React.useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     getUserStratigys()
-      .then(res => {
-        setEnStr(res.data?.filter(res => res.Approve === false))
-        setIsLoading(false)
-      })
-  }, [])
-
+      .then((res) => {
+        if (res.data) {
+          const filteredData = res.data.filter((item) => item.Approve === false && (item.isPublic === true || item.isPublic === undefined));
+          console.log(filteredData);
+          setEnStr(filteredData);
+        }
+        setIsLoading(false);
+      });
+  }, []);
+  
   const habdleApprove = (id) => {
     const data = {
       'Approve': true

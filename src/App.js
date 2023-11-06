@@ -45,7 +45,11 @@ import EditedStratigy from './Pages/EditedStratigy'
 import CreatedStratigy from './Pages/CreatedStratigy'
 import OthersProfile from './Components/Profile/OthersProfile';
 import FoundationalLearning from './Pages/FoundationalLearning';
-import PedagogicalApproach from './Pages/PedagogicalApproach';
+import Resources from './Pages/Resources';
+import Subscription from './Pages/Subscription';
+import PaymentInformation from './Pages/PaymentInformation';
+import AddResources from './Pages/Dashboard/AddResources';
+import AllResources from './Pages/Dashboard/AllResources';
 
 
 
@@ -54,7 +58,6 @@ function App() {
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
   axios.defaults.baseURL = "http://43.205.39.232/api/";
-
 
   const handleOnclick = () => {
     setDisplayProfile('d-none')
@@ -95,6 +98,8 @@ function App() {
           loc.pathname === '/reqbyuser-hi' ||
           loc.pathname === '/admin-comments' ||
           loc.pathname === '/browsers-devices' ||
+          loc.pathname === '/add-resources' ||
+          loc.pathname === '/all-resources' ||
           loc.pathname.includes('/user-details')
           ? ('') : (
             <Navbar
@@ -127,8 +132,9 @@ function App() {
             <Route path='/addForm' element={<AddForm />} />
             <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
             <Route path='/foundational-learning' element={<FoundationalLearning />} />
-            <Route path='/pedagogical-approach' element={<PedagogicalApproach />} />
-            
+            <Route path='/resources' element={<Resources />} />
+            <Route path='/subscription' element={<Subscription />} />
+            <Route path='/payment-info' element={<PaymentInformation />} />
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >
@@ -149,6 +155,9 @@ function App() {
               <Route exact path='/admin-comments' element={<DashComments />} />
               <Route exact path='/browsers-devices' element={<DeviceList />} />
               <Route exact path='/user-details/:id' element={<UserDetails />} />
+              <Route exact path='/add-resources' element={<AddResources />} />
+              <Route exact path='/all-resources' element={<AllResources />} />
+
             </Route>
           </Route>
         </Routes>
@@ -173,6 +182,8 @@ function App() {
           loc.pathname === '/reqbyuser-en' ||
           loc.pathname === '/reqbyuser-hi' ||
           loc.pathname === '/admin-comments' ||
+          loc.pathname === '/add-resources' ||
+          loc.pathname === '/all-resources' ||
           loc.pathname === '/browsers-devices' ||
           loc.pathname.includes('/user-details')
           ? ('') : (

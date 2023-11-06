@@ -46,6 +46,7 @@ const CreatedStratigy = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
+  const [save, setSave] = useState([]);
 
   React.useEffect(() => {
     if (language === "hi") {
@@ -62,7 +63,6 @@ const CreatedStratigy = () => {
       setFilter(true);
     }
   };
-  const [save, setSave] = useState([]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -74,6 +74,7 @@ const CreatedStratigy = () => {
       if (languageSelect === "en") {
         getUserCreated(user._id)
           .then((res) => {
+            console.log(res);
             setSaveStratigy(res.data);
             setIsLoading(false);
           })
@@ -81,15 +82,15 @@ const CreatedStratigy = () => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        getMultiUsertStr(savesId)
-          .then((res) => {
-            setSaveUserStratigy(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setSaveUserStratigy([]);
-            setIsLoading(false);
-          });
+        // getMultiUsertStr(savesId)
+        //   .then((res) => {
+        //     setSaveUserStratigy(res.data);
+        //     setIsLoading(false);
+        //   })
+        //   .catch((err) => {
+        //     setSaveUserStratigy([]);
+        //     setIsLoading(false);
+        //   });
       } else {
         getHindiStratigysCreatedByUser(user._id).then((res) => {
           console.log(res);
@@ -100,38 +101,7 @@ const CreatedStratigy = () => {
     });
   }, [languageSelect]);
 
-  const handleApiSaves = (id) => {
-    const data = {
-      strategie_id: id,
-      user_id: user._id,
-    };
-    PostUserCreated(data).then((res) => {
-      getUserCreated(user._id).then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-        const savesId = saves?.map((ress) => ress.strategie_id);
-        setSave(saves?.map((ress) => ress.strategie_id));
-        if (languageSelect === "en") {
-          getUserCreated(user._id)
-            .then((res) => {
-              setSaveStratigy(res.data);
-            })
-            .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
-            .then((res) => {
-              setSaveUserStratigy(res.data);
-            })
-            .catch((err) => setSaveUserStratigy([]));
-        } else {
-          getMultitHiStr(savesId).then((res) => {
-            setSaveStratigyi(res.data);
-          });
-          getMultiUserHindiStr(savesId).then((res) => {
-            setSaveStratigyiUser(res.data);
-          });
-        }
-      });
-    });
-  };
+
 
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -305,7 +275,7 @@ const CreatedStratigy = () => {
                               {data?.["Pedagogical Approach"]}
                             </p>
                             <p style={{width:"100%"}} className="savestr_body">
-                              {data["Teaching Strategy"].slice(0, 250)}...
+                              {data["Teaching Strategy"]?.slice(0, 250)}...
                             </p>
                             <div className="strategyReadmore">
                               <Link to={`/singleUserStratigy/${data._id}`}>

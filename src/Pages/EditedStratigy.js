@@ -62,7 +62,7 @@ const EditedStratigy = () => {
   React.useEffect(() => {
     setIsLoading(true);
     getEdits(user._id).then((res) => {
-      const saves = res.data;
+      const saves = res?.data;
       const savesId = saves?.map((ress) => ress.strategie_id);
 
       setSave(saves?.map((ress) => ress.strategie_id));
@@ -77,15 +77,15 @@ const EditedStratigy = () => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        getMultiUsertStr(savesId)
-          .then((res) => {
-            setSaveUserStratigy(res.data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            setSaveUserStratigy([]);
-            setIsLoading(false);
-          });
+        // getMultiUsertStr(savesId)
+        //   .then((res) => {
+        //     setSaveUserStratigy(res.data);
+        //     setIsLoading(false);
+        //   })
+        //   .catch((err) => {
+        //     setSaveUserStratigy([]);
+        //     setIsLoading(false);
+        //   });
       } else {
         getHindiStratigysEditedbyUser(user._id).then((res) => {
           console.log(res);
@@ -112,11 +112,11 @@ const EditedStratigy = () => {
               setSaveStratigy(res.data);
             })
             .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
-            .then((res) => {
-              setSaveUserStratigy(res.data);
-            })
-            .catch((err) => setSaveUserStratigy([]));
+          // getMultiUsertStr(savesId)
+          //   .then((res) => {
+          //     setSaveUserStratigy(res.data);
+          //   })
+          //   .catch((err) => setSaveUserStratigy([]));
         } else {
           getMultitHiStr(savesId).then((res) => {
             setSaveStratigyi(res.data);
