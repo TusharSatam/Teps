@@ -1,0 +1,47 @@
+
+.parentContainer{
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background: var(--overlay-background, rgba(213, 179, 154, 0.40));
+backdrop-filter: blur(50px);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container p{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.slide img {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slide {
+  transform: scale(0.5);
+  transition: transform 300ms;
+  opacity: 0.5;
+}
+
+.activeSlide {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@media screen and (max-width:767px) {
+    .slide img{
+        width: 78vw;
+    }
+}
