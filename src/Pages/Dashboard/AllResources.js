@@ -12,14 +12,14 @@ import {
 import EditResource from "../../Components/DashboardModal/EditResource";
 
 const AllResources = () => {
-  const [resources, setResources] = useState([{}]);
+  const [resources, setResources] = useState([]);
 
   const [selectedResources, setSelectedResources] = useState({});
   const [isShow, setisShow] = useState(false);
   useEffect(() => {
     getAllResource() // Fetch resources from your API
       .then((res) => {
-        setResources(res?.data);
+        setResources(res?.data?.cards);
       });
   }, [setResources]);
 
@@ -31,7 +31,7 @@ const AllResources = () => {
         });
         // Update the resources list after deletion
         getAllResource().then((res) => {
-          setResources(res?.data);
+          setResources(res?.data?.cards);
         });
       }
     });

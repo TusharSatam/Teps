@@ -56,7 +56,7 @@ const EditResource = ({
         setIsLoading(false); // Reset loading state when the update is successful
         setShow(false);
         getAllResource().then((res) => {
-          setResources(res?.data);
+          setResources(res?.data?.cards);
           toast.success("Resource Update successful!");
         });
       });

@@ -5,6 +5,8 @@ import CreditCard from "../Components/PaymentInfomations/CreditCard/CreditCard";
 import { useAuth } from "../Context/AuthContext";
 import { useEffect } from "react";
 import PaymentStatus from "../Components/Modal/PaymentStatusModal/PaymentStatus";
+import TEPS_LOGO from "../asstes/TEPSlogo.png"
+import axios from "axios";
 
 const PaymentInformation = () => {
   const [selectedOption, setSelectedOption] = useState("option3"); // State to keep track of the selected radio option.
@@ -54,6 +56,49 @@ const PaymentInformation = () => {
   const handleClose = () => {
     setshowStatusModal(false);
   };
+
+//Todo: change url while deployment
+
+	const initPayment = (data) => {
+		const options = {
+			key: "rzp_test_Ke1ZQFLmXLygwx",
+			amount: data.amount,
+			currency: data.currency,
+			name: "TEPS",
+			description: selectedOptionData.label,
+			image: TEPS_LOGO,
+			order_id: data.id,
+			handler: async (response) => {
+				try {
+					const verifyUrl = "http://localhost:8080/api/payment/verify";
+					const { data } = await axios.post(verifyUrl, response);
+          // setisPending(true);
+          // setshowStatusModal(true);
+					console.log(data);
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			theme: {
+				color: "#1aa05b",
+			},
+		};
+		const rzp1 = new window.Razorpay(options);
+		rzp1.open();
+	};
+
+	const handlePayment = async () => {
+		try {
+			const orderUrl = "http://localhost:8080/api/payment/orders";
+			const { data } = await axios.post(orderUrl, { amount: selectedOptionData.price });
+			console.log(data);
+			initPayment(data.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+
   return (
     <div className={styles.paymentInfos}>
       <PageHeading title="Payment Information" />
@@ -153,10 +198,11 @@ const PaymentInformation = () => {
       <div className={styles.payButtons}>
         <button
           className="primaryButton"
-          onClick={() => {
-            setisPending(true);
-            setshowStatusModal(true);
-          }}
+          // onClick={() => {
+          //   setisPending(true);
+          //   setshowStatusModal(true);
+          // }}
+          onClick={handlePayment}
         >
           Pay
         </button>
