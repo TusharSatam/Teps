@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import toast, { Toaster } from 'react-hot-toast';
-import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
+import toast, { Toaster } from "react-hot-toast";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 // import { delResource, getResources } from '../../services/resourceService'; // Replace with your actual resource fetching and deletion service
-import { useAuth } from '../../Context/AuthContext';
-import { getAllResource } from '../../services/Resources';
+import { useAuth } from "../../Context/AuthContext";
+import {
+  delResource,
+  getAllResource,
+  getResource,
+} from "../../services/Resources";
+import EditResource from "../../Components/DashboardModal/EditResource";
 
 const AllResources = () => {
-    const [resources, setResources] = useState([{id:"1",title:"test",description:"test",link:"http://test.com"}])
-  const [selectedResources, setSelectedResources] = useState([]);
-  
+  const [resources, setResources] = useState([{}]);
+
+  const [selectedResources, setSelectedResources] = useState({});
+  const [isShow, setisShow] = useState(false);
   useEffect(() => {
     getAllResource() // Fetch resources from your API
       .then((res) => {
@@ -18,34 +24,49 @@ const AllResources = () => {
   }, [setResources]);
 
   const handleResourceDelete = (id) => {
-//     delResource(id) // Delete resource using your API service
-//       .then((res) => {
-//         if (res) {
-//           toast.success('Resource Deleted!', {
-//             duration: 4000
-//           });
-//           // Update the resources list after deletion
-//           getResources()
-//             .then((res) => {
-//               setResources(res?.data);
-//             });
-//         }
-//       });
-  }
+    delResource(id).then((res) => {
+      if (res) {
+        toast.success("Resource Deleted!", {
+          duration: 4000,
+        });
+        // Update the resources list after deletion
+        getAllResource().then((res) => {
+          setResources(res?.data);
+        });
+      }
+    });
+  };
+
+  const handleEdit = (id) => {
+    getResource(id).then((res) => {
+      setSelectedResources(res?.data);
+      setisShow(true)
+    });
+  };
+
+  const handleClose = () => {
+    setisShow(false);
+  };
 
   return (
     <div>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
+      <Toaster position="top-right" reverseOrder={false} />
+      <EditResource
+        show={isShow}
+        setShow={setisShow}
+        onHide={handleClose}
+        setSelectedResources={setSelectedResources}
+        selectedResources={selectedResources}
+        setResources={setResources}
       />
       <Table striped bordered hover size="sm">
-        <thead style={{ background: '#d5b39a' }}>
+        <thead style={{ background: "#d5b39a" }}>
           <tr>
             <th>Id</th>
             <th>Image</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Link</th>
             <th></th>
           </tr>
@@ -53,22 +74,35 @@ const AllResources = () => {
         <tbody>
           {resources?.map((resource, i) => (
             <tr key={i}>
-              <td>{resource.id}</td>
+              <td>{resource._id?.slice(0, 6)}</td>
               <td>
                 <img src={resource.image} alt={resource.title} width="50" />
               </td>
               <td>{resource.title}</td>
-              <td>{resource.description}</td>
+              <td>{resource.paragraph}</td>
+              <td>{resource.category}</td>
               <td>
-                <a href={resource.link} target="_blank" rel="noopener noreferrer">
-                  {resource.link}
+                <a
+                  href={resource.link_to_readmore}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {resource.link_to_readmore}
                 </a>
               </td>
               <td>
-                <button onClick={() => handleResourceDelete(resource.id)} className='btn p-0 me-2'>
+                <button
+                  onClick={() => handleResourceDelete(resource._id)}
+                  className="btn p-0 me-2"
+                >
                   <FaRegTrashAlt />
                 </button>
-                <button className='btn p-0' ><FaRegEdit /></button>
+                <button
+                  className="btn p-0"
+                  onClick={() => handleEdit(resource._id)}
+                >
+                  <FaRegEdit />
+                </button>
               </td>
             </tr>
           ))}
