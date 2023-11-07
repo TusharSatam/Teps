@@ -2,8 +2,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
 }
-
+.exploreTexts p{
+    color:  #6D747A;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.exploreTexts p:hover{
+color: blue;
+}
 .chatGPTbox {
     display: flex;
     flex-direction: column;

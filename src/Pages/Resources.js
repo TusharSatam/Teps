@@ -61,7 +61,7 @@ const Resources = () => {
 
   useEffect(() => {
     getAllResource().then((res) => {
-      let filterResponse=res?.data.filter((card) => card.category === selectedOption);
+      let filterResponse=res?.data.cards.filter((card) => card.category === selectedOption);
       setCardData(filterResponse);
 
 

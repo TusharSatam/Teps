@@ -71,7 +71,7 @@ const PaymentInformation = () => {
 			order_id: data.id,
 			handler: async (response) => {
 				try {
-					const verifyUrl = "http://localhost:8080/api/payment/verify";
+					const verifyUrl = "http://43.205.39.232/api/payment/verify";
 					const { data } = await axios.post(verifyUrl, {...response,User_id:user._id,duration:selectedOptionData.Days});
           // setisPending(true);
           // setshowStatusModal(true);
@@ -96,7 +96,7 @@ const PaymentInformation = () => {
 
 	const handlePayment = async () => {
 		try {
-			const orderUrl = "http://localhost:8080/api/payment/orders";
+			const orderUrl = "http://43.205.39.232/api/payment/order";
 			const { data } = await axios.post(orderUrl, { amount: selectedOptionData.price });
 			console.log(data);
 			initPayment(data.data);
