@@ -89,7 +89,7 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           <LanguageSelect />
         </div> */}
         
-        <button className='secondaryButton me-2' onClick={()=>{navigate('/subscription')}}>Subscribe now</button>
+        {isAuthenticated && <button className='secondaryButton me-2' onClick={()=>{navigate('/subscription')}}>Subscribe now</button>}
           {
             !isAuthenticated ?
               <div className='d-flex me-1 me-md-4'>
