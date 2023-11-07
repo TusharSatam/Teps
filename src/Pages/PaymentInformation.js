@@ -72,7 +72,7 @@ const PaymentInformation = () => {
 			handler: async (response) => {
 				try {
 					const verifyUrl = "http://localhost:8080/api/payment/verify";
-					const { data } = await axios.post(verifyUrl, {...response,user_id:user._id,Days:selectedOptionData.Days});
+					const { data } = await axios.post(verifyUrl, {...response,User_id:user._id,duration:selectedOptionData.Days});
           // setisPending(true);
           // setshowStatusModal(true);
 					console.log(data);
@@ -81,8 +81,8 @@ const PaymentInformation = () => {
           }
 				} catch (error) {
 					console.log(error);
-          toast.error(`${error}`, {
-            duration: 14000,
+          toast.error(`Payment failed`, {
+            duration: 6000,
           });
 				}
 			},
