@@ -160,7 +160,6 @@ function App() {
               <Route exact path='/user-details/:id' element={<UserDetails />} />
               <Route exact path='/add-resources' element={<AddResources />} />
               <Route exact path='/all-resources' element={<AllResources />} />
-
             </Route>
           </Route>
         </Routes>

@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
   const [checkBoxes, setCheckBoxes] = useState([]);
   const [checkBoxesH,setCheckBoxesH] = useState([]);
   const [ownCheckBox,setOwnCheckBox] = useState(false);
+  const [selectedResource, setselectedResource] = useState("")
   const [selectedPaymentCard, setselectedPaymentCard] = useState({})
   // Fetch and cache data
   useEffect(() => {
@@ -212,7 +213,9 @@ const AuthProvider = ({ children }) => {
         ownCheckBox,
         setOwnCheckBox,
         setselectedPaymentCard,
-        selectedPaymentCard
+        selectedPaymentCard,
+        setselectedResource,
+        selectedResource
       }}
     >
       {children}

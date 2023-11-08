@@ -250,16 +250,9 @@ const SignUpModal = ({
         if (e.target.phone.value) {
           if (e.target.checkmark.checked === true) {
             setCheckError("");
-            // if (
-            //   e.target.password.value.length > 4 &&
-            //   e.target.confirm_password.value.length > 4
-            // ) {
             setPassError(``);
-            // if (e.target.password.value === e.target.confirm_password.value) {
             setError("");
             setEmailError("");
-            // equalPass = e.target.password.value;
-
             const formData = {
               firstName: e.target.firstName.value,
               lastName: e.target.lastName.value,
@@ -293,13 +286,7 @@ const SignUpModal = ({
                   setDisplay("d-block");
                 } else console.log(err);
               });
-            // } else {
-            //   setError(`${t("password_match")}`);
-            // }
-            // } else {
-            //   setPassError(`${t("password_five")}`);
-            //   setError(``);
-            // }
+
           } else {
             setCheckError(`${t("checkbox_error")}`);
             setPassError("");

@@ -82,15 +82,7 @@ const CreatedStratigy = () => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        // getMultiUsertStr(savesId)
-        //   .then((res) => {
-        //     setSaveUserStratigy(res.data);
-        //     setIsLoading(false);
-        //   })
-        //   .catch((err) => {
-        //     setSaveUserStratigy([]);
-        //     setIsLoading(false);
-        //   });
+
       } else {
         getHindiStratigysCreatedByUser(user._id).then((res) => {
           console.log(res);

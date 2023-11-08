@@ -30,7 +30,7 @@ import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 import styles from "./styles/SingleStr.module.css";
 const SingleStr = () => {
-  const { user, seteditStrategyFormData, strategyNum, setstrategyNum } =
+  const { user, seteditStrategyFormData, strategyNum, setstrategyNum,setselectedResource } =
     useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
@@ -204,7 +204,8 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-  const handleExplore=()=>{
+  const handleExplore=(resource)=>{
+    setselectedResource(resource)
     navigate('/resources')
   }
   const handleDeleteUsedStrategy = async () => {
@@ -241,11 +242,9 @@ const SingleStr = () => {
     try {
       if (isAlreadyRated) {
         const response = await putRating(dataToSend);
-        console.log("put");
       } else {
         const response = await postRating(dataToSend);
       }
-      console.log("post");
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
@@ -404,8 +403,17 @@ const SingleStr = () => {
                   rating={rating}
                   setRating={setRating}
                 />
-                <div className={styles.exploreTexts}>  
-                    <p onClick={handleExplore}>Explore more about {str?.["Pedagogical Approach"]}</p>
+                <div className={styles.exploreTexts}>
+                  {(str?.Grade === "UKG" ||
+                    str?.Grade === "Pre-K" ||
+                    str?.Grade === "LKG") &&
+                  (str?.["Pedagogical Approach"] === "Constructivism" ||
+                    str?.["Pedagogical Approach"] ===
+                      "Inquiry-based Learning" ||
+                    str?.["Pedagogical Approach"] ===
+                      "Project-based Learning") ? (
+                    <p on onClick={()=>handleExplore(str?.["Pedagogical Approach"])}>Explore more about {str?.["Pedagogical Approach"]}</p>
+                  ) : null}
                 </div>
                 <div className={styles.chatGPTbox}>
                   <div className={styles.magicIconBox}>

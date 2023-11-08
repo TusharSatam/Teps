@@ -9,6 +9,7 @@ import TEPS_LOGO from "../asstes/TEPSlogo.png"
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import {useNavigate } from "react-router-dom";
+import { getSingleUser } from "../services/dashboardUsers";
 
 const PaymentInformation = () => {
   const [selectedOption, setSelectedOption] = useState("option3"); // State to keep track of the selected radio option.
@@ -23,7 +24,6 @@ const PaymentInformation = () => {
   const { user,selectedPaymentCard } = useAuth();
   const navigate=useNavigate()
   useEffect(() => {
-    console.log(selectedPaymentCard);
     if (selectedPaymentCard.amount) {
       setSelectedOption(options[selectedPaymentCard?.index]?.id);
     }
@@ -75,8 +75,10 @@ const PaymentInformation = () => {
 					const { data } = await axios.post(verifyUrl, {...response,User_id:user._id,duration:selectedOptionData.Days});
           // setisPending(true);
           // setshowStatusModal(true);
-					console.log(data);
           if(data.message==="Payment verified successfully"){
+            getSingleUser(user._id).then((res1) => {
+              window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
+            });
             navigate('/profile')
           }
 				} catch (error) {
@@ -98,7 +100,6 @@ const PaymentInformation = () => {
 		try {
 			const orderUrl = "http://43.205.39.232/api/payment/order";
 			const { data } = await axios.post(orderUrl, { amount: selectedOptionData.price });
-			console.log(data);
 			initPayment(data.data);
 		} catch (error) {
 			console.log(error);
@@ -179,10 +180,6 @@ const PaymentInformation = () => {
       <div className={styles.payButtons}>
         <button
           className="primaryButton"
-          // onClick={() => {
-          //   setisPending(true);
-          //   setshowStatusModal(true);
-          // }}
           onClick={handlePayment}
           disabled={!agreeTerms}
         >
