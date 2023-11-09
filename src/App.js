@@ -57,7 +57,7 @@ function App() {
   const { user, setIsAuthenticated, setUser } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
-  axios.defaults.baseURL = "http://43.205.39.232/api/";
+  axios.defaults.baseURL = "http://localhost:8080/api/";
 
   const handleOnclick = () => {
     setDisplayProfile('d-none')

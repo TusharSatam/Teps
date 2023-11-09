@@ -650,6 +650,9 @@ padding: 5px 10px;
 background:  #1AA05B;
 box-shadow: -12px -9.5px 7px 0px rgba(0, 0, 0, 0.30) inset, 0px 2px 4px 0px rgba(26, 160, 91, 0.20), 2px 3px 7px 0px #3AE48D inset;
   }
+  .change_btn{
+    width: calc(100vw - 32px);
+  }
 }
 
 

@@ -1,70 +1,56 @@
-import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
-import DownArrow from "../asstes/icons/DownArrow.svg";
+import "./styles/saveStratigy.css";
+import backArrow from "../asstes/icons/backArrow.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
-import backArrow from "../asstes/icons/backArrow.svg";
 import SaveIcon from "../asstes/icons/Save.svg";
 import SavedIcon from "../asstes/icons/Saved.svg";
-import UpArrow from "../asstes/icons/upArrow.svg";
-import LikeByModal from "../Components/Modal/LikeByModal";
-import { useAuth } from "../Context/AuthContext";
+import DownArrow from "../asstes/icons/DownArrow.svg";
 import defaultProfile from "../asstes/defaultProfile.png";
-import { getMultitUser, getSingleUser } from "../services/dashboardUsers";
+import UpArrow from "../asstes/icons/upArrow.svg";
+import { useTranslation } from "react-i18next";
+import {
+  getMultitUser,
+  getSingleUser,
+  getUsers,
+  updateUser,
+} from "../services/dashboardUsers";
+import { useAuth } from "../Context/AuthContext";
+import LikeByModal from "../Components/Modal/LikeByModal";
+import { singleUserEnStratigys } from "../services/userStratigy";
+import { Buffer } from "buffer";
 import {
   deleteRating,
   getRatings,
   postRating,
   postcomment,
-  putRating,
-  singleStratigys,
 } from "../services/stratigyes";
-import { generateChatGPTResponse } from "../services/chatGpt";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import moment from "moment";
 import { delLikes, getLikes, postLikes } from "../services/userLikes";
 import { delSaves, getSaves, postSaves } from "../services/userSaves";
 import editIcon from "../asstes/icons/editIcon.svg";
-import "./styles/saveStratigy.css";
 import { replaceNewlinesWithLineBreaks } from "../utils/utils";
-
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
-import styles from "./styles/SingleStr.module.css";
-import LoadingCarousel from "../Components/LoadingCarousel/LoadingCarousel";
-import MagicWond from "../Components/CommonSvgs/MagicWond"
-import CopySvg from "../Components/CommonSvgs/CopySvg"
-import toast, { Toaster } from "react-hot-toast";
-import { singleUserEnStratigys } from "../services/userStratigy";
 
 const SingleUserStr = () => {
-
-  const { user, seteditStrategyFormData,strategyNum } = useAuth();
+  const { user, seteditStrategyFormData, strategyNum, setstrategyNum } =
+    useAuth();
   const [str, setStr] = React.useState([]);
-  const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
-  const [totalLikeUser, setTotalLikeUser] = React.useState([]);
   const { id } = useParams();
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formatted, setformatted] = useState("");
+  const [comment, setComment] = React.useState([]);
+  const [totalLikeUser, setTotalLikeUser] = React.useState([]);
+  const [uploader, setuploader] = React.useState("");
   const [isUsedStrategy, setisUsedStrategy] = useState(false);
+  const [formatted, setformatted] = useState("");
   const [rating, setRating] = useState(0);
-  const [userSaves, setUserSaves] = useState([]);
-  const [saveUser, setSaveUser] = useState([]);
-  const [totalUserSaves, setTotalUserSaves] = useState(0);
-  const [show, setShow] = useState();
-  const [userLikes, setUserLikes] = useState([]);
-  const [totalUserLikes, setTotalUserLikes] = useState(0);
-  const [isAlreadyRated, setisAlreadyRated] = useState(false);
-  const [likeUser, setLikeUser] = useState([]);
-  const [isLoadingContent, setIsLoadingContent] = useState(true);
-  const [isFecthing, setisFecthing] = useState(false);
-  const [teachinStratText,setTeachingStratText] = useState("");
-  const [chatGptResponse,setChatGptResponse] = useState("");
-  const [chatGptError,setChatGptError] = useState(false);
-  const navigate = useNavigate();
   const pRef = useRef(null);
-  const [uploader,setUploader] = useState('')
+  const navigate = useNavigate();
+  const [isAlreadyRated, setisAlreadyRated] = useState(false);
+  const [isLoadingContent, setIsLoadingContent] = useState(true);
 
   // Function to handle a star click
   const handleStarClick = (starIndex) => {
@@ -73,16 +59,41 @@ const SingleUserStr = () => {
     sendRating(starIndex);
     setisAlreadyRated(true);
   };
+  const toggleUsedStrategy = () => {
+    setisUsedStrategy(!isUsedStrategy);
+  };
+  const sendRating = async (starIndex) => {
+    const dataToSend = {
+      rating: starIndex,
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await postRating(dataToSend);
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  };
+  //fetching rating
   useEffect(() => {
+    getRatings(id).then((res) => {
+      const filteredData = res.filter(
+        (obj) => obj.user_id === user._id && obj.strategy_id === id
+      );
+      if (filteredData.length) {
+        setisAlreadyRated(true);
+      }
+    });
+  }, [isAlreadyRated]);
+  React.useEffect(() => {
     singleUserEnStratigys(id).then((res) => {
       setStr(res?.data[0]);
       setComment(res.data[1]?.comments);
       getSingleUser(res.data[0].User_id).then((res) => {
-        setUploader(res.data[0]);
+        setuploader(res.data[0]);
       });
     });
   }, []);
-
   const handleSeeComment = () => {
     if (seeComment) {
       setSeecomment(false);
@@ -90,12 +101,22 @@ const SingleUserStr = () => {
       setSeecomment(true);
     }
   };
-  const handleBackClick = () => {
-    window.history.go(-1);
+
+  const [show, setShow] = React.useState(false);
+  const showReact = () => {
+    if (show) {
+      setShow(false);
+    }
+    if (totalLikeUser.length === 0) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
   };
+  const [disable, setDisable] = useState(false);
   const handleComment = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setDisable(true);
     const data = {
       strategie_id: id,
       user_name: `${user.firstName} ${user.lastName}`,
@@ -103,25 +124,33 @@ const SingleUserStr = () => {
       postTime: new Date(),
     };
     postcomment(data).then((res) => {
-      singleStratigys(id).then((res) => {
-        setStr(res[0]);
-        setComment(res[1]?.comments);
+      singleUserEnStratigys(id).then((res) => {
+        setStr(res.data[0]);
+        setComment(res.data[1]?.comments);
         e.target.reset();
-        setIsLoading(false);
+        setDisable(false);
       });
     });
   };
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {uploader.firstName}
+    </Tooltip>
+  );
+  const [userLikes, setUserLikes] = useState([]);
+  const [totalUserLikes, setTotalUserLikes] = useState(0);
+  const [likeUser, setLikeUser] = useState([]);
   React.useEffect(() => {
     getLikes().then((res) => {
       const totalLike = res?.data?.filter((ress) => ress.strategie_id === id);
-      setTotalUserLikes(totalLike.length);
-      const userlike = totalLike?.filter((ress) => ress?.user_id === user._id);
+      setTotalUserLikes(totalLike?.length);
+      const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
       setLikeUser(userlike);
-      setUserLikes(userlike?.map((ress) => ress?.strategie_id));
-      getMultitUser(totalLike?.map((user_id) => user_id?.user_id)).then(
-        (resUser) => setTotalLikeUser(resUser.data)
-      );
+      setUserLikes(userlike?.map((ress) => ress.strategie_id));
+      // getMultitUser(totalLike?.map((user_id) => user_id?.user_id)).then(
+      //   (resUser) => setTotalLikeUser(resUser?.data)
+      // );
     });
   }, []);
   const handleApiLikes = (id) => {
@@ -136,9 +165,9 @@ const SingleUserStr = () => {
         const userlike = totalLike?.filter((ress) => ress.user_id === user._id);
         setLikeUser(userlike);
         setUserLikes(userlike?.map((ress) => ress.strategie_id));
-        getMultitUser(totalLike?.map((user_id) => user_id.user_id))
-          .then((resUser) => setTotalLikeUser(resUser.data))
-          .catch((err) => setTotalLikeUser([]));
+        // getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+        //   .then((resUser) => setTotalLikeUser(resUser.data))
+        //   .catch((err) => setTotalLikeUser([]));
       });
     });
   };
@@ -155,18 +184,21 @@ const SingleUserStr = () => {
           );
           setLikeUser(userlike);
           setUserLikes(userlike?.map((ress) => ress.strategie_id));
-          getMultitUser(totalLike?.map((user_id) => user_id.user_id))
-            .then((resUser) => setTotalLikeUser(resUser.data))
-            .catch((err) => setTotalLikeUser([]));
+          // getMultitUser(totalLike?.map((user_id) => user_id.user_id))
+          //   .then((resUser) => setTotalLikeUser(resUser.data))
+          //   .catch((err) => setTotalLikeUser([]));
         });
       });
     }
   };
 
+  const [userSaves, setUserSaves] = useState([]);
+  const [saveUser, setSaveUser] = useState([]);
+  const [totalUserSaves, setTotalUserSaves] = useState(0);
   React.useEffect(() => {
     getSaves().then((res) => {
       const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
-      setTotalUserSaves(totalSave.length);
+      setTotalUserSaves(totalSave?.length);
       const userlike = totalSave?.filter((ress) => ress.user_id === user._id);
       setSaveUser(userlike);
       setUserSaves(userlike?.map((ress) => ress.strategie_id));
@@ -207,97 +239,46 @@ const SingleUserStr = () => {
       });
     }
   };
-  const handleEditStrategy = async () => {
-    await seteditStrategyFormData(str);
-    navigate(`/editStrategyform/${str._id}`);
-  };
   const handleUsedStrategy = () => {
     setisUsedStrategy(true);
   };
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-const handleDeleteUsedStrategy=async()=>{
-  const dataToSend = {
-    user_id: user._id,
-    strategy_id: id,
+  const handleEditStrategy = async () => {
+    await seteditStrategyFormData(str);
+    navigate(`/editStrategyform/${str._id}/user`);
   };
-  try {
-    const response = await deleteRating(dataToSend);
-    if(response){
-      setisAlreadyRated(false)
+  const handleDeleteUsedStrategy = async () => {
+    const dataToSend = {
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await deleteRating(dataToSend);
+      if (response) {
+        setisAlreadyRated(false);
+      }
+    } catch (error) {
+      console.error("Error sending POST request:", error);
     }
-  } catch (error) {
-    console.error("Error sending POST request:", error);
-  }
-}
+  };
+  const handleBackClick = () => {
+    window.history.go(-1);
+  };
   useEffect(() => {
     setTimeout(() => {
       const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
       if (pRef.current) {
         pRef.current.innerHTML = newText;
-        setTeachingStratText(newText);
       }
       setformatted(""); // Assign the new HTML to the innerHTML property
       setIsLoadingContent(false); // Mark loading as complete
-    }, 100); 
+    }, 100);
   }, [str["Teaching Strategy"]]);
-  const sendRating = async (starIndex) => {
-    const dataToSend = {
-      rating: starIndex,
-      user_id: user._id,
-      strategy_id: id,
-    };
-    try {
-      if(isAlreadyRated){
-      const response = await putRating(dataToSend);
-      console.log("put")
-      }
-      else{
-        const response = await postRating(dataToSend);
-      }
-      console.log("post")
-    } catch (error) {
-      console.error("Error sending POST request:", error);
-    }
-  };
-  useEffect(() => {
-    getRatings(id).then((res) => {
-      const filteredData = res.filter(
-        (obj) => obj.user_id === user._id && obj.strategy_id === id
-      );
-      if (filteredData.length) {
-        setisAlreadyRated(true);
-      }
-    });
-  }, [isAlreadyRated]);
 
-  const callChatGPTApi = (promptStart) => {
-    setisFecthing(true);
-    setChatGptError(false);
-    generateChatGPTResponse({prompt:`${promptStart} ${str["Teaching Strategy"]}`}).then((res)=>{
-      setisFecthing(false);
-      console.log({res});
-    }).catch((err)=>{
-      setisFecthing(false);
-      setChatGptResponse("");
-      setChatGptError(true);
-      console.log({err});
-    });
-  }
-
-  const handleCopyClick = () => {
-    navigator.clipboard.writeText(chatGptResponse).then(() => {
-      toast.success("Data Copied Successfully");
-    })
-    .catch((err) => {
-      toast.error("Some error occured during copying");
-      console.error('Unable to copy text to clipboard:', err);
-    });
-  };
   return (
     <div>
-      {isFecthing?<LoadingCarousel/>:null}
       <LikeByModal
         show={show}
         handleClose={() => setShow(false)}
@@ -314,30 +295,25 @@ const handleDeleteUsedStrategy=async()=>{
         </p>
         <hr className="line" />
       </div>
-
-      <div className="mx-2 mx-md-4">
+      <div className="mx-2 mx-md-5">
         <p className="single_str_head">
-          {str?.Grade} &gt; {str?.Subject} &gt; {str?.["Super Topic"]} &gt;{" "}
-          {str?.Topic} &gt; {str[`Sub Topic`]} &gt; {str["Sub-sub topic"]}
+          {str?.Grade}&nbsp;&nbsp; &gt; {str?.Subject}&nbsp;&nbsp; &gt;{" "}
+          {str?.["Super Topic"]}&nbsp;&nbsp; &gt; {str?.Topic}&nbsp;&nbsp; &gt;{" "}
+          {str[`Sub Topic`]}&nbsp;&nbsp; &gt; {str["Sub-sub topic"]}
         </p>
       </div>
-
-      <div className="mx-2 mx-md-4">
+      <div className="mx-2 mx-md-5">
         <div className="card_pad">
           <div className="my-4">
             <div className="d-flex justify-content-between my-4 flex-column">
               <p className="savestr_head mt-0">
-                {t("Learning Outcome")}:{" "}
-                <span className="learningOutcome">
-                  {str["Learning Outcome"]}
-                </span>
+                {t("Learning Outcome")}: {str["Learning Outcome"]}
               </p>
-
               <div className="col-9  w-100 textContainer p-2 p-md-4">
                 <div className="me-1">
                   <div>
-                    <div className=" mb-md-1 str_title">
-                      <p className="str_name d-flex">
+                    <div className=" str_titlee">
+                      <p className="Strategy_count str_name d-flex">
                         {t("strategy")}{" "}
                         {strategyNum != "" ? (
                           <span className="counter_str">{`${strategyNum}`}</span>
@@ -346,6 +322,7 @@ const handleDeleteUsedStrategy=async()=>{
                         )}
                       </p>
                     </div>
+                    {console.log(uploader)}
                     <div className="userdetailsBox">
                       Strategy created by {uploader.firstName}{" "}
                       {uploader.image ? (
@@ -372,7 +349,7 @@ const handleDeleteUsedStrategy=async()=>{
                       )}
                     </div>
                     {str["Pedagogical Approach"] && (
-                      <div className="mb-md-1 ">
+                      <div className="mb-md-1">
                         <i className="pedalogicalText">
                           {str["Pedagogical Approach"]}
                         </i>
@@ -385,56 +362,54 @@ const handleDeleteUsedStrategy=async()=>{
                 ) : (
                   <p
                     ref={pRef}
-                    className="newLine me-2 me-md-2 disableCopy"
+                    className="newLine  me-2 me-md-2 disableCopy"
                   ></p>
                 )}
 
                 <div className="d-flex justify-content-between my-2">
                   <div className="d-flex gap-2 gap-md-2 align-items-center">
-                    <div className="d-flex align-items-center flex-column">
+                    <div className="d-flex flex-column justify-content-center align-items-center">
                       <div>
                         {userSaves?.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnSaves(str?._id)}
-                            className="save_like"
+                            className="save_like cursor-pointer"
                             src={SavedIcon}
                             alt="SavedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiSaves(str?._id)}
-                            className="save_like"
+                            className="save_like cursor-pointer"
                             src={SaveIcon}
                             alt="SavedIcon"
                           />
                         )}
                       </div>
                     </div>
-
-                    <div className="d-flex align-items-center flex-column">
+                    <div className="d-flex flex-column justify-content-center align-items-center">
                       <div>
                         {userLikes.includes(str?._id) ? (
                           <img
                             onClick={() => handleApiUnLikes(str?._id)}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikedIcon}
                             alt="LikedIcon"
                           />
                         ) : (
                           <img
                             onClick={() => handleApiLikes(str?._id)}
-                            className="save_likes"
+                            className="save_likes cursor-pointer"
                             src={LikeIcon}
                             alt="LikedIcon"
                           />
                         )}
                       </div>
                     </div>
-
                     {!isAlreadyRated ? (
                       <button
                         className="secondaryButton"
-                        onClick={handleUsedStrategy}
+                        onClick={toggleUsedStrategy}
                       >
                         {t("Mark as used")}
                       </button>
@@ -452,7 +427,7 @@ const handleDeleteUsedStrategy=async()=>{
                       className="secondaryButton"
                       onClick={handleEditStrategy}
                     >
-                      {t("Edit Strategy")}{" "}
+                      Edit Strategy{" "}
                       <img src={editIcon} alt="edit" className="mx-md-2" />
                     </button>
                   </div>
@@ -464,106 +439,24 @@ const handleDeleteUsedStrategy=async()=>{
                   rating={rating}
                   setRating={setRating}
                 />
-                <div className={styles.exploreTexts}>
-                  <Link to={"#"}>Explore more about foundational learning...</Link>
-                  {/* <p>Explore more about project based learning...</p> */}
-                </div>
-                <div className={styles.chatGPTbox}>
-                  <div className={styles.gptButtonsContainer}>
-                  <div className={styles.magicIconBoxDesktop}>
-                    <div>
-                      <MagicWond mobile={false}/>
-                    </div>
-                  </div>
-                    <button onClick={()=>{callChatGPTApi("Please send a worksheet for the following teaching strategy")}}><MagicWond mobile={true}/> Get worksheet</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a prior knowledge for the following teaching strategy")}}><MagicWond mobile={true}/> Prior knowledge</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a misconception for the following teaching strategy")}}><MagicWond mobile={true}/> Misconception</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a lesson plan for the following teaching strategy")}}><MagicWond mobile={true}/> Get a lesson plan</button>
-                  </div>
-                  {chatGptResponse.length!==0||chatGptError===true ?
-                  <div className={styles.gptAnswer}>
-                    {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                      {chatGptResponse.length!==0&&<p>{chatGptResponse}</p>}
-                      {chatGptError===true?<p className={styles.gptError}>We are experiencing difficulties while loading the data.<br/> Please try again.</p>:null}
-                      {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                  </div>
-                  :null}
-                </div>
-                {/* ================ FOR LARGE SCREEN =============  */}
-                <div className="largeCommentContainer">
-                  <div className="comment_div d-none d-md-block">
-                    <p className="comment_div_p">{t("Comments")}</p>
-                    <form onSubmit={handleComment}>
-                      <div>
-                        <input
-                          required
-                          name="comment"
-                          placeholder={`${t("Add a comment")}...`}
-                          className="w-100 comment_input"
-                          type="text"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-end comment_submit">
-                        <input
-                          disabled={isLoading}
-                          type="submit"
-                          value={`${t("Submit")}`}
-                        />
-                      </div>
-                    </form>
-                    <div className={!seeComment ? "d-block" : "d-none"}>
-                      <div
-                        onClick={handleSeeComment}
-                        className="text-center see_comment"
-                      >
-                        <p className="m-0">
-                          {t("View comments")} {comment?.length}{" "}
-                          <img width="10px" src={DownArrow} alt="DownArrow" />
-                        </p>
-                      </div>
-                    </div>
-                    <div className={seeComment ? "d-block" : "d-none"}>
-                      <div
-                        onClick={handleSeeComment}
-                        className="text-center see_comment"
-                      >
-                        <p className="m-0">
-                          {t("Hide comments")} {comment?.length}{" "}
-                          <img width="10px" src={UpArrow} alt="DownArrow" />
-                        </p>
-                      </div>
-                      {comment?.map((res, index) => (
-                        <div key={index} className="mt-4">
-                          <p className="comment_head">
-                            {res.user_name}{" "}
-                            <span className="comment_span">
-                              {moment(res.postTime)
-                                .startOf("MMMM Do YYYY, h:mm:ss a")
-                                .fromNow()}
-                            </span>
-                          </p>
-                          <p className="comment_text">{res.comment}</p>
-                          <hr />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {/* ============ FOR SMALL SCREEN ================  */}
-                <div className="comment_div d-block d-md-none">
-                  <p className="comment_div_p">Comments</p>
+                <div className="comment_div w-100 d-none d-md-block col-md-11">
+                  <p className="comment_div_p">{t("Comments")}</p>
                   <form onSubmit={handleComment}>
                     <div>
                       <input
-                        required
                         name="comment"
-                        placeholder="Add a comment..."
+                        required
+                        placeholder={`${t("Add a comment")}...`}
                         className="w-100 comment_input"
                         type="text"
                       />
                     </div>
                     <div className="d-flex justify-content-end comment_submit">
-                      <input type="submit" />
+                      <input
+                        disabled={disable}
+                        type="submit"
+                        value={`${t("Submit")}`}
+                      />
                     </div>
                   </form>
                   <div className={!seeComment ? "d-block" : "d-none"}>
@@ -572,13 +465,8 @@ const handleDeleteUsedStrategy=async()=>{
                       className="text-center see_comment"
                     >
                       <p className="m-0">
-                        View comments {comment?.length}{" "}
-                        <img
-                          width="7px"
-                          height="5px"
-                          src={DownArrow}
-                          alt="DownArrow"
-                        />
+                        {t("View comments")} {comment?.length}{" "}
+                        <img src={DownArrow} alt="DownArrow" />
                       </p>
                     </div>
                   </div>
@@ -588,13 +476,8 @@ const handleDeleteUsedStrategy=async()=>{
                       className="text-center see_comment"
                     >
                       <p className="m-0">
-                        Hide comments {comment?.length}{" "}
-                        <img
-                          width="7px"
-                          height="5px"
-                          src={UpArrow}
-                          alt="DownArrow"
-                        />
+                        {t("Hide comments")} {comment?.length}{" "}
+                        <img src={UpArrow} alt="DownArrow" />
                       </p>
                     </div>
                     {comment?.map((res, index) => (
@@ -608,6 +491,60 @@ const handleDeleteUsedStrategy=async()=>{
                           </span>
                         </p>
                         <p className="comment_text">{res.comment}</p>
+                        <hr />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="comment_div d-block d-md-none">
+                  <p className="comment_div_p">Comments</p>
+                  <form onSubmit={handleComment}>
+                    <div>
+                      <input
+                        required
+                        name="comment"
+                        placeholder="Add a comment..."
+                        className="w-100 comment_input"
+                        type="text"
+                      />
+                    </div>
+                    <div className="d-flex justify-content-end comment_submit">
+                      <input disabled={disable} type="submit" />
+                    </div>
+                  </form>
+                  <div className={!seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        View comments {comment?.length}{" "}
+                        <img src={DownArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className={seeComment ? "d-block" : "d-none"}>
+                    <div
+                      onClick={handleSeeComment}
+                      className="text-center see_comment"
+                    >
+                      <p className="m-0">
+                        Hide comments {comment?.length}{" "}
+                        <img src={UpArrow} alt="DownArrow" />
+                      </p>
+                    </div>
+                    {comment?.map((res, index) => (
+                      <div key={index} className="mt-4">
+                        <p className="comment_head">
+                          {res.user_name}{" "}
+                          <span className="comment_span">
+                            {moment(res.postTime)
+                              .startOf("MMMM Do YYYY, h:mm:ss a")
+                              .fromNow()}
+                          </span>
+                        </p>
+                        <p className="comment_text">{res.comment}</p>
+                        <hr />
                       </div>
                     ))}
                   </div>
@@ -617,7 +554,6 @@ const handleDeleteUsedStrategy=async()=>{
           </div>
         </div>
       </div>
-      <Toaster  position="top-right" />
     </div>
   );
 };

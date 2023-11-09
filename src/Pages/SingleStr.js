@@ -58,7 +58,7 @@ const SingleStr = () => {
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isFecthing, setisFecthing] = useState(false);
   const [teachinStratText,setTeachingStratText] = useState("");
-  const [chatGptResponse,setChatGptResponse] = useState("lorem ipsum odo noe");
+  const [chatGptResponse,setChatGptResponse] = useState("");
   const [chatGptError,setChatGptError] = useState(false);
   const navigate = useNavigate();
   const pRef = useRef(null);
@@ -271,6 +271,7 @@ const handleDeleteUsedStrategy=async()=>{
     setChatGptError(false);
     generateChatGPTResponse({prompt:`${promptStart} ${str["Teaching Strategy"]}`}).then((res)=>{
       setisFecthing(false);
+      setChatGptResponse(res?.data?.response);
       console.log({res});
     }).catch((err)=>{
       setisFecthing(false);
