@@ -434,7 +434,7 @@ const FilterStr = ({
       } else {
         if (language === "en" || language === "en-US") {
           setError(
-            "No strategies are available for this combination. Please try a different combination.Fiiilttw"
+            "No strategies are available for this combination. Please try a different combination."
           );
         } else {
           setError(

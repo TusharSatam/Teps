@@ -14,11 +14,11 @@ const handleSubcribe=()=>{
       <h1 className={styles.months}>{month} months</h1>
       <div className={styles.amountWrapper}>
         <h2 className={styles.amount}>
-          ₹ {amount.toLocaleString()}
+          ₹ {amountPerMonths.toLocaleString()}
           <span>{index>0?'/per month':" for 1 month"}</span>
         </h2>
         <p className={styles.amountPerMonths}>
-          {index > 0 ? ` ₹${amountPerMonths} for ${month} months` : ""}
+          {index > 0 ? ` ₹${amount.toLocaleString()} for ${month} months` : ""}
         </p>
       </div>
       <button  className={`${styles.subscribeButton} ${isActive ? styles.activeBtn : ""}`} onClick={()=>handleSubcribe()}>Subscribe</button>

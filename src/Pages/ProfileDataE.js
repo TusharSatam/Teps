@@ -34,7 +34,6 @@ const ProfileDataE = ({ setNumber }) => {
   useEffect(() => {
     if (id != undefined) {
       getSingleUser(id).then((e) => {
-        console.log(e.data[0]);
         setCurrentPageUserDetails(e.data[0]);
       });
     } else {
@@ -51,7 +50,6 @@ const ProfileDataE = ({ setNumber }) => {
   React.useEffect(() => {
     setIsLoading(true);
     if (languageSelect === "en") {
-      console.log("edited english");
       getEdits(currentPageUserDetails?._id)
         .then((res) => {
           // const saves = res?.data?.filter((ress) => ress.Approve === true);
@@ -65,11 +63,9 @@ const ProfileDataE = ({ setNumber }) => {
         });
     }
     if (languageSelect === "hi") {
-      console.log("edited hindi");
 
       getHindiStratigysEditedbyUser(currentPageUserDetails?._id)
         .then((res) => {
-          // console.log({ res });
           setSaveStratigyHi(res);
           setIsLoading(false);
         })

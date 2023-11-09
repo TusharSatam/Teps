@@ -6,6 +6,7 @@ import Card from "../Components/FoundationalLearning/Card";
 import backArrow from "../asstes/icons/backArrow.svg";
 import { t } from "i18next";
 import { getAllResource } from "../services/Resources";
+import { useAuth } from "../Context/AuthContext";
 
 const Resources = () => {
   const [cardData, setCardData] = useState([]); // Data fetched from the API
@@ -13,14 +14,15 @@ const Resources = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ imageSrc: "", text: "" });
   const [selectedOption, setSelectedOption] = useState("Constructivism");
+  const [showNoItemsMessage, setShowNoItemsMessage] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const { selectedResource } = useAuth();
   const initialItems = 9; // Initial number of items
   const itemsPerLoad = 9; // Number of items to load with each request
   const hasMore = cardData.length > items.length; // Determine if there are more items to load
 
-  const openModal = (imageSrc, text,link) => {
-    setModalData({ imageSrc, text,link });
+  const openModal = (imageSrc, text, link) => {
+    setModalData({ imageSrc, text, link });
     setIsModalOpen(true);
   };
 
@@ -46,13 +48,12 @@ const Resources = () => {
 
     // Simulate a fake async API call to load more items
     setTimeout(() => {
-      const newItems = cardData.slice(
-        items.length,
-        items.length + itemsPerLoad
-      ).map((card, index) => ({
-        id: items.length + index,
-        cardData: card,
-      }));
+      const newItems = cardData
+        .slice(items.length, items.length + itemsPerLoad)
+        .map((card, index) => ({
+          id: items.length + index,
+          cardData: card,
+        }));
 
       setItems([...items, ...newItems]);
       setLoading(false);
@@ -60,16 +61,38 @@ const Resources = () => {
   };
 
   useEffect(() => {
+    if (selectedResource) {
+      setSelectedOption(selectedResource);
+    }
+  }, [selectedResource]);
+
+  useEffect(() => {
+    // Check if there are no items and set a delay before showing the message
+    if (items.length === 0) {
+      const delayToShowNoItemsMessage = setTimeout(() => {
+        setShowNoItemsMessage(true);
+      }, 500); // Adjust the delay time (in milliseconds) as needed
+
+      // Clear the timeout if the component unmounts
+      return () => clearTimeout(delayToShowNoItemsMessage);
+    } else {
+      setShowNoItemsMessage(false);
+    }
+  }, [items]);
+  useEffect(() => {
     getAllResource().then((res) => {
-      let filterResponse=res?.data.filter((card) => card.category === selectedOption);
+      let filterResponse = res?.data.cards.filter(
+        (card) => card.category === selectedOption
+      );
       setCardData(filterResponse);
 
-
       // After fetching data, you can populate the initial items
-      const initialData = filterResponse?.slice(0, initialItems).map((card, index) => ({
-        id: index,
-        cardData: card,
-      }));
+      const initialData = filterResponse
+        ?.slice(0, initialItems)
+        .map((card, index) => ({
+          id: index,
+          cardData: card,
+        }));
       setItems(initialData);
     });
   }, [selectedOption]);
@@ -100,17 +123,7 @@ const Resources = () => {
         dataLength={items.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={
-          <div
-            className={styles.loading}
-            style={{
-              gridColumn: "span 3",
-              width: "100%",
-            }}
-          >
-            Loading...
-          </div>
-        }
+        loader={<div className={styles.loading}>Loading...</div>}
         className={styles.FoundationalPage}
       >
         {items.map(({ id, cardData }) => (
@@ -120,11 +133,19 @@ const Resources = () => {
             title={cardData.title}
             text={cardData.paragraph}
             readMore={cardData.link_to_readmore}
-            openModal={() => openModal(cardData.image, cardData.paragraph,cardData.link_to_readmore)}
+            openModal={() =>
+              openModal(
+                cardData.image,
+                cardData.paragraph,
+                cardData.link_to_readmore
+              )
+            }
           />
         ))}
       </InfiniteScroll>
-
+      {showNoItemsMessage && (
+        <p className={styles.noItemsText}>{showNoItemsMessage && "No resources to show."}</p>
+      )}
       <ModalImg
         isOpen={isModalOpen}
         onClose={closeModal}

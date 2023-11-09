@@ -7,6 +7,9 @@ import { useEffect } from "react";
 import PaymentStatus from "../Components/Modal/PaymentStatusModal/PaymentStatus";
 import TEPS_LOGO from "../asstes/TEPSlogo.png"
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import {useNavigate } from "react-router-dom";
+import { getSingleUser } from "../services/dashboardUsers";
 
 const PaymentInformation = () => {
   const [selectedOption, setSelectedOption] = useState("option3"); // State to keep track of the selected radio option.
@@ -18,9 +21,9 @@ const PaymentInformation = () => {
   const [cvv, setCVV] = useState("");
   const [showStatusModal, setshowStatusModal] = useState(false);
   const [isPending, setisPending] = useState(false);
-  const { selectedPaymentCard } = useAuth();
+  const { user,selectedPaymentCard } = useAuth();
+  const navigate=useNavigate()
   useEffect(() => {
-    console.log(selectedPaymentCard);
     if (selectedPaymentCard.amount) {
       setSelectedOption(options[selectedPaymentCard?.index]?.id);
     }
@@ -28,10 +31,10 @@ const PaymentInformation = () => {
 
   const paymentMethods = ["Google Pay", "Paypal", "Credit or Debit Card"];
   const options = [
-    { id: "option1", label: "One month", price: 549, month: 1 },
-    { id: "option2", label: "Three months", price: 1099, month: 3 },
-    { id: "option3", label: "Six months", price: 1699, month: 6 },
-    { id: "option4", label: "Twelve months", price: 3099, month: 12 },
+    { id: "option1", label: "One month", price: 549, month: 1,Days:30 },
+    { id: "option2", label: "Three months", price: 1099, month: 3,Days:90 },
+    { id: "option3", label: "Six months", price: 1699, month: 6,Days:180 },
+    { id: "option4", label: "Twelve months", price: 3099, month: 12,Days:365 },
   ];
 
   const selectedOptionData = options.find(
@@ -50,9 +53,7 @@ const PaymentInformation = () => {
   const handleAgreeTermsChange = (event) => {
     setAgreeTerms(event.target.checked);
   };
-  const handlePaymentMethodChange = (method) => {
-    setSelectedPaymentMethod(method);
-  };
+
   const handleClose = () => {
     setshowStatusModal(false);
   };
@@ -70,13 +71,21 @@ const PaymentInformation = () => {
 			order_id: data.id,
 			handler: async (response) => {
 				try {
-					const verifyUrl = "http://localhost:8080/api/payment/verify";
-					const { data } = await axios.post(verifyUrl, response);
+					const verifyUrl = "http://43.205.39.232/api/payment/verify";
+					const { data } = await axios.post(verifyUrl, {...response,User_id:user._id,duration:selectedOptionData.Days});
           // setisPending(true);
           // setshowStatusModal(true);
-					console.log(data);
+          if(data.message==="Payment verified successfully"){
+            getSingleUser(user._id).then((res1) => {
+              window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
+            });
+            navigate('/profile')
+          }
 				} catch (error) {
 					console.log(error);
+          toast.error(`Payment failed`, {
+            duration: 6000,
+          });
 				}
 			},
 			theme: {
@@ -89,9 +98,8 @@ const PaymentInformation = () => {
 
 	const handlePayment = async () => {
 		try {
-			const orderUrl = "http://localhost:8080/api/payment/orders";
+			const orderUrl = "http://43.205.39.232/api/payment/order";
 			const { data } = await axios.post(orderUrl, { amount: selectedOptionData.price });
-			console.log(data);
 			initPayment(data.data);
 		} catch (error) {
 			console.log(error);
@@ -102,6 +110,7 @@ const PaymentInformation = () => {
   return (
     <div className={styles.paymentInfos}>
       <PageHeading title="Payment Information" />
+      <Toaster position="top-right" reverseOrder={false} />
       <PaymentStatus
         show={showStatusModal}
         handleClose={handleClose}
@@ -129,34 +138,7 @@ const PaymentInformation = () => {
           ))}
         </div>
       </div>
-      {/* Select a payment method */}
-      <div className={styles.paymentSections}>
-        <h3>Select a payment method</h3>
-        {paymentMethods.map((method) => (
-          <label key={method}>
-            <input
-              type="radio"
-              value={method}
-              checked={selectedPaymentMethod === method}
-              onChange={() => handlePaymentMethodChange(method)}
-            />
-            {method}
-          </label>
-        ))}
-        {/* Credit Card Input */}
-        {selectedPaymentMethod === "Credit or Debit Card" && (
-          <CreditCard
-            setCardHolderName={setCardHolderName}
-            setCardNumber={setCardNumber}
-            setExpiryDate={setExpiryDate}
-            setCVV={setCVV}
-            cvv={cvv}
-            cardHolderName={cardHolderName}
-            cardNumber={cardNumber}
-            expiryDate={expiryDate}
-          />
-        )}
-      </div>
+
       <hr className={styles.line}></hr>
 
       {/* Bill details */}
@@ -180,7 +162,7 @@ const PaymentInformation = () => {
             {total}₹ <small>Including GST*</small>
           </span>
         </div>
-        <small className={styles.yearlyDiscont}>*Yearly plan discount</small>
+        <small className={styles.yearlyDiscont}>*{selectedOption == "option4" ? "Yearly" : "Monthly"} plan discount</small>
         <div className={styles.agreeTerms}>
           <label>
             <input
@@ -198,11 +180,8 @@ const PaymentInformation = () => {
       <div className={styles.payButtons}>
         <button
           className="primaryButton"
-          // onClick={() => {
-          //   setisPending(true);
-          //   setshowStatusModal(true);
-          // }}
           onClick={handlePayment}
+          disabled={!agreeTerms}
         >
           Pay
         </button>

@@ -7,12 +7,19 @@ import Article from "../LandingArticle/Article";
 import "./homelayout.css";
 import { getUserStratigys } from "../../services/userStratigy";
 import { postPulledStr } from "../../services/pulledStratigy";
+import {
+  getAllGrades,
+  getAllSubSubTopics,
+  getAllSubTopics,
+  getAllSubjects,
+  getAllSuperTopics,
+  getAllTopics,
+} from "../../services/dropdowns";
 const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [allUserStratigys, setAllUserStratigys] = React.useState([]);
   const [selectSubject, setSelectSubject] = React.useState();
-  const [uniqueSubjects, setuniqueSubjects] = useState();
   const [selectGrade, setSelectGrade] = React.useState();
   const [selectTopic, setSelectTopic] = React.useState();
   const [selectSkill, setSelectSkill] = React.useState();
@@ -27,6 +34,12 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   const [error4, setError4] = React.useState(false);
   const [error5, setError5] = React.useState(false);
   const [error6, setError6] = React.useState(false);
+  const [uniqueGrade, setuniqueGrade] = useState([]);
+  const [uniqueSubject, setuniqueSubject] = useState([]);
+  const [uniqueSuperTopic, setuniqueSuperTopic] = useState([]);
+  const [uniqueTopic, setuniqueTopic] = useState([]);
+  const [uniqueSubTopic, setuniqueSubTopic] = useState([]);
+  const [uniqueSubSubTopic, setuniqueSubSubTopic] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,6 +71,12 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
       setSelectSuperTopic(selectedOption?.selectSuperTopic);
       setSelectSubTopic(selectedOption?.selectSubTopic);
       setSelectSubSubTopic(selectedOption?.selectSubSubTopic);
+      //call all dropdown apis for  values
+      handleAllSubject(selectedOption?.selectGrade)
+      handleAllSuperTopic(selectedOption?.selectGrade,selectedOption?.selectSubject)
+      handleAllTopic(selectedOption?.selectGrade,selectedOption?.selectSubject,selectedOption?.selectSuperTopic)
+      handleAllSubTopic(selectedOption?.selectGrade,selectedOption?.selectSubject,selectedOption?.selectSuperTopic,selectedOption?.selectTopic)
+      handleAllSubSubTopic(selectedOption?.selectGrade,selectedOption?.selectSubject,selectedOption?.selectSuperTopic,selectedOption?.selectTopic,selectedOption?.selectSubTopic)
     }
   }, [selectedOption, location.pathname]);
   const resetallErrors = () => {
@@ -83,85 +102,104 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     "9",
     "10",
   ];
-  const uniqueGrade = Array.from(
-    new Set(allStrategies.map((a) => a.Grade))
-  ).sort((a, b) => {
-    const indexA = customSortOrder.indexOf(a);
-    const indexB = customSortOrder.indexOf(b);
-    return indexA - indexB;
-  });
 
-  const aquaticCreaturesSubject = allStratigys.filter(function (creature) {
-    return creature.Grade === selectGrade;
-  });
-  let allowedSubjects = [];
-  const uniqueSubject = Array.from(
-    new Set(aquaticCreaturesSubject.map((a) => a.Subject))
-  )
-    .map((subject) => {
-      return aquaticCreaturesSubject.find((a) => a.Subject === subject);
-    })
-    .filter((e) => {
-      if (
-        selectGrade === "Pre-K" ||
-        selectGrade === "LKG" ||
-        selectGrade === "UKG"
-      ) {
-        // For Pre-K, K1, K2 selectGrades
-        allowedSubjects = ["English", "Numeracy", "Science", "EVS"];
-        return allowedSubjects.includes(e.Subject);
-      } else if (
-        selectGrade === "1" ||
-        selectGrade === "2" ||
-        selectGrade === "3" ||
-        selectGrade === "4" ||
-        selectGrade === "5"
-      ) {
-        // For selectGrades 1 to 5
-        allowedSubjects = ["English", "Mathematics", "EVS"];
-        return allowedSubjects.includes(e.Subject);
-      } else if (
-        selectGrade === "6" ||
-        selectGrade === "7" ||
-        selectGrade === "8"
-      ) {
-        allowedSubjects = [
-          "English",
-          "Mathematics",
-          "Science",
-          "History",
-          "Political Science",
-          "Geography",
-        ];
-        return allowedSubjects.includes(e.Subject);
-      } else if (selectGrade === "9" || selectGrade === "10") {
-        allowedSubjects = [
-          "English",
-          "Mathematics",
-          "Science",
-          "Economics",
-          "History",
-          "Political Science",
-          "Geography",
-        ];
-        return allowedSubjects.includes(e.Subject);
-      } else {
-        // For other selectGrades
-        allowedSubjects = [
-          "English",
-          "Mathematics",
-          "Science",
-          "Numeracy",
-          "EVS",
-          "Economics",
-          "History",
-          "Political Science",
-          "Geography",
-        ];
-        return allowedSubjects.includes(e.Subject);
-      }
+
+
+  useEffect(() => {
+    getAllGrades().then((res) => {
+      let response = res?.data.sort((a, b) => {
+        const indexA = customSortOrder.indexOf(a);
+        const indexB = customSortOrder.indexOf(b);
+        return indexA - indexB;
+      });
+      setuniqueGrade(response);
     });
+  }, []);
 
+  //functions to fetch dropdata datas
+
+  const handleAllSubject = (item) => {
+    getAllSubjects(item).then((res) => {
+      let response = res?.data.filter((e) => {
+        if (item === "Pre-K" || item === "LKG" || item === "UKG") {
+          // For Pre-K, K1, K2 selectGrades
+          allowedSubjects = ["English", "Numeracy", "Science", "EVS"];
+          return allowedSubjects.includes(e);
+        } else if (
+          item === "1" ||
+          item === "2" ||
+          item === "3" ||
+          item === "4" ||
+          item === "5"
+        ) {
+          // For selectGrades 1 to 5
+          allowedSubjects = ["English", "Mathematics", "EVS"];
+          return allowedSubjects.includes(e);
+        } else if (item === "6" || item === "7" || item === "8") {
+          allowedSubjects = [
+            "English",
+            "Mathematics",
+            "Science",
+            "History",
+            "Political Science",
+            "Geography",
+          ];
+          return allowedSubjects.includes(e);
+        } else if (item === "9" || item === "10") {
+          allowedSubjects = [
+            "English",
+            "Mathematics",
+            "Science",
+            "Economics",
+            "History",
+            "Political Science",
+            "Geography",
+          ];
+          return allowedSubjects.includes(e);
+        } else {
+          // For other selectGrades
+          allowedSubjects = [
+            "English",
+            "Mathematics",
+            "Science",
+            "Numeracy",
+            "EVS",
+            "Economics",
+            "History",
+            "Political Science",
+            "Geography",
+          ];
+          return allowedSubjects.includes(e);
+        }
+      });
+      setuniqueSubject(response);
+    });
+  };
+  const handleAllSuperTopic = (grade, subject) => {
+    getAllSuperTopics(grade, subject).then((res) => {
+      setuniqueSuperTopic(res?.data);
+    });
+  };
+
+  const handleAllTopic = (grade, subject, superTopic) => {
+    getAllTopics(grade, subject, superTopic).then((res) => {
+      setuniqueTopic(res?.data);
+    });
+  };
+
+  const handleAllSubTopic = (grade, subject, superTopic, topic) => {
+    getAllSubTopics(grade, subject, superTopic, topic).then((res) => {
+      setuniqueSubTopic(res?.data);
+    });
+  };
+
+  const handleAllSubSubTopic = (grade, subject, superTopic, topic,subtopic) => {
+    getAllSubSubTopics(grade, subject, superTopic, topic,subtopic).then((res) => {
+      setuniqueSubSubTopic(res?.data);
+    });
+  };
+
+  let allowedSubjects = [];
 
   const handlesubFilter = (e) => {
     setSelectSubject(e.target.value);
@@ -172,6 +210,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
     resetallErrors();
+    handleAllSuperTopic(selectGrade, e.target.value);
   };
 
   const handlegradeFilter = (e) => {
@@ -184,14 +223,9 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
     resetallErrors();
+    handleAllSubject(e.target.value);
   };
-  const handleTopicFilter = (e) => {
-    setSelectTopic(e.target.value);
-    setSelectSubTopic("");
-    setSelectSubSubTopic("");
-    localStorage.removeItem("selectedDropdown");
-    resetallErrors();
-  };
+
   const handleSkillFilter = (e) => {
     setSelectSkill(e.target.value);
     setSelectSuperTopic("");
@@ -208,71 +242,36 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
     resetallErrors();
+    handleAllTopic(selectGrade, selectSubject, e.target.value);
+  };
+  const handleTopicFilter = (e) => {
+    setSelectTopic(e.target.value);
+    setSelectSubTopic("");
+    setSelectSubSubTopic("");
+    localStorage.removeItem("selectedDropdown");
+    resetallErrors();
+    handleAllSubTopic(
+      selectGrade,
+      selectSubject,
+      selectSuperTopic,
+      e.target.value
+    );
   };
   const handleSubTopicFilter = (e) => {
     setSelectSubTopic(e.target.value);
     setSelectSubSubTopic("");
     localStorage.removeItem("selectedDropdown");
     resetallErrors();
+    handleAllSubSubTopic(selectGrade,selectSubject,selectSuperTopic,selectTopic,e.target.value)
   };
   const handleSubSUbTopicFilter = (e) => {
     setSelectSubSubTopic(e.target.value);
     localStorage.removeItem("selectedDropdown");
     resetallErrors();
   };
-  const aquaticCreatures = allStratigys.filter(function (creature) {
-    return creature.Subject === selectSubject && creature.Grade === selectGrade;
-  });
 
   // ---------------
-  const uniqueSuperTopic = Array.from(
-    new Set(aquaticCreatures?.map((a) => a["Super Topic"]))
-  ).map((SuperTopic) => {
-    return aquaticCreatures?.find((a) => a["Super Topic"] === SuperTopic);
-  });
-  const aquaticCreaturesSuperTopic = allStratigys.filter(function (creature) {
-    return (
-      creature.Subject === selectSubject &&
-      creature.Grade === selectGrade &&
-      creature["Super Topic"] === selectSuperTopic
-    );
-  });
-  // ---------------
-  const uniqueTopic = Array.from(
-    new Set(aquaticCreaturesSuperTopic?.map((a) => a.Topic))
-  ).map((topic) => {
-    return aquaticCreaturesSuperTopic?.find((a) => a.Topic === topic);
-  });
 
-  const aquaticCreaturesTopic = allStratigys.filter(function (creature) {
-    return (
-      creature.Subject === selectSubject &&
-      creature.Grade === selectGrade &&
-      creature["Super Topic"] === selectSuperTopic &&
-      creature.Topic === selectTopic
-    );
-  });
-
-  const uniqueSubTopic = Array.from(
-    new Set(aquaticCreaturesTopic?.map((a) => a["Sub Topic"]))
-  ).map((sub_topic) => {
-    return aquaticCreaturesTopic?.find((a) => a["Sub Topic"] === sub_topic);
-  });
-  const aquaticCreaturesSubTopic = allStratigys.filter(function (creature) {
-    return (
-      creature.Subject === selectSubject &&
-      creature.Grade === selectGrade &&
-      creature["Super Topic"] === selectSuperTopic &&
-      creature["Sub Topic"] === selectSubTopic
-    );
-  });
-  const uniqueSubSubTopic = Array.from(
-    new Set(aquaticCreaturesSubTopic?.map((a) => a["Sub-sub topic"]))
-  ).map((sub_sub_topic) => {
-    return aquaticCreaturesSubTopic?.find(
-      (a) => a["Sub-sub topic"] === sub_sub_topic
-    );
-  });
 
   const handleFindStratigys = () => {
     // accordion collapse and remove checkbox
@@ -299,8 +298,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
             creature["Super Topic"] === selectSuperTopic &&
             creature["Sub Topic"] === selectSubTopic &&
             creature["Sub-sub topic"] === selectSubSubTopic
-          );
-        });
+            );
+          });
         const aquaticCreaturesUser = allUserStratigys.filter(function (
           creature
         ) {
@@ -451,8 +450,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
       }
     }
   };
-
-  return !loadingdropdown && uniqueGrade.length ? (
+  return uniqueGrade ? (
     <>
       <div
         className={
@@ -524,7 +522,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
             defaultValue={
               location.pathname === "/home" || !selectedOption?.selectSubject
                 ? ""
-                : selectedOption.selectSubject
+                : selectedOption?.selectSubject
             }
             className={
               error5
@@ -536,7 +534,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               {t("Subject")}
             </option>
             {uniqueSubject?.map((item, index) => (
-              <option key={index}>{item.Subject}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
           <select
@@ -545,7 +543,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
             defaultValue={
               location.pathname === "/home" || !selectedOption?.selectSubject
                 ? ""
-                : selectedOption.selectSubject
+                : selectedOption?.selectSubject
             }
             className={
               error5
@@ -562,7 +560,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </option>
             )}
             {uniqueSubject?.map((item, index) => (
-              <option key={index}>{item.Subject}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
 
@@ -594,7 +592,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </option>
             )}
             {uniqueSuperTopic?.map((item, index) => (
-              <option key={index}>{item["Super Topic"]}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
           <select
@@ -624,7 +622,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </option>
             )}
             {uniqueTopic?.map((item, index) => (
-              <option key={index}>{item.Topic}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
         </div>
@@ -659,7 +657,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </>
             )}
             {uniqueSuperTopic?.map((item, index) => (
-              <option key={index}>{item["Super Topic"]}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
           <select
@@ -690,7 +688,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </option>
             )}
             {uniqueTopic?.map((item, index) => (
-              <option key={index}>{item.Topic}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
         </div>
@@ -726,7 +724,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
                 </>
               )}
               {uniqueSubTopic?.map((item, index) => (
-                <option key={index}>{item["Sub Topic"]}</option>
+                <option key={index}>{item}</option>
               ))}
             </select>
           </div>
@@ -761,7 +759,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
                 </>
               )}
               {uniqueSubSubTopic?.map((item, index) => (
-                <option key={index}>{item["Sub-sub topic"]}</option>
+                <option key={index}>{item}</option>
               ))}
             </select>
           </div>
@@ -797,7 +795,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </>
             )}
             {uniqueSubTopic?.map((item, index) => (
-              <option key={index}>{item["Sub Topic"]}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
           <select
@@ -830,7 +828,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
               </>
             )}
             {uniqueSubSubTopic?.map((item, index) => (
-              <option key={index}>{item["Sub-sub topic"]}</option>
+              <option key={index}>{item}</option>
             ))}
           </select>
         </div>

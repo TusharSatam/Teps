@@ -211,20 +211,23 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-const handleDeleteUsedStrategy=async()=>{
-  const dataToSend = {
-    user_id: user._id,
-    strategy_id: id,
-  };
-  try {
-    const response = await deleteRating(dataToSend);
-    if(response){
-      setisAlreadyRated(false)
-    }
-  } catch (error) {
-    console.error("Error sending POST request:", error);
+  const handleExplore=(resource)=>{
+    navigate('/resources')
   }
-}
+  const handleDeleteUsedStrategy = async () => {
+    const dataToSend = {
+      user_id: user._id,
+      strategy_id: id,
+    };
+    try {
+      const response = await deleteRating(dataToSend);
+      if (response) {
+        setisAlreadyRated(false);
+      }
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
       const newText = replaceNewlinesWithLineBreaks(str["Teaching Strategy"]);
@@ -234,7 +237,7 @@ const handleDeleteUsedStrategy=async()=>{
       }
       setformatted(""); // Assign the new HTML to the innerHTML property
       setIsLoadingContent(false); // Mark loading as complete
-    }, 100); 
+    }, 100);
   }, [str["Teaching Strategy"]]);
   const sendRating = async (starIndex) => {
     const dataToSend = {
@@ -243,14 +246,11 @@ const handleDeleteUsedStrategy=async()=>{
       strategy_id: id,
     };
     try {
-      if(isAlreadyRated){
-      const response = await putRating(dataToSend);
-      console.log("put")
-      }
-      else{
+      if (isAlreadyRated) {
+        const response = await putRating(dataToSend);
+      } else {
         const response = await postRating(dataToSend);
       }
-      console.log("post")
     } catch (error) {
       console.error("Error sending POST request:", error);
     }

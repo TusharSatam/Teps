@@ -103,9 +103,16 @@
   line-height: 26px; /* 216.667% */
   margin-top: 0.4rem;
 }
-.loading {
+.loading,.noItemsText {
+  grid-column: span 3;
   text-align: center;
   width: 100%;
+}
+.noItemsText{
+  height:70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Pedagogical Approach css */

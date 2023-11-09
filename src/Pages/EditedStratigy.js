@@ -77,15 +77,7 @@ const EditedStratigy = () => {
             setIsLoading(false);
             setSaveStratigy([]);
           });
-        // getMultiUsertStr(savesId)
-        //   .then((res) => {
-        //     setSaveUserStratigy(res.data);
-        //     setIsLoading(false);
-        //   })
-        //   .catch((err) => {
-        //     setSaveUserStratigy([]);
-        //     setIsLoading(false);
-        //   });
+
       } else {
         getHindiStratigysEditedbyUser(user._id).then((res) => {
           console.log(res);

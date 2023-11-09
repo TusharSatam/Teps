@@ -39,7 +39,6 @@ const ProfileDataS = ({ setNumber }) => {
   useEffect(() => {
     if (id != undefined) {
       getSingleUser(id).then((e) => {
-        console.log(e.data[0]);
         setCurrentPageUserDetails(e.data[0]);
       });
     } else {
@@ -68,7 +67,6 @@ const ProfileDataS = ({ setNumber }) => {
   React.useEffect(() => {
     setIsLoading(true);
     getSaves().then((res) => {
-      console.log(res.data);
       const saves = res?.data?.filter(
         (ress) => ress.user_id === currentPageUserDetails?._id
       );
@@ -80,11 +78,9 @@ const ProfileDataS = ({ setNumber }) => {
         return; // Exit the useEffect
       }
       setSave(saves?.map((ress) => ress.strategie_id));
-      console.log(save);
       if (languageSelect === "en") {
         getMultitStr(savesId)
           .then((res) => {
-            console.log("multiStr",res);
             setSaveStratigy(res.data);
             setIsLoading(false);
             const strategies = res?.data?.map((obj) => obj._id);
@@ -92,7 +88,6 @@ const ProfileDataS = ({ setNumber }) => {
             getMultiUsertStr(savesId)
             
             .then((res2) => {
-                console.log("multiStrUSer",res);
                 const idList = res2?.data?.map((obj) => obj?._id);
                 setSpecialLinkArr((prev) => [...prev, ...idList]);
                 setSaveStratigy((prev) => [...prev, ...res2.data]);
@@ -160,10 +155,8 @@ const ProfileDataS = ({ setNumber }) => {
             })
             .catch((err) => setSaveUserStratigy([]));
         } else {
-          console.log({ savesId });
           getMultitHiStr(savesId)
             .then((res) => {
-              console.log({ data: res.data });
               setSaveStratigyi(res.data);
               setIsLoading(false);
             })
@@ -180,7 +173,6 @@ const ProfileDataS = ({ setNumber }) => {
   };
   const handleApiUnSaves = (id) => {
     const requiredStr = save.find((str) => str === id);
-    console.log({ requiredStr });
     const bodyData = {
       strategie_id: requiredStr,
       user_id: currentPageUserDetails?._id,
