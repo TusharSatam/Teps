@@ -105,6 +105,14 @@ const SideBar = ({ isOpen, toggle }) => {
           All Resources <span className="text-danger"></span>
           </Link>
         </Nav.Item>
+        <Nav.Item className="">
+          <Link className="dash_sidebar_a nav-link d-none d-md-block" to="/email-template">
+          Email template
+          </Link>
+          <Link onClick={toggle} className="dash_sidebar_a nav-link d-block d-md-none" to="/email-template">
+          Email template<span className="text-danger"></span>
+          </Link>
+        </Nav.Item>
         
 
         {

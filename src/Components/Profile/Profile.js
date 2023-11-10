@@ -78,6 +78,15 @@ const Profile = () => {
     setPreview(URL.createObjectURL(e.target.files[0]));
 
     let formData = new FormData();
+  //   uploadField.onchange = function() {
+
+
+
+      if(e.target.files[0].size > 1097152){
+         alert("File is too big!");
+         return
+      }
+  
     formData.append("img", e.target.files[0]);
     updateInfo(user._id, formData)
       .then((res) => {

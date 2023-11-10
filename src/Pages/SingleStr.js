@@ -435,7 +435,7 @@ const SingleStr = () => {
                   setRating={setRating}
                 />
                 <div className={styles.exploreTexts}>
-                  <Link to={"#"}>Explore more about foundational learning...</Link>
+                  <Link to={"/resources"}>Explore more about foundational learning...</Link>
                   {/* <p>Explore more about project based learning...</p> */}
                 </div>
                 <div className={styles.chatGPTbox}>

@@ -50,6 +50,7 @@ import Subscription from './Pages/Subscription';
 import PaymentInformation from './Pages/PaymentInformation';
 import AddResources from './Pages/Dashboard/AddResources';
 import AllResources from './Pages/Dashboard/AllResources';
+import EmailTemplate from './Pages/Dashboard/EmailTemplate';
 
 
 
@@ -158,6 +159,7 @@ function App() {
               <Route exact path='/user-details/:id' element={<UserDetails />} />
               <Route exact path='/add-resources' element={<AddResources />} />
               <Route exact path='/all-resources' element={<AllResources />} />
+              <Route exact path='/email-template' element={<EmailTemplate />} />
             </Route>
           </Route>
         </Routes>
