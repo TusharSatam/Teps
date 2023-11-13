@@ -1,7 +1,7 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import AddForm from './Components/AddForm/AddForm';
 import AdminAuth from './Components/AdminLogin/AdminAuth';
@@ -52,10 +52,8 @@ import AddResources from './Pages/Dashboard/AddResources';
 import AllResources from './Pages/Dashboard/AllResources';
 import EmailTemplate from './Pages/Dashboard/EmailTemplate';
 
-
-
 function App() {
-  const { user, setIsAuthenticated, setUser } = useAuth();
+  const { user, setIsAuthenticated, setUser,isPlanExpired } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
   axios.defaults.baseURL = "http://43.205.39.232/api/";
@@ -67,7 +65,6 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
-
 
   useEffect(() => {
     window.scrollTo({
@@ -120,23 +117,46 @@ function App() {
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />
-            <Route path="/profile/:id" element={<OthersProfile />} />
-            <Route path="/search" element={<Stratigy />} />
-            <Route path="/saveStratigy" element={<SaveStratigy />} />
-            <Route path="/favouriteStratigy" element={<FavouriteStr />} />
-            <Route path="/user-created-strategy" element={<CreatedStratigy />} />
-            <Route path="/user-edited-strategy" element={<EditedStratigy />} />
             <Route path="/single/:id" element={<SingleStr />} />
             <Route path="/singleHi/:id" element={<SingleHindiStr />} />
-            <Route path="/user-created-strategy" element={<CreatedStratigy />} />
-            <Route path="/user-edited-strategy" element={<EditedStratigy />} />
             <Route path="/singleUserStratigy/:id" element={<SingleUserStr />} />
+            <Route path="/user-created-strategy" element={<CreatedStratigy />} />
             <Route path='/addForm' element={<AddForm />} />
-            <Route path='/editStrategyform/:id/*' element={<EditStrategy />} />
-            <Route path='/foundational-learning' element={<FoundationalLearning />} />
-            <Route path='/resources' element={<Resources />} />
             <Route path='/subscription' element={<Subscription />} />
             <Route path='/payment-info' element={<PaymentInformation />} />
+            <Route
+            path="/editStrategyform/:id/*"
+            element={isPlanExpired ? <Navigate to="/subscription" />:<EditStrategy /> }
+            />
+            <Route
+            path="/user-edited-strategy"
+            element={isPlanExpired ? <Navigate to="/subscription" />:<EditedStratigy /> }
+            />
+            <Route
+              path="/saveStratigy"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<SaveStratigy /> }
+            />
+              <Route
+              path="/favouriteStratigy"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<FavouriteStr /> }
+            />
+                <Route
+              path="/search"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<Stratigy /> }
+            />
+                <Route
+              path="/profile/:id"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<OthersProfile /> }
+            />
+            <Route
+                path="/foundational-learning"
+                element={isPlanExpired ? <Navigate to="/subscription" />:<FoundationalLearning /> }
+            />
+            <Route
+              path="/resources"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<Resources /> }
+            />
+            
           </Route>
           <Route element={<PrivateAdminOutlet />} >
             <Route element={<Dashboard />} >

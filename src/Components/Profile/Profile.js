@@ -36,6 +36,7 @@ import SaveStratigy from "../../Pages/SaveStratigy";
 import FavouriteStr from "../../Pages/FavouriteStr";
 import styles from "./Profile.module.css";
 import Uparrow from "../CommonSvgs/Uparrow";
+import { formatExpiryDate } from "../../utils/utils";
 const language = localStorage.getItem("i18nextLng");
 
 const Profile = () => {
@@ -72,21 +73,18 @@ const Profile = () => {
     setForgot(true);
   };
 
-
   const handleProfile = (e) => {
     console.log({ e });
     setPreview(URL.createObjectURL(e.target.files[0]));
 
     let formData = new FormData();
-  //   uploadField.onchange = function() {
+    //   uploadField.onchange = function() {
 
+    if (e.target.files[0].size > 1097152) {
+      alert("File is too big!");
+      return;
+    }
 
-
-      if(e.target.files[0].size > 1097152){
-         alert("File is too big!");
-         return
-      }
-  
     formData.append("img", e.target.files[0]);
     updateInfo(user._id, formData)
       .then((res) => {
@@ -152,12 +150,12 @@ const Profile = () => {
     setIsMyStrategies(true);
   };
 
-  const [showMyPlan,setShowMyPlan] = useState(false);
-  const handleShowPlan = ()=>{
+  const [showMyPlan, setShowMyPlan] = useState(false);
+  const handleShowPlan = () => {
     setIsMyStrategies(false);
     setDropdownVisible(false);
-    setShowMyPlan(prev=>!prev);
-  }; 
+    setShowMyPlan((prev) => !prev);
+  };
 
   // pincode handler
   const [cityFound, setCityFound] = React.useState(true);
@@ -339,7 +337,9 @@ const Profile = () => {
         </div>
 
         {/* ---------mombile profile info-------------- */}
-        <div className={`d-block d-md-none text-start mx-3 mt-3 ${styles.profileImgAndText}`}>
+        <div
+          className={`d-block d-md-none text-start mx-3 mt-3 ${styles.profileImgAndText}`}
+        >
           <div className="d-flex align-items-start prfile_pic">
             <div className="button-wrapper">
               {preview ? (
@@ -411,11 +411,20 @@ const Profile = () => {
         <div className="mx-2">
           <div className=" mx-2 d-md-none">
             <button
-              className={`change_btn d-flex justify-content-between ${istypeOptionVisible===true?styles.btnActive:""}`}
-              onClick={(e) => {setistypeoptionVisible(!istypeOptionVisible);setShowMyPlan(false);setIsMyStrategies(false)}}
+              className={`change_btn d-flex justify-content-between ${
+                istypeOptionVisible === true ? styles.btnActive : ""
+              }`}
+              onClick={(e) => {
+                setistypeoptionVisible(!istypeOptionVisible);
+                setShowMyPlan(false);
+                setIsMyStrategies(false);
+              }}
             >
-               <p className={styles.p}>{t("My strategies")}</p>
-               <Uparrow rotate={!istypeOptionVisible} fill={istypeOptionVisible?"#FFFFFF":null}/>
+              <p className={styles.p}>{t("My strategies")}</p>
+              <Uparrow
+                rotate={!istypeOptionVisible}
+                fill={istypeOptionVisible ? "#FFFFFF" : null}
+              />
               <></>
             </button>
           </div>
@@ -450,11 +459,20 @@ const Profile = () => {
         <div className="mx-2 mt-2">
           <div className=" mx-2 d-md-none">
             <button
-              className={`change_btn d-flex justify-content-between ${isMyStrategies===true?styles.btnActive:""}`}
-              onClick={(e) => {setIsMyStrategies(!isMyStrategies);setShowMyPlan(false);setistypeoptionVisible(false);}}
+              className={`change_btn d-flex justify-content-between ${
+                isMyStrategies === true ? styles.btnActive : ""
+              }`}
+              onClick={(e) => {
+                setIsMyStrategies(!isMyStrategies);
+                setShowMyPlan(false);
+                setistypeoptionVisible(false);
+              }}
             >
               <p className={styles.p}> {t("Edit Information")}</p>
-              <Uparrow rotate={!isMyStrategies} fill={isMyStrategies?"#FFFFFF":null}/>
+              <Uparrow
+                rotate={!isMyStrategies}
+                fill={isMyStrategies ? "#FFFFFF" : null}
+              />
               <></>
             </button>
           </div>
@@ -904,25 +922,36 @@ const Profile = () => {
                 </div>
               </form>
             </div>
-          ) :
-          showMyPlan === true?(<div className={styles.container}>
-          <div className={styles.planContainer}>
-            <p className={styles.title}>Subscription Plan</p>
-            <div className={styles.billParent}>
-            <div className={styles.billDataContainer}>
-              <p className={styles.greenText}>6 months plan</p>
-              <p className={styles.subtitle}>Next billing date - April 08, 2024</p>
+          ) : showMyPlan === true ? (
+            <div className={styles.container}>
+              {user?.expiry ? (
+                <div className={styles.planContainer}>
+                  <p className={styles.title}>Subscription Plan</p>
+                  <div className={styles.billParent}>
+                    <div className={styles.billDataContainer}>
+                      <p className={styles.greenText}>6 months plan</p>
+                      <p className={styles.subtitle}>
+                        Next billing date -{" "}
+                        {user?.expiry ? formatExpiryDate(user.expiry) : ""}
+                      </p>
+                    </div>
+                    <button className={styles.commonBtn}>
+                      <p
+                        className={styles.btnText}
+                        onClick={() => navigate("/subscription")}
+                      >
+                        Upgrade plan
+                      </p>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className={styles.noActivePlan}>
+                  No active Plan
+                </p>
+              )}
             </div>
-            <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Upgrade plan</p>
-          </button>
-            </div>
-          </div>
-          <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Cancel Subscription</p>
-          </button>
-          </div>):
-          (
+          ) : (
             <div
               id="bbb"
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
@@ -942,31 +971,52 @@ const Profile = () => {
             </div>
           )}
           {/* mobile bottom buttons */}
-            <button
-              className={`change_btn d-flex justify-content-between mx-2 md-2 d-md-none mb-2 ${showMyPlan===true?styles.btnActive:""}`}
-              onClick={(e) => {setistypeoptionVisible(false);setIsMyStrategies(false);setShowMyPlan(prev=>!prev)}}
-            >
-              <p className={styles.p}>{t("My Plans")}</p>
-              <Uparrow rotate={!showMyPlan} fill={showMyPlan?"#FFFFFF":null}/>
-              <></>
-            </button>
-          {showMyPlan === true?(<div className={styles.childContainer}>
-          <div className={styles.planContainer}>
-            <p className={styles.title}>Subscription Plan</p>
-            <div className={styles.billParent}>
-            <div className={styles.billDataContainer}>
-              <p className={styles.greenText}>6 months plan</p>
-              <p className={styles.subtitle}>Next billing date - April 08, 2024</p>
-            </div>
-            <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Upgrade plan</p>
+          <button
+            className={`change_btn d-flex justify-content-between mx-2 md-2 d-md-none mb-2 ${
+              showMyPlan === true ? styles.btnActive : ""
+            }`}
+            onClick={(e) => {
+              setistypeoptionVisible(false);
+              setIsMyStrategies(false);
+              setShowMyPlan((prev) => !prev);
+            }}
+          >
+            <p className={styles.p}>{t("My Plans")}</p>
+            <Uparrow
+              rotate={!showMyPlan}
+              fill={showMyPlan ? "#FFFFFF" : null}
+            />
+            <></>
           </button>
+          {showMyPlan === true ? (
+            <div className={styles.childContainer}>
+              <div className={styles.planContainer}>
+                <p className={styles.title}>Subscription Plan</p>
+                <div className={styles.billParent}>
+                  <div className={styles.billDataContainer}>
+                    <p className={styles.greenText}>6 months plan</p>
+                    <p className={styles.subtitle}>
+                      Next billing date - April 08, 2024
+                    </p>
+                  </div>
+                  <button className={styles.commonBtn}>
+                    <p className={styles.btnText}>Upgrade plan</p>
+                  </button>
+                </div>
+              </div>
+              <button
+                style={{
+                  width: "fit-content",
+                  height: "28px",
+                  marginLeft: "10px",
+                  marginBottom: "8px",
+                }}
+                className={styles.commonBtn}
+              >
+                <p className={styles.btnText}>Cancel Subscription</p>
+              </button>
             </div>
-          </div>
-          <button style={{width:"fit-content",height:"28px",marginLeft:"10px", marginBottom:"8px"}} className={styles.commonBtn}>
-            <p className={styles.btnText}>Cancel Subscription</p>
-          </button>
-          </div>):null}
+          ) : null}
           <button
             onClick={handleForgotShow}
             className="change_btn mx-2   d-md-none"

@@ -21,6 +21,17 @@ export const getAllStratigys = async () => {
   return stratigyResponse;
 }
 
+export const getFilterStrategies = async (grade,subject,superTopic,topic,subtopic,subSubTopic) => {
+  let Response;
+  await axios
+    .get(`/strategies/filterStr/${grade}/${subject}/${superTopic}/${topic}/${subtopic}/${subSubTopic}`)
+    .then((res) => {
+      Response = res;
+    })
+    .catch((err) => console.log(err));
+  return Response;
+};
+
 // delet Stratigy
 export const delStratigys = async (id) => {
   let stratigyResponse

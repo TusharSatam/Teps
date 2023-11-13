@@ -71,7 +71,7 @@ const Resources = () => {
     if (items.length === 0) {
       const delayToShowNoItemsMessage = setTimeout(() => {
         setShowNoItemsMessage(true);
-      }, 500); // Adjust the delay time (in milliseconds) as needed
+      }, 1000); // Adjust the delay time (in milliseconds) as needed
 
       // Clear the timeout if the component unmounts
       return () => clearTimeout(delayToShowNoItemsMessage);

@@ -122,12 +122,17 @@
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
-    /* 150% */
     letter-spacing: -0.16px;
     padding: 0;
     margin: 0;
 }
-
+.noActivePlan{
+    text-align: center;
+    color: #474747;
+    margin: 2rem auto !important;
+    width: 100%;
+    font-size: 20px;
+}
 @media screen and (max-width:767px) {
     .userDetails {
         display: flex;

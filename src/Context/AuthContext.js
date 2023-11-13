@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { getAllStratigys, getComment } from "../services/stratigyes";
 import { getUserStratigys } from "../services/userStratigy";
 import { getAllHindiStratigys } from "../services/hindiStratigys";
+import { formatExpiryDate } from "../utils/utils";
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -28,6 +29,17 @@ const AuthProvider = ({ children }) => {
   const [ownCheckBox,setOwnCheckBox] = useState(false);
   const [selectedResource, setselectedResource] = useState("")
   const [selectedPaymentCard, setselectedPaymentCard] = useState({})
+const [isPlanExpired, setisPlanExpired] = useState(false)
+  useEffect(() => {
+        if (new Date(formatExpiryDate(user?.expiry)) < new Date()) {
+          setisPlanExpired(true)
+        }
+        else{
+          setisPlanExpired(false)
+        }
+  }, [user])
+  
+
   // Fetch and cache data
   useEffect(() => {
     const fetchDataEN = async () => {
@@ -153,7 +165,6 @@ const AuthProvider = ({ children }) => {
       setComments(res?.data?.filter((res) => res?.Approve === false));
     });
   }, []);
-  // useEffect(()=>{console.log({showStrategyCheckboxes,checkBoxes})},[showStrategyCheckboxes,checkBoxes]);
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (
@@ -215,7 +226,8 @@ const AuthProvider = ({ children }) => {
         setselectedPaymentCard,
         selectedPaymentCard,
         setselectedResource,
-        selectedResource
+        selectedResource,
+        isPlanExpired
       }}
     >
       {children}

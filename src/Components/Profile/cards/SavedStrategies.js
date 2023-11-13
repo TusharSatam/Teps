@@ -15,10 +15,6 @@ const SavedStrategies = () => {
         }
       }, [language]);
 
-console.log(user);
-      useEffect(() => {
-
-      }, [])
       
   return (
     <section className="created">

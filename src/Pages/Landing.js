@@ -56,7 +56,7 @@ const Landing = () => {
   const navigate = useNavigate();
   useEffect(() => {
     isAuthenticated && navigate("/home");
-  });
+  },[]);
   return (
     <>
       <ScrollToTop smooth  color="#00000" />

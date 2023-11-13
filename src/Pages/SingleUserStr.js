@@ -13,6 +13,7 @@ import LikeByModal from "../Components/Modal/LikeByModal";
 import { useAuth } from "../Context/AuthContext";
 import defaultProfile from "../asstes/defaultProfile.png";
 import { getMultitUser, getSingleUser } from "../services/dashboardUsers";
+import { Buffer } from "buffer";
 import {
   deleteRating,
   getRatings,
@@ -38,7 +39,7 @@ import { singleUserEnStratigys } from "../services/userStratigy";
 
 const SingleUserStr = () => {
 
-  const { user, seteditStrategyFormData,strategyNum } = useAuth();
+  const { user, seteditStrategyFormData,strategyNum,setselectedResource } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -120,7 +121,7 @@ const SingleUserStr = () => {
       setLikeUser(userlike);
       setUserLikes(userlike?.map((ress) => ress?.strategie_id));
       getMultitUser(totalLike?.map((user_id) => user_id?.user_id)).then(
-        (resUser) => setTotalLikeUser(resUser.data)
+        (resUser) => setTotalLikeUser(resUser?.data)
       );
     });
   }, []);
@@ -209,7 +210,7 @@ const SingleUserStr = () => {
   };
   const handleEditStrategy = async () => {
     await seteditStrategyFormData(str);
-    navigate(`/editStrategyform/${str._id}`);
+    navigate(`/editStrategyform/${str._id}/user`);
   };
   const handleUsedStrategy = () => {
     setisUsedStrategy(true);
@@ -294,6 +295,14 @@ const handleDeleteUsedStrategy=async()=>{
       toast.error("Some error occured during copying");
       console.error('Unable to copy text to clipboard:', err);
     });
+  };
+
+  const handleExplore = (resource) => {
+    if(resource){
+      console.log(resource);
+      setselectedResource(resource)
+    }
+    navigate("/resources");
   };
   return (
     <div>
@@ -465,8 +474,23 @@ const handleDeleteUsedStrategy=async()=>{
                   setRating={setRating}
                 />
                 <div className={styles.exploreTexts}>
-                  <Link to={"#"}>Explore more about foundational learning...</Link>
-                  {/* <p>Explore more about project based learning...</p> */}
+                {str?.Grade == "Pre-K" ||
+                  str?.Grade == "UKG" ||
+                  str?.Grade == "LKG" ? (
+                    <p onClick={()=>handleExplore()}>Explore more about foundational learning...</p>
+                  ) : str["Pedagogical Approach"] == "Constructivism" ||
+                    str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
+                    str["Pedagogical Approach"] == "Project-Based Learning" ? (
+                    <p
+                      onClick={() =>
+                        handleExplore(str?.["Pedagogical Approach"])
+                      }
+                    >
+                      Explore more about {str?.["Pedagogical Approach"]}...
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={styles.chatGPTbox}>
                   <div className={styles.gptButtonsContainer}>
