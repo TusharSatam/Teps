@@ -36,9 +36,7 @@ export const verifyOTP = async (data) => {
 
 // update user info
 export const updateInfo = async (id, data) => {
-  console.log(data);
   let updateResponse;
-  console.log(id, data);
   await axios
     .put(`users/${id}`, data)
     .then((res) => {
@@ -47,4 +45,16 @@ export const updateInfo = async (id, data) => {
     })
     .catch((err) => console.log(err));
   return updateResponse;
+};
+
+// get user data
+export const getUserData = async (jwt) => {
+  let data={
+    token:jwt,
+  }
+  let Response;
+  await axios.post(`/jwt/getUserData`, data).then((res) => {
+    Response = res.data;
+  });
+  return Response;
 };

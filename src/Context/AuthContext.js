@@ -3,6 +3,7 @@ import { getAllStratigys, getComment } from "../services/stratigyes";
 import { getUserStratigys } from "../services/userStratigy";
 import { getAllHindiStratigys } from "../services/hindiStratigys";
 import { formatExpiryDate } from "../utils/utils";
+import { getUserData } from "../services/auth";
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -29,16 +30,14 @@ const AuthProvider = ({ children }) => {
   const [ownCheckBox,setOwnCheckBox] = useState(false);
   const [selectedResource, setselectedResource] = useState("")
   const [selectedPaymentCard, setselectedPaymentCard] = useState({})
-const [isPlanExpired, setisPlanExpired] = useState(false)
+  const [isPlanExpired, setisPlanExpired] = useState(false)
   useEffect(() => {
-        if (new Date(formatExpiryDate(user?.expiry)) < new Date()) {
-          setisPlanExpired(true)
-        }
-        else{
-          setisPlanExpired(false)
-        }
+    if (new Date(formatExpiryDate(user?.expiry)) < new Date()) {
+      setisPlanExpired(true)
+    }else{
+      setisPlanExpired(false)
+    }
   }, [user])
-  
 
   // Fetch and cache data
   useEffect(() => {
@@ -86,12 +85,7 @@ const [isPlanExpired, setisPlanExpired] = useState(false)
     if (confirmation) {
       setIsAuthenticated(false);
       setUser(null);
-      localStorage.removeItem("data");
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("filterData");
-      localStorage.removeItem("filterDataH");
-      localStorage.removeItem("selectedDropdown");
-      localStorage.removeItem("selectedHiDropdown");
+      localStorage.clear();
     }
   };
 
@@ -111,12 +105,13 @@ const [isPlanExpired, setisPlanExpired] = useState(false)
     if (token) {
       setLoading(false);
       setIsAuthenticated(true);
+      getUserData(JSON.parse(localStorage.getItem("jwt"))).then((res) => {
+        if (res?.user_data) {
+          setUser(res?.user_data);
+        }
+      });
     }
-    const data = localStorage.getItem("data");
-    if (data) {
-      setUser(JSON.parse(data));
-      setIsAuthenticated(true);
-    }
+
   }, []);
 
   React.useEffect(() => {
@@ -227,7 +222,7 @@ const [isPlanExpired, setisPlanExpired] = useState(false)
         selectedPaymentCard,
         setselectedResource,
         selectedResource,
-        isPlanExpired
+        isPlanExpired,
       }}
     >
       {children}

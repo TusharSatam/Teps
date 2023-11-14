@@ -9,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import axios from "axios";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 document.addEventListener("DOMContentLoaded", () => {
   const start = new Date().getTime();
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = {
       date: Date.now(),
       time: totalTime,
-      user_id: JSON.parse(localStorage.getItem("data"))._id,
+      user_id: localStorage.getItem("userID"),
     };
     axios.post(`${process.env.REACT_APP_BASE_URL}pulledStr/averageTime`, data);
   });

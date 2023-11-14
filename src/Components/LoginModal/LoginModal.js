@@ -140,7 +140,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
               setUser(res.data);
               setIsAuthenticated(true);
               window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
-              window.localStorage.setItem("data", JSON.stringify(res.data));
+              window.localStorage.setItem("userID", res?.data._id);
               let localstorageData;
               if (
                 localStorage.getItem("i18nextLng") === "en-US" ||
@@ -206,7 +206,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
             setUser(res.data);
             setIsAuthenticated(true);
             window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
-            window.localStorage.setItem("data", JSON.stringify(res.data));
+            window.localStorage.setItem("userID", res?.data._id);
             let localstorageData;
             if (
               localStorage.getItem("i18nextLng") === "en-US" ||

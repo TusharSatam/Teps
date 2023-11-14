@@ -276,7 +276,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   const handleFindStratigys = async () => {
     // accordion collapse and remove checkbox
     setAccorKey();
-    let isUserExist = localStorage.getItem("data");
+    let isUserExist = localStorage.getItem("jwt");
     if (isUserExist === null) {
       setoptionModal(true);
     }

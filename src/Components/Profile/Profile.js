@@ -66,7 +66,7 @@ const Profile = () => {
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
-  const [email, setEmail] = useState(user?.email ?? "");
+  const [email, setEmail] = useState(user?.email);
   const navigate = useNavigate();
 
   const handleForgotShow = () => {
@@ -80,22 +80,23 @@ const Profile = () => {
     let formData = new FormData();
     //   uploadField.onchange = function() {
 
-    if (e.target.files[0].size > 1097152) {
-      alert("File is too big!");
+    if (e.target.files[0].size > 1048576) {
+      // alert("File is too big!");
+      toast.error("Image too large. Please select a file smaller than 1 MB.");
       return;
     }
 
     formData.append("img", e.target.files[0]);
     updateInfo(user._id, formData)
       .then((res) => {
-        console.log({ res });
         if (res === undefined || res === null) {
-          toast.error("Image too large");
+          toast.error("Image too large. Please select a file smaller than 1 MB.");
         }
-        getSingleUser(user._id).then((res1) => {
-          window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
-          setUser(res1.data[0]);
-        });
+        else{
+          getSingleUser(user._id).then((res1) => {
+            setUser(res1.data[0]);
+          });
+        }
       })
       .catch((err) => {
         toast.error("Image too large");
@@ -331,8 +332,8 @@ const Profile = () => {
 
       <section className="profile_container pb-5 overflow-hidden">
         <div className="w-100 text-center welcomeUser mb-3">
-          {user.firstName
-            ? `${t("Welcome")}, ${user.firstName}`
+          {user?.firstName
+            ? `${t("Welcome")}, ${user?.firstName}`
             : `${t("Welcome")}`}
         </div>
 
@@ -800,7 +801,7 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            value={liveDetails ? liveDetails?.Block : user.city}
+                            value={liveDetails ? liveDetails?.Block : user?.city}
                             name="city"
                             id="city"
                             placeholder="City"
@@ -884,7 +885,7 @@ const Profile = () => {
                               {user.country ? user.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option>{item?.name}</option>
+                              <option key={index}>{item?.name}</option>
                             ))}
                           </select>
                         ) : (
@@ -895,10 +896,10 @@ const Profile = () => {
                             name="country"
                           >
                             <option>
-                              {user.country ? user.country : "Country"}
+                              {user?.country ? user?.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option>{item?.name}</option>
+                              <option key={index}>{item?.name}</option>
                             ))}
                           </select>
                         )}

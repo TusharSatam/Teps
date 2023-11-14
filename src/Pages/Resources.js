@@ -115,8 +115,8 @@ const Resources = () => {
           value={selectedOption}
         >
           <option value="Constructivism">Constructivism</option>
-          <option value="Inquiry-based Learning">Inquiry-based Learning</option>
-          <option value="Project-based Learning">Project-based Learning</option>
+          <option value="Inquiry-Based Learning">Inquiry-based Learning</option>
+          <option value="Project-Based Learning">Project-based Learning</option>
         </select>
       </div>
       <InfiniteScroll

@@ -88,7 +88,6 @@ const PaymentInformation = () => {
           if (data.message === "Payment verified successfully") {
             getSingleUser(user._id).then((res1) => {
               setUser(res1?.data[0]);
-              window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
             });
             navigate("/profile");
           }
