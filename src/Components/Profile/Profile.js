@@ -918,9 +918,6 @@ const Profile = () => {
           </button>
             </div>
           </div>
-          <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Cancel Subscription</p>
-          </button>
           </div>):
           (
             <div
@@ -963,9 +960,6 @@ const Profile = () => {
           </button>
             </div>
           </div>
-          <button style={{width:"fit-content",height:"28px",marginLeft:"10px", marginBottom:"8px"}} className={styles.commonBtn}>
-            <p className={styles.btnText}>Cancel Subscription</p>
-          </button>
           </div>):null}
           <button
             onClick={handleForgotShow}

@@ -71,9 +71,13 @@ const OtherProfileDataF = ({ setNumber, user_id }) => {
               setFavStratigy(res?.data);
               getMultiUsertStr(likeIdsArr)
                 .then((res2) => {
-                  const idList = res2?.data?.map((obj) => obj?._id);
+                  if(res2===undefined||res2===null||res2?.data?.length<=0){
+                    setIsLoading(false);
+                      return;
+                    }
+                  const idList = res2?.data?.map((obj) => obj?._id) || [];
                   setSpecialLinkArr((prev) => [...prev, ...idList]);
-                  setFavStratigy((prev) => [...prev, ...res2?.data]);
+                  setFavStratigy((prev) =>[...prev, ...res2?.data]);
                   setIsLoading(false);
                 })
                 .catch((err2) => {
@@ -167,7 +171,7 @@ const OtherProfileDataF = ({ setNumber, user_id }) => {
     : 2;
   React.useEffect(() => {
     if (languageSelect === "en") {
-      setNumber(favStratigy?.length);
+      setNumber(favStratigy?.length||0);
     }
     if (languageSelect === "hi") {
       setNumber(favStratigyHi?.length);
@@ -191,7 +195,7 @@ const OtherProfileDataF = ({ setNumber, user_id }) => {
               <div className="d-flex justify-content-start">
                 <span
                   className={
-                    favStratigy?.length === 0
+                    favStratigy?.length === 0 || !favStratigy
                       ? "headText w-50 impGray"
                       : "headText w-50"
                   }
@@ -228,12 +232,12 @@ const OtherProfileDataF = ({ setNumber, user_id }) => {
                 </svg>
                 <span
                   className={
-                    favStratigy?.length === 0
+                    favStratigy?.length === 0||!favStratigy
                       ? "impGray d-md-none desktopNone"
                       : "d-md-none"
                   }
                 >
-                  ({favStratigy?.length})
+                  ({!favStratigy?0:favStratigy?.length})
                 </span>
               </div>
             </div>
@@ -244,7 +248,7 @@ const OtherProfileDataF = ({ setNumber, user_id }) => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : favStratigy?.length === 0 && collapse !== true ? (
+          ) : (favStratigy?.length === 0 && collapse !== true)||(!favStratigy&&collapse!==true)? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No favourite strategies available.")}
             </h1>

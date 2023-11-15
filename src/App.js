@@ -59,6 +59,7 @@ function App() {
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
   axios.defaults.baseURL = "http://43.205.39.232/api/";
+  axios.defaults.headers["Authorization"] = "Bearer yourAccessToken";
   // axios.defaults.baseURL = "http://localhost:8080/api/";
 
   const handleOnclick = () => {
@@ -102,6 +103,7 @@ function App() {
           loc.pathname === '/browsers-devices' ||
           loc.pathname === '/add-resources' ||
           loc.pathname === '/all-resources' ||
+          loc.pathname === '/email-template' ||
           loc.pathname.includes('/user-details')
           ? ('') : (
             <Navbar

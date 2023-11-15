@@ -71,9 +71,14 @@ const OtherProfileDataS = ({ setNumber, user_id }) => {
               setSavedStrategy(res?.data);
               getMultiUsertStr(saveIdsArr)
                 .then((res2) => {
+                  console.log({res2})
+                  if(res2===undefined||res2===null||res2?.data?.length<=0){
+                  setIsLoading(false);
+                    return;
+                  }
                   const idList = res2?.data?.map((obj) => obj?._id);
                   setSpecialLinkArr((prev) => [...prev, ...idList]);
-                  setSavedStrategy((prev) => [...prev, ...res2?.data]);
+                  setSavedStrategy((prev)=>[...prev, ...res2?.data]);
                   setIsLoading(false);
                 })
                 .catch((err2) => {
@@ -167,7 +172,7 @@ const OtherProfileDataS = ({ setNumber, user_id }) => {
     : 2;
   React.useEffect(() => {
     if (languageSelect === "en") {
-      setNumber(savedStrategy?.length);
+      setNumber(savedStrategy?.length||0);
     }
     if (languageSelect === "hi") {
       setNumber(savedStrategyHindi?.length);
@@ -228,12 +233,12 @@ const OtherProfileDataS = ({ setNumber, user_id }) => {
                 </svg>
                 <span
                   className={
-                    savedStrategy?.length === 0
+                    savedStrategy?.length === 0 || !savedStrategy
                       ? "impGray d-md-none desktopNone"
                       : "d-md-none"
                   }
                 >
-                  ({savedStrategy?.length})
+                  ({!savedStrategy?0:savedStrategy?.length})
                 </span>
               </div>
             </div>
@@ -244,7 +249,7 @@ const OtherProfileDataS = ({ setNumber, user_id }) => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : savedStrategy?.length === 0 && collapse !== true ? (
+          ) : (savedStrategy?.length === 0 && collapse !== true)||(!savedStrategy&&collapse!==true)? (
             <h1 className="my-5 text-center py-5 text-danger">
               {t("No saved strategies available.")}
             </h1>
