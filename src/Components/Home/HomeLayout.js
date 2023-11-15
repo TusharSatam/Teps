@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getAllStratigys } from "../../services/stratigyes";
+import { getAllStratigys, getFilterStrategies } from "../../services/stratigyes";
 import { useAuth } from "../../Context/AuthContext";
 import Article from "../LandingArticle/Article";
 import "./homelayout.css";
@@ -15,7 +15,9 @@ import {
   getAllSuperTopics,
   getAllTopics,
 } from "../../services/dropdowns";
+import toast, { Toaster } from "react-hot-toast";
 const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
+
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [allUserStratigys, setAllUserStratigys] = React.useState([]);
@@ -50,6 +52,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     allStrategies,
     allUserStrategies,
     loadingdropdown,
+    isPlanExpired
   } = useAuth();
   useEffect(() => {
     const selectedDropdown = localStorage.getItem("selectedDropdown");
@@ -273,10 +276,14 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   // ---------------
 
 
-  const handleFindStratigys = () => {
+  const handleFindStratigys = async () => {
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }
     // accordion collapse and remove checkbox
     setAccorKey();
-    let isUserExist = localStorage.getItem("data");
+    let isUserExist = localStorage.getItem("jwt");
     if (isUserExist === null) {
       setoptionModal(true);
     }
@@ -287,19 +294,20 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
         selectGrade &&
         selectSuperTopic &&
         selectTopic &&
-        selectSubject &&
+        selectSubTopic &&
         selectSubSubTopic
       ) {
-        const aquaticCreatures = allStratigys.filter(function (creature) {
-          return (
-            creature.Subject === selectSubject &&
-            creature.Grade === selectGrade &&
-            creature.Topic === selectTopic &&
-            creature["Super Topic"] === selectSuperTopic &&
-            creature["Sub Topic"] === selectSubTopic &&
-            creature["Sub-sub topic"] === selectSubSubTopic
-            );
-          });
+
+          const filterData = await getFilterStrategies(
+            selectGrade,
+            selectSubject,
+            selectSuperTopic,
+            selectTopic,
+            selectSubTopic,
+            selectSubSubTopic
+          );
+
+          const aquaticCreatures = filterData?.data;
         const aquaticCreaturesUser = allUserStratigys.filter(function (
           creature
         ) {
@@ -339,8 +347,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
           postPulledStr(data);
         }
         if (
-          aquaticCreatures.length !== 0 ||
-          aquaticCreaturesUser.length !== 0
+          aquaticCreatures?.length !== 0 ||
+          aquaticCreaturesUser?.length !== 0
         ) {
           if (
             location.pathname === "/home" ||
@@ -385,7 +393,16 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
         }
         setError("Please fill all the boxes to proceed.");
       }
-    } else {
+    }
+     else {
+      if (
+        selectSubject &&
+        selectGrade &&
+        selectSuperTopic &&
+        selectTopic &&
+        selectSubject &&
+        selectSubSubTopic
+      ){
       window.localStorage.setItem(
         "selectedDropdown",
         JSON.stringify({
@@ -397,16 +414,17 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
           selectSubSubTopic,
         })
       );
-      const aquaticCreatures = allStratigys.filter(function (creature) {
-        return (
-          creature.Subject === selectSubject &&
-          creature.Grade === selectGrade &&
-          creature.Topic === selectTopic &&
-          creature["Super Topic"] === selectSuperTopic &&
-          creature["Sub Topic"] === selectSubTopic &&
-          creature["Sub-sub topic"] === selectSubSubTopic
-        );
-      });
+      const filterData = await getFilterStrategies(
+        selectGrade,
+        selectSubject,
+        selectSuperTopic,
+        selectTopic,
+        selectSubTopic,
+        selectSubSubTopic
+      );
+      console.log(filterData?.data);
+
+      const aquaticCreatures = filterData?.data;
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
         return (
           creature.Subject === selectSubject &&
@@ -443,15 +461,38 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
         };
         postPulledStr(data);
       }
-      if (aquaticCreatures.length === 0 || aquaticCreaturesUser.length === 0) {
+      if (aquaticCreatures?.length === 0 || aquaticCreaturesUser?.length === 0) {
         setError(
           "No strategies are available for this combination. Please try a different combination."
         );
       }
     }
+    else {
+      if (!selectSubject) {
+        setError5(true);
+      }
+      if (!selectGrade) {
+        setError6(true);
+      }
+      if (!selectSuperTopic) {
+        setError1(true);
+      }
+      if (!selectTopic) {
+        setError2(true);
+      }
+      if (!selectSubTopic) {
+        setError3(true);
+      }
+      if (!selectSubSubTopic) {
+        setError4(true);
+      }
+      setError("Please fill all the boxes to proceed.");
+    }
+    }
   };
   return uniqueGrade ? (
     <>
+    <Toaster/>
       <div
         className={
           location.pathname === "/saveStratigy" ||

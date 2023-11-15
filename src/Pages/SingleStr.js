@@ -30,13 +30,12 @@ import { replaceNewlinesWithLineBreaks } from "../utils/utils";
 import RatingModal from "../Components/Modal/RatingModal/RatingModal";
 import styles from "./styles/SingleStr.module.css";
 import LoadingCarousel from "../Components/LoadingCarousel/LoadingCarousel";
-import MagicWond from "../Components/CommonSvgs/MagicWond"
-import CopySvg from "../Components/CommonSvgs/CopySvg"
+import MagicWond from "../Components/CommonSvgs/MagicWond";
+import CopySvg from "../Components/CommonSvgs/CopySvg";
 import toast, { Toaster } from "react-hot-toast";
 
 const SingleStr = () => {
-
-  const { user, seteditStrategyFormData,strategyNum } = useAuth();
+  const { user, seteditStrategyFormData, strategyNum,setselectedResource,isPlanExpired } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -57,9 +56,9 @@ const SingleStr = () => {
   const [likeUser, setLikeUser] = useState([]);
   const [isLoadingContent, setIsLoadingContent] = useState(true);
   const [isFecthing, setisFecthing] = useState(false);
-  const [teachinStratText,setTeachingStratText] = useState("");
-  const [chatGptResponse,setChatGptResponse] = useState("");
-  const [chatGptError,setChatGptError] = useState(false);
+  const [teachinStratText, setTeachingStratText] = useState("");
+  const [chatGptResponse, setChatGptResponse] = useState("");
+  const [chatGptError, setChatGptError] = useState(false);
   const navigate = useNavigate();
   const pRef = useRef(null);
 
@@ -202,8 +201,14 @@ const SingleStr = () => {
     }
   };
   const handleEditStrategy = async () => {
-    await seteditStrategyFormData(str);
-    navigate(`/editStrategyform/${str._id}`);
+      if(isPlanExpired){
+        toast.error("Subscription required")
+        return
+      }
+      else{
+        await seteditStrategyFormData(str);
+        navigate(`/editStrategyform/${str._id}`);
+      }
   };
   const handleUsedStrategy = () => {
     setisUsedStrategy(true);
@@ -211,9 +216,16 @@ const SingleStr = () => {
   const handleCloseRatingModal = () => {
     setisUsedStrategy(false);
   };
-  const handleExplore=(resource)=>{
-    navigate('/resources')
-  }
+  const handleExplore = (resource) => {
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }else{
+
+      setselectedResource(resource)
+      navigate("/resources");
+    }
+  };
   const handleDeleteUsedStrategy = async () => {
     const dataToSend = {
       user_id: user._id,
@@ -269,30 +281,36 @@ const SingleStr = () => {
   const callChatGPTApi = (promptStart) => {
     setisFecthing(true);
     setChatGptError(false);
-    generateChatGPTResponse({prompt:`${promptStart} ${str["Teaching Strategy"]}`}).then((res)=>{
-      setisFecthing(false);
-      setChatGptResponse(res?.data?.response);
-      console.log({res});
-    }).catch((err)=>{
-      setisFecthing(false);
-      setChatGptResponse("");
-      setChatGptError(true);
-      console.log({err});
-    });
-  }
+    generateChatGPTResponse({
+      prompt: `${promptStart} ${str["Teaching Strategy"]}`,
+    })
+      .then((res) => {
+        setisFecthing(false);
+        setChatGptResponse(res?.data?.response);
+        console.log({ res });
+      })
+      .catch((err) => {
+        setisFecthing(false);
+        setChatGptResponse("");
+        setChatGptError(true);
+        console.log({ err });
+      });
+  };
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(chatGptResponse).then(() => {
-      toast.success("Data Copied Successfully");
-    })
-    .catch((err) => {
-      toast.error("Some error occured during copying");
-      console.error('Unable to copy text to clipboard:', err);
-    });
+    navigator.clipboard
+      .writeText(chatGptResponse)
+      .then(() => {
+        toast.success("Data Copied Successfully");
+      })
+      .catch((err) => {
+        toast.error("Some error occured during copying");
+        console.error("Unable to copy text to clipboard:", err);
+      });
   };
   return (
     <div>
-      {isFecthing?<LoadingCarousel/>:null}
+      {isFecthing ? <LoadingCarousel /> : null}
       <LikeByModal
         show={show}
         handleClose={() => setShow(false)}
@@ -435,29 +453,90 @@ const SingleStr = () => {
                   setRating={setRating}
                 />
                 <div className={styles.exploreTexts}>
-                  <Link to={"/resources"}>Explore more about foundational learning...</Link>
-                  {/* <p>Explore more about project based learning...</p> */}
+                  {str?.Grade == "Pre-K" ||
+                  str?.Grade == "UKG" ||
+                  str?.Grade == "LKG" ? (
+                    <p>Explore more about foundational learning...</p>
+                  ) : str["Pedagogical Approach"] == "Constructivism" ||
+                    str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
+                    str["Pedagogical Approach"] == "Project-Based Learning" ? (
+                    <p
+                      onClick={() =>
+                        handleExplore(str?.["Pedagogical Approach"])
+                      }
+                    >
+                      Explore more about {str?.["Pedagogical Approach"]}...
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className={styles.chatGPTbox}>
                   <div className={styles.gptButtonsContainer}>
-                  <div className={styles.magicIconBoxDesktop}>
-                    <div>
-                      <MagicWond mobile={false}/>
+                    <div className={styles.magicIconBoxDesktop}>
+                      <div>
+                        <MagicWond mobile={false} />
+                      </div>
                     </div>
+                    <button
+                      onClick={() => {
+                        callChatGPTApi(
+                          "Please send a worksheet for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Get worksheet
+                    </button>
+                    <button
+                      onClick={() => {
+                        callChatGPTApi(
+                          "Please send a prior knowledge for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Prior knowledge
+                    </button>
+                    <button
+                      onClick={() => {
+                        callChatGPTApi(
+                          "Please send a misconception for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Misconception
+                    </button>
+                    <button
+                      onClick={() => {
+                        callChatGPTApi(
+                          "Please send a lesson plan for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Get a lesson plan
+                    </button>
                   </div>
-                    <button onClick={()=>{callChatGPTApi("Please send a worksheet for the following teaching strategy")}}><MagicWond mobile={true}/> Get worksheet</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a prior knowledge for the following teaching strategy")}}><MagicWond mobile={true}/> Prior knowledge</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a misconception for the following teaching strategy")}}><MagicWond mobile={true}/> Misconception</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a lesson plan for the following teaching strategy")}}><MagicWond mobile={true}/> Get a lesson plan</button>
-                  </div>
-                  {chatGptResponse.length!==0||chatGptError===true ?
-                  <div className={styles.gptAnswer}>
-                    {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                      {chatGptResponse.length!==0&&<p>{chatGptResponse}</p>}
-                      {chatGptError===true?<p className={styles.gptError}>We are experiencing difficulties while loading the data.<br/> Please try again.</p>:null}
-                      {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                  </div>
-                  :null}
+                  {chatGptResponse.length !== 0 || chatGptError === true ? (
+                    <div className={styles.gptAnswer}>
+                      {chatGptResponse.length !== 0 && (
+                        <div className={styles.copyContainer}>
+                          <CopySvg onClick={handleCopyClick} />
+                        </div>
+                      )}
+                      {chatGptResponse.length !== 0 && <p>{chatGptResponse}</p>}
+                      {chatGptError === true ? (
+                        <p className={styles.gptError}>
+                          We are experiencing difficulties while loading the
+                          data.
+                          <br /> Please try again.
+                        </p>
+                      ) : null}
+                      {chatGptResponse.length !== 0 && (
+                        <div className={styles.copyContainer}>
+                          <CopySvg onClick={handleCopyClick} />
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
                 {/* ================ FOR LARGE SCREEN =============  */}
                 <div className="largeCommentContainer">
@@ -587,7 +666,7 @@ const SingleStr = () => {
           </div>
         </div>
       </div>
-      <Toaster  position="top-right" />
+      <Toaster position="top-right" />
     </div>
   );
 };

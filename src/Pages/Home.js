@@ -19,10 +19,12 @@ const Home = () => {
   const [showProfileModal, setshowProfileModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user?.country || !user?.designation || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
-      setTimeout(() => {
-        setshowProfileModal(true);
-      }, 8000);
+    if(user){
+      if (!user?.country || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
+        setTimeout(() => {
+          setshowProfileModal(true);
+        }, 100000);
+      }
     }
   }, [user]);
 

@@ -43,7 +43,7 @@ const SearchScrean = () => {
 
   const handleCheckbox = (ind) => {
     if (show.includes(ind)) {
-      for (var i = 0; i < show.length; i++) {
+      for (var i = 0; i < show?.length; i++) {
         if (show[i] === ind) {
           show.splice(i, 1);
           i--;
@@ -57,7 +57,7 @@ const SearchScrean = () => {
   }
   const handleCheckboxH = (e) => {
     if (showH.includes(e)) {
-      for (var i = 0; i < showH.length; i++) {
+      for (var i = 0; i < showH?.length; i++) {
         if (showH[i] === e) {
           showH.splice(i, 1);
           i--;
@@ -79,7 +79,7 @@ const SearchScrean = () => {
     localStorage.removeItem('filterDataH');
   }
   React.useEffect(() => {
-    if (stratigyFilData.length === 0) {
+    if (stratigyFilData?.length === 0) {
       setShow([''])
       setShowH([''])
     }
@@ -302,7 +302,7 @@ const SearchScrean = () => {
                                               <button onClick={()=>{handleStayOnCheckbox(`/singleUserStratigy/${strUser._id}`)}} className="linkStyle">
                                                 <div className='d-flex'>
                                                   <p className='Strategy_count'>{t("strategy")}</p>
-                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome']).length + (index +1)}</p>
+                                                  <p className='counter_str'>{stratigyFilUserData?.filter(res => res['Learning Outcome'] === data['Learning Outcome'])?.length + (index +1)}</p>
                                                 </div>
                                               </button>
 

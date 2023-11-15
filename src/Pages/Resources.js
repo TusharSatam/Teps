@@ -71,7 +71,7 @@ const Resources = () => {
     if (items.length === 0) {
       const delayToShowNoItemsMessage = setTimeout(() => {
         setShowNoItemsMessage(true);
-      }, 500); // Adjust the delay time (in milliseconds) as needed
+      }, 1000); // Adjust the delay time (in milliseconds) as needed
 
       // Clear the timeout if the component unmounts
       return () => clearTimeout(delayToShowNoItemsMessage);
@@ -115,8 +115,8 @@ const Resources = () => {
           value={selectedOption}
         >
           <option value="Constructivism">Constructivism</option>
-          <option value="Inquiry-based Learning">Inquiry-based Learning</option>
-          <option value="Project-based Learning">Project-based Learning</option>
+          <option value="Inquiry-Based Learning">Inquiry-based Learning</option>
+          <option value="Project-Based Learning">Project-based Learning</option>
         </select>
       </div>
       <InfiniteScroll

@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { getSingleUser, updateUser } from "../services/dashboardUsers";
-import emailjs from "@emailjs/browser";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 
@@ -18,15 +17,14 @@ const Verify = () => {
     setLoading(true);
     getSingleUser(id).then((res) => {
       if (jwt !== null && jwt !== undefined) {
-        localStorage.setItem("jwt", jwt);
+        localStorage.setItem("jwt",JSON.stringify(jwt));
       }
       const email = res?.data[0]?.email;
       if (res?.data !== undefined && res?.data !== null) {
-        localStorage.setItem("data", JSON.stringify(res?.data));
-      setUser(res?.data[0])
+        setUser(res?.data[0])
+        window.localStorage.setItem("userID", res?.data[0]._id);
       }
       setIsAuthenticated(true);
-      console.log({ res });
       if (res?.data[0]?.varified === false) {
         setAlradyVeridyd(false);
         if (res) {
@@ -80,9 +78,7 @@ const Verify = () => {
                 {alredyVeridyd ? "Already Verified!" : " Verification success!"}
               </h3>
             </div>
-            {/* <Link to="/home">
-              <button>Proceed to the homepage and log in to continue.</button>
-            </Link> */}
+           
           </div>
         )
       )}

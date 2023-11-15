@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react'
-import SaveIcon from "../../../asstes/icons/Save.svg";
 import SavedIcon from "../../../asstes/icons/Saved.svg";
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../../Context/AuthContext';
 const SavedStrategies = () => {
-    const {user}=useAuth() 
   const [languageSelect, setLanguageSelect] = React.useState("en");
   const language = localStorage.getItem("i18nextLng");
     React.useEffect(() => {
@@ -15,10 +12,6 @@ const SavedStrategies = () => {
         }
       }, [language]);
 
-console.log(user);
-      useEffect(() => {
-
-      }, [])
       
   return (
     <section className="created">

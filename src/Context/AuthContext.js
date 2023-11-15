@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { getAllStratigys, getComment } from "../services/stratigyes";
 import { getUserStratigys } from "../services/userStratigy";
 import { getAllHindiStratigys } from "../services/hindiStratigys";
+import { formatExpiryDate } from "../utils/utils";
+import { getUserData } from "../services/auth";
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -28,6 +30,16 @@ const AuthProvider = ({ children }) => {
   const [ownCheckBox,setOwnCheckBox] = useState(false);
   const [selectedResource, setselectedResource] = useState("")
   const [selectedPaymentCard, setselectedPaymentCard] = useState({})
+  const [isPlanExpired, setisPlanExpired] = useState(false)
+  useEffect(() => {
+    console.log({user});
+    if (new Date(formatExpiryDate(user?.expiry)) < new Date() || !user || !user.expiry) {
+      setisPlanExpired(true)
+    }else{
+      setisPlanExpired(false)
+    }
+  }, [user])
+
   // Fetch and cache data
   useEffect(() => {
     const fetchDataEN = async () => {
@@ -74,12 +86,7 @@ const AuthProvider = ({ children }) => {
     if (confirmation) {
       setIsAuthenticated(false);
       setUser(null);
-      localStorage.removeItem("data");
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("filterData");
-      localStorage.removeItem("filterDataH");
-      localStorage.removeItem("selectedDropdown");
-      localStorage.removeItem("selectedHiDropdown");
+      localStorage.clear();
     }
   };
 
@@ -99,12 +106,13 @@ const AuthProvider = ({ children }) => {
     if (token) {
       setLoading(false);
       setIsAuthenticated(true);
+      getUserData(JSON.parse(localStorage.getItem("jwt"))).then((res) => {
+        if (res?.user_data) {
+          setUser(res?.user_data);
+        }
+      });
     }
-    const data = localStorage.getItem("data");
-    if (data) {
-      setUser(JSON.parse(data));
-      setIsAuthenticated(true);
-    }
+
   }, []);
 
   React.useEffect(() => {
@@ -153,7 +161,6 @@ const AuthProvider = ({ children }) => {
       setComments(res?.data?.filter((res) => res?.Approve === false));
     });
   }, []);
-  // useEffect(()=>{console.log({showStrategyCheckboxes,checkBoxes})},[showStrategyCheckboxes,checkBoxes]);
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (
@@ -215,7 +222,8 @@ const AuthProvider = ({ children }) => {
         setselectedPaymentCard,
         selectedPaymentCard,
         setselectedResource,
-        selectedResource
+        selectedResource,
+        isPlanExpired,
       }}
     >
       {children}

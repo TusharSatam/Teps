@@ -36,11 +36,12 @@ import SaveStratigy from "../../Pages/SaveStratigy";
 import FavouriteStr from "../../Pages/FavouriteStr";
 import styles from "./Profile.module.css";
 import Uparrow from "../CommonSvgs/Uparrow";
+import { formatExpiryDate } from "../../utils/utils";
 const language = localStorage.getItem("i18nextLng");
 
 const Profile = () => {
   const { t } = useTranslation();
-  const { user, setUser } = useAuth();
+  const { user, setUser, isPlanExpired } = useAuth();
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
@@ -65,39 +66,39 @@ const Profile = () => {
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
-  const [email, setEmail] = useState(user?.email ?? "");
+  const [email, setEmail] = useState(user?.email);
+  const [daysRemaining, setDaysRemaining] = useState(null);
+  const [isFreePlan, setisFreePlan] = useState(false);
   const navigate = useNavigate();
 
   const handleForgotShow = () => {
     setForgot(true);
   };
 
-
   const handleProfile = (e) => {
-    console.log({ e });
     setPreview(URL.createObjectURL(e.target.files[0]));
 
     let formData = new FormData();
-  //   uploadField.onchange = function() {
+    //   uploadField.onchange = function() {
 
+    if (e.target.files[0].size > 1048576) {
+      // alert("File is too big!");
+      toast.error("Image too large. Please select a file smaller than 1 MB.");
+      return;
+    }
 
-
-      if(e.target.files[0].size > 1097152){
-         alert("File is too big!");
-         return
-      }
-  
     formData.append("img", e.target.files[0]);
     updateInfo(user._id, formData)
       .then((res) => {
-        console.log({ res });
         if (res === undefined || res === null) {
-          toast.error("Image too large");
+          toast.error(
+            "Image too large. Please select a file smaller than 1 MB."
+          );
+        } else {
+          getSingleUser(user._id).then((res1) => {
+            setUser(res1.data[0]);
+          });
         }
-        getSingleUser(user._id).then((res1) => {
-          window.localStorage.setItem("data", JSON.stringify(res1.data[0]));
-          setUser(res1.data[0]);
-        });
       })
       .catch((err) => {
         toast.error("Image too large");
@@ -152,12 +153,12 @@ const Profile = () => {
     setIsMyStrategies(true);
   };
 
-  const [showMyPlan,setShowMyPlan] = useState(false);
-  const handleShowPlan = ()=>{
+  const [showMyPlan, setShowMyPlan] = useState(false);
+  const handleShowPlan = () => {
     setIsMyStrategies(false);
     setDropdownVisible(false);
-    setShowMyPlan(prev=>!prev);
-  }; 
+    setShowMyPlan((prev) => !prev);
+  };
 
   // pincode handler
   const [cityFound, setCityFound] = React.useState(true);
@@ -320,6 +321,36 @@ const Profile = () => {
         setIsLoading(false);
       });
   };
+  const handleExpiryRoutes = (link) => {
+    if (isPlanExpired) {
+      toast.error("Subscription required");
+    } else {
+      navigate(link);
+    }
+  };
+
+  useEffect(() => {
+    const registrationTime = new Date(user?.regesterTime);
+    const today = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDiff = today - registrationTime;
+
+    // Convert the time difference from milliseconds to days
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    // check is subscription expiry
+    const expiryDate = new Date(user?.expiry);
+    const currentDate = new Date();
+
+    const timeDifference = expiryDate - currentDate;
+    const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    setDaysRemaining(daysRemaining);
+    if (daysDiff < 30 && daysRemaining <= 30) {
+      setisFreePlan(true);
+    }
+  }, [user]);
+
   return (
     <>
       <VerifyModal
@@ -333,13 +364,15 @@ const Profile = () => {
 
       <section className="profile_container pb-5 overflow-hidden">
         <div className="w-100 text-center welcomeUser mb-3">
-          {user.firstName
-            ? `${t("Welcome")}, ${user.firstName}`
+          {user?.firstName
+            ? `${t("Welcome")}, ${user?.firstName}`
             : `${t("Welcome")}`}
         </div>
 
         {/* ---------mombile profile info-------------- */}
-        <div className={`d-block d-md-none text-start mx-3 mt-3 ${styles.profileImgAndText}`}>
+        <div
+          className={`d-block d-md-none text-start mx-3 mt-3 ${styles.profileImgAndText}`}
+        >
           <div className="d-flex align-items-start prfile_pic">
             <div className="button-wrapper">
               {preview ? (
@@ -411,11 +444,20 @@ const Profile = () => {
         <div className="mx-2">
           <div className=" mx-2 d-md-none">
             <button
-              className={`change_btn d-flex justify-content-between ${istypeOptionVisible===true?styles.btnActive:""}`}
-              onClick={(e) => {setistypeoptionVisible(!istypeOptionVisible);setShowMyPlan(false);setIsMyStrategies(false)}}
+              className={`change_btn d-flex justify-content-between ${
+                istypeOptionVisible === true ? styles.btnActive : ""
+              }`}
+              onClick={(e) => {
+                setistypeoptionVisible(!istypeOptionVisible);
+                setShowMyPlan(false);
+                setIsMyStrategies(false);
+              }}
             >
-               <p className={styles.p}>{t("My strategies")}</p>
-               <Uparrow rotate={!istypeOptionVisible} fill={istypeOptionVisible?"#FFFFFF":null}/>
+              <p className={styles.p}>{t("My strategies")}</p>
+              <Uparrow
+                rotate={!istypeOptionVisible}
+                fill={istypeOptionVisible ? "#FFFFFF" : null}
+              />
               <></>
             </button>
           </div>
@@ -450,11 +492,20 @@ const Profile = () => {
         <div className="mx-2 mt-2">
           <div className=" mx-2 d-md-none">
             <button
-              className={`change_btn d-flex justify-content-between ${isMyStrategies===true?styles.btnActive:""}`}
-              onClick={(e) => {setIsMyStrategies(!isMyStrategies);setShowMyPlan(false);setistypeoptionVisible(false);}}
+              className={`change_btn d-flex justify-content-between ${
+                isMyStrategies === true ? styles.btnActive : ""
+              }`}
+              onClick={(e) => {
+                setIsMyStrategies(!isMyStrategies);
+                setShowMyPlan(false);
+                setistypeoptionVisible(false);
+              }}
             >
               <p className={styles.p}> {t("Edit Information")}</p>
-              <Uparrow rotate={!isMyStrategies} fill={isMyStrategies?"#FFFFFF":null}/>
+              <Uparrow
+                rotate={!isMyStrategies}
+                fill={isMyStrategies ? "#FFFFFF" : null}
+              />
               <></>
             </button>
           </div>
@@ -537,12 +588,10 @@ const Profile = () => {
                           {t("Saved strategies")} <span>({f})</span>
                         </button>
                       ) : (
-                        <Link to="/saveStratigy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/saveStratigy')}>
                             {t("Saved strategies")}
                             <span>({f})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -555,12 +604,10 @@ const Profile = () => {
                           <span>({l})</span>
                         </button>
                       ) : (
-                        <Link to="/favouriteStratigy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns"  onClick={()=>handleExpiryRoutes('/favouriteStratigy')}>
                             {t(`Favourite strategies`)}
                             <span>({l})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -572,11 +619,9 @@ const Profile = () => {
                           {t("Edited strategies")} <span>({e})</span>
                         </button>
                       ) : (
-                        <Link to="/user-edited-strategy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/user-edited-strategy')}>
                             {t("Edited strategies")} <span>({e})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -782,7 +827,9 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            value={liveDetails ? liveDetails?.Block : user.city}
+                            value={
+                              liveDetails ? liveDetails?.Block : user?.city
+                            }
                             name="city"
                             id="city"
                             placeholder="City"
@@ -866,7 +913,7 @@ const Profile = () => {
                               {user.country ? user.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option>{item?.name}</option>
+                              <option key={index}>{item?.name}</option>
                             ))}
                           </select>
                         ) : (
@@ -877,10 +924,10 @@ const Profile = () => {
                             name="country"
                           >
                             <option>
-                              {user.country ? user.country : "Country"}
+                              {user?.country ? user?.country : "Country"}
                             </option>
                             {country?.map((item, index) => (
-                              <option>{item?.name}</option>
+                              <option key={index}>{item?.name}</option>
                             ))}
                           </select>
                         )}
@@ -904,22 +951,55 @@ const Profile = () => {
                 </div>
               </form>
             </div>
-          ) :
-          showMyPlan === true?(<div className={styles.container}>
-          <div className={styles.planContainer}>
-            <p className={styles.title}>Subscription Plan</p>
-            <div className={styles.billParent}>
-            <div className={styles.billDataContainer}>
-              <p className={styles.greenText}>6 months plan</p>
-              <p className={styles.subtitle}>Next billing date - April 08, 2024</p>
+          ) : showMyPlan === true ? (
+            <div className={styles.container}>
+              {user?.expiry ? (
+                <div className={styles.planContainer}>
+                  <p className={styles.title}>Subscription Plan</p>
+                  <div className={styles.billParent}>
+                    <div className={styles.billDataContainer}>
+                      {daysRemaining > 0 ? (
+                        <p className={styles.subtitle}>
+                          {isFreePlan ? (
+                            <>
+                              <span className={styles.freePlanSubtitle}>
+                                Your 1 month free
+                              </span>
+                              {" plan expires in "}
+                              {daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."}
+                            </>
+                          ) : (
+                            `Plan expires in ${
+                              daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."
+                            }`
+                          )}
+                        </p>
+                      ) : (
+                        <p className={styles.expirySubTitle}>
+                          Your subscription has expired.
+                        </p>
+                      )}
+                    </div>
+
+                    <button className={styles.commonBtn}>
+                      <p
+                        className={styles.btnText}
+                        onClick={() => navigate("/subscription")}
+                      >
+                        {daysRemaining > 0 ? "Upgrade plan" : "Renew"}
+                      </p>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className={styles.noActivePlan}>No active Plan</p>
+              )}
             </div>
-            <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Upgrade plan</p>
-          </button>
-            </div>
-          </div>
-          </div>):
-          (
+          ) : (
             <div
               id="bbb"
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
@@ -939,28 +1019,52 @@ const Profile = () => {
             </div>
           )}
           {/* mobile bottom buttons */}
-            <button
-              className={`change_btn d-flex justify-content-between mx-2 md-2 d-md-none mb-2 ${showMyPlan===true?styles.btnActive:""}`}
-              onClick={(e) => {setistypeoptionVisible(false);setIsMyStrategies(false);setShowMyPlan(prev=>!prev)}}
-            >
-              <p className={styles.p}>{t("My Plans")}</p>
-              <Uparrow rotate={!showMyPlan} fill={showMyPlan?"#FFFFFF":null}/>
-              <></>
-            </button>
-          {showMyPlan === true?(<div className={styles.childContainer}>
-          <div className={styles.planContainer}>
-            <p className={styles.title}>Subscription Plan</p>
-            <div className={styles.billParent}>
-            <div className={styles.billDataContainer}>
-              <p className={styles.greenText}>6 months plan</p>
-              <p className={styles.subtitle}>Next billing date - April 08, 2024</p>
-            </div>
-            <button className={styles.commonBtn}>
-            <p className={styles.btnText}>Upgrade plan</p>
+          <button
+            className={`change_btn d-flex justify-content-between mx-2 md-2 d-md-none mb-2 ${
+              showMyPlan === true ? styles.btnActive : ""
+            }`}
+            onClick={(e) => {
+              setistypeoptionVisible(false);
+              setIsMyStrategies(false);
+              setShowMyPlan((prev) => !prev);
+            }}
+          >
+            <p className={styles.p}>{t("My Plans")}</p>
+            <Uparrow
+              rotate={!showMyPlan}
+              fill={showMyPlan ? "#FFFFFF" : null}
+            />
+            <></>
           </button>
+          {showMyPlan === true ? (
+            <div className={styles.childContainer}>
+              <div className={styles.planContainer}>
+                <p className={styles.title}>Subscription Plan</p>
+                <div className={styles.billParent}>
+                  <div className={styles.billDataContainer}>
+                    <p className={styles.greenText}>6 months plan</p>
+                    <p className={styles.subtitle}>
+                      Next billing date - April 08, 2024
+                    </p>
+                  </div>
+                  <button className={styles.commonBtn}>
+                    <p className={styles.btnText}>Upgrade plan</p>
+                  </button>
+                </div>
+              </div>
+              <button
+                style={{
+                  width: "fit-content",
+                  height: "28px",
+                  marginLeft: "10px",
+                  marginBottom: "8px",
+                }}
+                className={styles.commonBtn}
+              >
+                <p className={styles.btnText}>Cancel Subscription</p>
+              </button>
             </div>
-          </div>
-          </div>):null}
+          ) : null}
           <button
             onClick={handleForgotShow}
             className="change_btn mx-2   d-md-none"

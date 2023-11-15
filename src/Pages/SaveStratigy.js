@@ -1,39 +1,27 @@
-import { Buffer } from "buffer";
 import React, { useState } from "react";
-import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import Filter from "../asstes/Filter.svg";
-import UserImage from "../asstes/Group 51.svg";
-import ChatIcon from "../asstes/icons/chat.svg";
 import FilterHover from "../asstes/icons/filter_icon.svg";
-import KnowledgeIcon from "../asstes/icons/knowledge.svg";
-import Physical from "../asstes/icons/Motor-Physical.png";
-import OfflineIcon from "../asstes/icons/offline.svg";
-import OnlineIcon from "../asstes/icons/online.svg";
-import SaveIcon from "../asstes/icons/Save.svg";
-import SavedIcon from "../asstes/icons/Saved.svg";
-import Social from "../asstes/icons/Socio-Emotional-Ethical.png";
 import FilterStr from "../Components/Home/FilterStr";
 import { useAuth } from "../Context/AuthContext";
 import { getMultitHiStr } from "../services/hindiStratigys";
 import { getMultitStr } from "../services/stratigyes";
-import { delUserSaves, getSaves, postSaves } from "../services/userSaves";
+import {  getSaves } from "../services/userSaves";
 import { getMultiUsertStr } from "../services/userStratigy";
 import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
-import FilterStrHi from "../Components/Home/FilterStrHI";
 import backArrow from "../asstes/icons/backArrow.svg";
 
 const SaveStratigy = () => {
-  const { user, setUser, stratigyFilData,strategyNum, setstrategyNum} = useAuth();
+  const { user, stratigyFilData, setstrategyNum} = useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveUserStratigy, setSaveUserStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyi] = useState([]);
   const [saveStratigyHiUser, setSaveStratigyiUser] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
-  const [react, setReact] = React.useState(user ? user?.saveId : []);
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const language = localStorage.getItem("i18nextLng");
@@ -96,73 +84,9 @@ const SaveStratigy = () => {
         setSaveStratigy([]);
         setSaveUserStratigy([]);
       });
-  }, [languageSelect]);
+  }, [languageSelect,user]);
 
-  const handleApiSaves = (id) => {
-    const data = {
-      strategie_id: id,
-      user_id: user._id,
-    };
-    postSaves(data).then((res) => {
-      getSaves().then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-        const savesId = saves?.map((ress) => ress.strategie_id);
-        setSave(saves?.map((ress) => ress.strategie_id));
-        if (languageSelect === "en") {
-          getMultitStr(savesId)
-            .then((res) => {
-              setSaveStratigy(res.data);
-            })
-            .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
-            .then((res) => {
-              setSaveUserStratigy(res.data);
-            })
-            .catch((err) => setSaveUserStratigy([]));
-        } else {
-          getMultitHiStr(savesId).then((res) => {
-            setSaveStratigyi(res.data);
-          });
-          getMultiUserHindiStr(savesId).then((res) => {
-            setSaveStratigyiUser(res.data);
-          });
-        }
-      });
-    });
-  };
-  const handleApiUnSaves = (id) => {
-    delUserSaves(id).then((res) => {
-      getSaves().then((res) => {
-        const saves = res?.data?.filter((ress) => ress.user_id === user._id);
-        const savesId = saves?.map((ress) => ress.strategie_id);
-        setSave(saves?.map((ress) => ress.strategie_id));
-        if (languageSelect === "en") {
-          getMultitStr(savesId)
-            .then((res) => {
-              setSaveStratigy(res.data);
-            })
-            .catch((err) => setSaveStratigy([]));
-          getMultiUsertStr(savesId)
-            .then((res) => {
-              setSaveUserStratigy(res.data);
-            })
-            .catch((err) => setSaveUserStratigy([]));
-        } else {
-          getMultitHiStr(savesId).then((res) => {
-            setSaveStratigyi(res.data);
-          });
-          getMultiUserHindiStr(savesId).then((res) => {
-            setSaveStratigyiUser(res.data);
-          });
-        }
-      });
-    });
-  };
-  const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {user.firstName}
-    </Tooltip>
-  );
+
   const handleBackClick = () => {
     window.history.go(-1);
   };
@@ -177,7 +101,7 @@ const SaveStratigy = () => {
             </button>
             <hr className="line" />
             <span className="text-center headText w-50 d-none d-md-block">
-              {user.firstName} {user.lastName}
+              {user?.firstName} {user?.lastName}
               {t("’s")} {t("Saved Strategies")}
             </span>
             <div className="filter_btn_container d-flex justify-content-end position-absolute">
@@ -210,7 +134,7 @@ const SaveStratigy = () => {
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
                       <div className="d-flex justify-content-between  my-0 my-md-4 flex-column outcomeList " onClick={()=>setstrategyNum(index+1)} >
-                        {location.pathname != "/profile" && (
+                        {location.pathname !== "/profile" && (
                           <Link to={`/single/${res._id}`} className="linkStyle">
                             <div className="me-1">
                               <div>
@@ -252,7 +176,7 @@ const SaveStratigy = () => {
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
                       <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
-                        {location.pathname != "/profile" && (
+                        {location.pathname !== "/profile" && (
                           <Link
                             to={`/singleUserStratigy/${data._id}`}
                             className="linkStyle"
@@ -302,7 +226,7 @@ const SaveStratigy = () => {
                   <div className="card_pad">
                     <div className=" mt-2  mb-0 my-md-4">
                       <div className="d-flex justify-content-between my-0 my-md-4 flex-column outcomeList" onClick={()=>setstrategyNum(index+1)}>
-                        {location.pathname != "/profile" && (
+                        {location.pathname !== "/profile" && (
                           <Link
                             to={`/single/${data._id}`}
                             className="linkStyle"
@@ -394,7 +318,7 @@ const SaveStratigy = () => {
         </>
       ) : (
         <>
-          {location.pathname != "/profile" && (
+          {location.pathname !== "/profile" && (
             <div className="newSaveStrParent">
               <div className="row py-2">
                 <div className="col-md-1"></div>

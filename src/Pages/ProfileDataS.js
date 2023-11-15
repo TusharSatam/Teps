@@ -20,9 +20,11 @@ import "./styles/saveStratigy.css";
 import "./styles/profileData.css";
 import FilterStrHi from "../Components/Home/FilterStrHI";
 import { getSingleUser } from "../services/dashboardUsers";
+import toast from "react-hot-toast";
 
 const ProfileDataS = ({ setNumber }) => {
-  const { user, setUser, stratigyFilData, setstrategyNum } = useAuth();
+  const { user, setUser, stratigyFilData, setstrategyNum, isPlanExpired } =
+    useAuth();
   const [filetr, setFilter] = useState(false);
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -86,8 +88,7 @@ const ProfileDataS = ({ setNumber }) => {
             const strategies = res?.data?.map((obj) => obj._id);
             setSave(strategies);
             getMultiUsertStr(savesId)
-            
-            .then((res2) => {
+              .then((res2) => {
                 const idList = res2?.data?.map((obj) => obj?._id);
                 setSpecialLinkArr((prev) => [...prev, ...idList]);
                 setSaveStratigy((prev) => [...prev, ...res2.data]);
@@ -206,7 +207,12 @@ const ProfileDataS = ({ setNumber }) => {
         <>
           <div
             onClick={() => {
-              setCollapse((prev) => !prev);
+              if (isPlanExpired) {
+                toast.error("Subscription required");
+                return;
+              } else {
+                setCollapse((prev) => !prev);
+              }
             }}
             className={collapse ? "saveStrParent" : "saveStrParentActive"}
           >
@@ -338,7 +344,12 @@ const ProfileDataS = ({ setNumber }) => {
         <>
           <div
             onClick={() => {
-              setCollapse((prev) => !prev);
+              if (isPlanExpired) {
+                toast.error("Subscription required");
+                return;
+              } else {
+                setCollapse((prev) => !prev);
+              }
             }}
             className={collapse ? "saveStrParent" : "saveStrParentActive"}
           >

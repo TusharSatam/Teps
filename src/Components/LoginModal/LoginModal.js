@@ -25,6 +25,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
   const [inputotp, setInputotp] = useState(["", "", "", "", ""]);
   const [OTP, setOTP] = useState(0);
   const inputRefs = useRef([]);
+  const {isPlanExpired} = useAuth();
 
   const handleGetOTP = (e) => {
     if (phoneValue.length < 10) {
@@ -135,26 +136,42 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
         .then((res) => {
           if (res) {
             if (res?.data?.varified) {
+              console.log("yaha hu 1");
               setIsLoading(false);
               setShow(false);
               setUser(res.data);
               setIsAuthenticated(true);
               window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
-              window.localStorage.setItem("data", JSON.stringify(res.data));
+              window.localStorage.setItem("userID", res?.data._id);
               let localstorageData;
               if (
                 localStorage.getItem("i18nextLng") === "en-US" ||
                 localStorage.getItem("i18nextLng") === "en"
               ) {
+              console.log("yaha hu 2")
+
                 localstorageData = localStorage.getItem("selectedDropdown");
               } else {
+              console.log("yaha hu 3");
+
                 localstorageData = localStorage.getItem("selectedHiDropdown");
               }
               if (isnavigateUploadPage == true) {
                 navigate("/addform");
+              console.log("yaha hu 4");
+
               } else if (localstorageData === null) {
+              console.log("yaha hu 5");
+
                 navigate("/home");
               } else if (localstorageData != null) {
+              console.log("yaha hu 6");
+
+                if(isPlanExpired){
+                  navigate("/home");
+              console.log("yaha hu 7");
+
+                }
                 navigate("/search");
               }
               resetModalState();
@@ -206,7 +223,7 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
             setUser(res.data);
             setIsAuthenticated(true);
             window.localStorage.setItem("jwt", JSON.stringify(res.jwt));
-            window.localStorage.setItem("data", JSON.stringify(res.data));
+            window.localStorage.setItem("userID", res?.data._id);
             let localstorageData;
             if (
               localStorage.getItem("i18nextLng") === "en-US" ||

@@ -21,9 +21,10 @@ import { Spinner } from "react-bootstrap";
 import "./styles/profileData.css";
 import FilterStrHI from "../Components/Home/FilterStrHI";
 import { getSingleUser } from "../services/dashboardUsers";
+import toast from "react-hot-toast";
 
 const ProfileDataF = ({ setNumber }) => {
-  const { user, setUser, stratigyFilData,setstrategyNum  } = useAuth();
+  const { user, setUser, stratigyFilData,setstrategyNum,isPlanExpired  } = useAuth();
   const [favStratigy, setFavStratigy] = useState([]);
   const [favStratigyHi, setFavStratigyHi] = useState([]);
   const [languageSelect, setLanguageSelect] = React.useState("en");
@@ -224,9 +225,14 @@ const ProfileDataF = ({ setNumber }) => {
       {languageSelect === "en" ? (
         <>
           <div
-            onClick={() => {
-              setCollapse((prev) => !prev);
-            }}
+                onClick={() => {
+                  if (isPlanExpired) {
+                    toast.error("Subscription required");
+                    return;
+                  } else {
+                    setCollapse((prev) => !prev);
+                  }
+                }}
             className={collapse ? "saveStrParent" : "saveStrParentActive"}
           >
             <div className="row py-2 align-items-center" id="div1">
@@ -349,9 +355,14 @@ const ProfileDataF = ({ setNumber }) => {
       ) : (
         <>
           <div
-            onClick={() => {
-              setCollapse((prev) => !prev);
-            }}
+                  onClick={() => {
+                    if (isPlanExpired) {
+                      toast.error("Subscription required");
+                      return;
+                    } else {
+                      setCollapse((prev) => !prev);
+                    }
+                  }}
             className={collapse ? "saveStrParent" : "saveStrParentActive"}
           >
             <div className="row py-2 align-items-center" id="div1">
