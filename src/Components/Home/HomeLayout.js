@@ -15,7 +15,9 @@ import {
   getAllSuperTopics,
   getAllTopics,
 } from "../../services/dropdowns";
+import toast, { Toaster } from "react-hot-toast";
 const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
+
   const { t } = useTranslation();
   const [allStratigys, setAllStratigys] = React.useState([]);
   const [allUserStratigys, setAllUserStratigys] = React.useState([]);
@@ -50,6 +52,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     allStrategies,
     allUserStrategies,
     loadingdropdown,
+    isPlanExpired
   } = useAuth();
   useEffect(() => {
     const selectedDropdown = localStorage.getItem("selectedDropdown");
@@ -274,6 +277,10 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
 
 
   const handleFindStratigys = async () => {
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }
     // accordion collapse and remove checkbox
     setAccorKey();
     let isUserExist = localStorage.getItem("jwt");
@@ -485,6 +492,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   };
   return uniqueGrade ? (
     <>
+    <Toaster/>
       <div
         className={
           location.pathname === "/saveStratigy" ||

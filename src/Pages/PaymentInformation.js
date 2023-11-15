@@ -10,6 +10,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { getSingleUser } from "../services/dashboardUsers";
+import { ccavenuePayment } from "../services/payment";
 
 const PaymentInformation = () => {
   const [selectedOption, setSelectedOption] = useState("option3"); // State to keep track of the selected radio option.
@@ -105,18 +106,51 @@ const PaymentInformation = () => {
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
+//?razorpay gateway
+  // const handlePayment = async () => {
+  //   try {
+  //     const orderUrl = "http://43.205.39.232/api/payment/order";
+  //     const { data } = await axios.post(orderUrl, {
+  //       amount: selectedOptionData.price,
+  //     });
+  //     initPayment(data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+//?ccavenue gateway
 
   const handlePayment = async () => {
     try {
-      const orderUrl = "http://43.205.39.232/api/payment/order";
-      const { data } = await axios.post(orderUrl, {
-        amount: selectedOptionData.price,
-      });
-      initPayment(data.data);
+      const data = {
+        orderParams: {
+          order_id: `${user?._id}_${Math.floor(10000 + Math.random() * 90000)}`,
+          amount: selectedOptionData?.price,
+          language: "en",
+        },
+        User_id: user?._id,
+        duration: selectedOptionData?.Days,
+      };
+      const response = await ccavenuePayment(data);
+      console.log(response)
+      const payLink = response?.data.payLink;
+      if (payLink) {
+        window.open(payLink, '_blank');
+      } else {
+        console.error('Failed to get payment link from the server.');
+      }
     } catch (error) {
-      console.log(error);
+      console.error('Error initiating payment:', error.message);
     }
   };
+  
+  
+  
+  
+  
+  
+  
+  
 
   return (
     <div className={styles.paymentInfos}>

@@ -35,7 +35,7 @@ import CopySvg from "../Components/CommonSvgs/CopySvg";
 import toast, { Toaster } from "react-hot-toast";
 
 const SingleStr = () => {
-  const { user, seteditStrategyFormData, strategyNum,setselectedResource } = useAuth();
+  const { user, seteditStrategyFormData, strategyNum,setselectedResource,isPlanExpired } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -201,8 +201,14 @@ const SingleStr = () => {
     }
   };
   const handleEditStrategy = async () => {
-    await seteditStrategyFormData(str);
-    navigate(`/editStrategyform/${str._id}`);
+      if(isPlanExpired){
+        toast.error("Subscription required")
+        return
+      }
+      else{
+        await seteditStrategyFormData(str);
+        navigate(`/editStrategyform/${str._id}`);
+      }
   };
   const handleUsedStrategy = () => {
     setisUsedStrategy(true);
@@ -211,8 +217,14 @@ const SingleStr = () => {
     setisUsedStrategy(false);
   };
   const handleExplore = (resource) => {
-    setselectedResource(resource)
-    navigate("/resources");
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }else{
+
+      setselectedResource(resource)
+      navigate("/resources");
+    }
   };
   const handleDeleteUsedStrategy = async () => {
     const dataToSend = {

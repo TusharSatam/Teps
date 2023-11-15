@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import { getSingleUser, updateUser } from "../services/dashboardUsers";
-import emailjs from "@emailjs/browser";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 
@@ -79,9 +78,7 @@ const Verify = () => {
                 {alredyVeridyd ? "Already Verified!" : " Verification success!"}
               </h3>
             </div>
-            {/* <Link to="/home">
-              <button>Proceed to the homepage and log in to continue.</button>
-            </Link> */}
+           
           </div>
         )
       )}

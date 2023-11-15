@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DownArrow from "../asstes/icons/DownArrow.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
@@ -39,7 +39,7 @@ import { singleUserEnStratigys } from "../services/userStratigy";
 
 const SingleUserStr = () => {
 
-  const { user, seteditStrategyFormData,strategyNum,setselectedResource } = useAuth();
+  const { user, seteditStrategyFormData,strategyNum,setselectedResource,isPlanExpired } = useAuth();
   const [str, setStr] = React.useState([]);
   const [comment, setComment] = React.useState([]);
   const [seeComment, setSeecomment] = React.useState(false);
@@ -209,8 +209,14 @@ const SingleUserStr = () => {
     }
   };
   const handleEditStrategy = async () => {
-    await seteditStrategyFormData(str);
-    navigate(`/editStrategyform/${str._id}/user`);
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }
+    else{
+      await seteditStrategyFormData(str);
+      navigate(`/editStrategyform/${str._id}/user`);
+    }
   };
   const handleUsedStrategy = () => {
     setisUsedStrategy(true);
@@ -298,12 +304,25 @@ const handleDeleteUsedStrategy=async()=>{
   };
 
   const handleExplore = (resource) => {
+    if(isPlanExpired){
+      toast.error("Subscription required")
+      return
+    }
     if(resource){
       console.log(resource);
       setselectedResource(resource)
     }
     navigate("/resources");
   };
+
+  const handleExpiryRoute = (link) => {
+    if (isPlanExpired) {
+      toast.error("Subscription required");
+    } else {
+      navigate(link);
+    }
+  };
+
   return (
     <div>
       {isFecthing?<LoadingCarousel/>:null}
@@ -355,7 +374,7 @@ const handleDeleteUsedStrategy=async()=>{
                         )}
                       </p>
                     </div>
-                    <div className="userdetailsBox">
+                    <button className="userdetailsBox" onClick={()=>handleExpiryRoute(`/profile/${uploader?._id}`)}>
                       Strategy created by {uploader.firstName}{" "}
                       {uploader.image ? (
                         <img
@@ -379,7 +398,7 @@ const handleDeleteUsedStrategy=async()=>{
                           alt="image"
                         />
                       )}
-                    </div>
+                    </button>
                     {str["Pedagogical Approach"] && (
                       <div className="mb-md-1 ">
                         <i className="pedalogicalText">

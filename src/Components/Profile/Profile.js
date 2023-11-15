@@ -41,7 +41,7 @@ const language = localStorage.getItem("i18nextLng");
 
 const Profile = () => {
   const { t } = useTranslation();
-  const { user, setUser } = useAuth();
+  const { user, setUser, isPlanExpired } = useAuth();
   const [forgot, setForgot] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
@@ -67,6 +67,8 @@ const Profile = () => {
   const { logout } = useAuth();
   const [pincode, setPincode] = useState(user?.pincode);
   const [email, setEmail] = useState(user?.email);
+  const [daysRemaining, setDaysRemaining] = useState(null);
+  const [isFreePlan, setisFreePlan] = useState(false);
   const navigate = useNavigate();
 
   const handleForgotShow = () => {
@@ -74,7 +76,6 @@ const Profile = () => {
   };
 
   const handleProfile = (e) => {
-    console.log({ e });
     setPreview(URL.createObjectURL(e.target.files[0]));
 
     let formData = new FormData();
@@ -90,9 +91,10 @@ const Profile = () => {
     updateInfo(user._id, formData)
       .then((res) => {
         if (res === undefined || res === null) {
-          toast.error("Image too large. Please select a file smaller than 1 MB.");
-        }
-        else{
+          toast.error(
+            "Image too large. Please select a file smaller than 1 MB."
+          );
+        } else {
           getSingleUser(user._id).then((res1) => {
             setUser(res1.data[0]);
           });
@@ -319,6 +321,36 @@ const Profile = () => {
         setIsLoading(false);
       });
   };
+  const handleExpiryRoutes = (link) => {
+    if (isPlanExpired) {
+      toast.error("Subscription required");
+    } else {
+      navigate(link);
+    }
+  };
+
+  useEffect(() => {
+    const registrationTime = new Date(user?.regesterTime);
+    const today = new Date();
+
+    // Calculate the time difference in milliseconds
+    const timeDiff = today - registrationTime;
+
+    // Convert the time difference from milliseconds to days
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    // check is subscription expiry
+    const expiryDate = new Date(user?.expiry);
+    const currentDate = new Date();
+
+    const timeDifference = expiryDate - currentDate;
+    const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    setDaysRemaining(daysRemaining);
+    if (daysDiff < 30 && daysRemaining <= 30) {
+      setisFreePlan(true);
+    }
+  }, [user]);
+
   return (
     <>
       <VerifyModal
@@ -556,12 +588,10 @@ const Profile = () => {
                           {t("Saved strategies")} <span>({f})</span>
                         </button>
                       ) : (
-                        <Link to="/saveStratigy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/saveStratigy')}>
                             {t("Saved strategies")}
                             <span>({f})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -574,12 +604,10 @@ const Profile = () => {
                           <span>({l})</span>
                         </button>
                       ) : (
-                        <Link to="/favouriteStratigy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns"  onClick={()=>handleExpiryRoutes('/favouriteStratigy')}>
                             {t(`Favourite strategies`)}
                             <span>({l})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -591,11 +619,9 @@ const Profile = () => {
                           {t("Edited strategies")} <span>({e})</span>
                         </button>
                       ) : (
-                        <Link to="/user-edited-strategy">
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/user-edited-strategy')}>
                             {t("Edited strategies")} <span>({e})</span>
                           </button>
-                        </Link>
                       )}
                     </div>
                     <div>
@@ -801,7 +827,9 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            value={liveDetails ? liveDetails?.Block : user?.city}
+                            value={
+                              liveDetails ? liveDetails?.Block : user?.city
+                            }
                             name="city"
                             id="city"
                             placeholder="City"
@@ -930,26 +958,45 @@ const Profile = () => {
                   <p className={styles.title}>Subscription Plan</p>
                   <div className={styles.billParent}>
                     <div className={styles.billDataContainer}>
-                      <p className={styles.greenText}>6 months plan</p>
-                      <p className={styles.subtitle}>
-                        Next billing date -{" "}
-                        {user?.expiry ? formatExpiryDate(user.expiry) : ""}
-                      </p>
+                      {daysRemaining > 0 ? (
+                        <p className={styles.subtitle}>
+                          {isFreePlan ? (
+                            <>
+                              <span className={styles.freePlanSubtitle}>
+                                Your 1 month free
+                              </span>
+                              {" plan expires in "}
+                              {daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."}
+                            </>
+                          ) : (
+                            `Plan expires in ${
+                              daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."
+                            }`
+                          )}
+                        </p>
+                      ) : (
+                        <p className={styles.expirySubTitle}>
+                          Your subscription has expired.
+                        </p>
+                      )}
                     </div>
+
                     <button className={styles.commonBtn}>
                       <p
                         className={styles.btnText}
                         onClick={() => navigate("/subscription")}
                       >
-                        Upgrade plan
+                        {daysRemaining > 0 ? "Upgrade plan" : "Renew"}
                       </p>
                     </button>
                   </div>
                 </div>
               ) : (
-                <p className={styles.noActivePlan}>
-                  No active Plan
-                </p>
+                <p className={styles.noActivePlan}>No active Plan</p>
               )}
             </div>
           ) : (

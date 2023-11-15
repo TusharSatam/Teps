@@ -14,8 +14,9 @@ import { getMultiUserHindiStr } from "../services/userStratigyHi";
 import "./styles/saveStratigy.css";
 import { getEdits } from "../services/userEdited";
 import { getSingleUser } from "../services/dashboardUsers";
+import toast from "react-hot-toast";
 const ProfileDataE = ({ setNumber }) => {
-  const { user, stratigyFilData,setstrategyNum  } = useAuth();
+  const { user, stratigyFilData, setstrategyNum,isPlanExpired } = useAuth();
 
   const [saveStratigy, setSaveStratigy] = useState([]);
   const [saveStratigyHi, setSaveStratigyHi] = useState([]);
@@ -63,7 +64,6 @@ const ProfileDataE = ({ setNumber }) => {
         });
     }
     if (languageSelect === "hi") {
-
       getHindiStratigysEditedbyUser(currentPageUserDetails?._id)
         .then((res) => {
           setSaveStratigyHi(res);
@@ -76,8 +76,7 @@ const ProfileDataE = ({ setNumber }) => {
         });
       // hindi api call
     }
-
-  }, [languageSelect,currentPageUserDetails]);
+  }, [languageSelect, currentPageUserDetails]);
 
   const [showAll, setShowAll] = useState(false);
   const displayCount = showAll
@@ -100,7 +99,14 @@ const ProfileDataE = ({ setNumber }) => {
         {languageSelect === "en" ? (
           <>
             <div
-              onClick={() => setCollapse((prev) => !prev)}
+              onClick={() => {
+                if (isPlanExpired) {
+                  toast.error("Subscription required");
+                  return;
+                } else {
+                  setCollapse((prev) => !prev);
+                }
+              }}
               className={collapse ? "saveStrParent" : "saveStrParentActive"}
             >
               <div className="row py-2 align-items-center" id="div1">
@@ -172,13 +178,15 @@ const ProfileDataE = ({ setNumber }) => {
                     <p className="savestr_body">
                       {res["Teaching Strategy"].slice(0, 150) + "..."}
                     </p>
-                    <Link to={`/singleUserStratigy/${res?._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
+                    <Link
+                      to={`/singleUserStratigy/${res?._id}`}
+                      id="pgnw"
+                      onClick={() => setstrategyNum(index + 1)}
+                    >
                       Read More...
                     </Link>
                     <div className="saveLikebtn">
-                      <Link
-                        to={`/editStrategyform/${res._id}/user`}
-                      >
+                      <Link to={`/editStrategyform/${res._id}/user`}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="16"
@@ -221,7 +229,14 @@ const ProfileDataE = ({ setNumber }) => {
         ) : (
           <>
             <div
-              onClick={() => setCollapse((prev) => !prev)}
+              onClick={() => {
+                if (isPlanExpired) {
+                  toast.error("Subscription required");
+                  return;
+                } else {
+                  setCollapse((prev) => !prev);
+                }
+              }}
               className={collapse ? "saveStrParent" : "saveStrParentActive"}
             >
               <div className="row py-2 align-items-center" id="div1">
@@ -289,33 +304,35 @@ const ProfileDataE = ({ setNumber }) => {
               <div>
                 {saveStratigyHi?.slice(0, displayCount).map((res, index) => (
                   <div key={index} className="cardContainer">
-                  <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
-                  <p className="savestr_body">
-                    {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
-                  </p>
-                  <Link to={`/singleHi/${res._id}`} id="pgnw"  onClick={()=>setstrategyNum(index+1)}>
-                    Read More...
-                  </Link>
-                  <div className="saveLikebtn">
+                    <p id="bswm">{res["शिक्षण के परिणाम"]}</p>
+                    <p className="savestr_body">
+                      {res["शिक्षण रणनीति"].slice(0, 150) + "..."}
+                    </p>
                     <Link
-                      to={`/editStrategyform/${res._id}/user`}
+                      to={`/singleHi/${res._id}`}
+                      id="pgnw"
+                      onClick={() => setstrategyNum(index + 1)}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                      >
-                        <path
-                          d="M3.33333 12.6673H4.26667L10.0167 6.91732L9.08333 5.98398L3.33333 11.734V12.6673ZM12.8667 5.95065L10.0333 3.15065L10.9667 2.21732C11.2222 1.96176 11.5362 1.83398 11.9087 1.83398C12.2811 1.83398 12.5949 1.96176 12.85 2.21732L13.7833 3.15065C14.0389 3.40621 14.1722 3.71465 14.1833 4.07598C14.1944 4.43732 14.0722 4.74554 13.8167 5.00065L12.8667 5.95065ZM11.9 6.93398L4.83333 14.0007H2V11.1673L9.06667 4.10065L11.9 6.93398ZM9.55 6.45065L9.08333 5.98398L10.0167 6.91732L9.55 6.45065Z"
-                          fill="#1AA05B"
-                        />
-                      </svg>
+                      Read More...
                     </Link>
+                    <div className="saveLikebtn">
+                      <Link to={`/editStrategyform/${res._id}/user`}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M3.33333 12.6673H4.26667L10.0167 6.91732L9.08333 5.98398L3.33333 11.734V12.6673ZM12.8667 5.95065L10.0333 3.15065L10.9667 2.21732C11.2222 1.96176 11.5362 1.83398 11.9087 1.83398C12.2811 1.83398 12.5949 1.96176 12.85 2.21732L13.7833 3.15065C14.0389 3.40621 14.1722 3.71465 14.1833 4.07598C14.1944 4.43732 14.0722 4.74554 13.8167 5.00065L12.8667 5.95065ZM11.9 6.93398L4.83333 14.0007H2V11.1673L9.06667 4.10065L11.9 6.93398ZM9.55 6.45065L9.08333 5.98398L10.0167 6.91732L9.55 6.45065Z"
+                            fill="#1AA05B"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                    <div className="d-flex flex-column align-items-center justify-content-center"></div>
                   </div>
-                  <div className="d-flex flex-column align-items-center justify-content-center"></div>
-                </div>
                 ))}
                 {!showAll && saveStratigyHi.length > 2 ? (
                   <div
