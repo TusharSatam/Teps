@@ -308,8 +308,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
           );
 
           const aquaticCreatures = filterData?.data;
-        const aquaticCreaturesUser = allUserStratigys.filter(function (
-          creature
+          const aquaticCreaturesUser = allUserStratigys.filter(function (
+            creature
         ) {
           return (
             creature.Subject === selectSubject &&
@@ -318,8 +318,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
             creature["Super Topic"] === selectSuperTopic &&
             creature["Sub Topic"] === selectSubTopic &&
             creature["Sub-sub topic"] === selectSubSubTopic
-          );
-        });
+            );
+          });
         if (aquaticCreatures) {
           window.localStorage.setItem(
             "filterData",

@@ -97,7 +97,6 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
               : "d-flex align-items-center"
           }
         >
-          {/* // Todo:temporary commented this button (client request) */}
           {/* <div className={/(^\/(profile|user-created-strategy|user-edited-strategy|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
           <LanguageSelect />
         </div> */}

@@ -71,9 +71,9 @@ const EditResource = ({
         </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center">
-            <form className="ms-md-3 ms-xxl-5" onSubmit={handleUpdate}>
+            <form className="ms-md-3 ms-xxl-5 d-flex flex-column gap-3" onSubmit={handleUpdate}>
             <div>
-                <label htmlFor="image">Image</label>
+                <label className="mr-2" htmlFor="image">Image</label>
                 <img src={formData?.image} alt="image" height={"30px"} width={"30px"}/>
                 <input
                   type="file"
@@ -83,8 +83,9 @@ const EditResource = ({
                   onChange={handleImageChange}
                 />
               </div>
+                <small>Image size must be less than 1MB</small>
               <div>
-                <label htmlFor="title">Title</label>
+                <label className="mr-2" htmlFor="title">Title</label>
                 <input
                   type="text"
                   id="title"
@@ -94,7 +95,7 @@ const EditResource = ({
                 />
               </div>
               <div>
-                <label htmlFor="paragraph">Description</label>
+                <label className="mr-2" htmlFor="paragraph">Description</label>
                 <textarea
                   id="paragraph"
                   name="paragraph"
@@ -103,7 +104,7 @@ const EditResource = ({
                 />
               </div>
               <div>
-                <label htmlFor="category">Category</label>
+                <label className="mr-2" htmlFor="category">Category</label>
                 <input
                   type="text"
                   id="category"
@@ -113,7 +114,7 @@ const EditResource = ({
                 />
               </div>
               <div>
-                <label htmlFor="link_to_readmore">Link</label>
+                <label className="mr-2" htmlFor="link_to_readmore">Link</label>
                 <input
                   type="text"
                   id="link_to_readmore"

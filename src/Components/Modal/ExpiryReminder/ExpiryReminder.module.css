@@ -1,0 +1,80 @@
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+}
+.buttons h1 {
+  color: #000;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.closeButton{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+.buttons .primaryButton {
+  display: flex;
+  width: 230px;
+  height: 46px;
+  padding: 16px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: var(--brand-color-green, #1aa05b);
+  border: none;
+  color: var(--grey-white, var(--background-white, #fff));
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.3) inset,
+    0px 4px 8px 0px rgba(26, 160, 91, 0.2), 4px 6px 14px 0px #3ae48d inset;
+}
+.buttons .secondaryButton {
+  display: flex;
+  width: 230px;
+  height: 46px;
+  padding: 16px 24px;
+  color: var(--brand-color-green, #1aa05b);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  border: 1px solid var(--brand-color-green, #1aa05b);
+  background: #fff;
+  box-shadow: -12px -12px 14px 0px rgba(213, 213, 213, 0.82) inset;
+  border: none;
+}
+
+@media screen and (max-width: 767px) {
+    .closeButton{
+        position: absolute;
+        top: 2%;
+        right: 5%;
+    }
+    .buttons h1{
+        font-size: 14px;
+    }
+    .buttons .primaryButton,.buttons .secondaryButton {
+        width: 180px;
+        height: 40px;
+        font-size: 14px;
+    }
+}

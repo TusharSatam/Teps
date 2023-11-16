@@ -26,19 +26,22 @@ const AuthProvider = ({ children }) => {
   const [editStrategyFormData, seteditStrategyFormData] = useState([]);
   const [showStrategyCheckboxes, setShowStrategyCheckboxes] = useState(false);
   const [checkBoxes, setCheckBoxes] = useState([]);
-  const [checkBoxesH,setCheckBoxesH] = useState([]);
-  const [ownCheckBox,setOwnCheckBox] = useState(false);
-  const [selectedResource, setselectedResource] = useState("")
-  const [selectedPaymentCard, setselectedPaymentCard] = useState({})
-  const [isPlanExpired, setisPlanExpired] = useState(false)
+  const [checkBoxesH, setCheckBoxesH] = useState([]);
+  const [ownCheckBox, setOwnCheckBox] = useState(false);
+  const [selectedResource, setselectedResource] = useState("");
+  const [selectedPaymentCard, setselectedPaymentCard] = useState({});
+  const [isPlanExpired, setisPlanExpired] = useState(false);
   useEffect(() => {
-    console.log({user});
-    if (new Date(formatExpiryDate(user?.expiry)) < new Date() || !user || !user.expiry) {
-      setisPlanExpired(true)
-    }else{
-      setisPlanExpired(false)
+    if (
+      new Date(formatExpiryDate(user?.expiry)) < new Date() ||
+      !user ||
+      !user.expiry
+    ) {
+      setisPlanExpired(true);
+    } else {
+      setisPlanExpired(false);
     }
-  }, [user])
+  }, [user]);
 
   // Fetch and cache data
   useEffect(() => {
@@ -48,14 +51,13 @@ const AuthProvider = ({ children }) => {
         // Check if the data is already cached
         if (allStrategies.length === 0 || allUserStrategies.length === 0) {
           const allStrategiesResponse = await getAllStratigys();
-          const userStrategiesResponse = await getUserStratigys();
+          let userStrategiesResponse = await getUserStratigys();
+          userStrategiesResponse = userStrategiesResponse?.data?.filter(
+            (res) => res.Approve === true && res.isPublic === true
+          );
 
           setAllStrategies(allStrategiesResponse.data);
-          setAllUserStrategies(
-            userStrategiesResponse.data?.filter(
-              (res) => res.Approve === true && res.isPublic === true
-            )
-          );
+          setAllUserStrategies(userStrategiesResponse);
         }
         setLoadingdropdown(false);
       } catch (error) {
@@ -112,7 +114,6 @@ const AuthProvider = ({ children }) => {
         }
       });
     }
-
   }, []);
 
   React.useEffect(() => {
