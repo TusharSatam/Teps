@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../asstes/TEPSlogo.png";
-import ResLogo from "../../asstes/res-logo.svg";
 import { Buffer } from "buffer";
 import { useAuth } from "../../Context/AuthContext";
 import LoginModal from "../LoginModal/LoginModal";
 import SignUpModal from "../SignUpModal/SignUpModal";
 import defaulProfile from "../../asstes/icons/defaultProfileIcon.svg";
 import userLogo from "../../asstes/user.svg";
-import saveLogo from "../../asstes/save.svg";
-import favLogo from "../../asstes/favourite.svg";
 import signoutLogo from "../../asstes/signOut.svg";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import LanguageSelect from "../../languageSelect";
 import { useTranslation } from "react-i18next";
-import LeftArrow from "../../asstes/left-arrow.svg";
 const Navbar = ({ displayProfile, setDisplayProfile }) => {
   const location = useLocation();
   const { t } = useTranslation();

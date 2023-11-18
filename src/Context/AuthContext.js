@@ -33,13 +33,12 @@ const AuthProvider = ({ children }) => {
   const [isPlanExpired, setisPlanExpired] = useState(false);
   useEffect(() => {
     if (
-      new Date(formatExpiryDate(user?.expiry)) < new Date() ||
-      !user ||
-      !user.expiry
+      !new Date(formatExpiryDate(user?.expiry)) < new Date() ||
+      user?.expiry
     ) {
-      setisPlanExpired(true);
-    } else {
       setisPlanExpired(false);
+    } else {
+      setisPlanExpired(true);
     }
   }, [user]);
 

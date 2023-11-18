@@ -103,7 +103,7 @@ const EmailTemplate = () => {
         </div>
       </div>
       <Editor
-        apiKey="v8kz64f7joij68jmriuko8nb7cuby5xx4xqvucpwhs9ck6zp"
+        apiKey="gncbx8684jvtsslvpsf5wnwgc8mfzas0k9fbnh3rhdu3p204"
         value={htmlContent}
         init={{
           height: editorHeight,

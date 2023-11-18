@@ -1,10 +1,4 @@
-import React, { useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
-import { useState } from "react";
-import { getAllStratigys } from "../../services/stratigyes";
-import { useAuth } from "../../Context/AuthContext";
-import { postUserStratigys } from "../../services/userStratigy";
-import AproveReqModal from "../Modal/AproveReqModal";
+import React from "react";
 import EditStrategyEn from "./EditStrategyEn";
 import EditStrategyHi from "./EditStrategyHi";
 

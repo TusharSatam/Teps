@@ -2,43 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
-import { getEdits } from "../../services/userEdited";
 import {
   getSingleUser,
-  updateUser,
   updateUserWithHandling,
 } from "../../services/dashboardUsers";
 import defaultProfile from "../../asstes/defaultProfile.png";
 import { useAuth } from "../../Context/AuthContext";
 import ChangePass from "../ForgotPassModal/ChangePass";
-import LikeIcon from "../../asstes/icons/Like.svg";
-import LikdIcon from "../../asstes/icons/Liked.svg";
-import HeroSection from "../Home/HeroSection";
 import toast, { Toaster } from "react-hot-toast";
 import "./profile.css";
 import { useTranslation } from "react-i18next";
-import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import axios from "axios";
-import emailjs from "@emailjs/browser";
 import VerifyModal from "../ForgotPassModal/VerifyModal";
 import { Link } from "react-router-dom";
-import { getLikes } from "../../services/userLikes";
-import { getSaves } from "../../services/userSaves";
-import { getUserCreated } from "../../services/userCreated";
 import ProfileDataC from "../../Pages/ProfileDataC";
 import ProfileDataE from "../../Pages/ProfileDataE";
 import ProfileDataS from "../../Pages/ProfileDataS";
 import ProfileDataF from "../../Pages/ProfileDataF";
 import downArrow from "../../asstes/icons/viewDown.svg";
-import SaveCards from "./cards/SaveCards";
-import SavedStrategies from "./cards/SavedStrategies";
-import SaveStratigy from "../../Pages/SaveStratigy";
-import FavouriteStr from "../../Pages/FavouriteStr";
 import styles from "./Profile.module.css";
 import Uparrow from "../CommonSvgs/Uparrow";
 import { formatExpiryDate } from "../../utils/utils";
 import ExpiryReminder from "../Modal/ExpiryReminder/ExpiryReminder";
-const language = localStorage.getItem("i18nextLng");
 
 const Profile = () => {
   const { t } = useTranslation();
