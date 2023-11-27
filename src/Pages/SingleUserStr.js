@@ -65,7 +65,8 @@ const SingleUserStr = () => {
   const [chatGptError,setChatGptError] = useState(false);
   const navigate = useNavigate();
   const pRef = useRef(null);
-  const [uploader,setUploader] = useState('')
+  const [uploader,setUploader] = useState('');
+  const [btnClicked,setBtnClicked] = useState(null);
 
   // Function to handle a star click
   const handleStarClick = (starIndex) => {
@@ -284,6 +285,7 @@ const handleDeleteUsedStrategy=async()=>{
     setChatGptError(false);
     generateChatGPTResponse({prompt:`${promptStart} ${str["Teaching Strategy"]}`}).then((res)=>{
       setisFecthing(false);
+      setChatGptResponse(res?.data?.response);
       console.log({res});
     }).catch((err)=>{
       setisFecthing(false);
@@ -520,24 +522,78 @@ const handleDeleteUsedStrategy=async()=>{
                 </div>
                 <div className={styles.chatGPTbox}>
                   <div className={styles.gptButtonsContainer}>
-                  <div className={styles.magicIconBoxDesktop}>
-                    <div>
-                      <MagicWond mobile={false}/>
+                    <div className={styles.magicIconBoxDesktop}>
+                      <div>
+                        <MagicWond mobile={false} />
+                      </div>
                     </div>
+                    <button
+                      className={btnClicked===1?styles.clicked:""}
+                      onClick={() => {
+                        setBtnClicked(1);
+                        callChatGPTApi(
+                          "Please send a prior knowledge for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Prior knowledge
+                    </button>
+                    <button
+                      className={btnClicked===2?styles.clicked:""}
+                      onClick={() => {
+                        setBtnClicked(2);
+                        callChatGPTApi(
+                          "Please send misconceptions for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Misconceptions
+                    </button>
+                    <button
+                      className={btnClicked===3?styles.clicked:""}
+                      onClick={() => {
+                        setBtnClicked(3);
+                        callChatGPTApi(
+                          "Please send a understanding for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Check for understanding
+                    </button>
+                    <button
+                      className={btnClicked===4?styles.clicked:""}
+                      onClick={() => {
+                        setBtnClicked(4);
+                        callChatGPTApi(
+                          "Please send a lesson plan for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Lesson Plan
+                    </button>
                   </div>
-                    <button onClick={()=>{callChatGPTApi("Please send a worksheet for the following teaching strategy")}}><MagicWond mobile={true}/> Get worksheet</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a prior knowledge for the following teaching strategy")}}><MagicWond mobile={true}/> Prior knowledge</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a misconception for the following teaching strategy")}}><MagicWond mobile={true}/> Misconception</button>
-                    <button onClick={()=>{callChatGPTApi("Please send a lesson plan for the following teaching strategy")}}><MagicWond mobile={true}/> Get a lesson plan</button>
-                  </div>
-                  {chatGptResponse.length!==0||chatGptError===true ?
-                  <div className={styles.gptAnswer}>
-                    {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                      {chatGptResponse.length!==0&&<p ref={gptpRef}>{chatGptResponse}</p>}
-                      {chatGptError===true?<p className={styles.gptError}>We are experiencing difficulties while loading the data.<br/> Please try again.</p>:null}
-                      {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                  </div>
-                  :null}
+                  {chatGptResponse.length !== 0 || chatGptError === true ? (
+                    <div className={styles.gptAnswer}>
+                      {chatGptResponse.length !== 0 && (
+                        <div className={styles.copyContainer}>
+                          <CopySvg onClick={handleCopyClick} />
+                        </div>
+                      )}
+                      {chatGptResponse.length !== 0 && <p ref={gptpRef}>{chatGptResponse}</p>}
+                      {chatGptError === true ? (
+                        <p className={styles.gptError}>
+                          We are experiencing difficulties while loading the
+                          data.
+                          <br /> Please try again.
+                        </p>
+                      ) : null}
+                      {chatGptResponse.length !== 0 && (
+                        <div className={styles.copyContainer}>
+                          <CopySvg onClick={handleCopyClick} />
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
                 </div>
                 {/* ================ FOR LARGE SCREEN =============  */}
                 <div className="largeCommentContainer">

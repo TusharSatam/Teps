@@ -94,6 +94,13 @@ color: blue;
     box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16);
 }
 
+.gptButtonsContainer .clicked{
+    border-radius: 8px;
+    border: 1px solid var(--grey-lighter, #EBEDF0);
+    background: var(--grey-white, #FFF);
+    box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
 .gptAnswer {
     color: var(--gray-text, #474747);
     font-family: Poppins;
@@ -245,6 +252,13 @@ color: blue;
         border: 1px solid var(--grey-lighter, #EBEDF0);
         background: var(--grey-white, #FFF);
         box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16);
+    }
+
+    .gptButtonsContainer .clicked{
+        border-radius: 8px !important;
+        border: 1px solid #EBEDF0 !important;
+        background:  #FFF !important;
+        box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.16) !important;
     }
 
     .gptAnswer {

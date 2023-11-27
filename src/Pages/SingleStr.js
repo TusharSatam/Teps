@@ -59,6 +59,7 @@ const SingleStr = () => {
   const [chatGptError, setChatGptError] = useState(false);
   const navigate = useNavigate();
   const pRef = useRef(null);
+  const [btnClicked,setBtnClicked] = useState(null);
 
   // Function to handle a star click
   const handleStarClick = (starIndex) => {
@@ -484,16 +485,9 @@ const SingleStr = () => {
                       </div>
                     </div>
                     <button
+                      className={btnClicked===1?styles.clicked:""}
                       onClick={() => {
-                        callChatGPTApi(
-                          "Please send a worksheet for the following teaching strategy"
-                        );
-                      }}
-                    >
-                      <MagicWond mobile={true} /> Get worksheet
-                    </button>
-                    <button
-                      onClick={() => {
+                        setBtnClicked(1);
                         callChatGPTApi(
                           "Please send a prior knowledge for the following teaching strategy"
                         );
@@ -502,22 +496,37 @@ const SingleStr = () => {
                       <MagicWond mobile={true} /> Prior knowledge
                     </button>
                     <button
+                      className={btnClicked===2?styles.clicked:""}
                       onClick={() => {
+                        setBtnClicked(2);
                         callChatGPTApi(
-                          "Please send a misconception for the following teaching strategy"
+                          "Please send misconceptions for the following teaching strategy"
                         );
                       }}
                     >
-                      <MagicWond mobile={true} /> Misconception
+                      <MagicWond mobile={true} /> Misconceptions
                     </button>
                     <button
+                      className={btnClicked===3?styles.clicked:""}
                       onClick={() => {
+                        setBtnClicked(3);
+                        callChatGPTApi(
+                          "Please send a understanding for the following teaching strategy"
+                        );
+                      }}
+                    >
+                      <MagicWond mobile={true} /> Check for understanding
+                    </button>
+                    <button
+                      className={btnClicked===4?styles.clicked:""}
+                      onClick={() => {
+                        setBtnClicked(4);
                         callChatGPTApi(
                           "Please send a lesson plan for the following teaching strategy"
                         );
                       }}
                     >
-                      <MagicWond mobile={true} /> Get a lesson plan
+                      <MagicWond mobile={true} /> Lesson Plan
                     </button>
                   </div>
                   {chatGptResponse.length !== 0 || chatGptError === true ? (

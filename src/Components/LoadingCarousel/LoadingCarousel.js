@@ -22,7 +22,7 @@ function LoadingCarousel() {
     centerPadding: 0,
     beforeChange: (current, next) => setImageIndex(next),
     autoplay:true,
-    autoplaySpeed:8000,
+    autoplaySpeed:6000,
     pauseOnHover:false,
     pauseOnFocus:false
   };
