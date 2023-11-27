@@ -217,7 +217,6 @@ const SingleStr = () => {
       toast.error("Subscription required")
       return
     }else{
-
       setselectedResource(resource)
       navigate("/resources");
     }
@@ -464,8 +463,8 @@ const SingleStr = () => {
                     }
                     >Explore more about foundational learning...</p>
                   ) : str["Pedagogical Approach"] == "Constructivism" ||
-                    str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
-                    str["Pedagogical Approach"] == "Project-Based Learning" ? (
+                    str["Pedagogical Approach"] == "Inquiry-based Learning" ||
+                    str["Pedagogical Approach"] == "Project-based Learning" ? (
                     <p
                       onClick={() =>
                         handleExplore(str?.["Pedagogical Approach"])

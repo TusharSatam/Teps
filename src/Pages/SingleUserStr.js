@@ -507,8 +507,8 @@ const handleDeleteUsedStrategy=async()=>{
                   str?.Grade == "LKG" ? (
                     <p onClick={()=>navigate("/resources")}>Explore more about foundational learning...</p>
                   ) : str["Pedagogical Approach"] == "Constructivism" ||
-                    str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
-                    str["Pedagogical Approach"] == "Project-Based Learning" ? (
+                    str["Pedagogical Approach"] == "Inquiry-based Learning" ||
+                    str["Pedagogical Approach"] == "Project-based Learning" ? (
                     <p
                       onClick={() =>
                         handleExplore(str?.["Pedagogical Approach"])
