@@ -35,30 +35,6 @@ const Subscription = () => {
                   alt="checkIcon"
                   className={styles.checkMark}
                 />
-                Your Profile page
-              </li>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
-                Create Strategies
-              </li>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
-                Maintain a portfolio of your created strategies
-              </li>
-              <li>
-                <img
-                  src={checkMark}
-                  alt="checkIcon"
-                  className={styles.checkMark}
-                />
                 Access to more than 50,000 strategies from all subjects and up
                 to grade 10
               </li>

@@ -211,6 +211,7 @@ function App() {
           loc.pathname === '/admin-comments' ||
           loc.pathname === '/add-resources' ||
           loc.pathname === '/all-resources' ||
+          loc.pathname === '/email-template' ||
           loc.pathname === '/browsers-devices' ||
           loc.pathname.includes('/user-details')
           ? ('') : (
