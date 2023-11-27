@@ -1,5 +1,5 @@
 import { Editor } from "@tinymce/tinymce-react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { getAllTemplates, updateTemplate } from "../../services/emailTemplate";
 import toast, { Toaster } from "react-hot-toast";
@@ -13,6 +13,7 @@ const EmailTemplate = () => {
   const [selectOption, setSelectOption] = useState("Loading...");
   const [htmlContent, setHtmlContent] = useState("");
   const [refresh, setRefresh] = useState(0);
+  const editorRef = useRef(null);
 
   function checkVariablesInHtml(html, requiredVar) {
     let missingVariables = [];
@@ -81,6 +82,16 @@ const EmailTemplate = () => {
     );
     setSelectOption(requiredTemplate);
     setHtmlContent(requiredTemplate?.html);
+
+    if (editorRef?.current) {
+      const editor = editorRef?.current?.editor;
+      if (editor) {
+        editor?.setContent(requiredTemplate?.html);
+
+        // Reset undo and redo history
+        editor?.undoManager?.clear();
+      }
+    }
   };
   return (
     <div className={styles?.container}>
@@ -103,6 +114,7 @@ const EmailTemplate = () => {
         </div>
       </div>
       <Editor
+        ref={editorRef}
         apiKey="v8kz64f7joij68jmriuko8nb7cuby5xx4xqvucpwhs9ck6zp"
         value={htmlContent}
         init={{

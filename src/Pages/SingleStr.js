@@ -308,6 +308,13 @@ const SingleStr = () => {
         console.error("Unable to copy text to clipboard:", err);
       });
   };
+  const gptpRef = useRef(null); 
+ useEffect(() => {
+      const newText = replaceNewlinesWithLineBreaks(chatGptResponse);
+      if (gptpRef.current) {
+        gptpRef.current.innerHTML = newText;
+      }
+  }, [chatGptResponse]);
   return (
     <div>
       {isFecthing ? <LoadingCarousel /> : null}
@@ -522,7 +529,7 @@ const SingleStr = () => {
                           <CopySvg onClick={handleCopyClick} />
                         </div>
                       )}
-                      {chatGptResponse.length !== 0 && <p>{chatGptResponse}</p>}
+                      {chatGptResponse.length !== 0 && <p ref={gptpRef}>{chatGptResponse}</p>}
                       {chatGptError === true ? (
                         <p className={styles.gptError}>
                           We are experiencing difficulties while loading the

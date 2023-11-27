@@ -6,6 +6,7 @@ import { useAuth } from '../../Context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from '@emailjs/browser';
+import { getTemplateByName } from '../../services/emailTemplate';
 
 const ChangePass = ({ show, setShow }) => {
   const { user } = useAuth()
@@ -34,16 +35,12 @@ const ChangePass = ({ show, setShow }) => {
                 toast.success(`${t('success_Change')}`)
                 e.target.reset();
                 return;
-            }
+            }else{
+              getTemplateByName("Change Password Template").then((res2)=>{
             const data = {
               "to": user.email,
               'subject': "Password changed - TEPS",
-              "html": `
-              <p>Hello,</p>
-              <p>The password for your account has been successfully changed!</p><br />
-              <p>Regards,</p>
-              <p>Things Education</p>
-              `
+              "html": `${res2?.html}`
             }
             axios.post('email', data)
               .then(res => {
@@ -52,6 +49,10 @@ const ChangePass = ({ show, setShow }) => {
                 e.target.reset();
               })
               .catch(err => console.log(err))
+              }).catch((err)=>{
+                toast.error("Some error occured");
+              })
+            }
 
           })
           .catch(err => {

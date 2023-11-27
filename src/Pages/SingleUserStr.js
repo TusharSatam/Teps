@@ -322,6 +322,13 @@ const handleDeleteUsedStrategy=async()=>{
       navigate(link);
     }
   };
+  const gptpRef = useRef(null); 
+  useEffect(() => {
+       const newText = replaceNewlinesWithLineBreaks(chatGptResponse);
+       if (gptpRef.current) {
+         gptpRef.current.innerHTML = newText;
+       }
+   }, [chatGptResponse]);
 
   return (
     <div>
@@ -526,7 +533,7 @@ const handleDeleteUsedStrategy=async()=>{
                   {chatGptResponse.length!==0||chatGptError===true ?
                   <div className={styles.gptAnswer}>
                     {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
-                      {chatGptResponse.length!==0&&<p>{chatGptResponse}</p>}
+                      {chatGptResponse.length!==0&&<p ref={gptpRef}>{chatGptResponse}</p>}
                       {chatGptError===true?<p className={styles.gptError}>We are experiencing difficulties while loading the data.<br/> Please try again.</p>:null}
                       {chatGptResponse.length!==0&&<div className={styles.copyContainer}><CopySvg onClick={handleCopyClick}/></div>}
                   </div>

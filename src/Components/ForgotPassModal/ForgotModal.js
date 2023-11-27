@@ -6,6 +6,8 @@ import ResetPass from './ResetPass';
 import emailjs from '@emailjs/browser';
 import SenEmailModal from './SenEmailModal';
 import { useTranslation } from 'react-i18next';
+import { getTemplateByName } from '../../services/emailTemplate';
+import toast,{ Toaster } from 'react-hot-toast';
 
 const ForgotModal = ({ show, setShow }) => {
   const { t } = useTranslation()
@@ -23,28 +25,30 @@ const ForgotModal = ({ show, setShow }) => {
     axios.post("/forget", data)
       .then(res => {
         if (res.data.message === "Have an User") {
-          setShow(false);
-          setError('')
+          setError('');
+          getTemplateByName("Forgot Password Template").then((res2)=>{
+          const newHtml = res2?.html?.replace(/{{userEmail}}/g,e.target.email.value);
           const data = {
             "to": e.target.email.value,
             'subject': "Reset your password - TEPS",
-            "html": `
-            <p>Hello,</p>
-            <p>You have asked for your password to be reset. Please click here to reset your password.</p>
-            <p>https://teps.school/forgot?email=${e.target.email.value}</p>
-            <p>If you have not requested this, please ignore this email.</p>
-            <br/>
-            <p>Regards,</p>
-            <p>Things Education</p>
-            `
+            "html":newHtml
           }
           axios.post('email', data)
             .then(res => {
               if (res) {
                 setSendEmail(true)
               }
+              setShow(false);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+              console.log(err)
+              setShow(false);
+            })
+
+          }).catch((err)=>{
+          setShow(false);
+          console.log({err});
+          });
         }
       })
       .catch(err => {
@@ -56,6 +60,10 @@ const ForgotModal = ({ show, setShow }) => {
   }
   return (
     <>
+    <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
       <SenEmailModal
         show={sendEmail}
         setShow={setSendEmail}

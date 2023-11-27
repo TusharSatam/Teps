@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from '@emailjs/browser';
+import { getTemplateByName } from '../../services/emailTemplate';
 
 const ResetPass = () => {
   const { t } = useTranslation()
@@ -27,15 +28,11 @@ const ResetPass = () => {
         }
         axios.post("/forget/update", data)
           .then(res => {
+        getTemplateByName("Reset Password Template").then((res2)=>{
             const data = {
               "to": email,
               'subject': "Password reset - TEPS",
-              "html": `
-              <p>Hello,</p>
-              <p>The password for your account has been successfully reset!</p><br />
-              <p>Regards,</p>
-              <p>Things Education</p>
-              `
+              "html": res2?.html
             }
             axios.post('email', data)
               .then(res => {
@@ -45,6 +42,10 @@ const ResetPass = () => {
             e.target.reset()
             alert("Password changed successfully")
             navigate('/')
+
+        }).catch((err)=>{
+          console.log({err})
+        });
           })
           .catch(err => {
             console.log(err);

@@ -20,3 +20,13 @@ export const getAllTemplates = async () => {
   return response;
 
 }
+export const getTemplateByName = async (name) => {
+  let response
+  await axios.get(`template/${name}`)
+    .then(res => {
+      response = res.data;
+    })
+    .catch(err => console.log(err))
+  return response;
+
+}
