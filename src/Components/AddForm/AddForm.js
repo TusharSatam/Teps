@@ -631,7 +631,7 @@ const AddForm = () => {
                   >
                     Save privately
                   </button>
-                  <button type="button" className="TertiaryButton">
+                  <button type="button" className="TertiaryButton" onClick={resetDropdowns}>
                     Cancel
                   </button>
                 </div>

@@ -171,6 +171,7 @@
   font-style: italic !important;
   margin-bottom: 0;
   margin-top: 0.3rem;
+  text-transform: uppercase;
 }
 .savestr_body {
   display: -webkit-box;
@@ -192,8 +193,7 @@
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 26px;
-  color: #1aa05b;
+  line-height: 20px;
 }
 .uni_id {
   font-family: "Inter";
@@ -362,7 +362,7 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  color: #1aa05b;
+  color: #474747;
   margin-bottom: 0.125rem;
   margin-right: -0.313rem;
 }
@@ -560,6 +560,13 @@ select:disabled {
   .newLine {
     font-size: 12px;
   }
+  .textContainer .userdetailsBox {
+    font-size: 12px;
+  }
+  .textContainer .userdetailsBox img{
+    height: 24px;
+    width: 24px;
+  }
 }
 @media only screen and (max-width: 990px) {
   .filter_btn_container {
@@ -608,8 +615,10 @@ select:disabled {
     letter-spacing: -0.4px;
   }
   .single_str_head {
+    font-weight: 700;
     font-size: 12px;
     margin-bottom: 0 !important;
+    line-height: 12px;
   }
   .str_name {
     font-weight: 700;

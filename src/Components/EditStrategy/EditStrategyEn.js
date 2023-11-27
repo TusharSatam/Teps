@@ -32,22 +32,18 @@ const EditStrategyEn = () => {
   const [selectSubSubTopic, setSelectSubSubTopic] = React.useState("");
   const [selectLearningOutcome, setSelectLearningOutcome] = React.useState("");
   const [teachingStrategy, setteachingStrategy] = React.useState("");
-  const [devDom1, setDevDom1] = React.useState("");
-  const [devDom2, setDevDom2] = React.useState("");
   const [formData, setformData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [submittedContent, setSubmittedContent] = useState("");
   const successTextRef = useRef(null);
   const [modalShow, setModalShow] = React.useState(false);
-  const [languageSelect, setLanguageSelect] = React.useState("en");
   const [error, setError] = useState(false);
-  const [submitData, setSubmitData] = useState({});
   const [uploaderName, setuploaderName] = useState("");
   const { id } = useParams();
   const [isPublishModalOpen, setisPublishModalOpen] = useState(false);
   const [isStrategyPublic, setisStrategyPublic] = useState(false);
   const [editedDatas, seteditedDatas] = useState("");
-  const { user, editStrategyFormData, selectLang } = useAuth();
+  const { user } = useAuth();
   const [submitType, setSubmitType] = useState({});
   const [uploaderDatas, setuploaderDatas] = useState([]);
   const [isStrategyLoading, setisStrategyLoading] = useState(false);
@@ -68,12 +64,14 @@ const EditStrategyEn = () => {
       singleStratigys(id).then((res) => {
         setformData(res[0]);
         setSubmittedContent(res[0]["Teaching Strategy"]);
+        setteachingStrategy(res[0]["Teaching Strategy"])
       });
       setisStrategyLoading(false);
     } else {
       singleUserEnStratigys(id).then((res) => {
         setformData(res.data[0]);
         setSubmittedContent(res.data[0]["Teaching Strategy"]);
+        setteachingStrategy(res.data[0]["Teaching Strategy"])
         getSingleUser(res.data[0].User_id).then((res) => {
           setuploaderName(`${res?.data[0].firstName} ${res?.data[0].lastName}`);
           setuploaderDatas(res?.data[0]);
@@ -83,43 +81,12 @@ const EditStrategyEn = () => {
     }
   }, [id]);
 
-  const resetDropdowns = () => {
-    formData["Grade"] = "";
-    formData["Subject"] = "";
-    formData["Super Topic"] = "";
-    formData["Skill"] = "";
-    formData["Topic"] = "";
-    formData["Sub Topic"] = "";
-    formData["Sub-sub topic"] = "";
-    formData["Mode of Teaching"] = "";
-    formData["Pedagogical Approach"] = "";
-    formData["Learning Outcome"] = "";
-  };
-
-  const handleSub = (e) => {
-    setSelectSubject(e.target.value);
-  };
-  const handleGrade = (e) => {
-    setSelectGrade(e.target.value);
-  };
-  const handleSuperTopic = (e) => {
-    setSelectSuperTopic(e.target.value);
-  };
-  const handleTopic = (e) => {
-    setSelectTopic(e.target.value);
-  };
-  const handleSubTopic = (e) => {
-    setSelectSubTopic(e.target.value);
-  };
-  const handleSubSubTopic = (e) => {
-    setSelectSubSubTopic(e.target.value);
-  };
-  const handleLearningOutcome = (e) => {
-    setSelectLearningOutcome(e.target.value);
-  };
   const handleBackClick = () => {
     window.history.go(-1);
   };
+  const handleCancelForm=()=>{
+    formData["Teaching Strategy"]=teachingStrategy
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target?.["Teaching Strategy"].value === "") {
@@ -297,7 +264,6 @@ const EditStrategyEn = () => {
                         Grade <p>*</p>
                       </p>
                       <select
-                        onChange={handleGrade}
                         className={"select-field"}
                         name="grade"
                         disabled
@@ -312,7 +278,6 @@ const EditStrategyEn = () => {
                         Subject <p>*</p>
                       </p>
                       <select
-                        onChange={handleSub}
                         className={"select-field "}
                         name="subject"
                         aria-label="Default select example"
@@ -331,7 +296,6 @@ const EditStrategyEn = () => {
                         Super topic <p>*</p>
                       </p>
                       <select
-                        onChange={handleSuperTopic}
                         className={"select-field"}
                         name="Super_Topic"
                         value={
@@ -353,7 +317,6 @@ const EditStrategyEn = () => {
                         Topic <p>*</p>
                       </p>
                       <select
-                        onChange={handleTopic}
                         className={"select-field"}
                         name="topic"
                         value={formData?.Topic}
@@ -371,7 +334,6 @@ const EditStrategyEn = () => {
                         Sub-topic <p>*</p>
                       </p>
                       <select
-                        onChange={handleSubTopic}
                         className={"select-field"}
                         name="sub_topic"
                         value={formData?.["Sub Topic"]}
@@ -387,7 +349,6 @@ const EditStrategyEn = () => {
                         Sub sub-topic <p>*</p>
                       </p>
                       <select
-                        onChange={handleSubSubTopic}
                         className={"select-field"}
                         name="sub_sub_topic"
                         value={formData["Sub-sub topic"]}
@@ -424,7 +385,6 @@ const EditStrategyEn = () => {
                         Learning Outcome<p>*</p>
                       </p>
                       <select
-                        onChange={handleLearningOutcome}
                         className={"select-field"}
                         name="learning_outcome"
                         value={formData["Learning Outcome"]}
@@ -480,6 +440,7 @@ const EditStrategyEn = () => {
                       type="button"
                       className="TertiaryButton"
                       disabled={formSubmitted}
+                      onClick={handleCancelForm}
                     >
                       Cancel
                     </button>

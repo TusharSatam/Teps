@@ -219,7 +219,7 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative strPageLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
