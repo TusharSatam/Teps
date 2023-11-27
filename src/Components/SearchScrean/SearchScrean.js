@@ -2,7 +2,7 @@ import { Buffer } from 'buffer';
 import React, { useEffect, useState } from 'react';
 import { Accordion, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import ScrollToTop from 'react-scroll-to-top';
 import UserImage from '../../asstes/Group 51.svg';
 import checkCheckbox from '../../asstes/iconmonstr-checkbox-8 2.svg';
@@ -18,7 +18,7 @@ import './searchscrean.css';
 import { getSingleUser } from '../../services/dashboardUsers';
 
 const SearchScrean = () => {
-  const { stratigyFilData, selectLang, user, setUser, stratigyFilUserData,strategyNum, setstrategyNum, setShowStrategyCheckboxes, showStrategyCheckboxes, checkBoxes, setCheckBoxes, checkBoxesH, setCheckBoxesH, ownCheckBox, setOwnCheckBox } = useAuth()
+  const { stratigyFilData, selectLang, user, stratigyFilUserData, setstrategyNum, setShowStrategyCheckboxes, showStrategyCheckboxes, checkBoxes, setCheckBoxes, checkBoxesH, setCheckBoxesH, ownCheckBox, setOwnCheckBox } = useAuth()
   const [show, setShow] = React.useState([]);
   const [showH, setShowH] = React.useState([]);
   const [check, setCheck] = React.useState(false);
@@ -219,7 +219,7 @@ const SearchScrean = () => {
   return (
     <>
       <ScrollToTop smooth  color="#00000" />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative strPageLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}

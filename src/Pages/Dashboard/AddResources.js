@@ -43,9 +43,15 @@ const AddResources = () => {
       };
     });
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Check if the image size is greater than 1MB
+    if (resource.image && resource.image.size > 1024 * 1024) {
+      toast.error("Image size must be less than 1MB");
+      return;
+    }
+  
     // Convert the image file to base64
     if (resource.image) {
       try {
@@ -56,7 +62,7 @@ const AddResources = () => {
         // Handle the error here, if needed
       }
     }
-
+  
     let data = {
       title: resource.title,
       image: resource.image,
@@ -64,7 +70,10 @@ const AddResources = () => {
       link_to_readmore: resource.link,
       category: resource.category,
     };
+  
+    // Make the API call only if the image size is within the limit
     postResourceCard(data);
+  
     setTimeout(() => {
       setResource({
         title: '',
@@ -74,14 +83,14 @@ const AddResources = () => {
         category: '',
       });
       setFormSubmitted(true);
-
+  
       // Display a success toast
       toast.success("Resource added!", {
         duration: 4000,
       });
     }, 1000);
   };
-
+  
   return (
     <div>
       <Toaster position="top-right" reverseOrder={false} />
@@ -108,6 +117,7 @@ const AddResources = () => {
             onChange={handleChange}
           />
         </div>
+          <small>Image size must be less than 1MB</small>
         <div>
           <label htmlFor="paragraph">Description:</label>
           <textarea

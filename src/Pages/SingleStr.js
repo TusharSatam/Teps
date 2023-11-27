@@ -1,7 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import DownArrow from "../asstes/icons/DownArrow.svg";
 import LikeIcon from "../asstes/icons/Like.svg";
 import LikedIcon from "../asstes/icons/Liked.svg";
@@ -43,12 +43,10 @@ const SingleStr = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [formatted, setformatted] = useState("");
   const [isUsedStrategy, setisUsedStrategy] = useState(false);
   const [rating, setRating] = useState(0);
   const [userSaves, setUserSaves] = useState([]);
   const [saveUser, setSaveUser] = useState([]);
-  const [totalUserSaves, setTotalUserSaves] = useState(0);
   const [show, setShow] = useState();
   const [userLikes, setUserLikes] = useState([]);
   const [totalUserLikes, setTotalUserLikes] = useState(0);
@@ -113,7 +111,7 @@ const SingleStr = () => {
       setLikeUser(userlike);
       setUserLikes(userlike?.map((ress) => ress?.strategie_id));
       getMultitUser(totalLike?.map((user_id) => user_id?.user_id)).then(
-        (resUser) => setTotalLikeUser(resUser.data)
+        (resUser) => setTotalLikeUser(resUser?.data)
       );
     });
   }, []);
@@ -159,7 +157,6 @@ const SingleStr = () => {
   React.useEffect(() => {
     getSaves().then((res) => {
       const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
-      setTotalUserSaves(totalSave.length);
       const userlike = totalSave?.filter((ress) => ress.user_id === user._id);
       setSaveUser(userlike);
       setUserSaves(userlike?.map((ress) => ress.strategie_id));
@@ -173,7 +170,6 @@ const SingleStr = () => {
     postSaves(data).then((res) => {
       getSaves().then((res) => {
         const totalSave = res?.data?.filter((ress) => ress.strategie_id === id);
-        setTotalUserSaves(totalSave.length);
         const userSave = totalSave?.filter((ress) => ress.user_id === user._id);
         setSaveUser(userSave);
         setUserSaves(userSave?.map((ress) => ress.strategie_id));
@@ -189,7 +185,6 @@ const SingleStr = () => {
             const totalSave = res?.data?.filter(
               (ress) => ress.strategie_id === id
             );
-            setTotalUserSaves(totalSave.length);
             const userSave = totalSave?.filter(
               (ress) => ress.user_id === user._id
             );
@@ -247,7 +242,6 @@ const SingleStr = () => {
         pRef.current.innerHTML = newText;
         setTeachingStratText(newText);
       }
-      setformatted(""); // Assign the new HTML to the innerHTML property
       setIsLoadingContent(false); // Mark loading as complete
     }, 100);
   }, [str["Teaching Strategy"]]);
@@ -323,7 +317,7 @@ const SingleStr = () => {
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative strPageLine">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -369,7 +363,7 @@ const SingleStr = () => {
                     {str["Pedagogical Approach"] && (
                       <div className="mb-md-1 ">
                         <i className="pedalogicalText">
-                          {str["Pedagogical Approach"]}
+                          {str["Pedagogical Approach"].toUpperCase()}
                         </i>
                       </div>
                     )}
@@ -463,7 +457,11 @@ const SingleStr = () => {
                   {str?.Grade == "Pre-K" ||
                   str?.Grade == "UKG" ||
                   str?.Grade == "LKG" ? (
-                    <p>Explore more about foundational learning...</p>
+                    <p
+                    onClick={() =>
+                       navigate("/resources")
+                    }
+                    >Explore more about foundational learning...</p>
                   ) : str["Pedagogical Approach"] == "Constructivism" ||
                     str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
                     str["Pedagogical Approach"] == "Project-Based Learning" ? (

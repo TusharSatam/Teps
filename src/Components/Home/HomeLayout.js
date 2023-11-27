@@ -277,10 +277,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
 
 
   const handleFindStratigys = async () => {
-    if(isPlanExpired){
-      toast.error("Subscription required")
-      return
-    }
+
     // accordion collapse and remove checkbox
     setAccorKey();
     let isUserExist = localStorage.getItem("jwt");
@@ -289,6 +286,10 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
     }
 
     if (location.pathname === "/home") {
+      if(isPlanExpired){
+        toast.error("Subscription required")
+        return
+      }
       if (
         selectSubject &&
         selectGrade &&
@@ -308,8 +309,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
           );
 
           const aquaticCreatures = filterData?.data;
-        const aquaticCreaturesUser = allUserStratigys.filter(function (
-          creature
+          const aquaticCreaturesUser = allUserStratigys.filter(function (
+            creature
         ) {
           return (
             creature.Subject === selectSubject &&
@@ -318,8 +319,8 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
             creature["Super Topic"] === selectSuperTopic &&
             creature["Sub Topic"] === selectSubTopic &&
             creature["Sub-sub topic"] === selectSubSubTopic
-          );
-        });
+            );
+          });
         if (aquaticCreatures) {
           window.localStorage.setItem(
             "filterData",
@@ -492,7 +493,7 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
   };
   return uniqueGrade ? (
     <>
-    <Toaster/>
+    <Toaster position="top-right" reverseOrder={false} />
       <div
         className={
           location.pathname === "/saveStratigy" ||

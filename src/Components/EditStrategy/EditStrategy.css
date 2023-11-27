@@ -174,7 +174,7 @@
     font-size: 1.2rem;
     white-space: nowrap;
     padding: 0rem .4rem;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
   }
   .line,.lightgreenline{
@@ -192,14 +192,27 @@
     background: white;
     z-index: 1;
     border: none;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0rem .5rem;
+  }
+  .backbutton img{
+    height: 18px;
+    margin-top: .1rem;
   }
   .strategyErr{
     min-height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .HeadLine{
+    height: 28px;
+    margin:0 1.5rem 1.5rem 1.5rem !important; 
+  }
+  .strPageLine{
+    height: 28px;
+    margin:0 1.5rem !important;
   }
   @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -229,7 +242,11 @@
     }
   }
   @media only screen  and (max-width: 600px) {
-   .HeadLine .headText{
+    .HeadLine,.strPageLine{
+      margin-left: 0rem !important;
+      margin-right: 1.5rem;
+    }
+   .HeadLine .headText,.strPageLine .headText{
     display: none !important;
     }
   .responseText{

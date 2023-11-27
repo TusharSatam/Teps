@@ -2,42 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Buffer } from "buffer";
 import { updateInfo } from "../../services/auth";
-import { getEdits } from "../../services/userEdited";
 import {
   getSingleUser,
-  updateUser,
   updateUserWithHandling,
 } from "../../services/dashboardUsers";
 import defaultProfile from "../../asstes/defaultProfile.png";
 import { useAuth } from "../../Context/AuthContext";
 import ChangePass from "../ForgotPassModal/ChangePass";
-import LikeIcon from "../../asstes/icons/Like.svg";
-import LikdIcon from "../../asstes/icons/Liked.svg";
-import HeroSection from "../Home/HeroSection";
 import toast, { Toaster } from "react-hot-toast";
 import "./profile.css";
 import { useTranslation } from "react-i18next";
-import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import axios from "axios";
-import emailjs from "@emailjs/browser";
 import VerifyModal from "../ForgotPassModal/VerifyModal";
 import { Link } from "react-router-dom";
-import { getLikes } from "../../services/userLikes";
-import { getSaves } from "../../services/userSaves";
-import { getUserCreated } from "../../services/userCreated";
 import ProfileDataC from "../../Pages/ProfileDataC";
 import ProfileDataE from "../../Pages/ProfileDataE";
 import ProfileDataS from "../../Pages/ProfileDataS";
 import ProfileDataF from "../../Pages/ProfileDataF";
 import downArrow from "../../asstes/icons/viewDown.svg";
-import SaveCards from "./cards/SaveCards";
-import SavedStrategies from "./cards/SavedStrategies";
-import SaveStratigy from "../../Pages/SaveStratigy";
-import FavouriteStr from "../../Pages/FavouriteStr";
 import styles from "./Profile.module.css";
 import Uparrow from "../CommonSvgs/Uparrow";
 import { formatExpiryDate } from "../../utils/utils";
-const language = localStorage.getItem("i18nextLng");
+import ExpiryReminder from "../Modal/ExpiryReminder/ExpiryReminder";
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -46,12 +33,12 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState([]);
   const [isMyStrategies, setIsMyStrategies] = useState(true);
-  const [isShowCreated, setisShowCreated] = useState(false);
-  const [isShowSaved, setisShowSaved] = useState(false);
-  const [isShowFav, setisShowFav] = useState(false);
-  const [isShowEdited, setisShowEdited] = useState(false);
   const [phoneInput, setphoneInput] = useState("");
   const [country, setCountry] = useState([]);
+  const [selectedCountry, setSelectedCountry] = React.useState({
+    city: user?.city,
+    state: user?.state,
+  });
   const [state, setState] = useState([]);
   const [citys, setCitys] = React.useState("");
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -69,6 +56,12 @@ const Profile = () => {
   const [email, setEmail] = useState(user?.email);
   const [daysRemaining, setDaysRemaining] = useState(null);
   const [isFreePlan, setisFreePlan] = useState(false);
+  const [isExpiryReminderOpen, setisExpiryReminderOpen] = useState(false);
+  // edit Email handler
+  const [editEmail, setEditEmail] = useState(false);
+  // pincode handler
+  const [cityFound, setCityFound] = React.useState(true);
+  const [liveDetails, setLiveDetails] = React.useState();
   const navigate = useNavigate();
 
   const handleForgotShow = () => {
@@ -139,8 +132,6 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  // edit Email handler
-  const [editEmail, setEditEmail] = useState(false);
   const handleEmailEdit = () => {
     if (editEmail === false) {
       setEditEmail(true);
@@ -159,10 +150,6 @@ const Profile = () => {
     setDropdownVisible(false);
     setShowMyPlan((prev) => !prev);
   };
-
-  // pincode handler
-  const [cityFound, setCityFound] = React.useState(true);
-  const [liveDetails, setLiveDetails] = React.useState();
 
   const handlePincode = (e) => {
     const inputValue = e.target.value;
@@ -244,10 +231,6 @@ const Profile = () => {
     }
   };
 
-  const [selectedCountry, setSelectedCountry] = React.useState({
-    city: user?.city,
-    state: user?.state,
-  });
   const handleCountry = (e) => {
     if (e.target.value !== " ") {
       setSelectedCountry({
@@ -349,7 +332,13 @@ const Profile = () => {
     if (daysDiff < 30 && daysRemaining <= 30) {
       setisFreePlan(true);
     }
+    if(new Date(formatExpiryDate(user?.expiry)) < new Date() || !user?.expiry){
+      setTimeout(() => {
+        setisExpiryReminderOpen(true)
+      }, 20000);
+    }
   }, [user]);
+
 
   return (
     <>
@@ -358,6 +347,11 @@ const Profile = () => {
         setShow={setShow}
         noti1={"Your email has been changed!"}
         noti2={"Note: Please log in with your new email ID after verification."}
+      />
+      <ExpiryReminder
+        show={isExpiryReminderOpen}
+        setShow={setisExpiryReminderOpen}
+        handleClose={() => setisExpiryReminderOpen(false)}
       />
       <Toaster position="top-right" reverseOrder={false} />
       <ChangePass show={forgot} setShow={setForgot} />
@@ -470,7 +464,6 @@ const Profile = () => {
             <ProfileDataF setNumber={setL} />
             <ProfileDataE setNumber={setE} />
             <ProfileDataC setNumber={setC} />
-            {isShowFav && <FavouriteStr />}
           </div>
         )}
         {/* ------------------------------ */}
@@ -588,10 +581,13 @@ const Profile = () => {
                           {t("Saved strategies")} <span>({f})</span>
                         </button>
                       ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/saveStratigy')}>
-                            {t("Saved strategies")}
-                            <span>({f})</span>
-                          </button>
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          onClick={() => handleExpiryRoutes("/saveStratigy")}
+                        >
+                          {t("Saved strategies")}
+                          <span>({f})</span>
+                        </button>
                       )}
                     </div>
                     <div>
@@ -604,10 +600,15 @@ const Profile = () => {
                           <span>({l})</span>
                         </button>
                       ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns"  onClick={()=>handleExpiryRoutes('/favouriteStratigy')}>
-                            {t(`Favourite strategies`)}
-                            <span>({l})</span>
-                          </button>
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          onClick={() =>
+                            handleExpiryRoutes("/favouriteStratigy")
+                          }
+                        >
+                          {t(`Favourite strategies`)}
+                          <span>({l})</span>
+                        </button>
                       )}
                     </div>
                     <div>
@@ -619,9 +620,14 @@ const Profile = () => {
                           {t("Edited strategies")} <span>({e})</span>
                         </button>
                       ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns" onClick={()=>handleExpiryRoutes('/user-edited-strategy')}>
-                            {t("Edited strategies")} <span>({e})</span>
-                          </button>
+                        <button
+                          className="authBtn_p mt-2 me-3 viewBtns"
+                          onClick={() =>
+                            handleExpiryRoutes("/user-edited-strategy")
+                          }
+                        >
+                          {t("Edited strategies")} <span>({e})</span>
+                        </button>
                       )}
                     </div>
                     <div>

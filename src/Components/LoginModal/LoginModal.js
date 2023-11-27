@@ -7,7 +7,6 @@ import { useAuth } from "../../Context/AuthContext";
 import ForgotModal from "../ForgotPassModal/ForgotModal";
 import "./loginModal.css";
 import VerifyModal from "../ForgotPassModal/VerifyModal";
-import emailjs from "@emailjs/browser";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -136,7 +135,6 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
         .then((res) => {
           if (res) {
             if (res?.data?.varified) {
-              console.log("yaha hu 1");
               setIsLoading(false);
               setShow(false);
               setUser(res.data);
@@ -148,29 +146,18 @@ const LoginModal = ({ show, setShow, isnavigateUploadPage, showOTPInputs, setsho
                 localStorage.getItem("i18nextLng") === "en-US" ||
                 localStorage.getItem("i18nextLng") === "en"
               ) {
-              console.log("yaha hu 2")
-
                 localstorageData = localStorage.getItem("selectedDropdown");
               } else {
-              console.log("yaha hu 3");
-
                 localstorageData = localStorage.getItem("selectedHiDropdown");
               }
               if (isnavigateUploadPage == true) {
                 navigate("/addform");
-              console.log("yaha hu 4");
-
               } else if (localstorageData === null) {
-              console.log("yaha hu 5");
-
                 navigate("/home");
               } else if (localstorageData != null) {
-              console.log("yaha hu 6");
 
                 if(isPlanExpired){
                   navigate("/home");
-              console.log("yaha hu 7");
-
                 }
                 navigate("/search");
               }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
-import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import AddForm from './Components/AddForm/AddForm';
 import AdminAuth from './Components/AdminLogin/AdminAuth';
@@ -53,12 +53,15 @@ import AllResources from './Pages/Dashboard/AllResources';
 import EmailTemplate from './Pages/Dashboard/EmailTemplate';
 
 function App() {
-  const { user, setIsAuthenticated, setUser,isPlanExpired } = useAuth();
+  const { isPlanExpired } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
   // axios.defaults.baseURL = "http://localhost:8080/api/";
   axios.defaults.baseURL = "http://43.205.39.232/api/";
   axios.defaults.headers["Authorization"] = "Bearer yourAccessToken";
+  useEffect(() => {
+  console.log(isPlanExpired);
+}, [isPlanExpired])
 
   const handleOnclick = () => {
     setDisplayProfile('d-none')

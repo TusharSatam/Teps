@@ -338,7 +338,7 @@ const handleDeleteUsedStrategy=async()=>{
         handleClose={() => setShow(false)}
         totalReact={totalLikeUser}
       />
-      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative HeadLine ">
+      <div className=" d-flex justify-content-center align-items-center mb-1 position-relative strPageLine ">
         <button className="backbutton" onClick={handleBackClick}>
           <img src={backArrow} alt="backArrow" className="mb-md-1" />
           {`${t("Back")}`}
@@ -409,7 +409,7 @@ const handleDeleteUsedStrategy=async()=>{
                     {str["Pedagogical Approach"] && (
                       <div className="mb-md-1 ">
                         <i className="pedalogicalText">
-                          {str["Pedagogical Approach"]}
+                          {str["Pedagogical Approach"].toUpperCase()}
                         </i>
                       </div>
                     )}
@@ -503,7 +503,7 @@ const handleDeleteUsedStrategy=async()=>{
                 {str?.Grade == "Pre-K" ||
                   str?.Grade == "UKG" ||
                   str?.Grade == "LKG" ? (
-                    <p onClick={()=>handleExplore()}>Explore more about foundational learning...</p>
+                    <p onClick={()=>navigate("/resources")}>Explore more about foundational learning...</p>
                   ) : str["Pedagogical Approach"] == "Constructivism" ||
                     str["Pedagogical Approach"] == "Inquiry-Based Learning" ||
                     str["Pedagogical Approach"] == "Project-Based Learning" ? (
