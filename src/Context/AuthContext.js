@@ -4,6 +4,7 @@ import { getUserStratigys } from "../services/userStratigy";
 import { getAllHindiStratigys } from "../services/hindiStratigys";
 import { formatExpiryDate } from "../utils/utils";
 import { getUserData } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
 export const useAuth = () => useContext(AuthContext);

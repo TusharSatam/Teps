@@ -53,7 +53,7 @@ import AllResources from './Pages/Dashboard/AllResources';
 import EmailTemplate from './Pages/Dashboard/EmailTemplate';
 
 function App() {
-  const { isPlanExpired } = useAuth();
+  const {isAuthenticated, isPlanExpired } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   // axios.defaults.baseURL = "https://backend.teps.school/api/";
   // axios.defaults.baseURL = "http://localhost:8080/api/";
@@ -69,6 +69,11 @@ function App() {
   const loc = useLocation();
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
+useEffect(() => {
+  if(isAuthenticated){
+    navigate("/home")
+  }
+}, [isAuthenticated])
 
   useEffect(() => {
     window.scrollTo({

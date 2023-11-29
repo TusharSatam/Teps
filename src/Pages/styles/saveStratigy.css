@@ -365,6 +365,7 @@
   color: #474747;
   margin-bottom: 0.125rem;
   margin-right: -0.313rem;
+  text-transform: uppercase;
 }
 .user_image {
   width: 26px;
