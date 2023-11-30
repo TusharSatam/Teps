@@ -302,21 +302,7 @@ const OthersProfile = () => {
 
                 {dropdownVisible && (
                   <div className="d-block">
-                    <div>
-                      {f === 0 ? (
-                        <button
-                          className="authBtn_p mt-2 me-3 viewBtns"
-                          disabled
-                        >
-                          {t("Saved strategies")} <span>({f})</span>
-                        </button>
-                      ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t("Saved strategies")}
-                            <span>({f})</span>
-                          </button>
-                      )}
-                    </div>
+                    
                     <div>
                       {l === 0 ? (
                         <button
@@ -327,26 +313,13 @@ const OthersProfile = () => {
                           <span>({l})</span>
                         </button>
                       ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <Link to={`favouriteStrategies`} className="authBtn_p mt-2 me-3 viewBtns">
                             {t(`Favourite strategies`)}
                             <span>({l})</span>
-                          </button>
+                          </Link>
                       )}
                     </div>
-                    <div>
-                      {e === 0 ? (
-                        <button
-                          className="authBtn_p mt-2 me-3 viewBtns"
-                          disabled
-                        >
-                          {t("Edited strategies")} <span>({e})</span>
-                        </button>
-                      ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
-                            {t("Edited strategies")} <span>({e})</span>
-                          </button>
-                      )}
-                    </div>
+                    
                     <div>
                       {c === 0 ? (
                         <button
@@ -356,9 +329,9 @@ const OthersProfile = () => {
                           {t("Created strategies")} <span>({c})</span>
                         </button>
                       ) : (
-                          <button className="authBtn_p mt-2 me-3 viewBtns">
+                          <Link to={`createdStrategies`} className="authBtn_p mt-2 me-3 viewBtns">
                             {t("Created strategies")} <span>({c})</span>
-                          </button>
+                          </Link>
                       )}
                     </div>
                   </div>
@@ -374,15 +347,11 @@ const OthersProfile = () => {
               id="bbb"
               className="ms-md-5 mt-0 mb-1 p-1 p-md-2 mx-2 mx-md-0 d-none d-md-block"
             >
-              <div>
-                <OtherProfileDataS setNumber={setF} />
-              </div>
+              
               <div>
                 <OtherProfileDataF setNumber={setL} />
               </div>
-              <div>
-                <OtherProfileDataE setNumber={setE} />
-              </div>
+              
               <div>
                 <OtherProfileDataC setNumber={setC} />
               </div>

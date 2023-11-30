@@ -51,6 +51,8 @@ import PaymentInformation from './Pages/PaymentInformation';
 import AddResources from './Pages/Dashboard/AddResources';
 import AllResources from './Pages/Dashboard/AllResources';
 import EmailTemplate from './Pages/Dashboard/EmailTemplate';
+import OtherCreatedStratigies from './Pages/OtherCreatedStratigies';
+import OtherFavouriteStrategies from './Pages/OtherFavouriteStrategies';
 
 function App() {
   const {isAuthenticated, isPlanExpired } = useAuth();
@@ -157,6 +159,14 @@ useEffect(() => {
                 <Route
               path="/profile/:id"
               element={isPlanExpired ? <Navigate to="/subscription" />:<OthersProfile /> }
+            />
+                <Route
+              path="/profile/:id/favouriteStrategies"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<OtherFavouriteStrategies /> }
+            />
+                <Route
+              path="/profile/:id/createdStrategies"
+              element={isPlanExpired ? <Navigate to="/subscription" />:<OtherCreatedStratigies /> }
             />
             <Route
                 path="/foundational-learning"
