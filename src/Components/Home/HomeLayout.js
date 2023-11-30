@@ -423,7 +423,6 @@ const HomeLayout = ({ setAccorKey = () => {}, setoptionModal }) => {
         selectSubTopic,
         selectSubSubTopic
       );
-      console.log(filterData?.data);
 
       const aquaticCreatures = filterData?.data;
       const aquaticCreaturesUser = allUserStratigys.filter(function (creature) {
