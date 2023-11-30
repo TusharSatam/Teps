@@ -606,7 +606,7 @@ const AddForm = () => {
                     Please fill all of the above fields !
                   </p>
                 )}
-                <div className="d-flex gap-3 mt-4">
+                <div className="d-flex gap-2 gap-md-4 mt-4">
                   <button
                     type="submit"
                     className="primaryButton"

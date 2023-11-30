@@ -24,10 +24,10 @@ const Subscription = () => {
     <div>
       <PageHeading title="Subscription" />
       <div className={styles.SubscriptionWrapper}>
-        <h1 className={styles.subHeading}>Features:</h1>
+        <h1 className={styles.subHeading}>Learn and Grow with us:</h1>
         <div className={styles.features}>
           <div>
-            <h2 className={styles.subTitle}>Paid TEPS includes</h2>
+            <h2 className={styles.subTitle}>What is included in our paid plans</h2>
             <ul>
               <li>
                 <img
@@ -91,8 +91,8 @@ const Subscription = () => {
               </li>
             </ul>
           </div>
-          <div>
-            <h2 className={styles.subTitle}>Free TEPS includes</h2>
+          <div className={styles.freePlans}>
+            <h2 className={styles.subTitle}>What is included in our free plans</h2>
             <ul>
               <li>
                 <img

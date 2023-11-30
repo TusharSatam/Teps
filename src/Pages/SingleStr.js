@@ -57,6 +57,8 @@ const SingleStr = () => {
   const [teachinStratText, setTeachingStratText] = useState("");
   const [chatGptResponse, setChatGptResponse] = useState("");
   const [chatGptError, setChatGptError] = useState(false);
+  const [commentInput, setCommentInput] = useState('');
+
   const navigate = useNavigate();
   const pRef = useRef(null);
   const [btnClicked,setBtnClicked] = useState(null);
@@ -379,7 +381,7 @@ const SingleStr = () => {
                 )}
 
                 <div className="d-flex justify-content-between my-2">
-                  <div className="d-flex gap-2 gap-md-2 align-items-center">
+                  <div className="d-flex gap-2 gap-md-3 align-items-center">
                     <div className="d-flex align-items-center flex-column">
                       <div>
                         {userSaves?.includes(str?._id) ? (
@@ -554,7 +556,6 @@ const SingleStr = () => {
                 {/* ================ FOR LARGE SCREEN =============  */}
                 <div className="largeCommentContainer">
                   <div className="comment_div d-none d-md-block">
-                    <p className="comment_div_p">{t("Comments")}</p>
                     <form onSubmit={handleComment}>
                       <div>
                         <input
@@ -563,11 +564,12 @@ const SingleStr = () => {
                           placeholder={`${t("Add a comment")}...`}
                           className="w-100 comment_input"
                           type="text"
+                          onChange={(e) => setCommentInput(e.target.value)}
                         />
                       </div>
                       <div className="d-flex justify-content-end comment_submit">
                         <input
-                          disabled={isLoading}
+                          disabled={isLoading|| commentInput === ''}
                           type="submit"
                           value={`${t("Submit")}`}
                         />
@@ -622,10 +624,11 @@ const SingleStr = () => {
                         placeholder="Add a comment..."
                         className="w-100 comment_input"
                         type="text"
+                        onChange={(e) => setCommentInput(e.target.value)}
                       />
                     </div>
                     <div className="d-flex justify-content-end comment_submit">
-                      <input type="submit" />
+                      <input type="submit" disabled={isLoading|| commentInput === ''}/>
                     </div>
                   </form>
                   <div className={!seeComment ? "d-block" : "d-none"}>

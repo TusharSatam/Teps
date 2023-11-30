@@ -222,6 +222,7 @@ color: blue;
     .gptButtonsContainer button {
         display: flex;
         width: calc(50% - 4px);
+        min-height: 45px;
         padding: 8px;
         justify-content: flex-start;
         align-items: center;

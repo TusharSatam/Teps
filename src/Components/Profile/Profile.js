@@ -332,10 +332,11 @@ const Profile = () => {
     if (daysDiff < 30 && daysRemaining <= 30) {
       setisFreePlan(true);
     }
-    if(new Date(formatExpiryDate(user?.expiry)) < new Date() || !user?.expiry){
+    let userExpiryDate=new Date(formatExpiryDate(user?.expiry));
+    if(userExpiryDate < new Date()){
       setTimeout(() => {
         setisExpiryReminderOpen(true)
-      }, 20000);
+      }, 3000);
     }
   }, [user]);
 
@@ -348,11 +349,11 @@ const Profile = () => {
         noti1={"Your email has been changed!"}
         noti2={"Note: Please log in with your new email ID after verification."}
       />
-      <ExpiryReminder
+{isExpiryReminderOpen && <ExpiryReminder
         show={isExpiryReminderOpen}
         setShow={setisExpiryReminderOpen}
         handleClose={() => setisExpiryReminderOpen(false)}
-      />
+      />}
       <Toaster position="top-right" reverseOrder={false} />
       <ChangePass show={forgot} setShow={setForgot} />
 
@@ -968,10 +969,7 @@ const Profile = () => {
                         <p className={styles.subtitle}>
                           {isFreePlan ? (
                             <>
-                              <span className={styles.freePlanSubtitle}>
-                                Your 1 month free
-                              </span>
-                              {" plan expires in "}
+                              {" Plan expires in "}
                               {daysRemaining !== null
                                 ? `${daysRemaining} days`
                                 : "Loading..."}
@@ -991,12 +989,12 @@ const Profile = () => {
                       )}
                     </div>
 
-                    <button className={styles.commonBtn}>
+                    <button className={`${daysRemaining > 0 ?styles.commonBtn:styles.RenewBtn}`}>
                       <p
-                        className={styles.btnText}
+                        className={`${styles.btnText} `}
                         onClick={() => navigate("/subscription")}
                       >
-                        {daysRemaining > 0 ? "Upgrade plan" : "Renew"}
+                        {daysRemaining > 0 ? "Upgrade plan" : "Renew now"}
                       </p>
                     </button>
                   </div>
@@ -1048,27 +1046,39 @@ const Profile = () => {
                 <p className={styles.title}>Subscription Plan</p>
                 <div className={styles.billParent}>
                   <div className={styles.billDataContainer}>
-                    <p className={styles.greenText}>6 months plan</p>
-                    <p className={styles.subtitle}>
-                      Next billing date - April 08, 2024
-                    </p>
+                  {daysRemaining > 0 ? (
+                        <p className={styles.subtitle}>
+                          {isFreePlan ? (
+                            <>
+                              {" Plan expires in "}
+                              {daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."}
+                            </>
+                          ) : (
+                            `Plan expires in ${
+                              daysRemaining !== null
+                                ? `${daysRemaining} days`
+                                : "Loading..."
+                            }`
+                          )}
+                        </p>
+                      ) : (
+                        <p className={styles.expirySubTitle} >
+                          Your subscription has expired.
+                        </p>
+                      )}                
                   </div>
-                  <button className={styles.commonBtn}>
-                    <p className={styles.btnText}>Upgrade plan</p>
+                  <button className={`${daysRemaining > 0 ?styles.commonBtn:styles.RenewBtn}`}>
+                  <p
+                        className={`${styles.btnText} `}
+                        onClick={() => navigate("/subscription")}
+                      >
+                        {daysRemaining > 0 ? "Upgrade plan" : "Renew now"}
+                      </p>
                   </button>
                 </div>
               </div>
-              <button
-                style={{
-                  width: "fit-content",
-                  height: "28px",
-                  marginLeft: "10px",
-                  marginBottom: "8px",
-                }}
-                className={styles.commonBtn}
-              >
-                <p className={styles.btnText}>Cancel Subscription</p>
-              </button>
             </div>
           ) : null}
           <button

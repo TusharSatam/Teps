@@ -70,7 +70,7 @@ function App() {
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data'))
 useEffect(() => {
-  if(isAuthenticated){
+  if(isAuthenticated  && loc.pathname === '/'){
     navigate("/home")
   }
 }, [isAuthenticated])

@@ -130,6 +130,31 @@
   width: 100%;
   font-size: 20px;
 }
+.RenewBtn{
+  color: #FFF;
+  background: #1AA05B;
+  text-align: center;
+  border-radius: 24px;
+font-family: "Poppins";
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 150% */
+letter-spacing: -0.16px;
+display: flex;
+width: 191px;
+height: 40px;
+padding: 16px 24px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border:none;
+  box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.30) inset, 0px 4px 8px 0px rgba(26, 160, 91, 0.20), 4px 6px 14px 0px #3AE48D inset;
+  
+}
+.RenewBtn p{
+  color: #FFF;
+}
 @media screen and (max-width: 767px) {
   .userDetails {
     display: flex;
@@ -274,5 +299,25 @@
 
   .btnActive p {
     color: var(--background-white, #fff);
+  }
+  .RenewBtn{
+    height: 24px;
+    width: fit-content;
+    padding: 6px 12px;
+  }
+  .RenewBtn p{
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .planContainer{
+    border:1px solid #B1B1B1;
+    border-radius: 8px;
+  }
+  .billParent{
+    align-items: baseline;
+
+  }
+  .title{
+    margin-bottom: 0rem;
   }
 }

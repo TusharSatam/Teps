@@ -268,11 +268,14 @@ border: none;
 .linkStyle:hover{
   color: #000000;
 }
-/* .save_like,.save_likes {
-  width: 40px;
-  height: 40px;
-} */
-
+.save_like {
+  width: 24px;
+  height: 24px;
+}
+.save_likes{
+  width: 32px;
+  height: 32px;
+}
 @media only screen and (max-width: 1440px) {
   .icons_heading {
     margin-left: -4.25rem;
@@ -393,13 +396,13 @@ border: none;
     line-height: 24px;
   }
   .save_like {
-    width: 15.33px;
-    height: 16.04px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
   }
   .save_likes {
-    width: 15.67px;
-    height: 16.78px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     transform: scale(1.1)
   }

@@ -24,7 +24,7 @@ const PageHeading = (props) => {
       </button>
       <hr className="line" />
       {props.title && (
-        <p className="headText d-none d-md-block text-center">{props.title}</p>
+        <p className={`headText d-none d-md-block text-center ${props.title==="Subscription"?"subscriptionTitle":""}`}>{props.title}</p>
       )}
       <hr className="line" />
     </div>

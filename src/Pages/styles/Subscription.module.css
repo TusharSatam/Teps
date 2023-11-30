@@ -27,6 +27,8 @@
   padding: 0;
 }
 .SubscriptionWrapper li img{
+  height: 20px;
+  width: 20px;
   margin-top: .5rem;
 } 
 .features{
@@ -151,17 +153,40 @@
   box-shadow: -24px -19px 14px 0px rgba(0, 0, 0, 0.3) inset,
     0px 4px 8px 0px rgba(26, 160, 91, 0.2), 4px 6px 14px 0px #3ae48d inset;
 }
+.freePlans li{
+  color: #6D747A;
+  font-weight: 300;
+}
 @media only screen and (max-width: 768px) {
-  .SubscriptionWrapper{
-    margin:auto 1rem;
+
+  .SubscriptionCard{
+    width: 46%;
+    padding: 1.5rem .5rem;
   }
-  .SubscriptionCard {
-    width: auto;
+  .amountPerMonths{
+    color: #4B4B4B;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+  }
+  .months{
+    text-align: center;
+  }
+  .features{
+    flex-direction: column-reverse;
+  }
+  .features >div{
+    width: 100%;
+  }
+  .SubscriptionWrapper{
+    margin:auto .5rem;
   }
   .subTitle,
   .SubscriptionWrapper li,
   .subHeading {
-    font-size: 12px;
+    font-size: 14px;
   }
   .subHeading{
     margin: 1rem 0;
@@ -173,13 +198,14 @@
     font-size: 20px;
   }
   .amount span {
-    font-size: 12px;
+    font-size: 10px;
   }
   .subscribeButton,
   .activeBtn {
     display: flex;
     width: 76px;
-    padding: 0.2rem 0.6rem;
+    height: 28px;
+    padding: 0.2rem 0.5rem;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -189,7 +215,7 @@
   }
   .cardWrapper {
     justify-content: center;
-    gap: 22px;
+    gap: 16px;
   }
   .SubscriptionCard {
     gap: 12px;
@@ -198,8 +224,8 @@
     transform: scale(1.1);
   }
   .discount {
-    padding: .3rem .7rem;
-    font-size: 12px;
+    padding: .2rem .2rem;
+    font-size: 10px;
     font-weight: 500;
     line-height: 20px;
   }

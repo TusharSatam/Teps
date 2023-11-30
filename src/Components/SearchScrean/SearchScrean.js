@@ -271,11 +271,9 @@ const SearchScrean = () => {
                                         </button>
                                         <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strRes["Pedagogical Approach"]}</p>
-                                          {/* <Link to={`/single/${strRes._id}`} className="linkStyle"> */}
                                             <p className='mb-0'>
-                                              {strRes["Teaching Strategy"].slice(0,250)}...
+                                              {strRes["Teaching Strategy"]?.slice(0,250)}...
                                             </p>
-                                          {/* </Link> */}
                              
                                           <div className='strategyReadmore' >
                                             <button onClick={()=>{handleStayOnCheckbox(`/single/${strRes._id}`);}} >
@@ -338,11 +336,9 @@ const SearchScrean = () => {
                                           <div className='Strategy_count_article'>
                                           <p className='pedalogicalText'>{strUser["Pedagogical Approach"]}</p>
 
-                                            {/* <Link to={`/singleUserStratigy/${strUser._id}`} className="linkStyle"> */}
                                               <p className='mb-0'>
-                                                {strUser["Teaching Strategy"].slice(0,250)}...
+                                                {strUser["Teaching Strategy"]?.slice(0,250)}...
                                               </p>
-                                            {/* </Link> */}
                                   
                                             <div className='d-flex justify-content-between align-items-center'>
                                        
