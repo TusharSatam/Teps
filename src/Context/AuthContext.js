@@ -33,9 +33,9 @@ const AuthProvider = ({ children }) => {
   const [selectedPaymentCard, setselectedPaymentCard] = useState({});
   const [isPlanExpired, setisPlanExpired] = useState(false);
   useEffect(() => {
+    let expiryDate=new Date(formatExpiryDate(user?.expiry))
     if (
-      !new Date(formatExpiryDate(user?.expiry)) < new Date() ||
-      user?.expiry
+      expiryDate > new Date()
     ) {
       setisPlanExpired(false);
     } else {

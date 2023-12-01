@@ -336,7 +336,7 @@ const Profile = () => {
     if(userExpiryDate < new Date()){
       setTimeout(() => {
         setisExpiryReminderOpen(true)
-      }, 3000);
+      }, 15000);
     }
   }, [user]);
 
