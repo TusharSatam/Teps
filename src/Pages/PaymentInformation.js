@@ -218,7 +218,7 @@ const PaymentInformation = () => {
               onChange={handleAgreeTermsChange}
             />
             <p>
-              I agree to <a>Terms & Conditions</a> and the <a>Privacy Policy</a>
+              I agree to <a href="/terms-conditions" target="_blank">Terms & Conditions</a> and the <a href="/privacy-policy" target="_blank">Privacy Policy</a>
               <span>*</span>
             </p>
           </label>

@@ -125,7 +125,7 @@ useEffect(() => {
             />
           )
       }
-      <div onClick={handleOnclick}>
+      <div onClick={handleOnclick} style={{minHeight:"fit-content"}}>
         <Routes>
           <Route path='/' element={<Landing />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
@@ -135,6 +135,7 @@ useEffect(() => {
           <Route path='/verify' element={<Verify />} />
           <Route path='/emailverify' element={<EmailVerify />} />
           <Route path='/admin-login' element={<AdminAuth />} />
+          <Route path='*' element={<Navigate to="/" />} />
           <Route path="" element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profiles />} />

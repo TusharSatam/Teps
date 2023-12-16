@@ -49,19 +49,19 @@
 @media only screen and (max-width: 990px) {
   .footer_top_margin{
     /* margin-top: 212px; */
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
   }
   .footer_top_margin_res{
     /* margin-top: 212px; */
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
   }
   .footerSizeTaker{
     display: block;
-    height: 155px;
+    /* height: 155px; */ 
   }
     .footer_content{
         height: auto;
@@ -70,8 +70,8 @@
         height: auto;
     }
     .footer_text{
-        margin-top: 10px;
-        margin-bottom: 5px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
     .footer_text p{
         font-family: 'Inter';

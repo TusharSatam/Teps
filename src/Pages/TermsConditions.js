@@ -60,7 +60,7 @@ const TermsConditions = () => {
               Use, You also accept and agree to be bound by the owner’s Policies ((including
               but not limited to Privacy Policy available on <a target="_blank" href="/privacy-policy" style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}> privacy policy</a>) as amended from time to time.</span></p>
           <p className="MsoNormal"><b><span lang="EN-GB" style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}>Services overview</span></b></p>
-          <p className="MsoNormal"><span lang="EN-GB"><a target="_blank" href="https://teps.school"><span style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}>https://teps.school</span></a></span><span lang="EN-GB" style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}>
+          <p className="MsoNormal"><span lang="EN-GB"><a target="_blank" href="https://teps.school"><span style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}>https://teps.school&nbsp;</span></a></span><span lang="EN-GB" style={{lineHeight: '107%', fontFamily: '"Times New Roman",serif'}}>
               provides a platform for educators to access teaching strategies for various
               subjects for grades from preschool to 10. The users are expected to register
               with the website to access all the features of the site. Users can search for

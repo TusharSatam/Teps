@@ -16,6 +16,10 @@ const Footer = () => {
             <p className='mb-md-1'><a href='https://www.things-education.com/newsletter' target="_blank" rel="noreferrer">Newsletter</a></p>
             <p className='mb-md-1'><a href='https://www.things-education.com/blog' target="_blank" rel="noreferrer">Blogs</a></p>
             <p className='mb-md-1'><a href='https://www.things-education.com/contact' target="_blank" className=' last_content' rel="noreferrer">Contact Us</a></p>
+            <p className='mb-md-1'><a href='/privacy-policy' target="_blank" className=' last_content' rel="noreferrer">Privacy Policy</a></p>
+            <p className='mb-md-1'><a href='/terms-conditions' target="_blank" className=' last_content' rel="noreferrer">Terms & Conditions</a></p>
+            <p className='mb-md-1'><a href='/payment-terms' target="_blank" className=' last_content' rel="noreferrer">Payment Terms</a></p>
+
           </div>
           <div>
             <a href="https://www.things-education.com/" target="_blank" rel="noreferrer">
