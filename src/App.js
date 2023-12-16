@@ -53,6 +53,9 @@ import AllResources from './Pages/Dashboard/AllResources';
 import EmailTemplate from './Pages/Dashboard/EmailTemplate';
 import OtherCreatedStratigies from './Pages/OtherCreatedStratigies';
 import OtherFavouriteStrategies from './Pages/OtherFavouriteStrategies';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
+import TermsConditions from './Pages/TermsConditions';
+import PaymentTerms from './Pages/PaymentTerms';
 
 function App() {
   const {isAuthenticated, isPlanExpired } = useAuth();
@@ -111,6 +114,9 @@ useEffect(() => {
           loc.pathname === '/add-resources' ||
           loc.pathname === '/all-resources' ||
           loc.pathname === '/email-template' ||
+          loc.pathname === '/privacy-policy' ||
+          loc.pathname === '/payment-terms' ||
+          loc.pathname === '/terms-conditions' ||
           loc.pathname.includes('/user-details')
           ? ('') : (
             <Navbar
@@ -122,6 +128,9 @@ useEffect(() => {
       <div onClick={handleOnclick}>
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/terms-conditions' element={<TermsConditions />} />
+          <Route path='/payment-terms' element={<PaymentTerms />} />
           <Route path='/forgot' element={<ResetPass />} />
           <Route path='/verify' element={<Verify />} />
           <Route path='/emailverify' element={<EmailVerify />} />
@@ -228,6 +237,9 @@ useEffect(() => {
           loc.pathname === '/all-resources' ||
           loc.pathname === '/email-template' ||
           loc.pathname === '/browsers-devices' ||
+          loc.pathname === '/privacy-policy' ||
+          loc.pathname === '/terms-conditions' ||
+          loc.pathname === '/payment-terms' ||
           loc.pathname.includes('/user-details')
           ? ('') : (
             <Footer />

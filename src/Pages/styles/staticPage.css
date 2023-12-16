@@ -1,0 +1,13 @@
+.privacyPolicy_Page,.terms_conditions,.payment-terms{
+    padding: 2rem 3rem;
+}
+.email{
+    font-size: 16px;
+    font-style: normal;
+    font-family:'Times New Roman', Times, serif;
+}
+@media only screen and (max-width: 768px) {
+    .privacyPolicy_Page,.terms_conditions,.payment-terms{
+        padding: 1rem;
+    }
+}
