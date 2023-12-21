@@ -455,7 +455,6 @@ const SingleStr = () => {
                   rating={rating}
                   setRating={setRating}
                 />
-                {/* //TODO:Enable after payment gateway */}
                 <div className={styles.exploreTexts}>
                   {str?.Grade == "Pre-K" ||
                   str?.Grade == "UKG" ||
@@ -465,12 +464,12 @@ const SingleStr = () => {
                        navigate("/resources")
                     }
                     >Explore more about foundational learning...</p>
-                  ) : str["Pedagogical Approach"] == "Constructivism" ||
-                    str["Pedagogical Approach"] == "Inquiry-based Learning" ||
-                    str["Pedagogical Approach"] == "Project-based Learning" ? (
+                  ) : str["Pedagogical Approach"]?.toLowerCase() == "constructivism" ||
+                    str["Pedagogical Approach"]?.toLowerCase() === "inquiry-based learning" ||
+                    str["Pedagogical Approach"]?.toLowerCase() === "project-based learning" ? (
                     <p
                       onClick={() =>
-                        handleExplore(str?.["Pedagogical Approach"])
+                        handleExplore(str?.["Pedagogical Approach"]?.toLowerCase())
                       }
                     >
                       Explore more about {str?.["Pedagogical Approach"]}...

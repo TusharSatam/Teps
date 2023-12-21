@@ -13,7 +13,7 @@ const Resources = () => {
   const [items, setItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ imageSrc: "", text: "" });
-  const [selectedOption, setSelectedOption] = useState("Constructivism");
+  const [selectedOption, setSelectedOption] = useState("constructivism");
   const [showNoItemsMessage, setShowNoItemsMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const { selectedResource } = useAuth();
@@ -62,6 +62,7 @@ const Resources = () => {
 
   useEffect(() => {
     if (selectedResource) {
+      console.log("selectedResource",selectedResource);
       setSelectedOption(selectedResource);
     }
   }, [selectedResource]);
@@ -82,7 +83,7 @@ const Resources = () => {
   useEffect(() => {
     getAllResource().then((res) => {
       let filterResponse = res?.data.cards.filter(
-        (card) => card.category === selectedOption
+        (card) => card.category.toLowerCase() === selectedOption
       );
       setCardData(filterResponse);
 
@@ -114,9 +115,9 @@ const Resources = () => {
           onChange={handleSelectChange}
           value={selectedOption}
         >
-          <option value="Constructivism">Constructivism</option>
-          <option value="Inquiry-based Learning">Inquiry-based Learning</option>
-          <option value="Project-based Learning">Project-based Learning</option>
+          <option value="constructivism">Constructivism</option>
+          <option value="inquiry-based learning">Inquiry-based Learning</option>
+          <option value="project-based learning">Project-based Learning</option>
         </select>
       </div>
       <InfiniteScroll
