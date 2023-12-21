@@ -32,16 +32,18 @@ const AuthProvider = ({ children }) => {
   const [selectedResource, setselectedResource] = useState("");
   const [selectedPaymentCard, setselectedPaymentCard] = useState({});
   const [isPlanExpired, setisPlanExpired] = useState(false);
-  useEffect(() => {
-    let expiryDate=new Date(formatExpiryDate(user?.expiry))
-    if (
-      expiryDate > new Date()
-    ) {
-      setisPlanExpired(false);
-    } else {
-      setisPlanExpired(true);
-    }
-  }, [user]);
+  //TODO:  Enable after payment gateway
+  // useEffect(() => {
+    // let expiryDate=new Date(formatExpiryDate(user?.expiry))
+    // if (
+    //   expiryDate > new Date()
+    // ) {
+    //   setisPlanExpired(false);
+    // } else {
+    //   setisPlanExpired(true);
+    // }
+  // }, [user]);
+//---------------------------------
 
   // Fetch and cache data
   useEffect(() => {

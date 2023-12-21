@@ -455,7 +455,8 @@ const SingleStr = () => {
                   rating={rating}
                   setRating={setRating}
                 />
-                <div className={styles.exploreTexts}>
+                {/* //TODO:Enable after payment gateway */}
+                {/* <div className={styles.exploreTexts}>
                   {str?.Grade == "Pre-K" ||
                   str?.Grade == "UKG" ||
                   str?.Grade == "LKG" ? (
@@ -477,7 +478,7 @@ const SingleStr = () => {
                   ) : (
                     ""
                   )}
-                </div>
+                </div> */}
                 <div className={styles.chatGPTbox}>
                   <div className={styles.gptButtonsContainer}>
                     <div className={styles.magicIconBoxDesktop}>

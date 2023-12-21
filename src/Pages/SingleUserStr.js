@@ -502,7 +502,8 @@ const handleDeleteUsedStrategy=async()=>{
                   rating={rating}
                   setRating={setRating}
                 />
-                <div className={styles.exploreTexts}>
+                {/* //TODO:Enable after payment gateway */}
+                {/* <div className={styles.exploreTexts}>
                 {str?.Grade == "Pre-K" ||
                   str?.Grade == "UKG" ||
                   str?.Grade == "LKG" ? (
@@ -520,7 +521,7 @@ const handleDeleteUsedStrategy=async()=>{
                   ) : (
                     ""
                   )}
-                </div>
+                </div> */}
                 <div className={styles.chatGPTbox}>
                   <div className={styles.gptButtonsContainer}>
                     <div className={styles.magicIconBoxDesktop}>

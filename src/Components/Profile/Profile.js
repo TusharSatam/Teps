@@ -311,34 +311,34 @@ const Profile = () => {
       navigate(link);
     }
   };
+//TODO://Enable after payment gateway
+  // useEffect(() => {
+  //   const registrationTime = new Date(user?.regesterTime);
+  //   const today = new Date();
 
-  useEffect(() => {
-    const registrationTime = new Date(user?.regesterTime);
-    const today = new Date();
+  //   // Calculate the time difference in milliseconds
+  //   const timeDiff = today - registrationTime;
 
-    // Calculate the time difference in milliseconds
-    const timeDiff = today - registrationTime;
+  //   // Convert the time difference from milliseconds to days
+  //   const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+  //   // check is subscription expiry
+  //   const expiryDate = new Date(user?.expiry);
+  //   const currentDate = new Date();
 
-    // Convert the time difference from milliseconds to days
-    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    // check is subscription expiry
-    const expiryDate = new Date(user?.expiry);
-    const currentDate = new Date();
+  //   const timeDifference = expiryDate - currentDate;
+  //   const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
 
-    const timeDifference = expiryDate - currentDate;
-    const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-
-    setDaysRemaining(daysRemaining);
-    if (daysDiff < 30 && daysRemaining <= 30) {
-      setisFreePlan(true);
-    }
-    let userExpiryDate=new Date(formatExpiryDate(user?.expiry));
-    if(userExpiryDate < new Date()){
-      setTimeout(() => {
-        setisExpiryReminderOpen(true)
-      }, 15000);
-    }
-  }, [user]);
+  //   setDaysRemaining(daysRemaining);
+  //   if (daysDiff < 30 && daysRemaining <= 30) {
+  //     setisFreePlan(true);
+  //   }
+  //   let userExpiryDate=new Date(formatExpiryDate(user?.expiry));
+  //   if(userExpiryDate < new Date()){
+  //     setTimeout(() => {
+  //       setisExpiryReminderOpen(true)
+  //     }, 15000);
+  //   }
+  // }, [user]);
 
 
   return (
@@ -349,7 +349,7 @@ const Profile = () => {
         noti1={"Your email has been changed!"}
         noti2={"Note: Please log in with your new email ID after verification."}
       />
-{isExpiryReminderOpen && <ExpiryReminder
+       {isExpiryReminderOpen && <ExpiryReminder
         show={isExpiryReminderOpen}
         setShow={setisExpiryReminderOpen}
         handleClose={() => setisExpiryReminderOpen(false)}
@@ -658,9 +658,11 @@ const Profile = () => {
                   <button onClick={handleAllEdit} className="profileOption">
                     {t("Edit Information")}
                   </button>
-                  <button onClick={handleShowPlan} className="profileOption">
+                  {/* //TODO:Enable after payment gateway  */}
+
+                  {/* <button onClick={handleShowPlan} className="profileOption">
                     {t("My plans")}
-                  </button>
+                  </button> */}
                   <button onClick={handleForgotShow} className="profileOption">
                     {t("Change Password")}
                   </button>
@@ -1023,7 +1025,8 @@ const Profile = () => {
             </div>
           )}
           {/* mobile bottom buttons */}
-          <button
+          {/* //TODO: enable after payment gateway */}
+          {/* <button
             className={`change_btn d-flex justify-content-between mx-2 md-2 d-md-none mb-2 ${
               showMyPlan === true ? styles.btnActive : ""
             }`}
@@ -1039,7 +1042,7 @@ const Profile = () => {
               fill={showMyPlan ? "#FFFFFF" : null}
             />
             <></>
-          </button>
+          </button> */}
           {showMyPlan === true ? (
             <div className={styles.childContainer}>
               <div className={styles.planContainer}>

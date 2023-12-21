@@ -96,8 +96,8 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
           {/* <div className={/(^\/(profile|user-created-strategy|user-edited-strategy|home|search|saveStratigy|favouriteStratigy|addForm|)$)|(^\/single\/[^/]+$)|(^\/editStrategyform\/[^/]+$)|(^\/singleUserStratigy\/[^/]+$)|(^\/singleHi\/[^/]+$)|(^\/editStrategyform\/[a-zA-Z0-9]+\/user$)/.test(location.pathname) ? 'd-block' : 'd-none'}>
           <LanguageSelect />
         </div> */}
-
-          {isAuthenticated &&
+{/* //TODO: Enable after payment gateway */}
+          {/* {isAuthenticated &&
             (!user?.expiry || new Date() >= new Date(user.expiry)) && (
               <button
                 className="secondaryButton me-2"
@@ -105,7 +105,8 @@ const Navbar = ({ displayProfile, setDisplayProfile }) => {
               >
                 Subscribe now
               </button>
-            )}
+            )} */}
+
           {!isAuthenticated ? (
             <div className="d-flex me-1 me-md-4">
               <div>
