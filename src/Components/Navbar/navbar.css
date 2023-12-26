@@ -135,7 +135,6 @@ transition: 0.5s;
 
   @media only screen and (max-width: 990px) {
     .logo2_img{
-        width: 56px;
-        height: 13.32px;
+        height: 56px;
     }
   }

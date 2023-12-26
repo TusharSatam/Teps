@@ -18,17 +18,17 @@
   position: relative;
   border: 1px solid var(--grey-light, #ced4da);
   background: #fff;
-
   /* select strategy section */
   box-shadow: 4px 8px 4px 0px rgba(0, 0, 0, 0.1),
     5px 4px 12px 0px rgba(0, 0, 0, 0.25);
 }
 
 .cardImage {
-  width: 100%; /* Ensure the image fits within the card */
-  height: auto;
-  height: 376px;
-  transition: filter 0.3s;
+  width: 100%; 
+  height: 375px;     
+  object-fit: contain; 
+  display: block;     
+  margin: 0 auto; 
 }
 
 .cardImageContainer {
@@ -136,16 +136,28 @@
 .selectTag:focus {
   outline: none;
 }
+@media (min-width: 1750px) {
+  .FoundationalPage {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1030px) {
+  .cardImage {
+    max-height: 375px;
+    height:auto;
+  }
+}
 @media (max-width: 768px) {
   .FoundationalPage {
     margin: 1rem;
+    grid-template-columns: repeat(2, 1fr);
   }
   .card {
     margin: 0;
   }
 
   .cardImage {
-    height: 316px;
+    height: auto;
   }
   .cardTitle {
     font-size: 0.8rem;
@@ -165,5 +177,10 @@
     font-size: 8px;
     font-weight: 500;
     line-height: 10px;
+  }
+}
+@media (max-width: 500px) {
+  .FoundationalPage {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

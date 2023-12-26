@@ -452,12 +452,10 @@ const EditStrategyEn = () => {
                   )}
                   <div className="formNote">
                     <p>
-                      Publish strategies will be reviewed by the TEPS team and
-                      added to your Profile's ‘Edited strategies’ list
+                    A published strategy will be reviewed by the TEPS team and be available on the TEPS site for all users to view. The strategy will also be available on your profile page under the ‘Edited strategies’ list.
                     </p>
-                    <p>
-                      Private strategies are for user reference in the 'Edited
-                      strategies' list on the Profile Page.
+                    <p className="mt-1 md:mt-0">
+                    Private strategies are only available to you and will be available on your profile page under the ‘Edited strategies’ list.
                     </p>
                   </div>
                 </form>
