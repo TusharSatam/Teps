@@ -61,8 +61,6 @@ function App() {
   const {isAuthenticated, isPlanExpired } = useAuth();
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   axios.defaults.baseURL =  `${process.env.REACT_APP_BASE_URL}`;
-  // axios.defaults.baseURL = "http://localhost:8080/api/";
-  // axios.defaults.baseURL = "http://43.205.39.232/api/";
   axios.defaults.headers["Authorization"] = "Bearer yourAccessToken";
   useEffect(() => {
   console.log(isPlanExpired);

@@ -27,6 +27,9 @@ const Footer = () => {
             </a>
           </div>
         </div>
+        <div className="text-center copyrightFooterText">
+        © Things Education LLP 2023
+        </div>
       </div>
     </div>
   </>);
