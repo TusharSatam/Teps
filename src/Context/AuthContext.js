@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       getUserData(JSON.parse(localStorage.getItem("jwt"))).then((res) => {
         if (res?.user_data) {
-          setUser(res?.user_data);
+          setUser(res?.user_data);          
         }
       });
     }

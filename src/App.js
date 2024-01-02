@@ -1,6 +1,6 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import AddForm from './Components/AddForm/AddForm';
@@ -56,9 +56,11 @@ import OtherFavouriteStrategies from './Pages/OtherFavouriteStrategies';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import TermsConditions from './Pages/TermsConditions';
 import PaymentTerms from './Pages/PaymentTerms';
+import PofileReminderModal from './Components/Home/ProfileReminderModal';
 
 function App() {
-  const {isAuthenticated, isPlanExpired } = useAuth();
+  const {isAuthenticated, isPlanExpired,user } = useAuth();
+  const [showProfileModal, setshowProfileModal] = useState(false);
   const [displayProfile, setDisplayProfile] = React.useState("d-none");
   axios.defaults.baseURL =  `${process.env.REACT_APP_BASE_URL}`;
   axios.defaults.headers["Authorization"] = "Bearer yourAccessToken";
@@ -85,9 +87,22 @@ useEffect(() => {
       behavior: "smooth"
     });
   }, [loc.pathname]);
+  useEffect(() => {
+    if(user){
+      if (!user?.country || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
+        setTimeout(() => {
+          setshowProfileModal(true);
+        }, 100000);
+      }
+    }
+  }, [user]);
 
   return (
     <div className='App'>
+            <PofileReminderModal
+              show={showProfileModal}
+              setShow={setshowProfileModal}
+            />
       {
         loc.pathname === '/forgot' ||
           loc.pathname === '/verify' ||

@@ -52,8 +52,8 @@ const Profile = () => {
   const [e, setE] = React.useState(0);
   const [c, setC] = React.useState(0);
   const { logout } = useAuth();
-  const [pincode, setPincode] = useState(user?.pincode);
-  const [email, setEmail] = useState(user?.email);
+  const [pincode, setPincode] = useState(null);
+  const [email, setEmail] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(null);
   const [isFreePlan, setisFreePlan] = useState(false);
   const [isExpiryReminderOpen, setisExpiryReminderOpen] = useState(false);
@@ -232,14 +232,14 @@ const Profile = () => {
   };
 
   const handleCountry = (e) => {
-    if (e.target.value !== " ") {
-      setSelectedCountry({
-        city: "International",
-        state: "International",
-      });
-    } else {
-      setSelectedCountry(user?.city);
-    }
+    // if (e.target.value !== " ") {
+    //   setSelectedCountry({
+    //     city: "International",
+    //     state: "International",
+    //   });
+    // } else {
+    //   setSelectedCountry(user?.city);
+    // }
   };
 
   // update all data
@@ -252,11 +252,12 @@ const Profile = () => {
       email: email,
       phoneNumber: e.target.phoneNumber.value,
       organization: e.target.organization.value,
-      city: liveDetails ? liveDetails.Block : user.city,
-      state: liveDetails ? liveDetails.State : user.state,
+      city: e.target.city.value,
+      state: e.target.state.value,
       pincode: e.target.pincode.value,
       country: e.target.country.value,
     };
+    console.log("formData",formData);
     updateUserWithHandling(user._id, formData)
       .then((res) => {
         console.log({ res });
@@ -311,6 +312,16 @@ const Profile = () => {
       navigate(link);
     }
   };
+
+useEffect(() => {
+  if(user){
+    setEmail(user?.email?user?.email:"")
+    setPincode(user?.pincode?user?.pincode:"")
+  }
+
+}, [user])
+
+
 //TODO://Enable after payment gateway
   // useEffect(() => {
   //   const registrationTime = new Date(user?.regesterTime);
@@ -340,7 +351,7 @@ const Profile = () => {
   //   }
   // }, [user]);
 
-
+// console.log(user);
   return (
     <>
       <VerifyModal
@@ -820,7 +831,7 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            defaultValue={selectedCountry}
+                            defaultValue={selectedCountry?.city}
                             name="city"
                             id="city"
                             placeholder="City"
@@ -836,8 +847,8 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            value={
-                              liveDetails ? liveDetails?.Block : user?.city
+                            defaultValue={
+                              user?.city ? user?.city:""
                             }
                             name="city"
                             id="city"
@@ -873,8 +884,8 @@ const Profile = () => {
                                 : "profile_input"
                             }
                             type="text"
-                            value={
-                              liveDetails ? liveDetails?.State : user?.state
+                            defaultValue={
+                              user?.state ?  user?.state: ""
                             }
                             name="state"
                             id="state"

@@ -18,23 +18,23 @@ const Home = () => {
   const { selectLang, user } = useAuth();
   const [showProfileModal, setshowProfileModal] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    if(user){
-      if (!user?.country || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
-        setTimeout(() => {
-          setshowProfileModal(true);
-        }, 100000);
-      }
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if(user){
+  //     if (!user?.country || !user?.state || !user?.email || !user?.phoneNumber || !user?.organization ||!user?.pincode) {
+  //       setTimeout(() => {
+  //         setshowProfileModal(true);
+  //       }, 3000);
+  //     }
+  //   }
+  // }, [user]);
 
   return (
     <>
       <LandingCarousel />
-      <PofileReminderModal
+      {/* <PofileReminderModal
         show={showProfileModal}
         setShow={setshowProfileModal}
-      />
+      /> */}
       <div className="blueShadow">
         <div className="filterCard homeFilterCard gap-2 gap-md-4">
           <h1 className="mx-auto welcomeText my-0">
