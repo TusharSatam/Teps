@@ -503,6 +503,7 @@ const SignUpModal = ({
                       maxLength="10"
                       disabled={registrationOption == "email"}
                     />
+                  <h4 className="phoneInputNote">Users from outside India may join using email address only</h4>
                   </div>
                 </div>
               </div>
@@ -758,6 +759,7 @@ const SignUpModal = ({
                       maxLength="10"
                       disabled={registrationOption == "email"}
                     />
+                  <h4 className="phoneInputNote">Users from outside India may join using email address only</h4>
                   </div>
                 )}
 

@@ -94,6 +94,7 @@ const Landing = () => {
       <div className="blueShadow">
         <div className="filterCard p-2 p-md-3  gap-2 gap-md-4">
           <h1 className="mx-auto welcomeText">{t("Welcome")}!</h1>
+          <h2 className="dropdownNote">Select the grade to start from the drop down below and select from the rest of the dropdowns to find great teaching strategies</h2>
           {selectLang === "english" ? (
             <HomeLayout setoptionModal={setoptionModal} />
           ) : (

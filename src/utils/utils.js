@@ -4,8 +4,10 @@ import ReactDOMServer from 'react-dom/server';
 export function replaceNewlinesWithLineBreaks(text) {
     if (text) {
       // Replace newlines with line breaks
-      let newText = text.replace(/(\r\n|\n)/g, '<br>');
-  
+     
+      // let newText = text.replace(/(\r\n|\n)/g, '<br>').replace(/[\u201C\u201D]/g, '"').replace(//g,'"');
+
+      let newText = text.replace(/(\r\n|\n)/g, '<br>').replace(//g, '"').replace(//g,'"').replace(//g,'"');
       // Wrap links (http, https, www, and email addresses) in <a> tags
       newText = newText.replace(
         /(\bhttps?:\/\/[^\s<]+|\bwww\.[^\s<]+|\b[\w\.-]+@[\w\.-]+\.\w+\b)/g,

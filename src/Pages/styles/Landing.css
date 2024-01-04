@@ -58,6 +58,10 @@
   font-size: 28px;
   text-align: center;
 }
+.dropdownNote{
+  font-size: 18px;
+  text-align: center;
+}
 
 @media only screen and (max-width: 1200px) {
   .filterCard select,.savedFilters select{
@@ -79,5 +83,9 @@
   }
   .welcomeText{
     font-size: 18px;
+  }
+  .dropdownNote{
+    font-size: 12px;
+    text-align: center;
   }
 }

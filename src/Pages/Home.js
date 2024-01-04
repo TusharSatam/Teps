@@ -45,6 +45,7 @@ const Home = () => {
               : "Guest"}
             !
           </h1>
+          <h2 className="dropdownNote">Select the grade to start from the drop down below and select from the rest of the dropdowns to find great teaching strategies</h2>
           <Suspense fallback={<div>Loading...</div>}>
             {selectLang === "hindi" ? <HomeHindiLayout /> : <HomeLayout />}
           </Suspense>

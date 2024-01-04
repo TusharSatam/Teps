@@ -33,6 +33,10 @@
     width: -webkit-fill-available;
     background-color: rgba(213, 179, 154, 0.40) !important;
   }
+  .phoneInputNote{
+    font-size: 11px;
+    margin-top: .3rem;
+  }
   .signup_Input {
     background: #f8f9fa;
     border: 1px solid #ced4da;
